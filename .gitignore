@@ -1,0 +1,6 @@
+/node_modules
+/public/node_modules/*
+/bower_components
+/public/bower_components/*
+/dist
+/public/dist/*

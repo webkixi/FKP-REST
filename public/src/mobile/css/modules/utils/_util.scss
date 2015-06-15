@@ -1,0 +1,365 @@
+// 常用方法
+//==============
+/**
+ * @tofishes 2015年04月14日 增加一些注释
+ *
+ * 前缀u-表示util，工具类前缀
+ */
+.u-wrap {
+  @include wrapper(12,true);
+}
+.u-wrap_small {
+  width:1200*$px;
+  margin:auto;
+}
+// 清除浮动
+.u-clearfix {
+  @include clearfix;
+  @extend %clearfix;
+}
+
+// 字体大小工具类
+.u-f10 {
+  font-size: 10*$px;
+}
+.u-f12 {
+  font-size: 12*$px;
+}
+.u-f14 {
+  font-size: 14*$px;
+}
+.u-f16 {
+  font-size: 16*$px;
+}
+.u-f18 {
+  font-size: 18*$px;
+}
+.u-f24 {
+  font-size: 24*$px;
+}
+.u-f36 {
+  font-size: 36*$px;
+}
+
+//
+.u-fb {
+  font-weight: 700;
+}
+
+// 文字对齐方式工具类
+.u-text-center {
+  text-align: center;
+}
+.u-text-left {
+  text-align: left;
+}
+.u-text-right {
+  text-align: right;
+}
+.u-vm {
+  vertical-align: middle;
+}
+
+// 元素显示方式工具类
+.u-inline-block{
+  display:inline-block;
+}
+.u-block{
+  display:block;
+}
+.u-none {
+  display: none;
+}
+.u-hidden {
+  visibility: hidden;
+}
+
+// 元素定位工具
+.u-pr {
+  position: relative;
+}
+.u-pa {
+  position: absolute;
+}
+
+.u-fl {
+  float: left;
+  display: inline;
+}
+.u-fr {
+  float: right;
+  display: inline;
+}
+.u-clear{
+  clear:both;
+}
+
+// 元素居中
+.u-ma {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// 边距工具类
+.u-mt_60{
+  margin-top:60*$px;
+}
+.u-mb_60{
+  margin-bottom:60*$px;
+}
+.u-mr_60{
+  margin-right:60*$px;
+}
+.u-ml_60{
+  margin-left:60*$px;
+}
+
+.u-mt_50{
+  margin-top:50*$px;
+}
+.u-mb_50{
+  margin-bottom:50*$px;
+}
+.u-mr_50{
+  margin-right:50*$px;
+}
+.u-ml_50{
+  margin-left:50*$px;
+}
+
+.u-mt_30{
+  margin-top:30*$px;
+}
+.u-mb_30{
+  margin-bottom:30*$px;
+}
+.u-mr_30{
+  margin-right:30*$px;
+}
+.u-ml_30{
+  margin-left:30*$px;
+}
+
+
+.u-mt_20{
+  margin-top:20*$px;
+}
+.u-mb_20{
+  margin-bottom:20*$px;
+}
+.u-mr_20{
+  margin-right:20*$px;
+}
+.u-ml_20{
+  margin-left:20*$px;
+}
+
+.u-mt_15{
+  margin-top:15*$px;
+}
+.u-mb_15{
+  margin-bottom:15*$px;
+}
+.u-mr_15{
+  margin-right:15*$px;
+}
+.u-ml_15{
+  margin-left:15*$px;
+}
+
+.u-mt_10{
+  margin-top:10*$px;
+}
+.u-mb_10{
+  margin-bottom:10*$px;
+}
+.u-mr_10{
+  margin-right:10*$px;
+}
+.u-ml_10{
+  margin-left:10*$px;
+}
+
+.u-mt_5{
+  margin-top:5*$px;
+}
+.u-mb_5{
+  margin-bottom:5*$px;
+}
+.u-mr_5{
+  margin-right:5*$px;
+}
+.u-ml_5{
+  margin-left:5*$px;
+}
+
+.u-pt_30{
+  padding-top:30*$px;
+}
+.u-pb_30{
+  padding-bottom:30*$px;
+}
+.u-pr_30{
+  padding-right:30*$px;
+}
+.u-pl_30{
+  padding-left:30*$px;
+}
+
+.u-pt_20{
+  padding-top:20*$px;
+}
+.u-pb_20{
+  padding-bottom:20*$px;
+}
+.u-pr_20{
+  padding-right:20*$px;
+}
+.u-pl_20{
+  padding-left:20*$px;
+}
+
+.u-pt_15{
+  padding-top:15*$px;
+}
+.u-pb_15{
+  padding-bottom:15*$px;
+}
+.u-pr_15{
+  padding-right:15*$px;
+}
+.u-pl_15{
+  padding-left:15*$px;
+}
+
+.u-pt_10{
+  padding-top:10*$px;
+}
+.u-pb_10{
+  padding-bottom:10*$px;
+}
+.u-pr_10{
+  padding-right:10*$px;
+}
+.u-pl_10{
+  padding-left:10*$px;
+}
+
+.u-pt_5{
+  padding-top:5*$px;
+}
+.u-pb_5{
+  padding-bottom:5*$px;
+}
+.u-pr_5{
+  padding-right:5*$px;
+}
+.u-pl_5{
+  padding-left:5*$px;
+}
+
+//
+.u-mr_40{
+  margin-right:40*$px;
+}
+.u-mr_60{
+  margin-right:60*$px;
+}
+//margin-right & margin-left 20
+.u-mlr_20{
+  margin-left:20*$px;
+  margin-right:20*$px;
+}
+
+
+//字体颜色
+.u-color_red{
+  color:$color_error;
+}
+.u-color_gold{
+  color:$color_gold;
+}
+.u-color_black{
+  color:$color_black;
+}
+.u-color_gray{
+  color:$color_gray_text;
+}
+.u-color_green{
+  color:$color_success;
+}
+.u-color_orange{
+  color:$color_orange
+}
+
+//删除线
+.u-del{
+  text-decoration:line-through;
+}
+
+//link
+.u-black-link{
+  color:$color_black;
+  &:hover{
+    color:$color_gold_hover;
+  }
+}
+
+// 颜色
+.u-color_glod {
+  color: $color_gold;
+}
+.u-color_darkred {
+  color: #994b53;
+}
+.u-color_white {
+  color: #fff;
+}
+.u-color_black {
+  color: $color_black;
+}
+.u-color_gray {
+  color: $color_gray;
+}
+
+// 分隔线
+.u-border-bottom {
+  border-bottom: 1px solid $color_gray_border;
+}
+
+//单行省略号
+.u-ellipse{
+  @extend %ellipsis-basic
+}
+
+//line-horizontal
+.u-line-horizontal{
+  height:0;
+  line-height:0;
+  font-size:0;
+  border-bottom:1px solid $color_gray_border;
+}
+
+//line-height
+.u-line-height_40{
+  line-height:40*$px;
+}
+
+
+// class span1-$gridColumns
+// span的class循环输出，通过变量$gridSpanSwitch来控制是否输出
+//-----------------------------------------------------
+@if $gridSpanSwitch {
+  @for $i from 1 through $gridColumns {
+    .span#{$i} {
+      @extend %float;
+      @extend %margin-gutter;
+
+      width:getWidth($i);
+
+      @if $gridPercentSwitch and $lte7{
+        *width:getWidth($i) - $gridCorrection;
+      }
+    }
+  }
+}
