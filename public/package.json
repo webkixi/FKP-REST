@@ -52,6 +52,7 @@
     "handlebars": "^2.0.0",
     "handlebars-loader": "^0.1.8",
     "jsx-loader": "^0.12.2",
+    "koa-session": "^3.2.0",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
     "lite-flux": "^0.0.5",

@@ -4,5 +4,5 @@ config = require '../configs/config.coffee'
 
 module.exports = (gulp,$)->
     return ()->
-        gulp.src [config.jsBuildPath, config.cssBuildPath, config.imagesBuildPath, config.fontsBuildPath,config.tmpPath]
+        gulp.src [config.jsBuildPath, config.cssBuildPath, config.imagesBuildPath, config.fontsBuildPath, config.htmlBuildPath, config.tmpPath]
             .pipe $.rimraf()

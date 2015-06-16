@@ -12,9 +12,10 @@ devDirs =
     cssBuildPath : configs.dirs.dist + '/' + configs.version + '/css/'
     imagesBuildPath : configs.dirs.dist + '/' + configs.version + '/images/'
     fontsBuildPath : configs.dirs.dist + '/' + configs.version + '/fonts/'
+    htmlBuildPath : configs.dirs.dist + '/' + configs.version + '/html/'
 
     # 开发
-    htmlDevPath : configs.dirs.dist + '/' + configs.version + '/dev/html'
+    htmlDevPath : configs.dirs.dist + '/' + configs.version + '/dev/html/'
     jsDevPath : configs.dirs.dist + '/' + configs.version + '/dev/js/'
     cssDevPath : configs.dirs.dist + '/' + configs.version + '/dev/css/'
     imagesDevPath : configs.dirs.dist + '/' + configs.version + '/dev/images/'

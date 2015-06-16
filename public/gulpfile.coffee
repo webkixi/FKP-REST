@@ -11,6 +11,11 @@ reload = browserSync.reload
 # Load plugins
 $ = require('gulp-load-plugins')()
 
+# 初始化生成临时目录
+tmpDir = './dist/_tmp'
+if  !fs.existsSync(tmpDir) 
+  	fs.mkdirSync(tmpDir);	
+
 getTask = (task)->
     require('./_builder/gulp-task/'+task)(gulp, $, slime)
 

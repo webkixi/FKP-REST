@@ -3,6 +3,7 @@ path = require 'path'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 config = require '../configs/config.coffee'
+through = require 'through2'
 
 module.exports = (gulp,$)->
 
@@ -17,10 +18,9 @@ module.exports = (gulp,$)->
         dependencies: {
             css: {}
             js: {}
-        }
+        }                
 
-
-    gulp.task 'buildMap:js',['buildCommon:dev','ie:dev'], ->
+    gulp.task 'buildMap:js',['buildCommon:dev','html','ie:dev'], ->
         gulp.src [config.jsDevPath + '/**/*.js','!'+config.jsDevPath+'/_common.js','!'+config.jsDevPath+'/ui - kits.js']
             .pipe $.md5({
                 size: 10,
@@ -49,8 +49,10 @@ module.exports = (gulp,$)->
     #         .pipe $.size()
     #         .pipe gulp.dest(config.cssBuildPath+'/admin-css')
 
+
+
     # gulp.task 'buildMap:css',['buildAdminCss'], ->
-    gulp.task 'buildMap:css',[], ->
+    gulp.task 'buildMap:css',['images:build','buildMap:js'], ->
         gulp.src config.cssDevPath + '/**/*.css'
             .pipe $.md5({
                 size: 10,
@@ -71,7 +73,12 @@ module.exports = (gulp,$)->
                 return;
 
     gulp.task 'buildMap:writeMap',['buildMap:css','fonts:build'], () ->
-        fs.writeFileSync( config.staticPath + '/map.json', JSON.stringify(mapJson)) ;
+        fs.writeFileSync( config.staticPath + '/map.json', JSON.stringify(mapJson)) ;        
+        gulp.src config.htmlDevPath + '/**/*.*'               
+            .pipe $.size()
+            .pipe $.copyExt()
+            .pipe gulp.dest(config.htmlBuildPath) 
+               
 
     return ()->
         gulp.start 'buildMap:writeMap'

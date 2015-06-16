@@ -628,7 +628,7 @@ module.exports = {
                   }))
                   .pipe ($.size())
                   .pipe ( getHtmlData())
-                  .pipe ($.compileHandlebars())
+                  .pipe ($.if("*.hbs", $.compileHandlebars()))
                   .pipe ($.rename(function(path){
                       if  (path.extname!=='.php' || path.extname!=='.jsp'){
                           if(path.extname === '.md'){
