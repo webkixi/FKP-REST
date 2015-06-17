@@ -539,33 +539,38 @@ module.exports = {
                       //json数据可以在这里导入
                       //md文件扫描
 
-                      var data, api,
-                          // _filename = file.path.replace(file.base,'').replace('.'+type,'');
-                          _fileParse = path.parse(file.path),
-                          _filename = _fileParse.name;
-                          // _filename = file.path.replace(path.dirname(file.path),'').replace('.'+type,'').replace(/[\/\\]/g,'');
+                      var data={}, api,
+                      _fileParse = path.parse(file.path),
+                      _filename = _fileParse.name,
+                      _filePath = getObjType(_fileParse.name) === 'Number' 
+                      ? _fileParse.base.toString() 
+                      : _fileParse.base + '-' + _fileParse.name;
+
+                      clog(file.dirname);
+
+                      data.commoncss = 'common.css';
+                      data.commonjs = 'common.js';
+                      data.pagecss = '';
+                      data.pagejs = '';
 
                       if (typeof options.data !=='undefined'){
-                          data = clone(options.data);
+                          data = $extend(true,data,options.data);
                       }
 
                       if (typeof options.api !=='undefined'){
                           api = clone(options.api);
                       }
 
-                      if  (data && (_filename in data)){
-                          file.data = data[_filename];
-                      }else{
-                          if  ( _filename === 'index' || _filename==='list' ){
-                              //列表数据，还是应该放到外面生成
-                          }
+                      if  (_filename in data){
+                          data = $extend(data,data[_filename]);          
                       }
+
+                      file.data = data;
 
                       if  (api && (_filename in api)){
                           /*todo something*/
                       }
 
-                      // this.push(file);
                       cb(null,file);
                   }
                   return through.obj(fileProfile);
@@ -603,6 +608,11 @@ module.exports = {
               * make index list
               */
               function parseHbs(){
+                  var parseTemplet = true;
+                  if(options.env)
+                      if(options.env === 'pro')
+                          parseTemplet = true;
+
                   gulp. src(tmpValue,{ base: path.join(config.src,'html/') })
                   .pipe (function(){
                       function testfun(file,enc,cb){
@@ -622,13 +632,14 @@ module.exports = {
                   .pipe ($.fileInclude({
                       prefix: '@@',
                       basepath: '@file',
+                      test: '123456',
                       context: {
                           dev: !gutil.env.production
                       }
                   }))
                   .pipe ($.size())
                   .pipe ( getHtmlData())
-                  .pipe ($.if("*.hbs", $.compileHandlebars()))
+                  .pipe ($.if(parseTemplet, $.compileHandlebars()))
                   .pipe ($.rename(function(path){
                       if  (path.extname!=='.php' || path.extname!=='.jsp'){
                           if(path.extname === '.md'){

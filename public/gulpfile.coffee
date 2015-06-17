@@ -5,6 +5,7 @@ gutil = require('gulp-util')
 configs = require './config'
 slime = require('./_builder/configs/slime.config.js')
 
+env = 'dev'
 browserSync = require 'browser-sync'
 reload = browserSync.reload
 
@@ -17,7 +18,7 @@ if  !fs.existsSync(tmpDir)
   	fs.mkdirSync(tmpDir);	
 
 getTask = (task)->
-    require('./_builder/gulp-task/'+task)(gulp, $, slime)
+    require('./_builder/gulp-task/'+task)(gulp, $, slime, env)
 
 # 清理dist/目录
 gulp.task 'clean:build', getTask('clean-build')
@@ -65,6 +66,8 @@ gulp.task 'default',['clean:dev'], ->
 gulp.task 'buildCommon:dev',['wp:dev'], getTask('concat-common-js')
 
 # 构建任务，生成压缩版与未压缩版
-gulp.task 'build',['clean:dev','clean:build'], getTask('map')
+gulp.task 'build',['clean:dev','clean:build'], -> 
+	env = 'pro'
+	getTask('map')
 
 gulp.task 'testserver',['build'], getTask('server-pro')

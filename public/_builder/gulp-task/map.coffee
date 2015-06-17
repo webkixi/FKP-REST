@@ -21,24 +21,28 @@ module.exports = (gulp,$)->
         }                
 
     gulp.task 'buildMap:js',['buildCommon:dev','html','ie:dev'], ->
-        gulp.src [config.jsDevPath + '/**/*.js','!'+config.jsDevPath+'/_common.js','!'+config.jsDevPath+'/ui - kits.js']
-            .pipe $.md5({
-                size: 10,
-                separator: '.'
-            } )
-            .pipe $.uglify()
-            .pipe $.size()
-            .pipe gulp.dest(config.jsBuildPath)
-            .pipe $.map (file)->
-                _filename = path.basename(file.path).toString() ;
-                _filename = _filename.slice(0, _filename.length) ;
-                filename = _filename.slice(0, _filename.length - 14) ;
-                filename = filename.replace(/-/g,"/") ;
-                if(filename == "common" || filename == "ie")
-                    mapJson['commonDependencies']['js'][filename] = _filename;
-                else
-                    mapJson['dependencies']['js'][filename] = _filename;
-                return;
+        dealWithJs = () ->
+            gulp.src [config.jsDevPath + '/**/*.js','!'+config.jsDevPath+'/_common.js']            
+                .pipe $.md5({
+                    size: 10,
+                    separator: '.'
+                } )
+                .pipe $.uglify()
+                .pipe $.size()
+                .pipe gulp.dest(config.jsBuildPath)
+                .pipe $.map (file)->
+                    _filename = path.basename(file.path).toString() ;
+                    _filename = _filename.slice(0, _filename.length) ;
+                    filename = _filename.slice(0, _filename.length - 14) ;
+                    filename = filename.replace(/-/g,"/") ;
+                    if(filename == "common" || filename == "ie")
+                        mapJson['commonDependencies']['js'][filename] = _filename;
+                    else
+                        mapJson['dependencies']['js'][filename] = _filename;
+                    return;
+        setTimeout dealWithJs, 3000
+
+
 
 
     # gulp.task 'buildAdminCss',['images:build','buildMap:js'],->
@@ -73,12 +77,16 @@ module.exports = (gulp,$)->
                 return;
 
     gulp.task 'buildMap:writeMap',['buildMap:css','fonts:build'], () ->
-        fs.writeFileSync( config.staticPath + '/map.json', JSON.stringify(mapJson)) ;        
         gulp.src config.htmlDevPath + '/**/*.*'               
             .pipe $.size()
             .pipe $.copyExt()
             .pipe gulp.dest(config.htmlBuildPath) 
-               
+
+        dealWithMapJson = () ->            
+            fs.writeFileSync( config.staticPath + '/map.json', JSON.stringify(mapJson)) ;
+
+        setTimeout dealWithMapJson 3500
+    
 
     return ()->
         gulp.start 'buildMap:writeMap'

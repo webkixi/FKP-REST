@@ -66,11 +66,11 @@ htmlDir.map (filename)->
 
 
 
-module.exports = (gulp,$,slime)->
+module.exports = (gulp,$,slime, env)->
     return () ->
         # 生成分页并生成列表页
         datas = {
             index: list
         }
-        slime.build(config.dirs.src + '/html/',{type: 'hbs',data: datas});
+        slime.build(config.dirs.src + '/html/',{type: 'hbs',data: datas, 'env': env});
         # slime.build(config.dirs.src + '/html/index.hbs',{type: 'hbs',data: datas});

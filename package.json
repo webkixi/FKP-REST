@@ -8,6 +8,7 @@
     "co": "^4.0.1",
     "co-body": "^1.0.0",
     "co-views-helpers": "0.0.1",
+    "extend": "^2.0.1",
     "handlebars": "^3.0.3",
     "koa": "^0.13.0",
     "koa-router": "^3.7.0",
