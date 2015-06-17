@@ -1,5 +1,8 @@
 /node_modules
 /public/node_modules/*
+!/node_modules/koa-static-cache/*
+!/public/node_modules/koa-static-cache/*
+
 /bower_components
 /public/bower_components/*
 /dist
