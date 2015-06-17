@@ -542,8 +542,8 @@ module.exports = {
                       var data={}, api,
                       _fileParse = path.parse(file.path),
                       _filename = _fileParse.name,
-                      _filePath = getObjType(_fileParse.name) === 'Number' 
-                      ? _fileParse.base.toString() 
+                      _filePath = getObjType(_fileParse.name) === 'Number'
+                      ? _fileParse.base.toString()
                       : _fileParse.base + '-' + _fileParse.name;
 
                       clog(file.dirname);
@@ -562,7 +562,7 @@ module.exports = {
                       }
 
                       if  (_filename in data){
-                          data = $extend(data,data[_filename]);          
+                          data = $extend(data,data[_filename]);
                       }
 
                       file.data = data;
