@@ -529,6 +529,7 @@ module.exports = {
               var list = {};
               var indexList = {};
               var tmpObj;
+              var baseHtmlPath = path.join(config.src,'html/');
 
               tmpValue = entrys[tmpKey];
 
@@ -542,16 +543,13 @@ module.exports = {
                       var data={}, api,
                       _fileParse = path.parse(file.path),
                       _filename = _fileParse.name,
-                      _filePath = getObjType(_fileParse.name) === 'Number'
-                      ? _fileParse.base.toString()
-                      : _fileParse.base + '-' + _fileParse.name;
-
-                      clog(file.dirname);
+                      _filePath = file.path.replace(path.resolve(baseHtmlPath),'').substring(1).replace(_fileParse.ext,'');
+                      _filePath = _filePath.replace('/','-');
 
                       data.commoncss = 'common.css';
                       data.commonjs = 'common.js';
-                      data.pagecss = '';
-                      data.pagejs = '';
+                      data.pagecss = _filePath+'.css';
+                      data.pagejs = _filePath+'.js';
 
                       if (typeof options.data !=='undefined'){
                           data = $extend(true,data,options.data);
@@ -609,11 +607,13 @@ module.exports = {
               */
               function parseHbs(){
                   var parseTemplet = true;
-                  if(options.env)
+                  if(options.env){
+                      clog(options.env)
                       if(options.env === 'pro')
-                          parseTemplet = true;
+                          parseTemplet = false;
+                  }
 
-                  gulp. src(tmpValue,{ base: path.join(config.src,'html/') })
+                  gulp. src(tmpValue,{ base: baseHtmlPath })
                   .pipe (function(){
                       function testfun(file,enc,cb){
                           var ext_name = path.parse(file.path).ext.replace('.','');

@@ -5,19 +5,21 @@ gutil = require('gulp-util')
 configs = require './config'
 slime = require('./_builder/configs/slime.config.js')
 
-env = 'dev'
 browserSync = require 'browser-sync'
 reload = browserSync.reload
+env = 'dev'
 
 # Load plugins
 $ = require('gulp-load-plugins')()
 
 # 初始化生成临时目录
 tmpDir = './dist/_tmp'
-if  !fs.existsSync(tmpDir) 
-  	fs.mkdirSync(tmpDir);	
+if  !fs.existsSync(tmpDir)
+  	fs.mkdirSync(tmpDir);
 
-getTask = (task)->
+getTask = (task,env)->
+    if !env
+        env = 'dev'
     require('./_builder/gulp-task/'+task)(gulp, $, slime, env)
 
 # 清理dist/目录
@@ -48,6 +50,7 @@ gulp.task 'fonts:build', getTask('fonts-build')
 
 # 对静态页面进行编译
 gulp.task 'html', getTask('html')
+gulp.task 'html:build', getTask('html','pro')
 
 # 生成API文档，有待改良
 gulp.task 'doc', getTask('doc')
@@ -66,8 +69,6 @@ gulp.task 'default',['clean:dev'], ->
 gulp.task 'buildCommon:dev',['wp:dev'], getTask('concat-common-js')
 
 # 构建任务，生成压缩版与未压缩版
-gulp.task 'build',['clean:dev','clean:build'], -> 
-	env = 'pro'
-	getTask('map')
+gulp.task 'build',['clean:dev','clean:build'], getTask('map','pro')
 
 gulp.task 'testserver',['build'], getTask('server-pro')

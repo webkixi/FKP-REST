@@ -53,7 +53,7 @@ htmlDir.map (filename)->
                             fullpath: secondPath,
                             des: '',
                             mdname: ''
-                        } 
+                        }
                         secondMd = secondPath.replace(ext,'.md')
                         if(fs.existsSync(secondMd))
                             desContent = fs.readFileSync(secondMd,'utf8')
@@ -66,7 +66,7 @@ htmlDir.map (filename)->
 
 
 
-module.exports = (gulp,$,slime, env)->
+module.exports = (gulp, $, slime, env)->
     return () ->
         # 生成分页并生成列表页
         datas = {

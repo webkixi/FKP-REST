@@ -113,10 +113,10 @@ function *index(){
 	if(_mapper){
 
 		var routeJson = path.parse(this.path);
-		var route = getObjType(routeJson.name) === 'Number' 
-		? routeJson.dir.toString() 
+		var route = getObjType(routeJson.name) === 'Number'
+		? routeJson.dir.toString()
 		: routeJson.dir + '/' + routeJson.name;
-		
+
 		if(route === '//' || route ==='/' || route==='')
 			route = 'index';
 
@@ -129,7 +129,7 @@ function *index(){
 		};
 
 		route = route.indexOf('/') !== 0 ? route : route.substring(1);
-		if (route&&route!==''){			
+		if (route&&route!==''){
 			if (route in _mapper.pageCss){
 				data.pagecss = _mapper.pageCss[route];
 			}
@@ -148,7 +148,7 @@ function *index(){
 
 function *htmlRender(stat,route,data){
 	if(stat){
-		console.log(route);
+		// console.log(route);
 		// console.log(data);
 		if(!data.pathJson.ext || data.pathJson.exe === '.html')
 			this.body = yield render(route,data);
