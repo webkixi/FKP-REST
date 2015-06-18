@@ -8,6 +8,7 @@
     "co": "^4.0.1",
     "co-body": "^1.0.0",
     "co-views-helpers": "0.0.1",
+    "coffee-script": "^1.9.3",
     "extend": "^2.0.1",
     "handlebars": "^3.0.3",
     "koa": "^0.13.0",
@@ -15,7 +16,9 @@
     "koa-session": "^3.1.0",
     "koa-static": "^1.4.9",
     "koa-static-cache": "^2.0.1",
+    "lodash": "^3.9.3",
     "markdown-js": "^0.0.3",
+    "request": "^2.58.0",
     "swig": "^1.4.2",
     "underscore": "^1.7.0"
   },

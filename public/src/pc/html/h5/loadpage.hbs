@@ -3,7 +3,7 @@
 <head>
     <title>h5首页</title>
     @@include('../_common/header/head.html')
-    <link rel="stylesheet" href="/css/website.css">
+    <link rel="stylesheet" href="/css/{{pagecss}}">
 </head>
 <body>
 <div class="" data-module="index">
@@ -23,7 +23,7 @@
 </div>
 <hr/>
 <div class='u-clearfix' id='demo'></div>
-@@include('../_common/footer/foot.html')
-<script src="/js/h5-loadpage.js"></script>
+<script src="/js/{{commonjs}}"></script>
+<script src="/js/{{pagejs}}"></script>
 </body>
 </html>

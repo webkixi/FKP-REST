@@ -14,6 +14,7 @@ module.exports = (gulp,$)->
                 port: 9001
             server:
                 baseDir: [ config.htmlDevPath, config.staticPath + '/dev']
+                index: "demoindex.html"
             files: [ config.htmlDevPath + '/**/*.html', config.staticPath+ '/dev/**']
             logFileChanges: false
         )

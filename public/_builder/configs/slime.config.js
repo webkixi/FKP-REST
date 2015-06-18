@@ -544,7 +544,7 @@ module.exports = {
                       _fileParse = path.parse(file.path),
                       _filename = _fileParse.name,
                       _filePath = file.path.replace(path.resolve(baseHtmlPath),'').substring(1).replace(_fileParse.ext,'');
-                      _filePath = _filePath.replace('/','-');
+                      _filePath = _filePath.replace(/[\\|\/]/,'-');
 
                       data.commoncss = 'common.css';
                       data.commonjs = 'common.js';
