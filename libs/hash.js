@@ -21,93 +21,93 @@ function md5(str){
 //     return dec;
 // }
 
-function HashMap() {  
-    var size = 0;  
-    var entry = new Object();            
-    this.put = function (key, value) {  
+function HashMap() {
+    var size = 0;
+    var entry = new Object();
+    this.put = function (key, value) {
         var nkey = md5(key);
-        entry[nkey] = value;  
-        size++;  
+        entry[nkey] = value;
+        size++;
     };
-    this.putAll = function (map) {  
-        if (typeof map == "object" && !map.sort) {  
-            for (var key in map) {  
-                this.put(key, map[key]);  
-            }  
-        } else {  
-            throw "输入类型不正确，必须是HashMap类型！";  
-        }  
-    };           
-    this.get = function (key) {  
+    this.putAll = function (map) {
+        if (typeof map == "object" && !map.sort) {
+            for (var key in map) {
+                this.put(key, map[key]);
+            }
+        } else {
+            throw "输入类型不正确，必须是HashMap类型！";
+        }
+    };
+    this.get = function (key) {
         var nkey = md5(key);
         if(entry[nkey])
             return entry[nkey];
-    };            
-    this.remove = function (key) {  
+    };
+    this.remove = function (key) {
         var nkey = md5(key);
         if(entry[nkey]){
-            if (size == 0)  
-                return;  
-            delete entry[nkey];  
-            size--;  
+            if (size == 0)
+                return;
+            delete entry[nkey];
+            size--;
         }
-    };          
-    this.containsKey = function (key) {  
+    };
+    this.containsKey = function (key) {
         var nkey = md5(key);
-        if (entry[nkey]) {  
-            return true;  
-        }  
-        return false;  
-    };            
-    this.containsValue = function (value) {  
-        for (var key in entry) {  
-            if (entry[key] == value) {  
-                return true;  
-            }  
-        }  
-        return false;  
-    };            
-    this.clear = function () {  
-        entry = new Object();  
-        size = 0;  
-    };            
-    this.isEmpty = function () {  
-        return size == 0;  
-    };            
-    this.size = function () {  
-        return size;  
-    };            
-    this.keySet = function () {  
-        var keys = new Array();  
-        for (var key in entry) {  
-            keys.push(key);  
-        }  
-        return keys;  
-    };           
-    this.entrySet = function () {  
-        var entrys = new Array();  
-        for (var key in entry) {  
-            var et = new Object();  
-            et[key] = entry[key];  
-            entrys.push(et);  
-        }  
-        return entrys;  
-    };            
-    this.values = function () {  
-        var values = new Array();  
-        for (var key in entry) {  
-            values.push(entry[key]);  
-        }  
-        return values;  
-    };           
-    this.each = function (cb) {  
-        for (var key in entry) {  
-            cb.call(this, key, entry[key]);  
-        }  
-    };            
-    this.toString = function () {  
-        return __obj2str(entry);  
-    };      
+        if (entry[nkey]) {
+            return true;
+        }
+        return false;
+    };
+    this.containsValue = function (value) {
+        for (var key in entry) {
+            if (entry[key] == value) {
+                return true;
+            }
+        }
+        return false;
+    };
+    this.clear = function () {
+        entry = new Object();
+        size = 0;
+    };
+    this.isEmpty = function () {
+        return size == 0;
+    };
+    this.size = function () {
+        return size;
+    };
+    this.keySet = function () {
+        var keys = new Array();
+        for (var key in entry) {
+            keys.push(key);
+        }
+        return keys;
+    };
+    this.entrySet = function () {
+        var entrys = new Array();
+        for (var key in entry) {
+            var et = new Object();
+            et[key] = entry[key];
+            entrys.push(et);
+        }
+        return entrys;
+    };
+    this.values = function () {
+        var values = new Array();
+        for (var key in entry) {
+            values.push(entry[key]);
+        }
+        return values;
+    };
+    this.each = function (cb) {
+        for (var key in entry) {
+            cb.call(this, key, entry[key]);
+        }
+    };
+    this.toString = function () {
+        return __obj2str(entry);
+    };
 }
 
 exports.hash = function(){

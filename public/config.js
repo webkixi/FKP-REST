@@ -5,9 +5,9 @@ src_dir = src_dir + platform
 var global_dir = './src'+ platform +'/js/global';
 var path = require('path');
 module.exports = {
-    name: "SOMEPACK",
+    name: "SLAMEPACK",
     version: "1.0.0",
-    description: "SOMEPACK",
+    description: "SLAMEPACK",
     dirs: {
         src: src_dir,
         dist: "./dist",
