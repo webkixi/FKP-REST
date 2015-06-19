@@ -1,99 +1,176 @@
 /**
  * Module dependencies.
  */
+var fs = require('fs');
 var path = require('path')
-var $extend = require('extend');
-var statics = require('koa-static-cache');   //npm包在windows上有问题，需要到github上拿最新的文件
-var config = require('../config')
+var router = require('koa-router');
 var render = require('./render')
 var libs = require('../libs/libs')
-var publicConfig = require('../public/config')
+var __ = require('lodash')
 
-// setup views mapping .html
-// to the handlebars template engine
 
-/*
-* 检测扩展名
-* {parm1} String
-* return boolean
-*/
-function *checkExt(ext){
-    var exts = ['.css','.js','.swf','.jpg','.jpeg','.png','.bmp'];
-    var tmpExts = ['.html','.shtml']
+
+/**
+ * 过滤渲染文件
+ * {param1} {json}   this.params
+ * {param2} {json}   json of parse this.path
+ * return   {boleean} 
+**/
+function *filterRendeFile(pms, rjson){
+    var rtn = false;
+    var ext = rjson.ext;
+    var cat = pms.cat;
+
+    var exts = ['.css','.js','.swf','.jpg','.jpeg','.png','.bmp','.ico'];    
+    var tempExts = ['.html','.shtml'];
+    var noPassCat = ['css','js','img','imgs','image','images'];
 
     if(!ext)
-        return true;
+        rtn = true;
 
-    if(__.indexOf(tmpExts,ext)>-1)
-        return true;
+    if(__.indexOf(tempExts, ext) > -1)
+        rtn = true;
 
-    return false;
+    if(__.indexOf(noPassCat, cat) > -1)
+        rtn = false;
+
+    return rtn;
 }
 
-/*
-* 生成模板路由
-* {parm1} JSON
-* return String
-*/
-function *createTempPath(rjson){
-    var route = libs.getObjType(rjson.name) === 'Number'
-    ? rjson.dir.toString()
-    : rjson.dir + '/' + rjson.name;
 
-    route = route.replace(/[\/\\]+/,'')
-    if(route==='')
-        route = 'demoindex';
+/**
+ * 生成路由标签
+ * {param1} {json}   this.params
+ * {param2} {json}   json of parse this.path
+ * return   {string} route tag, like 'index' , 'h5/lazypage'
+**/
+function *createTempPath2(pms,rjson){
+    var params = pms;
+    var route = false;
+    
+    var cat = params.cat, title = params.title, id = params.id;
+    var gtpy = libs.getObjType;
+    
+    if(id){
+        route = title 
+        ? cat+'/'+title
+        : cat;
+    }
+
+    else if(title){
+        title = title.replace(rjson.ext,'');
+        route = gtpy(title)==='Number' 
+        ? cat
+        : cat+'/'+title;
+    }
+
+    else if(cat){
+        cat = cat.replace(rjson.ext,'');
+        route = gtpy(cat)==='Number' 
+        ? 'index'
+        : cat;
+    }
+
+    else{
+        route = 'index'
+    }
 
     return route;
 }
 
 
-
-
+/**
+ * 路由分配
+ * {param1} koa implement
+ * {param2} map of static file
+ * return rende pages
+**/
 function init(app,mapper){
+    app.use(router(app));
     var _mapper = mapper;
 
     app
-    .get('/',distribute)
-    .get('/:title',distribute)
-    .get('/:cat/:title',distribute)
-    .get('/:cat/:title/:id',distribute)
-    .get('/:id',distribute)
+    .get('/',forBetter)
+    .get('/:cat',forBetter)
+    .get('/:cat/:title',forBetter)
+    .get('/:cat/:title/:id',forBetter)
+    
+    function *forBetter(){
+       yield distribute.call(this,mapper)
+    }
+}
 
-    function *distribute(){
-        var routeJson = path.parse(this.path);
+/**
+ * 路由配置
+ * {param1} koa implement
+ * {param2} map of static file
+ * return rende pages
+**/
+function *distribute(_mapper){
+    libs.clog('route.js/distribute');
+    var routeJson = path.parse(this.path);
 
-      	if (yield checkExt(routeJson.ext)&&_mapper){
-        		//
-            var route = yield createTempPath(routeJson);
-        		var staticData = {
-          			commonjs: _mapper.commonJs.common,
-          			commoncss: _mapper.commonCss.common,
-          			pagejs: '',
-          			pagecss: '' };
+    if(_mapper){
+        var isRender = yield filterRendeFile(this.params,routeJson);
+        var params = this.params;
+        var pageData = {
+            //静态资源
+            commonjs: _mapper.commonJs.common,   //公共css
+            commoncss: _mapper.commonCss.common, //公共js
+            pagejs: '',   
+            pagecss: '',
+            pagedata: {}
+        };
 
-            //演示页首页列表数据
-            if (route === 'demoindex'){
-                require("coffee-script/register")
-                var listHtmlTempleteData = require('../public/_builder/gulp-task/html')(null,null,null,'REST',path.join('./public',publicConfig.dirs.src,'html'))  //请求生成环境demo数据的数据
-                staticData = $extend(true,staticData,listHtmlTempleteData); }
+        route = isRender 
+        ? yield createTempPath2(this.params,routeJson)
+        : false
 
-        		if (route){
+        if ( isRender ){                
+
+            //静态资源初始化
+            if (route){
                 if (route in _mapper.pageCss)   //pagecss
-            				staticData.pagecss = _mapper.pageCss[route];
-          			if (route in _mapper.pageJs)   //pagejs
-                    staticData.pagejs = _mapper.pageJs[route]; }
+                    pageData.pagecss = _mapper.pageCss[route];
+                if (route in _mapper.pageJs)   //pagejs
+                    pageData.pagejs = _mapper.pageJs[route];
+            }
 
-        	 	yield htmlRender.call(this,true,route,staticData);
+            if (route){
+                if (route == 'demoindex')
+                    pageData = require('../pages/demoindex').getDemoData(pageData);  //演示页
+                else{
+                    if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') ))
+                        pageData = require('../pages/'+route).getData(pageData);
+
+                    else{
+                        libs.elog('pages/'+route+' 配置文件不存在');
+                        yield htmlRender.call(this,false);
+                        return false; 
+                    }
+                }
+                yield htmlRender.call(this,true,route,pageData);
+            }
+
+            else{ /* todo something */ }
+
         }
     }
+}
 
-    function *htmlRender(stat,route,data){
-      	if (stat)
-      			this.body = yield render(route,data);
-      	else
-        		this.body = yield render('index');
-    }
+/**
+ * 路由渲染
+ * {param1} koa implement
+ * {param2} map of static file
+ * return rende pages
+**/
+function *htmlRender(stat,route,data){
+    libs.clog('route.js/htmlRender');
+    if (stat)
+        this.body = yield render(route,data);
+    else
+        this.body = 'no file';
+        // this.body = yield render('404');
 }
 
 

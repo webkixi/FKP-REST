@@ -216,9 +216,9 @@ var custom_modules = function(){
           test: /\.jsx$/,
           loader: "jsx-loader"
       }, {
-          test: /[\/\\]js[\/\\](vendor|global)[\/\\]/,   //http://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
+          test: /[\/\\]js[\/\\](vendor|vendor_custom|global)[\/\\]/,   //http://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
           loader: "script-loader"   //不做任何处理
-      }, {
+      },  {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract("css-loader")
       }, {
@@ -544,7 +544,11 @@ module.exports = {
                       _fileParse = path.parse(file.path),
                       _filename = _fileParse.name,
                       _filePath = file.path.replace(path.resolve(baseHtmlPath),'').substring(1).replace(_fileParse.ext,'');
-                      _filePath = _filePath.replace(/[\\|\/]/,'-');
+                      _fileTmp = path.parse(_filePath);
+                      if(_fileTmp.dir === _fileTmp.name)
+                          _filePath = _fileTmp.dir;
+                      else
+                          _filePath = _filePath.replace(/[\\|\/]/,'-');
 
                       data.commoncss = 'common.css';
                       data.commonjs = 'common.js';
@@ -750,10 +754,11 @@ module.exports = {
                   package_name = item;
                   prepend = (opts.prepend && getObjType(opts.prepend)==='Array') ? opts.prepend : [],
                   append = (opts.append && getObjType(opts.append)==='Array') ? opts.append : [];
-                  ultimates = prepend.concat(entry[item]).concat(append);
+                  ultimates = prepend.concat(entry[item])
+                  ultimates = ultimates.concat(append);
               }
 
-                  package_name = rename ? rename : package_name;
+              package_name = rename ? rename : package_name;
 
               if  (staticType==='style'|| staticType==='script'){
                   for (var i=0; i<ultimates.length; i++){

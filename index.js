@@ -4,7 +4,6 @@
  */
 
 var koa = require('koa');
-var router = require('koa-router');
 var session = require('koa-session');
 var statics = require('koa-static-cache');   //npm包在windows上有问题，需要到github上拿最新的文件
 
@@ -28,7 +27,7 @@ app.use(session(app));
 
 
 //router
-app.use(router(app)); //开启路由
+// app.use(router(app)); //开启路由
 route(app,_mapper)
 
 

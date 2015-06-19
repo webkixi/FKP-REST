@@ -21,7 +21,7 @@ module.exports = (gulp,$)->
         }
 
     gulp.task 'buildMap:js',['buildCommon:dev','html:build','ie:dev'], ->
-        dealWithJs = () ->
+        dealWithJs = () ->            
             gulp.src [config.jsDevPath + '/**/*.js','!'+config.jsDevPath+'/_common.js']
                 .pipe $.md5({
                     size: 10,
@@ -40,9 +40,8 @@ module.exports = (gulp,$)->
                     else
                         mapJson['dependencies']['js'][filename] = _filename;
                     return;
-        setTimeout dealWithJs, 3000
 
-
+        setTimeout dealWithJs, 2000
 
 
     # gulp.task 'buildAdminCss',['images:build','buildMap:js'],->
@@ -74,7 +73,9 @@ module.exports = (gulp,$)->
                     mapJson['commonDependencies']['css'][filename] = _filename;
                 else
                     mapJson['dependencies']['css'][filename] = _filename;
-                return;
+                return       
+
+                     
 
     gulp.task 'buildMap:writeMap',['buildMap:css','fonts:build'], () ->
         gulp.src config.htmlDevPath + '/**/*.*'
@@ -82,10 +83,10 @@ module.exports = (gulp,$)->
             .pipe $.copyExt()
             .pipe gulp.dest(config.htmlBuildPath)
 
-        dealWithMapJson = () ->
+        dealWithMapJson = () ->                     
             fs.writeFileSync( config.staticPath + '/map.json', JSON.stringify(mapJson)) ;
 
-        setTimeout dealWithMapJson 3500
+        setTimeout dealWithMapJson 6500
 
 
     return ()->
