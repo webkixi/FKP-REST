@@ -72,3 +72,7 @@ gulp.task 'buildCommon:dev',['wp:dev'], getTask('concat-common-js')
 gulp.task 'build',['clean:dev','clean:build'], getTask('map','pro')
 
 gulp.task 'testserver',['build'], getTask('server-pro')
+
+gulp.task 'concat', getTask('concat-common-js')
+
+gulp.task 'ser', getTask('server')

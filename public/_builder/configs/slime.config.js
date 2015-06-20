@@ -286,6 +286,13 @@ module.exports = {
           if  (entry._src){
               idf_plugins = plugins('noCommon');
           }
+          if  (entry.noCommon || options.noCommon) {
+              idf_plugins = plugins('noCommon');
+              delete entry.noCommon;
+          }
+          if  (options.rename && options.rename==='common') {
+              idf_plugins = plugins('noCommon');
+          }
       }
       //json
       else if( dirname && getObjType(dirname)==='Object'){
