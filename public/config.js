@@ -32,8 +32,8 @@ module.exports = {
         path.join(__dirname, src_dir, '/js/global/core.js'),
         path.join(__dirname, src_dir, '/js/global/toolkits.js')
     ],
-    ieRequireList: (function(){
-        if(platform === 'pc'){
+    ieRequireList: (function(){            
+        if(platform === '/pc'){
             return [
                 path.join(__dirname, src_dir, '/js/vendor/html5shiv/dist/html5shiv.js'),
                 path.join(__dirname, src_dir, '/js/vendor/respond/dest/respond.src.js'),

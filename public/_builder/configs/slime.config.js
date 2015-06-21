@@ -235,7 +235,7 @@ var custom_modules = function(){
           test: /\.md$/,
           loader: "html!markdown"
       }
-      // {
+      // , {
       //     test: /\.js$/,
       //     exclude: /node_modules/,
       //     loader: "babel-loader",
@@ -284,6 +284,9 @@ module.exports = {
       if(dirname && getObjType(dirname)==='String'){
               entry = this.readDir(dirname,isPack,options);
           if  (entry._src){
+              idf_plugins = plugins('noCommon');
+          }
+          if  (/[\/\\]js[\/\\](vendor|vendor_custom|global)[\/\\]/.test(dirname)){
               idf_plugins = plugins('noCommon');
           }
           if  (entry.noCommon || options.noCommon) {
@@ -409,30 +412,30 @@ module.exports = {
 
           //parse sass scss less css stylus
           function doStyle(){
-              if(isPack===true){
-                  // combo css
-                  gulp.src(tmpValue)
-                  .pipe($.newer(configs.cssDevPath + tmpKey +'.css'))
-                  .pipe($.plumber())
-                  // .pipe $.rimraf()
-                  .pipe ($.if('*.sass', $.sass() ))
-                  .pipe ($.if('*.scss', $.sass() ))
-                  .pipe ($.if('*.less', $.less() ))
-                  .pipe ($.if('*.styl', $.stylus() ))
-                  .pipe ($.if('*.stylus', $.stylus() ))
-                  .pipe ($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-                  .pipe ($.size())
-                  .pipe ($.concat(tmpKey + ".css"))
-                  // .pipe($.rename(tmpKey + ".css"))
-                  // .pipe(gulp.dest(path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/css/')))
-                  .pipe(gulp.dest(configs.cssDevPath))
-              }else{
+              // if(isPack===true){
+              //     // combo css
+              //     gulp.src(tmpValue)
+              //     .pipe($.newer(configs.cssDevPath + tmpKey +'.css'))
+              //     .pipe($.plumber())
+              //     // .pipe $.rimraf()
+              //     .pipe ($.if('*.sass', $.sass() ))
+              //     .pipe ($.if('*.scss', $.sass() ))
+              //     .pipe ($.if('*.less', $.less() ))
+              //     .pipe ($.if('*.styl', $.stylus() ))
+              //     .pipe ($.if('*.stylus', $.stylus() ))
+              //     .pipe ($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+              //     .pipe ($.size())
+              //     .pipe ($.concat(tmpKey + ".css"))
+              //     // .pipe($.rename(tmpKey + ".css"))
+              //     // .pipe(gulp.dest(path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/css/')))
+              //     .pipe(gulp.dest(configs.cssDevPath))
+              // }else{
                   //splite css
                   for(var file in entrys){
                       if(entrys[file].length){
                           (function(item){
                               gulp.src(entrys[item])
-                              .pipe( $.newer(configs.cssDevPath ))
+                              .pipe($.newer(path.join(__dirname,'../../',configs.cssDevPath, item+'.css') ))
                               .pipe($.plumber())
                               // .pipe $.rimraf()
                               .pipe ($.if('*.sass', $.sass() ))
@@ -477,7 +480,7 @@ module.exports = {
 
                           })(file);
                   } }
-              }
+              //}
 
               // if(type && (type==='sass' || type==='scss')){
               //     //gulp deal with style
@@ -497,11 +500,9 @@ module.exports = {
               // }
           }
 
-
-
           //parse js jsx cjsx coffee ...
-          function doScript(){
-              var nEntry = {};
+          function doScript(options){
+              var nEntry = {},ie={},common={},nowp={};
               var tary;
               var tkey;
               if  (entrys._src||entrys._ary){
@@ -514,18 +515,45 @@ module.exports = {
               else{
                   nEntry = entrys;
               }
-              _webpackDevConfig.entry = nEntry;
 
-              _webpackDevCompiler = webpack(_webpackDevConfig);
-              _webpackDevCompiler.run(function(err, stats){
-                  if  (err){
-                      throw new gutil.PluginError('[webpack]', err) ;
+              if(nEntry.hasOwnProperty('ie')){
+                  nowp.ie = clone(nEntry.ie);
+                  delete nEntry.ie;
+              }
+              if(nEntry.hasOwnProperty('common')){
+                  nowp.common = clone(nEntry.common);
+                  delete nEntry.common;
+              }
+              if(options.method === 'gulp'){
+                  nowp = nEntry;
+              }
+
+              if(options.method === 'gulp'|| nowp.hasOwnProperty('ie')|| nowp.hasOwnProperty('common')){                      
+                  for(var file in nowp){
+                      if(nowp[file].length){
+                          (function(item){
+                              gulp.src(nowp[item])
+                              .pipe($.newer(path.join(__dirname,'../../',configs.jsDevPath, item+'.js') ))
+                              .pipe($.plumber())                              
+                              // .pipe $.rimraf()
+                              .pipe($.concat(item+'.js'))
+                              .pipe(gulp.dest(path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/js/')))
+                          })(file)
+                      }
                   }
-                      gutil.log('[webpack]', stats.toString({ colors: true } )) ;
+              }else{
+                  _webpackDevConfig.entry = nEntry;
+                  _webpackDevCompiler = webpack(_webpackDevConfig);
+                  _webpackDevCompiler.run(function(err, stats){
+                      if  (err){
+                          throw new gutil.PluginError('[webpack]', err) ;
+                      }
+                          gutil.log('[webpack]', stats.toString({ colors: true } )) ;
 
-                  if  (cb)
-                      cb();
-              });
+                      if  (cb)
+                          cb();
+                  });
+              }
           }
 
 
@@ -667,7 +695,7 @@ module.exports = {
 
           switch(staticType){
               case 'script':
-                  doScript();
+                  doScript(options);
                   break;
               case 'style':
                   doStyle();
@@ -676,7 +704,7 @@ module.exports = {
                   doTemplet();
                   break;
               default:
-                  doScript();
+                  doScript(options);
           }
       }//end if entry
 

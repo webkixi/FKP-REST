@@ -8,6 +8,6 @@ module.exports = (gulp,$,slime)->
 		return () ->
 			slime.build(config.dirs.src + '/js/vendor_custom',true,{
 					rename: 'common',
-					prepend: commonFilsMap,
+					prepend: commonFilsMap
 					append: [config.jsDevPath + '_common.js']
 			})

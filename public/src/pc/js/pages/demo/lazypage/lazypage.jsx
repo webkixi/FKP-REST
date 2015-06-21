@@ -45,7 +45,7 @@ second_goods = [
 
 var
 ItemVIEW = require('widgets/itemView/itemView'),
-LoadList = require('modules/list/loadlist'),
+//LoadList = require('modules/list/loadlist'),
 LazyList = require('modules/list/lazylist'),
 render = React.render;
 
