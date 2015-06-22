@@ -611,7 +611,18 @@ module.exports = {
                               cb(new gutil.PluginError('gulp-markdown', err, {fileName: file.path}));
                               return;
                           }
-                          data = mdtemp.replace('~~md~~',data);
+                          mdtemp = mdtemp.replace('~~md~~',data);
+
+                          var re = /<h2[^>]?.*>(.*)<\/h2>/ig;
+                          var mdMenu='', mdMenuList = data.match(re);
+                          if(mdMenuList.length){
+                              mdMenuList.map(function(item){
+                                  mdMenu += '<li>'+ re.exec(item)[1]+'</li>\n\r';
+                                  re.lastIndex = 0;
+                              })
+                          }
+                          data = mdtemp.replace('~~md-menu~~',mdMenu);
+
                           file.contents = new Buffer(data);
                           file.path = gutil.replaceExtension(file.path, '_md.html');
                           cb(null, file);

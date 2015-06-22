@@ -5,21 +5,32 @@
 <head>
     <title>h5首页</title>
     @@include('../_common/header/head.html')
-    <link rel="stylesheet" href="/css/website.css">
-    <!--[if lt IE 9]>
-        <script src="/js/ie.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="/css/markdown.css">
+    <style>
+        .container{
+            width: 1000px;
+        }
+        .side{
+            position: relative;
+        }
+    </style>
+
 </head>
 <body>
-<div class="" data-module="index">
-    <div class="container">
-        <div id='markdown' class="markdown">
-            ~~md~~
+    <div class="markdown-preview">
+        <div class="container u-ma" style="">
+            <div class="span9" style="">
+                    ~~md~~
+            </div>
+
+            <div class="span3 side">
+                <div style="">
+                    <ul>
+                        ~~md-menu~~
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-
-</div>
-<hr/>
-<div class='u-clearfix' id='demo'></div>
 </body>
 </html>
