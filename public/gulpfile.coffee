@@ -14,8 +14,10 @@ $ = require('gulp-load-plugins')()
 
 # 初始化生成临时目录
 tmpDir = './dist/_tmp'
-if  !fs.existsSync(tmpDir)
-  	fs.mkdirSync(tmpDir);
+if !fs.existsSync('./dist')
+   fs.mkdirSync('./dist')
+   if  !fs.existsSync(tmpDir)
+       fs.mkdirSync(tmpDir);
 
 getTask = (task,env)->
     if !env
