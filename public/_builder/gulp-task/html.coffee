@@ -35,6 +35,35 @@ makeHtmlListData = (htmlPath) ->
     htmlDir = fs.readdirSync( htmlDirPath );
     htmlDir.map (filename)->
         firstPath = htmlDirPath + '/' + filename
+        if (fs.statSync(firstPath).isFile() && filename.indexOf('_')!=0 && filename.indexOf('demo')==-1 )
+            list['root'] = list['root'] || {}
+            list['root'].group = list['root'].group || 'root'
+            list['root'].list = list['root'].list || []
+            ext = path.extname(filename)
+            if ( ext == '.hbs' || ext == '.html')
+                content = fs.readFileSync(firstPath,'utf8')
+                title = content.match(/<title>([\s\S]*?)<\/title>/ig)
+                if(title!=null && title[0])
+                    title = title[0].replace(/\<(\/?)title\>/g,'')
+                    fileprofile = {
+                        group: '',
+                        title: title,
+                        fileName: filename.replace(ext,'.html'),
+                        fullpath: firstPath,
+                        des: '',
+                        mdname: ''
+                    }
+                    firstMd = firstPath.replace(ext,'.md')
+                    if(fs.existsSync(firstMd))
+                        desContent = fs.readFileSync(firstMd,'utf8')
+                        mdname = gutil.replaceExtension(filename,'_md.html')
+                        des = _subString(desContent,40,true)
+                        fileprofile.des = des
+                        fileprofile.mdname = mdname
+
+                    list['root'].list.push(fileprofile)
+
+
         if (fs.statSync(firstPath).isDirectory() && filename.indexOf('_')!=0 )
             list[filename] = list[filename] || {}
             list[filename].group = list[filename].group || filename
@@ -61,7 +90,7 @@ makeHtmlListData = (htmlPath) ->
                             if(fs.existsSync(secondMd))
                                 desContent = fs.readFileSync(secondMd,'utf8')
                                 mdname = gutil.replaceExtension(_filename,'_md.html')
-                                des = _subString(desContent,20,true)
+                                des = _subString(desContent,40,true)
                                 fileprofile.des = des
                                 fileprofile.mdname = mdname
 

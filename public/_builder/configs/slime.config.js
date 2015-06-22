@@ -134,7 +134,6 @@ var plugins = function(dirname, isPack, options){
 
     var venders,
         common_trunk_config = {
-            // chunks: entry,
             filename: '_common.js',
             minChunks: 2,
             async: false
@@ -412,75 +411,56 @@ module.exports = {
 
           //parse sass scss less css stylus
           function doStyle(){
-              // if(isPack===true){
-              //     // combo css
-              //     gulp.src(tmpValue)
-              //     .pipe($.newer(configs.cssDevPath + tmpKey +'.css'))
-              //     .pipe($.plumber())
-              //     // .pipe $.rimraf()
-              //     .pipe ($.if('*.sass', $.sass() ))
-              //     .pipe ($.if('*.scss', $.sass() ))
-              //     .pipe ($.if('*.less', $.less() ))
-              //     .pipe ($.if('*.styl', $.stylus() ))
-              //     .pipe ($.if('*.stylus', $.stylus() ))
-              //     .pipe ($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-              //     .pipe ($.size())
-              //     .pipe ($.concat(tmpKey + ".css"))
-              //     // .pipe($.rename(tmpKey + ".css"))
-              //     // .pipe(gulp.dest(path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/css/')))
-              //     .pipe(gulp.dest(configs.cssDevPath))
-              // }else{
-                  //splite css
-                  for(var file in entrys){
-                      if(entrys[file].length){
-                          (function(item){
-                              gulp.src(entrys[item])
-                              .pipe($.newer(path.join(__dirname,'../../',configs.cssDevPath, item+'.css') ))
-                              .pipe($.plumber())
-                              // .pipe $.rimraf()
-                              .pipe ($.if('*.sass', $.sass() ))
-                              .pipe ($.if('*.scss', $.sass() ))
-                              .pipe ($.if('*.less', $.less() ))
-                              .pipe ($.if('*.styl', $.stylus() ))
-                              .pipe ($.if('*.stylus', $.stylus() ))
-                              .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-                              .pipe($.size())
-                              // .pipe($.sass())
-                              .pipe( (entry._src||entry._ary) ? $.rename({'extname': '.css'}) : $.concat(item + ".css"))
-                              .pipe(gulp.dest(configs.cssDevPath))
+              for(var file in entrys){
+                  if(entrys[file].length){
+                      (function(item){
+                          gulp.src(entrys[item])
+                          .pipe($.newer(path.join(__dirname,'../../',configs.cssDevPath, item+'.css') ))
+                          .pipe($.plumber())
+                          // .pipe $.rimraf()
+                          .pipe ($.if('*.sass', $.sass() ))
+                          .pipe ($.if('*.scss', $.sass() ))
+                          .pipe ($.if('*.less', $.less() ))
+                          .pipe ($.if('*.styl', $.stylus() ))
+                          .pipe ($.if('*.stylus', $.stylus() ))
+                          .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+                          .pipe($.size())
+                          // .pipe($.sass())
+                          .pipe( (entry._src||entry._ary) ? $.rename({'extname': '.css'}) : $.concat(item + ".css"))
+                          .pipe(gulp.dest(configs.cssDevPath))
 
 
-                              //雪碧图
-                              //config 是 configs 的子集
-                              .pipe ($.newer(configs.imagesDevPath))
-                              .pipe ($.plumber())
-                              .pipe ($.cssSpritesmith({
-                                  // sprite背景图源文件夹，只有匹配此路径才会处理，默认 images/slice/
-                                  imagepath: configs.imagesDevPath + 'slice/',
-                                  // 映射CSS中背景路径，支持函数和数组，默认为 null
-                                  imagepath_map: null,
-                                  // 雪碧图输出目录，注意，会覆盖之前文件！默认 images/
-                                  spritedest: 'sprite/',
-                                  // 替换后的背景路径，默认 ../images/
-                                  spritepath: '../images/sprite/',
-                                  // 各图片间间距，如果设置为奇数，会强制+1以保证生成的2x图片为偶数宽高，默认 0
-                                  padding: 20,
-                                  // 是否使用 image-set 作为2x图片实现，默认不使用
-                                  useimageset: false,
-                                  // 是否以时间戳为文件名生成新的雪碧图文件，如果启用请注意清理之前生成的文件，默认不生成新文件
-                                  newsprite: false,
-                                  // 给雪碧图追加时间戳，默认不追加
-                                  spritestamp: false,
-                                  // 在CSS文件末尾追加时间戳，默认不追加
-                                  cssstamp: false
-                              } ))
-                              .pipe ($.debug({title: 'sprite:'} ))
-                              .pipe ($.if('*.png', gulp.dest(configs.imagesDevPath)))
-                              .pipe ($.if('*.css', gulp.dest('./')))
+                          //雪碧图
+                          //config 是 configs 的子集
+                          .pipe ($.newer(configs.imagesDevPath))
+                          .pipe ($.plumber())
+                          .pipe ($.cssSpritesmith({
+                              // sprite背景图源文件夹，只有匹配此路径才会处理，默认 images/slice/
+                              imagepath: configs.imagesDevPath + 'slice/',
+                              // 映射CSS中背景路径，支持函数和数组，默认为 null
+                              imagepath_map: null,
+                              // 雪碧图输出目录，注意，会覆盖之前文件！默认 images/
+                              spritedest: 'sprite/',
+                              // 替换后的背景路径，默认 ../images/
+                              spritepath: '../images/sprite/',
+                              // 各图片间间距，如果设置为奇数，会强制+1以保证生成的2x图片为偶数宽高，默认 0
+                              padding: 20,
+                              // 是否使用 image-set 作为2x图片实现，默认不使用
+                              useimageset: false,
+                              // 是否以时间戳为文件名生成新的雪碧图文件，如果启用请注意清理之前生成的文件，默认不生成新文件
+                              newsprite: false,
+                              // 给雪碧图追加时间戳，默认不追加
+                              spritestamp: false,
+                              // 在CSS文件末尾追加时间戳，默认不追加
+                              cssstamp: false
+                          } ))
+                          .pipe ($.debug({title: 'sprite:'} ))
+                          .pipe ($.if('*.png', gulp.dest(configs.imagesDevPath)))
+                          .pipe ($.if('*.css', gulp.dest('./')))
 
-                          })(file);
-                  } }
-              //}
+                      })(file);
+              } }
+
 
               // if(type && (type==='sass' || type==='scss')){
               //     //gulp deal with style
@@ -528,13 +508,13 @@ module.exports = {
                   nowp = nEntry;
               }
 
-              if(options.method === 'gulp'|| nowp.hasOwnProperty('ie')|| nowp.hasOwnProperty('common')){                      
+              if(options.method === 'gulp'|| nowp.hasOwnProperty('ie')|| nowp.hasOwnProperty('common')){
                   for(var file in nowp){
                       if(nowp[file].length){
                           (function(item){
                               gulp.src(nowp[item])
                               .pipe($.newer(path.join(__dirname,'../../',configs.jsDevPath, item+'.js') ))
-                              .pipe($.plumber())                              
+                              .pipe($.plumber())
                               // .pipe $.rimraf()
                               .pipe($.concat(item+'.js'))
                               .pipe(gulp.dest(path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/js/')))
