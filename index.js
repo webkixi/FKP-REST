@@ -5,7 +5,7 @@
 
 var koa = require('koa');
 var session = require('koa-session');
-var statics = require('koa-static-cache');   //npm包在windows上有问题，需要到github上拿最新的文件
+// var statics = require('koa-static-cache');   //npm包在windows上有问题，需要到github上拿最新的文件
 
 
 //自定义部分

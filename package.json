@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "assert": "^1.1.2",
+    "chalk": "^1.0.0",
     "co": "^4.0.1",
     "co-body": "^1.0.0",
     "co-views-helpers": "0.0.1",

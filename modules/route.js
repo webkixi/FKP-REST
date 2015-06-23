@@ -14,14 +14,14 @@ var __ = require('lodash')
  * 过滤渲染文件
  * {param1} {json}   this.params
  * {param2} {json}   json of parse this.path
- * return   {boleean} 
+ * return   {boleean}
 **/
 function *filterRendeFile(pms, rjson){
     var rtn = false;
     var ext = rjson.ext;
     var cat = pms.cat;
 
-    var exts = ['.css','.js','.swf','.jpg','.jpeg','.png','.bmp','.ico'];    
+    var exts = ['.css','.js','.swf','.jpg','.jpeg','.png','.bmp','.ico'];
     var tempExts = ['.html','.shtml'];
     var noPassCat = ['css','js','img','imgs','image','images'];
 
@@ -47,26 +47,26 @@ function *filterRendeFile(pms, rjson){
 function *createTempPath2(pms,rjson){
     var params = pms;
     var route = false;
-    
+
     var cat = params.cat, title = params.title, id = params.id;
     var gtpy = libs.getObjType;
-    
+
     if(id){
-        route = title 
+        route = title
         ? cat+'/'+title
         : cat;
     }
 
     else if(title){
         title = title.replace(rjson.ext,'');
-        route = gtpy(title)==='Number' 
+        route = gtpy(title)==='Number'
         ? cat
         : cat+'/'+title;
     }
 
     else if(cat){
         cat = cat.replace(rjson.ext,'');
-        route = gtpy(cat)==='Number' 
+        route = gtpy(cat)==='Number'
         ? 'index'
         : cat;
     }
@@ -94,7 +94,7 @@ function init(app,mapper){
     .get('/:cat',forBetter)
     .get('/:cat/:title',forBetter)
     .get('/:cat/:title/:id',forBetter)
-    
+
     function *forBetter(){
        yield distribute.call(this,mapper)
     }
@@ -117,16 +117,16 @@ function *distribute(_mapper){
             //静态资源
             commonjs: _mapper.commonJs.common,   //公共css
             commoncss: _mapper.commonCss.common, //公共js
-            pagejs: '',   
+            pagejs: '',
             pagecss: '',
             pagedata: {}
         };
 
-        route = isRender 
+        route = isRender
         ? yield createTempPath2(this.params,routeJson)
         : false
 
-        if ( isRender ){                
+        if ( isRender ){
 
             //静态资源初始化
             if (route){
@@ -138,15 +138,15 @@ function *distribute(_mapper){
 
             if (route){
                 if (route == 'demoindex')
-                    pageData = require('../pages/demoindex').getDemoData(pageData);  //演示页
+                    pageData = yield require('../pages/demoindex').getDemoData(pageData);  //演示页
                 else{
                     if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') ))
-                        pageData = require('../pages/'+route).getData(pageData);
+                        pageData = yield require('../pages/'+route).getData(pageData);
 
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
                         yield htmlRender.call(this,false);
-                        return false; 
+                        return false;
                     }
                 }
                 yield htmlRender.call(this,true,route,pageData);
