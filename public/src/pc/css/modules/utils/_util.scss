@@ -1,0 +1,128 @@
+// 常用方法
+//==============
+/**
+ * @tofishes 2015年04月14日 增加一些注释
+ *
+ * 前缀u-表示util，工具类前缀
+ */
+.u-wrap {
+  @include wrapper(12,true);
+}
+.u-wrap_small {
+  width:1200*$px;
+  margin:auto;
+}
+// 清除浮动
+.u-clearfix {
+  @include clearfix;
+  @extend %clearfix;
+}
+
+
+//字体颜色
+.u-color_red{
+  color:$color_error;
+}
+.u-color_gold{
+  color:$color_gold;
+}
+.u-color_black{
+  color:$color_black;
+}
+.u-color_gray{
+  color:$color_gray_text;
+}
+.u-color_green{
+  color:$color_success;
+}
+.u-color_orange{
+  color:$color_orange
+}
+
+//删除线
+.u-del{
+  text-decoration:line-through;
+}
+
+//link
+.u-black-link{
+  color:$color_black;
+  &:hover{
+    color:$color_gold_hover;
+  }
+}
+
+// 颜色
+.u-color_glod {
+  color: $color_gold;
+}
+.u-color_darkred {
+  color: #994b53;
+}
+.u-color_white {
+  color: #fff;
+}
+// .u-color_gray {
+//   color: $color_gray;
+// }
+
+// 分隔线
+.u-border-bottom {
+  border-bottom: 1px solid $color_gray_border;
+}
+
+//单行省略号
+.u-ellipse{
+  @extend %ellipsis-basic
+}
+
+//line-horizontal
+.u-line-horizontal{
+  height:0;
+  line-height:0;
+  font-size:0;
+  border-bottom:1px solid $color_gray_border;
+}
+
+
+// class span1-$gridColumns
+// span的class循环输出，通过变量$gridSpanSwitch来控制是否输出
+//-----------------------------------------------------
+@if $gridSpanSwitch {
+  @for $i from 1 through $gridColumns {
+    .span#{$i} {
+      @extend %float;
+      @extend %margin-gutter;
+
+      width:getWidth($i);
+
+      @if $gridPercentSwitch and $lte7{
+        *width:getWidth($i) - $gridCorrection;
+      }
+    }
+  }
+}
+
+@if $gridRemSwitch {
+  .remrow{
+      @include clearfix;
+      @extend %clearfix;
+      width: 100%;
+      margin-bottom: 0.2rem;
+  }
+  $tmp: 1.15rem;
+  @for $i from 1 through $gridColumns {
+    .col-#{$i} {
+        @extend %float;
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+        margin-left: -0.2rem;
+        margin-right: -0.2rem;
+
+        width:getRem($i);
+    }
+    .row-#{$i} {
+        height:getRem($i,false);
+    }
+  }
+}

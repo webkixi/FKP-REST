@@ -1,0 +1,39 @@
+@import "../../modules/_settings/_setting_pages";
+@import "../_common/com.scss";
+@import "../_common/bootstrap.min.scss";
+
+.list{
+    &-item{
+        @include clearfix;
+        @extend %clearfix;
+        width: 100%;
+        border-bottom: 1px dotted #ccc;
+        margin-bottom: 24px;
+        .list{
+            &-left{
+                @extend %float;
+                width:150*$px;
+                height:120*$px;
+            }
+            &-bd{}
+            &-heading{
+                display: inline-block;
+            }
+            &-small{
+                font-size: 10*$px;
+                margin-left: 50*$px;
+            }
+            &-des{
+                margin-top: 15*$px;
+            }
+        }
+    }
+    h4{
+        font-size: 20*$px;
+        .list-heading{
+            font-size: 18*$px;
+            font-weight: normal;
+            margin: 0 0 10px 0;
+        }
+    }
+}

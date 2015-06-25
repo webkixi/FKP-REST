@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SLIME PACK</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/{{commoncss}}">
+    <!--[if lt IE 9]>
+        <script src="/js/ie.js"></script>
+    <![endif]-->
+    <style media="screen">
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .table-col-head {
+            background-color: #f4f4f4;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table-col-th td,
+        .table-col-th th {
+            border: 1px solid #ccc;
+        }
+
+        .table td,
+        .table th {
+            padding: 8px;
+        }
+
+        .des {
+            border-color: 1px solid ##f3981c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page" data-module="">
+        <!--header-->
+        <div class="header">
+            <div class="header__wrap">
+                <div class="header-logo u-wrap">
+                    <div class="header-logo__wrap u-clearfix">
+                        <div class="layout-fixed-inner u-clearfix">
+
+                            <div class="header-logo__title u-fl">
+                                <a href="index.html">
+                                    <img src="/images/slime.png" alt="" />
+                                </a>
+                            </div>
+
+                            <div class="u-fl u-mt_15">
+                                <a href="index.html">
+                                    <img src="/images/slime_title.png" alt="" />
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--/header end-->
+
+        <div class="descript">
+            <div class="des u-pt_20 u-pb_20 u-pl_20 u-ml_20 u-mr_20 u-f14" style="background-color: #fcf8e3">
+                <p>SLIME PACK是一个简单的前端编译系统，可产出生产、开发环境需求的文件</p>
+                <p>基于
+                  <a title="nodejs官网" href="https://nodejs.org/" target="_blank">nodejs</a>，
+                  <a title="gulp官网" href="http://gulpjs.com/" target="_blank">gulp</a>，
+                  <a title="webpack官网" href="webpack.github.io" target="_blank">webpack</a>，支持
+                  <a title="coffee中文" href="http://coffee-script.org/" target="_blank">coffee</a>,原生js,
+                  <a title="reactjs官网" href="http://facebook.github.io/react/" target="_blank">react</a>,
+                  <a title="less中文" href="http://www.bootcss.com/p/lesscss/" target="_blank">less</a>,
+                  <a title="sass中文" href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank">sass</a>,
+                  <a title="stylus中文" href="http://www.zhangxinxu.com/jq/stylus/" target="_blank">stylus</a>
+                  及
+                  <a title="handlebars官网" href="http://handlebarsjs.com/" target="_blank">handlebars</a>、
+                  html、PHP模板等自动化编译打包 </p>
+                <p>通过简单的打包与分包配置文件扩展gulp的task任务</p>
+            </div>
+        </div>
+
+        <div id="page-ui-kits" class="u-pt_20 u-pb_20 u-pr_20 u-pl_20">
+            {{#each demoindex}}
+            <table class="table table-col-th u-mb_20">
+                <tbody>
+                    <tr>
+                        <td class="table-col-head" colspan="2">
+                            <b class="u-f18">{{group}}</b>
+                        </td>
+                    </tr>
+                    {{#each list}}
+                    <tr>
+                        <th style="width:150px;">{{title}}</th>
+                        <td>
+                            <a class="u-inline-block" href="{{group}}/{{fileName}}">{{group}}/{{fileName}}</a>
+                            {{#if des}}
+                                <div class="profile u-mt_5">
+                                    <a class="u-inline-block u-color_gray" href="{{group}}/{{mdname}}">{{des}}</a>
+                                </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{/each}}
+
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

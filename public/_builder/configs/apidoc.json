@@ -1,0 +1,12 @@
+{
+    "name": "Frontend Documentation",
+    "version": "0.1.0",
+    "description": "斯品前端开发文档",
+    "title": "Sipin Frontend Documentation",
+    "url": "http://www.sipin.com/api/",
+    "sampleUrl": "http://www.sipin.com/api/",
+    "template": {
+        "withCompare": true,
+        "withGenerator": true
+    }
+}

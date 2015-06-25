@@ -1,0 +1,52 @@
+
+<!doctype html>
+
+<html>
+<head>
+    <title>仿淘宝移动端rem</title>
+    @@include('../_common/header/head.html')
+    <link rel="stylesheet" href="/css/{{pagecss}}">
+    <!--[if lt IE 9]>
+        <script src="/js/ie.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        (function (doc, win) {
+            var radio = win.devicePixelRatio || 1,
+                scale = 1 / radio,
+                docEl = doc.documentElement,
+                meta = document.createElement("meta"),
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+                };
+                // recalc();
+                docEl.setAttribute("data-dpr", radio);
+                meta.setAttribute("name", "viewport")
+                meta.setAttribute("content", "initial-scale=" + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ", user-scalable=no")
+                if(docEl.firstElementChild) docEl.firstElementChild.appendChild(meta);
+
+            if  (!doc.addEventListener) return;
+
+                win.addEventListener(resizeEvt, recalc, false);
+                doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+</head>
+<body>
+<div class="" data-module="index">
+    <div class="remrow">
+        <div class="col-12 row-6" style="background-color:gray"></div>
+    </div>
+    <div class="remrow">
+      <div class="col-6 row-6" style="background-color:red;"><div class="showcase">123</div> </div>
+      <div class="col-6 row-3" style="background-color:blue"><div class="showcase">456</div> </div>
+      <div class="col-3 row-3" style="background-color:green"><div class="showcase">789</div></div>
+      <div class="col-3 row-3" style="background-color:yellow"><div class="showcase">1f2d3s4g</div></div>
+    </div>
+<hr/>
+<div class='u-clearfix' id='demo'></div>
+<script src="/js/{{commonjs}}"></script>
+</body>
+</html>

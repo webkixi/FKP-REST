@@ -1,0 +1,46 @@
+// 开关设置
+//-----------------------------------------------------
+$lte7:false !default; //不需要支持ie6,7
+$printStyleSwitch:      false !default; //是否开启打印样式
+$gridColumns : 12 !default; //总栅格数，默认为12栏
+$gridPercentSwitch : true !default; //流体布局
+$gridSpanSwitch: true !default;;//是否开启grid class(.span1, .span2...)，默认不开启
+// font相关
+//-----------------------------------------------------
+$baseFontSize:          12px !default;
+$baseLineHeight:        1.5 !default;
+$baseFontFamily:        'helvetica neue', arial, "PingHei", 'Hiragino Sans GB', stheiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif,iconfont;
+//$fontCn:                "SimSun"; //宋体
+//$fontYaHei:             "Microsoft Yahei"; //微软雅黑
+// link
+//-----------------------------------------------------
+// 如果只有一个值则滑过的值为这个值的darken 5%，如果
+// 有两个值则第二个值为滑过的值
+$linkColor:             #d3af94 #e9c998 !default;
+
+// 颜色
+//==============
+$color_black: #3a3a3a;  // 大、小标题颜色、内容主要颜色
+$color_gray: #7d7d7d;   // 内容简介段落主要颜色
+$color_gold: #e6be99;   // 页面主体颜色
+$color_gold_hover: #e9c998;   // 动态交互主体颜色
+$color_orange: #f3981c;   // 交互 橙色
+$color_emphasis: #a74453; // 强调，突出显示，暗红色
+
+$color_gray2: #eaeaea;  // 边框线条颜色
+$color_gray_border: #eaeaea;  // 边框线条颜色
+
+$color_gray_text: #a0a0a0;  // 标签文字颜色
+$color_error: #994b53; //点缀、出错颜色
+$color_success: #5ab26d; //点缀、正确颜色
+
+$color_gray_hover: #f8f8f8; //
+
+// 常见颜色
+$color_999:#999;
+$color_666:#333;
+$color_333:#333;
+$color_ccc:#ccc;
+$color_eee:#eee;
+$color_fff:#fff;
+$color_gray3: #666;

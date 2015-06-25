@@ -1,0 +1,46 @@
+{
+  "name": "baofa",
+  "version": "1.0.3",
+  "description": "a koa blog system",
+  "main": "index.js",
+  "dependencies": {
+    "assert": "^1.1.2",
+    "chalk": "^1.0.0",
+    "co": "^4.0.1",
+    "co-body": "^1.0.0",
+    "co-views-helpers": "0.0.1",
+    "coffee-script": "^1.9.3",
+    "extend": "^2.0.1",
+    "handlebars": "^3.0.3",
+    "koa": "^0.13.0",
+    "koa-request": "^1.0.0",
+    "koa-router": "^3.7.0",
+    "koa-session": "^3.1.0",
+    "koa-static": "^1.4.9",
+    "koa-static-cache": "^2.0.1",
+    "lodash": "^3.9.3",
+    "markdown-js": "^0.0.3",
+    "request": "^2.58.0",
+    "swig": "^1.4.2",
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webkixi/baofa.git"
+  },
+  "keywords": [
+    "blog",
+    "nodejs",
+    "koa"
+  ],
+  "author": "ralf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webkixi/baofa/issues"
+  },
+  "homepage": "https://github.com/webkixi/baofa"
+}
