@@ -1,0 +1,390 @@
+
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗-我订购的商品</title>
+@@include('./_common/header/head.html')
+</head>
+
+<body>
+@@include('./_common/header/header.html')
+<div class="wrapper">
+    <div class="current_path container">
+        <a href="#">首页</a> > <a class="currents"> 会员中心 </a>
+    </div>
+    <div class="myaccount_main">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="account_l fl col-lg-2">
+                    <div class="account_nav">
+                        <dl>
+                            <dt><i class="nav-icon"></i>会员中心</dt>
+                            <dd><a href="myaccount.html">我的账号</a></dd>
+                            <dd class="active"><a href="#">我的商品</a></dd>
+                            <dd><a href="myorder.html">我的订单</a></dd>
+                            <dd><a href="#">我的求购</a></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="account_r fl col-lg-10">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#myo_ok" data-toggle="tab">挂牌中（<i>3宗</i>）</a></li>
+                        <li><a href="#myo_del" data-toggle="tab">未挂牌（<i>2宗</i>）</a></li>
+                        <li><a href="#myo_cepai" data-toggle="tab">逾期撤牌（<i>2宗</i>）</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content myorder_content">
+                        <div class="tab-pane fade in active" id="myo_ok">
+                          <div class="text-c">
+                            <span class="select-box" style="width:150px">类别
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品名
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品牌
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">仓库
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <button name="" id="" class="btn btn-orange" type="submit"><i class="icon-search"></i> 查找</button>
+                            <button name="" id="" class="btn btn-orange" type="submit"><i class="icon-search"></i> 添加</button>
+                          </div>
+                          <div class="myorder_table">
+                              <table class="table table-hover table-org">
+                                <thead>
+                                    <tr>
+                                        <th>类别</th>
+                                        <th>品名</th>
+                                        <th>品牌</th>
+                                        <th>仓库</th>
+                                        <th>库存数量</th>
+                                        <th>单位</th>
+                                        <th>单价（元)</th>
+                                        <th>点价时间</th>
+                                        <th>起订量</th>
+                                        <th>发布时间</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                          </div>
+                          <div id="page"></div>
+                        </div>
+                        <div class="tab-pane fade" id="myo_del">
+                          <div class="text-c">
+                            <span class="select-box" style="width:150px">类别
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品名
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品牌
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">仓库
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <button name="" id="" class="btn btn-orange" type="submit"><i class="icon-search"></i> 查找</button>
+                          </div>
+                          <div class="myorder_table">
+                              <table class="table table-hover table-org">
+                                <thead>
+                                    <tr>
+                                        <th>类别</th>
+                                        <th>品名</th>
+                                        <th>品牌</th>
+                                        <th>仓库</th>
+                                        <th>库存数量</th>
+                                        <th>单位</th>
+                                        <th>单价（元)</th>
+                                        <th>点价时间</th>
+                                        <th>起订量</th>
+                                        <th>发布时间</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                          </div>
+                          <div id="page"></div>
+                        </div>
+                        <div class="tab-pane fade" id="myo_cepai">
+                          <div class="text-c">
+                            <span class="select-box" style="width:150px">类别
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品名
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品牌
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">仓库
+                              <select name="" class="select">
+                                <option value="0">全部</option>
+                                <option value="1">分类一</option>
+                                <option value="2">分类二</option>
+                              </select>
+                            </span>
+                            <button name="" id="" class="btn btn-orange" type="submit"><i class="icon-search"></i> 查找</button>
+                          </div>
+                          <div class="myorder_table">
+                              <table class="table table-hover table-org">
+                                <thead>
+                                    <tr>
+                                        <th>类别</th>
+                                        <th>品名</th>
+                                        <th>品牌</th>
+                                        <th>仓库</th>
+                                        <th>库存数量</th>
+                                        <th>单位</th>
+                                        <th>单价（元)</th>
+                                        <th>点价时间</th>
+                                        <th>起订量</th>
+                                        <th>发布时间</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>铜</td>
+                                        <td>铜锭</td>
+                                        <td>铁锋</td>
+                                        <td>南储</td>
+                                        <td>1000</td>
+                                        <td>吨</td>
+                                        <td>上期所1506 + 100</td>
+                                        <td>2015-06-10 10:00:00</td>
+                                        <td>1吨</td>
+                                        <td>2015-5-5</td>
+                                        <td><a href="mygoods-arclist.html">编辑</a> <a href="mygoods-arclist.html">详情</a></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                          </div>
+                          <div id="page"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="container">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">金属商城</a></li>
+            <li><a href="#">行业资讯</a></li>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">登陆</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <p>Copyright © 2010-2015 dzhce.cn. All Rights Reserved 广州联华电子商务有限公司版权所有 <a href="#">粤ICP备10215232号-2</a></p>
+    </div>
+</div>
+<!-- 弹出框 start -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog"><!-- 登录框 start -->
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                 &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">登录</h4>
+         </div>
+         <div class="modal-body login_body">
+            <form method="post">
+                <div class="login_input">
+                  <input class="user_phone form-control" placeholder="手机号" type="text">
+                  <input class="user_pwd form-control" placeholder="密码" type="password">
+                  <div class="l_code clearfix hidden">
+                      <input class="code fl form-control" placeholder="验证码" type="text">
+                      <img src="statics/front/images/yzm.png"/>
+                      <a href="#">换一张</a>
+                  </div>
+                </div>
+                <div class="login_tip clear">
+                  <div class="login_remeber fl"><b class="checkbox"></b><span class="m_t5 fl">下次自动登录</span></div>
+                  <div class="login_password fr m_t5"><a href="forget.html">忘记密码？</a></div>
+                </div>
+                <div class="login_btn"><button type="button" class="btn btn-primary">登录</button></div>
+                <div class="login_reg"><a href="#">立即注册</a></div>
+            </form>
+         </div>
+      </div><!-- 登录框 end -->
+</div><!-- 弹出框 end -->
+<script type="text/javascript" src="statics/front/js/jquery-1.8.3.min.js"></script>
+<script src="statics/front/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="statics/front/My97DatePicker/WdatePicker.js"></script>
+<script src="statics/front/js/laypage.js"></script>
+<script src="statics/front/js/common.js"></script>
+<script>
+    laypage({
+        cont: $('#page'), //容器。值支持id名、原生dom对象，jquery对象,
+        pages: 100, //总页数
+        skip: true, //是否开启跳页
+        skin: '#ff6600',
+        groups: 3 //连续显示分页数
+    });
+</script>
+
+<!-- bootstrap兼容IE插件 -->
+<!--[if lt IE 9]>
+    <script src="statics/front/js/respond.js"></script>
+<![endif]-->
+</body>
+</html>

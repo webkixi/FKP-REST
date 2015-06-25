@@ -1,0 +1,284 @@
+
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗-我的商品列表</title>
+@@include('./_common/header/head.html')
+</head>
+
+<body>
+@@include('./_common/header/header.html')
+<div class="wrapper">
+    <div class="current_path container">
+        <a href="#">首页</a> > <a href="#">会员中心</a> > <a href="#">我的商品</a> > <a class="currents"> 商品详情 </a>
+    </div>
+    <div class="myaccount_main">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="account_l fl col-lg-2">
+                    <div class="account_nav">
+                        <dl>
+                            <dt><i class="nav-icon"></i>会员中心</dt>
+                            <dd><a href="myaccount.html">我的账号</a></dd>
+                            <dd class="active"><a href="#">我的商品</a></dd>
+                            <dd><a href="myorder.html">我的订单</a></dd>
+                            <dd><a href="#">我的求购</a></dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="account_r fl col-lg-10">
+                    <div class="mygoods-arclist">
+                        <form>
+                            <div class="form-group">
+                                <label for="name">类别：</label>
+                                <select class="form-control g_cate">
+                                    <option>铜</option>
+                                    <option>铝</option>
+                                    <option>锌</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">品名：</label>
+                                <select class="form-control g_cname">
+                                    <option>铜1</option>
+                                    <option>铜2</option>
+                                    <option>铜3</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">厂家：</label>
+                                <input class="user_vender form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">品牌：</label>
+                                <input class="user_brand form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">规格型号：</label>
+                                <input class="user_norms form-control" type="text">
+                            </div>
+                            <div class="form-group mygoods_apic">
+                                <label for="name">品牌图片预览：</label>
+                                <img src=""/>
+                            </div>
+                            <div class="form-group mygoods_upload">
+                                <div class="pictures_box">
+                                    <ul class="pictures">
+                                        <li class="goods_updown exist_img">
+                                            <img src="statics\front\images\updown\pic3.jpg" alt="" class="goods_upic">
+                                            <div class="goods_upicbtn">
+                                                <span class="del_img"></span>
+                                                <span class="updata_img"></span>
+                                            </div>
+                                            <span class="upload_test">正在上传···</span>
+                                            <span class="file_btn">+</span>
+                                            <input type="file" class="hide_file hidden">
+                                            <input type="hidden" class="pic_src">
+                                        </li>
+                                        <li class="goods_updown">
+                                            <img src="" alt="" class="goods_upic">
+                                            <div class="goods_upicbtn">
+                                                <span class="del_img"></span>
+                                                <span class="updata_img"></span>
+                                            </div>
+                                            <span class="upload_test">正在上传···</span>
+                                            <span class="file_btn">+</span>
+                                            <input type="file" class="hide_file hidden">
+                                            <input type="hidden" class="pic_src">
+                                        </li>
+                                        <li class="goods_updown">
+                                            <img src="" alt="" class="goods_upic">
+                                            <div class="goods_upicbtn">
+                                                <span class="del_img"></span>
+                                                <span class="updata_img"></span>
+                                            </div>
+                                            <span class="upload_test">正在上传···</span>
+                                            <span class="file_btn">+</span>
+                                            <input type="file" class="hide_file hidden">
+                                            <input type="hidden" class="pic_src">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">质量标准：</label>
+                                <input class="user_quality form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">包装方式：</label>
+                                <input class="user_packing form-control" type="text">
+                            </div>
+                            <div class="form-group mygoods_stock">
+                                <label for="name">库存量：</label>
+                                <input class="user_stock form-control" type="text">
+                                <select class="form-control">
+                                    <option>吨</option>
+                                    <option>标箱</option>
+                                    <option>捆</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">起订量：</label>
+                                <input class="user_minimum form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">增幅：</label>
+                                <input class="user_growth form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">计价方式：</label>
+                                <select class="form-control form-methods">
+                                    <option>吨</option>
+                                    <option>标箱</option>
+                                    <option>捆</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">点价合约：</label>
+                                <select class="form-control form-midpoints">
+                                    <option value="上期所CU1506">上期所CU1506</option>
+                                    <option value="上期所CU1507">上期所CU1507</option>
+                                    <option value="上期所CU1508">上期所CU1508</option>
+                                    <option value="上期所CU1508">上期所CU1508</option>
+                                    <option value="上期所CU1509">上期所CU1509</option>
+                                    <option value="上期所CU1510">上期所CU1510</option>
+                                    <option value="上期所CU1511">上期所CU1511</option>
+                                    <option value="上期所CU1512">上期所CU1512</option>
+                                    <option value="上期所CU1601">上期所CU1601</option>
+                                    <option value="上期所CU1602">上期所CU1602</option>
+                                    <option value="上期所CU1603">上期所CU1603</option>
+                                    <option value="上期所CU1604">上期所CU1604</option>
+                                    <option value="上期所CU1605">上期所CU1605</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">升贴水（元/吨）：</label>
+                                <input class="user_discount form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">点价时间：</label>
+                                <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}'})" id="logmin" class="form-control form-wdate" >
+                            </div>
+                            <div class="form-group">
+                                <label for="name">点价方：</label>
+                                <select class="form-control form-party">
+                                    <option>卖家</option>
+                                    <option>买家</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">仓库：</label>
+                                <select class="form-control form-warehouse">
+                                    <option>卖家</option>
+                                    <option>买家</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">交货方式：</label>
+                                <select class="form-control form-delivery">
+                                    <option>买家自提</option>
+                                    <option>卖价送货</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">交货地点：</label>
+                                <textarea class="form-control form-place" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">付款方式：</label>
+                                <select class="form-control form-payment">
+                                    <option>货到线下付款</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">挂牌状态：</label>
+                                <select class="form-control form-state">
+                                    <option>挂牌交易</option>
+                                    <option>线下（未挂牌）</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">交货地点：</label>
+                                <textarea class="form-control form-descr" rows="3"></textarea>
+                            </div>
+                            <div class="r_yzxx"><button type="button" class="btn btn-orange">保存</button><button type="button" class="btn btn-default">取消</button><button type="button" class="btn btn-danger">删除</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="container">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">金属商城</a></li>
+            <li><a href="#">行业资讯</a></li>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">登陆</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <p>Copyright © 2010-2015 dzhce.cn. All Rights Reserved 广州联华电子商务有限公司版权所有 <a href="#">粤ICP备10215232号-2</a></p>
+    </div>
+</div>
+<!-- 弹出框 start -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog"><!-- 登录框 start -->
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                 &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">登录</h4>
+         </div>
+         <div class="modal-body login_body">
+            <form method="post">
+                <div class="login_input">
+                  <input class="user_phone form-control" placeholder="手机号" type="text">
+                  <input class="user_pwd form-control" placeholder="密码" type="password">
+                  <div class="l_code clearfix hidden">
+                      <input class="code fl form-control" placeholder="验证码" type="text">
+                      <img src="statics/front/images/yzm.png"/>
+                      <a href="#">换一张</a>
+                  </div>
+                </div>
+                <div class="login_tip clear">
+                  <div class="login_remeber fl"><b class="checkbox"></b><span class="m_t5 fl">下次自动登录</span></div>
+                  <div class="login_password fr m_t5"><a href="forget.html">忘记密码？</a></div>
+                </div>
+                <div class="login_btn"><button type="button" class="btn btn-primary">登录</button></div>
+                <div class="login_reg"><a href="#">立即注册</a></div>
+            </form>
+         </div>
+      </div><!-- 登录框 end -->
+</div><!-- 弹出框 end -->
+<script type="text/javascript" src="statics/front/js/jquery-1.8.3.min.js"></script>
+<script src="statics/front/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="statics/front/My97DatePicker/WdatePicker.js"></script>
+<script src="statics/front/js/laypage.js"></script>
+<script src="statics/front/js/common.js"></script>
+<script>
+    laypage({
+        cont: $('#page'), //容器。值支持id名、原生dom对象，jquery对象,
+        pages: 100, //总页数
+        skip: true, //是否开启跳页
+        skin: '#ff6600',
+        groups: 3 //连续显示分页数
+    });
+
+</script>
+<script>
+
+        $(".file_btn").click(function(){
+            $(this).nextAll(".hide_file ").trigger("click");
+        })
+</script>
+
+<!-- bootstrap兼容IE插件 -->
+<!--[if lt IE 9]>
+    <script src="statics/front/js/respond.js"></script>
+<![endif]-->
+</body>
+</html>

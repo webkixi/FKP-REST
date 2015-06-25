@@ -1,0 +1,314 @@
+
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗-注册</title>
+@@include('./_common/header/head.html')
+</head>
+
+<body>
+@@include('./_common/header/header.html')
+<div class="header reg_head">
+	<div class="head_top">
+        <div class="container">
+            <ul class="head_tcom fr clearfix">
+                <li><a href="#" data-toggle="modal" data-target="#myModal">会员登录</a></li>
+                <li><a href="regist.html">会员注册</a></li>
+                <li><a href="#">帮助中心</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+        </div>
+	</div>
+</div>
+<div class="wrapper">
+    <div class="container">
+      <div class="clearfix">
+        <ul class="r_logo fl">
+          <li class="rlogo"><a href="/dazong"><img src="statics/front/images/logo.png"></a></li>
+          <li>|</li>
+          <li class="rlogo">账号注册</li>
+        </ul>
+        <div class="r_login">我已经注册，马上<a href="login.html"> 登录</a></div>
+      </div>
+      <div class="r_main">
+        <div class="r_progress r_p1">
+          <em>注册流程</em>
+        </div>
+        <div class="r_wrap">
+          <div class="r_wrap_list r_wyzsj hidden">
+          <div class="form-group">
+              <label for="name">手机号码：</label>
+              <input type="text" class="form-control user_phone" placeholder="手机号">
+              <span class="btn btn-orange msgs">获取短信验证码</span><p class="error_msg text-danger"></p>
+          </div>
+          <div class="form-group">
+              <label for="name">验证码：</label>
+              <input type="text" class="form-control phone_yzm" placeholder="短信验证码">
+              <p class="error_msg text-danger"></p><input id="vCode" name="vCode" readonly type="text" />
+          </div>
+            <div class="r_yzbtn">
+              <a href="javascript:;" type="button" onclick="checkLogin()" id="login_ok" class="btn btn-orange">验证手机</a>
+              <p class="error_msg2"></p>
+            </div>
+          </div>
+          <div class="r_wrap_list r_wmessage ">
+            <form  action="" method="">
+              <div class="form-group">
+                  <label for="name">登录名：</label>
+                  <input type="text" class="form-control user_name" placeholder="登录名">
+                  <p class="error_msg text-danger"></p>
+              </div>
+              <div class="form-group">
+                  <label for="name">密码：</label>
+                  <input type="password" class="form-control user_pwd" placeholder="密码">
+                  <p class="error_msg text-danger"></p>
+              </div>
+              <div class="form-group">
+                  <label for="name">确认密码：</label>
+                  <input type="password" class="form-control user_pwds" placeholder="再次输入密码">
+                  <p class="error_msg text-danger"></p>
+              </div>
+              <div class="form-group">
+                  <label for="name">真实名字：</label>
+                  <input type="text" class="form-control user_tname" placeholder="真实名字">
+                  <p class="error_msg text-danger"></p>
+              </div>
+              <div class="form-group">
+                  <label for="name">公司全称：</label>
+                  <input type="text" class="form-control user_company" placeholder="真实名字">
+                  <p class="error_msg text-danger"></p>
+              </div>
+              <div class="form-group">
+                  <label for="name">传真号码：</label>
+                  <input type="text" class="form-control user_fax" placeholder="传真号码">
+                  <p class="error_msg text-danger"></p>
+              </div>
+              <div class="form-group">
+                  <label for="name">联系邮箱：</label>
+                  <input type="text" class="form-control user_email" placeholder="邮箱地址">
+                  <p class="error_msg text-danger"></p>
+              </div>
+              <div class="form-group">
+                  <label for="name">联系QQ：</label>
+                  <input type="text" class="form-control user_qq" placeholder="qq号">
+                  <p class="error_msg text-danger"></p>
+              </div>
+              <div class="form-group u_address">
+                  <label for="name">地区：</label>
+                  <select class="form-control user_asheng">
+                      <option>广东省</option>
+                      <option>广西省</option>
+                      <option>广南省</option>
+                      <option>江西省</option>
+                      <option>湖南省</option>
+                  </select>
+                  <select class="form-control user_ashi">
+                      <option>广州市</option>
+                      <option>佛山市</option>
+                      <option>汕尾市</option>
+                      <option>深圳市</option>
+                      <option>汕头市</option>
+                  </select>
+                  <select class="form-control user_aqu">
+                      <option>天河区</option>
+                      <option>白云区</option>
+                      <option>越秀区</option>
+                      <option>黄埔区</option>
+                      <option>海珠区</option>
+                  </select>
+                  <input type="text" class="form-control user_adetail"/>
+              </div>
+              <div class="r_wcheckbox col-lg-offset-2 col-md-offset-2">
+                <input type="checkbox" value="checkbox">
+                <label for="u60_input">
+                  <div class="text">
+                    <p><span>我已经阅读并同意</span><a data-toggle="modal" href=".bs-example-modal-lg">《联交所会员服务协议》</a></p>
+                  </div>
+                </label>
+              </div>
+              <div class="r_yzxx col-lg-offset-3 col-md-offset-3"><button type="button" class="btn btn-orange" onClick="chkformss();">同意服务协议并注册</button></div>
+            </form>
+          </div>
+          <div class="r_wrap_list r_wsuccess hidden">
+            <div class="r_wstip">
+              <img src="statics/front/images/reg_ok.png"><span>注册成功！您的账号为：linguanhua</span><br/><br/>
+              <p>恭喜您获得“初级会员”资格，您当前有查看的权利。若要获得交易资格，请<a href="#">进一步认证</a>升级为”认证会员“。</p>
+              <p>客服专员（许小姐）将竭诚为您解决各类网站问题</p>
+              <div class="r_wpeople">
+                <ul>
+                  <li>姓名：许小姐</li>
+                  <li>手机：13793029382</li>
+                  <li>传真：020-343243434</li>
+                  <li>QQ：9382822</li>
+                  <li></li>
+                  <li></li>
+                  <li>为您提供专业的一站式服务！</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="container">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">金属商城</a></li>
+            <li><a href="#">行业资讯</a></li>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">登录</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <p>Copyright © 2010-2015 dzhce.cn. All Rights Reserved 广州联华电子商务有限公司版权所有 <a href="#">粤ICP备10215232号-2</a></p>
+    </div>
+</div>
+<!-- 弹出框 start -->
+<div class="modal fade" id="myregerro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog"><!-- 登录框 start -->
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                 &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">提示</h4>
+         </div>
+         <div class="modal-body login_body">
+            <p class="error_msg2"></p>
+         </div>
+      </div><!-- 登录框 end -->
+    </div>
+</div><!-- 弹出框 end -->
+<!-- 弹出框 start -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg"><!-- 登录框 start -->
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                 &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">联交所会员服务协议</h4>
+         </div>
+         <div class="modal-body">
+
+<div class="doc">
+一、声明
+<p>
+联华商品交易平台有限公司（下称“交易平台”）依据本协议的规定为会员提供服务，本协议在会员和交易平台间具有合同法上的法律效力。用户只有接受本协议所有条款才能成为会员，否则用户无权使用交易平台于本协议下所提供的服务。用户在本交易平台的网站注册、登录或使用网站服务，即表示用户完全接受本协议的全部条款。除本协议条款之外，交易平台网站公布的包括但不限于有关规则、流程、管理制度以及公告等资料文件也表示用户认可并接受。
+</p>
+二、会员分类和注册
+  <ul>
+    <li>2.1  本交易平台的会员分初级会员和交易（认证）会员两种；</li>
+    <li>
+      <ul>
+        <li>2.1.1 初级会员只能浏览网站一般资讯的权利，不能利用交易平台上的交易系统进行交易；</li>
+        <li>2.1.2 交易（认证）会员除了享受初级会员的权利外，还可以通过交易平台的交易系统进行商品交易以及享受其它增值服务；</li>
+      </ul></li>
+    <li>2.2 用户要想成为交易平台的初级会员，必须按交易平台的要求办理注册手续，填写包括但不限于手机号码、姓名、公司名称、联系地址等资料，经系统确认后获得帐号及其密码。用户须确保相关资料的真实性，交易平台不对此资料是否真实性负责。会员不得将自身帐号转让、转借给其他第三人使用，对该帐号及其密码负保管义务，并对由此引起的纠纷、损失和法律责任担责。 </li>
+    <li>2.3 用户成为初级会员后，要想获得交易资格或其他增值服务，须将初级会员升级为交易（认证）会员，升级时须提交公司的营业执照、组织结构代码以及税务登记证等资料，交易平台获得相关资料并经审核通过后用户由初级会员升级为交易（认证）会员。</li>
+    <li>2.4 用户成为会员后，如果资料信息有变更，必须及时在交易平台的网站上更新相关资料信息，否则由此产生的一切责任和风险由会员自承担，交易平台不承担由此产生的任何责任。</li>
+    <li>2.5 无经营或特定经营资格的企业法人或以虚假伪造的证照不当注册为会员从事交易的，其与交易平台之间的协议自始无效，交易平台一经发现，有权立即注销该会员资格。</li>
+</ul>
+三、会员的权利和义务
+<ul>
+    <li>3.1 初级会员有权通过登录本交易平台的网站浏览一般资讯的权利；</li>
+    <li>3.2 交易（认证） 会员有权根据本协议的规定及本交易平台发布的相关规则、流程、管理制度、公告等，利用交易平台的网站登录、发布交易信息、查询商品信息、购买和销售商品、与其他会员订立商品买卖合同、参加交易平台的有关活动，有权按交易平台规定享受其他的有关资讯及信息服务。 </li>
+    <li>3.3  会员有权根据自身需要，更改自身帐号下的密码。会员不得以任何形式擅自转让或授权他人使用自己在本交易平台下的网站注册的帐号。 </li>
+    <li>3.4 会员确保向交易平台提供的注册信息等资料系真实、准确、完整、合法，该资料包括但不限于真实姓名、公司名称 、联系电话、地址、证照等；会员保证本交易平台及其他第三方可以通过上述联系方式与自己进行联系；会员也应在相关资料实际变更时，予以及时更新。 本交易平台对会员提供的信息予以保密。</li>
+    <li>3.5 会员在交易平台网站发布的交易信息应真实、准确、合法、完整，并遵守交易平台相关规则、流程、管理制度和公告等。 </li>
+    <li>3.6 会员不得在网站买卖国家禁止销售的或限制销售的商品、不得买卖侵犯他人知识产权或其他合法权益的商品，也不得买卖违背社会公共利益或公共道德的商品。交易平台应对会员及其行为、商品的合法性做基本的监管，依据本协议及交易平台相关规定对会员的违法行为及商品有权作出相应的处理。</li>
+    <li>3.7 会员不得在交易平台的网站发布各类违法或违规信息，包括但不限于商品信息、交易信息、社区帖子、商品留言，店铺留言，评价内容等。 </li>
+    <li>3.8 会员在本交易平台交易应当遵守诚实信用原则，不得以干预或操纵商品价格等不正当竞争方式扰乱网上交易秩序，不得从事与网上交易无关的不当行为。</li>
+    <li>3.9 会员承诺自己在使用交易平台实施的所有行为遵守国家法律、法规和交易平台的相关规定以及社会公共利益或公共道德。对于因违法上述规定而导致不利后果的的发生，会员独立承担相应的责任。 </li>
+    <li>3.10 会员在交易平台网交易过程中如与其他会员因交易产生纠纷，可以请求交易平台从中予以协调。会员如发现其他会员有违法或违反交易平台相关规定的行为，也可以向交易平台举报。</li>
+    <li>3.11 会员应自行承担因交易产生的相关费用，并依法纳税。</li>
+    <li>3.12 会员有根据交易平台的规则和规定按时交纳会员费、交易交收等费用的义务； </li>
+    <li>3.13会员不得通过任何方式干扰或试图干扰交易平台交易系统及网站的正常工作。</li>
+    </ul>
+    四、 交易平台的权利和义务
+    <ul>
+    <li>4.1 会员理解并同意：鉴于本协议下本交易平台所提供服务的特征，交易平台仅为会员提供一个信息交流、进行商品买卖和提供资讯的完全第三方平台，充当买卖双方之间的交流媒介。 </li> 交易平台如发现可能违反国家法律法规、侵犯他人隐私等合法权益、违背市场及行业基本规律的的行为、商品、信息等，交易平台有权作出相应处理。
+    <li>4.2 交易平台有义务在现有技术水平的基础上，努力确保交易平台交易系统的正常运行，尽力避免服务中断，或应将中断时间限制在最短时间内，保证会员网上交易活动的顺利进行。 </li>
+    <li>4.3 交易平台有义务对会员在注册使用本网站交易和交易系统中所遇到的问题及反映的情况及时作出回复。</li>
+    <li>4.4 交易平台有权对会员的注册资料进行查阅，对存在任何问题或怀疑的注册资料，交易平台有权发出通知询问会员并要求会员做出解释、改正，或根据情况，直接做出处罚、删除等处理。</li>
+    <li>4.5 会员因在交易平台上交易与其他会员产生纠纷的，会员可通过仲裁、诉讼或国家法律规定的其他程序解决纠纷，应国家权力机关依法开展调查时要求交易平台提供相关资料的，交易平台将积极配合并依法提供有关资料；会员将纠纷告知交易平台，或交易平台知悉纠纷情况的，交易平台审核后有权通过书面、电子邮件及电话，向纠纷双方了解纠纷情况，并有权根据需要将所了解的情况通过书面、电子邮件及电话告知对方。</li>
+    <li>4.6 根据国家法律法规、本协议的内容、交易平台的相关规则、流程、管理制度和公告等，依据交易平台所掌握的事实依据，可以认定会员存在违法或违反本协议行为以及在交易平台上的其他不当行为。 </li>
+    <li>4.7交易平台有权在不通知会员的前提下删除或采取其他限制性措施处理下列信息：包括但不限于以规避费用为目的；以炒作信用为目的；存在欺诈等恶意或虚假内容；与网上交易无关或不是以交易为目的；存在恶意竞价或其他试图扰乱正常交易秩序因素；该信息违反公共利益或可能严重损害本公司和其他会员合法利益的。 </li>
+    <li>4.8 会员因注册使用交易平台服务而提供的与会员相关的信息数据，交易平台应采取技术、管理措施对其充分保护。</li>
+    </ul>
+五、服务的中断和终止
+<ul>
+    <li>5.1 在交易平台未向会员收取相关服务费用的情况下（交易平台同意的除外），交易平台可自行全权决定以合理的理由 (包括但不限于交易平台认为会员已违反本协议的字面意义和精神，或会员在超过100天内未登录等) 终止对会员的服务。
+    交易平台应确保系统的安全性、稳定性，确保服务的延续性。交易平台如需暂停或中止全部或部分服务的，应提前24小时以公告的形式在网站上公布或通过会员所提供的联系方式中尽可能快捷的告知会员，确保会员及时作出相应的准备。交易平台应依照国家法律、法规及行业相关规定将会员信息、商品信息、交易信息等在内的会员资料保存至一定期限。</li>
+    <li>
+      5.2 如会员向交易平台提出注销会员注册信息，需经交易平台审核同意，由交易平台注销该注册会员，会员即解除与交易平台的协议关系，但交易平台仍保留下列权利：
+      <ul>
+        <li>5.2.1 会员注销后，交易平台有权保留该会员的资料，包括但不限于以前的会员资料、商品资料和交易记录等。</li>
+        <li>5.2.2 会员注销后，如会员在注销前在交易平台上存在违法行为或违反本协议的行为，交易平台仍可行使本协议所规定的权利。</li>
+      </ul>
+  </li>
+    <li>5.3 如存在下列情况，交易平台可以通过注销用户的方式终止服务：
+      <ul>
+        <li>5.3.1 在会员违反本协议相关规定时，交易平台有权终止向该会员提供服务。交易平台将在中断服务时通知会员。</li>
+        <li>5.3.2 一旦交易平台发现会员注册资料中主要内容是虚假的，交易中心有权随时终止该会员资格；</li>
+        <li>5.3.3 本协议终止或更新时，会员未确认新的协议的。</li>
+        <li>5.3.4 其它交易平台认为需终止服务的情况。</li>
+      </ul>
+  </li>
+    <li>5.4 因会员违反相关法律法规或者违反本协议规定等原因而致使交易平台中断、终止对会员服务的，对于服务中断、终止之前会员交易行为依下列原则处理：
+      <ul>
+         <li>5.4.1 服务中断、终止之前，会员已经上传至交易平台的商品尚未交易或交易尚未完成的，交易平台有权在中断、终止服务的同时删除此项商品的相关信息。</li>
+         <li>5.4.2 服务中断、终止之前，会员已经就其他会员出售的商品做出要约，但未形成交易合同，交易平台有权在中断或终止服务的同时删除该会员的相关要约和信息。</li>
+       </ul>
+    </li>
+    <li>5.5 交易平台若因会员的行为（包括但不限于发布的商品、在交易平台社区发帖等）侵害了第三方的权利或违反了相关规定，而受到第三方的追偿或受到主管机关的处分时，会员应赔偿交易平台因此所产生的一切损失及费用。</li>
+    <li>5.6 对违反相关法律法规或者违反本协议规定，且情节严重的会员，交易平台有权终止该会员使用交易平台的其它服务。 </li>
+  </ul>
+    六、协议的修订
+    <p>
+    本协议可由交易平台修订，并将修订后的协议公告于网站，修订后的条款内容自公告时起生效，并成为本协议的一部分。交易平台在协议修订完成后应将协议修订后的条款以网站公告方式告知会员，会员有选择继续接受或拒绝接受修订后协议的权利。若在本协议修改之后，会员未在三个工作日内做出拒绝接受的意思表示，或仍继续使用本网站相关服务的，视为会员接受和自愿遵守修订后的协议。
+  </p>
+七、交易平台的责任范围
+<p>
+    当用户接受该协议时，用户应明确了解并同意∶
+    <ul>
+      <li>7.1 会员使用交易平台的网站之风险由会员自己负担。交易平台的网站是在现有技术基础上提供的。</li>
+      <li>7.2 会员经由交易平台的网站取得的建议和资讯，无论其形式或表现，仅仅作为参考，会员如果根据此建议或资讯进行交易，交易平台不对此交易的亏损或盈利负责。</li>
+      <li>7.4 交易平台的网站只是为会员提供一个交易的平台，对于会员所刊登的交易物品的合法性、真实性及其品质，以及会员履行交易的能力等，交易平台一律不负任何担保责任。</li>
+      <li>7.5 交易平台网站上的内容、广告、产品或其它资料，交易平台亦不予保证或负责。 对于交易平台的网站提供与其它互联网上的网站或资源的链接，会员可能会因此连结至其它运营商经营的网站，但不表示交易平台与这些运营商有任何关系。其它运营商经营的网站均由各经营者自行负责，不属于交易平台控制及负责范围之内。</li>
+    </ul>
+  </p>
+    八、知识产权
+    <ul>
+      <li>8.1 交易平台的网站所使用的任何相关软件、程序、内容，包括但不限于作品、图片、档案、资料、网站构架、网站版面的安排、网页设计、经由本网站或广告商向会员呈现的广告或资讯，均由交易平台享有相应的知识产权，包括但不限于著作权、商标权、专利权或其它专属权利等，受到相关法律的保护。未经交易平台书面授权，会员保证不修改、出租、出借、出售、散布网站所使用的上述任何资料和资源，或根据上述资料和资源制作成任何种类物品。</li>
+      <li>8.2 交易平台授予会员不可转移及非专属的使用权，使会员可以通过单机计算机使用本网站的目标代码（以下简称"软件"），但会员不得且不得允许任何第三方，复制、修改、创作衍生作品、进行还原工程、反向组译，或以其它方式破译或试图破译源代码，或出售、转让"软件"或对"软件"进行再授权，或以其它方式移转"软件"之任何权利。会员同意不以任何方式修改"软件"，或使用修改后的"软件"。 </li>
+      <li>8.3 会员不得经由非交易平台的网站所提供的界面使用本网站。</li>
+
+  </ul>
+    九、不可抗力
+    <p>
+    因不可抗力或者其他意外事件，使得本协议的履行不可能、不必要或者无意义的，双方均不承担责任。本协议所称之不可抗力意指不能预见、不能避免并不能克服的客观情况，包括但不限于战争、台风、水灾、火灾、雷击或地震、罢工、暴动、法定疾病、黑客攻击、网络病毒、电信部门技术管制、政府行为或任何其它自然或人为造成的灾难等客观情况。
+  </p>
+    十、争议解决方式
+    <ul>
+      <li>10.1 本协议及其修订本的有效性、履行和与本协议及其修订本效力有关的所有事宜，将受中华人民共和国法律约束，任何争议仅适用中华人民共和国法律。</li>
+      <li>10.2 本协议签订地为交易平台注册地。因本协议所引起的会员与交易平台的任何纠纷或争议，首先应友好协商解决，协商不成的，会员在此完全同意将纠纷或争议提交交易平台注册地有管辖权的人民法院诉讼解决。</li>
+
+</ul>
+</div>
+
+         </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+      </div><!-- 登录框 end -->
+    </div>
+</div><!-- 弹出框 end -->
+<script type="text/javascript" src="statics/front/js/jquery-1.8.3.min.js"></script>
+<script src="statics/front/js/bootstrap.min.js"></script>
+<script src="statics/front/js/regist.js"></script>
+</body>
+</html>
