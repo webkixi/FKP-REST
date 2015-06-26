@@ -9,7 +9,7 @@ var config = require('../config')
 
 var getMapJson = function(){
   	if(fs.existsSync(config.mapJson))
-  		return mapJson = JSON.parse(fs.readFileSync(config.mapJson,'utf-8'));
+  		return mapJson = JSON.parse(fs.readFileSync(config.mapDevJson,'utf-8'));
   	else
   		return false;
 }

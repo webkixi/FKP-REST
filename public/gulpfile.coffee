@@ -59,6 +59,7 @@ gulp.task 'doc', getTask('doc')
 
 #本地资源静态DEMO服务器
 gulp.task "server", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev'] , getTask('server')
+gulp.task "dev", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev'] , getTask('server','pro')
 
 # 编译webpack未压缩的资源
 gulp.task 'wp:dev', getTask('wp')
@@ -78,3 +79,5 @@ gulp.task 'testserver',['build'], getTask('server-pro')
 gulp.task 'concat', getTask('concat-common-js')
 
 gulp.task 'ser', getTask('server')
+
+gulp.task 'watch', getTask('watch')

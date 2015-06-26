@@ -4,9 +4,10 @@
 var fs = require('fs');
 var path = require('path')
 var router = require('koa-router');
-var render = require('./render')
+// var render = require('./render')
 var libs = require('../libs/libs')
 var __ = require('lodash')
+var render;
 
 
 
@@ -85,9 +86,10 @@ function *createTempPath2(pms,rjson){
  * {param2} map of static file
  * return rende pages
 **/
-function init(app,mapper){
+function init(app,mapper,rend){
+    render = rend;
     app.use(router(app));
-    var _mapper = mapper;
+    var _mapper = mapper||{};
 
     app
     .get('/',forBetter)
@@ -115,8 +117,8 @@ function *distribute(_mapper){
         var params = this.params;
         var pageData = {
             //静态资源
-            commonjs: _mapper.commonJs.common,   //公共css
-            commoncss: _mapper.commonCss.common, //公共js
+            commonjs: _mapper.commonJs.common||'common.js',   //公共css
+            commoncss: _mapper.commonCss.common||'common.css', //公共js
             pagejs: '',
             pagecss: '',
             pagedata: {}
@@ -169,7 +171,7 @@ function *htmlRender(stat,route,data){
     if (stat)
         this.body = yield render(route,data);
     else
-        this.body = 'no file';
+        this.body = 'no pages config file';
         // this.body = yield render('404');
 }
 
