@@ -81,3 +81,4 @@ gulp.task 'concat', getTask('concat-common-js')
 gulp.task 'ser', getTask('server')
 
 gulp.task 'watch', getTask('watch')
+gulp.task 'watch:pro', getTask('watch','pro')

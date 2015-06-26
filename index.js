@@ -12,7 +12,7 @@ var args = process.argv.splice(2);
 
 //自定义部分
 var statics = require('./modules/static')
-var _mapper = require('./modules/mapper')()
+var _mapper = require('./modules/mapper')(args[0])
 var route = require('./modules/route')
 
 

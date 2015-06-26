@@ -4,3 +4,4 @@ node_modules
 /public/bower_components/*
 /dist
 /public/dist/*
+npm-debug.log
