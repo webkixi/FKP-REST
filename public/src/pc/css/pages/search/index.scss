@@ -20,16 +20,20 @@
                 display: inline-block;
             }
             &-small{
-                margin-left: 50px;
+                font-size: 10*$px;
+                margin-left: 50*$px;
             }
-            &-des{}
+            &-des{
+                margin-top: 15*$px;
+            }
         }
-        h4{
-            .list-heading{
-                font-size: 1.8rem;
-                font-weight: normal;
-                margin: 0 0 10px 0;
-            }
+    }
+    h4{
+        font-size: 20*$px;
+        .list-heading{
+            font-size: 18*$px;
+            font-weight: normal;
+            margin: 0 0 10px 0;
         }
     }
 }

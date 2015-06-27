@@ -20,6 +20,7 @@
     "koa-static-cache": "^2.0.1",
     "lodash": "^3.9.3",
     "markdown-js": "^0.0.3",
+    "pm2": "^0.14.2",
     "request": "^2.58.0",
     "swig": "^1.4.2",
     "underscore": "^1.7.0"
