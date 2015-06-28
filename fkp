@@ -45,6 +45,14 @@ demo(){
     gulp
 }
 
+install(){
+    cd public
+    npm install
+
+    cd ..
+    npm install
+}
+
 case $1 in
   dev)
       dev
