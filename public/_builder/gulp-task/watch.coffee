@@ -10,8 +10,8 @@ module.exports = (gulp,$,slime,env)->
         if  !env == 'pro'
             # if encounter 'Error: watch ENOSPC': if in linux you must do this : https://github.com/gulpjs/gulp/issues/217
             # means edit max_user_watches number
-            gulp.watch [config.dirs.src + '/css/**/*.?(less|scss)',config.dirs.src + '/images/slice/*.png'], ['pagecss:dev']
+            gulp.watch [config.dirs.src + '/css/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['pagecss:dev']
             #js
-            gulp.watch config.dirs.src + '/js/?(modules|pages|widgets)/**/*.?(coffee|js|jsx|cjsx|hbs|scss|css)', ['buildCommon:dev']
+            gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx|hbs|scss|css)', ['buildCommon:dev']
             #html
             gulp.watch config.dirs.src + '/html/**/*.*', ['html']
