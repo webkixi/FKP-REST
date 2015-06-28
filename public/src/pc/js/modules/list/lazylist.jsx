@@ -4,8 +4,7 @@ PageScrollStartEndLazyLoadMixin = require('mixins/PageScrollStartEndLazyLoadMixi
 libs = require('libs/libs');
 
 //react
-var
-LazyList = React.createClass({
+var fixedbar = React.createClass({
 	mixins: [PageScrollStartEndLazyLoadMixin],
 	getDefaultProps: function() {
 		return {
@@ -41,4 +40,4 @@ LazyList = React.createClass({
 	}
 });
 
-module.exports = LazyList;
+module.exports = fixedbar;
