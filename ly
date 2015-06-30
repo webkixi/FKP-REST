@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# node --harmony index.js dev
-
 
 # dev
 dev(){
