@@ -2,20 +2,6 @@
 
 # node --harmony index.js dev
 
-# 1
-
-# if $1 = 'dev'; then
-#     cd public
-#     gulp dev
-#
-#     # 2
-#     cd ..
-#     node --harmony index.js dev &
-#
-#     # 3
-#     cd public
-#     gulp watch
-# fi
 
 # dev
 dev(){
