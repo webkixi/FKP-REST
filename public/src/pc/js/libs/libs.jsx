@@ -16,7 +16,8 @@ var getOffset = function(el){
           height: width
       };
     }else{
-      var box = el.getBoundingClientRect(),
+      var parent,pbox;
+			var box = el.getBoundingClientRect(),
       doc = el.ownerDocument,
       body = doc.body,
       docElem = doc.documentElement,
@@ -38,8 +39,30 @@ var getOffset = function(el){
           clientTop = 0;
           clientLeft = 0;
       }
+
+			var node = el.parentNode;
+			while(CurrentStyle(node).position!=='relative'||CurrentStyle(node).position!=='absolute'){
+					// parent=node.parentNode;
+					node = node.parentNode;
+					if(CurrentStyle(node).position==='relative'){
+							parent = node;
+							pbox = parent.getBoundingClientRect();
+							var ptop = pbox.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
+				      pleft = pbox.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
+							break;
+					}
+			}
+
       var top = box.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
       left = box.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
+
+
+
+			top  = parent ? top-ptop : top;
+			left = parent ? left-pleft : left;
+
+			top  = top - parseInt(CurrentStyle(el).paddingTop);
+			// left = left - parseInt(CurrentStyle(el).paddingLeft);
 
       var diff_height = box.bottom-box.top,
       diff_width = box.right - box.left,
@@ -47,12 +70,12 @@ var getOffset = function(el){
       right = left + diff_width;
 
       return {
-          top: top,
-          bottom: bottom,
-          left: left,
-          right: right,
-          width: diff_width,
-          height: diff_height
+          top: top+'px',
+          bottom: bottom+'px',
+          left: left+'px',
+          right: right+'px',
+          width: diff_width+'px',
+          height: diff_height+'px'
       };
     }
 }
@@ -191,7 +214,7 @@ var node = {
         if(el.removeNode)
             el.removeNode(true);
         else
-            el.remove();         
+            el.remove();
     }
 }
 
