@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # dev
 dev(){
     cd public
