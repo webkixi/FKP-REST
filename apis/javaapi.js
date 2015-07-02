@@ -1,53 +1,54 @@
-// var request = require('request');
-var request = require('koa-request');
+var request = require('request');
 var path = require('path');
 var libs = require('../libs/libs');
+var qs = require('querystring');
 
-var base = 'http://120.25.223.175:5051/jh-web-portal/';
-
+// request for koa
 var req = function(api,options){
     function rp(err, rep, body){   //deal with response result
         if(error)
             throw new Error("async search: no respons data");
 
         if (!error && response.statusCode == 200)
-            return body;   // console.log(body) // Show the HTML for the Google homepage.
+            return body;
     }
-    return function(rp)
+
+    return function(rp){
         request(api,rp);
+  	}
 }
 
 module.exports = {
-    req：request,
+    req: request,
     search: getSearch,
-    info: getInfo,
+    infos: getInfo,
     goods: getGood,
     article: getArticle
 }
 
+var base = "http://120.25.223.175:5051/jh-web-portal/";
+
 function *getSearch(param){
+    libs.elog('javaapi/getSearch')
+    var searchUrl = base+'search-json.html';
     if(libs.getObjType(param)!=='Object')
-        return false;
-    // var uri = JSON.stringify(url);
-    var searchUrl = path.join(base,'search-json.html');
-    // st=1&sc=%E7%BD%91'
-    var apiData = yield req(searchUrl,{st:1,sc:'%E7%BD%91'});
+        return yield req(searchUrl);
+
+    return yield req(searchUrl+'?'+qs.stringify(param));
 }
 
-
-function *getUser(url){
+function *getUser(param){
 
 }
 
-function *getInfo(url){
-    if(url)
-        url = 'http://120.25.223.175:5051/jh-web-portal/info/json/' + url;
-}
-
-function *getGood(url){
+function *getInfo(param){
 
 }
 
-function *getArticle(url){
+function *getGood(param){
+
+}
+
+function *getArticle(param){
 
 }

@@ -4,9 +4,8 @@
 var fs = require('fs');
 var path = require('path')
 var router = require('koa-router');
-// var render = require('./render')
 var libs = require('../libs/libs')
-var __ = require('lodash')
+var __ = libs.$lodash;
 var render;
 
 
@@ -91,15 +90,18 @@ function init(app,mapper,rend){
     app.use(router(app));
     var _mapper = mapper||{};
 
+    function *forBetter(){
+       yield distribute.call(this,mapper)
+    }
+
+
     app
     .get('/',forBetter)
     .get('/:cat',forBetter)
     .get('/:cat/:title',forBetter)
     .get('/:cat/:title/:id',forBetter)
 
-    function *forBetter(){
-       yield distribute.call(this,mapper)
-    }
+    .post('/search',forBetter)
 }
 
 /**
@@ -129,11 +131,11 @@ function *distribute(_mapper){
         : false
 
         if ( isRender ){
-
             //静态资源初始化
             if (route){
                 if (route in _mapper.pageCss)   //pagecss
                     pageData.pagecss = _mapper.pageCss[route];
+
                 if (route in _mapper.pageJs)   //pagejs
                     pageData.pagejs = _mapper.pageJs[route];
             }
@@ -141,9 +143,10 @@ function *distribute(_mapper){
             if (route){
                 if (route == 'demoindex')
                     pageData = yield require('../pages/demoindex').getDemoData(pageData);  //演示页
+
                 else{
                     if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') ))
-                        pageData = yield require('../pages/'+route).getData(pageData);
+                        pageData = yield require('../pages/'+route).getData.call(this,pageData);
 
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
@@ -151,7 +154,13 @@ function *distribute(_mapper){
                         return false;
                     }
                 }
-                yield htmlRender.call(this,true,route,pageData);
+
+                if(this.method==='GET')
+                    yield htmlRender.call(this,true,route,pageData);
+
+                else if(this.method==='POST')
+                    yield returnJson.call(this,true,route,pageData);
+
             }
 
             else{ /* todo something */ }
@@ -167,12 +176,22 @@ function *distribute(_mapper){
  * return rende pages
 **/
 function *htmlRender(stat,route,data){
-    libs.clog('route.js/htmlRender');
+    libs.clog('route.js/htmlRender'+route);
     if (stat)
         this.body = yield render(route,data);
     else
         this.body = 'no pages config file';
         // this.body = yield render('404');
+}
+
+
+
+function *returnJson(stat,route,data){
+    libs.clog('route.js/htmlRender'+route);
+    if (stat)
+        this.body = JSON.stringify(data);
+    else
+        this.body = '{"stat": 0}';
 }
 
 
