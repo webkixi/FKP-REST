@@ -3,8 +3,8 @@ $(function() {
     var text = $(".search_text").val();
     var type = 0;
     var data = {
-      st: type,
-      sc:text
+      'st': type,
+      'sc':text
     }
     $.post("/search",data,function(result){
         console.log(result)

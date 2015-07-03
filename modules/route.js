@@ -48,6 +48,9 @@ function *createTempPath2(pms,rjson){
     var params = pms;
     var route = false;
 
+    console.log(params)
+    console.log(rjson)
+
     var cat = params.cat, title = params.title, id = params.id;
     var gtpy = libs.getObjType;
 
@@ -101,7 +104,7 @@ function init(app,mapper,rend){
     .get('/:cat/:title',forBetter)
     .get('/:cat/:title/:id',forBetter)
 
-    .post('/search',forBetter)
+    .post('/:cat',forBetter)
 }
 
 /**
@@ -112,7 +115,7 @@ function init(app,mapper,rend){
 **/
 function *distribute(_mapper){
     libs.clog('route.js/distribute');
-    var routeJson = path.parse(this.path);
+    var routeJson = path.parse(this.path);   
 
     if(_mapper){
         var isRender = yield filterRendeFile(this.params,routeJson);
@@ -127,7 +130,7 @@ function *distribute(_mapper){
         };
 
         route = isRender
-        ? yield createTempPath2(this.params,routeJson)
+        ? yield createTempPath2.call(this,this.params,routeJson)
         : false
 
         if ( isRender ){
@@ -145,8 +148,9 @@ function *distribute(_mapper){
                     pageData = yield require('../pages/demoindex').getDemoData(pageData);  //演示页
 
                 else{
-                    if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') ))
+                    if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') )){
                         pageData = yield require('../pages/'+route).getData.call(this,pageData);
+                    }
 
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');

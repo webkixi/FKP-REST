@@ -47,13 +47,27 @@ demo(){
 
 install(){
     cd public
+    npm install node-gyp -g
     npm install
+    npm install node-sass
 
     cd ..
     npm install
+    npm install gulp -g
+    npm install nodemon -g
+}
+
+server(){
+	nodemon --harmony index dev
 }
 
 case $1 in
+  install)
+      install
+      ;;
+  server)
+      server
+      ;;
   dev)
       dev
       ;;
