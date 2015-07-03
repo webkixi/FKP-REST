@@ -22,6 +22,7 @@ function *demoIndexData(oridata){
     }
 
     else if(mtd==='POST'){
+        console.log("**************************");
         var body = libs.$parse.json(this);
         apiData = yield api.search(body);
     }
