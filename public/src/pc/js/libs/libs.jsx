@@ -1,3 +1,5 @@
+var lodash = require('lodash');
+
 var getOffset = function(el){
     if(!el)el=window;
     if(el===window){
@@ -14,7 +16,8 @@ var getOffset = function(el){
           height: width
       };
     }else{
-      var box = el.getBoundingClientRect(),
+      var parent,pbox;
+			var box = el.getBoundingClientRect(),
       doc = el.ownerDocument,
       body = doc.body,
       docElem = doc.documentElement,
@@ -36,8 +39,30 @@ var getOffset = function(el){
           clientTop = 0;
           clientLeft = 0;
       }
+
+			var node = el.parentNode;
+			while(CurrentStyle(node).position!=='relative'||CurrentStyle(node).position!=='absolute'){
+					// parent=node.parentNode;
+					node = node.parentNode;
+					if(CurrentStyle(node).position==='relative'){
+							parent = node;
+							pbox = parent.getBoundingClientRect();
+							var ptop = pbox.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
+				      pleft = pbox.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
+							break;
+					}
+			}
+
       var top = box.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
       left = box.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
+
+
+
+			top  = parent ? top-ptop : top;
+			left = parent ? left-pleft : left;
+
+			top  = top - parseInt(CurrentStyle(el).paddingTop);
+			// left = left - parseInt(CurrentStyle(el).paddingLeft);
 
       var diff_height = box.bottom-box.top,
       diff_width = box.right - box.left,
@@ -45,12 +70,12 @@ var getOffset = function(el){
       right = left + diff_width;
 
       return {
-          top: top,
-          bottom: bottom,
-          left: left,
-          right: right,
-          width: diff_width,
-          height: diff_height
+          top: top+'px',
+          bottom: bottom+'px',
+          left: left+'px',
+          right: right+'px',
+          width: diff_width+'px',
+          height: diff_height+'px'
       };
     }
 }
@@ -126,6 +151,73 @@ function arg2arr(s){
      }
  }
 
+/*
+ * 动态插入style到head，并带有简单的兼容效果
+*/
+function addSheet() {
+    var doc, tmpCssCode, cssCode, id;
+    if (arguments.length == 1) {
+        doc = document;
+        tmpCssCode = arguments[0]
+    } else if (arguments.length == 2) {
+        doc = arguments[0];
+        tmpCssCode = arguments[1];
+    } else {
+        alert("addSheet函数最多接受两个参数!");
+    }
+    if(libs.getObjType(tmpCssCode)==='Array'){
+        id = tmpCssCode[1];
+        cssCode = tmpCssCode[0];
+    }
+    if (! +"\v1") {//增加自动转换透明度功能，用户只需输入W3C的透明样式，它会自动转换成IE的透明滤镜
+        var t = cssCode.match(/opacity:(\d?\.\d+);/);
+        if (t != null) {
+            cssCode = cssCode.replace(t[0], "filter:alpha(opacity=" + parseFloat(t[1]) * 100 + ")")
+        }
+    }
+    cssCode = cssCode + "\n"; //增加末尾的换行符，方便在firebug下的查看。
+    var headElement = doc.getElementsByTagName("head")[0];
+    var styleElements = headElement.getElementsByTagName("style");
+    // if (styleElements.length == 0) {//如果不存在style元素则创建
+    //     if (doc.createStyleSheet) {    //ie
+    //         doc.createStyleSheet();
+    //     } else {
+    //         var tempStyleElement = doc.createElement('style'); //w3c
+    //         tempStyleElement.setAttribute("type", "text/css");
+    //         headElement.appendChild(tempStyleElement);
+    //     }
+    // }
+    // var styleElement = styleElements[0];
+
+    var tempStyleElement = doc.createElement('style'); //w3c
+    tempStyleElement.setAttribute("rel", "stylesheet");
+    tempStyleElement.setAttribute("type", "text/css");
+    tempStyleElement.setAttribute("id", id);
+    headElement.appendChild(tempStyleElement);
+    var styleElement = document.getElementById(id);
+
+    var media = styleElement.getAttribute("media");
+    if (media != null && !/screen/.test(media.toLowerCase())) {
+        styleElement.setAttribute("media", "screen");
+    }
+    if (styleElement.styleSheet) {    //ie
+        styleElement.styleSheet.cssText += cssCode;
+    } else if (doc.getBoxObjectFor) {
+        styleElement.innerHTML += cssCode; //火狐支持直接innerHTML添加样式表字串
+    } else {
+        styleElement.appendChild(doc.createTextNode(cssCode))
+    }
+}
+
+var node = {
+    remove: function(el){
+        if(el.removeNode)
+            el.removeNode(true);
+        else
+            el.remove();
+    }
+}
+
 module.exports = {
   getOffset: getOffset,
   DocmentView: DocmentView,
@@ -133,5 +225,8 @@ module.exports = {
   rmvEvent: rmvEvent,
   extend: extend,
   getObjType: getObjType,
-  arg2arr: arg2arr
+  arg2arr: arg2arr,
+  addSheet: addSheet,
+  lodash: lodash,
+  node: node
 }

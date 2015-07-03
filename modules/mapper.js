@@ -7,18 +7,23 @@ var config = require('../config')
 
 // 从map.json拿取获取静态资源 hash 名称
 
-var getMapJson = function(){
+var getMapJson = function(stat){
+    if(!stat) stat = 'pro';
+    console.log('===============');
+    console.log('===============');
+    console.log('===============');
+    console.log(stat)
   	if(fs.existsSync(config.mapJson))
-  		return mapJson = JSON.parse(fs.readFileSync(config.mapJson,'utf-8'));
+  		return mapJson = stat === 'dev' ? JSON.parse(fs.readFileSync(config.mapDevJson,'utf-8')) : JSON.parse(fs.readFileSync(config.mapJson,'utf-8'));
   	else
   		return false;
 }
 
 
 //设置全局变脸_mapper
-var getMapper = function(){
+var getMapper = function(stat){
     var _mapper={};
-  	var mapper = getMapJson();
+  	var mapper = getMapJson(stat);
   	if(!mapper)
     		return false;
   	_mapper = mapper;

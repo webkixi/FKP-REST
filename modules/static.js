@@ -7,10 +7,19 @@ var config = require('../config')
 // setup views mapping .html
 // to the handlebars template engine
 
-var stac = statics(config.static.dft,{
-  	buffer: true,
-  	gzip: true
-})
+function setStatic(stat){
+    if(stat && stat==='dev'){
+        console.log('&&&&&&&&&&&&&&++++++++++++');
+        return statics(config.static.test.dft,{
+            buffer: true,
+            gzip: true
+        });
+    }else{
+        return statics(config.static.dft,{
+            buffer: true,
+            gzip: true
+        });
+    }
+}
 
-
-module.exports = stac
+module.exports = setStatic
