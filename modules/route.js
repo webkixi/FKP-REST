@@ -3,6 +3,7 @@
  */
 var fs = require('fs');
 var path = require('path')
+var api = require('../apis/javaapi');
 var router = require('koa-router');
 var libs = require('../libs/libs')
 var __ = libs.$lodash;
@@ -115,7 +116,8 @@ function init(app,mapper,rend){
 **/
 function *distribute(_mapper){
     libs.clog('route.js/distribute');
-    var routeJson = path.parse(this.path);   
+
+    var routeJson = path.parse(this.path);  
 
     if(_mapper){
         var isRender = yield filterRendeFile(this.params,routeJson);

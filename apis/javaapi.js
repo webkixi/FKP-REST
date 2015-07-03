@@ -23,7 +23,8 @@ module.exports = {
     search: getSearch,
     infos: getInfo,
     goods: getGood,
-    article: getArticle
+    article: getArticle,
+    user: getUser
 }
 
 var base = "http://120.25.223.175:5051/jh-web-portal/";
@@ -38,7 +39,12 @@ function *getSearch(param){
 }
 
 function *getUser(param){
+    libs.elog('javaapi/getUser')
+    var url = base+'checkUserStatus.html';
+    if(libs.getObjType(param)!=='Object')
+        return yield req(url);
 
+    return yield req(url+'?'+qs.stringify(param));
 }
 
 function *getInfo(param){
