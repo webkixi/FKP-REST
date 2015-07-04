@@ -1,15 +1,11 @@
-var
-// ItemVIEW = require('widgets/itemView/itemView'),
-//LoadList = require('modules/list/loadlist'),
-// LazyList = require('modules/list/lazylist'),
-FixedBar = require('modules/fixed/fixedbar')
+var FixedBar = require('modules/fixed/fixedbar'),
 render = React.render;
 
 
 //循环数据
 render(
   <FixedBar left={'10px'} top={'100px'}>
-      <div id={'test'} style={{backgroundColor:'blue',height:'300px',width:'100px'}}>123</div>         
+      <div id={'test'} style={{'backgroundColor':'blue','height':'300px','width':'100px'}}>123</div>
   </FixedBar>
   ,document.getElementById('good')
 );
