@@ -50,6 +50,9 @@ var PageScrollStartEndMixin = {
     },
 
     addSheet: function(){
+        this.setState({
+            sheets: sheet
+        });
         if(!document.getElementById('fixedbarid')){ //动态插入style
             var csstext = '#'+this.state.sheets.ele+','+'.fixedbar{'
             for(var atr in this.state.sheets){
@@ -70,17 +73,26 @@ var PageScrollStartEndMixin = {
   	    this.scrollTop = scrollTop;
   	    this.isScrolling = true;
 
-        if(this.state.sheets.to && scrollTop>parseInt(this.state.sheets.to)){
+        if(this.state.sheets.to){
+            if(scrollTop>parseInt(this.state.sheets.to)){
+                this.addSheet();
+                window.clearTimeout(this.ttt);
+          	    this.ttt = window.setTimeout(this._onScrollEnd, 0);
+
+                if (typeof this.props.onscroll === 'function')
+            	    	this.props.onscroll.call(this, scrollTop);
+            }else{
+                if(document.getElementById('fixedbarid')){ //动态插入style
+                    var fixedbarid = document.getElementById('fixedbarid');
+                    libs.node.remove(fixedbarid)
+                }
+            }
+        }else{
             window.clearTimeout(this.ttt);
-      	    this.ttt = window.setTimeout(this._onScrollEnd, 0);
+            this.ttt = window.setTimeout(this._onScrollEnd, 0);
 
             if (typeof this.props.onscroll === 'function')
-        	    	this.props.onscroll.call(this, scrollTop);
-        }else{
-            if(document.getElementById('fixedbarid')){ //动态插入style
-                var fixedbarid = document.getElementById('fixedbarid');
-                libs.node.remove(fixedbarid)
-            }
+                this.props.onscroll.call(this, scrollTop);
         }
     },
 

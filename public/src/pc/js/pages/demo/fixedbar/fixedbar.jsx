@@ -5,10 +5,11 @@ var
 FixedBar = require('modules/fixed/fixedbar')
 render = React.render;
 
+
 //循环数据
 render(
-  <FixedBar left={'10px'} top={'100px'} to={'100px'}>
-      <div style={{backgroundColor:'blue',height:'300px',width:'100px'}}>123</div>
+  <FixedBar left={'10px'} top={'100px'}>
+      <div id={'test'} style={{backgroundColor:'blue',height:'300px',width:'100px'}}>123</div>         
   </FixedBar>
   ,document.getElementById('good')
 );

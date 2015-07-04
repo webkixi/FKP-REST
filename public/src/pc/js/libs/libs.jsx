@@ -1,4 +1,5 @@
 var lodash = require('lodash');
+var zepto = require('zepto')
 
 var getOffset = function(el){
     if(!el)el=window;

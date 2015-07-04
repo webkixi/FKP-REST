@@ -5,7 +5,16 @@
 <head>
     <title>fixed栏</title>
     @@include('../_common/header/head.html')
-    <link rel="stylesheet" href="/css/{{pagecss}}">
+    <style>
+    .example-enter {
+opacity: 0.01;
+transition: opacity .5s ease-in;
+}
+
+.example-enter.example-enter-active {
+opacity: 1;
+}
+    </style>
     <!--[if lt IE 9]>
         <script src="/js/ie.js"></script>
     <![endif]-->
@@ -15,12 +24,10 @@
     <div class="container">
         <div class="container__wrap">
             <div class="layout-fixed-inner">
-                <!--home-floor -->
-                <div id='good' class="home-floor">
-
+                <div class="" style="height:2000px;width:100%;">
+                    fdsgsdfg
                 </div>
-                <!--/home-floor -->
-
+                <div id='good' class="home-floor"> </div>
             </div>
         </div>
     </div>
