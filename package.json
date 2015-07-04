@@ -13,6 +13,7 @@
     "extend": "^2.0.1",
     "handlebars": "^3.0.3",
     "koa": "^0.13.0",
+    "koa-generic-session": "^1.9.0",
     "koa-router": "^3.7.0",
     "koa-session": "^3.1.0",
     "koa-static": "^1.4.9",
