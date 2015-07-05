@@ -10,6 +10,7 @@
     "co-body": "^1.0.0",
     "co-views-helpers": "0.0.1",
     "coffee-script": "^1.9.3",
+    "diskdb": "^0.1.14",
     "extend": "^2.0.1",
     "handlebars": "^3.0.3",
     "koa": "^0.13.0",

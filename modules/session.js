@@ -1,24 +1,41 @@
 /**
  * Module dependencies.
  */
-var session = require('koa-generic-session');
+// var session = require('koa-generic-session');
+var libs = require('../libs/libs');
 
 //加密
-function encrypt(str, secret) {
-    var cipher = crypto.createCipher('aes192', secret);
-    var enc = cipher.update(str, 'utf8', 'hex');
-    enc += cipher.final('hex');
-    return enc;
-}
-//解密
-function decrypt(str, secret) {
-    var decipher = crypto.createDecipher('aes192', secret);
-    var dec = decipher.update(str, 'hex', 'utf8');
-    dec += decipher.final('utf8');
-    return dec;
+function getSession(ctx,idf){
+    var sess = ctx.session;
+    
+    // ctx.body = session.count;
 }
 
-module.exports = {
-    en: encrypt,
-    de: decrypt
+function setSession(ctx,idf){
+    var sess = ctx.session;
+
+}
+
+
+function rmvSession(ctx,idf){
+    var sess = ctx.session;
+    sess = null;
+
+}
+
+function countSession(ctx){
+    var sess = ctx.session;
+    sess.count = sess.count || 0;
+    sess.count++;
+}
+
+var exp = {
+    set: setSession,
+    get: getSession,
+    remove: rmvSession,
+    count: countSession
+}
+
+module.exports = function(){
+    return exp;
 }

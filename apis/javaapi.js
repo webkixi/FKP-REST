@@ -1,8 +1,4 @@
 var request = require('request');
-var path = require('path');
-var libs = require('../libs/libs');
-var qs = require('querystring');
-
 // request for koa
 var req = function(api,options){
     function rp(err, rep, body){   //deal with response result
@@ -15,36 +11,47 @@ var req = function(api,options){
 
     return function(rp){
         request(api,rp);
-  	}
+    }
 }
 
-module.exports = {
-    req: request,
-    search: getSearch,
-    infos: getInfo,
-    goods: getGood,
-    article: getArticle,
-    user: getUser
+var path = require('path');
+var libs = require('../libs/libs');
+var qs = require('querystring');
+var src = "http://120.25.223.175:5051/jh-web-portal/";
+
+
+var apiPath = {
+    base: src,
+    dirs: {
+        search: src+'search-json.html',
+        user: src+'checkUserStatus.html'
+    }
 }
 
-var base = "http://120.25.223.175:5051/jh-web-portal/";
-
+//搜索
 function *getSearch(param){
     libs.elog('javaapi/getSearch')
-    var searchUrl = base+'search-json.html';
-    if(libs.getObjType(param)!=='Object')
-        return yield req(searchUrl);
 
-    return yield req(searchUrl+'?'+qs.stringify(param));
-}
+    var url = apiPath.dirs.search;
+    var query = qs.stringify(param);
 
-function *getUser(param){
-    libs.elog('javaapi/getUser')
-    var url = base+'checkUserStatus.html';
     if(libs.getObjType(param)!=='Object')
         return yield req(url);
 
-    return yield req(url+'?'+qs.stringify(param));
+    return yield req(url+'?'+query);
+}
+
+//用户
+function *getUser(param){
+    libs.elog('javaapi/getUser')
+
+    var url = apiPath.dirs.user;
+    var query = qs.stringify(param);
+
+    if(libs.getObjType(param)!=='Object')
+        return yield req(url);
+
+    return yield req(url+'?'+query);
 }
 
 function *getInfo(param){
@@ -57,4 +64,13 @@ function *getGood(param){
 
 function *getArticle(param){
 
+}
+
+module.exports = {
+    req: request,
+    search: getSearch,
+    infos: getInfo,
+    goods: getGood,
+    article: getArticle,
+    user: getUser
 }

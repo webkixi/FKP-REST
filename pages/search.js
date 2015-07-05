@@ -22,10 +22,9 @@ function *demoIndexData(oridata){
     }
 
     else if(mtd==='POST'){
-        // libs.clog('pages/search.js========POST');
+        libs.clog('pages/search.js========POST');
         // var userInfo = yield api.user({'loginPhone':'13268280401'})
-        // console.log(userInfo);
-
+        // console.log(userInfo); 
 
         var body = yield libs.$parse(this);   
         apiData = yield api.search(body);
@@ -33,7 +32,6 @@ function *demoIndexData(oridata){
 
     var jsonData = JSON.parse(apiData[1]);
     oridata = libs.$extend(true,oridata,jsonData);
-    // libs.clog(oridata);
 
     return oridata;
 }

@@ -6,8 +6,6 @@
 var koa = require('koa');
 var session = require('koa-generic-session');
 var render = require('./modules/render')
-var api = require('apis/javaapi');
-// var statics = require('koa-static-cache');   //npm包在windows上有问题，需要到github上拿最新的文件
 
 var args = process.argv.splice(2);
 
@@ -26,12 +24,14 @@ app.use(statics(args[0]));
 
 //session
 app.keys = ['keys','gzgzmixcookie'];
-app.use(session(app));
+app.use(session({
+	key:'dazong'
+}));
 
 
 //router
 // app.use(router(app)); //开启路由
-route(app,_mapper,render(args[0]))
+route.call(this,app,_mapper,render(args[0]))
 
 
 app.on('error', function(err){

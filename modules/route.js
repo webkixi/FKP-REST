@@ -8,6 +8,7 @@ var router = require('koa-router');
 var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
+var sessi = require('./session');
 
 
 
@@ -49,9 +50,6 @@ function *createTempPath2(pms,rjson){
     var params = pms;
     var route = false;
 
-    console.log(params)
-    console.log(rjson)
-
     var cat = params.cat, title = params.title, id = params.id;
     var gtpy = libs.getObjType;
 
@@ -82,7 +80,6 @@ function *createTempPath2(pms,rjson){
     return route;
 }
 
-
 /**
  * 路由分配
  * {param1} koa implement
@@ -92,12 +89,13 @@ function *createTempPath2(pms,rjson){
 function init(app,mapper,rend){
     render = rend;
     app.use(router(app));
+
     var _mapper = mapper||{};
 
     function *forBetter(){
-       yield distribute.call(this,mapper)
+        this.sess = sessi();
+        yield distribute.call(this,mapper)
     }
-
 
     app
     .get('/',forBetter)
@@ -115,6 +113,7 @@ function init(app,mapper,rend){
  * return rende pages
 **/
 function *distribute(_mapper){
+
     libs.clog('route.js/distribute');
 
     var routeJson = path.parse(this.path);  
