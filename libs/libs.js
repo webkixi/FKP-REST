@@ -1,4 +1,9 @@
+var url = require('url');
+var path = require('path')
+var domain = require('domain');
 var extend = require('extend');
+var parse = require('co-body');
+var lodash = require('lodash');
 
 //libs
 var getObjType = function(object){
@@ -35,5 +40,11 @@ module.exports = {
     clog: clog,
     elog: elog,
     wlog: wlog,
-    $extend: extend
+    $extend: extend,
+    $url: url,
+    $path: path,
+    $domain: domain,
+    $parse: parse,
+    $lodash: lodash
+
 }

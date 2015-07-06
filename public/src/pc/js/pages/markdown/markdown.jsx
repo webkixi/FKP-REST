@@ -11,6 +11,6 @@ var left = pos.left+'px';
 var top = pos.top+'px';
 //循环数据
 render(
-    <FixedBar left={left} ele={"side-menu"} to={top}/>
+    <FixedBar left={left} ele={"side-menu"}/>
     ,document.getElementById('good')
 );

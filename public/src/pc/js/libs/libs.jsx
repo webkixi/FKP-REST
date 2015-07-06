@@ -41,8 +41,7 @@ var getOffset = function(el){
       }
 
 			var node = el.parentNode;
-			while(CurrentStyle(node).position!=='relative'||CurrentStyle(node).position!=='absolute'){
-					// parent=node.parentNode;
+			while(CurrentStyle(node).position!=='relative'){
 					node = node.parentNode;
 					if(CurrentStyle(node).position==='relative'){
 							parent = node;
@@ -216,6 +215,13 @@ var node = {
         else
             el.remove();
     }
+}
+
+function CurrentStyle(element){
+    // if(element.nodeName==='BODY'||element.nodeName==='HTML')
+    //     return false;
+    // return element.currentStyle || document.defaultView.getComputedStyle(element, null);
+    return element.currentStyle || window.getComputedStyle(element, null);
 }
 
 module.exports = {

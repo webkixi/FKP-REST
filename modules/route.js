@@ -3,11 +3,12 @@
  */
 var fs = require('fs');
 var path = require('path')
+var api = require('../apis/javaapi');
 var router = require('koa-router');
-// var render = require('./render')
 var libs = require('../libs/libs')
-var __ = require('lodash')
+var __ = libs.$lodash;
 var render;
+var sessi = require('./session');
 
 
 
@@ -79,7 +80,6 @@ function *createTempPath2(pms,rjson){
     return route;
 }
 
-
 /**
  * 路由分配
  * {param1} koa implement
@@ -89,7 +89,13 @@ function *createTempPath2(pms,rjson){
 function init(app,mapper,rend){
     render = rend;
     app.use(router(app));
+
     var _mapper = mapper||{};
+
+    function *forBetter(){
+        this.sess = sessi();
+        yield distribute.call(this,mapper)
+    }
 
     app
     .get('/',forBetter)
@@ -97,9 +103,7 @@ function init(app,mapper,rend){
     .get('/:cat/:title',forBetter)
     .get('/:cat/:title/:id',forBetter)
 
-    function *forBetter(){
-       yield distribute.call(this,mapper)
-    }
+    .post('/:cat',forBetter)
 }
 
 /**
@@ -109,8 +113,10 @@ function init(app,mapper,rend){
  * return rende pages
 **/
 function *distribute(_mapper){
+
     libs.clog('route.js/distribute');
-    var routeJson = path.parse(this.path);
+
+    var routeJson = path.parse(this.path);  
 
     if(_mapper){
         var isRender = yield filterRendeFile(this.params,routeJson);
@@ -125,15 +131,15 @@ function *distribute(_mapper){
         };
 
         route = isRender
-        ? yield createTempPath2(this.params,routeJson)
+        ? yield createTempPath2.call(this,this.params,routeJson)
         : false
 
         if ( isRender ){
-
             //静态资源初始化
             if (route){
                 if (route in _mapper.pageCss)   //pagecss
                     pageData.pagecss = _mapper.pageCss[route];
+
                 if (route in _mapper.pageJs)   //pagejs
                     pageData.pagejs = _mapper.pageJs[route];
             }
@@ -141,9 +147,11 @@ function *distribute(_mapper){
             if (route){
                 if (route == 'demoindex')
                     pageData = yield require('../pages/demoindex').getDemoData(pageData);  //演示页
+
                 else{
-                    if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') ))
-                        pageData = yield require('../pages/'+route).getData(pageData);
+                    if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') )){
+                        pageData = yield require('../pages/'+route).getData.call(this,pageData);
+                    }
 
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
@@ -151,7 +159,13 @@ function *distribute(_mapper){
                         return false;
                     }
                 }
-                yield htmlRender.call(this,true,route,pageData);
+
+                if(this.method==='GET')
+                    yield htmlRender.call(this,true,route,pageData);
+
+                else if(this.method==='POST')
+                    yield returnJson.call(this,true,route,pageData);
+
             }
 
             else{ /* todo something */ }
@@ -167,12 +181,22 @@ function *distribute(_mapper){
  * return rende pages
 **/
 function *htmlRender(stat,route,data){
-    libs.clog('route.js/htmlRender');
+    libs.clog('route.js/htmlRender'+route);
     if (stat)
         this.body = yield render(route,data);
     else
         this.body = 'no pages config file';
         // this.body = yield render('404');
+}
+
+
+
+function *returnJson(stat,route,data){
+    libs.clog('route.js/htmlRender'+route);
+    if (stat)
+        this.body = JSON.stringify(data);
+    else
+        this.body = '{"stat": 0}';
 }
 
 
