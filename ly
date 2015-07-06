@@ -23,7 +23,7 @@ dev(){
     gulp dev
 
     cd ..
-    node --harmony index.js dev &
+    nodemon --harmony index.js dev &
 
     cd public
     gulp watch
@@ -34,7 +34,7 @@ pro(){
     gulp build
 
     cd ..
-    node --harmony index.js &
+    nodemon --harmony index.js &
 
     cd public
     gulp watch:pro
@@ -47,13 +47,27 @@ demo(){
 
 install(){
     cd public
+    npm install node-gyp -g
     npm install
+    npm install node-sass
 
     cd ..
     npm install
+    npm install gulp -g
+    npm install nodemon -g
+}
+
+server(){
+	nodemon --harmony index dev
 }
 
 case $1 in
+  install)
+      install
+      ;;
+  server)
+      server
+      ;;
   dev)
       dev
       ;;
