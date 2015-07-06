@@ -33,7 +33,7 @@
 					$("#myregerro").addClass("in show");
 					$("#myregerro .close").click(function() {
 						$("#myregerro").removeClass("in show");
-						document.location.href = "${rc.contextPath}/login.html";
+						document.location.href = "/login.html";
 					})
 				} else {
 					dropAlert(resp);
