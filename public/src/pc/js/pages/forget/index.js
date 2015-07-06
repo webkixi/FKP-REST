@@ -17,11 +17,11 @@ $(function(){
 			$(this).removeClass("bd_col");
 		}
 	});
-	$(".msgs").click (function() {
-		sendMobileCode();
+	$(".forget_msgs").click (function() {
+		ForsendMobileCode();
 	});
-	function sendMobileCode() {
-	    if ($(".msgs").attr("disabled")) {
+	function ForsendMobileCode() {
+	    if ($(".forget_msgs").attr("disabled")) {
 	        return;
 	    }
 	    var mobile = $("#loginPhone").val();
@@ -36,7 +36,7 @@ $(function(){
 	    // 检测手机号码是否存在
 	    jQuery.ajax({
 	        type: "get",
-	        url: "send-sms-code.html?mobileNo=" + $("#loginPhone").val() + "&r=" + Math.random() +"&isForgetPassword=" + false,
+	        url: "send-sms-code.html?mobileNo=" + $("#loginPhone").val() + "&r=" + Math.random() +"&isForgetPassword=" + true,
 	    	success: function(resp) {
 	        if ("success" == resp) {
 	            $("#mobile_error").html("");
@@ -47,17 +47,17 @@ $(function(){
 	        	}
 	        }
 	    });
-	}
+	}	
 	function sendmCode() {
 	var validCode=true
-	    $(".msgs").attr("disabled", "disabled");
+	    $(".forget_msgs").attr("disabled", "disabled");
 	    jQuery.ajax({
 	        type: "get",
 	        url: "send-sms-code.html?&mobileNo=" + $("#loginPhone").val() + "&r=" + Math.random(),
 	        success: function(result) {
 	        	if("success" == result){
 					var time=60;
-					var code=$(".msgs");
+					var code=$(".forget_msgs");
 					if (validCode) {
 						validCode=false;
 						code.attr("disabled", "disabled");
@@ -102,29 +102,6 @@ $(function(){
 		else{
 			$(this).removeClass("bd_col");
 			$(this).parent(".r_wrap_list .form-group").find(".error_msg").html("");
-			$(this).next(".error_msg").html("");
-		}
-	});
-	/* 设置账号信息 */
-	$(".r_wrap_list .user_name").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("4-20个字符,支持汉字、字母、数字组合");
-		$(this).removeClass("bd_col");
-	});
-	$(".r_wrap_list .user_name").blur(function(){
-		var rn=$(this).val();
-		if(rn==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("请输入登录名");
-		}
-		else if(rn.length<4 || rn.length>20){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("用户名长度只能在4-20位字符之间");
-		}
-		else{
-			$(this).removeClass("bd_col");
 			$(this).next(".error_msg").html("");
 		}
 	});
@@ -190,102 +167,4 @@ $(function(){
 			$(this).next(".error_msg").html("");
 		}
 	});
-	$(".r_wrap_list .user_tname").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请输入联系人姓名");
-		$(this).removeClass("bd_col");
-
-	});
-	$(".r_wrap_list .user_tname").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入联系人姓名").css("color","#ff6600");
-		}else{
-			$(this).next(".error_msg").html("");
-		}
-	});
-	$(".r_wrap_list .user_company").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请输入公司全称");
-		$(this).removeClass("bd_col");
-	});
-	$(".r_wrap_list .user_company").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入公司全称").css("color","#ff6600");
-		}else{
-			$(this).next(".error_msg").html("");
-		}
-	});
-
-	$(".r_wrap_list .user_email").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请输入联系邮箱，如xxxxxx@xxx.com");
-		$(this).removeClass("bd_col");
-
-	});
-	$(".r_wrap_list .user_email").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入邮箱地址").css("color","#ff6600");
-		}
-		else{
-			if(!checkEmail($(this).val())){
-			$(this).addClass("bd_col");
-				$(this).next(".error_msg").html("邮箱地址格式不正确");
-			}
-			else{
-				$(this).next(".error_msg").html("");
-			}
-		}
-	});
-	function checkEmail(val){
-		var RegExpt=[{'reg':/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/}];
-		return RegExpt[0].reg.test(val);
-	}
-	$(".r_wrap_list .user_fax").blur(function(){
-		var reg=/^(\d{3,4})?[-]?\d{7,8}$/;
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入传真号码").css("color","#ff6600");
-		}
-		else{
-			if(!reg.test($(this).val())){
-			$(this).addClass("bd_col");
-				$(this).next(".error_msg").html("传真号码格式不正确").css("color","#ff6600");
-			}
-			else{
-				$(this).next(".error_msg").html("");
-			}
-		}
-	});	
-
-	$(".r_wrap_list .user_fax").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("格式:区号-电话号码,电话号码;如 020-88888888");
-		$(this).removeClass("bd_col");
-
-	});
-	$(".r_wrap_list .user_qq").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请输入QQ数字号码");
-		$(this).removeClass("bd_col");
-
-	});
-	$(".r_wrap_list .user_qq").blur(function(){
-		var req=/^[1-9][0-9]{4,}$/;
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入QQ");
-		}
-		else{
-			if(!req.test($(this).val())){
-			$(this).addClass("bd_col");
-				$(this).next(".error_msg").html("QQ格式不正确");
-			}
-			else{
-				$(this).next(".error_msg").html("");
-			}
-		}
-	});	
 });
