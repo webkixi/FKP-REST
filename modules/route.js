@@ -9,6 +9,7 @@ var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
 var sessi = require('./session');
+// require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
 
 
@@ -152,7 +153,6 @@ function *distribute(_mapper){
                     if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') )){
                         pageData = yield require('../pages/'+route).getData.call(this,pageData);
                     }
-
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
                         yield htmlRender.call(this,false);
