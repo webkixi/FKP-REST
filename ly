@@ -23,7 +23,7 @@ dev(){
     gulp dev
 
     cd ..
-    nodemon --harmony index.js dev &
+    node --harmony index.js dev &
 
     cd public
     gulp watch
@@ -34,7 +34,7 @@ pro(){
     gulp build
 
     cd ..
-    nodemon --harmony index.js &
+    node --harmony index.js &
 
     cd public
     gulp watch:pro
