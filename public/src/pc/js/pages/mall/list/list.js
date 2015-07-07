@@ -22,22 +22,23 @@ function changeCat(id) {
     	doQuery();
 	}
 }
+
 function doQuery() {
 	var params = {};
-	//$("ul[class='nav nav-tabs']").find("li.active").each(function(index, item) { 
+	//$("ul[class='nav nav-tabs']").find("li.active").each(function(index, item) {
 	//	params[$(item).attr("data-param")] = $(item).attr("data-val");
 	//});
 	params['catId'] = catId;
 
-	//$(".tab-content").find("div.active").find(".cateTags dd").each(function(index, item) { 
+	//$(".tab-content").find("div.active").find(".cateTags dd").each(function(index, item) {
 	//	params[$(item).attr("data-param")] = $(item).attr("data-val");
 	//});
 	if(catId == "") {
-    	$("#cat-all").find(".cateTags dd").each(function(index, item) { 
+    	$("#cat-all").find(".cateTags dd").each(function(index, item) {
     		params[$(item).attr("data-param")] = $(item).attr("data-val");
     	});
 	} else {
-    	$("#cat-" + catId).find(".cateTags dd").each(function(index, item) { 
+    	$("#cat-" + catId).find(".cateTags dd").each(function(index, item) {
     		params[$(item).attr("data-param")] = $(item).attr("data-val");
     	});
 	}
@@ -51,7 +52,7 @@ function doQuery() {
 	var dataType = "json";
 
 	var defaultImg = "${rc.contextPath}/statics/front/images/blank.gif";
-	
+
   	$.ajax({
 		type: "POST",
 		url: "${rc.contextPath}/mall/item/list/query.html?_rt=" + new Date().getTime(),
@@ -61,7 +62,7 @@ function doQuery() {
 		data : params,
 		success: function(response) {
 			$("#item-list").empty();
-			$(response.recordList).each(function(index, item){ 
+			$(response.recordList).each(function(index, item){
 				var dom ='<li class="span2">';
 				dom += '<dl>';
 				if(item.picture && item.picture != "") {
@@ -79,7 +80,7 @@ function doQuery() {
                 $("#item-list").append(dom);
 
 			});
-			
+
 			laypage({
 			    cont: $('#page'), //容器。值支持id名、原生dom对象，jquery对象,
 			    pages: response.pageCount, //总页数
@@ -92,12 +93,12 @@ function doQuery() {
 			        	pageCurrent = obj.curr;
 			        	doQuery();
 			        }
-			    }        
-			});				
+			    }
+			});
 			return;
 		},
 		error: function() {
 		}
-	});    	
+	});
 
 }
