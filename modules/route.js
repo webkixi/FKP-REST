@@ -117,7 +117,10 @@ function *distribute(_mapper){
 
     libs.clog('route.js/distribute');
 
-    var routeJson = path.parse(this.path);  
+    // libs.wlog(this.req._parsedUrl);
+    this.local = this.req._parsedUrl;
+
+    var routeJson = path.parse(this.path);
 
     if(_mapper){
         var isRender = yield filterRendeFile(this.params,routeJson);
@@ -147,7 +150,7 @@ function *distribute(_mapper){
 
             if (route){
                 if (route == 'demoindex')
-                    pageData = yield require('../pages/demoindex').getDemoData(pageData);  //演示页
+                    pageData = yield require('../pages/demoindex').getDemoData.call(this,pageData);  //演示页
 
                 else{
                     if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') )){
