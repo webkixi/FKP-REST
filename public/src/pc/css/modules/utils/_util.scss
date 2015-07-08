@@ -126,3 +126,14 @@
     }
   }
 }
+
+// lgh 20150708
+@if $gridWidSwitch {
+  @for $i from 1 through $gridColumns {
+    .wid-#{$i} {
+      @extend %float;
+
+      width:getwidthNomargin($i);
+    }
+  }
+}

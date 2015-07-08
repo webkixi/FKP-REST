@@ -15,7 +15,7 @@
     <div class="myaccount_main">
         <div class="container">
             <div class="row clearfix">
-                <div class="account_l fl span2">
+                <div class="account_l fl wid-2">
                     <div class="account_nav">
                         <dl>
                             <dt>
@@ -39,7 +39,7 @@
                         </dl>
                     </div>
                 </div>
-                <div class="account_r fl span10">
+                <div class="account_r fl wid-10">
                     <ul id="myTab" class="nav nav-tabs">
                         <li [#if !(curTab?exists) || curTab==1] class="active" [/#if]>
                             <a href="#mybasic" data-toggle="tab">
@@ -66,13 +66,18 @@
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="name">联系姓名：</label>
+                                    <label for="name">联系人姓名：</label>
                                     <input type="text" id="name" name="name" value="${firmContact.name}" class="form-control user_tname">
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">联系电话：</label>
                                     <input type="text" id="phone" name="phone" value="${firmContact.phone}" class="form-control user_phone">
+                                    <p class="error_msg text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">公司固话：</label>
+                                    <input type="text" id="landline" name="landline" value="${firmContact.landline}" class="form-control user_landline">
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
