@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react/addons');
+var Elephant = require('./items/elephant');
 
 var tmpApp = React.createClass({
 	componentDidMount: function () {
@@ -8,11 +9,10 @@ var tmpApp = React.createClass({
 
 	render: function () {
 		return (
-			<div id="table-area">
-				<div style={{backgroundColor:'red',width:'100px',height:'100px'}}>{'1234'}</div>
-			</div>
+			<ul className={"hlist elephant u-clearfix"}>
+				<Elephant />
+			</ul>
 	) }
-
 });
 
 module.exports = tmpApp;
