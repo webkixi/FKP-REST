@@ -1,7 +1,7 @@
 	function updateBaseInfo() {
 		$.ajax({
 			type : "POST",
-			url : "${rc.contextPath}/account-save-baseInfo.html",
+			url : "/account-save-baseInfo.html",
 			timeout : 10000,
 			dataType : "text",
 			async : true,
@@ -24,7 +24,7 @@
 					if (resp == "timeout") {
 						dropAlert("登录超时或未登录,请重新登录.");
 						setTimeout(function() {
-							document.location.href = "${rc.contextPath}/login.html";
+							document.location.href = "/login.html";
 						}, 2000)
 					} else {
 						dropAlert(resp);
@@ -39,7 +39,7 @@
 	function updatePassword() {
 		$.ajax({
 			type : "GET",
-			url : "${rc.contextPath}/account-save-password.html?oldPassword=" + $('#oldPassword').val() + "&newPassword=" + $('#newPassword').val()
+			url : "/account-save-password.html?oldPassword=" + $('#oldPassword').val() + "&newPassword=" + $('#newPassword').val()
 					+ "&repassword=" + $('#repassword').val(),
 			timeout : 10000,
 			dataType : "text",
@@ -51,7 +51,7 @@
 					if (resp == "timeout") {
 						dropAlert("登录超时或未登录,请重新登录.");
 						setTimeout(function() {
-							document.location.href = "${rc.contextPath}/login.html";
+							document.location.href = "/login.html";
 						}, 2000)
 					} else {
 						dropAlert(resp);
@@ -66,7 +66,7 @@
 	function accountAuth() {
 		$.ajax({
 			type : "GET",
-			url : "${rc.contextPath}/account-picture-auth.html?inputLiecncesName=" + $('#inputLiecncesName').val() + "&inputOrgCodeName="
+			url : "/account-picture-auth.html?inputLiecncesName=" + $('#inputLiecncesName').val() + "&inputOrgCodeName="
 					+ $('#inputOrgCodeName').val() + "&inputTaxName=" + $('#inputTaxName').val(),
 			timeout : 10000,
 			dataType : "text",
@@ -78,7 +78,7 @@
 						content : "认证成功！",
 						title : "恭喜您！"
 					});
-					document.location.href = "${rc.contextPath}/account-center.html";
+					document.location.href = "/account-center.html";
 				} else {
 					if (resp == "timeout") {
 						dropAlert({
