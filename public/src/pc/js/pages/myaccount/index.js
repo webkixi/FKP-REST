@@ -181,6 +181,28 @@ $(function(){
 			}
 		}
 	});
+	$("#mybasic .user_landline").blur(function(){
+		var reg=/^(\d{3,4})?[-]?\d{7,8}$/;
+		if($(this).val()==""){
+			$(this).addClass("bd_col");
+			$(this).next(".error_msg").html("请输入公司固话").css("color","#ff6600");
+		}
+		else{
+			if(!reg.test($(this).val())){
+			$(this).addClass("bd_col");
+				$(this).next(".error_msg").html("公司固话格式不正确").css("color","#ff6600");
+			}
+			else{
+				$(this).next(".error_msg").html("");
+			}
+		}
+	});	
+	$("#mybasic .user_landline").focus(function(){
+		$(this).next(".error_msg").css("color","#666");
+		$(this).next(".error_msg").html("格式:区号-电话号码;如 020-88888888");
+		$(this).removeClass("bd_col");
+
+	});	
 	/*判断是否有图片*/
 	base_url = document.location.href.substring(0, document.location.href.indexOf('index.html'), 0);
 	$(".gallery a").lightBox();
