@@ -1,3 +1,4 @@
+ require('../_common/header');
 $(function() {
   $(".search_buttom").click(function(){
     var text = $(".search_text").val();
