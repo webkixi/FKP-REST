@@ -22,7 +22,7 @@ var src = "http://120.25.223.175:5051/jh-web-portal/";
 var apiPath = {
     base: src,
     dirs: {
-        search: src+'search-json.html',
+        search: src+'api/search.html',
         user: src+'checkUserStatus.html',
         mall_list: src+'/api/mall/item/list/query.html'
     }
@@ -106,5 +106,6 @@ module.exports = {
     infos: getInfo,
     goods: getGood,
     article: getArticle,
-    user: getUser
+    user: getUser,
+    apiPath:apiPath
 }

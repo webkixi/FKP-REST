@@ -21,14 +21,18 @@
             <div class="head_wnav fl">
                 <div class="head_search clearfix">
                     <div class="head_look">
-                        <div class="item-select">
-                          <a class="arrow-select-down"><span>全部</span><i class="all_icon s_down_icon"></i></a>
-                          <ul class="hidden">
-                            <li>铜</li>
-                            <li>铅</li>
-                          </ul>
-                        </div>
-                        <input type="text" class="search_text" placeholder="请输入关键字"/><input type="button" class="search_buttom" value="搜索"/>
+                        <form action="search.html">
+                            <div class="item-select">
+                              <a class="arrow-select-down"><span>全部</span><i class="all_icon s_down_icon"></i></a>
+                              <ul class="hidden">
+                                <li data="1">资讯新闻</li>
+                                <li data="2">金属商城</li>
+                              </ul>
+                            </div>
+                            <input type="hidden" name="st" id="search_hide" value="1">
+                            <input type="text" name="sc" class="search_text" placeholder="请输入关键字"/>
+                            <input type="button" class="search_buttom" value="搜索"/>
+                        </form>
                     </div>
                     <div class="top-tel">
                         <h4><span class="all_icon icon_tel"></span>客服热线<span class="top-tel-time">09:00-17:30</span></h4>

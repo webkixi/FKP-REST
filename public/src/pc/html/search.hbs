@@ -34,20 +34,20 @@
                                     {{#each pageBean.recordList}}
                                     <li>
                                         <dl>
-                                            <dt><a target="_blank" href="${rc.contextPath}/mall/item/detail/${goods.id}.html"><img src="${imagePath}${goods.picture}"></a></dt>
+                                            <dt><a target="_blank" href="{{root}}/mall/item/detail/{{id}}.html"><img src="{{pictureLibUrl}}{{picture}}"></a></dt>
                                             
-                                            <dd><span>${goods.catName2!''}</span> ${goods.vender!''}</dd>
-                                            <dd><span>${goods.catName2!''}</span> ${goods.model!''}</dd>
-                                            <dd><span>挂牌量： </span> ${goods.stock!''} ${goods.unitName!''}</dd>
-                                            <dd><span>起订量： </span> ${goods.minQuantity!''} ${goods.unitName!''}</dd>
-                                            <dd><span>供货商： </span> ${goods.accountName!''}</dd>
+                                            <dd><span>{{catName}}</span> {{vender}}</dd>
+                                            <dd><span>{{catName2}}</span> {{model}}</dd>
+                                            <dd><span>挂牌量： </span> {{stock}} {{unitName}}</dd>
+                                            <dd><span>起订量： </span> {{minQuantity}} {{unitName}}</dd>
+                                            <dd><span>供货商： </span> {{accountName}}</dd>
                                         </dl>
                                     </li>
                                     {{/each}}
                                 </ul>
                                 <div id="page"></div>
 
-                                    <form id="goodsSearchForm" action="${rc.contextPath}/search.html" method="post">
+                                    <form id="goodsSearchForm" action="search.html" method="post">
                                         <input type="hidden" name="pageCurrent" id="pageCurrent" value=""/>
                                         <input type="hidden" name="st" id="st" value="2"/>
                                         <input type="hidden" name="sc" id="sc" value="{{sc}}"/>
@@ -63,18 +63,18 @@
                             <li>
                                 <div class="info-mcom">
                                     <div class="info-mtitle clearfix">
-                                        <em><a target="_blank" href="${rc.contextPath}/info/view/{{id}}.html">{{title}}</a></em>
+                                        <em><a target="_blank" href="{{root}}/info/view/{{id}}.html">{{title}}</a></em>
                                         <span>{{publishTime}}</span>
                                     </div>
                                     <p>{{summary}}</p>
-                                    <a href="${rc.contextPath}/info/view/{{id}}.html" class="more">查看详情 >></a>
+                                    <a href="{{root}}/info/view/{{id}}.html" class="more">查看详情 >></a>
                                 </div>
                             </li>
                             {{/each}}
                         </ul>
                         <!-- 分页 begin -->
                         <div id="page"></div>
-                        <form id="info-search-form" action="${rc.contextPath}/search.html" method="post">
+                        <form id="info-search-form" action="{{root}}/search.html" method="post">
                             <input type="hidden" id="pageSt" name="st" value="{{st}}">
                             <input type="hidden" id="pageSc" name="sc" value="{{sc}}">
                             <input type="hidden" id="pageCurrent" name="pageCurrent" value="">
@@ -84,7 +84,7 @@
                     {{/if}}
                 </div>
                 <div class="info-right col-lg-2 fl">
-                    <img src="${rc.contextPath}/statics/front/images/ad/ad2.jpg"><img src="${rc.contextPath}/statics/front/images/ad/ad2.jpg">
+                    <img src="{{root}}/statics/front/images/ad/ad2.jpg"><img src="{{root}}/statics/front/images/ad/ad2.jpg">
                 </div>
             </div>
         </div>
