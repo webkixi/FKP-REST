@@ -5,6 +5,12 @@
 <head>
 <title>联华大宗</title>
 @@include('./_common/header/head.html')
+<script>
+    var page={
+        pageCount:{{pageBean.pageCount}},
+        currentPage:{{pageBean.currentPage}}
+    }
+</script>
 </head>
 
 <body>
@@ -47,7 +53,7 @@
                                 </ul>
                                 <div id="page"></div>
 
-                                    <form id="goodsSearchForm" action="search.html" method="post">
+                                    <form id="searchForm" action="search.html" method="post">
                                         <input type="hidden" name="pageCurrent" id="pageCurrent" value=""/>
                                         <input type="hidden" name="st" id="st" value="2"/>
                                         <input type="hidden" name="sc" id="sc" value="{{sc}}"/>
@@ -74,7 +80,7 @@
                         </ul>
                         <!-- 分页 begin -->
                         <div id="page"></div>
-                        <form id="info-search-form" action="{{root}}/search.html" method="post">
+                        <form id="searchForm" action="search.html" method="post">
                             <input type="hidden" id="pageSt" name="st" value="{{st}}">
                             <input type="hidden" id="pageSc" name="sc" value="{{sc}}">
                             <input type="hidden" id="pageCurrent" name="pageCurrent" value="">
@@ -89,11 +95,16 @@
             </div>
         </div>
     </div>
-    
 
 </div>
 
 @@include('./_common/footer/footer.html')
 @@include('./_common/footer/foot.html')
+<script type="text/javascript">
+$(function(){
+ 
+})
+
+</script>
 </body>
 </html>

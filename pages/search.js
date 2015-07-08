@@ -17,15 +17,17 @@ function *demoIndexData(oridata){
     if(mtd==='GET'){
         // var path = libs.$url.parse(this.path).pathname.replace('/','') // 处理query和hash
         var query = this.local.query.split("&");
-        var type="",text="";
+        var type="",text="",pageCurrent="";
         for (var i = 0; i < query.length; i++) {
             var param = query[i].split("=");
             if (param[0]=="st") {type = param[1]};
             if (param[0]=="sc") {text = decodeURI(param[1])};
+            pageCurrent = param[0]=="pageCurrent"?param[1]:0;
         };
         apiData = yield api.search({
             'st': type,
-            'sc': text
+            'sc': text,
+            'pageCurrent':pageCurrent
         });
     }
 
@@ -40,7 +42,6 @@ function *demoIndexData(oridata){
 
     var jsonData = JSON.parse(apiData[1]);
     libs.clog(jsonData);
-    libs.clog(jsonData.data.pageBean.recordList);
     if(jsonData.success){
         if (jsonData.data.st==2){
             jsonData.data.goods = jsonData.data.sc;
