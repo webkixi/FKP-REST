@@ -15,9 +15,16 @@ function *demoIndexData(oridata){
 
     if(mtd==='GET'){
         // var path = libs.$url.parse(this.path).pathname.replace('/','') // 处理query和hash
+        var query = this.local.query.split("&");
+        var type="",text="";
+        for (var i = 0; i < query.length; i++) {
+            var param = query[i].split("=");
+            if (param[0]=="st") {type = param[1]};
+            if (param[0]=="sc") {text = decodeURI(param[1])};
+        };
         apiData = yield api.search({
-            'st': 1,
-            'sc': '网'
+            'st': type,
+            'sc': text
         });
     }
 
@@ -31,6 +38,12 @@ function *demoIndexData(oridata){
     }
 
     var jsonData = JSON.parse(apiData[1]);
+    for (var i = 0; i < jsonData.pageBean.recordList.length; i++) {
+        var time = new Date(jsonData.pageBean.recordList[i].publishTime);
+
+        jsonData.pageBean.recordList[i].publishTime = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
+    };
+    if (jsonData.st==2) jsonData.goods = jsonData.sc;
     oridata = libs.$extend(true,oridata,jsonData);
 
     return oridata;
