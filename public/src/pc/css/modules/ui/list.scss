@@ -3,28 +3,63 @@
 /**
  * @tofishes 2015年04月14日 增加一些注释
  *
- * 前缀u-表示util，工具类前缀
+ * list，定义一些list列表项
  */
-//
-// .list{
-//     list-style: none;
-//     .item{
-//         position: relative;
-//         .vheader{}
-//         .vbody{}
-//         .vfoot{}
-//         .dot{}
-//     }
-// }
-//
-// .hlist{
-//     list-style: none;
-//     .item{
-//         float: left;
-//         position: relative;
-//         .hheader{}
-//         .hbody{}
-//         .hfoot{}
-//         .dot{}
-//     }
-// }
+
+.hlist{
+    list-style: none;
+    font: normal normal normal 14px/150% Arial,Verdana,"宋体";
+    .item{
+        position: relative;
+        margin-left: 10px;
+        img{
+            width: 100%;
+            border: 0;
+        }
+        p{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        .hheader{
+            padding: 10px;
+        }
+        .hbody{
+            padding: 10px;
+        }
+        .hfoot{
+            padding: 10px;
+        }
+        .dot{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+}
+
+.elephant{
+    span{
+        font-size: 12px;
+        color: #999;
+        display: inline-block;
+        width: 46px;
+    }
+    .item{
+        float: left;
+        border: 1px solid #ccc;
+        .hheader{
+            padding: 0;
+            height: 200px;
+            overflow: hidden;
+        }
+        .hbody{
+            padding-top: 20px;
+            p:first-child{
+                // font-weight: bold;
+            }
+        }
+    }
+}
