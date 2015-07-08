@@ -11,6 +11,7 @@ function *demoIndexData(oridata){
     libs.clog('pages/search.js');
 
     var apiData={};
+    var dataSet = {};
     var mtd = this.method;
 
     if(mtd==='GET'){
@@ -38,13 +39,26 @@ function *demoIndexData(oridata){
     }
 
     var jsonData = JSON.parse(apiData[1]);
-    for (var i = 0; i < jsonData.pageBean.recordList.length; i++) {
-        var time = new Date(jsonData.pageBean.recordList[i].publishTime);
+    libs.clog(jsonData);
+    libs.clog(jsonData.data.pageBean.recordList);
+    if(jsonData.success){
+        if (jsonData.data.st==2){
+            jsonData.data.goods = jsonData.data.sc;
+            dataSet = jsonData.data;
+        }else{ 
+            for (var i = 0; i < jsonData.data.pageBean.recordList.length; i++) {
+                var time = new Date(jsonData.data.pageBean.recordList[i].publishTime);
 
-        jsonData.pageBean.recordList[i].publishTime = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
-    };
-    if (jsonData.st==2) jsonData.goods = jsonData.sc;
-    oridata = libs.$extend(true,oridata,jsonData);
+                jsonData.data.pageBean.recordList[i].publishTime = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
+            };
+        }
+        dataSet = jsonData.data;
+    }else{
+        dataSet.errCode = jsonData.errCode;
+        dataSet.errMsg = jsonData.errMsg;
+    }
+    dataSet.root = api.apiPath.base
+    oridata = libs.$extend(true,oridata,dataSet);
 
     return oridata;
 }
