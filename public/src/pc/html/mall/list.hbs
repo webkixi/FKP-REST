@@ -1,0 +1,173 @@
+
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+
+<body>
+@@include('../_common/header/header.html')
+
+<div class="wrapper">
+    <div class="container">
+        <div class="category">
+            <ul id="myTab" class="nav nav-tabs">
+               <li data-param="catId" data-val="" [#if catId==null] class="active" [/#if] >
+                  <a href="#cat-all" data-toggle="tab"  onclick="changeCat('')">全部</a>
+               </li>
+		      [#list level1SpCatList as bean]
+               <li data-param="catId" data-val="${bean.id}" [#if catId==bean.id] class="active" [/#if] >
+               	<a href="#cat-${bean.id}" data-toggle="tab" onclick="changeCat(${bean.id})">${bean.catName}</a></li>
+		      [/#list]
+            </ul>
+            <div id="myTabContent" class="tab-content">
+               <div class="tab-pane fade [#if catId==null] in active [/#if] " id="cat-all">
+                    <div class="filter">
+                        <div class="filter-items filter-item-brand">
+                          <div class="filter-tit" title="品名">品名</div>
+                          <div class="filter-con">
+                            <dl>
+                              <dt class="filter-name filter-all selected" data-param="catId2" data-val=""><a href="javascript:;">不限</a></dt>
+                              [#list level2SpCatList as cat2]
+                              <dd class="filter-name" data-param="catId2" data-val="${cat2.id}"><a href="javascript:;">${cat2.catName}</a></dd>
+                              [/#list]
+                            </dl>
+                          </div>
+                        </div><!--filter-items-->
+                        <div class="filter-items filter-item-size">
+                          <div class="filter-tit" title="规格">规格</div>
+                          <div class="filter-con">
+                            <dl>
+                              <dt class="filter-name filter-all selected" data-param="model" data-val=""><a href="javascript:;">不限</a></dt>
+                              [#list allModelKeyList as model]
+                              <dd class="filter-name" data-param="model" data-val="${model}"><a href="javascript:;">${model}</a></dd>
+                              [/#list]
+                            </dl>
+                          </div>
+                        </div><!--filter-items-->
+                        <div class="filter-items filter-item-mate">
+                          <div class="filter-tit" title="质量标准">质量标准</div>
+                          <div class="filter-con">
+                            <dl>
+                              <dt class="filter-name filter-all selected" data-param="quality" data-val=""><a href="javascript:;">不限</a></dt>
+                              [#list allQualityKeyList as quality]
+                              <dd class="filter-name" data-param="quality" data-val="${quality}"><a href="javascript:;">${quality}</a></dd>
+                              [/#list]
+                            </dl>
+                          </div>
+                        </div><!--filter-items-->
+                        <div class="filter-items filter-item-vender">
+                          <div class="filter-tit" title="厂家">厂家</div>
+                          <div class="filter-con">
+                            <dl>
+                              <dt class="filter-name filter-all selected" data-param="vender" data-val=""><a href="#">不限</a></dt>
+                              [#list allVenderKeyList as vender]
+                              <dd class="filter-name" data-param="vender" data-val="${vender}"><a href="javascript:;">${vender}</a></dd>
+                              [/#list]
+                            </dl>
+                          </div>
+                        </div><!--filter-items-->
+                        <div class="filter-items-blank"></div>
+                    </div><!--filter-->
+                    <div class="cateTags"><!-- check tags -->
+                     <dl class="cf">
+                         <dt>
+							你选择的是：&nbsp;&nbsp;
+                         </dt>
+                     </dl>
+                     <span></span>
+                 </div><!-- check tags -->
+               </div>
+		      [#list level1SpCatList as cat]
+               <div class="tab-pane fade [#if catId==cat.id] in active [/#if] " id="cat-${cat.id}">
+                    <div class="filter">
+                        <div class="filter-items filter-item-brand">
+                          <div class="filter-tit" title="品名">品名</div>
+                          <div class="filter-con">
+                            <dl>
+                              <dt class="filter-name filter-all selected"  data-param="catId2" data-val=""><a href="javascript:;">不限</a></dt>
+							  [#assign cat2List=level2SpCatMap[cat.id + '_cat2'] /]
+                              [#list cat2List as cat2]
+                              <dd class="filter-name"  data-param="catId2" data-val="${cat2.id}"><a href="javascript:;">${cat2.catName}</a></dd>
+                              [/#list]
+                            </dl>
+                          </div>
+                        </div><!--filter-items-->
+                        <div class="filter-items filter-item-size">
+                          <div class="filter-tit" title="规格">规格</div>
+                          <div class="filter-con">
+                            <dl>
+                              <dt class="filter-name filter-all selected"><a href="javascript:;">不限</a></dt>
+							  [#assign modelList=level2SpCatMap[cat.id + '_model'] /]
+                              [#list modelList as model]
+                              <dd class="filter-name" data-param="model" data-val="${model}"><a href="javascript:;">${model}</a></dd>
+                              [/#list]
+                            </dl>
+                          </div>
+                        </div><!--filter-items-->
+                        <div class="filter-items filter-item-mate">
+                          <div class="filter-tit" title="质量标准">质量标准</div>
+                          <div class="filter-con">
+                            <dl>
+                              <dt class="filter-name filter-all selected"><a href="javascript:;">不限</a></dt>
+							  [#assign qualityList=level2SpCatMap[cat.id + '_quality'] /]
+                              [#list qualityList as quality]
+                              <dd class="filter-name" data-param="quality" data-val="${quality}"><a href="javascript:;">${quality}</a></dd>
+                              [/#list]
+                            </dl>
+                          </div>
+                        </div><!--filter-items-->
+                        <div class="filter-items filter-item-vender">
+                          <div class="filter-tit" title="厂家">厂家</div>
+                          <div class="filter-con">
+                            <dl>
+                              <dt class="filter-name filter-all selected"><a href="#">不限</a></dt>
+							  [#assign venderList=level2SpCatMap[cat.id + '_vender'] /]
+                              [#list venderList as vender]
+                              <dd class="filter-name" data-param="vender" data-val="${vender}"><a href="javascript:;">${vender}</a></dd>
+                              [/#list]
+                            </dl>
+                          </div>
+                        </div><!--filter-items-->
+                        <div class="filter-items-blank"></div>
+                    </div><!--filter-->
+                    <div class="cateTags"><!-- check tags -->
+                     <dl class="cf">
+                         <dt>
+						 你选择的是：&nbsp;&nbsp;
+                         </dt>
+                     </dl>
+                     <span></span>
+                 </div><!-- check tags -->
+                 </div>
+                 [/#list]
+                 <div class="sort hidden">
+                     <div class="col">
+                       <ul>
+                         <li class="select active" data-param=""><a>默认排序</a></li>
+                         <li class="select" data-param="salesVolume"><a>销量<span class="all_icon icon_view"></span></a></li>
+                         <li class="select" data-param="risePrice"><a>涨价<span class="all_icon icon_view"></span></a></li>
+                         <li class="select" data-param="reducedPrice"><a>跌价<span class="all_icon icon_view"></span></a></li>
+                         <li class="select" data-param="price"><a>价格<span class="all_icon icon_view"></span></a></li>
+                         <li class="select" data-param="favorite"><a>收藏<span class="all_icon icon_view"></span></a></li>
+                       </ul>
+                     </div>
+                 </div>
+                <div class="sort_product cate-prolist">
+                    <ul class="row clearfix" id="item-list">
+
+                    </ul>
+                    <div id="page"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{{reacttest}}}
+
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+</body>
+</html>

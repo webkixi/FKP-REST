@@ -5,7 +5,7 @@
 
 var koa = require('koa');
 var session = require('koa-generic-session');
-var render = require('./modules/render')
+var render = require('./modules/render');
 
 var args = process.argv.splice(2);
 
@@ -14,8 +14,8 @@ var statics = require('./modules/static')
 var _mapper = require('./modules/mapper')(args[0])
 var route = require('./modules/route')
 
-
 var app = koa();
+
 
 
 //静态资源 js css

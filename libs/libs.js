@@ -4,6 +4,7 @@ var domain = require('domain');
 var extend = require('extend');
 var parse = require('co-body');
 var lodash = require('lodash');
+// var rct = require('../modules/parseReact');
 
 //libs
 var getObjType = function(object){
@@ -40,6 +41,7 @@ module.exports = {
     clog: clog,
     elog: elog,
     wlog: wlog,
+    // react: rct,
     $extend: extend,
     $url: url,
     $path: path,

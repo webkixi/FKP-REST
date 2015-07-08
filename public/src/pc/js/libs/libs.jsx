@@ -217,6 +217,52 @@ var node = {
     }
 }
 
+
+/** 
+/* 2015-1-13 yc   
+/* url解析
+/* @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
+//SAMPLE
+// var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
+// alert(myURL.file); // = 'index.html' 
+// myURL.hash; // = 'top' 
+// myURL.host; // = 'abc.com' 
+// myURL.query; // = '?id=255&m=hello' 
+// myURL.params; // = Object = { id: 255, m: hello } 
+// myURL.path; // = '/dir/index.html' 
+// myURL.segments; // = Array = ['dir', 'index.html'] 
+// myURL.port; // = '8080' 
+// myURL.protocol; // = 'http' 
+// myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top' 
+*/
+var urlparse = function (url) {
+    var anchor = document.createElement('a'); 
+    anchor.href = url; 
+    return { 
+        source: url, 
+        protocol: anchor.protocol.replace(':',''), 
+        host: anchor.hostname, 
+        port: anchor.port, 
+        query: anchor.search, 
+        params: (function(){ 
+            var ret = {}, 
+            seg = anchor.search.replace(/^\?/,'').split('&'), 
+            len = seg.length, i = 0, str; 
+            for (;i<len;i++) { 
+                if (!seg[i]) { continue; } 
+                str = seg[i].split('='); 
+                ret[str[0]] = str[1]; 
+            } 
+            return ret; 
+        })(), 
+        file: (anchor.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1], 
+        hash: anchor.hash.replace('#',''), 
+        path: anchor.pathname.replace(/^([^\/])/,'/$1'), 
+        relative: (anchor.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1], 
+        segments: anchor.pathname.replace(/^\//,'').split('/') 
+    }; 
+};
+
 function CurrentStyle(element){
     // if(element.nodeName==='BODY'||element.nodeName==='HTML')
     //     return false;
@@ -234,5 +280,6 @@ module.exports = {
   arg2arr: arg2arr,
   addSheet: addSheet,
   lodash: lodash,
-  node: node
+  node: node,
+  urlparse:urlparse
 }

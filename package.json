@@ -13,6 +13,7 @@
     "diskdb": "^0.1.14",
     "extend": "^2.0.1",
     "handlebars": "^3.0.3",
+    "jsx-require-extension": "^0.2.0",
     "koa": "^0.13.0",
     "koa-generic-session": "^1.9.0",
     "koa-router": "^3.7.0",
@@ -21,7 +22,9 @@
     "koa-static-cache": "^2.0.1",
     "lodash": "^3.9.3",
     "markdown-js": "^0.0.3",
+    "node-jsx": "^0.13.3",
     "pm2": "^0.14.2",
+    "react": "^0.13.3",
     "request": "^2.58.0",
     "underscore": "^1.7.0"
   },

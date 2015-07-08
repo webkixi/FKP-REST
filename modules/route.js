@@ -9,6 +9,7 @@ var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
 var sessi = require('./session');
+// require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
 
 
@@ -116,7 +117,10 @@ function *distribute(_mapper){
 
     libs.clog('route.js/distribute');
 
-    var routeJson = path.parse(this.path);  
+    // libs.wlog(this.req._parsedUrl);
+    this.local = this.req._parsedUrl;
+
+    var routeJson = path.parse(this.path);
 
     if(_mapper){
         var isRender = yield filterRendeFile(this.params,routeJson);
@@ -146,13 +150,12 @@ function *distribute(_mapper){
 
             if (route){
                 if (route == 'demoindex')
-                    pageData = yield require('../pages/demoindex').getDemoData(pageData);  //演示页
+                    pageData = yield require('../pages/demoindex').getDemoData.call(this,pageData);  //演示页
 
                 else{
                     if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') )){
                         pageData = yield require('../pages/'+route).getData.call(this,pageData);
                     }
-
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
                         yield htmlRender.call(this,false);
