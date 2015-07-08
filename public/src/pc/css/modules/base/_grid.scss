@@ -23,16 +23,22 @@ $gridSystemWidth:                 $gridColumns * ($gridColumnWidth + $gridGutter
 $rem-gridColumnWidth:             1.331333333333rem !default;
 $rem-gridGutter:                  0 !default;
 
+//lgh 20150708 start
+$gridColumnWidthN:                 85px !default;   //1020/12=85
+$gridSystemWidthN:                 $gridColumns * $gridColumnWidthN; //grid system width
+// end
 
 // percent layout setting
 // 百分比布局的变量设置
 //-----------------------------------------------------
 $gridPercentSwitch:               false !default; // 默认为固定宽度布局，设置为true为百分比
 $gridRealWidth:                   $gridSystemWidth !default;
+$gridRealWidthN:                   $gridSystemWidthN !default;
 $gridGutterPercent:               percentage($gridGutter / $gridSystemWidth) !default;
 
 @if $gridPercentSwitch{
   $gridRealWidth:                 100%;
+  $gridRealWidthN:                 100%;
 }
 
 // ie6/7 fluid layout bug: http://tylertate.com/blog/2012/01/05/subpixel-rounding.html
@@ -70,6 +76,15 @@ $gridSpanSwitch:                  false !default;
     // This is what is going to be returned
     $return: ((($gridColumnWidth + $gridGutter) * $i - $gridGutter) / $gridSystemWidth) * $gridRealWidth - $subtract;
   }
+
+  @return $return;
+}
+
+// lgh 20150708
+$gridWidSwitch:                  false !default;
+
+@function getwidthNomargin($i:$gridColumns){
+  $return: ($gridColumnWidthN * $i / $gridSystemWidthN) * $gridRealWidthN;
 
   @return $return;
 }
