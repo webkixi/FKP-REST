@@ -1,6 +1,6 @@
  require('../_common/header');
-$(document).ready(function(){
-  if (!$.browser.msie){
+
+  if (! +"\v1"){
     $("#wrapper img").addClass('fade').delay(800).queue(function(next){
       $("#wrapper h1,#wrapper p").addClass("fade");
       $("#wrapper a.link").css("opacity", 1);
@@ -10,17 +10,14 @@ $(document).ready(function(){
     $("#wrapper img,#wrapper h1,#wrapper p").addClass('fade');
     $('#wrapper a.link').css('opacity', 1);
   }
-});
-</script>
-<script type="text/javascript">
-$(function () {            
-   setTimeout("lazyGo();", 1000);
-});
+
 function lazyGo() {
   var sec = $("#sec").text();
   $("#sec").text(--sec);
   if (sec > 0)
-    setTimeout("lazyGo();", 1000);
+    setTimeout(lazyGo, 1000);
   else
-    window.location.href = "/";
+    window.location.href = "/index.html";
 }
+
+   setTimeout(lazyGo, 1000);
