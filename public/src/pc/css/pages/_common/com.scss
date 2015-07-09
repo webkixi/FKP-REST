@@ -394,42 +394,7 @@ div.info-wrap .info-left a{overflow: visible;}
 #BMapLib_transBox0 td:first-child{min-width:40px;_width:40px;}
 /***************************************资讯页面 end*****************************************/
 /***************************************账号信息 start*****************************************/
-/*基本信息*/
-.account_nav{ margin-right: 10px;}
-.account_nav dt{ font-size: 26px; color: #ff6600; font-weight: 500; margin-bottom: 20px; padding-bottom: 10px; position: relative; padding-left: 18px; height: 36px; line-height: 36px;}
-.account_nav dd,.helf-left li{ color: #999; margin-bottom: 10px; font-size: 16px; font-weight: 500; border-bottom: 1px solid #fce8dc; padding-bottom: 10px;}
-.account_nav dd.active a,.helf-left li.active a{ color: #ff6600;background: url(../images/r.png) no-repeat right center; display: block;}
-.account_l{ border-right: 1px solid #fce8dc;}
-.account_r{ min-height: 700px!important;}
-.account_content,.myorder_content{ border: 1px solid #ff6600; padding: 40px 20px; border-top: none;}
-.account_content.tab-content>.tab-pane{width: 83%; margin-left:15%;}
-.account_content.tab-content>.tab-pane .form-group select{ width: 15%;padding:6px 10px;}
-.account_content.tab-content>#myapprove.tab-pane{ width: 78%;}
-#myapprove .myaccount_uploadfieldbase{width: 82%; display: inline-block;}
-.myaccount_main{ margin-top: 20px;}
-.account_r .nav-tabs{border-bottom: 1px solid #ff6600;}
-.account_r .nav-tabs>li.active>a,.account_r .nav-tabs>li.active>a:hover,.account_r .nav-tabs>li.active>a:focus{ color: #ff6600; border: 1px solid #ff6600; border-bottom-color: transparent;}
-.account_r i{ font-style: normal;}
-.form-group label{ display: inline-block; *display: block; *zoom:1; width: 120px; margin-right: 5px; text-align: right; color: #666; font-weight: 500;}
-.form-group input,.form-group select{ display: inline-block; *display: block; *zoom:1; border: 1px solid #ddd;}
-.form-group select{ width: 24%;}
-.u_address input{ margin-top: 10px; margin-left: 95px;}
-.account_content .btn{ width: 25%; margin-left: 25%;}
-.btn-orange{ background-color: #ff6600; border-color: #ff6600; color: #fff}
-.btn-orange:hover, .btn-orange:focus{ background-color: #ED6307; border-color: #ED6307; color: #fff;}
-#myapprove.tab-pane label{ width: 100px;}
-#myapprove.tab-pane input{ width: 40%;}
-#myapprove.tab-pane input#inputfile{  display: inline-block; width: 30%; border: none;}
-#myapprove.tab-pane .btn{ margin-left: 0; margin-right: 20px;}
-#myapprove.tab-pane .form-group .gallery{ display: inline-block; width: 100px; height: 100px;}
-#myapprove.tab-pane .form-group .gallery img{ display: inline-block; width: 100%; height: auto;}
-input#isNightPlate{width: 20px;}
-#inputLiecnces,#inputOrgCode,#inputTax{ width: 100%!important;}
-.myapprove_btn{ text-align:center;}
-.myapprove_error{ cdisplay: block;color: #ff6600;margin: 10px 0 0 0; text-align:center;}
-#mybasic .u_address input{ margin-left:130px;}
-#accountSavePassword .form-control{width:38%;}
-#accountSavePassword .btn{margin-left:23%;}
+
 /*我的订单*/
 /*#myo_ok,#myo_del,#myo_cepai{ padding: 0 20px 20px 20px;}*/
 .text-c{ margin-bottom: 15px;}
@@ -535,3 +500,24 @@ span.required{
 .myaccount_abcom p{ color: #666; margin-bottom: 0;}
 .myaccount_abcom i,.myaccount_abcom a{ font-style: normal;}
 .myaccount_about button{ margin-top: 20px; margin-bottom: 20px;}
+
+/*20150709 start*/
+.btn-orange{ background-color: #ff6600; border-color: #ff6600; color: #fff}
+.btn-orange:hover, .btn-orange:focus{ background-color: #ED6307; border-color: #ED6307; color: #fff;}
+p.error_msg2{ 
+  display: inline-block; 
+  color: #666; 
+  font-size: 18px;
+}
+input.bd_col,select.bd_col{
+  border:1px solid #ff6600!important;
+}
+p.text-danger,p.text-danger:hover{
+  color: #ff6600;
+  margin-bottom:0;
+}
+.form-group input, .form-group select {
+  display: inline-block;
+  border: 1px solid #ddd;
+}
+/*20150709 end*/
