@@ -6,6 +6,7 @@ var config = {
   	mapJson:   path.join(static_dir,'/dist/1.0.0/map.json'),
   	mapDevJson:   path.join(static_dir,'/dist/1.0.0/dev/map.json'),
     demoindex: path.join(static_dir,'/dist/1.0.0/html/demoindex.html'),
+    imagePath: 'http://jh-ljs-goods.oss-cn-shenzhen.aliyuncs.com/',
   	static: {
     		dft:  path.join(static_dir,'/dist/1.0.0/'),
     		html: path.join(static_dir,'/dist/1.0.0/html'),
