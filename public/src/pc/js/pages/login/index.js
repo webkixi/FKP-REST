@@ -8,6 +8,9 @@ $(function(){
 		else{		
 			$(this).removeClass("bd_col");
 		}
+	});
+	$(".login_input input").focus(function(){
+		$(this).removeClass("bd_col");
 	});	
 	$(".login_input .user_pwd").blur(function(){
 		if($(this).val()==""){
