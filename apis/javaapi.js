@@ -24,7 +24,7 @@ var apiPath = {
     dirs: {
         search: src+'api/search.html',
         user: src+'checkUserStatus.html',
-        mall_list: src+'/api/mall/item/list/query.html'
+        mall_list: src+'api/mall/item/list/query.html'
     }
 }
 

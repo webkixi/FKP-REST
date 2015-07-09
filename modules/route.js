@@ -117,7 +117,7 @@ function *distribute(_mapper){
 
     libs.clog('route.js/distribute');
 
-    // libs.wlog(this.req._parsedUrl);
+    //绑定url地址解析
     this.local = this.req._parsedUrl;
 
     var routeJson = path.parse(this.path);

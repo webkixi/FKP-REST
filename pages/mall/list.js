@@ -14,23 +14,22 @@ function *demoIndexData(oridata){
 
     var apiData={};
     var mtd = this.method;
+    var local = this.local;
 
     if(mtd==='GET'){
-        // var path = libs.$url.parse(this.path).pathname.replace('/','') // 处理query和hash
         apiData = yield api.mallList({
             'pageCurrent': 1,
-            'orderField': '网',
+            'orderField': '',
             'orderDirection':'',
             'pageSize':24,
             '_rt': new Date().getTime()
         });
-        // libs.wlog(apiData[1]);
     }
 
     else if(mtd==='POST'){
         libs.clog('pages/malllist.js========POST');
         // var userInfo = yield api.user({'loginPhone':'13268280401'})
-        // console.log(userInfo); 
+        // console.log(userInfo);
 
         var body = yield libs.$parse(this);
         body._rt = new Date().getTime();
@@ -38,6 +37,7 @@ function *demoIndexData(oridata){
     }
 
     var jsonData = JSON.parse(apiData[1]);
+    // libs.wlog(apiData[1]);
 
     //react
     var reactHtml = rct('list');

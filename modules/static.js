@@ -11,7 +11,7 @@ function setStatic(stat){
     if(stat && stat==='dev'){
         console.log('&&&&&&&&&&&&&&++++++++++++');
         return statics(config.static.test.dft,{
-            buffer: true,
+            buffer: false,
             gzip: true
         });
     }else{
