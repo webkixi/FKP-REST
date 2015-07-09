@@ -102,3 +102,11 @@
 // 	});
 //
 // }
+
+var Tabswitch = require('modules/tabs/tabswitch');
+var render = React.render;
+
+render(
+  <Tabswitch />
+  ,document.getElementById('tab-test')
+);

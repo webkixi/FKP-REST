@@ -23,21 +23,28 @@ var tabswitch = React.createClass({
 			});
 		}
 	},
-	// renderTabs: function(){
-	// 	var tabitems = [];
-	//
-	// 	this.props.datas.map(function(item,i){
-	// 		tabitems.push(<li></li>)
-	// 	})
-	// },
+	renderTabs: function(){
+		var tabitems = [];
+
+		this.state.datas.map(function(item,i){
+			tabitems.push(<li>{item}</li>);
+		})
+
+		return tabitems;
+	},
 	componentDidMount: function() {
 
 	},
 	render:function(){
+		// {this.props.children}
+		var items = this.renderTabs();
 		return <div className={'tabswitch wid-12'}>
-				{this.props.children}
+				<ul>
+					{items}
+				</ul>
+				<div className={'tab-cnt'} />
           </div>
 	}
 });
 
-module.exports = LoadList;
+module.exports = tabswitch;

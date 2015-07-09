@@ -1,0 +1,15 @@
+{
+  "name": "browser-request",
+  "homepage": "https://github.com/iriscouch/browser-request",
+  "version": "0.2.1",
+  "_release": "0.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.1",
+    "commit": "1fa10610a910955a64d8ece089968553190e6e18"
+  },
+  "_source": "git://github.com/iriscouch/browser-request.git",
+  "_target": "~0.2.1",
+  "_originalSource": "browser-request",
+  "_direct": true
+}
