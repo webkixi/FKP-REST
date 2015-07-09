@@ -14,3 +14,10 @@
 	$('.arrow-select-down').click(function(event) {
 		event.stopPropagation();
 	});
+
+	$("#searchHeader").submit(function(){
+		if(!$(this).find(".search_text").val()){
+			$(this).find(".search_text").addClass("bd_col")
+			return false;
+		}
+	})

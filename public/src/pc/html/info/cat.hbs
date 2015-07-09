@@ -1,0 +1,116 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+<script>
+</script>
+</head>
+
+<body>
+@@include('../_common/header/header.html')
+<div class="banner slide">
+  <div id="product-slider" class="rsDefault">
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner1.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner2.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner3.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner4.jpg"/></a>
+  </div>
+</div>
+	
+[#include 'common/header.html' /]
+<div class="wrapper">
+    <div class="current_path container">
+        <a href="${rc.contextPath}">首页</a>
+        [#if infoCatContainParent.catLevel == 3]
+        	&nbsp;&gt;&gt;&nbsp;<a href="${rc.contextPath}/info/cat/${infoCatContainParent.parent.parent.id}.html">${(infoCatContainParent.parent.parent.catName)!''}</a>
+        	&nbsp;&gt;&gt;&nbsp;<a href="${rc.contextPath}/info/cat/${infoCatContainParent.parent.id}.html">${(infoCatContainParent.parent.catName)!''}</a>
+        [#elseif infoCatContainParent.catLevel == 2]
+        	&nbsp;&gt;&gt;&nbsp;<a href="${rc.contextPath}/info/cat/${infoCatContainParent.parent.id}.html">${(infoCatContainParent.parent.catName)!''}</a>
+        [#else]
+        [/#if]
+        &nbsp;&gt;&gt;&nbsp;<a href="${rc.contextPath}/info/cat/${infoCatContainParent.id}.html" class="currents">${(infoCatContainParent.catName)!''}</a>
+    </div>
+    <div class="info-wrap">
+        <div class="container">
+            <div class="clearfix row">
+                <div class="info-left span2 fl">
+                    <h3><a href="${rc.contextPath}/info/cat/${infoCat.id}.html"><i class="nav-icon"></i>${infoCat.catName!''}</a></h3>
+                    <ul>
+                    	[#if infoCat.hasChildren]
+                    	[#list infoCat.children as levelTwoCat]
+	                        <li>
+	                            <dl>
+	                                <dt><a href="${rc.contextPath}/info/cat/${levelTwoCat.id}.html" [#if levelTwoCat.id == infoCatContainParent.id]class='active'[/#if]><i></i>${levelTwoCat.catName!''}</a></dt>
+	                                [#if levelTwoCat.hasChildren]
+	                                	[#list levelTwoCat.children as levelThreeCat]
+	                                		<dd><a href="${rc.contextPath}/info/cat/${levelThreeCat.id}.html" [#if levelThreeCat.id == infoCatContainParent.id]class='active'[/#if]>${levelThreeCat.catName!''}</a></dd>
+	                                	[/#list]
+	                                [/#if]
+	                            </dl>
+	                        </li>
+	                        [/#list]
+                        [/#if]
+                    </ul>
+                </div>
+                <div class="info-main span8 fl">
+                    <ul class="info-mlist">
+                    	[#list pageBean.recordList as info]
+                        <li>
+                            <div class="info-mpic">
+                            	<a href="${rc.contextPath}/info/view/${info.id}.html">
+                            		
+                            		[#if  (info.figure)??]
+                            			<img src="${fileurl}${info.figure}" width="200" />
+                            		[#else]
+                            			<img src="{{root}}/statics/front/images/updown/1.png"/>
+                            		[/#if]
+                            	</a>
+                            </div>
+                            <div class="info-mcom">
+                                <div class="info-mtitle clearfix"><em><a href="{{root}}/info/view/${info.id}.html">${info.title!''}</a></em><span>${info.publishTime?string["yyyy-MM-dd HH:mm"]}</span></div>
+                                <p>${info.summary!''}</p>
+                                <a href="{{root}}/info/view/${info.id}.html" class="more">查看详情 >></a>
+                            </div>
+                        </li>
+                        [/#list]
+                    </ul>
+                    <!-- 分页 begin -->
+                    <div id="page"></div>
+                    <form id="info-cat-form" action="{{root}}/info/cat/${catId}.html" method="post">
+                    	<input type="hidden" id="pageCurrent_1" name="pageCurrent" value="">
+                    </form>
+                    <!-- 分页 end -->
+                    
+                </div>
+                <div class="info-right span2 fl">
+                    <img src="{{root}}/statics/front/images/ad/ad2.jpg"><img src="{{root}}statics/front/images/ad/ad2.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+[#include 'common/footer.html' /]
+<script src="{{root}}/statics/front/js/laypage.js"></script>
+<script>
+    laypage({
+	    cont: $('#page'), //容器。值支持id名、原生dom对象，jquery对象
+	    pages: ${pageBean.pageCount}, //总页数
+	    curr: ${pageBean.currentPage}, //当前页
+	    skip: true, //是否开启跳页
+	    skin: '#ff6600',
+	    groups: 5, //连续显示分页数
+	    jump: function(e, first){ //触发分页后的回调
+	        if(!first){ //一定要加此判断，否则初始时会无限刷新
+	            $('#pageCurrent_1').val(e.curr);
+            	$('#info-cat-form').submit();
+	        }
+	    }
+	});
+</script>
+
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+</body>
+</html>
