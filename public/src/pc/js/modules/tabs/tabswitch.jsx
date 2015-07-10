@@ -28,9 +28,12 @@ function req(api,param){
 		    throw err
 		console.log(body);
 
-		// that.setState({
-		// 	datas: that.props.datas
-		// });
+        if(body.success){
+            that.setState({
+    			datas: body.data.spCatList
+    		});
+            console.log('aaaaaaaaaaaaaaaaaaaa');
+        }
 	})
 }
 
@@ -49,10 +52,7 @@ var tabswitch = React.createClass({
 	//插入真实 DOM之前
 	componentWillMount:function(){
 		req.call(this,'mall_attr',{});
-		if(this.props.datas && this.props.datas.length>0){
-			// this.setState({
-			// 	datas: this.props.datas
-			// });
+		if(this.props.datas && this.props.datas.length){
 			req.call(this,'mall_attr',{})
 		}
 	},
@@ -70,13 +70,13 @@ var tabswitch = React.createClass({
 		return tabitems;
 	},
 	componentDidMount: function() {
-
+        console.log('bbbbbbbbbbbbbbbbbb');
 	},
 	//已加载组件收到新的参数时调用
 	componentWillReceiveProps:function(nextProps){
-		this.setState({
-			datas: nextProps.datas
-		});
+		// this.setState({
+		// 	datas: nextProps.datas
+		// });
 	},
 	render:function(){
 		// {this.props.children}
