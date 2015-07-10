@@ -158,7 +158,7 @@ function *distribute(_mapper){
                     }
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
-                        yield htmlRender.call(this,true,route,{});
+                        yield htmlRender.call(this,true,route,pageData);
                         return false;
                     }
                 }
