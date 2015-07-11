@@ -46,9 +46,15 @@ function *demoIndexData(oridata){
                 data:apiData.data
             })
 
-            //面包屑
-             
+            //面包屑导航
+            var current_path = "";
+            if(apiData.data.infoCatContainParent.catLevel==3) current_path+=' &nbsp;&gt;&gt;&nbsp;<a href="/info/cat/'+apiData.data.infoCatContainParent.parent.parent.id+'.html">'+apiData.data.infoCatContainParent.parent.parent.catName+'</a>';
+            if(apiData.data.infoCatContainParent.catLevel>=2) current_path +='&nbsp;&gt;&gt;&nbsp;<a href="/info/cat/'+apiData.data.infoCatContainParent.parent.id+'.html">'+apiData.data.infoCatContainParent.parent.catName+'</a>';
+            current_path += '&nbsp;&gt;&gt;&nbsp;<a href="/info/cat/'+apiData.data.infoCatContainParent.id+'.html" class="currents">'+apiData.data.infoCatContainParent.catName+'</a>';
+            
+
             dataSet.list = infoList;
+            dataSet.current_path = current_path;
             dataSet.infoCatId = apiData.data.infoCat.id;
             dataSet.catName = apiData.data.infoCat.catName;
             dataSet.currentPage = apiData.data.pageBean.currentPage;
@@ -58,11 +64,11 @@ function *demoIndexData(oridata){
 
         }else{
         	libs.clog(apiData.errMsg);
-            dataSet.error = apiData.errMsg;
+            dataSet.errState = true;
         }
 
     }else{
-        dataSet.error = "参数错误";
+        dataSet.errState = true;
     }
     dataSet.root = api.apiPath.base;
     oridata = libs.$extend(true,oridata,dataSet);

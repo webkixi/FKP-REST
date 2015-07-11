@@ -21,13 +21,7 @@
 <div class="wrapper">
     <div class="current_path container">
         <a href="/index.html">首页</a>
-        {{#if data.infoCatContainParent.parent.parent.id}}
-            &nbsp;&gt;&gt;&nbsp;<a href="/info/cat/{{data.infoCatContainParent.parent.parent.id}}.html">{{data.infoCatContainParent.parent.parent.catName}}</a>
-        {{/if}}
-        {{#if data.infoCatContainParent.parent.id}}
-        &nbsp;&gt;&gt;&nbsp;<a href="/info/cat/{{data.infoCatContainParent.parent.id}}.html">{{data.infoCatContainParent.parent.catName}}</a>
-        {{/if}}	
-        &nbsp;&gt;&gt;&nbsp;<a href="/info/cat/{{data.infoCatContainParent.id}}.html" class="currents">{{data.infoCatContainParent.catName}}</a>
+        {{{current_path}}}
     </div>
     <div class="info-wrap">
         <div class="container">
