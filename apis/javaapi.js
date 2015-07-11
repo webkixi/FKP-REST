@@ -24,6 +24,7 @@ var apiPath = {
     dirs: {
         search: src+'api/search.html',
         user: src+'checkUserStatus.html',
+        info_cat: src+'api/info/cat-list.html',
         mall_list: src+'api/mall/item/list/query.html',
         mall_attr: src+'api/mall/item/list/attributes.html'
     }
@@ -86,7 +87,7 @@ function *getMallList(param){
 
     return yield req(url+'?'+query);
 }
-
+ 
 function *getMallAttr(param){
     libs.elog('javaapi/getMallList')
 
