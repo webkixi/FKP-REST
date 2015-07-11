@@ -18,31 +18,10 @@
 	<div class="myaccount_main">
 		<div class="container">
 			<div class="row clearfix">
-				<div class="account_l fl span2">
-					<div class="account_nav">
-						<dl>
-							<dt>
-								<i class="nav-icon"></i>会员中心
-							</dt>
-							<dd>
-								<a href="${rc.contextPath}/account-center.html">我的账号</a>
-							</dd>
-							<dd class="active">
-								<a href="${rc.contextPath}/firm/detail/view.html">企业介绍</a>
-							</dd>
-							<dd>
-								<a href="${rc.contextPath}/goods/list.html">我的商品</a>
-							</dd>
-							<dd>
-								<a href="${rc.contextPath}/order/list.html">我的订单</a>
-							</dd>
-							<dd class="hidden">
-								<a href="#">我的求购</a>
-							</dd>
-						</dl>
-					</div>
+				<div class="account_l fl wid-2">
+					@@include('../_common/account.hbs')
 				</div>
-				<div class="fl span10 myaccount_about">
+				<div class="fl wid-10 myaccount_about">
 					<div class="myaccount_abtitle">
 							企业简介
 					</div>

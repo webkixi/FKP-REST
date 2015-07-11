@@ -396,53 +396,8 @@ div.info-wrap .info-left a{overflow: visible;}
 /***************************************资讯页面 end*****************************************/
 /***************************************账号信息 start*****************************************/
 
-/*我的订单*/
-/*#myo_ok,#myo_del,#myo_cepai{ padding: 0 20px 20px 20px;}*/
-.text-c{ margin-bottom: 15px;}
-.myorder_table{ min-height: 200px;}
-.myorder_content #page{ margin: 20px 0 0px 0}
-.myorder_content input,.myorder_content select{ border: 1px solid #ddd; border-radius: 3px;width: 12%; margin-right: 20px;}
-.myorder_content .btn{ width: 8%; padding: 1px 12px;}
-.merchant_body{ text-align: center;}
-.merchant_body input{ margin-top: 0;}
-.merchant_body select{  margin-bottom: 8px;}
-.myorder_content .table-org{ border: 1px solid #ddd; }
-.myorder_content .table.table-org>thead>tr>th{ border-bottom: 1px solid #ddd;}
-.myorder_content .table-org th{ color: #666;}/*0609*/
-.myorder_content .table-org.table th,.myorder_content .table-org.table td{ text-align: center; border: 1px solid #ddd;}/*0609*/
-/*我的商品*/
-.mygoods-arclist{ margin-bottom: 50px;}
-.mygoods-arclist input{ width: 24%;}
-.mygoods-arclist textarea{ width: 24%; display: inline-block; border: 1px solid #ddd;}
-.mygoods-arclist .r_yzxx .btn{ width: 10%; margin-right: 20px;}
-.form-group{ position: relative;}
-.input-file{position: absolute;left: 0;top: 0;cursor: pointer;z-index: 1;opacity: 0;filter: alpha(opacity=0); width: 100%!important;}
-.form-group .form-upload{height: 31px}
-.btn-upload{ display: block; margin-left: 100px;}
-.mygoods_apic{ position: absolute; top: 0px; right: 0;width:250px;}
-.mygoods_apic label{ float:left;line-height: 80px;}
-.mygoods_apic img{ float:left; width: 120px; height: 100px;border:1px solid #ddd;}
-.mygoods_upload{ position: absolute; top:50px; right: 50px; z-index: 9999;}
-.mygoods_upload img{width: 100%;height: 100%;}
-.mygoods_stock select{ width: 10%;}
-.mygoods_upload .pictures_box{width:400px;overflow: auto;}
-.mygoods_upload .pictures{height:100px;}
-.mygoods_upload .goods_updown{position: relative;float:left;border:1px solid #ccc;  margin-right: -1px;width: 130px; height: 100px;text-align: center;padding:3px; }
-.mygoods_upload .goods_upicbtn{position: absolute;bottom:0;right:0;display: none;}
-.mygoods_upload .goods_upicbtn span{display: inline-block;width:26px;height:26px;  cursor: pointer;	}
-.mygoods_upload .goods_upicbtn .del_img{background: url(../images/del24.png) no-repeat center center;}
-.mygoods_upload .goods_upicbtn .updata_img{background: url(../images/updata24.png) no-repeat center center;}
-.mygoods_upload .upload_test{position: absolute;bottom:0;left:0;width:100%;display: none;}
-.mygoods_upload .file_btn{position: absolute;top:0;left:0;width:100%;height:100%;  cursor: pointer;text-align: center;line-height:90px;font-size: 80px;  color: #165FA6;}
-.mygoods_upload .hide_file{ display: none; position: absolute;  top: 40px;  left: 50%;  width: 73px;  margin-left: -35px;}
-.mygoods_upload .exist_img .file_btn{display:none;}
-.mygoods_upload .exist_img .goods_upicbtn{display:block;}
-.mygoods_upload .uploading .file_btn{display:none;}
-.mygoods_upload .uploading .upload_test{display:block;}
-.mygoods_upload .ie_updown .hide_file{display:block;}
-.mygoods_upload .ie_updown .file_btn{display:none;}
-.mygoods_upload .ie_updown .updata_img{display:none;}
-.mygoods_upload .exist_img.ie_updown .hide_file{display:none;}
+
+
 /*电子合同*/
 .ele_contract{ color: #666; margin-left: 20px; font-size: 16px;}
 .ele_contract .ele_chead{ border-bottom: 1px solid #ddd; text-align: center;}
@@ -520,5 +475,44 @@ p.text-danger,p.text-danger:hover{
 .form-group input, .form-group select {
   display: inline-block;
   border: 1px solid #ddd;
+}
+//会员中心
+@mixin box-navdd () {
+    color: #999;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid #fce8dc;
+    padding-bottom: 10px;
+}
+@mixin box-navdd-active () {
+    color: #ff6600;
+    background: url(../images/r.png) no-repeat right center;
+    display: block;
+}
+.account_nav{
+  margin-right: 10px;
+  dt{
+    font-size: 26px;
+    color: #ff6600;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    position: relative;
+    padding-left: 18px;
+    height: 36px;
+    line-height: 36px;
+  }
+  dd{ @include box-navdd();}
+  dd.active a{ @include box-navdd-active ();}
+}
+
+.helf-left li{ @include box-navdd();}
+.helf-left li.active a{ @include box-navdd-active ();}
+.account_l{
+  border-right: 1px solid #fce8dc;
+}
+.account_r{
+  min-height: 700px!important;
 }
 /*20150709 end*/

@@ -6,7 +6,6 @@
 		var val = $(this).attr("data");
 		$("#search_hide").val(val);
 		$(this).parents("ul").addClass("hidden").siblings("a").find("span").html($(this).html());
-		
 	});
 	$(document).click(function() {
 		$('.item-select ul').addClass("hidden");
