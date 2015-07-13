@@ -88,7 +88,7 @@ function *getMallList(param){
 
     return yield req(url+'?'+query);
 }
- 
+
 function *getMallAttr(param){
     libs.elog('javaapi/getMallList')
 
