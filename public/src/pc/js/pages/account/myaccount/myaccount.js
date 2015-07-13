@@ -1,0 +1,5 @@
+require('../../comm_plug/jquery_ui')
+require('../../comm_plug/jquery.fileupload')
+require('./index')
+require('./jquery.lightbox')
+require('./index2')

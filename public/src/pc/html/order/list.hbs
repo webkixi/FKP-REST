@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+<body>
+@@include('../_common/header/header.html')
+<div class="wrapper">
+    <div class="current_path container">
+      <a href="${rc.contextPath}">首页</a>
+      >
+      <a class="currents"> 我的订单 </a>
+    </div>
+    <div class="myaccount_main">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="account_l fl wid-2">
+                    @@include('../_common/account.hbs')
+                </div>
+                <form id="listPageQueryForm" action="${rc.contextPath}/order/list.html">
+                  <input type="hidden" name="curList" id="curList" value="${curList}" />
+                  <input type="hidden" name="pageCurrent_1" id="pageCurrent_1" value="${pageCurrent_1}" />
+                  <input type="hidden" name="pageCurrent_2" id="pageCurrent_2" value="${pageCurrent_2}" />
+                  <div class="account_r fl wid-10">
+                    <ul id="myTab" class="nav nav-tabs">
+                      <li [#if curList==1] class="active"[/#if]>
+                        <a href="#myo_seller" data-toggle="tab">
+                          我的卖单（<i>${sellerPage.totalCount}宗</i>）
+                        </a>
+                      </li>
+                      <li [#if curList==2] class="active"[/#if]>
+                        <a href="#myo_buyer" data-toggle="tab">
+                          我的买单（<i>${buyerPage.totalCount}宗</i>）
+                        </a>
+                      </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content myorder_content">
+                      <div class="tab-pane fade [#if curList==1] in active [/#if]" id="myo_seller">
+                        <div class="text-c">
+                          <span class="select-box" style="width:150px">
+                            品名 <select class="select" name="catId2_1" id="catId2_1">
+                              <option value="">--请选择--</option> [#list level2SpCatList as bean]
+                              <option value="${bean.id}" [#if catId2_1==bean.id]selected[/#if]>${bean.catName!''}</option> [/#list]
+                            </select>
+                          </span>
+                          <span class="select-box" style="width:150px">
+                            品牌 <select class="select" name="brandId_1" id="brandId_1">
+                            </select>
+                            <span class="select-box" style="width:150px">
+                              仓库 <select class="select" name="storage_1" id="storage_1">
+                                <option value="">--请选择--</option> [#list storageList as bean]
+                                <option value="${bean.value}" [#if storage_1==bean.value]selected[/#if]>${bean.desc!''}</option> [/#list]
+                              </select>
+                            </span>
+                          </span>
+                          日期：
+                          <input type="text" id="beginDate_1" name="beginDate_1" value="${beginDate_1}" data-type="date" class="input-text" style="width:110px;">
+                          -
+                          <input type="text" id="endDate_1" name="endDate_1" value="${endDate_1}" data-type="date" class="input-text" style="width:110px;">
+                          <button name="queryOrderBtn_1" id="queryOrderBtn_1" class="btn btn-orange" type="submit">
+                            <i class="icon-search"></i> 查找
+                          </button>
+                        </div>
+                        <div class="myorder_table">
+                          <table class="table table-hover table-org">
+                            <thead>
+                              <tr>
+                                <th>类别</th>
+                                <th>品名</th>
+                                <th>品牌</th>
+                                <th>仓库</th>
+                                <th>数量</th>
+                                <th>单价（元)</th>
+                                <th>总金额（元)</th>
+                                <th>成交时间</th>
+                                <th>买方</th>
+                                <th>详情</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              [#list sellerPage.recordList as order]
+                              <tr>
+                                <td>${order.catName1}</td>
+                                <td>${order.catName2}</td>
+                                <td>${order.brandName}</td>
+                                <td>${order.storageName}</td>
+                                <td>[#if order.quantity?if_exists] ${order.quantity?string('0.####')}${order.unit} [/#if]</td>
+                                [#if order.valuationType==0] [#if order.status==3]
+                                <td>[#if order.unitPrice?if_exists] ${order.unitPrice?string("currency")} [/#if]</td>
+                                <td>[#if order.totalPrice?if_exists] ${order.totalPrice?string("currency")} [/#if]</td>
+                                [#else]
+                                <td>${order.pricingContract!} [#if order.premium>0]+[/#if] [#if order.premium != 0]${order.premium}[/#if]</td>
+                                <td>（${order.pricingContract!} [#if order.premium>0]+[/#if] [#if order.premium !=
+                                  0]${order.premium}[/#if]）*${order.quantity?string('0.####')}</td>
+                                [/#if] [#else]
+                                <td>[#if order.unitPrice?if_exists] ${order.unitPrice?string("currency")} [/#if]</td>
+                                <td>${order.totalPrice?string("currency")}</td>
+                                [/#if]
+                                <td>[#if order.signTime?if_exists] ${order.signTime?string("yyyy-MM-dd")} [/#if]</td>
+                                <td>
+                                  <a href="javascript:;" id="updatePassword" onclick="showOrderAccountDetail('${order.buyerAccountNo}')"> ${order.buyerName}</a>
+                                </td>
+                                <td>
+                                  <a target="_blank" href="${rc.contextPath}/order/contract/detail/${order.id}.html">详情</a>
+                                </td>
+                              </tr>
+                              [/#list]
+                            </tbody>
+                          </table>
+                        </div>
+                        <div id="page_1"></div>
+                      </div>
+                      <div class="tab-pane fade [#if curList==2] in active [/#if] " id="myo_buyer">
+                        <div class="text-c">
+                          <span class="select-box" style="width:150px">
+                            品名 <select class="select" name="catId2_2" id="catId2_2">
+                              <option value="">--请选择--</option> [#list level2SpCatList as bean]
+                              <option value="${bean.id}" [#if catId2_2==bean.id]selected[/#if]>${bean.catName!''}</option> [/#list]
+                            </select>
+                          </span>
+                          <span class="select-box" style="width:150px">
+                            品牌 <select class="select" name="brandId_2" id="brandId_2">
+                            </select>
+                            <span class="select-box" style="width:150px">
+                              仓库 <select class="select" name="storage_2" id="storage_2">
+                                <option value="">--请选择--</option> [#list storageList as bean]
+                                <option value="${bean.value}" [#if storage_1==bean.value]selected[/#if]>${bean.desc!''}</option> [/#list]
+                              </select>
+                            </span>
+                          </span>
+                          日期：
+                          <input type="text" id="beginDate_2" name="beginDate_2" value="${beginDate_2}" data-type="date" class="input-text" style="width:110px;">
+                          -
+                          <input type="text" id="endDate_2" name="endDate_2" value="${endDate_2}" data-type="date" class="input-text" style="width:110px;">
+                          <button name="queryOrderBtn_2" id="queryOrderBtn_2" class="btn btn-orange" type="submit">
+                            <i class="icon-search"></i> 查找
+                          </button>
+                        </div>
+                        <div class="myorder_table">
+                          <table class="table table-hover table-org">
+                            <thead>
+                              <tr>
+                                <th>类别</th>
+                                <th>品名</th>
+                                <th>品牌</th>
+                                <th>仓库</th>
+                                <th>数量</th>
+                                <th>单价（元)</th>
+                                <th>总金额（元)</th>
+                                <th>成交时间</th>
+                                <th>卖方</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              [#list buyerPage.recordList as order]
+                              <tr>
+                                <td>${order.catName1}</td>
+                                <td>${order.catName2}</td>
+                                <td>${order.brandName}</td>
+                                <td>${order.storageName}</td>
+                                <td>[#if order.quantity?if_exists] ${order.quantity?string('0.####')}${order.unit} [/#if]</td>
+                                [#if order.valuationType==0] [#if order.status==3]
+                                <td>[#if order.unitPrice?if_exists] ${order.unitPrice?string("currency")} [/#if]</td>
+                                <td>[#if order.totalPrice?if_exists] ${order.totalPrice?string("currency")} [/#if]</td>
+                                [#else]
+                                <td>${order.pricingContract!} [#if order.premium>0]+[/#if] [#if order.premium != 0]${order.premium}[/#if]</td>
+                                <td>（${order.pricingContract!} [#if order.premium>0]+[/#if] [#if order.premium !=
+                                  0]${order.premium}[/#if]）*${order.quantity?string('0.####')}</td>
+                                [/#if] [#else]
+                                <td>[#if order.unitPrice?if_exists] ${order.unitPrice?string("currency")} [/#if]</td>
+                                <td>${order.totalPrice?string("currency")}</td>
+                                [/#if]
+                                <td>[#if order.signTime?if_exists] ${order.signTime?string("yyyy-MM-dd")} [/#if]</td>
+                                <td>
+                                  <a href="javascript:;" id="updatePassword" onclick="showOrderAccountDetail('${order.sellerAccountNo}')"> ${order.sellerName}</a>
+                                </td>
+                                <td>
+                                  <a target="_blank" href="${rc.contextPath}/order/contract/detail/${order.id}.html">详细</a>
+                                </td>
+                              </tr>
+                              [/#list]
+                            </tbody>
+                          </table>
+                        </div>
+                        <div id="page_2"></div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 弹出框 start -->
+<div class="modal fade" id="myModalmerchant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <!-- 商家详情 start -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">已认证会员</h4>
+      </div>
+      <table class="table table-condensed table-hover" width="100%" style="border:1px solid #ccc;"; >
+        <tbody>
+          <tr>
+            <th for="name">企业名称：</th>
+            <td>
+              <input type="text" class="form-control user_company" id="firmFullName" name="firmFullName" readonly>
+            </td>
+            <th for="name">联系人：</th>
+            <td>
+              <input type="text" class="form-control user_tname" id="name" name="name" readonly>
+            </td>
+          </tr>
+          <tr>
+            <th for="name">联系电话：</th>
+            <td>
+              <input type="text" class="form-control user_phone" id="phone" name="phone" readonly>
+            </td>
+            <th for="name">公司固话：</th>
+            <td>
+              <input type="text" class="form-control user_landline" id="landline" name="landline" readonly>
+            </td>
+          </tr>
+          <tr>
+            <th for="name">联系邮箱：</th>
+            <td>
+              <input type="text" class="form-control user_email" id="email" name="email" readonly>
+            </td>
+            <th for="name">联系QQ：</th>
+            <td>
+              <input type="text" class="form-control user_qq" id="qq" name="qq" readonly>
+            </td>
+          </tr>
+          <tr>
+            <th for="name">传真号码：</th>
+            <td>
+              <input type="text" class="form-control user_fax" id="fax" name="fax" readonly>
+            </td>
+          </tr>
+          <tr>
+            <th for="name">地区 ：</th>
+            <td>
+              <input id="province" name="province" type="text" class="form-control user_province" readonly>
+            </td>
+            <td>
+              <input id="city" name="city" type="text" class="form-control user_city" readonly>
+            </td>
+            <td>
+              <input id="district" name="district" type="text" class="form-control user_district" readonly>
+            </td>
+          </tr>
+          <tr>
+            <th for="name">地址：</th>
+            <td colspan="3">
+              <input type="text" id="address" name="address" class="form-control user_adetail" readonly />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- 登录框 end -->
+  </div>
+</div>
+<!-- 弹出框 end -->
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+</body>
+</html>

@@ -23,6 +23,7 @@ var apiPath = {
     base: src,
     dirs: {
         search: src+'api/search.html',
+        loginCheck: src+'api/loginCheck.html',
         user: src+'checkUserStatus.html',
         header_nav: src+'api/navbar.html',
         index_goods: src+'api/index/goods/cat/list.html',

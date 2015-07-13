@@ -36,6 +36,7 @@ function *demoIndexData(oridata){
         // console.log(userInfo);
 
         var body = yield libs.$parse(this);
+    
         body._rt = new Date().getTime();
         apiData = yield api.mallList(body);
     }

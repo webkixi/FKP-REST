@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+<body>
+@@include('../_common/header/header2.html')
+<div class="wrapper">
+    <div class="container">
+        <div class="login">
+            <div class="clearfix">
+              <ul class="r_logo fl">
+                <li class="rlogo"><a href="/index.html"><img src="/images/logo.png"></a></li>      
+                <li>|</li>      
+                <li class="rlogo">账号登录</li>      
+              </ul>
+              <div class="r_login">我没有账号，马上<a href="/regist.html"> 注册</a></div>
+            </div>
+            <div class="modal-body login_body login-yh">
+            <!-- <form action="/loginCheck.html" id="loginCheck" method="post"> -->
+            <form action="#" id="loginCheck" >
+                <div class="login_input">
+                  <div class="form-group">
+                      <label for="name">手机号码：</label>
+                      <!-- <input type="text" class="form-control user_phone" value="${loginPhone}" id="loginPhone" name="loginPhone" placeholder="手机号"> -->
+                      <input type="text" class="form-control user_phone" id="loginPhone" name="loginPhone" placeholder="手机号">
+                  </div>
+                  <div class="form-group">
+                      <label for="name">密码：</label>
+                      <input type="password" class="form-control user_pwd" id="password" name="password" placeholder="密码" autocomplete="off">
+                  </div> 
+                  <div class="l_code clearfix hidden">
+                      <input class="code fl form-control" placeholder="验证码" type="text">
+                      <img src="/images/yzm.png"/>
+                      <a href="#">换一张</a>
+                  </div>
+                </div>
+                <div class="login_tip clear hidden">
+                  <div class="login_remeber fl"><b class="checkbox"></b><span class="m_t5 fl">下次自动登录</span></div>
+                </div>
+                        <p class="login_erroA hidden">
+<!--                             [#if accountMsg??]
+                            <B>${accountMsg}</B>
+                            [/#if] -->
+                        </p>
+                <div class="login_btn"><button type="submit" id="login_ok" class="btn btn-primary">登录</button></div>
+                <div class="login_password m_t5"><a href="/forget.html">忘记密码？</a></div>        
+            </form>
+         </div>
+        </div>
+    </div>
+</div>
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+</body>
+</html>
