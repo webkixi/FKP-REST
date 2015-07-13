@@ -4,6 +4,7 @@
 var fs = require('fs');
 var path = require('path')
 var api = require('../apis/javaapi');
+var header_nav = require('../pages/common/header_nav');
 var router = require('koa-router');
 var libs = require('../libs/libs')
 var __ = libs.$lodash;
@@ -187,6 +188,8 @@ function *distribute(_mapper){
 **/
 function *htmlRender(stat,route,data){
     libs.clog('route.js/htmlRender'+route);
+    var header = yield header_nav();
+    data.header_nav = header.navData
     if (stat)
         this.body = yield render(route,data);
     else
@@ -198,6 +201,8 @@ function *htmlRender(stat,route,data){
 
 function *returnJson(stat,route,data){
     libs.clog('route.js/htmlRender'+route);
+    var header = yield header_nav();
+    data.header_nav = header.navData
     if (stat)
         this.body = JSON.stringify(data);
     else
