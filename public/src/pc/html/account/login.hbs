@@ -19,7 +19,7 @@
             </div>
             <div class="modal-body login_body login-yh">
             <!-- <form action="/loginCheck.html" id="loginCheck" method="post"> -->
-            <form action="#" id="loginCheck" >
+            <!-- <form action="#" id="loginCheck" > -->
                 <div class="login_input">
                   <div class="form-group">
                       <label for="name">手机号码：</label>
@@ -44,14 +44,34 @@
                             <B>${accountMsg}</B>
                             [/#if] -->
                         </p>
-                <div class="login_btn"><button type="submit" id="login_ok" class="btn btn-primary">登录</button></div>
+                <div class="login_btn"><a href="javascript:;" type="button" onclick="loginCheck()" id="login_ok" class="btn btn-primary">登录</a></div>
                 <div class="login_password m_t5"><a href="/forget.html">忘记密码？</a></div>        
-            </form>
+            <!-- </form> -->
          </div>
         </div>
     </div>
 </div>
 @@include('../_common/footer/footer.html')
 @@include('../_common/footer/foot.html')
+<script type="text/javascript">
+  function loginCheck(e) {
+    $.post( "./login",{
+        loginPhone: $('#loginPhone').val(),
+        password : $('#password').val()
+      },
+      function(i){
+        var jo = JSON.parse(i);
+        console.log(jo);
+        if(jo.success){
+          //dropAlert(jo.success);
+          alert(jo.success);
+          //window.location.href="/account/regist.html"
+        }else{
+          alert(jo.errmsg);
+        }
+      }
+    )
+  }
+</script>
 </body>
 </html>
