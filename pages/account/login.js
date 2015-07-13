@@ -12,22 +12,24 @@ function *demoLoginData(oridata){
     var dataSet = {};
     var mtd = this.method;
 
+    console.log(mtd)
+
     if(mtd==='GET'){
+        console.log('=================')
         // var path = libs.$url.parse(this.path).pathname.replace('/','') // 处理query和hash
 
     }
-
     else if(mtd==='POST'){
-        libs.clog('pages/loginCheck.js========POST');
+        libs.clog('pages/login.js========POST');
         // var userInfo = yield api.user({'loginPhone':'13268280401'})
         // console.log(userInfo); 
 
         var body = yield libs.$parse(this); 
-        //apiData = yield api.xxx('loginCheck',body);
-        apiData = yield api.loginCheck(body);
         console.log(body);
+        //apiData = yield api.xxx('loginCheck',body);
+        apiData = yield api.pullApiData('loginCheck',body);
     }
-
+    return oridata;
 }
 
 module.exports = {
