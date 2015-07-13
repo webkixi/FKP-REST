@@ -17,13 +17,17 @@ function *demoIndexData(oridata){
     var local = this.local;
 
     if(mtd==='GET'){
+        // 属性列表
+        attrData = yield api.pullApiData('mall_attr',{});
+
+        //商品列表，默认全部商品
         apiData = yield api.mallList({
             'pageCurrent': 1,
             'orderField': '',
             'orderDirection':'',
             'pageSize':24,
             '_rt': new Date().getTime()
-        });
+        })
     }
 
     else if(mtd==='POST'){
@@ -37,13 +41,26 @@ function *demoIndexData(oridata){
         apiData = yield api.mallList(body);
     }
 
+    //页面商城数据
     var jsonData = JSON.parse(apiData[1]);
-    // libs.wlog(apiData[1]);
 
-    //react
-    var reactHtml = rct('list');
-    jsonData.reacttest = reactHtml;
+    // 页面选择面板数据
+    var attrData = JSON.parse(attrData[1]);
 
+    //react template
+    //商城选择面板模板render
+    // var reactHtml = rct('list',{
+    //     itemStyle: {width:'240px'},
+    //     data: jsonData.pagination.recordList  //数组
+    // });
+
+    //商城商品列表模板render
+    var reactHtml = rct('list',{
+        itemStyle: {width:'240px'},
+        data: jsonData.pagination.recordList  //数组
+    });
+
+    jsonData.reactMallGoodsList = reactHtml;
 
     oridata = libs.$extend(true,oridata,jsonData);
 

@@ -158,17 +158,19 @@ function *distribute(_mapper){
                     }
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
-                        yield htmlRender.call(this,false);
+                        yield htmlRender.call(this,true,route,pageData);
                         return false;
                     }
                 }
 
-                if(this.method==='GET')
-                    yield htmlRender.call(this,true,route,pageData);
+                if(pageData.errState) yield htmlRender.call(this,false,route);
+               else{
+                    if(this.method==='GET')
+                        yield htmlRender.call(this,true,route,pageData);
 
-                else if(this.method==='POST')
-                    yield returnJson.call(this,true,route,pageData);
-
+                    else if(this.method==='POST')
+                        yield returnJson.call(this,true,route,pageData);
+                }
             }
 
             else{ /* todo something */ }
@@ -188,8 +190,8 @@ function *htmlRender(stat,route,data){
     if (stat)
         this.body = yield render(route,data);
     else
-        this.body = 'no pages config file';
-        // this.body = yield render('404');
+        //this.body = 'no pages config file';
+        this.body = yield render('404');
 }
 
 

@@ -115,7 +115,7 @@ div.container{margin:0 auto; padding:0!important; width: 1200px;}
 .dropAlert .alertBox {
   background-color: #fff;
   border: 1px solid #ddd;
-  margin: 5px;	
+  margin: 5px;
 }
 
 .dropAlert .alert_title {
@@ -243,7 +243,7 @@ i.nav-icon{ border-left: 8px solid #ff6600;  height: 24px; display: block; posit
 .sort_product{min-height: 285px;}
 .sort_product ul{ margin: 0 30px;}
 .sort_product li dl{ margin-bottom: 0;}/*0609*/
-.sort_product li{ display: inline-block; *display: block; *zoom:1;  padding: 0!important;}
+.sort_product li{ display: inline-block; *display: block; *zoom:1;  padding: 0;}
 .sort_product li dd{ display: block;margin-bottom:10px;}
 .sort_product li p{ display: inline-block;margin:0;width: 267px;height:20px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 .sort_product li p a{ color: #666;}/*0609*/
@@ -460,9 +460,9 @@ span.required{
 /*20150709 start*/
 .btn-orange{ background-color: #ff6600; border-color: #ff6600; color: #fff}
 .btn-orange:hover, .btn-orange:focus{ background-color: #ED6307; border-color: #ED6307; color: #fff;}
-p.error_msg2{ 
-  display: inline-block; 
-  color: #666; 
+p.error_msg2{
+  display: inline-block;
+  color: #666;
   font-size: 18px;
 }
 input.bd_col,select.bd_col{

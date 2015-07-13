@@ -1,0 +1,445 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+
+<body>
+@@include('../_common/header/header.html')
+	
+<div class="wrapper">
+  <div class="container menu-container">
+    <div class="current_path container">
+        <a href="${rc.contextPath}/index.html">首页</a> > <a href="${rc.contextPath}/mall/item/list.html">金属商城</a> > <a href="${rc.contextPath}/mall/item/list.html?catId=${spCat.id}">${spCat.catName!''}</a> > <a class="currents"> ${spGoods.brandName!''} ${spGoods.catName2!''} ${spGoods.model!''} </a>
+    </div>
+    <div class="ty-item-grid-c1">
+      <div class="ty-c1-content">
+        <div class="ty-c1-grid-l">
+          <div class="ty-grid-galleryShow">
+	        [#assign index=1/]
+	        [#list spGoodsPictureList as picture]
+            <a href="${imagePath}${picture.original}" class="jqzoom" rel='gal1'  title="triumph"><img src="${imagePath}${picture.original}" jqimg="${imagePath}${picture.original}" class="ty-grid-gsPic"></a>
+				[#assign index=index+1/]
+				[#break]
+			[/#list]
+			[#if index == 1]
+            <a href="${rc.contextPath}/statics/front/images/blank.gif" class="jqzoom" rel='gal1'  title="triumph"><img class="error_img" src="${rc.contextPath}/statics/front/images/blank.gif" jqimg="${rc.contextPath}/statics/front/images/blank.gif" class="ty-grid-gsPic"></a>
+			[/#if]
+            <i class="scaling"></i>
+          </div>
+          <div class="ty-grid-thumb goods_slides">
+            <div class="ty-grid-thumbdiv slides_list">
+                <ul id="thumblist">   
+	               [#assign index=1/]
+                   [#list spGoodsPictureList as picture]
+                    <li><a [#if index==1] class="zoomThumbActive" [/#if] href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '${imagePath}${picture.original}',largeimage: '${imagePath}${picture.original}'}"><img src="${imagePath}${picture.original}"></a></li>
+                   		[#assign index=index+1/]
+                   [/#list]
+                   [#if index == 1 && spGoods.picture?exists]
+                    <li><a [#if index==1] class="zoomThumbActive" [/#if] href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '${imagePath}${spGoods.picture}',largeimage: '${imagePath}${spGoods.picture}'}"><img src="${imagePath}${spGoods.picture}"></a></li>
+                   [/#if]
+                </ul>
+            </div>
+            <div class="ty-grid-gspic-btn slides_btn">
+                <a href="javascript:;" class="sbtn-left slides_btn_left"><i></i></a>
+                <a href="javascript:;" class="sbtn-right slides_btn_right"><i></i></a>
+            </div>
+          </div>
+          <div class="ty-grid-ad">
+            <img src="${rc.contextPath}/statics/front/images/ad/ad.jpg">
+          </div>
+        </div>
+        <div class="ty-c1-grid-r clearfix">
+          <div class="ty-c1-grid-m  left">
+            <div class="ty-Xbase">
+              <div class="ty-Xbase-row1 ty-Xbase-row">
+                <h1>${spGoods.brandName!''} ${spGoods.catName2!''} ${spGoods.model!''}</h1>
+	              </div>
+              <div class="ty-Xbase-row3 ty-Xbase-row">
+                <div class="ty-panel">
+                  <div class="ty-p-content">
+                    <dl>
+                        <dt><span>类别：</span></dt>
+                        <dd>${spGoods.catName!''}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>品名：</span></dt>
+                        <dd>${spGoods.catName2!''}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>规格型号：</span></dt>
+                        <dd>${spGoods.model?html}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>厂家：</span></dt>
+                        <dd>${spGoods.vender?html}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>品牌：</span></dt>
+                        <dd>${spGoods.brandName!''}</dd>
+                    </dl>
+                    <dl class="pro-ghl">
+                        <dt>挂牌量：</dt>
+                        <dd>${spGoods.stock?string('0.####')}${spGoods.unitName!''}</dd>
+                    </dl>
+                    <dl class="pro-cgl">
+                        <dt>采购量：</dt>
+                        <dd class="o-amount"><a class="minus amount-btn" href="javascript:;" data-minval="${spGoods.minQuantity?string('0.####')}" data-increase="[#if spGoods.increase != null && spGoods.increase > 0]${spGoods.increase?string('0.####')}[#else]1[/#if]">-</a>
+                        <input id="quantity" data-minval="${spGoods.minQuantity?string('0.####')}" value="${spGoods.minQuantity?string('0.####')}" [#if spGoods.increase != null && spGoods.increase > 0] disabled="disabled" [/#if] style="width: 90px;">
+                        <a class="plus amount-btn" href="javascript:;" data-minval="${spGoods.minQuantity?string('0.####')}" data-increase="[#if spGoods.increase != null && spGoods.increase > 0]${spGoods.increase?string('0.####')}[#else]1[/#if]">+</a>&nbsp;${spGoods.unitName}  
+                        [#if spGoods.increase != null && spGoods.increase > 0](增幅${spGoods.increase?string('0.####')}${spGoods.unitName!''}) [/#if]</dd>
+                    </dl>
+                    <dl class="pro-qdl">
+                        <dt>起订量：</dt>
+                        <dd>${spGoods.minQuantity?string('0.####')}${spGoods.unitName!''}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>挂牌时间：</span></dt>
+                        <dd>${spGoods.createTime?string("yyyy-MM-dd")}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>有效期：</span></dt>
+                        <dd>${spGoods.validity}天</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>计价方式：</span></dt>
+                        <dd>${spGoods.valuationName!''}</dd>
+                    </dl>
+                    [#if spGoods.valuation==0]
+                    <dl>
+                        <dt><span>点价方：</span></dt>
+                        <dd>${spGoods.partyPriceName!''}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>点价合约：</span></dt>
+                        <dd>${spGoods.exchangeName!''}${spCat2.pageTitle!''}${spGoods.contractPeriod!''}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>升贴水（元/${spGoods.unitName}）：</span></dt>
+                        <dd>[#if (spGoods.discount)??] ${spGoods.discount?string("currency")} [/#if]</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>点价截止时间：</span></dt>
+                        <dd>${spGoods.stopDate?string("yyyy-MM-dd")} ${spGoods.stopHour?string('00')}:${spGoods.stopMinute?string('00')}:00
+                        [#if spGoods.isNightPlate=='0'] <i>(不接受夜盘点价)</i> [/#if]
+                        [#if spGoods.isNightPlate=='1'] <i>(接受夜盘点价)</i> [/#if]
+                        </dd>
+                    </dl>
+                    [/#if]
+			        [#if spGoods.valuation==1]
+                    <dl>
+                        <dt><span>单价（元/${spGoods.unitName!''}）：</span></dt>
+                        <dd>[#if spGoods.price?if_exists] ${spGoods.price?string("currency")} [/#if]</dd>
+                    </dl>
+			        [/#if]
+                    <dl>
+                        <dt><span>付款方式：</span></dt>
+                        <dd>${spGoods.paymentWayName!''}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>仓库：</span></dt>
+                        <dd>${spGoods.storageName!''}</dd>
+                    </dl>
+			        [#if spGoods.storage==99]
+                    <dl>
+                        <dt><span>仓库地址：</span></dt>
+                        <dd>${spGoods.storageAddr?html}</dd>
+                    </dl>
+			        [/#if]
+                    <dl>
+                        <dt><span>交货方式：</span></dt>
+                        <dd>${spGoods.deliveryWayName?html}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>备注说明：</span></dt>
+                        <dd>${spGoods.remark?html}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+              [#if owner?exists && owner==true]
+              <div class="ty-Xbase-row4 ty-Xbase-row">
+                <div class="ty-Xaction-Buy">
+			        <a class="ty-X-btn-buy ty-X-btn-nobuy" href="javascript:;"></a>自家商品，不可下单。
+                </div>
+              </div>              
+              [#else]
+              [#if listed==true]
+              <div class="ty-Xbase-row4 ty-Xbase-row">
+                <div class="ty-Xaction-Buy">
+                  <a class="ty-X-btn-buy" href="javascript:;" id="submitOrderBtn"></a>
+                </div>
+              </div>
+              [#else]
+              <div class="ty-Xbase-row4 ty-Xbase-row">
+                <div class="ty-Xaction-Buy">
+			        <a class="ty-X-btn-buy ty-X-btn-nobuy" href="javascript:;"></a> 该商品已经撤牌，不可交易。
+                </div>
+              </div>              
+              [/#if]
+              [/#if]
+            </div>
+          </div>     
+        </div>
+      </div>
+    </div>
+    <div class="ty-item-grid-c2">
+      <div class="ty-item-grid-m">
+        <div class="ty-item-grid-inner">
+          <div class="ty-item-grid-inner-t">
+            <ul>
+              <li class="select"><div class="ty-item-c"><a href="javascript:;"><i class="all_icon icon-spjs"></i><span>厂家详情</span></a></div></li>
+              <li><div class="ty-item-c"><a href="javascript:;"><i class="all_icon icon-spxq"></i><span>质量标准</span></a></div></li>
+              <li><div class="ty-item-c"><a href="javascript:;"><i class="all_icon icon-shbz"></i><span>包装方式</span></a></div></li>
+              <li><div class="ty-item-c"><a href="javascript:;"><i class="all_icon icon-tchy"></i><span>联系方式</span></a></div></li>
+            </ul>
+          </div>
+          <div class="ty-item-grid-inner-c ty-main-tab">
+            <div class="ty-item-tab">
+                <p>${firmDetail.introduce!'无'}</p>
+            </div>
+            <div class="ty-item-tab disN">
+                <p>${spGoods.quality!'按厂家标准。'}</p>
+            </div>
+            <div class="ty-item-tab disN">
+              <p>${spGoods.manner!'厂家出厂包装。 '}</p>
+            </div>
+            <div class="ty-item-tab disN">
+                <p>
+                	<table>
+                		<tbody>
+                			<tr><th>企业名称：</th><td>${firmInfo.firmFullName!' '}</td></tr>
+                			<tr><th>联系人：</th><td>${firmContact.name!' '}</td></tr>
+                			<tr><th>联系人电话：</th><td>${firmContact.phone!' '}</td></tr>
+               				<tr><th>公司电话：</th><td>${firmContact.landline!' '}</td></tr>
+                			<tr><th>传真号码：</th><td>${firmContact.fax!' '}</td></tr>
+                			<tr><th>邮箱：</th><td>${firmContact.email!' '}</td></tr>
+                			<tr><th>联系地址：</th><td>
+               				${province!' '}
+               				${city!' '}
+               				${district!' '}
+                			${firmContact.address!' '}
+                			</td></tr>
+                			<!-- tr><th>备注：</th><td>${firmContact.remark!' '}</td></tr-->
+                		</tbody>
+                	</table>
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog"><!-- 登录框 start -->
+      <div class="modal-content modal-contents">
+         <div class="clearfix modal-heads">
+           <ul class="r_logo fl">
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                 &times;
+             </button>           
+             <li class="rlogo"><a href="${rc.contextPath}/index.html"><img src="${rc.contextPath}/statics/front/images/logo.png"></a></li>      
+             <li>|</li>      
+             <li class="rlogo">账号登录</li>      
+           </ul>
+         </div>
+         <div class="modal-body login_body">
+           <form action="" id="loginCheck">
+     			  <div class="login_input">
+                  <div class="form-group">
+                      <label for="name">手机号码：</label>
+                      <input type="text" class="form-control user_phone" value="${loginPhone}" id="loginPhone" name="loginPhone" placeholder="手机号">
+                  </div>
+                  <div class="form-group">
+                      <label for="name">密码：</label>
+                      <input type="password" class="form-control user_pwd" id="password" name="password" placeholder="密码" autocomplete="off">
+                  </div> 
+                  <div class="l_code clearfix hidden">
+                      <input class="code fl form-control" placeholder="验证码" type="text">
+                      <img src="${rc.contextPath}/statics/front/images/yzm.png"/>
+                      <a href="#">换一张</a>
+                  </div>
+                </div>
+                <div class="login_tip clear hidden">
+                  <div class="login_remeber fl"><b class="checkbox"></b><span class="m_t5 fl">下次自动登录</span></div>
+                </div>
+   				<font size="3" face="Times" color="red" >
+					<div class="modal-body login_body">
+						<p class="errorMsg"></p>
+					</div>
+				</font>                             
+                <div class="login_btn">
+                <a href="javascript:;" type="button" onclick="loginFromOrder()" id="loginFromOrder" class="btn btn-primary">登录</a></div>
+                <div class="login_other"><a href="${rc.contextPath}/forget.html" target="_blank" class="fl">忘记密码？</a><a href="${rc.contextPath}/regist.html" target="_blank" class="fr">立即注册</a></div>
+            </form>
+         </div>
+      </div>
+    </div><!-- 登录框 end -->
+</div>
+
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+
+
+<script type="text/javascript">
+  var ajaxAsync = true;
+  var ajaxTimeout = 3000;
+  var dataType = "json";
+
+    /*使用jqzoom*/
+    $(function() {
+        $('.jqzoom').jqzoom({
+            zoomType: 'standard',
+            lens:true,
+            preloadImages: false,
+            alwaysOn:false
+        });
+        /*切换tab*/
+        var pos=$(".ty-item-grid-inner-t").offset().top;
+        $(window).scroll(function(){
+            pos_top(".ty-item-grid-inner-t",pos);
+        });
+        var pos=$(".ty-item-grid-inner-t").offset().top;
+        $(window).scroll(function(){
+            pos_top(".ty-item-grid-inner-t",pos);
+        });
+        $(".ty-item-grid-inner-t li").click(function(){
+            if($(window).scrollTop()>pos)
+            $(window).scrollTop(pos);
+            var i=$(this).index();
+            $(this).addClass("select").siblings().removeClass("select");
+            i=(i==4)?null:(i>4)?--i:i;
+            if(i!=null)$(".ty-main-tab").show().children().eq(i).show().siblings().hide();
+            else $(".ty-item-grid-inner-f").show().prev().hide();
+        });
+        $(".ty-c1-grid-l .ty-grid-galleryShow a").css("margin","auto");
+        
+        
+        $("#submitOrderBtn").click(function (){
+          //确认当前是否已经登录
+          checkLoginAndSubmitOrder();
+        });
+    });
+    
+    function checkLoginAndSubmitOrder() {
+      $.ajax({
+      type: "GET",
+      url: "${rc.contextPath}/checkLoginStatus.html?_rt=" + new Date().getTime(),
+      timeout: ajaxTimeout,
+      dataType: dataType,
+      async: ajaxAsync,
+      success: function(result) {
+        if(result.status == true) {
+          //submitOrder();
+          //已登录用户检查是否已经通过企业认证
+          checkAuthAndSubmitOrder();
+          return;
+        }else{
+              //当前用户还没有登录，弹出登录创口登录
+          $("#myModal").addClass("in show");
+          $("#myModal .close").click(function() {
+            $("#myModal").removeClass("in show");
+          })
+        }
+        return;
+      },
+      error : function(e) {
+      }
+    });
+    }
+    
+    //检查当前用户是否通过企业认证
+    function checkAuthAndSubmitOrder() {
+      $.ajax({
+      type: "GET",
+      url: "${rc.contextPath}/checkAuthStatus.html?_rt=" + new Date().getTime(),
+      timeout: ajaxTimeout,
+      dataType: dataType,
+      async: ajaxAsync,
+      success: function(result) {
+        if(result.status == true) {
+          submitOrder();
+          return;
+        }else{
+          //未认证企业
+          document.location.href = "${rc.contextPath}/noAuth.html";
+        }
+        return;
+      },
+      error : function(e) {
+      }
+    });
+    }    
+    function submitOrder() {
+      // if(parseFloat($("#quantity").val()) < ${spGoods.minQuantity?string('0.####')}) {
+      if(parseFloat($("#quantity").val()) < 0) {
+          messager.alert({title:"提示",content:"订单数量不能小于起订量，请修改。",type:"warning"});
+      return;
+      }
+      // if(parseFloat($("#quantity").val()) > ${spGoods.stock?string('0.####')}) {
+      if(parseFloat($("#quantity").val()) > 100) {
+        messager.alert({title:"提示",content:"订单数量不能大于挂牌量，请修改。",type:"warning"});
+        return;
+      }
+      var quantity = Math.round(parseFloat($("#quantity").val()) * 10000) / 10000;
+      // var increase = quantity - ${spGoods.minQuantity?string('0.####')};
+      var increase = quantity - 0;
+      var rate = (Math.round(increase * 10000) / 10000) % 1;
+      // var rate = (Math.round(increase * 10000) / 10000) % ${spGoods.increase?string('0.####')};
+
+      // if(${spGoods.increase?string('0.####')} > 0 && rate != 0) {
+      if(0 > 0 && rate != 0) {
+        messager.alert({title:"提示",content:"订单增量必须是商品增量的整数倍，请修改。",type:"warning"});
+        return;
+      }
+    $.ajax({
+      type : "GET",
+      url : "${rc.contextPath}/mall/trade/order/create/${spGoods.id}.html?quantity=" + $("#quantity").val() + "&_rt=" + new Date().getTime(),
+      timeout : 10000,
+      dataType : "json",
+      async : true,
+      success : function(resp) {
+        if (resp.success == true) {
+          document.location.href = "${rc.contextPath}/mall/trade/order/detail/" + resp.orderId + ".html?_rt=" + new Date().getTime();
+        } else {
+            messager.alert({title:"提示",content:resp.message,type:"warning"});
+            return;
+        }
+      },
+      error : function(e) {
+      }
+    });
+      
+    }
+    
+    function loginFromOrder() {
+    $.ajax({
+      type : "GET",
+      url : "${rc.contextPath}/loginCheckfromOrder.html?loginPhone="
+          + $('#loginPhone').val() + "&password="
+          + $('#password').val() + "&_rt=" + new Date().getTime(),
+      timeout : 10000,
+      dataType : "json",
+      async : true,
+      success : function(result) {
+        if (result.status == "true") {
+          $("#myModal").removeClass("in show");
+          $("#myregerro").addClass("in show");
+          //submitOrder();
+          checkAuthAndSubmitOrder();
+        }
+        else{
+          $(".errorMsg").html(result.errorMsg);
+        }
+      },
+      error : function(e) {
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

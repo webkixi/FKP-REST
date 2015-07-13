@@ -25,7 +25,9 @@ var apiPath = {
         search: src+'api/search.html',
         loginCheck: src+'api/loginCheck.html',
         user: src+'checkUserStatus.html',
-        mall_list: src+'api/mall/item/list/query.html'
+        info_cat: src+'api/info/cat-list.html',
+        mall_list: src+'api/mall/item/list/query.html',
+        mall_attr: src+'api/mall/item/list/attributes.html'
     }
 }
 
@@ -86,6 +88,18 @@ function *getMallList(param){
 
     return yield req(url+'?'+query);
 }
+ 
+function *getMallAttr(param){
+    libs.elog('javaapi/getMallList')
+
+    var url = apiPath.dirs.mall_attr;
+    var query = qs.stringify(param);
+
+    if(libs.getObjType(param)!=='Object')
+        return yield {};
+
+    return yield req(url+'?'+query);
+}
 
 
 function *getInfo(param){
@@ -100,6 +114,21 @@ function *getArticle(param){
 
 }
 
+function *pullApiData(api,param){
+    libs.elog('javaapi/'+ api);
+
+    var url = apiPath.dirs[api];
+    var query = qs.stringify(param);
+
+    console.log('(((((((((((((((((((((((((((query)))))))))))))))))))))))))))');
+    console.log(query);
+
+    if(libs.getObjType(param)!=='Object')
+        return yield {};
+
+    return yield req(url+'?'+query);
+}
+
 module.exports = {
     req: request,
     search: getSearch,
@@ -108,5 +137,6 @@ module.exports = {
     goods: getGood,
     article: getArticle,
     user: getUser,
-    apiPath:apiPath
+    apiPath:apiPath,
+    pullApiData: pullApiData
 }

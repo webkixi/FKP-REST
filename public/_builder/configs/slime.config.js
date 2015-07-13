@@ -249,7 +249,8 @@ var custom_modules = function(){
 custom_externals = {
     "jquery": "jQuery",
     "$": "jQuery",
-    "React": "React"
+    "React": "React",
+    "request": "request"
 }
 
 // module.exports = {
