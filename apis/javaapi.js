@@ -25,7 +25,12 @@ var apiPath = {
         search: src+'api/search.html',
         loginCheck: src+'api/loginCheck.html',
         user: src+'checkUserStatus.html',
+        header_nav: src+'api/navbar.html',
+        index_goods: src+'api/index/goods/cat/list.html',
+        index_cat: src+'api/index/info/cat/list.html',
+        index_booth: src+'api/goods/booth.html',
         info_cat: src+'api/info/cat-list.html',
+        info_view: src+'api/info/view.html',
         mall_list: src+'api/mall/item/list/query.html',
         mall_attr: src+'api/mall/item/list/attributes.html'
     }

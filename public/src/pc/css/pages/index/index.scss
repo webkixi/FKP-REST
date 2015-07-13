@@ -1,3 +1,46 @@
 @import "../../modules/_settings/_setting_pages";
 @import "../_common/com.scss";
 @import "../_common/bootstrap.min.scss";
+
+.sort_content{
+	width:960px;
+	float:left;
+	ul{
+		margin:0;
+	}
+	li{
+		width:50%;
+		margin-bottom:10px;
+		float:left;
+		i{
+		  display: inline-block;
+		  font-style: normal;
+		  color: #999;
+		  margin-left: 40px;
+		}
+		p{
+			margin-left:10px;
+		}
+	}
+}
+.sort_goods{
+	float:left;
+	dl{
+		width:185px;
+		padding:5px;
+		border:1px solid #f60;
+		img{
+			width:100%;
+		}
+		dd{
+			span{
+				display: inline-block;
+				color:#333;
+			}
+			.lab{
+					color:#666;
+				}
+		}
+	}
+	
+}
