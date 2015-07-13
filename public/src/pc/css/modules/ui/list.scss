@@ -1,0 +1,105 @@
+// 常用方法
+//==============
+/**
+ * @tofishes 2015年04月14日 增加一些注释
+ *
+ * list，定义一些list列表项
+ */
+
+.hlist{
+    list-style: none;
+    font: normal normal normal 14px/150% Arial,Verdana,"宋体";
+    .item{
+        .inner{ }
+        height: auto;
+        position: relative;
+        margin-left: 10px;
+        img{
+            width: 100%;
+            min-height: 100%;
+            border: 0;
+        }
+        p{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+            border: none;
+        }
+        .hheader{
+            padding: 10px;
+        }
+        .hbody{
+            padding: 10px;
+        }
+        .hfoot{
+            padding: 10px;
+        }
+        .dot{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+}
+
+.elephant{
+    small{
+        font-size: 12px;
+        color: #999;
+        display: inline-block;
+        width: 46px;
+    }
+    .item{
+        float: left;
+        padding: 5px;
+        margin: 0;
+        .inner{
+            border: 1px solid #efefef;
+        }
+        .hheader{
+            padding: 0;
+            height: 200px;
+            overflow: hidden;
+        }
+        .hbody{
+            padding-top: 10px;
+            p:first-child{
+                // font-weight: bold;
+            }
+        }
+    }
+}
+
+.fox{
+    small{
+        font-size: 12px;
+        color: #999;
+        display: inline-block;
+        width: 46px;
+    }
+    .item{
+        float: left;
+        padding: 5px;
+        margin: 0;
+        .inner{
+            border: 1px solid #efefef;
+        }
+        .hheader{
+            padding: 2px 0;
+            overflow: hidden;
+            a{
+                border: none;
+                width: auto;
+                min-width: 60px;
+            }
+        }
+        .hbody{
+            padding-top: 10px;
+            p:first-child{
+                // font-weight: bold;
+            }
+        }
+    }
+}

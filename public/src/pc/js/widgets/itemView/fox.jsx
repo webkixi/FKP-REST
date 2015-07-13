@@ -37,7 +37,7 @@ var fox = React.createClass({
 		return (
             <li data-val={k1}  className={clsName} style={sty} >
 				<div className={"hheader"} >
-					<a href={v1} > {k2} </a>
+					<a href={v1}>{k2}</a>
 				</div>
             </li>
 	) }

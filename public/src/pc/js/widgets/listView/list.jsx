@@ -80,7 +80,6 @@ var tmpApp = React.createClass({
 			cls = "hlist u-clearfix";
 			sty = this.props.listStyle;
 		}
-		console.log(fills);
 		return (
 			<ul className={cls} style={sty}>
 				{fills}
