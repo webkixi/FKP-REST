@@ -105,6 +105,7 @@ function init(app,mapper,rend){
     .get('/:cat/:title/:id',forBetter)
 
     .post('/:cat',forBetter)
+    .post('/:cat/:title',forBetter)
 }
 
 /**
