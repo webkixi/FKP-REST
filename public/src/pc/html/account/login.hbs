@@ -55,23 +55,22 @@
 @@include('../_common/footer/foot.html')
 <script type="text/javascript">
   function loginCheck(e) {
-    console.log("d");
-    $.ajax({
-      type : "POST",
-      url : "?loginPhone=" + $('#loginPhone').val() + "&password=" + $('#password').val(),
-      //url : "/",
-      dataType : "json",
-      success : function(resp){
-        if(resp == "success"){
-
-        }else {
-         dropAlert(resp);
-        }
+    $.post( "./login",{
+        loginPhone: $('#loginPhone').val(),
+        password : $('#password').val()
       },
-      error : function(e) {
-        alert(e.msg);
+      function(i){
+        var jo = JSON.parse(i);
+        console.log(jo);
+        if(jo.success){
+          //dropAlert(jo.success);
+          alert(jo.success);
+          //window.location.href="/account/regist.html"
+        }else{
+          alert(jo.errmsg);
+        }
       }
-    })
+    )
   }
 </script>
 </body>
