@@ -177,6 +177,8 @@ function addSheet() {
     cssCode = cssCode + "\n"; //增加末尾的换行符，方便在firebug下的查看。
     var headElement = doc.getElementsByTagName("head")[0];
     var styleElements = headElement.getElementsByTagName("style");
+
+
     // if (styleElements.length == 0) {//如果不存在style元素则创建
     //     if (doc.createStyleSheet) {    //ie
     //         doc.createStyleSheet();
@@ -215,6 +217,12 @@ var node = {
         else
             el.remove();
     }
+}
+
+var clone =function(target){
+    return lodash.clone(target);
+    // var t = getObjType(target);
+    // return t === 'Object' ? $extend(true, {}, target) : t === 'Array' ? $extend(true, [], target) : target;
 }
 
 
@@ -287,5 +295,6 @@ module.exports = {
   lodash: lodash,
   node: node,
   urlparse:urlparse,
-  guid: guid
+  guid: guid,
+  clone: clone
 }

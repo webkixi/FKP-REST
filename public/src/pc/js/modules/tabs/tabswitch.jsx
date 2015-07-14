@@ -1,12 +1,26 @@
-// var
-// ListView = require('widgets/listView/listView'),
-// PageScrollStartEndMixin = require('mixins/PageScrollStartEndMixin'),
 
 var List = require('widgets/listView/list');
+var Store = require('mixins/store');
 
+var attrClick = function(){
+    $(this).click(function(){
+        $(this).toggleClass('active');
+        $(this).siblings().removeClass('active');
+    })
+}
 
-
+//react cnt
 var Cnt = React.createClass({
+    mixins: [Store],
+    getInitialState: function() {
+        SA.setter('Cnt',{});
+        SA.setter('Cnt',this.act)
+    },
+
+    act: function(data){
+        this.setState(data);
+    },
+
     componentWillMount: function(){
         if(this.props.data){
             this.setState({
@@ -20,7 +34,7 @@ var Cnt = React.createClass({
         if(this.state.datas){
             this.state.datas.map(function(it,i){
                 items.push(
-                    <List {...this.props} data={it} />
+                    <List {...this.props} data={it}  itemMethod={attrClick}/>
                 )
             }.bind(this))
         }
@@ -38,7 +52,7 @@ var Cnt = React.createClass({
     render: function () {
         var fill = this.loopRender();
         return(
-            <div className={'tab-cnt'} style={{width:'100%',height:'auto'}}>
+            <div className={'tab-cnt'} style={{width:'100%',height:'auto'}} >
                 {fill}
             </div>
         )
@@ -47,70 +61,38 @@ var Cnt = React.createClass({
 
 
 
-
-
-//react
+//react tabswitch
 var tabswitch = React.createClass({
+    mixins: [Store],
 	getDefaultProps: function() {
 		return { }
 	},
 
 	getInitialState: function() {
-        var cstore = {
-            element: {},
-            setter: function(name,data,cb){
-                if(!name) return;
-                this.element[name]=this.element[name]||{action: undefined};
-                this.element[name].data = data||this.element[name].data||'';
-                this.element[name].action = this.element[name].action||cb;
-                var act = this.element[name].action;
-                var data = this.element[name].data;
-                if(act){
-                    act(data);
-                }
-            },
-            getter: function(name){
-                return this.element[name];
-            }
-        };
-        window.cstore = cstore;
-
+        SA.setter('tabswitch',{}, this.act);
+        this.addSheet();
 		return {
         	datas: [],
             cntData: []
 	    };
 	},
 
-    store: function(){
-        var that = this;
-        return {
-            setter: function(data){
-                that.setState({
-                    datas: data
-                })
-            },
-            getter: function(){
-                return that.state.datas
-            },
-            adder: function(options){
-                that.setState(options);
-            }
-        }
+    addSheet: function(){
+        //添加css到头部
+        tabcss = '.tabswitch{border:1px solid #efefef;\n margin-bottom:10px;}'
+        libs.addSheet([tabcss,'tabswt']);
     },
 
     act: function(data){
-        this.setState({
-            datas: data
-        })
+        this.setState(data);
     },
 
 	//插入真实 DOM之前
 	componentWillMount:function(){
         var that = this;
-        // cstore.setter('tab',this.props.datas,that.act);
         if(this.props.data){
             var data = this.props.data;
-            this.store().setter(data);
+            SA.setter('tabswitch',{datas:data});
         }
 
         if(this.props.cntData){
@@ -119,12 +101,6 @@ var tabswitch = React.createClass({
                 cntData: cnt_data
             })
         }
-
-        // if(this.props.children){
-        //     this.setState({
-        //         childs: this.props.children
-        //     })
-        // }
 	},
 
 	componentDidMount: function() { },
@@ -133,7 +109,7 @@ var tabswitch = React.createClass({
         if(this.props.boxMethod){
 			var mtd = this.props.boxMethod;
 			if(typeof mtd==='function'){
-				mtd.call(this.getDOMNode(),this.store());
+				mtd.call(this.getDOMNode());
 			}
 		}
     },
@@ -154,7 +130,7 @@ var tabswitch = React.createClass({
 
 	render:function(){
 		return <div className={'tabswitch wid-12 u-clearfix'}>
-				<List {...this.props} data={this.state.datas} store={this.store()}/>
+				<List {...this.props} data={this.state.datas}/>
                 <Cnt data={this.state.cntData} listClass={'fox'} itemStyle={{width:'auto'}} />
           </div>
 	}
