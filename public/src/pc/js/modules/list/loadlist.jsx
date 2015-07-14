@@ -8,9 +8,26 @@ var
 LoadList = React.createClass({
 	mixins: [PageScrollStartEndMixin],
 	getDefaultProps: function() {
-		return {
+		// var cstore = {
+        //     element: {},
+        //     setter: function(name,data,cb){
+        //         if(!name) return;
+        //         this.element[name]=this.element[name]||{action: undefined};
+        //         this.element[name].data = data||this.element[name].data||'';
+        //         this.element[name].action = this.element[name].action||cb;
+        //         var act = this.element[name].action;
+        //         var data = this.element[name].data;
+        //         if(act){
+        //             act(data);
+        //         }
+        //     },
+        //     getter: function(name){
+        //         return this.element[name];
+        //     }
+        // }
+        // window.cstore = cstore;
 
-		};
+		return {};
 	},
 	getInitialState: function() {
 		return {
