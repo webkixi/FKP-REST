@@ -4,7 +4,6 @@ var rct = require('../../modules/parseReact');
 
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/h5/lazypage')
     var dataSet = {};
     var mtd = this.method;
     var local = this.local;

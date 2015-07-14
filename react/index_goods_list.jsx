@@ -32,7 +32,7 @@ var tmpApp = React.createClass({
 						<li className={"span2"}>
 							<dl>
 								<dt>
-									<a href={"/mall/item_datail/"+goods.id+".html"}><img src={goods.pictureLibUrl+goods.picture} /></a>
+									<a href={"/mall/item_detail/"+goods.id+".html"}><img src={goods.pictureLibUrl+goods.picture} /></a>
 								</dt>
 								<dd><span className={"lab"}>{goods.catName2}</span>{goods.model}</dd>
 								<dd><span className={"lab"}>{"品牌："}</span>{goods.brandName}</dd>
