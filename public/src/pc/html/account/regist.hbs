@@ -43,10 +43,10 @@
                         <a class="btn btn-orange msgs" href="javascript:;" id="sendMobileCode">
                             <span id="dyMobileButton">获取短信验证码</span>
                         </a>
-                        <span id="mobileCode_error error_msg" class="text-danger"></span>
+                        <span id="mobileCode_error" class="text-danger error_msg"></span>
                     </div>
                     <div class="r_yzbtn">
-                        <a href="javascript:;" type="button" onclick="checkLogin()" id="login_ok" class="btn btn-orange">验证手机</a>
+                        <a href="javascript:;" type="button" id="login_ok" class="btn btn-orange">验证手机</a>
                     </div>
                 </div>
                 <!-- 账户信息填写 -->
@@ -106,33 +106,30 @@
                             <input id="qq" name="qq" type="text" class="form-control user_qq" placeholder="qq号">
                             <p class="error_msg text-danger"></p>
                         </div>
-                        <div class="form-group u_address hidden">
-                            <span class="required">*</span>
-                            <label for="name">地区：</label> <select class="form-control user_asheng" id="province" name="province">
-                                <option value="广东省">广东省</option>
-                                <option value="广西省">广西省</option>
-                                <option value="广南省">广南省</option>
-                                <option value="江西省">江西省</option>
-                                <option value="湖南省">湖南省</option>
-                            </select> <select class="form-control user_ashi" id="city" name="city">
-                                <option value="广州省">广州市</option>
-                                <option value="佛山省">佛山市</option>
-                                <option value="汕尾省">汕尾市</option>
-                                <option value="深圳省">深圳市</option>
-                                <option value="汕头省">汕头市</option>
-                            </select> <select class="form-control user_aqu" id="district" name="district">
-                                <option value="天河省">天河区</option>
-                                <option value="白云省">白云区</option>
-                                <option value="越秀省">越秀区</option>
-                                <option value="黄埔省">黄埔区</option>
-                                <option value="海珠省">海珠区</option>
-                            </select>
+                        <div class="form-group u_address">
+                            <span class="select-box" style="width:200px">
+                                <label for="name">地区：</label> <select id="province" name="province" class="select">
+                                    <option value="">--选择省份--</option> [#list level1RegionList as bean]
+                                    <option value="${bean.id}" [#if regionId_1==bean.id]selected[/#if]>${bean.regionName!''}</option> [/#list]
+                                </select>
+                            </span>
+                            <span class="select-box" style="width:200px">
+                                <select id="city" name="city" class="select">
+                                    <option value="">--选择城市--</option>
+                                </select>
+                            </span>
+                            <span class="select-box" style="width:200px">
+                                <select id="district" name="district" class="select">
+                                    <option value="">--选择区县--</option>
+                                </select>
+                            </span>
                             <p class="error_msg text-danger"></p>
                         </div>
                         <div class="form-group">
                             <span>&nbsp;</span>
                             <label for="name">地址：</label>
                             <input type="text" id="address" name="address" class="form-control user_adetail" />
+                            <p class="error_msg text-danger"></p>
                         </div>
                         <div class="r_wcheckbox col-lg-offset-2 col-md-offset-2">
                             <input type="checkbox" id="mustRead" name="mustRead" value="1">
@@ -146,7 +143,7 @@
                             </label>
                         </div>
                         <div class="r_yzxx col-lg-offset-3 col-md-offset-3">
-                            <a href="javascript:;" type="button" onclick="checkAccount()" id="account_ok" class="btn btn-orange ">同意服务协议并注册</a>
+                            <a href="javascript:;" type="button" id="account_ok" class="btn btn-orange ">同意服务协议并注册</a>
                         </div>
                     </form>
                 </div>

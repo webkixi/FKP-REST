@@ -17,79 +17,6 @@ $(function(){
 			$(this).removeClass("bd_col");
 		}
 	});
-	$(".forget_msgs").click (function() {
-		ForsendMobileCode();
-	});
-	function ForsendMobileCode() {
-	    if ($(".forget_msgs").attr("disabled")) {
-	        return;
-	    }
-	    var mobile = $("#loginPhone").val();
-	    if ($(".user_phone").val()=="") {
-	        $("#mobile_error").html("请输入手机号");
-	        return;
-	    }
-	    if (!mobilepartn.test($(".user_phone").val())) {
-	        $("#mobile_error").html("手机号码格式有误，请输入正确的手机号");
-	        return;
-	    }
-	    // 检测手机号码是否存在
-	    jQuery.ajax({
-	        type: "get",
-	        url: "send-sms-code.html?mobileNo=" + $("#loginPhone").val() + "&r=" + Math.random() +"&isForgetPassword=" + true,
-	    	success: function(resp) {
-	        if ("success" == resp) {
-	            $("#mobile_error").html("");
-	            mobileFlags = true;
-	            sendmCode();
-	        }else {
-	        	$("#mobileCode_error").html(resp);
-	        	}
-	        }
-	    });
-	}	
-	function sendmCode() {
-	var validCode=true
-	    $(".forget_msgs").attr("disabled", "disabled");
-	    jQuery.ajax({
-	        type: "get",
-	        url: "send-sms-code.html?&mobileNo=" + $("#loginPhone").val() + "&r=" + Math.random(),
-	        success: function(result) {
-	        	if("success" == result){
-					var time=60;
-					var code=$(".forget_msgs");
-					if (validCode) {
-						validCode=false;
-						code.attr("disabled", "disabled");
-						var t=setInterval(function  () {
-							time--;
-							code.html(time+"秒");
-							if (time==0) {
-								clearInterval(t);
-								code.html("重新获取");
-								validCode=true;
-								code.removeAttr("disabled");
-							}
-							$("#mobileCode_error").html("验证码已发送，请查收短信。");
-						},1000)
-					}
-	        	}else{
-	        		$("#mobileCode_error").html(result);
-	        	}
-	        }
-	    });
-	}	
-/*
- * function sendmCode() { var validCode=true; jQuery.ajax({ type: "get", url:
- * "send-sms-code.html?&mobileNo=" + $("#loginPhone").val() + "&r=" +
- * Math.random(), success: function(result) { if("success" == result){ var
- * time=60; var code=$(".msgs"); if (validCode) { validCode=false;
- * code.attr("disabled", "disabled"); var t=setInterval(function () { time--;
- * code.html(time+"秒"); if (time==0) { clearInterval(t); code.html("重新获取");
- * validCode=true; code.removeAttr("disabled"); }
- * $("#mobileCode_error").html("验证码已发送，请查收短信。"); },1000) } }else{
- * $("#mobileCode_error").html(result); } } }); }
- */
 	$(".r_wrap_list .phone_yzm").focus(function(){
 		$(this).removeClass("bd_col");
 		$(this).parent(".r_wrap_list .form-group").find(".error_msg").html("");
@@ -167,4 +94,126 @@ $(function(){
 			$(this).next(".error_msg").html("");
 		}
 	});
+	$(".forget_msgs").click (function() {
+		ForsendMobileCode();
+	});
+	function ForsendMobileCode() {
+	    if ($(".forget_msgs").attr("disabled")) {
+	        return;
+	    }
+	    var mobile = $("#loginPhone").val();
+	    if ($(".user_phone").val()=="") {
+	        $("#mobile_error").html("请输入手机号");
+	        return;
+	    }
+	    if (!mobilepartn.test($(".user_phone").val())) {
+	        $("#mobile_error").html("手机号码格式有误，请输入正确的手机号");
+	        return;
+	    }
+	    // 检测手机号码是否存在
+	    $.post("./forget",{loginPhone: $('#loginPhone').val(),isForgetPassword: true},function(i){
+	    	console.log("come on")
+			var jo = JSON.parse(i);
+			console.log(jo)
+	        if(jo.Codesuccess){
+	          console.log("dddddddddddddddddddddddddddd")
+	          //dropAlert(jo.success);
+	          $("#mobile_error").html("");
+	            mobileFlags = true;
+	            var validCode=true
+	            var time=60;
+				var code=$(".forget_msgs");
+				if (validCode) {
+					validCode=false;
+					code.attr("disabled", "disabled");
+					var t=setInterval(function  () {
+						time--;
+						code.html(time+"秒");
+						if (time==0) {
+							clearInterval(t);
+							code.html("重新获取");
+							validCode=true;
+							code.removeAttr("disabled");
+						}
+						$("#mobileCode_error").html("验证码已发送，请查收短信。");
+					},1000)
+				}
+	        }else{
+	        	$("#mobileCode_error").html(jo.errmsg);
+	        }
+		});
+	}
+	$("#login_ok").click(function(){
+		checkLogin();
+	});
+	function checkLogin(){
+		var mobile = $("#loginPhone").val();
+	    if ($(".user_phone").val()=="") {
+	        $("#mobile_error").html("请输入手机号");
+	        $(".user_phone").addClass("bd_col");
+	        return;
+	    }
+	    if (!mobilepartn.test($(".user_phone").val())) {
+	        $("#mobile_error").html("手机号码格式有误，请输入正确的手机号");
+	        $(".user_phone").addClass("bd_col");
+	        return;
+	    }
+		$.post("./forget",{loginPhone: $('#loginPhone').val(),code: $('#code').val(),isForgetPassword: true},function(i){
+			var jo = JSON.parse(i);
+			console.log(i)
+	        if(jo.step===1){
+				$(".r_wyzsj").addClass("hidden");
+				$(".r_wyzsj").next().removeClass("hidden");
+				$(".r_progress").addClass("r_p2");
+	        }else{
+	        	//dropAlert(jo.errmsg);
+	        	alert(jo.errmsg);
+	        	//messager.alert({title:"提示",content:resp,type:"warning"});
+	        }
+		})
+	}
+	$("#updatePassword").click (function() {
+		updatePassword();
+	});
+	function updatePassword() {
+		$.post("./forget",{loginPhone:$('#loginPhone').val(),newPassword:$('#newPassword').val(),repassword:$('#repassword').val()},
+			function(i){
+				console.log(i)
+				var jo = JSON.parse(i);
+				if(jo.step2===2){
+					$(".account_msg").html("密码更新成功！");
+					$("#myregerro").addClass("in show");
+					$("#myregerro .close").click(function() {
+						$("#myregerro").removeClass("in show");
+						document.location.href = "/login.html";
+					})
+				}else{
+					//dropAlert(resp);
+					alert(resp);
+				}
+			})
+		// $.ajax({
+		// 	type : "GET",
+		// 	url : "/account-forget-password.html?loginPhone=" + $('#loginPhone').val() + "&newPassword=" + $('#newPassword').val()
+		// 			+ "&repassword=" + $('#repassword').val(),
+		// 	timeout : 10000,
+		// 	dataType : "text",
+		// 	async : true,
+		// 	success : function(resp) {
+		// 		if (resp == "success") {
+		// 			$(".account_msg").html("密码更新成功！");
+		// 			$("#myregerro").addClass("in show");
+		// 			$("#myregerro .close").click(function() {
+		// 				$("#myregerro").removeClass("in show");
+		// 				document.location.href = "/login.html";
+		// 			})
+		// 		} else {
+		// 			dropAlert(resp);
+		// 		}
+		// 	},
+		// 	error : function(e) {
+		// 		alert(e.msg);
+		// 	}
+		// });
+	}	
 });

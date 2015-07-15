@@ -1,64 +1,57 @@
-// function checkLogin() {
-// 	$.ajax({
-// 		type : "GET",
-// 		url : "/checkLoginPhone.html?loginPhone=" + $('#loginPhone').val() + "&code=" + $('#code').val(),
-// 		timeout : 3000,
-// 		dataType : "text",
-// 		async : true,
-// 		success : function(resp) {
-// 			if (resp == "Success") {
-// 				$(".r_wyzsj").addClass("hidden");
-// 				$(".r_wyzsj").next().removeClass("hidden");
-// 				$(".r_progress").addClass("r_p2");
-// 			} else {
-// 				dropAlert(resp);
-// 			}
-// 		},
-// 		error : function(e) {
-// 			alert(e.msg);
-// 		}
-// 	});
-// }
-// function checkAccount() {
-// 	var mustRead = 0;
-// 	if ($('#mustRead').attr("checked")) {
-// 		mustRead = $('#mustRead').val();
-// 	}
-// 	$.ajax({
-// 		type : "POST",
-// 		url : "/account-save.html?eMail=" + $('#eMail').val() + "&mustRead=" + mustRead,
-// 		timeout : 10000,
-// 		dataType : "text",
-// 		async : true,
-// 		data : {
-// 			loginPhone : $('#loginPhone').val(),
-// 			loginName : $('#loginName').val(),
-// 			password : $('#password').val(),
-// 			rePassword : $('#rePassword').val(),
-// 			name : $('#name').val(),
-// 			firmFullName : $('#firmFullName').val(),
-// 			fax : $('#fax').val(),
-// 			qq : $('#qq').val(),
-// 			province : $('#province').val(),
-// 			city : $('#city').val(),
-
-// 			district : $('#district').val(),
-// 			address : $('#address').val()
-// 		},
-// 		success : function(resp) {
-// 			if (resp == "success") {
-// 				var RegName = $("#loginName").val();
-// 				$(".r_wmessage").addClass("hidden");
-// 				$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");
-// 				$(".r_progress").removeClass("r_p2").addClass("r_p3");
-// 				$(".Regname").html(RegName);
-// 				$(".r_wrap_list.r_wmessage,.r_wrap_list.r_wyzsj").remove();
-// 			} else {
-// 				dropAlert(resp);
-// 			}
-// 		},
-// 		error : function(e) {
-// 			alert(e.msg);
-// 		}
-// 	});
-// }
+	// $(document).ready(function() {
+	// 	$('#province').change(function() {
+	// 		changeProvince();
+	// 	});
+	// 	$('#city').change(function() {
+	// 		changeCity();
+	// 	});
+	// });
+	// var ajaxAsync = true;
+	// var ajaxTimeout = 3000;
+	// var dataType = "json";
+	// function changeProvince() {
+	// 	if (!$('#province').val()) {
+	// 		return;
+	// 	}
+	// 	$.ajax({
+	// 		type : "GET",
+	// 		url : "${rc.contextPath}/region-list.html?regionId=" + $('#province').val(),
+	// 		timeout : ajaxTimeout,
+	// 		dataType : dataType,
+	// 		async : ajaxAsync,
+	// 		success : function(response) {
+	// 			$("#city").empty();
+	// 			$("#district").empty();
+	// 			$("#city").append("<option value=''>--选择城市--</option>");
+	// 			$("#district").append("<option value=''>--选择区县--</option>");
+	// 			$(response).each(function(index, item) {
+	// 				$("#city").append('<option value="' + item.id + '">' + item.regionName + '</option>');
+	// 			});
+	// 			changeCity();
+	// 			return;
+	// 		},
+	// 		error : function() {
+	// 		}
+	// 	});
+	// }
+	// function changeCity() {
+	// 	if (!$('#city').val()) {
+	// 		return;
+	// 	}
+	// 	$.ajax({
+	// 		type : "GET",
+	// 		url : "${rc.contextPath}/region-list.html?regionId=" + $('#city').val(),
+	// 		timeout : ajaxTimeout,
+	// 		dataType : dataType,
+	// 		async : ajaxAsync,
+	// 		success : function(response) {
+	// 			$("#district").empty();
+	// 			$("#district").append("<option value=''>--选择区县--</option>");
+	// 			$(response).each(function(index, item) {
+	// 				$("#district").append('<option value="' + item.id + '">' + item.regionName + '</option>');
+	// 			});
+	// 		},
+	// 		error : function() {
+	// 		}
+	// 	});
+	// }
