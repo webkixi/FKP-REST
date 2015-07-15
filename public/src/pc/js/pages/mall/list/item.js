@@ -38,10 +38,10 @@ $(function(){
         	$(this).val(minval);
         }
         $(this).parents(".ty-p-content dl").siblings(".scj").find(".n_price i").html($(this).val()*dj);
-    }); 
+    });
     $('.sort .col li.select').click(function(){
         $(this).toggleClass("dropUp").siblings().removeClass("dropUp");
-        
+
         if(setOrder) {
             orderField = $(this).attr("data-param");
             orderDirection = "";
@@ -55,7 +55,7 @@ $(function(){
         }
     });
     $('.sort .col li.select').hover(function(){$(this).addClass("active").siblings().removeClass("active")});
-    
+
     //为每个筛选条件添加属性
     $(".tab-pane").each(function(i,item){
         var items =  $(".tab-pane").eq(i).find(".filter-items")
@@ -71,7 +71,7 @@ $(function(){
         var filterName = _this.attr("filter");
         var tabPane = _this.parents(".tab-pane");
         var cateTags = tabPane.find(".cateTags .filter-name[filter='"+filterName+"']");
-        
+
             _this.addClass("selected").siblings().removeClass("selected");
             if(_this.hasClass("filter-all")){
                     cateTags.remove();
@@ -101,7 +101,7 @@ $(function(){
     });
 
     $(".cateTags").hide();
-    $(".tab-pane dd").live("click", function () {
+    $(".tab-pane").delegate('dd',"click", function () {
         if ($(this).parents(".in,.active").find(".cateTags dd").length > 0) {
             $(this).parents(".in,.active").find(".cateTags").show();
         } else {

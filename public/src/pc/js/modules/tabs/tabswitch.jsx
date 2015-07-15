@@ -1,91 +1,137 @@
-// var
-// ListView = require('widgets/listView/listView'),
-// PageScrollStartEndMixin = require('mixins/PageScrollStartEndMixin'),
-libs = require('../../libs/libs');
-var qs = require('querystring');
-var src = "http://120.25.223.175:5051/jh-web-portal/";
-var apiPath = {
-    base: src,
-    dirs: {
-        search: src+'api/search.html',
-        user: src+'checkUserStatus.html',
-        mall_list: src+'api/mall/item/list/query.html',
-        mall_attr: src+'api/mall/item/list/attributes.html'
-    }
+
+var List = require('widgets/listView/list');
+var Store = require('mixins/store');
+
+var attrClick = function(){
+    $(this).click(function(){
+        $(this).toggleClass('active');
+        $(this).siblings().removeClass('active');
+    })
 }
 
+//react cnt
+var Cnt = React.createClass({
+    mixins: [Store],
+    getInitialState: function() {
+        SA.setter('Cnt',{});
+        SA.setter('Cnt',this.act)
+    },
 
-function req(api,param){
-	var that = this;
+    act: function(data){
+        this.setState(data);
+    },
 
-    var url = apiPath.dirs[api];
-    var query = qs.stringify(param);
-
-    if(libs.getObjType(param)!=='Object')
-        return false;
-	request({method:'POST', url:url+'?'+query, json:{relaxed:true}}, function(err,response,body){
-		if(err)
-		    throw err
-		console.log(body);
-
-        if(body.success){
-            that.setState({
-    			datas: body.data.spCatList
-    		});
-            console.log('aaaaaaaaaaaaaaaaaaaa');
+    componentWillMount: function(){
+        if(this.props.data){
+            this.setState({
+                datas: this.props.data
+            })
         }
-	})
-}
+    },
 
-//react
+    loopRender: function(){
+        var items=[];
+        if(this.state.datas){
+            this.state.datas.map(function(it,i){
+                items.push(
+                    <List {...this.props} data={it}  itemMethod={attrClick}/>
+                )
+            }.bind(this))
+        }
+        return items;
+    },
+
+    componentWillReceiveProps:function(nextProps){
+        if(nextProps.data){
+            this.setState({
+                datas: nextProps.data
+            })
+        }
+    },
+
+    render: function () {
+        var fill = this.loopRender();
+        return(
+            <div className={'tab-cnt'} style={{width:'100%',height:'auto'}} >
+                {fill}
+            </div>
+        )
+    }
+});
+
+
+
+//react tabswitch
 var tabswitch = React.createClass({
+    mixins: [Store],
 	getDefaultProps: function() {
-		return {
-
-		};
+		return { }
 	},
+
 	getInitialState: function() {
+        SA.setter('tabswitch',{}, this.act);
+        this.addSheet();
 		return {
-        	datas: []
+        	datas: [],
+            cntData: []
 	    };
 	},
+
+    addSheet: function(){
+        //添加css到头部
+        tabcss = '.tabswitch{border:1px solid #efefef;\n margin-bottom:10px;}'
+        libs.addSheet([tabcss,'tabswt']);
+    },
+
+    act: function(data){
+        this.setState(data);
+    },
+
 	//插入真实 DOM之前
 	componentWillMount:function(){
-		req.call(this,'mall_attr',{});
-		if(this.props.datas && this.props.datas.length){
-			req.call(this,'mall_attr',{})
-		}
-	},
-	renderTabs: function(){
-		var tabitems = [];
+        var that = this;
+        if(this.props.data){
+            var data = this.props.data;
+            SA.setter('tabswitch',{datas:data});
+        }
 
-		if(this.state.datas.length){
-			this.state.datas.map(function(item,i){
-				tabitems.push(<li>{item}</li>);
-			})
-		}else{
-			tabitems.push(<li>123456</li>)
-		}
+        if(this.props.cntData){
+            var cnt_data = this.props.cntData;
+            this.setState({
+                cntData: cnt_data
+            })
+        }
+	},
 
-		return tabitems;
-	},
-	componentDidMount: function() {
-        console.log('bbbbbbbbbbbbbbbbbb');
-	},
-	//已加载组件收到新的参数时调用
-	componentWillReceiveProps:function(nextProps){
-		// this.setState({
-		// 	datas: nextProps.datas
-		// });
-	},
+	componentDidMount: function() { },
+
+    componentDidMount:function(){
+        if(this.props.boxMethod){
+			var mtd = this.props.boxMethod;
+			if(typeof mtd==='function'){
+				mtd.call(this.getDOMNode());
+			}
+		}
+    },
+
+    renderChilds: function(){
+        var childs = this.props.children;
+        var items = [];
+        var newData = {};
+        if(this.state.cntData && this.state.cntData.length){
+            newData = this.state.cntData;
+            React.Children.map(childs,function(child,i){
+                var cd = React.createElement(child.type,{key:'new'+i,data: newData });
+                items.push(cd);
+            })
+        }
+        return items.length ? items : false ;
+    },
+
 	render:function(){
-		// {this.props.children}
-		var items = this.renderTabs();
-		return <div className={'tabswitch wid-12'}>
-				<ul>
-					{items}
-				</ul>
-				<div className={'tab-cnt'} />
+		return <div className={'tabswitch wid-12 u-clearfix'}>
+				<List {...this.props} data={this.state.datas}/>
+                <Cnt data={this.state.cntData} listClass={'fox'} itemStyle={{width:'auto'}} />
           </div>
 	}
 });

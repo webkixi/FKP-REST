@@ -47,14 +47,14 @@ function *demoIndexData(oridata){
         goodsData = yield api.pullApiData('index_goods',{
                 'listNum': 6
             });
-        goodsData = JSON.parse(goodsData[1]);  
+        goodsData = JSON.parse(goodsData[1]);
         if(goodsData.success){
                 //成功获取数据
             var goodsHtml = rct('index_goods_list',{
                 data: goodsData.data.spCatGoodsList  //数组
             });
             dataSet.goodsList = goodsHtml;
-        } 
+        }
     }
 
 

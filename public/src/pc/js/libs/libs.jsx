@@ -177,6 +177,8 @@ function addSheet() {
     cssCode = cssCode + "\n"; //增加末尾的换行符，方便在firebug下的查看。
     var headElement = doc.getElementsByTagName("head")[0];
     var styleElements = headElement.getElementsByTagName("style");
+
+
     // if (styleElements.length == 0) {//如果不存在style元素则创建
     //     if (doc.createStyleSheet) {    //ie
     //         doc.createStyleSheet();
@@ -217,50 +219,56 @@ var node = {
     }
 }
 
+var clone =function(target){
+    return lodash.clone(target);
+    // var t = getObjType(target);
+    // return t === 'Object' ? $extend(true, {}, target) : t === 'Array' ? $extend(true, [], target) : target;
+}
 
-/** 
-/* 2015-1-13 yc   
+
+/**
+/* 2015-1-13 yc
 /* url解析
 /* @url   http://abc.com:8080/dir/index.html?id=255&m=hello#top
 //SAMPLE
-// var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top'); 
-// alert(myURL.file); // = 'index.html' 
-// myURL.hash; // = 'top' 
-// myURL.host; // = 'abc.com' 
-// myURL.query; // = '?id=255&m=hello' 
-// myURL.params; // = Object = { id: 255, m: hello } 
-// myURL.path; // = '/dir/index.html' 
-// myURL.segments; // = Array = ['dir', 'index.html'] 
-// myURL.port; // = '8080' 
-// myURL.protocol; // = 'http' 
-// myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top' 
+// var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top');
+// alert(myURL.file); // = 'index.html'
+// myURL.hash; // = 'top'
+// myURL.host; // = 'abc.com'
+// myURL.query; // = '?id=255&m=hello'
+// myURL.params; // = Object = { id: 255, m: hello }
+// myURL.path; // = '/dir/index.html'
+// myURL.segments; // = Array = ['dir', 'index.html']
+// myURL.port; // = '8080'
+// myURL.protocol; // = 'http'
+// myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
 */
 var urlparse = function (url) {
-    var anchor = document.createElement('a'); 
-    anchor.href = url; 
-    return { 
-        source: url, 
-        protocol: anchor.protocol.replace(':',''), 
-        host: anchor.hostname, 
-        port: anchor.port, 
-        query: anchor.search, 
-        params: (function(){ 
-            var ret = {}, 
-            seg = anchor.search.replace(/^\?/,'').split('&'), 
-            len = seg.length, i = 0, str; 
-            for (;i<len;i++) { 
-                if (!seg[i]) { continue; } 
-                str = seg[i].split('='); 
-                ret[str[0]] = str[1]; 
-            } 
-            return ret; 
-        })(), 
-        file: (anchor.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1], 
-        hash: anchor.hash.replace('#',''), 
-        path: anchor.pathname.replace(/^([^\/])/,'/$1'), 
-        relative: (anchor.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1], 
-        segments: anchor.pathname.replace(/^\//,'').split('/') 
-    }; 
+    var anchor = document.createElement('a');
+    anchor.href = url;
+    return {
+        source: url,
+        protocol: anchor.protocol.replace(':',''),
+        host: anchor.hostname,
+        port: anchor.port,
+        query: anchor.search,
+        params: (function(){
+            var ret = {},
+            seg = anchor.search.replace(/^\?/,'').split('&'),
+            len = seg.length, i = 0, str;
+            for (;i<len;i++) {
+                if (!seg[i]) { continue; }
+                str = seg[i].split('=');
+                ret[str[0]] = str[1];
+            }
+            return ret;
+        })(),
+        file: (anchor.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+        hash: anchor.hash.replace('#',''),
+        path: anchor.pathname.replace(/^([^\/])/,'/$1'),
+        relative: (anchor.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+        segments: anchor.pathname.replace(/^\//,'').split('/')
+    };
 };
 
 function CurrentStyle(element){
@@ -268,6 +276,11 @@ function CurrentStyle(element){
     //     return false;
     // return element.currentStyle || document.defaultView.getComputedStyle(element, null);
     return element.currentStyle || window.getComputedStyle(element, null);
+}
+
+function guid(prefix) {
+    prefix = prefix || "web-";
+    return (prefix + Math.random() + Math.random()).replace(/0\./g, "");
 }
 
 module.exports = {
@@ -281,5 +294,7 @@ module.exports = {
   addSheet: addSheet,
   lodash: lodash,
   node: node,
-  urlparse:urlparse
+  urlparse:urlparse,
+  guid: guid,
+  clone: clone
 }
