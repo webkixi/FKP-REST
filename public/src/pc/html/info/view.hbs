@@ -18,45 +18,34 @@
     <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner4.jpg"/></a>
   </div>
 </div>
-	[#include 'common/header.html' /]
 <div class="wrapper">
     <div class="current_path container">
-        <a href="${rc.contextPath}">首页</a>
-        [#if infoCatContainParent.catLevel == 3]
-        	&nbsp;&gt;&gt;&nbsp;<a href="${rc.contextPath}/info/cat/${infoCatContainParent.parent.parent.id}.html">${(infoCatContainParent.parent.parent.catName)!''}</a>
-        	&nbsp;&gt;&gt;&nbsp;<a href="${rc.contextPath}/info/cat/${infoCatContainParent.parent.id}.html">${(infoCatContainParent.parent.catName)!''}</a>
-        [#elseif infoCatContainParent.catLevel == 2]
-        	&nbsp;&gt;&gt;&nbsp;<a href="${rc.contextPath}/info/cat/${infoCatContainParent.parent.id}.html">${(infoCatContainParent.parent.catName)!''}</a>
-        [#else]
-        [/#if]
-        &nbsp;&gt;&gt;&nbsp;<a href="${rc.contextPath}/info/cat/${infoCatContainParent.id}.html" class="currents">${(infoCatContainParent.catName)!''}</a>
+        {{{crumbsNav}}}
     </div>
     <div class="info-wrap container">
         <div class="clearfix row">
-            <div class="info-firm span10 fl">
+		    <div class="info-firm span10 fl">
                 <div class="info-ftitle">
-                	<h2>${info.title!''}</h2>
-                	<span>[#if info.source??]来源：${info.source!''}&nbsp;&nbsp;&nbsp;&nbsp;[/#if]${info.publishTime?string["yyyy-MM-dd HH:mm:ss"]}</span>
-                	[#if info.tagContent??]
-                	<dl>
-                        <dt>标签： </dt>
-                        [#list info.tagContent?split(",") as tag]
-                        <dd><a href="#">${tag}</a></dd>
-                        [/#list]
-                    </dl>
-                    [/#if]
+                    <h2>{{info.title}}</h2>
+                    <span>{{info.source}}&nbsp;&nbsp;&nbsp;&nbsp;{{info.time}}</span>
+                    <dl>
+        				<dt>标签：</dt>
+        				{{#each info.tags}}
+                            <dd><a href='#'>{{this}}</a></dd>
+                        {{/each}}
+        			 </dl>
                 </div>
                 <div class="info-fbody">
-                	${(info.infoContent.content)!''}
+                    {{{info.infoContent.content}}}
                 </div>
-            </div>
+			</div>
             <div class="info-right span2 fl">
-                <img src="${rc.contextPath}/statics/front/images/ad/ad2.jpg"><img src="${rc.contextPath}/statics/front/images/ad/ad2.jpg">
+                <img src="/images/ad/ad2.jpg" />
+                <img src="/images/ad/ad2.jpg" />
             </div>
-        </div>
+		</div>
     </div>
 </div>
-[#include 'common/footer.html' /]
 
 @@include('../_common/footer/footer.html')
 @@include('../_common/footer/foot.html')

@@ -40,6 +40,11 @@ var parseQuery = function(uri){
     return qs.parse(q.query);
 }
 
+var guid = function(prefix) {
+    prefix = prefix || "web-";
+    return (prefix + Math.random() + Math.random()).replace(/0\./g, "");
+}
+
 module.exports = {
     getObjType: getObjType,
     clone: clone,
@@ -47,6 +52,7 @@ module.exports = {
     elog: elog,
     wlog: wlog,
     uri: parseQuery,
+    guid: guid,
     $extend: extend,
     $url: url,
     $path: path,

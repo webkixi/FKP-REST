@@ -24,4 +24,4 @@ module.exports = (gulp,$,slime,env)->
         #js
         gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx|hbs|scss|css)', ['buildCommon:dev']
         #html
-        gulp.watch config.dirs.src + '/html/**/*.*', ['html']
+        gulp.watch config.dirs.src + '/html/**/*.*', ['html:build']

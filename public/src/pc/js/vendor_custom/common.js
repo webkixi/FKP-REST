@@ -1,6 +1,7 @@
-/*头部搜索*/
-	$(".arrow-select-down").click(function(){
-		$(this).siblings("ul").toggleClass("hidden");
+;(function(){
+
+    $(".arrow-select-down").click(function(){
+	$(this).siblings("ul").toggleClass("hidden");
 	});
 	$(".item-select li").click(function(){
 		var val = $(this).attr("data");
@@ -20,3 +21,6 @@
 			return false;
 		}
 	})
+
+})();
+

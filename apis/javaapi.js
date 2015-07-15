@@ -23,7 +23,11 @@ var apiPath = {
     base: src,
     dirs: {
         search: src+'api/search.html',
-        loginCheck: src+'api/loginCheck.html',
+        loginCheck: src+'api/account/loginCheck.html',
+        regist: src+'api/account/account-save.html',
+        checkMC: src+'api/account/checkLoginPhoneAndCode.html',
+        code: src+'api/account/send-sms-code.html',
+        forget: src+'api/checkForgetPassword.html',
         user: src+'checkUserStatus.html',
         header_nav: src+'api/navbar.html',
         index_goods: src+'api/index/goods/cat/list.html',
@@ -94,7 +98,7 @@ function *getMallList(param){
 
     return yield req(url+'?'+query);
 }
- 
+
 function *getMallAttr(param){
     libs.elog('javaapi/getMallList')
 
