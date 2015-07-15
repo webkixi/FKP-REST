@@ -1,5 +1,6 @@
 var libs = require('../../libs/libs')
 var api = require('../../apis/javaapi');
+var rct = require('../../modules/parseReact');
 
 
 function *demoIndexData(oridata){
