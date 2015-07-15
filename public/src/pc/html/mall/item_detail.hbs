@@ -12,34 +12,42 @@
 <div class="wrapper">
   <div class="container menu-container">
     <div class="current_path container">
-        <a href="${rc.contextPath}/index.html">首页</a> > <a href="${rc.contextPath}/mall/item/list.html">金属商城</a> > <a href="${rc.contextPath}/mall/item/list.html?catId=${spCat.id}">${spCat.catName!''}</a> > <a class="currents"> ${spGoods.brandName!''} ${spGoods.catName2!''} ${spGoods.model!''} </a>
+        <a href="/index.html">首页</a> > 
+        <a href="/mall/item/list.html">金属商城</a> >
+         <a href="/mall/item/list.html?catId={{spGoods.catId}}">{{spGoods.catName}}</a> > 
+         <a class="currents"> {{spGoods.brandName}}{{spGoods.catName2}} {{spGoods.model}} </a>
     </div>
     <div class="ty-item-grid-c1">
       <div class="ty-c1-content">
         <div class="ty-c1-grid-l">
           <div class="ty-grid-galleryShow">
-	        [#assign index=1/]
-	        [#list spGoodsPictureList as picture]
-            <a href="${imagePath}${picture.original}" class="jqzoom" rel='gal1'  title="triumph"><img src="${imagePath}${picture.original}" jqimg="${imagePath}${picture.original}" class="ty-grid-gsPic"></a>
-				[#assign index=index+1/]
-				[#break]
-			[/#list]
-			[#if index == 1]
-            <a href="${rc.contextPath}/statics/front/images/blank.gif" class="jqzoom" rel='gal1'  title="triumph"><img class="error_img" src="${rc.contextPath}/statics/front/images/blank.gif" jqimg="${rc.contextPath}/statics/front/images/blank.gif" class="ty-grid-gsPic"></a>
-			[/#if]
+	        {{#each spGoodsPictureList}}
+              {{#if index}}
+                {{#if pictureLibUrl}}
+                <a href="{{pictureLibUrl}}{{original}}" class="jqzoom" rel='gal1'  title="triumph">
+                  <img src="{{pictureLibUrl}}{{original}}" jqimg="{{pictureLibUrl}}{{original}}" class="ty-grid-gsPic">
+                </a>
+                {{else}}
+                  <a href="/images/blank.gif" class="jqzoom" rel='gal1'  title="triumph">
+                    <img src="/images/blank.gif" jqimg="/images/blank.gif" class="ty-grid-gsPic error_img">
+                  </a>
+                {{/if}}
+              {{/if}}
+			     {{/each}}
             <i class="scaling"></i>
           </div>
           <div class="ty-grid-thumb goods_slides">
             <div class="ty-grid-thumbdiv slides_list">
                 <ul id="thumblist">   
-	               [#assign index=1/]
-                   [#list spGoodsPictureList as picture]
-                    <li><a [#if index==1] class="zoomThumbActive" [/#if] href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '${imagePath}${picture.original}',largeimage: '${imagePath}${picture.original}'}"><img src="${imagePath}${picture.original}"></a></li>
-                   		[#assign index=index+1/]
-                   [/#list]
-                   [#if index == 1 && spGoods.picture?exists]
-                    <li><a [#if index==1] class="zoomThumbActive" [/#if] href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '${imagePath}${spGoods.picture}',largeimage: '${imagePath}${spGoods.picture}'}"><img src="${imagePath}${spGoods.picture}"></a></li>
-                   [/#if]
+                   {{#each spGoodsPictureList}}
+                    <li><a {{#if index}} class="zoomThumbActive" {{/if}} href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '{{pictureLibUrl}}{{original}}',largeimage: '{{pictureLibUrl}}{{original}}'}">
+                      {{#if pictureLibUrl}}
+                      <img src="{{pictureLibUrl}}{{original}}">
+                      {{else}}
+                       <img class="error_img" src="/images/blank.gif">
+                      {{/if}}
+                    </a></li>
+                   {{/each}}
                 </ul>
             </div>
             <div class="ty-grid-gspic-btn slides_btn">
@@ -48,138 +56,138 @@
             </div>
           </div>
           <div class="ty-grid-ad">
-            <img src="${rc.contextPath}/statics/front/images/ad/ad.jpg">
+            <img src="{{root}}/statics/front/images/ad/ad.jpg">
           </div>
         </div>
         <div class="ty-c1-grid-r clearfix">
           <div class="ty-c1-grid-m  left">
             <div class="ty-Xbase">
               <div class="ty-Xbase-row1 ty-Xbase-row">
-                <h1>${spGoods.brandName!''} ${spGoods.catName2!''} ${spGoods.model!''}</h1>
+                <h1>{{spGoods.brandName}} {{spGoods.catName2}}{{spGoods.model}}</h1>
 	              </div>
               <div class="ty-Xbase-row3 ty-Xbase-row">
                 <div class="ty-panel">
                   <div class="ty-p-content">
                     <dl>
                         <dt><span>类别：</span></dt>
-                        <dd>${spGoods.catName!''}</dd>
+                        <dd>{{spGoods.catName}}</dd>
                     </dl>
                     <dl>
                         <dt><span>品名：</span></dt>
-                        <dd>${spGoods.catName2!''}</dd>
+                        <dd>{{spGoods.catName2}}</dd>
                     </dl>
                     <dl>
                         <dt><span>规格型号：</span></dt>
-                        <dd>${spGoods.model?html}</dd>
+                        <dd>{{spGoods.model}}</dd>
                     </dl>
                     <dl>
                         <dt><span>厂家：</span></dt>
-                        <dd>${spGoods.vender?html}</dd>
+                        <dd>{{spGoods.vender}}</dd>
                     </dl>
                     <dl>
                         <dt><span>品牌：</span></dt>
-                        <dd>${spGoods.brandName!''}</dd>
+                        <dd>{{spGoods.brandName}}</dd>
                     </dl>
                     <dl class="pro-ghl">
                         <dt>挂牌量：</dt>
-                        <dd>${spGoods.stock?string('0.####')}${spGoods.unitName!''}</dd>
+                        <dd>{{spGoods.stock}} {{spGoods.unitName}}</dd>
                     </dl>
                     <dl class="pro-cgl">
                         <dt>采购量：</dt>
-                        <dd class="o-amount"><a class="minus amount-btn" href="javascript:;" data-minval="${spGoods.minQuantity?string('0.####')}" data-increase="[#if spGoods.increase != null && spGoods.increase > 0]${spGoods.increase?string('0.####')}[#else]1[/#if]">-</a>
-                        <input id="quantity" data-minval="${spGoods.minQuantity?string('0.####')}" value="${spGoods.minQuantity?string('0.####')}" [#if spGoods.increase != null && spGoods.increase > 0] disabled="disabled" [/#if] style="width: 90px;">
-                        <a class="plus amount-btn" href="javascript:;" data-minval="${spGoods.minQuantity?string('0.####')}" data-increase="[#if spGoods.increase != null && spGoods.increase > 0]${spGoods.increase?string('0.####')}[#else]1[/#if]">+</a>&nbsp;${spGoods.unitName}  
-                        [#if spGoods.increase != null && spGoods.increase > 0](增幅${spGoods.increase?string('0.####')}${spGoods.unitName!''}) [/#if]</dd>
+                        <dd class="o-amount">
+                          <a class="minus amount-btn" href="javascript:;" data-minval="{{spGoods.minQuantity}}" data-increase="{{spGoods.increase}}">-</a>
+                        <input id="quantity" data-minval="{{spGoods.minQuantity}}" value="{{spGoods.minQuantity}}" {{spGoods.disab}} style="width: 90px;">
+                        <a class="plus amount-btn" href="javascript:;" data-minval="{{spGoods.minQuantity}}" data-increase="{{spGoods.increase}}">+</a>&nbsp;{{spGoods.unitName}}  
+                        {{#if spGoods.disab}}(增幅{{spGoods.increase}}{{spGoods.unitName}}) {{/if}}</dd>
                     </dl>
                     <dl class="pro-qdl">
                         <dt>起订量：</dt>
-                        <dd>${spGoods.minQuantity?string('0.####')}${spGoods.unitName!''}</dd>
+                        <dd>{{spGoods.minQuantity}} {{spGoods.unitName}}</dd>
                     </dl>
                     <dl>
                         <dt><span>挂牌时间：</span></dt>
-                        <dd>${spGoods.createTime?string("yyyy-MM-dd")}</dd>
+                        <dd>{{spGoods.createTime}}</dd>
                     </dl>
                     <dl>
                         <dt><span>有效期：</span></dt>
-                        <dd>${spGoods.validity}天</dd>
+                        <dd>{{spGoods.validity}}天</dd>
                     </dl>
                     <dl>
                         <dt><span>计价方式：</span></dt>
-                        <dd>${spGoods.valuationName!''}</dd>
+                        <dd>{{spGoods.valuationName}}</dd>
                     </dl>
-                    [#if spGoods.valuation==0]
+                    {{#if spGoods.valuation0}}
                     <dl>
                         <dt><span>点价方：</span></dt>
-                        <dd>${spGoods.partyPriceName!''}</dd>
+                        <dd>{{spGoods.partyPriceName}}</dd>
                     </dl>
                     <dl>
                         <dt><span>点价合约：</span></dt>
-                        <dd>${spGoods.exchangeName!''}${spCat2.pageTitle!''}${spGoods.contractPeriod!''}</dd>
+                        <dd>{{spGoods.exchangeName}}{{spCat2.pageTitle}}{{spGoods.contractPeriod}}</dd>
                     </dl>
                     <dl>
-                        <dt><span>升贴水（元/${spGoods.unitName}）：</span></dt>
-                        <dd>[#if (spGoods.discount)??] ${spGoods.discount?string("currency")} [/#if]</dd>
+                        <dt><span>升贴水（元/{{spGoods.unitName}}）：</span></dt>
+                        <dd>{{spGoods.discount}}</dd>
                     </dl>
                     <dl>
                         <dt><span>点价截止时间：</span></dt>
-                        <dd>${spGoods.stopDate?string("yyyy-MM-dd")} ${spGoods.stopHour?string('00')}:${spGoods.stopMinute?string('00')}:00
-                        [#if spGoods.isNightPlate=='0'] <i>(不接受夜盘点价)</i> [/#if]
-                        [#if spGoods.isNightPlate=='1'] <i>(接受夜盘点价)</i> [/#if]
+                        <dd>{{spGoods.stopDate}}
+                        {{#if spGoods.isNightPlate0}} <i>(不接受夜盘点价)</i> {{/if}}
+                        {{#if spGoods.isNightPlate1}} <i>(接受夜盘点价)</i> {{/if}}
                         </dd>
                     </dl>
-                    [/#if]
-			        [#if spGoods.valuation==1]
+                    {{/if}}
+			        {{#if spGoods.valuation1}}
                     <dl>
-                        <dt><span>单价（元/${spGoods.unitName!''}）：</span></dt>
-                        <dd>[#if spGoods.price?if_exists] ${spGoods.price?string("currency")} [/#if]</dd>
+                        <dt><span>单价（元/{{spGoods.unitName}}）：</span></dt>
+                        <dd>{{spGoods.price}}</dd>
                     </dl>
-			        [/#if]
+			        {{/if}}
                     <dl>
                         <dt><span>付款方式：</span></dt>
-                        <dd>${spGoods.paymentWayName!''}</dd>
+                        <dd>{{spGoods.paymentWayName}}</dd>
                     </dl>
                     <dl>
                         <dt><span>仓库：</span></dt>
-                        <dd>${spGoods.storageName!''}</dd>
+                        <dd>{{spGoods.storageName}}</dd>
                     </dl>
-			        [#if spGoods.storage==99]
+			        {{#if spGoods.storage99}}
                     <dl>
                         <dt><span>仓库地址：</span></dt>
-                        <dd>${spGoods.storageAddr?html}</dd>
+                        <dd>{{spGoods.storageAddr}}</dd>
                     </dl>
-			        [/#if]
+			        {{/if}}
                     <dl>
                         <dt><span>交货方式：</span></dt>
-                        <dd>${spGoods.deliveryWayName?html}</dd>
+                        <dd>{{spGoods.deliveryWayName}}</dd>
                     </dl>
                     <dl>
                         <dt><span>备注说明：</span></dt>
-                        <dd>${spGoods.remark?html}</dd>
+                        <dd>{{spGoods.remark}}</dd>
                     </dl>
                   </div>
                 </div>
               </div>
-              [#if owner?exists && owner==true]
+              {{#if listed0}}
               <div class="ty-Xbase-row4 ty-Xbase-row">
                 <div class="ty-Xaction-Buy">
 			        <a class="ty-X-btn-buy ty-X-btn-nobuy" href="javascript:;"></a>自家商品，不可下单。
                 </div>
-              </div>              
-              [#else]
-              [#if listed==true]
+              </div>  
+              {{/if}} 
+              {{#if listed1}}
               <div class="ty-Xbase-row4 ty-Xbase-row">
                 <div class="ty-Xaction-Buy">
                   <a class="ty-X-btn-buy" href="javascript:;" id="submitOrderBtn"></a>
                 </div>
               </div>
-              [#else]
+              {{else}}
               <div class="ty-Xbase-row4 ty-Xbase-row">
                 <div class="ty-Xaction-Buy">
 			        <a class="ty-X-btn-buy ty-X-btn-nobuy" href="javascript:;"></a> 该商品已经撤牌，不可交易。
                 </div>
               </div>              
-              [/#if]
-              [/#if]
+              {{/if}}
             </div>
           </div>     
         </div>
@@ -198,29 +206,29 @@
           </div>
           <div class="ty-item-grid-inner-c ty-main-tab">
             <div class="ty-item-tab">
-                <p>${firmDetail.introduce!'无'}</p>
+                <p>{{{firmDetail.introduce}}}</p>
             </div>
             <div class="ty-item-tab disN">
-                <p>${spGoods.quality!'按厂家标准。'}</p>
+                <p>{{spGoods.quality}}</p>
             </div>
             <div class="ty-item-tab disN">
-              <p>${spGoods.manner!'厂家出厂包装。 '}</p>
+              <p>{{spGoods.manner}}</p>
             </div>
             <div class="ty-item-tab disN">
                 <p>
                 	<table>
                 		<tbody>
-                			<tr><th>企业名称：</th><td>${firmInfo.firmFullName!' '}</td></tr>
-                			<tr><th>联系人：</th><td>${firmContact.name!' '}</td></tr>
-                			<tr><th>联系人电话：</th><td>${firmContact.phone!' '}</td></tr>
-               				<tr><th>公司电话：</th><td>${firmContact.landline!' '}</td></tr>
-                			<tr><th>传真号码：</th><td>${firmContact.fax!' '}</td></tr>
-                			<tr><th>邮箱：</th><td>${firmContact.email!' '}</td></tr>
+                			<tr><th>企业名称：</th><td>{{firmInfo.firmFullName}}</td></tr>
+                			<tr><th>联系人：</th><td>{{firmContact.name}}</td></tr>
+                			<tr><th>联系人电话：</th><td>{{firmContact.phone}}</td></tr>
+               				<tr><th>公司电话：</th><td>{{firmContact.landline}}</td></tr>
+                			<tr><th>传真号码：</th><td>{{firmContact.fax}}</td></tr>
+                			<tr><th>邮箱：</th><td>{{firmContact.email}}</td></tr>
                 			<tr><th>联系地址：</th><td>
-               				${province!' '}
-               				${city!' '}
-               				${district!' '}
-                			${firmContact.address!' '}
+               				{{province}}
+               				{{city}}
+               				{{district}}
+                			{{firmContact.address}}
                 			</td></tr>
                 			<!-- tr><th>备注：</th><td>${firmContact.remark!' '}</td></tr-->
                 		</tbody>
@@ -241,7 +249,7 @@
              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                  &times;
              </button>           
-             <li class="rlogo"><a href="${rc.contextPath}/index.html"><img src="${rc.contextPath}/statics/front/images/logo.png"></a></li>      
+             <li class="rlogo"><a href="/index.html"><img src="{{root}/images/logo.png"></a></li>      
              <li>|</li>      
              <li class="rlogo">账号登录</li>      
            </ul>
@@ -259,7 +267,7 @@
                   </div> 
                   <div class="l_code clearfix hidden">
                       <input class="code fl form-control" placeholder="验证码" type="text">
-                      <img src="${rc.contextPath}/statics/front/images/yzm.png"/>
+                      <img src="${root}/statics/front/images/yzm.png"/>
                       <a href="#">换一张</a>
                   </div>
                 </div>
@@ -273,7 +281,7 @@
 				</font>                             
                 <div class="login_btn">
                 <a href="javascript:;" type="button" onclick="loginFromOrder()" id="loginFromOrder" class="btn btn-primary">登录</a></div>
-                <div class="login_other"><a href="${rc.contextPath}/forget.html" target="_blank" class="fl">忘记密码？</a><a href="${rc.contextPath}/regist.html" target="_blank" class="fr">立即注册</a></div>
+                <div class="login_other"><a href="/forget.html" target="_blank" class="fl">忘记密码？</a><a href="/regist.html" target="_blank" class="fr">立即注册</a></div>
             </form>
          </div>
       </div>
