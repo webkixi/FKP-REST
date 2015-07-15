@@ -4,7 +4,6 @@ var rct = require('../../modules/parseReact');
 
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/h5/lazypage')
     var dataSet = {};
     var mtd = this.method;
     var local = this.local;
@@ -13,18 +12,19 @@ function *demoIndexData(oridata){
         if(mtd === 'GET'){
             libs.clog('pages/malllist.js========GET');
 
-        var catId = this.params.id.substr(0,this.params.id.indexOf(".html")),
-            pageCurrent=1,//当前页数
-            pageSize = 15;//每页条数
-        if(!!this.local.query){ 
+            var catId = this.params.id.substr(0,this.params.id.indexOf(".html")),
+                pageCurrent=1,//当前页数
+                pageSize = 15;//每页条数
+            if(!!this.local.query){
 
-            var query = this.local.query.split("&");
-            for (var i = 0; i < query.length; i++) {
-                var param = query[i].split("=");
-                if (param[0]=="pageCurrent") {pageCurrent = decodeURI(param[1])};
-            };
+                var query = this.local.query.split("&");
+                for (var i = 0; i < query.length; i++) {
+                    var param = query[i].split("=");
+                    if (param[0]=="pageCurrent") {pageCurrent = decodeURI(param[1])};
+                };
 
-        }
+            }
+
             apiData = yield api.pullApiData('info_cat',{
             	'catId':catId,
             	'pageCurrent':pageCurrent,
@@ -33,7 +33,7 @@ function *demoIndexData(oridata){
             //console.log(dataSet);
         }else if(mtd === 'POST'){
             libs.clog('pages/malllist.js========POST');
-     
+
         }
         apiData = JSON.parse(apiData[1]);
         if(apiData.success){
@@ -51,7 +51,7 @@ function *demoIndexData(oridata){
             if(apiData.data.infoCatContainParent.catLevel==3) current_path+=' &nbsp;&gt;&gt;&nbsp;<a href="/info/cat/'+apiData.data.infoCatContainParent.parent.parent.id+'.html">'+apiData.data.infoCatContainParent.parent.parent.catName+'</a>';
             if(apiData.data.infoCatContainParent.catLevel>=2) current_path +='&nbsp;&gt;&gt;&nbsp;<a href="/info/cat/'+apiData.data.infoCatContainParent.parent.id+'.html">'+apiData.data.infoCatContainParent.parent.catName+'</a>';
             current_path += '&nbsp;&gt;&gt;&nbsp;<a href="/info/cat/'+apiData.data.infoCatContainParent.id+'.html" class="currents">'+apiData.data.infoCatContainParent.catName+'</a>';
-            
+
 
             dataSet.list = infoList;
             dataSet.current_path = current_path;

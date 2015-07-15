@@ -40,10 +40,11 @@ div.container{margin:0 auto; padding:0!important; width: 1200px;}
 .search_buttom{ width: 65px; height: 36px; text-align: center; color: #fff; background: #eb6d1b; border: none; display: inline-block; *display: block; *zoom:1; border-radius:0 3px 3px 0; -moz-border-radius: 0 3px 3px 0; -webkit-border-radius: 0 3px 3px 0;}/*0609*/
 .head_nav{ text-align: center; position: absolute; bottom: -39px; left: 0; background: #ececec; background: url(../images/nav_bg.jpg) repeat-x; width: 100%; z-index: 77;  height: 36px;  line-height: 36px;}/*0609*/
 .head_nav ul{  margin-bottom: 0; padding: 0;}/*0609*/
-.head_nav li{ display: inline-block; *display: block; *zoom:1; font-size: 16px; text-align: center; float: left;  position: relative;}/*0609*/
-.head_nav li.nav-line{  background: url(../images/nav-line.png) no-repeat 0 3px; width: 3px;  height: 33px;  line-height: 33px;}
-.head_nav li a{ color: #fff; width: 127px; text-align: center; display: block;  text-decoration: none;}/*0609*/
-.head_nav li.active a,.head_nav li a:hover{ background: #a14000; color: #fff;}/*0609*/
+.head_nav li{ display: inline-block; *display: block; *zoom:1; padding:3px 0;line-height: 30px;font-size: 16px; text-align: center; float: left;  position: relative;}/*0609*/
+.head_nav li.active,.head_nav li:hover{ background: #a14000; color: #fff;}
+.head_nav li a{ color: #fff; width: 127px; text-align: center; display: block;  text-decoration: none;border-left:1px solid #fff;}/*0609*/
+.head_nav li.active a{border:none;}
+.head_nav li:hover .dropdown_menus{display: block}
 .head_wnav{ margin-left: 12%;}/*0609*/
 .top-tel{ float: right; margin-left: 150px;}/*0609*/
 .top-tel h4 {font-weight: 400;font-size: 14px; position: relative;padding-left: 30px;}
@@ -51,8 +52,8 @@ div.container{margin:0 auto; padding:0!important; width: 1200px;}
 .top-tel-time {padding-left: 4px;color: #999;font-size: 12px;font-weight: 400;}
 .top-tel-num {font-size: 24px;color: #ff6600;}/*0609*/
 .dropdown_menus{ position: absolute; top: 36px; left: 0; width: 100%; background:#a85514; height: auto; padding-top: 5px!important; display: none;}
-.dropdown_menus li{ height: 30px; line-height: 30px; text-align: center;}
-.dropdown_menus li a{ color: #fff;}
+.dropdown_menus li{ height: 30px; line-height: 30px; text-align: center;padding:0;}
+.dropdown_menus li a{ color: #fff;border:none;}
 .dropdown_menus li a:hover{ color: #ffc600;background: #a14000;}
 
 /*自定义栅格*/

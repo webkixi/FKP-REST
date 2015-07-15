@@ -35,6 +35,7 @@ var apiPath = {
         index_booth: src+'api/goods/booth.html',
         info_cat: src+'api/info/cat-list.html',
         info_view: src+'api/info/view.html',
+        mall_item_detail: src+'api/mall/item/detail.html',
         mall_list: src+'api/mall/item/list/query.html',
         mall_attr: src+'api/mall/item/list/attributes.html'
     }
@@ -97,7 +98,7 @@ function *getMallList(param){
 
     return yield req(url+'?'+query);
 }
- 
+
 function *getMallAttr(param){
     libs.elog('javaapi/getMallList')
 

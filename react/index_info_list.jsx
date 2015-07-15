@@ -61,7 +61,7 @@ var tmpApp = React.createClass({
 			booths.push(
 				<dl>
 					<dt>
-						<a href={"/mall-item_detail"+item.id+".html"}><img src={item.pictureLibUrl + item.picture} /></a>
+						<a href={"/mall/item_detail/"+item.id+".html"}><img src={item.pictureLibUrl + item.picture} /></a>
 					</dt>
 					<dd><span className={"lab"}>{item.catName2}</span>{item.model}</dd>
 					<dd><span className={"lab"}>品牌： </span>{item.brandName}</dd>
