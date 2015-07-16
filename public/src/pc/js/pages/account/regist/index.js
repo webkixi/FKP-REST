@@ -258,7 +258,7 @@ $(function(){
 	    // 检测手机号码是否存在
 	    $.post("./regist",{loginPhone: $('#loginPhone').val(),isForgetPassword: false},function(i){
 			var jo = JSON.parse(i);
-	        if(jo.Codesuccess){
+	        if(jo.step===2){
 	          //dropAlert(jo.success);
 	          $("#mobile_error").html("");
 	            mobileFlags = true;
@@ -301,9 +301,9 @@ $(function(){
 	        $(".user_phone").addClass("bd_col");
 	        return;
 	    }
-		$.post("./regist",{loginPhone: $('#loginPhone').val(),code: $('#code').val()},function(i){
+		$.post("./regist",{loginPhone: $('#loginPhone').val(),code: $('#code').val(),isForgetPassword: false},function(i){
 			var jo = JSON.parse(i);
-	        if(jo.step===1){
+	        if(jo.step===3){
 				$(".r_wyzsj").addClass("hidden");
 				$(".r_wyzsj").next().removeClass("hidden");
 				$(".r_progress").addClass("r_p2");
@@ -338,7 +338,7 @@ $(function(){
 		$.post("./regist",data,function(i){
 				var jo = JSON.parse(i);
 				console.log(jo)
-				if(jo.step2===2){
+				if(jo.step===4){
 					var RegName = $("#loginName").val();
 					$(".r_wmessage").addClass("hidden");
 					$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");

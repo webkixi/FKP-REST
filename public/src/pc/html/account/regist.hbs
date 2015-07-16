@@ -109,8 +109,12 @@
                         <div class="form-group u_address">
                             <span class="select-box" style="width:200px">
                                 <label for="name">地区：</label> <select id="province" name="province" class="select">
-                                    <option value="">--选择省份--</option> [#list level1RegionList as bean]
-                                    <option value="${bean.id}" [#if regionId_1==bean.id]selected[/#if]>${bean.regionName!''}</option> [/#list]
+                                    <option value="">--选择省份--</option> 
+                                    {{#each regionList}}
+                                        {{#each this}}
+                                        <option value="{{id}}" [#if regionId_1==bean.id]selected[/#if]>{{regionName}}</option> 
+                                        {{/each}}
+                                    {{/each}}
                                 </select>
                             </span>
                             <span class="select-box" style="width:200px">

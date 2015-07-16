@@ -27,66 +27,141 @@ function *demoRegistData(oridata){
         // this.sess.step = 2;
         // this.sess.step = 3;
         var body = yield libs.$parse(this);
-        if(body.loginPhone){
-            var mobilepartn = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-            if(body.loginPhone=="" || body.loginPhone.length != 11 || !mobilepartn.test(body.loginPhone)){
-                oridata.errmsg = "手机号码格式错误";
-            }
-            else{
-                apiData = yield api.pullApiData('code',body);
-                var jsonData = JSON.parse(apiData[1]);
-                if(this.sess.code){
-                    console.log(this.sess.code)
-                    if(jsonData.success){
-                        oridata.Codesuccess = '2';
-                        if(body.code){
-                            apiDataCode = yield api.pullApiData('checkMC',body);
-                            var jsonDataCode = JSON.parse(apiDataCode[1]);
-                            if(body.code === this.sess.code){                        
-                                this.sess.step = 1;
-                                oridata.step = 1;
-                            }else{
-                                oridata.errmsg = "验证码错误";
-                            }
-                        }else{
-                            oridata.errmsg = "请输入必填信息!";
-                        }
-                    }else{
-                       oridata.errmsg = jsonData.errMsg;
-                    }
+        if(typeof this.sess.step =="undefined"){
+            if(typeof body.loginPhone =='undefined'){
+                oridata.errmsg="手机号码错误"
+            }else{
+                var mobilepartn = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+                if(body.loginPhone=="" || body.loginPhone.length != 11 || !mobilepartn.test(body.loginPhone)){
+                    oridata.errmsg = "手机号码格式错误";
                 }else{
+                    this.sess.step=1;
+                }
+            }
+        }
+        if(this.sess.step===1){
+            apiData = yield api.pullApiData('code',body);
+            var jsonData = JSON.parse(apiData[1]);
+            console.log(jsonData)
+            if(jsonData.success){
+                if(typeof this.sess.code == 'undefined'){
                     var javaPhonecode = jsonData.data.phoneCode;
                     this.sess.code = javaPhonecode;
+                    this.sess.step=2;
+                    oridata.step=this.sess.step;
+                    console.log(this.sess.code)
                 }
+            }else{
+                oridata.errmsg=jsonData.errMsg;
             }
-        }else{
-            oridata.errmsg = '请输入必填信息';
         }
-
-        if(this.sess.step === 1){
-            apiDataReg = yield api.pullApiData('regist',body);
-            var jsonDataReg = JSON.parse(apiDataReg[1]);
-            if(body.loginName || body.password || body.rePassword || body.name || body.firmFullName || body.landline || body.fax || body.user_asheng || body.address){
-                if(body.loginName =="" || body.password =="" || body.rePassword =="" || body.name =="" || body.firmFullName =="" || body.landline == "" || body.fax =="" || body.user_asheng =="" || body.address ==""){
-                    console.log("信息没有填写");
-                    oridata.errmsg = jsonDataReg.errMsg;
+        if(this.sess.step===2){
+            apiDataCode = yield api.pullApiData('checkMC',body);
+            var jsonDataCode = JSON.parse(apiDataCode[1]);
+            if(typeof body.code =='undefined' || !body.code){
+                oridata.errmsg="验证码出错"
+            }else{
+                if(body.code === this.sess.code){
+                    this.sess.step = 3;
+                    oridata.step = this.sess.step;
                 }else{
-                    console.log("信息已经填写"); 
-                    console.log(jsonDataReg)
-                    if(jsonDataReg.success){
-                        this.sess.step2 = 2;
-                        oridata.step2 = this.sess.step2;
-                    }
-                    else{
-                        //oridata.errmsg = jsonData.errMsg;
-                        oridata.errmsg = "信息错误!";
-                    }
+                    oridata.errmsg="验证码错误!"
                 }
             }
-            else{
-                oridata.errmsg = jsonDataReg.errMsg;
-            }
         }
+        if(this.sess.step===3){
+            apiDataRegion = yield api.pullApiData('region',{regionId:0});
+
+            var jsonDataRegion = JSON.parse(apiDataRegion[1]);
+            console.log('999999999999999')
+            console.log(jsonDataRegion)
+            oridata.regionList = jsonDataRegion.data.regionList;
+        }
+        // if(this.sess.step===3){
+        //     apiDataReg = yield api.pullApiData('regist',body);
+        //     var jsonDataReg = JSON.parse(apiDataReg[1]);
+        //     if(body.loginName || body.password || body.rePassword || body.name || body.firmFullName || body.landline || body.fax || body.user_asheng || body.address){
+        //         if(body.loginName =="" || body.password =="" || body.rePassword =="" || body.name =="" || body.firmFullName =="" || body.landline == "" || body.fax =="" || body.user_asheng =="" || body.address ==""){
+        //             console.log("信息没有填写");
+        //             oridata.errmsg = jsonDataReg.errMsg;
+        //         }else{
+        //             console.log("信息已经填写"); 
+        //             console.log(jsonDataReg)
+        //             if(jsonDataReg.success){
+        //                 console.log(jsonDataReg)
+        //                 this.sess.step = 4;
+        //                 oridata.step = this.sess.step;
+        //             }
+        //             else{
+        //                 //oridata.errmsg = jsonData.errMsg;
+        //                 oridata.errmsg = "信息错误!";
+        //             }
+        //         }
+        //     }
+        //     else{
+        //         oridata.errmsg = jsonDataReg.errMsg;
+        //     }
+        // }
+        // if(body.loginPhone){
+        //     var mobilepartn = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        //     if(body.loginPhone=="" || body.loginPhone.length != 11 || !mobilepartn.test(body.loginPhone)){
+        //         oridata.errmsg = "手机号码格式错误";
+        //     }
+        //     else{
+        //         apiData = yield api.pullApiData('code',body);
+        //         var jsonData = JSON.parse(apiData[1]);
+        //         if(this.sess.code){
+        //             console.log(this.sess.code)
+        //             if(jsonData.success){
+        //                 oridata.Codesuccess = '2';
+        //                 if(body.code){
+        //                     apiDataCode = yield api.pullApiData('checkMC',body);
+        //                     var jsonDataCode = JSON.parse(apiDataCode[1]);
+        //                     if(body.code === this.sess.code){                        
+        //                         this.sess.step = 1;
+        //                         oridata.step = 1;
+        //                     }else{
+        //                         oridata.errmsg = "验证码错误";
+        //                     }
+        //                 }else{
+        //                     oridata.errmsg = "请输入必填信息!";
+        //                 }
+        //             }else{
+        //                oridata.errmsg = jsonData.errMsg;
+        //             }
+        //         }else{
+        //             var javaPhonecode = jsonData.data.phoneCode;
+        //             this.sess.code = javaPhonecode;
+        //         }
+        //     }
+        // }else{
+        //     oridata.errmsg = '请输入必填信息';
+        // }
+
+        // if(this.sess.step === 1){
+        //     apiDataReg = yield api.pullApiData('regist',body);
+        //     var jsonDataReg = JSON.parse(apiDataReg[1]);
+        //     if(body.loginName || body.password || body.rePassword || body.name || body.firmFullName || body.landline || body.fax || body.user_asheng || body.address){
+        //         if(body.loginName =="" || body.password =="" || body.rePassword =="" || body.name =="" || body.firmFullName =="" || body.landline == "" || body.fax =="" || body.user_asheng =="" || body.address ==""){
+        //             console.log("信息没有填写");
+        //             oridata.errmsg = jsonDataReg.errMsg;
+        //         }else{
+        //             console.log("信息已经填写"); 
+        //             console.log(jsonDataReg)
+        //             if(jsonDataReg.success){
+        //                 this.sess.step2 = 2;
+        //                 oridata.step2 = this.sess.step2;
+        //             }
+        //             else{
+        //                 //oridata.errmsg = jsonData.errMsg;
+        //                 oridata.errmsg = "信息错误!";
+        //             }
+        //         }
+        //     }
+        //     else{
+        //         oridata.errmsg = jsonDataReg.errMsg;
+        //     }
+        // }
     }
     return oridata;
 }
