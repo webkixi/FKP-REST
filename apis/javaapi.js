@@ -36,6 +36,9 @@ var apiPath = {
         info_cat: src+'api/info/cat-list.html',
         info_view: src+'api/info/view.html',
         mall_item_detail: src+'api/mall/item/detail.html',
+        mall_order_create: src+'api/mall/trade/order/create.html',
+        mall_order_detail: src+'api/mall/trade/order/detail.html',
+        mall_order_submit: src+'api/mall/trade/order/submit.html',
         mall_list: src+'api/mall/item/list/query.html',
         mall_attr: src+'api/mall/item/list/attributes.html'
     }

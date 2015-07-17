@@ -80,3 +80,159 @@ function pos_top(a,pos){
         $(a).css({position:"relative"})
     }
 }
+
+  var ajaxAsync = true;
+  var ajaxTimeout = 3000;
+  var dataType = "json";
+
+    /*使用jqzoom*/
+    $(function() {
+        $('.jqzoom').jqzoom({
+            zoomType: 'standard',
+            lens:true,
+            preloadImages: false,
+            alwaysOn:false
+        });
+        /*切换tab*/
+        var pos=$(".ty-item-grid-inner-t").offset().top;
+        $(window).scroll(function(){
+            pos_top(".ty-item-grid-inner-t",pos);
+        });
+        var pos=$(".ty-item-grid-inner-t").offset().top;
+        $(window).scroll(function(){
+            pos_top(".ty-item-grid-inner-t",pos);
+        });
+        $(".ty-item-grid-inner-t li").click(function(){
+            if($(window).scrollTop()>pos)
+            $(window).scrollTop(pos);
+            var i=$(this).index();
+            $(this).addClass("select").siblings().removeClass("select");
+            i=(i==4)?null:(i>4)?--i:i;
+            if(i!=null)$(".ty-main-tab").show().children().eq(i).show().siblings().hide();
+            else $(".ty-item-grid-inner-f").show().prev().hide();
+        });
+        $(".ty-c1-grid-l .ty-grid-galleryShow a").css("margin","auto");
+        
+        
+        $("#submitOrderBtn").click(function (){
+          //确认当前是否已经登录
+          //checkLoginAndSubmitOrder();
+          submitOrder();
+        });
+    });
+    
+    function checkLoginAndSubmitOrder() {
+      $.ajax({
+      type: "GET",
+      url: "{{rc.contextPath}}/checkLoginStatus.html?_rt=" + new Date().getTime(),
+      timeout: ajaxTimeout,
+      dataType: dataType,
+      async: ajaxAsync,
+      success: function(result) {
+        if(result.status == true) {
+          //submitOrder();
+          //已登录用户检查是否已经通过企业认证
+          checkAuthAndSubmitOrder();
+          return;
+        }else{
+              //当前用户还没有登录，弹出登录创口登录
+          $("#myModal").addClass("in show");
+          $("#myModal .close").click(function() {
+            $("#myModal").removeClass("in show");
+          })
+        }
+        return;
+      },
+      error : function(e) {
+      }
+    });
+    }
+    
+    //检查当前用户是否通过企业认证
+    function checkAuthAndSubmitOrder() {
+      $.ajax({
+      type: "GET",
+      url: "${rc.contextPath}/checkAuthStatus.html?_rt=" + new Date().getTime(),
+      timeout: ajaxTimeout,
+      dataType: dataType,
+      async: ajaxAsync,
+      success: function(result) {
+        if(result.status == true) {
+          submitOrder();
+          return;
+        }else{
+          //未认证企业
+          document.location.href = "${rc.contextPath}/noAuth.html";
+        }
+        return;
+      },
+      error : function(e) {
+      }
+    });
+    }    
+    function submitOrder() {
+      // if(parseFloat($("#quantity").val()) < ${spGoods.minQuantity?string('0.####')}) {
+      if(parseFloat($("#quantity").val()) < 0) {
+          messager.alert({title:"提示",content:"订单数量不能小于起订量，请修改。",type:"warning"});
+      return;
+      }
+      // if(parseFloat($("#quantity").val()) > ${spGoods.stock?string('0.####')}) {
+      if(parseFloat($("#quantity").val()) > 100) {
+        messager.alert({title:"提示",content:"订单数量不能大于挂牌量，请修改。",type:"warning"});
+        return;
+      }
+      var quantity = Math.round(parseFloat($("#quantity").val()) * 10000) / 10000;
+      // var increase = quantity - ${spGoods.minQuantity?string('0.####')};
+      var increase = quantity - 0;
+      var rate = (Math.round(increase * 10000) / 10000) % 1;
+      // var rate = (Math.round(increase * 10000) / 10000) % ${spGoods.increase?string('0.####')};
+
+      // if(${spGoods.increase?string('0.####')} > 0 && rate != 0) {
+      if(0 > 0 && rate != 0) {
+        messager.alert({title:"提示",content:"订单增量必须是商品增量的整数倍，请修改。",type:"warning"});
+        return;
+      }
+    $.ajax({
+      type : "POST",
+      url : "/mall/item_detail.html?quantity=" + $("#quantity").val()+"&gid="+ $("#submitOrderBtn").attr("gid")+ "&_rt=" + new Date().getTime(),
+      timeout : 10000,
+      dataType : "json",
+      async : true,
+      success : function(resp) {
+        if (resp.success == true) {
+          document.location.href = "/mall/item_order/" + resp.data.orderId + ".html?_rt=" + new Date().getTime();
+        } else {
+            messager.alert({title:"提示",content:resp.errMsg,type:"warning"});
+            return;
+        }
+      },
+      error : function(e) {
+      }
+    });
+      
+    }
+    
+    function loginFromOrder() {
+    $.ajax({
+      type : "GET",
+      url : "${rc.contextPath}/loginCheckfromOrder.html?loginPhone="
+          + $('#loginPhone').val() + "&password="
+          + $('#password').val() + "&_rt=" + new Date().getTime(),
+      timeout : 10000,
+      dataType : "json",
+      async : true,
+      success : function(result) {
+        if (result.status == "true") {
+          $("#myModal").removeClass("in show");
+          $("#myregerro").addClass("in show");
+          //submitOrder();
+          checkAuthAndSubmitOrder();
+        }
+        else{
+          $(".errorMsg").html(result.errorMsg);
+        }
+      },
+      error : function(e) {
+      }
+    });
+  }
