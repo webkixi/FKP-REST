@@ -7,24 +7,27 @@ d.on('error',function(msg){
 });
 
 function *demoLoginData(oridata){
-
     libs.clog('pages/login.js');
     var dataSet = {};
     var mtd = this.method;
 
-    console.log(mtd)
-
     if(mtd==='GET'){
-        console.log('=================')
-        // var path = libs.$url.parse(this.path).pathname.replace('/','') // 处理query和hash
-
+        var user;
+        if(typeof this.sess.user!=='undefined'){
+            user = this.sess.user;
+            if(user.login){
+                // junmp user center
+            }
+        }
+        // deal with GET
     }
+
     else if(mtd==='POST'){
         libs.clog('pages/login.js========POST');
         // var userInfo = yield api.user({'loginPhone':'13268280401'})
-        // console.log(userInfo); 
+        // console.log(userInfo);
 
-        var body = yield libs.$parse(this); 
+        var body = yield libs.$parse(this);
         //apiData = yield api.xxx('loginCheck',body);
         if(body.loginPhone || body.password){
             var mobilepartn = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
@@ -37,16 +40,27 @@ function *demoLoginData(oridata){
                 var jsonData = JSON.parse(apiData[1]);
                 console.log(jsonData);
                 if(jsonData.success){
-                    //数据在java这边是不是存在的
-                    //.....
-                    // console.log(jsonData.data);
-                    oridata.success = '登录成功!';
-                    console.log(oridata.static);
-                    //返回数据
-                    //.....
-                }else{
-                    oridata.errmsg = jsonData.errMsg;
-                };
+                    //用户信息
+                    var account = jsonData.data.account;
+                    account.auth = jsonData.data.AccountAuthStatusEnum;
+                    account.authStatus = jsonData.data.authStatus;
+                    account.login = true;
+                    //企业信息
+                    var firm = libs.$extend({},jsonData.data);
+                    delete firm.account;
+                    delete firm.AccountAuthStatusEnum;
+                    //保存session
+                    account.firm = firm;
+                    this.sess.user = account;
+
+                    // clone返回数据
+                    var rtn = libs.$extend({},account);
+                    //删除返回数据的敏感信息
+                    delete rtn.loginPwd;
+                    delete rtn.loginPwdSalt;
+                    rtn.success = true;
+                    return rtn;
+                }
             }
         }else{
             oridata.errmsg = 'xxxxx';

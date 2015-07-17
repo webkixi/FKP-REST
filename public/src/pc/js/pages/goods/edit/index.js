@@ -1,11 +1,11 @@
-require('../../comm_plug/ie')
+require('../../_comm_plug/ie')
 require('../../_common/laypage.dev')
-require('../../comm_plug/jquery_picker')
-require('../../comm_plug/jquery_picker_date')
-require('../../comm_plug/jquery_ui')
-require('../../comm_plug/jquery.fileupload')
-require('../../comm_plug/jquery_i')
-require('../../comm_plug/jquery_form')
+require('../../_comm_plug/jquery_picker')
+require('../../_comm_plug/jquery_picker_date')
+require('../../_comm_plug/jquery_ui')
+require('../../_comm_plug/jquery.fileupload')
+require('../../_comm_plug/jquery_i')
+require('../../_comm_plug/jquery_form')
 // $(function(){
 //     var ajaxAsync = true;
 //     var ajaxTimeout = 3000;
@@ -30,7 +30,7 @@ require('../../comm_plug/jquery_form')
 //         changeGoodsCat2();
 //     });
 //     $('#catId').trigger("change");
-    
+
 //     //改变单位时更新库订购量，增量，升贴水单位
 //     $('#unit').change(function() {
 //         var unitName = $(this).find("option:selected").text();;
@@ -39,16 +39,16 @@ require('../../comm_plug/jquery_form')
 //         $("#discountUnit").text("/" + unitName);
 //         $("#priceUnit").text("/" + unitName);
 //     });
-//     $('#unit').trigger("change");       
+//     $('#unit').trigger("change");
 //     $("#stopDate").pickadate({min: new Date("${stopDateMinDate}"),max: new Date("${stopDateMaxDate}")});
 //     $('#isNightPlate').click(function() {
 //         $('#stopHour').empty();
 //         $(dayStopHours).each(function(index, item){
-//             $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");                
+//             $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");
 //         });
 //         if($('#isNightPlate').attr("checked") == "checked"){
 //             $(nightStopHours).each(function(index, item){
-//                 $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");                
+//                 $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");
 //             });
 //         }
 //         $('#stopHour').trigger("change");
@@ -58,34 +58,34 @@ require('../../comm_plug/jquery_form')
 //         if($('#isNightPlate').attr("checked") == "checked") {
 //             if($('#stopHour').val() == 9) {
 //                 for(var item = 5; item < 60;) {
-//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
 //                     item += 5;
 //                 }
 //             } else if($('#stopHour').val() == 24){
 //                 for(var item = 0; item <= 50;) {
-//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
 //                     item += 5;
 //                 }
 //             } else {
 //                 for(var item = 0; item < 60;) {
-//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
 //                     item += 5;
 //                 }
 //             }
 //         } else {
 //             if($('#stopHour').val() == 9) {
 //                 for(var item = 5; item < 60;) {
-//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
 //                     item += 5;
 //                 }
 //             } else if($('#stopHour').val() == 14){
 //                 for(var item = 0; item <= 50;) {
-//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
 //                     item += 5;
 //                 }
 //             } else {
 //                 for(var item = 0; item < 60;) {
-//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+//                     $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
 //                     item += 5;
 //                 }
 //             }
@@ -96,11 +96,11 @@ require('../../comm_plug/jquery_form')
 //         }
 //     });
 //     $(dayStopHours).each(function(index, item){
-//         $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");  
+//         $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");
 //     });
 //     if($('#isNightPlate').attr("checked") == "checked"){
 //         $(nightStopHours).each(function(index, item){
-//             $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");                
+//             $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");
 //         });
 //     }
 //     if(stopHourInit == false) {
@@ -108,10 +108,10 @@ require('../../comm_plug/jquery_form')
 //         stopHourInit = true;
 //     }
 //     $('#stopHour').trigger("change");
-//     //$("#stock").inputmask("999999.9999"); 
-//     //$("#minQuantity").inputmask("999999.9999"); 
-//     //$("#increase").inputmask("9999"); 
-//     //$("#price").inputmask("999999.9999"); 
+//     //$("#stock").inputmask("999999.9999");
+//     //$("#minQuantity").inputmask("999999.9999");
+//     //$("#increase").inputmask("9999");
+//     //$("#price").inputmask("999999.9999");
 //     $('#goodsForm').ajaxForm();
 //     $('#goodsForm').submit(function() {
 //         $(this).ajaxSubmit();
@@ -187,7 +187,7 @@ require('../../comm_plug/jquery_form')
 //                 messager.alert({title:"提示",content:"请填写商品点价截止日期！",type:"warning"});
 //                 $('#btnSave').attr("disabled",false);
 //                 return;
-//             }           
+//             }
 //         } else {
 //             if($("#price").val().trim() == "") {
 //                 messager.alert({title:"提示",content:"请填写商品单价！",type:"warning"});
@@ -204,7 +204,7 @@ require('../../comm_plug/jquery_form')
 //         var catName2 = $("#catId2").find("option:selected").text();
 //         var brandName = $("#brandId").find("option:selected").text();
 //         $("#fullName").val(catName + " " + catName2 + " " + brandName);
-        
+
 //         $('#goodsForm').ajaxSubmit({dataType: 'json',
 //             success: function(data) {
 //                 if(data.success == true) {
@@ -232,7 +232,7 @@ require('../../comm_plug/jquery_form')
 //         $("div[data-valuation=" + $('#valuation').val() + "]").show();
 //     });
 //     $('#valuation').trigger("change");
-    
+
 //     $('#storage').change(function() {
 //         $("div[data-storage]").hide();
 //         $("div[data-storage=" + $('#storage').val() + "]").show();
@@ -274,7 +274,7 @@ require('../../comm_plug/jquery_form')
 //             $(this).next(".pic_src").attr("name","pictures").val(data.result.fileName);
 //             $(this).prevAll(".goods_upic").attr("src",src).css("visibility","visible");
 //             $(this).parents(".goods_updown").removeClass("uploading").addClass("exist_img").attr("data-id",data.result.picId);
-            
+
 //         }
 //     });
 //     //上传图片
@@ -317,7 +317,7 @@ require('../../comm_plug/jquery_form')
 //             async: ajaxAsync,
 //             success: function(response) {
 //                 $('#catId2').empty();
-//                 $(response).each(function(index, item){ 
+//                 $(response).each(function(index, item){
 //                     $('#catId2').append("<option value='" + item.id + "' tradeCode='" + item.pageTitle + "'>" + item.catName + "</option>");
 //                 });
 //                 if(catId2Init == false) {
@@ -335,7 +335,7 @@ require('../../comm_plug/jquery_form')
 //             },
 //             error: function() {
 //             }
-//         });     
+//         });
 //     }
 //     function changeGoodsCat2() {
 //         if(!$('#catId2').val()){
@@ -349,7 +349,7 @@ require('../../comm_plug/jquery_form')
 //             async: ajaxAsync,
 //             success: function(response) {
 //                 $('#brandId').empty();
-//                 $(response).each(function(index, item){ 
+//                 $(response).each(function(index, item){
 //                     $("#brandId").append("<option value='" + item.id + "' logo='" + item.logo + "'>" + item.brandName + "</option>");
 //                 });
 //                 if(brandInit == false) {
@@ -359,6 +359,6 @@ require('../../comm_plug/jquery_form')
 //             },
 //             error: function() {
 //             }
-//         });     
+//         });
 //     }
 // });
