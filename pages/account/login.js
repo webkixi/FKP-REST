@@ -32,7 +32,13 @@ function *demoLoginData(oridata){
     var mtd = this.method;
 
     if(mtd==='GET'){
-
+        var user;
+        if(typeof this.sess.user!=='undefined'){
+            user = this.sess.user;
+            if(user.login){
+                // junmp user center
+            }
+        }
         // deal with GET
 
         return oridata;
@@ -79,9 +85,17 @@ function *demoLoginData(oridata){
                 apiData = yield api.pullApiData('loginCheck',body);
                 var jsonData = JSON.parse(apiData[1]);
                 if(jsonData.success){
+                    //用户信息
                     var account = jsonData.data.account;
                     account.auth = jsonData.data.AccountAuthStatusEnum;
+                    account.authStatus = jsonData.data.authStatus;
                     account.login = true;
+                    //企业信息
+                    var firm = libs.$extend({},jsonData.data);
+                    delete firm.account;
+                    delete firm.AccountAuthStatusEnum;
+                    //保存session
+                    account.firm = firm;
                     this.sess.user = account;
 
                     // clone返回数据

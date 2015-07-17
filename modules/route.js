@@ -10,6 +10,7 @@ var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
 var sessi = require('./session');
+var config = require('../config');
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
 
@@ -96,6 +97,7 @@ function init(app,mapper,rend){
 
     function *forBetter(){
         this.sess = sessi();
+        this.config = config;
         yield distribute.call(this,mapper)
     }
 
