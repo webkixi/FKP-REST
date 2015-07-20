@@ -101,8 +101,8 @@ function init(app,mapper,rend){
         this.config = config;
         if(this.method === 'POST'&&this.params.cat==='region'){
             // xxx
-            var data = yidld region.getRegion.call(this);
-            console.log(data);
+            // var data = yidld region.getRegion.call(this);
+            // console.log(data);
         }else
             yield distribute.call(this,mapper)
     }
