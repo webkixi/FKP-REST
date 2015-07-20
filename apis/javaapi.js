@@ -23,6 +23,7 @@ var apiPath = {
     base: src,
     dirs: {
         search: src+'api/search.html',    //搜索
+        region: src+'api/region/region-list.html', //地区
 
         //用户中心
         loginCheck: src+'api/account/loginCheck.html',  //用户检测
@@ -31,6 +32,8 @@ var apiPath = {
         code: src+'api/account/send-sms-code.html',   //拿取手机验证码
         forget: src+'api/checkForgetPassword.html',  //忘记密码
         user: src+'checkUserStatus.html',   //检测用户状态
+        updatePassword: src+'api/account/account-save-password.html',
+        updateBaseInfo: src+'api/account/account-save-baseInfo.html',
 
         //公共部分
         header_nav: src+'api/navbar.html',  //头部导航栏

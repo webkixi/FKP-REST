@@ -5,11 +5,12 @@ var fs = require('fs');
 var path = require('path')
 var api = require('../apis/javaapi');
 var header_nav = require('../pages/common/header_nav');
-var router = require('koa-router');
+var router = require('koa-router')();
 var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
 var sessi = require('./session');
+var region = require('./region');
 var config = require('../config');
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
@@ -91,17 +92,22 @@ function *createTempPath2(pms,rjson){
 **/
 function init(app,mapper,rend){
     render = rend;
-    app.use(router(app));
+    app.use(router.routes());
 
     var _mapper = mapper||{};
 
     function *forBetter(){
         this.sess = sessi();
         this.config = config;
-        yield distribute.call(this,mapper)
+        if(this.method === 'POST'&&this.params.cat==='region'){
+            // xxx
+            var data = yidld region.getRegion.call(this);
+            console.log(data);
+        }else
+            yield distribute.call(this,mapper)
     }
 
-    app
+    router
     .get('/',forBetter)
     .get('/:cat',forBetter)
     .get('/:cat/:title',forBetter)
@@ -167,17 +173,20 @@ function *distribute(_mapper){
                     }
                 }
 
-                if(pageData.errState) yield htmlRender.call(this,false,route);
-               else{
+                if(typeof pageData.errState!=='undefined') yield htmlRender.call(this,false,route);
+                else{
                     if(this.method==='GET')
                         yield htmlRender.call(this,true,route,pageData);
 
                     else if(this.method==='POST')
                         yield returnJson.call(this,true,route,pageData);
+
                 }
             }
 
-            else{ /* todo something */ }
+            else{
+                this.redirect('/404')
+            }
 
         }
     }
@@ -191,23 +200,32 @@ function *distribute(_mapper){
 **/
 function *htmlRender(stat,route,data){
     libs.clog('route.js/htmlRender'+route);
-    var header = yield header_nav();
-    data.header_nav = header.navData
+
+    if(typeof data.errStat === 'undefined'){
+        var header = yield header_nav();
+        data.header_nav = header.navData
+    }
+
     if (stat)
         this.body = yield render(route,data);
-    else
-        //this.body = 'no pages config file';
-        this.body = yield render('404');
+    else{
+        this.redirect('/404')
+        // this.body = yield render('404');
+    }
 }
 
 
 
 function *returnJson(stat,route,data){
     libs.clog('route.js/htmlRender'+route);
-    var header = yield header_nav();
-    data.header_nav = header.navData
-    if (stat)
+
+    if(typeof data.errStat === 'undefined'){
+        var header = yield header_nav();
+        data.header_nav = header.navData
+    }
+    if (stat){
         this.body = JSON.stringify(data);
+    }
     else
         this.body = '{"stat": 0}';
 }
