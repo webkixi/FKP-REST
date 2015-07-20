@@ -49,7 +49,7 @@ var verifyCode = form['verify-code'];
 
 function getFormData(){
     return {
-		'loginPhone' : { 'ipt' : form['login-phone'] } ,
+		'loginPhone' : { 'ipt' : form['loginPhone'] } ,
 		'password'   : { 'ipt' : form['password']} ,
 		'verify'     : { 'ipt' : form['verify-code']}
     }
@@ -98,20 +98,18 @@ function chkInputValue(){
 		loginPhone: inputs.loginPhone.ipt.value,
 		password: inputs.password.ipt.value
 	}
-	// console.log(forLoginStat);
-	// console.log(query);
-	//post query to api and deal with response data
-	// console.log(query);
-	// console.log(forLoginStat);
+
 	if(forLoginStat){
+        //ajax 提交
 		api.req('login',query,function(body){
 			if(body.success){
-				alert(111)
+                window.location = body.redirect;
 			}
-			if(body.error){
+			if(body.errStat){
 				alert(222);
 			}
 		})
+        // $(form).submit();
 	}
 }
 $('#login').click(function(){

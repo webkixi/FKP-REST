@@ -1,6 +1,7 @@
 var libs = require('../../libs/libs');
 var api = require('../../apis/javaapi');
 var validate = require('../../modules/validate');
+var region = require('../../modules/region')
 var formValide = validate;
 
 var d = libs.$domain.create();
@@ -25,7 +26,6 @@ var chkOptions = {
         return tmp;
     }
 }
-
 function *demoLoginData(oridata){
     libs.clog('pages/login.js');
 
@@ -33,48 +33,55 @@ function *demoLoginData(oridata){
 
     if(mtd==='GET'){
         var user;
-        if(typeof this.sess.user!=='undefined'){
+        if(typeof this.sess.user!=='undefined'&&this.sess.user){
             user = this.sess.user;
             if(user.login){
                 // junmp user center
+                this.redirect('/account/myaccount')
             }
         }
         // deal with GET
-
         return oridata;
     }
 
     else if(mtd==='POST'){
+
         libs.clog('pages/login.js========POST');
 
         var body = yield libs.$parse(this);
         var error = {
-            code: 0
+            errStat: 100,
+            errMsg: '用户名密码校验错误'
         };
+        var success = {
+            success: true
+        }
 
         if(typeof(body.loginPhone)=='undefined' || typeof(body.password)=='undefined'){
             if(typeof(body.loginPhone)=='undefined'){
-                error = {
-                    code:  1,
-                    msg: "请输入注册手机号！"
-                }
+                error.errStat= 1;
+                error.msg = "请输入注册手机号！";
+                return error;
             }
             if(typeof(body.password)=='undefined'){
-                if(error.code===1){
-                    error.code = 3;
+                if(error.errStat===1){
+                    error.errStat = 3;
                     error.msg = '登陆信息完全不正确';
                 }
                 else{
-                    error = {
-                        code: 2,
-                        msg: "输入密码不合法"
-                    }
+                    error.errStat= 2;
+                    error.msg = "输入密码不合法";
                 }
+                return error;
             }
         }
+        if(!body.loginPhone||!body.password){
+            error.errStat= 4;
+            error.msg = "登陆信息不正确，请重新输入";
+            return error;
+        }
 
-        if(error.code===0){
-
+        if(error.errStat===100){
             //后台校验用户提交数据
             var stat =  formValide(chkOptions)
             (body.loginPhone,'username')
@@ -85,7 +92,7 @@ function *demoLoginData(oridata){
                 apiData = yield api.pullApiData('loginCheck',body);
                 var jsonData = JSON.parse(apiData[1]);
                 if(jsonData.success){
-                    //用户信息
+                    // 用户信息
                     var account = jsonData.data.account;
                     account.auth = jsonData.data.AccountAuthStatusEnum;
                     account.authStatus = jsonData.data.authStatus;
@@ -98,18 +105,27 @@ function *demoLoginData(oridata){
                     account.firm = firm;
                     this.sess.user = account;
 
+                    //跳转到用户中心
+                    // this.redirect('/account/myaccount');
                     // clone返回数据
                     var rtn = libs.$extend({},account);
                     //删除返回数据的敏感信息
                     delete rtn.loginPwd;
                     delete rtn.loginPwdSalt;
                     rtn.success = true;
+                    rtn.redirect = '/account/myaccount'
                     return rtn;
                 }
+                else{
+                    error.errStat = 5;
+                    error.msg = jsonData.errMsg;
+                    return error;
+                }
+            }else{
+                return error;
             }
         }
         else{
-            error.error = true;
             return error;
         }
     }

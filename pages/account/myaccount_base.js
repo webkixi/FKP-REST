@@ -2,7 +2,6 @@
 var libs = require('../../libs/libs');
 var api = require('../../apis/javaapi');
 var validate = require('../../modules/validate');
-var region = require('../../modules/region')
 var formValide = validate;
 
 var d = libs.$domain.create();
@@ -45,20 +44,11 @@ function *demoLoginData(oridata){
     var userData = {};
 
     if(mtd==='GET'){
-        var province = yield region.getRegion();
-        provData =  JSON.parse(province[1]);
-        // console.log(provData.data.regionList[0]);
-        var provinces = []
-        provData.data.regionList.map(function(item,i){
-            provinces.push({id: item.id, regionName: item.regionName})
-        });
-
         var user,userData;
         if(typeof this.sess.user !== 'undefined'){
             user = this.sess.user;
             if(user.login){
                 userData = this.sess.user;
-                userData.provinces = provinces;
                 var auth = userData.auth;
                 auth.status =  userData.authStatus==auth.AUTH_FAIL.value || userData.authStatus==auth.AUTH_INIT.value;
                 auth.status_init =  userData.authStatus==auth.AUTH_INIT.value;
@@ -87,56 +77,23 @@ function *demoLoginData(oridata){
             success: true
         }
 
-        if(typeof(body.oldPassword)=='undefined' || typeof(body.newPassword)=='undefined'|| typeof(body.repassword)=='undefined'){
-            if(typeof(body.oldPassword)=='undefined'){
-                error.errStat= 1;
-                error.msg = "原密码不能为空";
-                return error;
-            }
-            if(typeof(body.newPassword)=='undefined'){
-                error.errStat= 2;
-                error.msg = "新密码不能为空";
-                return error;
-            }
-            if(typeof(body.repassword)=='undefined'){
-                error.errStat= 3;
-                error.msg = "与新密码不匹配";
-                return error;
-            }
-        }
-        if(!body.oldPassword||!body.newPassword||!body.repassword){
-            error.errStat= 4;
-            error.msg = "密码不合法，请重新输入";
-            return error;
-        }
-
         if(error.errStat===100){
-
             //后台校验用户提交数据
-            var stat = formValide(chkOptions)
-        	(body.oldPassword,'password')
-        	(body.newPassword,'password')
-        	([body.newPassword,body.repassword],'repassword')
-        	();
-
-            if(stat){
-                body.accountNo = this.sess.user.accountNo;
-                apiData = yield api.pullApiData('updatePassword',body);
-                var jsonData = JSON.parse(apiData[1]);
-                if(jsonData.success){
-                    this.sess.user = null;
-                    success.redirect = "/account/login.html";
-                    return success;
-                }
-                else{
-                    error.errStat = 5;
-                    error.msg = jsonData.errMsg;
-                    return error;
-                }
-            }
-            else{
-                return error;
-            }
+            body.accountNo = this.sess.user.accountNo;
+            console.log(body);
+            apiData = yield api.pullApiData('updateBaseInfo',body);
+            var jsonData = JSON.parse(apiData[1]);
+            console.log(jsonData);
+            // if(jsonData.success){
+            //     this.sess.user = null;
+            //     success.redirect = "/account/login.html";
+            //     return success;
+            // }
+            // else{
+            //     error.errStat = 5;
+            //     error.msg = jsonData.errMsg;
+            //     return error;
+            // }
         }
         else{
             return error;
