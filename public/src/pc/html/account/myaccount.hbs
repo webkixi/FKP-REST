@@ -41,67 +41,65 @@
                 </div>
                 <div class="account_r fl wid-10">
                     <ul id="myTab" class="nav nav-tabs">
-                        <li [#if !(curTab?exists) || curTab==1] class="active" [/#if]>
+                        <li class="active" >
                             <a href="#mybasic" data-toggle="tab">
                                 <i></i>基本信息
                             </a>
                         </li>
-                        <li [#if curTab?exists && curTab==2] class="active" [/#if]>
+                        <li>
                             <a href="#myapprove" data-toggle="tab">用户认证</a>
                         </li>
-                        <li [#if curTab?exists && curTab==3] class="active" [/#if]>
+                        <li>
                             <a href="#mypwd" data-toggle="tab">修改密码</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content account_content">
-                        <div class="r_wrap_list tab-pane fade [#if !(curTab?exists) || curTab==1] in active [/#if]" id="mybasic">
+                        <div class="r_wrap_list tab-pane fade in active" id="mybasic">
                             <form action="" id="accountSaveBaseInfo" method="">
                                 <div class="form-group">
                                     <label for="name">用户名：</label>
-                                    <input type="text" id="loginName" name="loginName" value="${account.loginName}" readonly class="form-control user_name">
+                                    <input type="text" id="loginName" name="loginName" value="{{account.loginName}}" readonly class="form-control user_name">
                                 </div>
                                 <div class="form-group">
                                     <label for="name">企业名称：</label>
-                                    <input type="text" id="firmFullName" name="firmFullName" value="${firmInfo.firmFullName}" class="form-control user_company">
+                                    <input type="text" id="firmFullName" name="firmFullName" value="{{firm.firmInfo.firmFullName}}" class="form-control user_company">
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">联系人姓名：</label>
-                                    <input type="text" id="name" name="name" value="${firmContact.name}" class="form-control user_tname">
+                                    <input type="text" id="name" name="name" value="{{firm.firmContact.name}}" class="form-control user_tname">
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">联系电话：</label>
-                                    <input type="text" id="phone" name="phone" value="${firmContact.phone}" class="form-control user_phone">
+                                    <input type="text" id="phone" name="phone" value="{{firm.firmContact.phone}}" class="form-control user_phone">
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">公司固话：</label>
-                                    <input type="text" id="landline" name="landline" value="${firmContact.landline}" class="form-control user_landline">
+                                    <input type="text" id="landline" name="landline" value="{{firm.firmContact.landline}}" class="form-control user_landline">
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">传真号码：</label>
-                                    <input type="text" id="fax" name="fax" value="${firmContact.fax}" class="form-control user_fax">
+                                    <input type="text" id="fax" name="fax" value="{{firm.firmContact.fax}}" class="form-control user_fax">
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">联系邮箱：</label>
-                                    <input type="text" id="email" name="email" value="${firmContact.email}" class="form-control user_email">
+                                    <input type="text" id="email" name="email" value="{{firm.firmContact.email}}" class="form-control user_email">
                                     <p class="error_msg text-danger"></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="name">联系QQ：</label>
-                                    <input type="text" id="qq" name="qq" value="${firmContact.qq}" class="form-control user_qq">
+                                    <input type="text" id="qq" name="qq" value="{{firm.firmContact.qq}}" class="form-control user_qq">
                                     <p class="error_msg text-danger"></p>
                                 </div>
-                                <div class="form-group u_address hidden">
-                                    <label for="name">地区：</label> <select class="form-control user_asheng">
-                                        <option>广东省</option>
-                                        <option>广西省</option>
-                                        <option>广南省</option>
-                                        <option>江西省</option>
-                                        <option>湖南省</option>
+                                <div class="form-group u_address ">
+                                    <label for="name">地区：</label> <select class="form-control user_asheng y">
+                                        {{#each account.provinces}}
+                                            <option value={{id}}>{{regionName}}</option>
+                                        {{/each}}
                                     </select> <select class="form-control user_ashi">
                                         <option>广州市</option>
                                         <option>佛山市</option>
@@ -119,36 +117,28 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="name">地址：</label>
-                                    <input type="text" id="address" name="address"  value="${firmContact.address}" class="form-control user_adetail" />
+                                    <input type="text" id="address" name="address"  value="{{firmContact.address}}" class="form-control user_adetail" />
                                 </div>
-                                <a href="javascript:;" type="button" onclick="updateBaseInfo()" id="updateBaseInfo" class="btn btn-orange">更新</a>
+                                <a href="javascript:;" type="button"  id="updateBaseInfo" class="btn btn-orange">更新</a>
                             </form>
                         </div>
-                        <div class="tab-pane fade [#if curTab?exists && curTab==2] in active [/#if]" id="myapprove">
+                        <div class="tab-pane fade " id="myapprove">
                             <form role="form">
                                 <div class="form-group">
                                     <label for="name">企业营业执照：</label>
                                     <div class="myaccount_uploadfieldbase">
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
-                                        [#list AccountAuthStatusEnum as authEnum] [#if authStatus==authEnum.AUTH_INIT.value||authStatus==authEnum.AUTH_FAIL.value]
+                                        {{#if auth.status}}
                                         <span class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
                                             <span>上传营业执照</span>
                                             <input id="inputLiecnces" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputLiecncesName" name="inputLiecncesName">
                                         </span>
-                                        [#else]
-                                        <!-- 已认证/认证审核中状态，按钮屏蔽 -->
-                                        <span class="btn btn-info hidden">
-                                            <i class="glyphicon glyphicon-plus"></i>
-                                            <span>上传营业执照</span>
-                                            <input id="inputLiecnces" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" id="inputLiecncesName" name="inputLiecncesName">
-                                        </span>
-                                        [/#if] [/#list]
+                                        {{/if}}
                                         <div class="gallery">
-                                            <a href='${path}${firmAuth.liecncesPath}' class='lightbox' rel='roadtrip' title='' id='inputLiecncesHref'>
-                                                <img alt="" src="${path}${firmAuth.liecncesPath}" id="inputLiecncesPic" width="100" height="100">
+                                            <a href='{{config.imagePath}}{{firm.firmAuth.liecncesPath}}' class='lightbox' rel='roadtrip' title='' id='inputLiecncesHref'>
+                                                <img alt="" src="{{config.account_img}}{{firm.firmAuth.liecncesPath}}" id="inputLiecncesPic" width="100" height="100">
                                             </a>
                                         </div>
                                     </div>
@@ -157,25 +147,17 @@
                                     <div class="myaccount_uploadfieldbase">
                                         <label for="name">组织机构代码：</label>
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
-                                        [#list AccountAuthStatusEnum as authEnum] [#if authStatus==authEnum.AUTH_INIT.value||authStatus==authEnum.AUTH_FAIL.value]
+                                        {{#if auth.status}}
                                         <span class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
                                             <span>上传组织机构代码</span>
                                             <input id="inputOrgCode" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputOrgCodeName" name="inputOrgCodeName">
                                         </span>
-                                        [#else]
-                                        <!-- 已认证/认证审核中状态，按钮屏蔽 -->
-                                        <span class="btn btn-success fileinput-button hidden">
-                                            <i class="glyphicon glyphicon-plus"></i>
-                                            <span>上传营业执照</span>
-                                            <input id="inputLiecnces" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" id="inputLiecncesName" name="inputLiecncesName">
-                                        </span>
-                                        [/#if] [/#list]
+                                        {{/if}}
                                         <div class="gallery">
-                                            <a href='${path}${firmAuth.orgCodePath}' class='lightbox' rel='roadtrip' title='' id='inputOrgCodeHref'>
-                                                <img alt="" src="${path}${firmAuth.orgCodePath}" id="inputOrgCodePic" width="100" height="100">
+                                            <a href='{{config.account_img}}{{firm.firmAuth.orgCodePath}}' class='lightbox' rel='roadtrip' title='' id='<inputOrgCodeHr></inputOrgCodeHr>ef'>
+                                                <img alt="" src="{{config.account_img}}{{firm.firmAuth.orgCodePath}}" id="inputOrgCodePic" width="100" height="100">
                                             </a>
                                         </div>
                                     </div>
@@ -184,52 +166,47 @@
                                     <div class="myaccount_uploadfieldbase">
                                         <label for="name">税务登记证：</label>
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
-                                        [#list AccountAuthStatusEnum as authEnum] [#if authStatus==authEnum.AUTH_INIT.value||authStatus==authEnum.AUTH_FAIL.value]
+                                        {{#if auth.status}}
                                         <span class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
                                             <span>上传税务登记证</span>
                                             <input id="inputTax" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputTaxName" name="inputTaxName">
                                         </span>
-                                        [#else]
-                                        <!-- 已认证/认证审核中状态，按钮屏蔽 -->
-                                        <span class="btn btn-success fileinput-button hidden">
-                                            <i class="glyphicon glyphicon-plus"></i>
-                                            <span>上传税务登记证</span>
-                                            <input id="inputTax" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" id="inputTaxName" name="inputTaxName">
-                                        </span>
-                                        [/#if] [/#list]
+                                        {{/if}}
                                         <div class="gallery">
-                                            <a href='${path}${firmAuth.taxRegPath}' class='lightbox' rel='roadtrip' title='' id='inputTaxHref'>
-                                                <img alt="" src="${path}${firmAuth.taxRegPath}" id="inputTaxPic" width="100" height="100">
+                                            <a href='{{config.account_img}}{{firm.firmAuth.taxRegPath}}' class='lightbox' rel='roadtrip' title='' id='inputTaxHref'>
+                                                <img alt="" src="{{config.account_img}}{{firm.firmAuth.taxRegPath}}" id="inputTaxPic" width="100" height="100">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-                                [#list AccountAuthStatusEnum as authEnum] [#if authStatus==authEnum.AUTH_INIT.value]
-                                <div class="myapprove_btn">
-                                    <a href="javascript:;" type="button" onclick="accountAuth()" id="accountAuth" class="btn btn-orange">认证申请</a>
-                                </div>
-                                [#elseif authStatus==authEnum.AUTH_FAIL.value]
-                                <div class="myapprove_btn">
-                                    <a href="javascript:;" type="button" onclick="accountAuth()" id="re-accountAuth" class="btn btn-orange">重新认证</a>
-                                </div>
-                                <p class="myapprove_error">认证失败原因：&nbsp;&nbsp;[#if firmAuthRecord?if_exists]${firmAuthRecord.description!''}[/#if] [#elseif
-                                    authStatus==authEnum.AUTH_ING.value]</p>
-                                <div class="myapprove_btn">
-                                    <a class="btn btn-info">${authEnum.AUTH_ING.desc}</a>
-                                </div>
-                                [#elseif authStatus==authEnum.AUTH_SUCCESS.value]
-                                <div class="myapprove_btn">
-                                    <a class="btn btn-success">${authEnum.AUTH_SUCCESS.desc}</a>
-                                </div>
-                                [/#if] [/#list]
+                                {{#if auth.status_init}}
+                                    <div class="myapprove_btn">
+                                        <a href="javascript:;" type="button" onclick="accountAuth()" id="accountAuth" class="btn btn-orange">认证申请</a>
+                                    </div>
+                                {{/if}}
+                                {{#if auth.status_fail}}
+                                    <div class="myapprove_btn">
+                                        <a href="javascript:;" type="button" onclick="accountAuth()" id="re-accountAuth" class="btn btn-orange">重新认证</a>
+                                    </div>
+                                    <p class="myapprove_error">认证失败原因：&nbsp;&nbsp;
+                                        {{firm.firmAuthRecord.description}}
+                                    </p>
+                                    <div class="myapprove_btn">
+                                        <a class="btn btn-info">${auth.AUTH_ING.desc}</a>
+                                    </div>
+                                {{/if}}
+                                {{#if auth.status_success}}
+                                    <div class="myapprove_btn">
+                                        <a class="btn btn-success">{{auth.AUTH_SUCCESS.desc}}</a>
+                                    </div>
+                                {{/if}}
                             </form>
                         </div>
 
-                        <div class="tab-pane fade  [#if curTab?exists && curTab==3] in active [/#if]" id="mypwd">
-                            <form action="" id="accountSavePassword" method="">
+                        <div class="tab-pane fade " id="mypwd">
+                            <form action="/account/myaccount" id="accountSavePassword" method="post">
                                 <div class="form-group">
                                     <label for="name">原密码：</label>
                                     <input type="password" class="form-control user_pwd" id="oldPassword" name="oldPassword" autocomplete="off" placeholder="请输入原密码">
@@ -245,8 +222,8 @@
                                     <input type="password" class="form-control user_pwdnd" id="repassword" name="repassword" autocomplete="off" placeholder="请再次输入密码">
                                     <p class="error_msg text-danger"></p>
                                 </div>
-                                <a href="javascript:;" type="button" onclick="updatePassword()" id="updatePassword" class="btn btn-orange">修改密码</a>
                             </form>
+                                <a href="javascript:;" type="button" id="updatePassword" class="btn btn-orange">修改密码</a>
                         </div>
                     </div>
                 </div>

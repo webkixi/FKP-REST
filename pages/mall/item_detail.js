@@ -12,6 +12,7 @@ function *demoIndexData(oridata){
     var user = {
         'userId':'JH12211000000055'
     }
+
     if(!!this.params.id){
         if(mtd === 'GET'){
         var goodsId = this.params.id.substr(0,this.params.id.indexOf(".html"));
@@ -59,10 +60,18 @@ function *demoIndexData(oridata){
             dataSet = apiData.data;
         }
 
-        console.log(session);
-        console.log("111111111111111111111111111111111111111111111111111111");
-        console.log(dataSet);
-
+    }else{
+        if(mtd === 'POST'){
+            var apiData = [];
+            var urlData = libs.uri(this.local);
+            apiData = yield api.pullApiData('mall_order_create',{
+                'accountNo':'JH12211000000055',
+                'goodsId':urlData.gid,
+                'quantity':urlData.quantity
+            })
+            apiData = JSON.parse(apiData[1]);
+            return apiData
+        }
     }
 
     dataSet.root = api.apiPath.base;

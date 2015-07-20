@@ -1,11 +1,11 @@
-require('../../comm_plug/ie')
+require('../../_comm_plug/ie')
 require('../../_common/laypage.dev')
-require('../../comm_plug/jquery_picker')
-require('../../comm_plug/jquery_picker_date')
-require('../../comm_plug/jquery_ui')
-require('../../comm_plug/jquery.fileupload')
-require('../../comm_plug/jquery_i')
-require('../../comm_plug/jquery_form')
+require('../../_comm_plug/jquery_picker')
+require('../../_comm_plug/jquery_picker_date')
+require('../../_comm_plug/jquery_ui')
+require('../../_comm_plug/jquery.fileupload')
+require('../../_comm_plug/jquery_i')
+require('../../_comm_plug/jquery_form')
 
 $(function(){
 var ajaxAsync = true;
@@ -24,7 +24,7 @@ var nightStopHours = [21, 22, 23, 24];
         changeBrand();
     });
     $('#catId').trigger("change");
-    
+
     $("#stopDate").pickadate({min: new Date("${stopDateMinDate}"),max: new Date("${stopDateMaxDate}")});
 
     //改变单位时更新库订购量，增量，升贴水单位
@@ -39,11 +39,11 @@ var nightStopHours = [21, 22, 23, 24];
     $('#isNightPlate').click(function() {
         $('#stopHour').empty();
         $(dayStopHours).each(function(index, item){
-            $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");                
+            $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");
         });
         if($('#isNightPlate').attr("checked") == "checked"){
             $(nightStopHours).each(function(index, item){
-                $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");                
+                $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");
             });
         }
         $('#stopHour').trigger("change");
@@ -53,47 +53,47 @@ var nightStopHours = [21, 22, 23, 24];
         if($('#isNightPlate').attr("checked") == "checked") {
             if($('#stopHour').val() == 9) {
                 for(var item = 5; item < 60;) {
-                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
                     item += 5;
                 }
             } else if($('#stopHour').val() == 24){
                 for(var item = 0; item <= 50;) {
-                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
                     item += 5;
                 }
             } else {
                 for(var item = 0; item < 60;) {
-                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
                     item += 5;
                 }
             }
         } else {
             if($('#stopHour').val() == 9) {
                 for(var item = 5; item < 60;) {
-                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
                     item += 5;
                 }
             } else if($('#stopHour').val() == 14){
                 for(var item = 0; item <= 50;) {
-                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
                     item += 5;
                 }
             } else {
                 for(var item = 0; item < 60;) {
-                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");  
+                    $('#stopMinute').append("<option value='" + item + "'>" + item + "</option>");
                     item += 5;
                 }
             }
         }
     });
     $(dayStopHours).each(function(index, item){
-        $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");                
+        $('#stopHour').append("<option value='" + item + "'>" + item + "</option>");
     });
     $('#stopHour').trigger("change");
-    //$("#stock").inputmask("999999.9999"); 
-    //$("#minQuantity").inputmask("999999.9999"); 
-    //$("#increase").inputmask("9999"); 
-    //$("#price").inputmask("999999.99"); 
+    //$("#stock").inputmask("999999.9999");
+    //$("#minQuantity").inputmask("999999.9999");
+    //$("#increase").inputmask("9999");
+    //$("#price").inputmask("999999.99");
     $('#goodsForm').ajaxForm();
     $('#goodsForm').submit(function() {
         $(this).ajaxSubmit();
@@ -111,7 +111,7 @@ var nightStopHours = [21, 22, 23, 24];
         	$('#btnSave').attr("disabled",false);
             return;
         }
-        
+
         //if($("#vender").val().trim() == "") {
         //    dropAlert("请填写商品厂家！");
         //    return;
@@ -170,7 +170,7 @@ var nightStopHours = [21, 22, 23, 24];
                 messager.alert({title:"提示",content:"请填写商品点价截止日期！",type:"warning"});
             	$('#btnSave').attr("disabled",false);
                 return;
-            }           
+            }
         } else {
             if($("#price").val().trim() == "") {
                 messager.alert({title:"提示",content:"请填写商品单价！",type:"warning"});
@@ -215,7 +215,7 @@ var nightStopHours = [21, 22, 23, 24];
         $("div[data-valuation=" + $('#valuation').val() + "]").show();
     });
     $('#valuation').trigger("change");
-    
+
     $('#storage').change(function() {
         $("div[data-storage]").hide();
         $("div[data-storage=" + $('#storage').val() + "]").show();
@@ -287,7 +287,7 @@ var nightStopHours = [21, 22, 23, 24];
             async: ajaxAsync,
             success: function(response) {
                 $('#catId2').empty();
-                $(response).each(function(index, item){ 
+                $(response).each(function(index, item){
                     $('#catId2').append("<option value='" + item.id + "' tradeCode='" + item.pageTitle + "'>" + item.catName + "</option>");
                 });
                 //显示交易代码
@@ -314,14 +314,14 @@ var nightStopHours = [21, 22, 23, 24];
             async: ajaxAsync,
             success: function(response) {
                 $('#brandId').empty();
-                $(response).each(function(index, item){ 
+                $(response).each(function(index, item){
                     $("#brandId").append("<option value='" + item.id + "' logo='" + item.logo + "'>" + item.brandName + "</option>");
                 });
                 changeBrand();
             },
             error: function() {
             }
-        });     
+        });
     }
     function changeBrand() {
         $('#brandLogo').attr("src", "");

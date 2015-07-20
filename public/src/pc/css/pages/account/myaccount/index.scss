@@ -34,6 +34,10 @@
 		display: inline-block;
 		border: 1px solid #ddd;
 	}
+    input[type='text']{
+        width: 335px; margin-top: 0;
+    }
+    p{display: inline-block;}
 	select{ width: 24%;}
 }
 
