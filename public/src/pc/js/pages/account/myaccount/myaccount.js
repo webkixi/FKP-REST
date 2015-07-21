@@ -1,5 +1,5 @@
 require('../../_comm_plug/jquery_ui')
-require('../../_comm_plug/jquery.fileupload')
+// require('../../_comm_plug/jquery.fileupload')
 // require('./index')
 // require('./jquery.lightbox')
 // require('./index2')
@@ -11,13 +11,40 @@ var api = require('../../_common/api')
 /*
 * 地区选择
 */
-$('.province').change(function(){
-    var city_id = $(this).val();
-
+function getRegion(id,cb){
+    var query = {id: id};
+    api.req('region',query,function(body){
+		if(body.success){
+            cb(body);
+		}
+    })
+}
+//三级联动
+$('.u_address').delegate('select','change',function(){
+    var index = $(this).index();
+    var id = $(this).val();
+    //省份
+    if(index===1){
+        $('.city').html('');
+        getRegion(id,function(body){
+            //设置传输数据
+            var citys = body.data.regionList;
+            citys.map(function(city,i){
+                $('.city').append('<option value='+city.id+'>'+city.regionName+'</option>')
+            })
+        })
+    }
+    if(index===2){
+        $('.county').html('');
+        getRegion(id,function(body){
+            //设置传输数据
+            var countys = body.data.regionList;
+            countys.map(function(county,i){
+                $('.county').append('<option value='+county.id+'>'+county.regionName+'</option>')
+            })
+        })
+    }
 })
-
-
-
 
 /*
 * form 表单提交
@@ -99,6 +126,7 @@ function chkInputValue(){
         // $(rePassForm).submit();
 	}
 }
+
 $('#updatePassword').click(function(){
 	chkInputValue();
 })
@@ -106,15 +134,18 @@ $('#updatePassword').click(function(){
 $('#updateBaseInfo').click(function(){
     var query={};
     $(baseForm).find('input[type="text"]').map(function(i,item){
-        console.log(item);
         var n = item.name;
         var v = item.value;
         query[n] = v;
     })
 
+    query.province = baseForm['province'].value;
+    query.city = baseForm['city'].value;
+    query.county = baseForm['county'].value;
+
     api.req('updateAccountBase',query,function(body){
 		if(body.success){
-            window.location = body.redirect;
+            alert(111)
 		}
 		if(body.errStat){
 			alert(222);

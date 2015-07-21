@@ -1,6 +1,7 @@
 
 var libs = require('../../libs/libs');
 var api = require('../../apis/javaapi');
+var __ = libs.$lodash;
 var validate = require('../../modules/validate');
 var formValide = validate;
 
@@ -41,7 +42,6 @@ function *demoLoginData(oridata){
     oridata.config = this.config;
 
     var mtd = this.method;
-    var userData = {};
 
     if(mtd==='GET'){
         var user,userData;
@@ -67,8 +67,8 @@ function *demoLoginData(oridata){
 
     else if(mtd==='POST'){
         libs.clog('pages/login.js========POST');
-
         var body = yield libs.$parse(this);
+
         var error = {
             errStat: 100,
             errMsg: '重置密码错误'
@@ -80,20 +80,37 @@ function *demoLoginData(oridata){
         if(error.errStat===100){
             //后台校验用户提交数据
             body.accountNo = this.sess.user.accountNo;
-            console.log(body);
+            body.loginPhone = this.sess.user.loginPhone;
+            body.district = body.county;
+
+            //忽略校验
+            var ignore = ['email','qq','province','city','county'];
+
+            //校验数据不能为空
+            for(var item in body){
+                if(__.indexOf(ignore, item) > -1)
+                    continue;
+
+                if(!body[item]){
+                    error.errStat = 1;
+                    error.errMsg = item+'不能为空';
+                    return error;
+                }
+            }
+
+
             apiData = yield api.pullApiData('updateBaseInfo',body);
             var jsonData = JSON.parse(apiData[1]);
-            console.log(jsonData);
-            // if(jsonData.success){
-            //     this.sess.user = null;
-            //     success.redirect = "/account/login.html";
-            //     return success;
-            // }
-            // else{
-            //     error.errStat = 5;
-            //     error.msg = jsonData.errMsg;
-            //     return error;
-            // }
+            if(jsonData.success){
+                this.sess.user.firm.firmContact = jsonData.data.firmContact;
+                this.sess.user.firm.firmInfo = jsonData.data.firmInfo;
+                return success;
+            }
+            else{
+                error.errStat = 5;
+                error.msg = jsonData.errMsg;
+                return error;
+            }
         }
         else{
             return error;
@@ -104,12 +121,3 @@ function *demoLoginData(oridata){
 module.exports = {
     getData : demoLoginData
 }
-
-// AUTH_INIT("未认证", 0),
-// AUTH_SUCCESS("已认证", 1),
-// AUTH_ING("认证审核中", 2),
-// AUTH_FAIL("认证未通过", 3);
-
-// user
-// stat
-//
