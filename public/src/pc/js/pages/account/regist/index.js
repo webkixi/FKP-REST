@@ -10,11 +10,14 @@ function getFormData(){
 		'Regcode' : { 'ipt' : form['code'],'Etip' : "请输入短信验证码",'Rtip' : "请输入正确的短信验证码",'tip' : "短信验证码错误!"},
 		'RegLoginname' : { 'ipt' : form['loginName'],'Etip' : "用户名长度只能在4-20位字符之间",'Rtip' : "请输入正确格式的用户名",'tip' : ""},
 		'RegPwd' : { 'ipt' : form['password'],'Etip' : "6-20位字符，建议由字母，数字和符号两种以上组合",'Rtip' : "请输入正确格式的密码",'tip' : ""},
+		'RegrePwd' : { 'ipt' : form['rePassword'],'Etip' : "6-20位字符，建议由字母，数字和符号两种以上组合",'Rtip' : "两次密码不一致,请重新输入",'tip' : ""},
 		'RegName' : { 'ipt' : form['name'],'Etip' : "请输入联系人姓名",'Rtip' : "请输入正确格式的联系人姓名",'tip' : ""},
 		'RegFullname' : { 'ipt' : form['firmFullName'],'Etip' : "请输入公司全称",'Rtip' : "请输入正确格式的公司全称",'tip' : ""},
 		'RegLandline' : { 'ipt' : form['landline'],'Etip' : "格式:区号-电话号码;如 020-88888888",'Rtip' : "请输入正确格式的公司固话",'tip' : ""},
 		'RegFax' : { 'ipt' : form['fax'],'Etip' : "格式:区号-电话号码;如 020-88888888",'Rtip' : "请输入正确格式的传真号码",'tip' : "短信验证码错误!"},
 		'RegProv' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
+		'RegCity' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
+		'RegCounty' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
 		'RegEmail' : { 'ipt' : form['eMail'],'Etip' : "请输入电子邮件",'Rtip' : "邮箱格式错误,请重新输入",'tip' : ""},
 		'RegQq' : { 'ipt' : form['qq'],'Etip' : "请输入qq",'Rtip' : "qq格式错误,请重新输入",'tip' : ""},
 		'RegAdd' : { 'ipt' : form['address'],'Etip' : "请输入详细地址",'Rtip' : "",'tip' : ""}
@@ -83,6 +86,21 @@ var chkOptions = {
         }
         // chk['password']={};
         // chk['password']['level']=level;
+        return tmp;
+    },
+    RegrePwd: function(input_obj,reg){
+        var
+        pobj = input_obj[0],   //password object
+        pipt = pobj.ipt,
+        pval = pipt.value,
+        iobj = input_obj[1],    //repassword object
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = true;
+
+        if(val!==pval)
+            tmp = false;
+
         return tmp;
     },
     RegName: function(input_obj,reg){   // 联系人 非空
@@ -159,6 +177,30 @@ var chkOptions = {
         return tmp;
     },
     RegProv: function(input_obj,reg){   // 地区 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请选择地区");
+        }
+        return tmp;
+    },
+    RegCity: function(input_obj,reg){   // 地区 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请选择地区");
+        }
+        return tmp;
+    },
+    RegCounty: function(input_obj,reg){   // 地区 非空
         var
         iobj = input_obj,
         ipt = iobj.ipt,
@@ -248,6 +290,15 @@ function bindInputDefaultEvent(){
                    ();
                 });
             }
+            if(ele=='RegrePwd'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegrePwd')
+                   ();
+                });
+            }
             if(ele=='RegName'){
             	Regfocus.call(ipt);
                 $(ipt).bind('blur',function(){
@@ -324,6 +375,45 @@ function bindInputDefaultEvent(){
     }
 }
 bindInputDefaultEvent();
+
+/*
+* 地区选择
+*/
+function getRegion(id,cb){
+    var query = {id: id};
+    api.req('region',query,function(body){
+		if(body.success){
+            cb(body);
+		}
+    })
+}
+//三级联动
+$('.u_address').delegate('select','change',function(){
+    var index = $(this).index();
+    var id = $(this).val();
+    //省份
+    if(index===1){
+        $('.city').html('');
+        getRegion(id,function(body){
+            //设置传输数据
+            var citys = body.data.regionList;
+            citys.map(function(city,i){
+                $('.city').append('<option value='+city.id+'>'+city.regionName+'</option>')
+            })
+        })
+    }
+    if(index===2){
+        $('.county').html('');
+        getRegion(id,function(body){
+            //设置传输数据
+            var countys = body.data.regionList;
+            countys.map(function(county,i){
+                $('.county').append('<option value='+county.id+'>'+county.regionName+'</option>')
+            })
+        })
+    }
+})
+
 function chkPhoneValue(){
 	var inputs = getFormData();
 
@@ -411,11 +501,14 @@ function checkAccount(){
 	(inputs.Regcode,'Regcode')
 	(inputs.RegLoginname,'RegLoginname')
 	(inputs.RegPwd,'RegPwd')
+	([inputs.RegPwd],'RegrePwd')
 	(inputs.RegName,'RegName')
 	(inputs.RegFullname,'RegFullname')
 	(inputs.RegLandline,'RegLandline')
 	(inputs.RegFax,'RegFax')
 	(inputs.RegProv,'RegProv')
+	(inputs.RegCity,'RegCity')
+	(inputs.RegCounty,'RegCounty')
 	(inputs.RegAdd,'RegAdd')
 	();
 
@@ -425,11 +518,14 @@ function checkAccount(){
 		code: inputs.Regcode.ipt.value,
 		loginName: inputs.RegLoginname.ipt.value,
 		password: inputs.RegPwd.ipt.value,
+		repassword: inputs.RegrePwd.ipt.value,
 		name: inputs.RegName.ipt.value,
 		firmFullName: inputs.RegFullname.ipt.value,
 		landline: inputs.RegLandline.ipt.value,
 		fax: inputs.RegFax.ipt.value,
 		province: inputs.RegProv.ipt.value,
+		city: inputs.RegCity.ipt.value,
+		county: inputs.RegCounty.ipt.value,
 		address: inputs.RegAdd.ipt.value,
 		isForgetPassword: false
 	}

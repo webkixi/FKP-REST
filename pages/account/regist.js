@@ -1,6 +1,7 @@
 var libs = require('../../libs/libs');
 var api = require('../../apis/javaapi');
 var validate = require('../../modules/validate');
+var region = require('../../modules/region')
 var formValide = validate;
 
 var d = libs.$domain.create();
@@ -64,6 +65,15 @@ function *demoRegistData(oridata){
     var mtd = this.method;
 
     if(mtd==='GET'){
+        var province = yield region.getRegion();
+        console.log(province)
+        var areaData =  JSON.parse(province[1]);
+        areaData.data.regionList.map(function(item,i){        
+            provinces.push("<option value='"+item.id+"'>"+item.regionName+"</option>");
+        });
+        var tmp_p = provinces.join('\n');
+
+
         var user;
         if(typeof this.sess.user!=='undefined'&&this.sess.user){
             user = this.sess.user;
@@ -73,6 +83,7 @@ function *demoRegistData(oridata){
             }
         }
         // deal with GET
+        oridata.province=tmp_p;
         return oridata;
     }
     else if(mtd==='POST'){
