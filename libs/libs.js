@@ -45,7 +45,6 @@ var guid = function(prefix) {
     return (prefix + Math.random() + Math.random()).replace(/0\./g, "");
 }
 
-
 module.exports = {
     getObjType: getObjType,
     clone: clone,
