@@ -99,11 +99,11 @@ function init(app,mapper,rend){
     function *forBetter(){
         this.sess = sessi();
         this.config = config;
-        if(this.method === 'POST'&&this.params.cat==='region'){
-            // xxx
-            // var data = yidld region.getRegion.call(this);
-            // console.log(data);
-        }else
+        var param = this.params;
+        if(param.cat === 'region'){
+            yield getRegion.call(this);
+        }
+        else
             yield distribute.call(this,mapper)
     }
 
@@ -115,6 +115,22 @@ function init(app,mapper,rend){
 
     .post('/:cat',forBetter)
     .post('/:cat/:title',forBetter)
+}
+
+function *getRegion(){
+    libs.clog('获取地址列表联动信息');
+    var body={};
+    if(this.method==='GET'){
+        body = this.query;
+    }
+    if(this.method==='POST'){
+        body = yield libs.$parse(this)
+    }
+    if(typeof body.id!=='undefined'&&body.id){
+        var zones = yield region.getRegion(body.id);
+        var data = JSON.parse(zones[1]);
+        yield returnJson.call(this,true,'region',data);
+    }
 }
 
 /**
@@ -175,6 +191,12 @@ function *distribute(_mapper){
 
                 if(typeof pageData.errState!=='undefined' && pageData.errState) yield htmlRender.call(this,false,route);
                 else{
+
+                    if(typeof pageData.errStat == 'undefined'){
+                        var header = yield header_nav();
+                        pageData.header_nav = header.navData
+                    }
+
                     if(this.method==='GET')
                         yield htmlRender.call(this,true,route,pageData);
 
@@ -199,13 +221,7 @@ function *distribute(_mapper){
  * return rende pages
 **/
 function *htmlRender(stat,route,data){
-    libs.clog('route.js/htmlRender'+route);
-
-    if(typeof data.errStat === 'undefined'){
-        var header = yield header_nav();
-        data.header_nav = header.navData
-    }
-
+    libs.clog('route.js/htmlRender/'+route);
     if (stat)
         this.body = yield render(route,data);
     else{
@@ -217,12 +233,7 @@ function *htmlRender(stat,route,data){
 
 
 function *returnJson(stat,route,data){
-    libs.clog('route.js/htmlRender'+route);
-
-    if(typeof data.errStat === 'undefined'){
-        var header = yield header_nav();
-        data.header_nav = header.navData
-    }
+    libs.clog('route.js/htmlRender/'+route);
     if (stat){
         this.body = JSON.stringify(data);
     }
