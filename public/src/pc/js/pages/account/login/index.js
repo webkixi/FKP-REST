@@ -41,6 +41,7 @@
 var libs = require('libs/libs');
 var formValide = libs.formValide;
 var api = require('../../_common/api')
+var upload = require('modules/upload/index')
 
 var form = $('#loginCheck')[0]
 var loginPhone = form['login-form'];
@@ -115,3 +116,20 @@ function chkInputValue(){
 $('#login').click(function(){
 	chkInputValue();
 })
+
+
+var uploader = WebUploader.create({
+
+    // swf文件路径
+    swf: '/images/Uploader.swf',
+
+    // 文件接收服务端。
+    server: '/upload',
+
+    // 选择文件的按钮。可选。
+    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+    pick: '#picker',
+
+    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+    resize: false
+});
