@@ -34,6 +34,7 @@ var apiPath = {
         user: src+'checkUserStatus.html',   //检测用户状态
         updatePassword: src+'api/account/account-save-password.html',
         updateBaseInfo: src+'api/account/account-save-baseInfo.html',
+        goods_list:src+'api/goods/list.html',//商品列表
 
         //公共部分
         header_nav: src+'api/navbar.html',  //头部导航栏

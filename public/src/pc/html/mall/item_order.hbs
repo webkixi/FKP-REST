@@ -9,8 +9,6 @@
 <body>
 @@include('../_common/header/header.html')
 	
-
-	[#include 'common/menu.html' /]
 <div class="wrapper">
     <div class="current_path container">
         <a href="/index.html">首页</a> > <a href="/account-center.html">会员中心</a> > <a href="/order/list.html">我的订单</a> > <a class="currents"> 订单详情 </a>
@@ -21,7 +19,9 @@
                 <div class="account_l fl span2">
                     @@include('../_common/account.hbs')
                 </div>
-                <form id="orderForm" action="/mall/item_order/{{order.id}}.html" method="post">
+                <form id="orde" action="/mall/item_order.html" method="post">
+                  <input type="hidden" name="orderId" value="{{order.id}}">
+                  <input type="hidden" name="step" value="submit">
                 <div class="account_r fl span10">
                     <div class="ele_contract">
                       <div class="ele_comt">

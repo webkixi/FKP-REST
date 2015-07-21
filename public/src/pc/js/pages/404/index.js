@@ -1,4 +1,3 @@
- require('../_common/header');
 
   if (! +"\v1"){
     $("#wrapper img").addClass('fade').delay(800).queue(function(next){

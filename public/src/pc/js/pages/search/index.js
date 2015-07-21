@@ -1,4 +1,4 @@
- require('../_common/header');
+
 var laypage = require('../_common/laypage.dev');
 
    laypage({
