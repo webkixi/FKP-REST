@@ -19,7 +19,7 @@ function getRegion(id,cb){
 		}
     })
 }
-//三级联动
+
 $('.u_address').delegate('select','change',function(){
     var index = $(this).index();
     var id = $(this).val();
