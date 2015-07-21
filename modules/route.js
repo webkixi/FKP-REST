@@ -103,6 +103,9 @@ function init(app,mapper,rend){
         if(param.cat === 'region'){
             yield getRegion.call(this);
         }
+        if(param.cat === 'upload'){
+            yield upload.call(this);
+        }
         else
             yield distribute.call(this,mapper)
     }
@@ -131,6 +134,12 @@ function *getRegion(){
         var data = JSON.parse(zones[1]);
         yield returnJson.call(this,true,'region',data);
     }
+}
+
+function *upload(){
+    libs.clog('上传数据');
+    var fileUpLoader = require('./uploader')
+    fileUpLoader.call(this,this.config.upload_root);
 }
 
 /**
