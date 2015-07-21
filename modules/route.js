@@ -198,7 +198,7 @@ function *distribute(_mapper){
                     }
                 }
 
-                if(typeof pageData.errState!=='undefined') yield htmlRender.call(this,false,route);
+                if(typeof pageData.errState!=='undefined' && pageData.errState) yield htmlRender.call(this,false,route);
                 else{
 
                     if(typeof pageData.errStat == 'undefined'){

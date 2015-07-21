@@ -17,7 +17,8 @@ var req = function(api,options){
 var path = require('path');
 var libs = require('../libs/libs');
 var qs = require('querystring');
-var src = "http://120.25.223.175:5051/jh-web-portal/";
+// var src = "http://120.25.223.175:5051/jh-web-portal/";
+var src = "http://dev-portal.dzhce.net/";
 
 var apiPath = {
     base: src,

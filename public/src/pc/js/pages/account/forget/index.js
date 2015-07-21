@@ -112,11 +112,8 @@ $(function(){
 	    }
 	    // 检测手机号码是否存在
 	    $.post("./forget",{loginPhone: $('#loginPhone').val(),isForgetPassword: true},function(i){
-	    	console.log("come on")
 			var jo = JSON.parse(i);
-			console.log(jo)
-	        if(jo.Codesuccess){
-	          console.log("dddddddddddddddddddddddddddd")
+	        if(jo.step===2){
 	          //dropAlert(jo.success);
 	          $("#mobile_error").html("");
 	            mobileFlags = true;
@@ -160,8 +157,7 @@ $(function(){
 	    }
 		$.post("./forget",{loginPhone: $('#loginPhone').val(),code: $('#code').val(),isForgetPassword: true},function(i){
 			var jo = JSON.parse(i);
-			console.log(i)
-	        if(jo.step===1){
+	        if(jo.step===3){
 				$(".r_wyzsj").addClass("hidden");
 				$(".r_wyzsj").next().removeClass("hidden");
 				$(".r_progress").addClass("r_p2");
@@ -176,44 +172,24 @@ $(function(){
 		updatePassword();
 	});
 	function updatePassword() {
-		$.post("./forget",{loginPhone:$('#loginPhone').val(),newPassword:$('#newPassword').val(),repassword:$('#repassword').val()},
+		$.post("./forget",{loginPhone:$('#loginPhone').val(),newPassword:$('#newPassword').val(),repassword:$('#repassword').val(),isForgetPassword: true},
 			function(i){
-				console.log(i)
 				var jo = JSON.parse(i);
-				if(jo.step2===2){
-					$(".account_msg").html("密码更新成功！");
-					$("#myregerro").addClass("in show");
-					$("#myregerro .close").click(function() {
-						$("#myregerro").removeClass("in show");
-						document.location.href = "/login.html";
-					})
+				console.log(jo)
+				if(jo.step===4){
+					console.log("come on")
+					alert("密码更新成功！");
+					// document.location.href = "/login.html";
+					// $(".account_msg").html("密码更新成功！");
+					// $("#myregerro").addClass("in show");
+					// $("#myregerro .close").click(function() {
+					// 	$("#myregerro").removeClass("in show");
+					// 	document.location.href = "/login.html";
+					// })
 				}else{
 					//dropAlert(resp);
-					alert(resp);
+					alert(jo.errmsg);
 				}
 			})
-		// $.ajax({
-		// 	type : "GET",
-		// 	url : "/account-forget-password.html?loginPhone=" + $('#loginPhone').val() + "&newPassword=" + $('#newPassword').val()
-		// 			+ "&repassword=" + $('#repassword').val(),
-		// 	timeout : 10000,
-		// 	dataType : "text",
-		// 	async : true,
-		// 	success : function(resp) {
-		// 		if (resp == "success") {
-		// 			$(".account_msg").html("密码更新成功！");
-		// 			$("#myregerro").addClass("in show");
-		// 			$("#myregerro .close").click(function() {
-		// 				$("#myregerro").removeClass("in show");
-		// 				document.location.href = "/login.html";
-		// 			})
-		// 		} else {
-		// 			dropAlert(resp);
-		// 		}
-		// 	},
-		// 	error : function(e) {
-		// 		alert(e.msg);
-		// 	}
-		// });
 	}	
 });
