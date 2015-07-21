@@ -21,7 +21,8 @@ var config = {
             css:  path.join(static_dir,'/dist/1.0.0/dev/css'),
             img:  path.join(static_dir,'/dist/1.0.0/dev/images')
         }
-  	}
+  	},
+    upload_root: path.join(static_dir,'/dist/upload') 
 }
 
 module.exports = config

@@ -23,7 +23,7 @@ function *upLoaderService(path){
                 return err;
             }
         }
-    })
+    }) 
 
     var part;
     // while (part = yield parts) {

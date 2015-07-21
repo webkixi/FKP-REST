@@ -1,266 +1,436 @@
-$(function(){
-	$(".r_wrap_list input").focus(function(){
-		if($(this).val()==this.defaultValue){
-			$(this).next(".error_msg").html("");
-			$(this).removeClass("bd_col");
-		}
-	});
-	var mobilepartn = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-	$(".r_wrap_list .user_phone").blur(function(){
-		var value=$(this).val();
-		if(value=="" || value.length != 11 || !mobilepartn.test(value)){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入正确的手机号码格式");
-		}
-		else{
-			$(this).next(".error_msg").html("");
-			$(this).removeClass("bd_col");
-		}
-	});
-	$(".r_wrap_list .phone_yzm").focus(function(){
-		$(this).removeClass("bd_col");
-		$(this).parent(".r_wrap_list .form-group").find(".error_msg").html("");
-	});
-	$(".r_wrap_list .phone_yzm").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入短信验证码");
-		}
-		else{
-			$(this).removeClass("bd_col");
-			$(this).parent(".r_wrap_list .form-group").find(".error_msg").html("");
-			$(this).next(".error_msg").html("");
-		}
-	});
-	/* 设置账号信息 */
-	$(".r_wrap_list .user_name").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("4-20个字符,支持汉字、字母、数字组合");
-		$(this).removeClass("bd_col");
-	});
-	$(".r_wrap_list .user_name").blur(function(){
-		var rn=$(this).val();
-		if(rn==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("请输入登录名");
-		}
-		else if(rn.length<4 || rn.length>20){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("用户名长度只能在4-20位字符之间");
-		}
-		else{
-			$(this).removeClass("bd_col");
-			$(this).next(".error_msg").html("");
-		}
-	});
-	$(".r_wrap_list .user_pwd").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("6-20位字符，建议由字母，数字和符号两种以上组合");
-		$(this).removeClass("bd_col");
-	});	
-	$(".r_wrap_list .user_pwd").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("密码不能为空");
-		}
-	});
-	$(".r_wrap_list .user_pwd").keyup(function(){
-		var t=$(this).val();
-		var num=/^\d+$/;
-		var zm=/^[A-Za-z]+$/;
-		var fh=/^[!@#$,.';%^&*()_+|{}?><\-\]\\[\/]*$/;
-		var zn=/^[\da-zA-Z]+$/;// 字母跟数字
-		var zf=/^[a-zA-Z-`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]+$/;
-		var nf=/^[-\d`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]+$/;
-		var znf=/^[-\da-zA-Z`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]*$/;
-		if((num.test(t) && t.length>=6 && t.length<12)||(zm.test(t)&& t.length>=6 && t.length<12)||(fh.test(t)&& t.length>=6 && t.length<12)){
-			$('.pswInput b').css('background-position','0 0');
-			$(this).next(".error_msg").css("color","#666");
-			$(this).next(".error_msg").html("您输入的密码强度过弱!");
-		}
-		else if((num.test(t) && t.length>=12)||(zm.test(t) && t.length>=12) ||(fh.test(t) && t.length>=12)|| (zf.test(t) && t.length>=6 &&t.length<12)|| (nf.test(t) && t.length>=6 &&t.length<12) || (zn.test(t) && t.length>=6 &&t.length<12)){
-			$(this).next(".error_msg").css("color","#666");
-			$(this).next(".error_msg").html("您的密码已经很安全！");
-		}
-		else if((znf.test(t)&& t.length>=6)||(zf.test(t)&& t.length>=12)||(nf.test(t) && t.length>=12) ||(zn.test(t) && t.length>=12)){
-			$(this).next(".error_msg").css("color","#666");
-			$(this).next(".error_msg").html("无懈可击！");
-		}
-		else if(t.length<6){
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("密码长度只能在6-20位字符之间");
-		}
-		$(this).removeClass("bd_col");
-	});
-	$(".r_wrap_list .user_pwds").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请再输入密码");
-		$(this).removeClass("bd_col");
-	});	
-	$(".r_wrap_list .user_pwds").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("密码不能为空");
-		}
-		else if($(this).val()!=$(".r_wrap_list .user_pwd").val()){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("密码输入不一致");
-		}
-		else{
-			$(this).removeClass("bd_col");
-			$(this).next(".error_msg").css("color","#666");
-			$(this).next(".error_msg").html("");
-		}
-	});
-	$(".r_wrap_list .user_tname").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请输入联系人姓名");
-		$(this).removeClass("bd_col");
+var libs = require('libs/libs');
+var formValide = libs.formValide;
+var api = require('../../_common/api')
 
-	});
-	$(".r_wrap_list .user_tname").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入联系人姓名").css("color","#ff6600");
-		}else{
-			$(this).next(".error_msg").html("");
-		}
-	});
-	$(".r_wrap_list .user_company").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请输入公司全称");
-		$(this).removeClass("bd_col");
-	});
-	$(".r_wrap_list .user_company").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入公司全称").css("color","#ff6600");
-		}else{
-			$(this).next(".error_msg").html("");
-		}
-	});
+var form = $('#RegCheck')[0]
+var loginPhone = form['loginPhone'];
+function getFormData(){
+    return {
+		'loginPhone' : { 'ipt' : form['loginPhone'],'Etip' : "请输入手机号码",'Rtip' : "请输入正确的手机号码格式",'tip' : "手机号码已经存在!" },
+		'Regcode' : { 'ipt' : form['code'],'Etip' : "请输入短信验证码",'Rtip' : "请输入正确的短信验证码",'tip' : "短信验证码错误!"},
+		'RegLoginname' : { 'ipt' : form['loginName'],'Etip' : "用户名长度只能在4-20位字符之间",'Rtip' : "请输入正确格式的用户名",'tip' : ""},
+		'RegPwd' : { 'ipt' : form['password'],'Etip' : "6-20位字符，建议由字母，数字和符号两种以上组合",'Rtip' : "请输入正确格式的密码",'tip' : ""},
+		'RegrePwd' : { 'ipt' : form['rePassword'],'Etip' : "6-20位字符，建议由字母，数字和符号两种以上组合",'Rtip' : "两次密码不一致,请重新输入",'tip' : ""},
+		'RegName' : { 'ipt' : form['name'],'Etip' : "请输入联系人姓名",'Rtip' : "请输入正确格式的联系人姓名",'tip' : ""},
+		'RegFullname' : { 'ipt' : form['firmFullName'],'Etip' : "请输入公司全称",'Rtip' : "请输入正确格式的公司全称",'tip' : ""},
+		'RegLandline' : { 'ipt' : form['landline'],'Etip' : "格式:区号-电话号码;如 020-88888888",'Rtip' : "请输入正确格式的公司固话",'tip' : ""},
+		'RegFax' : { 'ipt' : form['fax'],'Etip' : "格式:区号-电话号码;如 020-88888888",'Rtip' : "请输入正确格式的传真号码",'tip' : "短信验证码错误!"},
+		'RegProv' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
+		'RegCity' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
+		'RegCounty' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
+		'RegEmail' : { 'ipt' : form['eMail'],'Etip' : "请输入电子邮件",'Rtip' : "邮箱格式错误,请重新输入",'tip' : ""},
+		'RegQq' : { 'ipt' : form['qq'],'Etip' : "请输入qq",'Rtip' : "qq格式错误,请重新输入",'tip' : ""},
+		'RegAdd' : { 'ipt' : form['address'],'Etip' : "请输入详细地址",'Rtip' : "",'tip' : ""}
+    }
+}
+var chkOptions = {
+    RegPhone: function(input_obj,reg){   // mobile 11长度
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.mobile.test(val);    //mobile check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入正确的手机号码格式");
+        }
+        return tmp;
+    },
+    Regcode: function(input_obj,reg){   // code 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入短信验证码");
+        }
+        return tmp;
+    },
+    RegLoginname: function(input_obj,reg){   // 用户名 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.username.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("用户名长度只能在4-20位字符之间");
+        }
+        return tmp;
+    },
+    RegPwd: function(input_obj,reg){   // 密码 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = true,
+        level = (val.length>5) ? 0 + (val.length>7) + (/[a-z]/.test(val) && /[A-Z]/.test(val)) + (/\d/.test(val) && /\D/.test(val)) + (/\W/.test(val) && /\w/.test(val)) + (val.length > 12) : 0;  //level  0  1  2  3  4  password stronger
+        if(val.length>20||/\s/.test(val)) level=0; //不包括空格
+        if(level==0||!level){
+			//tmp = tmp;
+			console.log("dd")
+			$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("6-20位字符，建议由字母，数字和符号两种以上组合");
+        }
+        if(level==1){
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("您输入的密码强度过弱!");
+        }
+        if(level==2){
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("您的密码已经很安全!");
+        }
 
-	$(".r_wrap_list .user_email").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请输入联系邮箱，如xxxxxx@xxx.com");
-		$(this).removeClass("bd_col");
+        if(level==3){
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("无懈可击！");
+        }
+        // chk['password']={};
+        // chk['password']['level']=level;
+        return tmp;
+    },
+    RegrePwd: function(input_obj,reg){
+        var
+        pobj = input_obj[0],   //password object
+        pipt = pobj.ipt,
+        pval = pipt.value,
+        iobj = input_obj[1],    //repassword object
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = true;
 
-	});
-	$(".r_wrap_list .user_email").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入邮箱地址").css("color","#ff6600");
+        if(val!==pval)
+            tmp = false;
+
+        return tmp;
+    },
+    RegName: function(input_obj,reg){   // 联系人 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入联系人姓名");
+        }
+        return tmp;
+    },
+    RegFullname: function(input_obj,reg){   // 公司全称 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入公司全称");
+        }
+        return tmp;
+    },
+    RegLandline: function(input_obj,reg){   // 固话 非空
+    	console.log(reg)
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.guhua.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("格式:区号-电话号码;如 020-88888888");
+        }
+        return tmp;
+    },
+    RegFax: function(input_obj,reg){   // 传真 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.guhua.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("格式:区号-电话号码;如 020-88888888");
+        }
+        return tmp;
+    },
+    RegEmail: function(input_obj,reg){   // 传真 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.email.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入电子邮件");
+        }
+        return tmp;
+    },
+    RegQq: function(input_obj,reg){   // 传真 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.qq.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入qq号码");
+        }
+        return tmp;
+    },
+    RegProv: function(input_obj,reg){   // 地区 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请选择地区");
+        }
+        return tmp;
+    },
+    RegCity: function(input_obj,reg){   // 地区 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请选择地区");
+        }
+        return tmp;
+    },
+    RegCounty: function(input_obj,reg){   // 地区 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请选择地区");
+        }
+        return tmp;
+    },
+    RegAdd: function(input_obj,reg){   // 地址 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入详细地址");
+        }
+        return tmp;
+    }
+}
+function Regfocus(){
+	$(this).bind('focus',function(){
+    	$(this).removeClass("bd_col");
+    	$(this).parent(".r_wrap_list .form-group").find(".error_msg").html("");
+    });
+}	
+ /*
+*  bind input element default event method
+*  click, blur, keyup
+*/
+function bindInputDefaultEvent(){
+    var 
+    inpt,
+    tmp,
+    inputs = getFormData();
+    //verify code refrash
+    for(var ipt in inputs){
+        var inpt = inputs[ipt]['ipt']; 
+        (function(ele){
+            var 
+            ipt = inputs[ele]['ipt'],
+            Etip = inputs[ele]['Etip'],
+            Rtip = inputs[ele]['Rtip'],
+            tip = inputs[ele]['tip'],
+            api ;
+            if(ipt){
+                //console.log(ipt.value);
+                ipt.value='';
+            }
+            if(ele=='loginPhone'){
+                Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                    //form loginPhone
+                   tmp = formValide(chkOptions)
+                   (inputs[ele],'RegPhone')
+                   ();
+                });
+            }
+            if(ele=='Regcode'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'Regcode')
+                   ();
+                });
+            }
+            if(ele=='RegLoginname'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegLoginname')
+                   ();
+                });
+            }
+            if(ele=='RegPwd'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegPwd')
+                   ();
+                });
+            }
+            if(ele=='RegrePwd'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegrePwd')
+                   ();
+                });
+            }
+            if(ele=='RegName'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegName')
+                   ();
+                });
+            }
+            if(ele=='RegFullname'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegFullname')
+                   ();
+                });
+            }
+            if(ele=='RegLandline'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegLandline')
+                   ();
+                });
+            }
+            if(ele=='RegFax'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegFax')
+                   ();
+                });
+            }
+            if(ele=='RegEmail'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegEmail')
+                   ();
+                });
+            }
+            if(ele=='RegQq'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegQq')
+                   ();
+                });
+            }
+            if(ele=='RegProv'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegProv')
+                   ();
+                });
+            }
+            if(ele=='RegAdd'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegAdd')
+                   ();
+                });
+            }
+        })(ipt)
+    }
+}
+bindInputDefaultEvent();
+
+/*
+* 地区选择
+*/
+function getRegion(id,cb){
+    var query = {id: id};
+    api.req('region',query,function(body){
+		if(body.success){
+            cb(body);
 		}
-		else{
-			if(!checkEmail($(this).val())){
-			$(this).addClass("bd_col");
-				$(this).next(".error_msg").html("邮箱地址格式不正确");
-			}
-			else{
-				$(this).next(".error_msg").html("");
-			}
-		}
-	});
-	function checkEmail(val){
-		var RegExpt=[{'reg':/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/}];
-		return RegExpt[0].reg.test(val);
+    })
+}
+//三级联动
+$('.u_address').delegate('select','change',function(){
+    var index = $(this).index();
+    var id = $(this).val();
+    //省份
+    if(index===1){
+        $('.city').html('');
+        getRegion(id,function(body){
+            //设置传输数据
+            var citys = body.data.regionList;
+            citys.map(function(city,i){
+                $('.city').append('<option value='+city.id+'>'+city.regionName+'</option>')
+            })
+        })
+    }
+    if(index===2){
+        $('.county').html('');
+        getRegion(id,function(body){
+            //设置传输数据
+            var countys = body.data.regionList;
+            countys.map(function(county,i){
+                $('.county').append('<option value='+county.id+'>'+county.regionName+'</option>')
+            })
+        })
+    }
+})
+
+function chkPhoneValue(){
+	var inputs = getFormData();
+
+	//valide login value
+	var RegPhoneStat = formValide(chkOptions)
+	(inputs.loginPhone,'RegPhone')
+	();
+	//assemble query 
+	var query = {
+		loginPhone: inputs.loginPhone.ipt.value,
+		isForgetPassword: false
 	}
-	$(".r_wrap_list .user_fax").blur(function(){
-		var reg=/^(\d{3,4})?[-]?\d{7,8}$/;
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入传真号码").css("color","#ff6600");
-		}
-		else{
-			if(!reg.test($(this).val())){
-			$(this).addClass("bd_col");
-				$(this).next(".error_msg").html("传真号码格式不正确").css("color","#ff6600");
-			}
-			else{
-				$(this).next(".error_msg").html("");
-			}
-		}
-	});	
-
-	$(".r_wrap_list .user_fax").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("格式:区号-电话号码,电话号码;如 020-88888888");
-		$(this).removeClass("bd_col");
-
-	});
-	$(".r_wrap_list .user_qq").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请输入QQ数字号码");
-		$(this).removeClass("bd_col");
-
-	});
-	$(".r_wrap_list .user_qq").blur(function(){
-		var req=/^[1-9][0-9]{4,}$/;
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入QQ");
-		}
-		else{
-			if(!req.test($(this).val())){
-			$(this).addClass("bd_col");
-				$(this).next(".error_msg").html("QQ格式不正确");
-			}
-			else{
-				$(this).next(".error_msg").html("");
-			}
-		}
-	});
-	$(".r_wrap_list .user_landline").blur(function(){
-		var reg=/^(\d{3,4})?[-]?\d{7,8}$/;
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").html("请输入公司固话").css("color","#ff6600");
-		}
-		else{
-			if(!reg.test($(this).val())){
-			$(this).addClass("bd_col");
-				$(this).next(".error_msg").html("公司固话格式不正确").css("color","#ff6600");
-			}
-			else{
-				$(this).next(".error_msg").html("");
-			}
-		}
-	});	
-	$(".r_wrap_list .user_landline").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("格式:区号-电话号码;如 020-88888888");
-		$(this).removeClass("bd_col");
-
-	});
-	$(".msgs").click(function() {
-		sendMobileCode();
-	});
-	function sendMobileCode(e) {
-	    if ($(".msgs").attr("disabled")) {
-	        return;
-	    }
-	    var mobile = $("#loginPhone").val();
-	    if ($(".user_phone").val()=="") {
-	        $("#mobile_error").html("请输入手机号");
-	        $(".user_phone").addClass("bd_col");
-	        return;
-	    }
-	    if (!mobilepartn.test($(".user_phone").val())) {
-	        $("#mobile_error").html("手机号码格式有误，请输入正确的手机号");
-	        $(".user_phone").addClass("bd_col");
-	        return;
-	    }
-	    // 检测手机号码是否存在
-	    $.post("./regist",{loginPhone: $('#loginPhone').val(),isForgetPassword: false},function(i){
-			var jo = JSON.parse(i);
-	        if(jo.Codesuccess){
-	          //dropAlert(jo.success);
-	          $("#mobile_error").html("");
+	if(RegPhoneStat){
+        //ajax 提交
+		api.req('regist',query,function(body){
+			if(body.success){
+	            $("#mobile_error").html("");
 	            mobileFlags = true;
 	            var validCode=true
 	            var time=60;
@@ -281,110 +451,105 @@ $(function(){
 					},1000)
 				}
 	        }else{
-	        	$("#mobileCode_error").html(jo.errmsg);
+	        	$("#mobileCode_error").html(body.msg);
 	        }
 		})
-		$(".user_phone").removeClass("bd_col");
-	};
-	$("#login_ok").click(function(){
-		checkLogin();
-	});
-	function checkLogin() {
-		var mobile = $("#loginPhone").val();
-	    if ($(".user_phone").val()=="") {
-	        $("#mobile_error").html("请输入手机号");
-	        $(".user_phone").addClass("bd_col");
-	        return;
-	    }
-	    if (!mobilepartn.test($(".user_phone").val())) {
-	        $("#mobile_error").html("手机号码格式有误，请输入正确的手机号");
-	        $(".user_phone").addClass("bd_col");
-	        return;
-	    }
-		$.post("./regist",{loginPhone: $('#loginPhone').val(),code: $('#code').val()},function(i){
-			var jo = JSON.parse(i);
-	        if(jo.step===1){
-				$(".r_wyzsj").addClass("hidden");
+        // $(form).submit();
+	}
+}
+$('.msgs').click(function(){
+	chkPhoneValue();
+});
+function chkCodeValue(){
+	var inputs = getFormData();
+	//code
+	var RegCodeStat = formValide(chkOptions)
+	(inputs.loginPhone,'RegPhone')
+	(inputs.Regcode,'Regcode')
+	();
+	//assemble query 
+	var query = {
+		loginPhone: inputs.loginPhone.ipt.value,
+		code: inputs.Regcode.ipt.value,
+		isForgetPassword: false
+	}
+	if(RegCodeStat){
+        //ajax 提交
+		api.req('regist',query,function(body){
+			//var jo = JSON.parse(body);
+			if(body.success){
+	          //dropAlert(jo.success);
+	          	$(".r_wyzsj").addClass("hidden");
 				$(".r_wyzsj").next().removeClass("hidden");
 				$(".r_progress").addClass("r_p2");
 	        }else{
+	        	alert(body.msg);
 	        	//dropAlert(jo.errmsg);
-	        	alert(jo.errmsg);
 	        }
 		})
-	};
-	$("#account_ok").click(function(){
-		checkAccount();
-	});
-	function checkAccount() {
-		var mustRead = 0;
-		if ($('#mustRead').attr("checked")) {
-			mustRead = $('#mustRead').val();
-		}
-		var data={
-			loginPhone : $('#loginPhone').val(),
-			loginName : $('#loginName').val(),
-			password : $('#password').val(),
-			rePassword : $('#rePassword').val(),
-			name : $('#name').val(),
-			firmFullName : $('#firmFullName').val(),
-			name : $('#name').val(),
-			landline : $('#landline').val(),
-			fax : $('#fax').val(),
-			// city : $('#city').val(),
-			// district : $('#district').val(),
-			address : $('#address').val()
-		}
-		$.post("./regist",data,function(i){
-				var jo = JSON.parse(i);
-				console.log(jo)
-				if(jo.step2===2){
-					var RegName = $("#loginName").val();
-					$(".r_wmessage").addClass("hidden");
-					$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");
-					$(".r_progress").removeClass("r_p2").addClass("r_p3");
-					$(".Regname").html(RegName);
-					$(".r_wrap_list.r_wmessage,.r_wrap_list.r_wyzsj").remove();
-				}else{
-					alert(jo.errmsg);
-					//dropAlert(resp);
-				}
+        // $(form).submit();
+	}
+}
+$('#login_ok').click(function(){
+	chkCodeValue();
+});
+function checkAccount(){
+	var inputs = getFormData();
+	//code
+	var RegAccountStat = formValide(chkOptions)
+	(inputs.loginPhone,'RegPhone')
+	(inputs.Regcode,'Regcode')
+	(inputs.RegLoginname,'RegLoginname')
+	(inputs.RegPwd,'RegPwd')
+	([inputs.RegPwd],'RegrePwd')
+	(inputs.RegName,'RegName')
+	(inputs.RegFullname,'RegFullname')
+	(inputs.RegLandline,'RegLandline')
+	(inputs.RegFax,'RegFax')
+	(inputs.RegProv,'RegProv')
+	(inputs.RegCity,'RegCity')
+	(inputs.RegCounty,'RegCounty')
+	(inputs.RegAdd,'RegAdd')
+	();
+
+	//assemble query 
+	var query = {
+		loginPhone: inputs.loginPhone.ipt.value,
+		code: inputs.Regcode.ipt.value,
+		loginName: inputs.RegLoginname.ipt.value,
+		password: inputs.RegPwd.ipt.value,
+		repassword: inputs.RegrePwd.ipt.value,
+		name: inputs.RegName.ipt.value,
+		firmFullName: inputs.RegFullname.ipt.value,
+		landline: inputs.RegLandline.ipt.value,
+		fax: inputs.RegFax.ipt.value,
+		province: inputs.RegProv.ipt.value,
+		city: inputs.RegCity.ipt.value,
+		county: inputs.RegCounty.ipt.value,
+		address: inputs.RegAdd.ipt.value,
+		isForgetPassword: false
+	}
+	if(RegAccountStat){
+        //ajax 提交
+        console.log(query,RegAccountStat)
+		api.req('regist',query,function(body){
+			console.log(body)
+			//var jo = JSON.parse(body);
+			if(body.success){
+				var SregName = $("#loginName").val();
+				$(".r_wmessage").addClass("hidden");
+				$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");
+				$(".r_progress").removeClass("r_p2").addClass("r_p3");
+				$(".Regname").html(SregName);
+				$(".r_wrap_list.r_wmessage,.r_wrap_list.r_wyzsj").remove();
+	        }else{
+	        	alert(body.msg);
+	        	//dropAlert(jo.errmsg);
+	        }
 		})
-		// $.ajax({
-		// 	type : "POST",
-		// 	url : "/account-save.html?eMail=" + $('#eMail').val() + "&mustRead=" + mustRead,
-		// 	timeout : 10000,
-		// 	dataType : "text",
-		// 	async : true,
-		// 	data : {
-		// 		loginPhone : $('#loginPhone').val(),
-		// 		loginName : $('#loginName').val(),
-		// 		password : $('#password').val(),
-		// 		rePassword : $('#rePassword').val(),
-		// 		name : $('#name').val(),
-		// 		firmFullName : $('#firmFullName').val(),
-		// 		fax : $('#fax').val(),
-		// 		qq : $('#qq').val(),
-		// 		province : $('#province').val(),
-		// 		city : $('#city').val(),
-		// 		district : $('#district').val(),
-		// 		address : $('#address').val()
-		// 	},
-		// 	success : function(resp) {
-		// 		if (resp == "success") {
-		// 			var RegName = $("#loginName").val();
-		// 			$(".r_wmessage").addClass("hidden");
-		// 			$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");
-		// 			$(".r_progress").removeClass("r_p2").addClass("r_p3");
-		// 			$(".Regname").html(RegName);
-		// 			$(".r_wrap_list.r_wmessage,.r_wrap_list.r_wyzsj").remove();
-		// 		} else {
-		// 			dropAlert(resp);
-		// 		}
-		// 	},
-		// 	error : function(e) {
-		// 		alert(e.msg);
-		// 	}
-		// });
-	}		
+        // $(form).submit();
+	}
+}
+$('#account_ok').click(function(){
+	checkAccount();
 });

@@ -17,7 +17,8 @@ var req = function(api,options){
 var path = require('path');
 var libs = require('../libs/libs');
 var qs = require('querystring');
-var src = "http://120.25.223.175:5051/jh-web-portal/";
+// var src = "http://120.25.223.175:5051/jh-web-portal/";
+var src = "http://dev-portal.dzhce.net/";
 
 var apiPath = {
     base: src,
@@ -41,7 +42,7 @@ var apiPath = {
         //首页
         index_goods: src+'api/index/goods/cat/list.html',  //首页商品列表
         index_cat: src+'api/index/info/cat/list.html',   //首页分类
-        index_booth: src+'api/goods/booth.html',  //首页
+        index_booth: src+'api/goods/booth.html',  //首页广告位
 
         //信息页
         info_cat: src+'api/info/cat-list.html',  //信息页分类
@@ -49,6 +50,9 @@ var apiPath = {
 
         //商城页
         mall_item_detail: src+'api/mall/item/detail.html',  //商城详情
+        mall_order_create: src+'api/mall/trade/order/create.html',//摘牌下单
+        mall_order_detail: src+'api/mall/trade/order/detail.html',//确定订单
+        mall_order_submit: src+'api/mall/trade/order/submit.html',//提交订单
         mall_list: src+'api/mall/item/list/query.html',  //商城列表
         mall_attr: src+'api/mall/item/list/attributes.html'  //商城筛选
     }

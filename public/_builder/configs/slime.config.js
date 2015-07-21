@@ -135,7 +135,8 @@ var plugins = function(dirname, isPack, options){
     var venders,
         common_trunk_config = {
             filename: '_common.js',
-            minChunks: 2,
+            // minChunks: 2,
+            minChunks: 3,
             async: false
             //children: true
             //minChunks: 5 //Infinity

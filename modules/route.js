@@ -103,8 +103,8 @@ function init(app,mapper,rend){
         if(param.cat === 'region'){
             yield getRegion.call(this);
         }
-        if(param.cat === 'upload'){
-            yield upload.call(this);
+        if(param.cat === 'uploader'){
+            yield uploader.call(this);
         }
         else
             yield distribute.call(this,mapper)
@@ -136,7 +136,7 @@ function *getRegion(){
     }
 }
 
-function *upload(){
+function *uploader(){
     libs.clog('上传数据');
     var fileUpLoader = require('./uploader')
     fileUpLoader.call(this,this.config.upload_root);
@@ -198,7 +198,7 @@ function *distribute(_mapper){
                     }
                 }
 
-                if(typeof pageData.errState!=='undefined') yield htmlRender.call(this,false,route);
+                if(typeof pageData.errState!=='undefined' && pageData.errState) yield htmlRender.call(this,false,route);
                 else{
 
                     if(typeof pageData.errStat == 'undefined'){
