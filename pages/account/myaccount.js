@@ -46,19 +46,60 @@ function *demoLoginData(oridata){
 
     if(mtd==='GET'){
         var province = yield region.getRegion();
-        provData =  JSON.parse(province[1]);
+        var areaData =  JSON.parse(province[1]);
         // console.log(provData.data.regionList[0]);
-        var provinces = []
-        provData.data.regionList.map(function(item,i){
-            provinces.push({id: item.id, regionName: item.regionName})
-        });
+        var provinces = [];
+        var citis = []
+        var counties = []
+
 
         var user,userData;
         if(typeof this.sess.user !== 'undefined'){
             user = this.sess.user;
             if(user.login){
                 userData = this.sess.user;
-                userData.provinces = provinces;
+                //province id
+                var pid = userData.firm.firmContact.province;
+                //city id
+                var cid = userData.firm.firmContact.city;
+                //county id
+                var did = userData.firm.firmContact.district;
+
+
+                //loop for province
+                areaData.data.regionList.map(function(item,i){
+                    if(item.id == pid)
+                        provinces.push("<option value='"+item.id+"' selected>"+item.regionName+"</option>");
+                    else
+                        provinces.push("<option value='"+item.id+"'>"+item.regionName+"</option>");
+                });
+                var tmp_p = provinces.join('\n');
+
+                //loop for city
+                var city = yield region.getRegion(pid);
+                areaData =  JSON.parse(city[1]);
+                areaData.data.regionList.map(function(item,i){
+                    if(item.id == cid)
+                        citis.push("<option value='"+item.id+"' selected>"+item.regionName+"</option>");
+                    else
+                        citis.push("<option value='"+item.id+"'>"+item.regionName+"</option>");
+                });
+                var tmp_c = citis.join('\n');
+
+                //loop for county
+                var county = yield region.getRegion(cid);
+                areaData =  JSON.parse(county[1]);
+                areaData.data.regionList.map(function(item,i){
+                    if(item.id == cid)
+                        counties.push("<option value='"+item.id+"' selected>"+item.regionName+"</option>");
+                    else
+                        counties.push("<option value='"+item.id+"'>"+item.regionName+"</option>");
+                });
+                var tmp_d = counties.join('\n');
+
+                userData.provinces = tmp_p;
+                userData.city = tmp_c;
+                userData.county = tmp_d;
                 var auth = userData.auth;
                 auth.status =  userData.authStatus==auth.AUTH_FAIL.value || userData.authStatus==auth.AUTH_INIT.value;
                 auth.status_init =  userData.authStatus==auth.AUTH_INIT.value;
@@ -69,8 +110,11 @@ function *demoLoginData(oridata){
                 oridata.auth = auth;
             }
             else{
+                this.redirect('/account/login')
                 // jump to login
             }
+        }else{
+            this.redirect('/account/login')
         }
         return oridata;
     }
@@ -79,6 +123,7 @@ function *demoLoginData(oridata){
         libs.clog('pages/login.js========POST');
 
         var body = yield libs.$parse(this);
+
         var error = {
             errStat: 100,
             errMsg: '重置密码错误'
@@ -155,4 +200,4 @@ module.exports = {
 
 // user
 // stat
-//
+//

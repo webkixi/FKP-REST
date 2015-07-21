@@ -29,153 +29,154 @@
             </div>
             <!-- 手机短信验证码 -->
             <div class="r_wrap">
-                <div class="r_wrap_list r_wyzsj">
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        <label for="name">手机号码：</label>
-                        <input id="loginPhone" name="loginPhone" type="text" class="form-control user_phone" placeholder="请输入你的手机号码">
-                        <p id="mobile_error" class="error_msg text-danger"></p>
+                <form action="/account/regist" id="RegCheck" method="post" >
+                    <div class="r_wrap_list r_wyzsj">
+                        <div class="form-group">
+                            <span class="required">*</span>
+                            <label for="name">手机号码：</label>
+                            <input id="loginPhone" name="loginPhone" type="text" class="form-control user_phone" placeholder="请输入你的手机号码">
+                            <p id="mobile_error" class="error_msg text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                            <span class="required">*</span>
+                            <label for="name">验证码：</label>
+                            <input type="text" id="code" name="code" class="form-control phone_yzm" placeholder="请输入短信验证码 " autocomplete="off">
+                            <a class="btn btn-orange msgs" href="javascript:;" id="sendMobileCode">
+                                <span id="dyMobileButton">获取短信验证码</span>
+                            </a>
+                            <span id="mobileCode_error" class="text-danger error_msg"></span>
+                        </div>
+                        <div class="r_yzbtn">
+                            <a href="javascript:;" type="button" id="login_ok" class="btn btn-orange">验证手机</a>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <span class="required">*</span>
-                        <label for="name">验证码：</label>
-                        <input type="text" id="code" name="code" class="form-control phone_yzm" placeholder="请输入短信验证码 " autocomplete="off">
-                        <a class="btn btn-orange msgs" href="javascript:;" id="sendMobileCode">
-                            <span id="dyMobileButton">获取短信验证码</span>
-                        </a>
-                        <span id="mobileCode_error" class="text-danger error_msg"></span>
+                    <!-- 账户信息填写 -->
+                    <div class="r_wrap_list r_wmessage hidden">
+                       
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">用户名：</label>
+                                <input id="loginName" name="loginName" type="text" class="form-control user_name" placeholder="用户名">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">密码：</label>
+                                <input id="password" name="password" type="password" class="form-control user_pwd" placeholder="密码" autocomplete="off">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">确认密码：</label>
+                                <input id="rePassword" name="rePassword" type="password" class="form-control user_pwds" placeholder="再次输入密码" autocomplete="off">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">联系人姓名：</label>
+                                <input id="name" name="name" type="text" class="form-control user_tname" placeholder="联系人姓名">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">公司全称：</label>
+                                <input id="firmFullName" name="firmFullName" type="text" class="form-control user_company" placeholder="公司全称">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">公司固话：</label>
+                                <input id="landline" name="landline" type="text" class="form-control user_landline" placeholder="公司固话">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">传真号码：</label>
+                                <input id="fax" name="fax" type="text" class="form-control user_fax" placeholder="传真号码">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">联系邮箱：</label>
+                                <input id="eMail" name="eMail" type="text" class="form-control user_email" placeholder="邮箱地址">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span class="required">*</span>
+                                <label for="name">联系QQ：</label>
+                                <input id="qq" name="qq" type="text" class="form-control user_qq" placeholder="qq号">
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group u_address">
+                                <span class="select-box" style="width:200px">
+                                    <label for="name">地区：</label> <select id="province" name="province" class="select">
+                                        <option value="">--选择省份--</option> 
+                                        {{{account.provinces}}}
+                                    </select>
+                                </span>
+                                <span class="select-box" style="width:200px">
+                                    <select id="city" name="city" class="select">
+                                        <option value="">--选择城市--</option>
+                                    </select>
+                                </span>
+                                <span class="select-box" style="width:200px">
+                                    <select id="district" name="district" class="select">
+                                        <option value="">--选择区县--</option>
+                                    </select>
+                                </span>
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <span>&nbsp;</span>
+                                <label for="name">地址：</label>
+                                <input type="text" id="address" name="address" class="form-control user_adetail" />
+                                <p class="error_msg text-danger"></p>
+                            </div>
+                            <div class="r_wcheckbox col-lg-offset-2 col-md-offset-2">
+                                <input type="checkbox" id="mustRead" name="mustRead" value="1">
+                                <label for="u60_input">
+                                    <div class="text">
+                                        <p>
+                                            <span>我已经阅读并同意</span>
+                                            <a data-toggle="modal" data-target=".bs-example-modal-lg" href="javascript:void(0)">《联商所会员服务协议》</a>
+                                        </p>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="r_yzxx col-lg-offset-3 col-md-offset-3">
+                                <a href="javascript:;" type="button" id="account_ok" class="btn btn-orange ">同意服务协议并注册</a>
+                            </div>
                     </div>
-                    <div class="r_yzbtn">
-                        <a href="javascript:;" type="button" id="login_ok" class="btn btn-orange">验证手机</a>
-                    </div>
-                </div>
-                <!-- 账户信息填写 -->
-                <div class="r_wrap_list r_wmessage hidden">
-                    <form action="" method="">
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">用户名：</label>
-                            <input id="loginName" name="loginName" type="text" class="form-control user_name" placeholder="用户名">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">密码：</label>
-                            <input id="password" name="password" type="password" class="form-control user_pwd" placeholder="密码" autocomplete="off">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">确认密码：</label>
-                            <input id="rePassword" name="rePassword" type="password" class="form-control user_pwds" placeholder="再次输入密码" autocomplete="off">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">联系人姓名：</label>
-                            <input id="name" name="name" type="text" class="form-control user_tname" placeholder="联系人姓名">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">公司全称：</label>
-                            <input id="firmFullName" name="firmFullName" type="text" class="form-control user_company" placeholder="公司全称">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">公司固话：</label>
-                            <input id="landline" name="landline" type="text" class="form-control user_landline" placeholder="公司固话">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">传真号码：</label>
-                            <input id="fax" name="fax" type="text" class="form-control user_fax" placeholder="传真号码">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">联系邮箱：</label>
-                            <input id="eMail" name="eMail" type="text" class="form-control user_email" placeholder="邮箱地址">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span class="required">*</span>
-                            <label for="name">联系QQ：</label>
-                            <input id="qq" name="qq" type="text" class="form-control user_qq" placeholder="qq号">
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group u_address">
-                            <span class="select-box" style="width:200px">
-                                <label for="name">地区：</label> <select id="province" name="province" class="select">
-                                    <option value="">--选择省份--</option> [#list level1RegionList as bean]
-                                    <option value="${bean.id}" [#if regionId_1==bean.id]selected[/#if]>${bean.regionName!''}</option> [/#list]
-                                </select>
+                    <!-- 注册成功 -->
+                    <div class="r_wrap_list r_wsuccess hidden">
+                        <div class="r_wstip">
+                            <img src="statics/front/images/reg_ok.png">
+                            <span>
+                                注册成功！您的账号为：<i class="Regname"></i></i>
                             </span>
-                            <span class="select-box" style="width:200px">
-                                <select id="city" name="city" class="select">
-                                    <option value="">--选择城市--</option>
-                                </select>
-                            </span>
-                            <span class="select-box" style="width:200px">
-                                <select id="district" name="district" class="select">
-                                    <option value="">--选择区县--</option>
-                                </select>
-                            </span>
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                            <span>&nbsp;</span>
-                            <label for="name">地址：</label>
-                            <input type="text" id="address" name="address" class="form-control user_adetail" />
-                            <p class="error_msg text-danger"></p>
-                        </div>
-                        <div class="r_wcheckbox col-lg-offset-2 col-md-offset-2">
-                            <input type="checkbox" id="mustRead" name="mustRead" value="1">
-                            <label for="u60_input">
-                                <div class="text">
-                                    <p>
-                                        <span>我已经阅读并同意</span>
-                                        <a data-toggle="modal" data-target=".bs-example-modal-lg" href="javascript:void(0)">《联商所会员服务协议》</a>
-                                    </p>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="r_yzxx col-lg-offset-3 col-md-offset-3">
-                            <a href="javascript:;" type="button" id="account_ok" class="btn btn-orange ">同意服务协议并注册</a>
-                        </div>
-                    </form>
-                </div>
-                <!-- 注册成功 -->
-                <div class="r_wrap_list r_wsuccess hidden">
-                    <div class="r_wstip">
-                        <img src="statics/front/images/reg_ok.png">
-                        <span>
-                            注册成功！您的账号为：<i class="Regname"></i></i>
-                        </span>
-                        <br /> <br />
-                        <p>
-                            恭喜您获得“初级会员”资格，您当前有查看的权利。若要获得交易资格，请
-                            <a href="${rc.contextPath}/account-center.html">进一步认证</a>
-                            升级为”认证会员“。
-                        </p>
-                        <p>客服专员将竭诚为您解决各类网站问题</p>
-                        <div class="r_wpeople">
-                            <ul>
-                                <li>联系电话：020-38869600-122</li>
-                                <li>传真号码：020-38860635</li>
-                                <li>联系邮箱：service@kingvision.com.cn</li>
-                                <li>联系地址：广东省广州市白云区广州大道北1618号君华香柏广场F4</li>
-                                <li>邮政编码：510510</li>
-                                <li>为您提供专业的一站式服务！</li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-offset-1 col-md-offset-1">
-                            <a href="${rc.contextPath}/account-center.html" type="button" class="btn btn-orange ">确定</a>
+                            <br /> <br />
+                            <p>
+                                恭喜您获得“初级会员”资格，您当前有查看的权利。若要获得交易资格，请
+                                <a href="${rc.contextPath}/account-center.html">进一步认证</a>
+                                升级为”认证会员“。
+                            </p>
+                            <p>客服专员将竭诚为您解决各类网站问题</p>
+                            <div class="r_wpeople">
+                                <ul>
+                                    <li>联系电话：020-38869600-122</li>
+                                    <li>传真号码：020-38860635</li>
+                                    <li>联系邮箱：service@kingvision.com.cn</li>
+                                    <li>联系地址：广东省广州市白云区广州大道北1618号君华香柏广场F4</li>
+                                    <li>邮政编码：510510</li>
+                                    <li>为您提供专业的一站式服务！</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-offset-1 col-md-offset-1">
+                                <a href="${rc.contextPath}/account-center.html" type="button" class="btn btn-orange ">确定</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
