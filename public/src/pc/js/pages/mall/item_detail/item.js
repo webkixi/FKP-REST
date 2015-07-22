@@ -1,6 +1,4 @@
-$(function(){
-
-    /*数量的增减*/
+   /*数量的增减*/
     $(".amount-btn").click(function(){
         var dj=$(this).parents(".ty-p-content dl").siblings(".scj").find(".n_price i").html();
         var i=$(this).attr("class").split(" ");
@@ -71,7 +69,6 @@ $(function(){
     //     $(".ty-grid-galleryShow img").attr({"src":$(this).data('src'),"jqimg":$(this).data('src'));
     //     属性名一: “属性值一” , 属性名二: “属性值二”
     // });
-})
 function pos_top(a,pos){
     if($(window).scrollTop()>pos){
         $(a).css({position:"fixed",top:"0",zindex:"99999"})
@@ -121,74 +118,24 @@ function pos_top(a,pos){
         });
     });
     
-    function checkLoginAndSubmitOrder() {
-      $.ajax({
-      type: "GET",
-      url: "{{rc.contextPath}}/checkLoginStatus.html?_rt=" + new Date().getTime(),
-      timeout: ajaxTimeout,
-      dataType: dataType,
-      async: ajaxAsync,
-      success: function(result) {
-        if(result.status == true) {
-          //submitOrder();
-          //已登录用户检查是否已经通过企业认证
-          checkAuthAndSubmitOrder();
-          return;
-        }else{
-              //当前用户还没有登录，弹出登录创口登录
-          $("#myModal").addClass("in show");
-          $("#myModal .close").click(function() {
-            $("#myModal").removeClass("in show");
-          })
-        }
-        return;
-      },
-      error : function(e) {
-      }
-    });
-    }
-    
-    //检查当前用户是否通过企业认证
-    function checkAuthAndSubmitOrder() {
-      $.ajax({
-      type: "GET",
-      url: "${rc.contextPath}/checkAuthStatus.html?_rt=" + new Date().getTime(),
-      timeout: ajaxTimeout,
-      dataType: dataType,
-      async: ajaxAsync,
-      success: function(result) {
-        if(result.status == true) {
-          submitOrder();
-          return;
-        }else{
-          //未认证企业
-          document.location.href = "${rc.contextPath}/noAuth.html";
-        }
-        return;
-      },
-      error : function(e) {
-      }
-    });
-    }    
+      
     function submitOrder() {
-      // if(parseFloat($("#quantity").val()) < ${spGoods.minQuantity?string('0.####')}) {
-      if(parseFloat($("#quantity").val()) < 0) {
+        var minQuantity = parseFloat($("#quantity").attr("data-minval"))
+        var stock = parseFloat($("#quantity").next(".amount-btn").attr("data-maxval"))
+        var increase = parseFloat($("#quantity").prev(".amount-btn").attr("data-increase"))
+       if(parseFloat($("#quantity").val()) < minQuantity) {
           messager.alert({title:"提示",content:"订单数量不能小于起订量，请修改。",type:"warning"});
       return;
       }
-      // if(parseFloat($("#quantity").val()) > ${spGoods.stock?string('0.####')}) {
-      if(parseFloat($("#quantity").val()) > 100) {
+    if(parseFloat($("#quantity").val()) > stock) {
         messager.alert({title:"提示",content:"订单数量不能大于挂牌量，请修改。",type:"warning"});
         return;
       }
       var quantity = Math.round(parseFloat($("#quantity").val()) * 10000) / 10000;
-      // var increase = quantity - ${spGoods.minQuantity?string('0.####')};
-      var increase = quantity - 0;
-      var rate = (Math.round(increase * 10000) / 10000) % 1;
-      // var rate = (Math.round(increase * 10000) / 10000) % ${spGoods.increase?string('0.####')};
+       var increa = quantity - minQuantity;
+       var rate = (Math.round(increa * 10000) / 10000) % increase;
 
-      // if(${spGoods.increase?string('0.####')} > 0 && rate != 0) {
-      if(0 > 0 && rate != 0) {
+      if(increase > 0 && rate != 0) {
         messager.alert({title:"提示",content:"订单增量必须是商品增量的整数倍，请修改。",type:"warning"});
         return;
       }
@@ -201,9 +148,19 @@ function pos_top(a,pos){
       success : function(resp) {
         if (resp.success == true) {
           document.location.href = "/mall/item_order/" + resp.data.orderId + ".html?_rt=" + new Date().getTime();
-        } else {
-            messager.alert({title:"提示",content:resp.errMsg,type:"warning"});
+        } else if(resp.errType === 'login') {
+                //当前用户还没有登录，弹出登录创口登录
+              $("#myModal").addClass("in show");
+              $("#myModal .close").click(function() {
+                $("#myModal").removeClass("in show");
+              })
             return;
+        }else if(resp.errType === 'noAuth'){
+          messager.alert({title:"提示",content:resp.errMsg,type:"warning",fn:function(){
+            document.location.href = "/account/myaccount.html";
+          }});
+        }else{
+          messager.alert({title:"提示",content:'摘牌下单失败',type:"warning"});
         }
       },
       error : function(e) {
@@ -212,27 +169,82 @@ function pos_top(a,pos){
       
     }
     
-    function loginFromOrder() {
-    $.ajax({
-      type : "GET",
-      url : "${rc.contextPath}/loginCheckfromOrder.html?loginPhone="
-          + $('#loginPhone').val() + "&password="
-          + $('#password').val() + "&_rt=" + new Date().getTime(),
-      timeout : 10000,
-      dataType : "json",
-      async : true,
-      success : function(result) {
-        if (result.status == "true") {
-          $("#myModal").removeClass("in show");
-          $("#myregerro").addClass("in show");
-          //submitOrder();
-          checkAuthAndSubmitOrder();
+
+
+var libs = require('libs/libs');
+var formValide = libs.formValide;
+var api = require('../../_common/api')
+
+var form = $('#loginCheck')[0]
+
+function getFormData(){
+    return {
+    'loginPhone' : { 'ipt' : form['loginPhone'] } ,
+    'password'   : { 'ipt' : form['password']} ,
+    'verify'     : { 'ipt' : form['verify-code']}
+    }
+}
+
+var chkOptions = {
+    username: function(input_obj,reg){   // username 长度大于8，小于20
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.mobile.test(val);    //email check
+
+        return tmp;
+    },
+    password: function(input_obj,reg){
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = true,
+
+        level = (val.length>5) ? 0 + (val.length>7) + (/[a-z]/.test(val) && /[A-Z]/.test(val)) + (/\d/.test(val) && /\D/.test(val)) + (/\W/.test(val) && /\w/.test(val)) + (val.length > 12) : 0;  //level  0  1  2  3  4  password stronger
+        if(val.length>20||/\s/.test(val)) level=0; //不包括空格
+        if(level==0||!level){
+            // tmp = false;
+      tmp = tmp;
         }
-        else{
-          $(".errorMsg").html(result.errorMsg);
-        }
-      },
-      error : function(e) {
-      }
-    });
+        // chk['password']={};
+        // chk['password']['level']=level;
+        return tmp;
+    }
+}
+
+function chkInputValue(){
+  var inputs = getFormData();
+
+  //valide login value
+  var forLoginStat = formValide(chkOptions)
+  (inputs.loginPhone,'username')
+  (inputs.password,'password')
+  ();
+
+  //assemble query
+  var query = {
+    loginPhone: inputs.loginPhone.ipt.value,
+    password: inputs.password.ipt.value
   }
+
+  if(forLoginStat){
+        //ajax 提交
+    api.req('login',query,function(body){
+      if(body.success){
+               $(".r_logo .close").click();
+               history.go(0);
+      }
+      if(body.errStat){
+        $(".errorMsg").text(body.msg)
+      }
+    })
+        // $(form).submit();
+  }else{
+    $(".errorMsg").text('请正确输入登录信息')
+  }
+}
+$('#login').click(function(){
+  chkInputValue();
+})

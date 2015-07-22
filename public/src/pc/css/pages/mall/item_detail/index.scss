@@ -168,15 +168,16 @@
 .ty-grid-gspic-btn a.sbtn-right i{ border-color: #eee #eee #eee #A6A6A6;   left: 8px;}
 /*0618*/
 .modal-heads{border-bottom: 1px solid #ddd;}
-.modal-heads .r_logo{margin-top: 10px;}
-.modal-heads .r_logo li{line-height: 32px;}
-.modal-heads .r_logo .rlogo{ margin-left: 20px; font-size: 16px; line-height: 31px;}
+.modal-heads .r_logo{margin: 10px 0;color:#e6e6e6;}
+.modal-heads .r_logo .rlogo{ margin-left: 20px; font-size: 16px; line-height: 31px;color:#666;}
 .modal-heads .r_logo .rlogo img{ height: 31px; width: 81px;}
 .modal-heads button.close{ margin-right: 20px;}
-.modal-contents .login_body{width: 450px;overflow: hidden;}
+.modal-contents .login_body{width: 450px;overflow: hidden;margin:0 auto;}
 .modal-contents .login_input{width: 100%;}
+.modal-contents .form-group label{ width: 80px;text-align: right;}
 .modal-contents .form-group input{ width: 70%;}
 .modal-contents .login_tip{ width: 70%;}
+.modal-contents .errorMsg{color:#f00;}
 .modal-contents .login_btn{height: 40px;width: 50%;margin:0 auto;}
 .modal-contents .login_btn a.btn{width: 100%;margin: 0 auto;display: block;}
 .modal-contents .login_other{ overflow: hidden;width:84%;margin:0 auto;}
