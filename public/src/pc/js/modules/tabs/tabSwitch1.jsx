@@ -7,96 +7,6 @@ var attrClick = function(){
     })
 }
 
-//react cnt
-var Cnt = React.createClass({
-    mixins: [Store],
-    getInitialState: function() {
-    	return {};
-    },
-
-    //插入真实 DOM之前
-    componentWillMount: function(){
-        if(this.props.data){
-            this.setState({
-                data: this.props.data
-            })
-        }
-
-        if(this.props.hddata){
-            this.setState({
-                hddata: this.props.hddata
-            })
-        }
-        if(this.props.itemWidth){
-            this.setState({
-                itemWidth: this.props.itemWidth
-            })
-        }
-    },
-
-    loopRender: function(){
-        var items=[];
-        var th = [];
-        var tbd = []
-        if(this.state.hddata){
-	        var tiemWidth = [];
-	        if(this.state.itemWidth) tiemWidth=this.state.itemWidth;
-	        	this.state.hddata.map(function(item,i){
-	        		th.push(
-	        				<th width={tiemWidth[i]>0?tiemWidth[i]:""}>{item}</th>
-	        			)
-        	})
-        }
-        if(this.state.data){
-        	this.state.data.recordList.map(function(item){
-        		tbd.push(
-        				<tr>
-        					{(function(){
-        						var tds =[];
-        						item.map(function(td){
-        							tds.push(
-        									<td>{td}</td>
-        								)
-        						})
-        						return  tds;
-        					})()}
-        				</tr>
-        			)
-        	})
-        }
-        items.push(
-        		<thead>
-        			<tr>
-        				{th}
-        			</tr>
-        		</thead>
-        	)
-        items.push(
-        		<tbody>
-        			{tbd}
-        		</tbody>
-        	)
-        return items;
-    },
-    //已加载组件收到新的参数时调用
-    componentWillReceiveProps:function(nextProps){
-        if(nextProps.data){
-            this.setState({
-                datas: nextProps.data
-            })
-        }
-    },
-
-    render: function () {
-        var fill = this.loopRender();
-        return(
-            <table className={'table table-hover table-org'} style={{width:'100%',height:'auto'}} >
-                {fill}
-            </table>
-        )
-    }
-});
-
 
 //react Page
 var Page = React.createClass({
@@ -136,7 +46,7 @@ var Page = React.createClass({
     componentWillReceiveProps:function(nextProps){
         if(nextProps.data){
             this.setState({
-                datas: nextProps.data
+                data: nextProps.data
             })
         }
     },
@@ -151,6 +61,98 @@ var Page = React.createClass({
     }
 });
 
+
+//react cnt
+var Cnt = React.createClass({
+    mixins: [Store],
+    getInitialState: function() {
+        return {};
+    },
+
+    //插入真实 DOM之前
+    componentWillMount: function(){
+        if(this.props.data){
+            this.setState({
+                data: this.props.data
+            })
+        }
+
+        if(this.props.hddata){
+            this.setState({
+                hddata: this.props.hddata
+            })
+        }
+        if(this.props.itemWidth){
+            this.setState({
+                itemWidth: this.props.itemWidth
+            })
+        }
+    },
+
+    loopRender: function(){
+        var items=[];
+        var th = [];
+        var tbd = []
+        if(this.state.hddata){
+            var tiemWidth = [];
+            if(this.state.itemWidth) tiemWidth=this.state.itemWidth;
+                this.state.hddata.map(function(item,i){
+                    th.push(
+                            <th width={tiemWidth[i]>0?tiemWidth[i]:""}>{item}</th>
+                        )
+            })
+        }
+        if(this.state.data){
+            this.state.data.recordList.map(function(item){
+                tbd.push(
+                        <tr>
+                            {(function(){
+                                var tds =[];
+                                item.map(function(td){
+                                    tds.push(
+                                            <td>{td}</td>
+                                        )
+                                })
+                                return  tds;
+                            })()}
+                        </tr>
+                    )
+            })
+        }
+        items.push(
+                <thead>
+                    <tr>
+                        {th}
+                    </tr>
+                </thead>
+            )
+        items.push(
+                <tbody>
+                    {tbd}
+                </tbody>
+            )
+        return items;
+    },
+    //已加载组件收到新的参数时调用
+    componentWillReceiveProps:function(nextProps){
+        console.log('aaaaaaaaaa')
+        if(nextProps.data){
+            this.setState({
+                data: nextProps.data
+            })
+        }
+    },
+
+    render: function () {
+        var fill = this.loopRender();
+        return(
+            <table className={'table table-hover table-org'} style={{width:'100%',height:'auto'}} >
+                {fill}
+            </table>
+        )
+    }
+});
+
 //react tabswitch
 var tabswitch = React.createClass({
 	getDefaultProps: function() {
@@ -161,7 +163,7 @@ var tabswitch = React.createClass({
         SA.setter('tabswitch',{}, this.act);
         this.addSheet();
 		return {
-        	datas: [],
+        	data: [],
             hdData: [],
             itemWidth:[]
 
@@ -195,8 +197,7 @@ var tabswitch = React.createClass({
         }
 	},
 
-	componentDidMount: function() { 
-
+	componentDidMount: function() {
         if(this.props.itemMethod){
         	this.props.itemMethod.call(this);
         }

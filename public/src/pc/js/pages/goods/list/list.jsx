@@ -17,23 +17,6 @@ function initTime(time){
 		return  time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate()
 }
 
-function pageClick(){
-	var that = this;
-	$(".reactPage").find("a").click(function(){
-		getGoodsList({ pageCurrent: $(this).attr("data-page")},cb)
-	})
-
-	function cb(body){
-		console.log(that)
-		var datas = dealwithdata(body.pagination.recordList)
-		delete body.pagination.recordList
-		body.pagination.recordList = datas;
-		that.setState({
-			data:body
-		});
-	}
-}
-
 function dealwithdata(data){
 	var datas = [];
 		for (var i = 0; i < data.length; i++) {
@@ -57,6 +40,25 @@ function dealwithdata(data){
 			datas[i].push(<span><a href={"/goods/edit/"+items.id+".html"} target={"_blank"}>编辑</a> <a href={"/goods/edit/"+items.id+".html"} target={"_blank"}>详情</a></span>);
 		};
 	return datas;
+}
+
+
+function pageClick(){
+	var that = this;
+	$(".reactPage").find("a").click(function(){
+		getGoodsList({ pageCurrent: $(this).attr("data-page")},cb)
+	})
+
+	function cb(body){
+		console.log(that)
+		var datas = dealwithdata(body.pagination.recordList)
+		delete body.pagination.recordList
+		body.pagination.recordList = datas;
+		var pagination = body.pagination;
+		that.setState({
+			data:pagination
+		});
+	}
 }
 
 //回掉函数
