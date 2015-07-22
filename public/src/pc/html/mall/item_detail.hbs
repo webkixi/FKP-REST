@@ -97,7 +97,7 @@
                         <dd class="o-amount">
                           <a class="minus amount-btn" href="javascript:;" data-minval="{{spGoods.minQuantity}}" data-increase="{{spGoods.increase}}">-</a>
                         <input id="quantity" data-minval="{{spGoods.minQuantity}}" value="{{spGoods.minQuantity}}" {{spGoods.disab}} style="width: 90px;">
-                        <a class="plus amount-btn" href="javascript:;" data-minval="{{spGoods.minQuantity}}" data-increase="{{spGoods.increase}}">+</a>&nbsp;{{spGoods.unitName}}  
+                        <a class="plus amount-btn" href="javascript:;" data-maxval="{{spGoods.stock}}" data-increase="{{spGoods.increase}}">+</a>&nbsp;{{spGoods.unitName}}  
                         {{#if spGoods.disab}}(增幅{{spGoods.increase}}{{spGoods.unitName}}) {{/if}}</dd>
                     </dl>
                     <dl class="pro-qdl">
@@ -246,21 +246,21 @@
    <div class="modal-dialog"><!-- 登录框 start -->
       <div class="modal-content modal-contents">
          <div class="clearfix modal-heads">
-           <ul class="r_logo fl">
-             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+           <div class="r_logo">
+             <button type="button" class="close right" data-dismiss="modal" aria-hidden="true">
                  &times;
              </button>           
-             <li class="rlogo"><a href="/index.html"><img src="{{root}}images/logo.png"></a></li>      
-             <li>|</li>      
-             <li class="rlogo">账号登录</li>      
-           </ul>
+             <a class="rlogo" href="/index.html"><img src="/images/logo.png"></a>   
+             <span>&nbsp;&nbsp;|</span>      
+             <span class="rlogo">账号登录</span>      
+           </div>
          </div>
          <div class="modal-body login_body">
            <form action="" id="loginCheck">
      			  <div class="login_input">
                   <div class="form-group">
                       <label for="name">手机号码：</label>
-                      <input type="text" class="form-control user_phone" value="${loginPhone}" id="loginPhone" name="loginPhone" placeholder="手机号">
+                      <input type="text" class="form-control user_phone" value="{{loginPhone}}" id="loginPhone" name="loginPhone" placeholder="手机号">
                   </div>
                   <div class="form-group">
                       <label for="name">密码：</label>
@@ -268,21 +268,18 @@
                   </div> 
                   <div class="l_code clearfix hidden">
                       <input class="code fl form-control" placeholder="验证码" type="text">
-                      <img src="/images/yzm.png"/>
+                      <img src="{{root}}/images/yzm.png"/>
                       <a href="#">换一张</a>
                   </div>
                 </div>
                 <div class="login_tip clear hidden">
                   <div class="login_remeber fl"><b class="checkbox"></b><span class="m_t5 fl">下次自动登录</span></div>
                 </div>
-   				<font size="3" face="Times" color="red" >
-					<div class="modal-body login_body">
-						<p class="errorMsg"></p>
-					</div>
-				</font>                             
+						    <p class="errorMsg"></p>                        
                 <div class="login_btn">
-                <a href="javascript:;" type="button" onclick="loginFromOrder()" id="loginFromOrder" class="btn btn-primary">登录</a></div>
-                <div class="login_other"><a href="/forget.html" target="_blank" class="fl">忘记密码？</a><a href="/regist.html" target="_blank" class="fr">立即注册</a></div>
+                  <a href="javascript:;" type="button" id="login" class="btn btn-primary">登录</a>
+                </div>
+                <div class="login_other"><a href="/account/forget.html" class="fl">忘记密码？</a><a href="/account/regist.html" target="_blank" class="fr">立即注册</a></div>
             </form>
          </div>
       </div>

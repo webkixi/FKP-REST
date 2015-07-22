@@ -138,5 +138,10 @@ messager={
 	}
 }
 
+//判断对象类型
+function getObjType(object){
+    return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
+}
+
 })();
 
