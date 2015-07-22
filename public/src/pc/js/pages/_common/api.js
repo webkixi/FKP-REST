@@ -10,6 +10,7 @@ var apiPath = {
         mall_list: src+'api/mall/item/list/query.html',
         mall_attr: src+'api/mall/item/list/attributes.html',
         login: '/account/login',
+        account_goods_list: '/goods/list.html',
         updateAccount: '/account/myaccount',
         updateAccountBase: '/account/myaccount_base'
     }

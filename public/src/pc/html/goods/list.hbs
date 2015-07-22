@@ -32,9 +32,9 @@
                             <span class="select-box" style="width:150px">类别
                               <select class="select" name="catId_1" id="catId_1" >
                                   <option value="">--请选择--</option>
-                                  [#list level1SpCatList as bean]
-                                  <option value="${bean.id}" [#if catId_1==bean.id] selected [/#if]>${bean.catName!''}</option>
-                                  [/#list]
+                                  {{#each catList}}
+                                  <option value="{{id}}" >{{catName}}</option>
+                                  {{/each}}
                               </select>
                             </span>
                             <span class="select-box" style="width:150px">品名
@@ -48,14 +48,15 @@
                             <span class="select-box" style="width:150px">仓库
                               <select class="select" name="storage_1" id="storage_1">
                                   <option value="">--请选择--</option>
-                                  [#list storageList as bean]
-                                  <option value="${bean.value}" [#if storage_1==bean.value] selected [/#if]>${bean.desc!''}</option>
-                                  [/#list]
+                                  {{#each storagesList}}
+                                  <option value="{{id}}" >{{fullName}}</option>
+                                  {{/each}}
                               </select>
                             </span>
                             <button id="queryGoodsBtn_1" class="btn btn-orange" type="submit"><i class="icon-search"></i> 查找</button>
                             <button id="addGoodsBtn" class="btn btn-orange" type="submit"><i class="icon-search"></i> 添加</button>
                           </div>
+                          <div id="aas">  </div>
                           <div class="aaa">{{{goodsList}}}</div>
                           <div class="myorder_table">
                               <table class="table table-hover table-org">
