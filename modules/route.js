@@ -100,10 +100,11 @@ function init(app,mapper,rend){
         this.sess = sessi();
         this.config = config;
         var param = this.params;
+        console.log(param);
         if(param.cat === 'region'){
             yield getRegion.call(this);
         }
-        if(param.cat === 'uploader'){
+        else if(param.cat === 'upload'){
             yield uploader.call(this);
         }
         else
@@ -120,6 +121,7 @@ function init(app,mapper,rend){
     .post('/:cat/:title',forBetter)
 }
 
+//获取地址
 function *getRegion(){
     libs.clog('获取地址列表联动信息');
     var body={};
@@ -136,10 +138,19 @@ function *getRegion(){
     }
 }
 
+//上传数据
 function *uploader(){
     libs.clog('上传数据');
-    var fileUpLoader = require('./uploader')
-    fileUpLoader.call(this,this.config.upload_root);
+    var fileUpLoader = require('./uploader');
+    var saveFileStat = yield fileUpLoader.call(this,this.config.upload_root);
+    if(saveFileStat){
+        var success = { success: true}
+        this.body = JSON.stringify(success)
+    }
+    else{
+        var error = { success: false}
+        this.body = JSON.stringify(error)
+    }
 }
 
 /**

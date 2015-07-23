@@ -35,11 +35,33 @@ function req(api,param,cb){
         cb.call(null,body);
 	});
     */
-    console.log(param);
     $.post(url, param, function(body,status){
         if(status==='success')
             cb.call(null, body) ;
    }, "json");
+
+   // $.ajax({
+   //          url: url,
+   //          type: 'POST',
+   //          data: param,
+   //          dataType: 'JSON',
+   //          cache: false,
+   //          processData: false,
+   //          contentType: false
+   //      }).done(function(ret){
+   //          if(status==='success')
+   //              cb.call(null, body) ;
+   //
+   //          if(ret['isSuccess']){
+   //              var result = '';
+   //              result += 'name=' + ret['name'] + '<br>';
+   //              result += 'gender=' + ret['gender'] + '<br>';
+   //              result += '<img src="' + ret['photo']  + '" width="100">';
+   //              $('#result').html(result);
+   //          }else{
+   //              alert('提交失敗');
+   //          }
+   //      });
 }
 
 module.exports = {
