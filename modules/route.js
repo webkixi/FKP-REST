@@ -100,10 +100,11 @@ function init(app,mapper,rend){
         this.sess = sessi();
         this.config = config;
         var param = this.params;
+        console.log(param);
         if(param.cat === 'region'){
             yield getRegion.call(this);
         }
-        if(param.cat === 'uploader'){
+        else if(param.cat === 'upload'){
             yield uploader.call(this);
         }
         else
@@ -138,8 +139,12 @@ function *getRegion(){
 
 function *uploader(){
     libs.clog('上传数据');
-    var fileUpLoader = require('./uploader')
-    fileUpLoader.call(this,this.config.upload_root);
+    var fileUpLoader = require('./uploader');
+    var saveFileStat = yield fileUpLoader.call(this,this.config.upload_root);
+    if(saveFileStat)
+        return { success: true }
+    else
+        return { success: false}
 }
 
 /**
