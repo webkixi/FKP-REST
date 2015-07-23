@@ -18,19 +18,15 @@
                 </div>
                 <div class="account_r fl wid-10">
                     <ul id="myTab" class="nav nav-tabs">
-                        <li [#if curList==1] class="active" [/#if]><a href="#myo_ok" data-toggle="tab">挂牌中（<i>${listedPage.totalCount}宗</i>）</a></li>
-                        <li [#if curList==2] class="active" [/#if]><a href="#myo_del" data-toggle="tab">未挂牌（<i>${unlistedPage.totalCount}宗</i>）</a></li>
-                        <li [#if curList==3] class="active" [/#if]><a href="#myo_cepai" data-toggle="tab">逾期撤牌（<i>${overduePage.totalCount}宗</i>）</a></li>
+                        <li data-type="1" class="active"><a href="javascript:void(0)">挂牌中（<i>{{listedPage}}宗</i>）</a></li>
+                        <li data-type="2"><a href="javascript:void(0)">未挂牌（<i>{{unlistedPage}}宗</i>）</a></li>
+                        <li data-type="3"><a href="javascript:void(0)">逾期撤牌（<i>{{overduePage}}宗</i>）</a></li>
                     </ul>
                     <form id="listPageQueryForm" action="${rc.contextPath}/goods/list.html">
-                        <input type="hidden" name="curList" id="curList" value="${curList}"/>
-                        <input type="hidden" name="pageCurrent_1" id="pageCurrent_1" value="${pageCurrent_1}"/>
-                        <input type="hidden" name="pageCurrent_2" id="pageCurrent_2" value="${pageCurrent_2}"/>
-                        <input type="hidden" name="pageCurrent_3" id="pageCurrent_3" value="${pageCurrent_3}"/>
                     <div id="myTabContent" class="tab-content myorder_content">
                           <div class="text-c">
                             <span class="select-box" style="width:150px">类别
-                              <select class="select" name="catId_1" id="catId_1" >
+                              <select class="select catId" name="catId_1" id="catId_1" >
                                   <option value="">--请选择--</option>
                                   {{#each catList}}
                                   <option value="{{id}}" >{{catName}}</option>
@@ -38,215 +34,27 @@
                               </select>
                             </span>
                             <span class="select-box" style="width:150px">品名
-                              <select class="select" name="catId2_1" id="catId2_1">
+                              <select class="select catId2" name="catId2_1" id="catId2_1">
+                                <option value="">--请选择--</option>
                               </select>
                             </span>
                             <span class="select-box" style="width:150px">品牌
-                              <select class="select" name="brandId_1" id="brandId_1">
+                              <select class="select brandId" name="brandId_1" id="brandId_1">
+                                <option value="">--请选择--</option>
                               </select>
                             </span>
                             <span class="select-box" style="width:150px">仓库
-                              <select class="select" name="storage_1" id="storage_1">
+                              <select class="select storage" name="storage_1" id="storage_1">
                                   <option value="">--请选择--</option>
                                   {{#each storagesList}}
                                   <option value="{{id}}" >{{fullName}}</option>
                                   {{/each}}
                               </select>
                             </span>
-                            <button id="queryGoodsBtn_1" class="btn btn-orange" type="submit"><i class="icon-search"></i> 查找</button>
+                            <button id="queryGoodsBtn" class="btn btn-orange queryGoodsBtn" type="button"><i class="icon-search"></i> 查找</button>
                             <button id="addGoodsBtn" class="btn btn-orange" type="submit"><i class="icon-search"></i> 添加</button>
                           </div>
-                          <div id="aas">  </div>
-                          <div class="aaa">{{{goodsList}}}</div>
-                          <div class="myorder_table">
-                              <table class="table table-hover table-org">
-                                <thead>
-                                    <tr>
-                                        <th>商品编号</th>
-                                        <th>类别</th>
-                                        <th>品名</th>
-                                        <th>品牌</th>
-                                        <th>仓库</th>
-                                        <th>挂牌量</th>
-                                        <th>起订量</th>
-                                        <th>单价（元)</th>
-                                        <th>点价截止时间</th>
-                                        <th>发布时间</th>
-                                        <th>编辑/详情</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  [#list listedPage.recordList as bean]
-                                    <tr>
-                                        <td>${bean.goodsNo}</td>
-                                        <td>${bean.catName}</td>
-                                        <td>${bean.catName2}</td>
-                                        <td>${bean.brandName}</td>
-                                        <td>${bean.storageName}</td>
-                                        <td>${bean.stock?string('0.####')}${bean.unitName}</td>
-                                        <td>${bean.minQuantity?string('0.####')}${bean.unitName}</td>
-                                        [#if bean.valuation==0]
-                                        <td>${bean.exchangeName}${bean.contractPeriod} [#if bean.discount>0]+[/#if] [#if bean.discount != 0]${bean.discount}[/#if] </td>
-                                        <td>${bean.stopDate?string("yyyy-MM-dd")} ${bean.stopHour?string('00')}:${bean.stopMinute?string('00')}:00</td>
-                                        [#else]
-                                        <td>[#if bean.price?if_exists] ${bean.price?string("currency")} [/#if]</td>
-                                        <td></td>
-                                        [/#if]
-                                        <td>${bean.createTime?string("yyyy-MM-dd")}</td>
-                                        <td><a href="${rc.contextPath}/goods/edit/${bean.id}.html" target="_blank">编辑</a> 
-                                        <a href="${rc.contextPath}/mall/item/detail/${bean.id}.html" target="_blank">详情</a></td>
-                                    </tr>
-                                  [/#list]
-                                </tbody>
-                              </table>
-                          </div>
-                          <div id="page_1">
-                          
-                          </div>
-                        </div>
-                        <div class="tab-pane fade [#if curList==2] in active [/#if]" id="myo_del">
-                            <div class="text-c">
-                            <span class="select-box" style="width:150px">类别
-                              <select class="select" name="catId_2" id="catId_2" >
-                                  <option value="">--请选择--</option>
-                                  [#list level1SpCatList as bean]
-                                  <option value="${bean.id}" [#if catId_2==bean.id] selected [/#if]>${bean.catName!''}</option>
-                                  [/#list]
-                              </select>
-                            </span>
-                            <span class="select-box" style="width:150px">品名
-                              <select class="select" name="catId2_2" id="catId2_2">
-                              </select>
-                            </span>
-                            <span class="select-box" style="width:150px">品牌
-                              <select class="select" name="brandId_2" id="brandId_2">
-                              </select>
-                            </span>
-                            <span class="select-box" style="width:150px">仓库
-                              <select class="select" name="storage_2" id="storage_2">
-                                  <option value="">--请选择--</option>
-                                  [#list storageList as bean]
-                                  <option value="${bean.value}" [#if storage_2==bean.value] selected [/#if]>${bean.desc!''}</option>
-                                  [/#list]
-                              </select>
-                            </span>
-                            <button id="queryGoodsBtn_2" class="btn btn-orange" type="submit"><i class="icon-search"></i> 查找</button>
-                          </div>
-                          <div class="myorder_table">
-                              <table class="table table-hover table-org">
-                                <thead>
-                                    <tr>
-                                        <th>商品编号</th>
-                                        <th>类别</th>
-                                        <th>品名</th>
-                                        <th>品牌</th>
-                                        <th>仓库</th>
-                                        <th>挂牌量</th>
-                                        <th>起订量</th>
-                                        <th>单价（元)</th>
-                                        <th>点价时间</th>
-                                        <th>发布时间</th>
-                                        <th>编辑/详情</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  [#list unlistedPage.recordList as bean]
-                                    <tr>
-                                        <td>${bean.goodsNo}</td>
-                                        <td>${bean.catName}</td>
-                                        <td>${bean.catName2}</td>
-                                        <td>${bean.brandName}</td>
-                                        <td>${bean.storageName}</td>
-                                        <td>${bean.stock?string('0.####')}${bean.unitName}</td>
-                                        <td>${bean.minQuantity?string('0.####')}${bean.unitName}</td>
-                                        [#if bean.valuation==0]
-                                        <td>${bean.exchangeName}${bean.contractPeriod} [#if bean.discount>0]+[/#if] [#if bean.discount != 0]${bean.discount}[/#if] </td>
-                                        <td>${bean.stopDate?string("yyyy-MM-dd")} ${bean.stopHour?string('00')}:${bean.stopMinute?string('00')}:00</td>
-                                        [#else]
-                                        <td>[#if bean.price?if_exists] ${bean.price?string("currency")} [/#if]</td>
-                                        <td></td>
-                                        [/#if]
-                                        <td>${bean.createTime?string("yyyy-MM-dd")}</td>
-                                        <td><a href="${rc.contextPath}/goods/edit/${bean.id}.html" target="_blank">编辑</a> 
-                                        <a href="${rc.contextPath}/mall/item/detail/${bean.id}.html" target="_blank">详情</a></td>
-                                    </tr>
-                                  [/#list]
-                                </tbody>
-                              </table>
-                          </div>
-                          <div id="page_2"></div>
-                        </div>
-                        <div class="tab-pane fade [#if curList==3] in active [/#if]" id="myo_cepai">
-                          <div class="text-c">
-                            <span class="select-box" style="width:150px">类别
-                              <select class="select" name="catId_3" id="catId_3" >
-                                  <option value="">--请选择--</option>
-                                  [#list level1SpCatList as bean]
-                                  <option value="${bean.id}" [#if catId_3==bean.id] selected [/#if]>${bean.catName!''}</option>
-                                  [/#list]
-                              </select>
-                            </span>
-                            <span class="select-box" style="width:150px">品名
-                              <select class="select" name="catId2_3" id="catId2_3">
-                              </select>
-                            </span>
-                            <span class="select-box" style="width:150px">品牌
-                              <select class="select" name="brandId_3" id="brandId_3">
-                              </select>
-                            </span>
-                            <span class="select-box" style="width:150px">仓库
-                              <select class="select" name="storage_3" id="storage_3">
-                                  <option value="">--请选择--</option>
-                                  [#list storageList as bean]
-                                  <option value="${bean.value}" [#if storage_3==bean.value] selected [/#if]>${bean.desc!''}</option>
-                                  [/#list]
-                              </select>
-                            </span>
-                            <button id="queryGoodsBtn_3" class="btn btn-orange" type="submit"><i class="icon-search"></i> 查找</button>
-                          </div>
-                          <div class="myorder_table">
-                              <table class="table table-hover table-org">
-                                <thead>
-                                    <tr>
-                                        <th>商品编号</th>
-                                        <th>类别</th>
-                                        <th>品名</th>
-                                        <th>品牌</th>
-                                        <th>仓库</th>
-                                        <th>挂牌量</th>
-                                        <th>起订量</th>
-                                        <th>单价（元)</th>
-                                        <th>点价时间</th>
-                                        <th>发布时间</th>
-                                        <th>编辑/详情</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  [#list overduePage.recordList as bean]
-                                    <tr>
-                                        <td>${bean.goodsNo}</td>
-                                        <td>${bean.catName}</td>
-                                        <td>${bean.catName2}</td>
-                                        <td>${bean.brandName}</td>
-                                        <td>${bean.storageName}</td>
-                                        <td>${bean.stock?string('0.####')}${bean.unitName}</td>
-                                        <td>${bean.minQuantity?string('0.####')}${bean.unitName}</td>
-                                        [#if bean.valuation==0]
-                                        <td>${bean.exchangeName}${bean.contractPeriod} [#if bean.discount>0]+[/#if] [#if bean.discount != 0]${bean.discount}[/#if] </td>
-                                        <td>${bean.stopDate?string("yyyy-MM-dd")} ${bean.stopHour?string('00')}:${bean.stopMinute?string('00')}:00</td>
-                                        [#else]
-                                        <td>[#if bean.price?if_exists] ${bean.price?string("currency")} [/#if]</td>
-                                        <td></td>
-                                        [/#if]
-                                        <td>${bean.createTime?string("yyyy-MM-dd")}</td>
-                                        <td><a href="${rc.contextPath}/goods/edit/${bean.id}.html" target="_blank">编辑</a> 
-                                        <a href="${rc.contextPath}/mall/item/detail/${bean.id}.html" target="_blank">详情</a></td>
-                                    </tr>
-                                  [/#list]
-                                </tbody>
-                              </table>
-                          </div>
-                          <div id="page_3"></div>
+                          <div id="myorder_table" class="myorder_table"></div>
                         </div>
                     </div>
                     </form>

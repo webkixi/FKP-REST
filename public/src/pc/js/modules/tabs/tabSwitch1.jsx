@@ -28,14 +28,14 @@ var Page = React.createClass({
     loopRender: function(){
         var items=[];
         var num = 5;
-        if(this.state.data){
+        if(this.state.data&&this.state.data.totalCount!=0){
 	        var pageData = this.state.data;
 	        var begin = 0;
 	        if(pageData.currentPage-1-parseInt(num/2)>0)begin=pageData.currentPage-1-parseInt(num/2);//收个分页
 	        if(pageData.pageCount - begin < num) num = pageData.pageCount - begin;//显示分页个数
 	        if (pageData.currentPage!=1) items.push(<a href={"javascript:void(0)"} data-page={pageData.currentPage-1}>上一页</a>);
 	        for (var i = 1; i <=num; i++) {
-	        	if((begin+i)==pageData.currentPage)items.push(<span>{begin+i}</span>);
+	        	if((begin+i)==pageData.currentPage)items.push(<span className={"active"}>{begin+i}</span>);
 	        	else items.push(<a href={"javascript:void(0)"} data-page={begin+i}>{begin+i}</a>);
 	        };
 	        if (pageData.currentPage!=pageData.pageCount) items.push(<a href={"javascript:void(0)"} data-page={pageData.currentPage+1}>下一页</a>);
@@ -66,6 +66,7 @@ var Page = React.createClass({
 var Cnt = React.createClass({
     mixins: [Store],
     getInitialState: function() {
+         SA.setter('tabswitch',{}, this.act);
         return {};
     },
 
@@ -135,7 +136,6 @@ var Cnt = React.createClass({
     },
     //已加载组件收到新的参数时调用
     componentWillReceiveProps:function(nextProps){
-        console.log('aaaaaaaaaa')
         if(nextProps.data){
             this.setState({
                 data: nextProps.data
@@ -155,6 +155,7 @@ var Cnt = React.createClass({
 
 //react tabswitch
 var tabswitch = React.createClass({
+    mixins: [Store],
 	getDefaultProps: function() {
 		return { }
 	},
@@ -169,11 +170,14 @@ var tabswitch = React.createClass({
 
 	    };
 	},
+    act: function(data){
+        this.setState(data);
+    },
 
     addSheet: function(){
         //添加css到头部
         tabcss = '.tabswitch{border:1px solid #efefef;\n margin-bottom:10px;}'
-        libs.addSheet([tabcss,'tabswt']);
+        //libs.addSheet([tabcss,'tabswt']);
     },
 
 	//插入真实 DOM之前

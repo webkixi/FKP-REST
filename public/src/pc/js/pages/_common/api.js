@@ -9,6 +9,7 @@ var apiPath = {
         user: src+'checkUserStatus.html',
         mall_list: src+'api/mall/item/list/query.html',
         mall_attr: src+'api/mall/item/list/attributes.html',
+        goods_attr: '/common/goods_attr',
         login: '/account/login',
         account_goods_list: '/goods/list.html',
         updateAccount: '/account/myaccount',
