@@ -108,22 +108,16 @@
                                 <p class="error_msg text-danger"></p>
                             </div>
                             <div class="form-group u_address">
-                                <span class="select-box" style="width:200px">
-                                    <label for="name">地区：</label> <select id="province" name="province" class="select">
-                                        <option value="">--选择省份--</option> 
-                                        {{{account.provinces}}}
-                                    </select>
-                                </span>
-                                <span class="select-box" style="width:200px">
-                                    <select id="city" name="city" class="select">
-                                        <option value="">--选择城市--</option>
-                                    </select>
-                                </span>
-                                <span class="select-box" style="width:200px">
-                                    <select id="district" name="district" class="select">
-                                        <option value="">--选择区县--</option>
-                                    </select>
-                                </span>
+                                <label for="name">地区：</label> <select id="province" name="province" class="select">
+                                    <option value="">--选择省份--</option> 
+                                    {{{province}}}
+                                </select>
+                                <select id="city" name="city" class="select">
+                                    <option value="">--选择城市--</option>
+                                </select>
+                                <select id="district" name="district" class="select">
+                                    <option value="">--选择区县--</option>
+                                </select>
                                 <p class="error_msg text-danger"></p>
                             </div>
                             <div class="form-group">
