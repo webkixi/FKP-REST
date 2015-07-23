@@ -16,11 +16,12 @@ function getFormData(){
 		'RegLandline' : { 'ipt' : form['landline'],'Etip' : "格式:区号-电话号码;如 020-88888888",'Rtip' : "请输入正确格式的公司固话",'tip' : ""},
 		'RegFax' : { 'ipt' : form['fax'],'Etip' : "格式:区号-电话号码;如 020-88888888",'Rtip' : "请输入正确格式的传真号码",'tip' : "短信验证码错误!"},
 		'RegProv' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
-		'RegCity' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
-		'RegCounty' : { 'ipt' : form['province'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
+		'RegCity' : { 'ipt' : form['city'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
+		'RegCounty' : { 'ipt' : form['district'],'Etip' : "请选择地区",'Rtip' : "",'tip' : ""},
 		'RegEmail' : { 'ipt' : form['eMail'],'Etip' : "请输入电子邮件",'Rtip' : "邮箱格式错误,请重新输入",'tip' : ""},
 		'RegQq' : { 'ipt' : form['qq'],'Etip' : "请输入qq",'Rtip' : "qq格式错误,请重新输入",'tip' : ""},
-		'RegAdd' : { 'ipt' : form['address'],'Etip' : "请输入详细地址",'Rtip' : "",'tip' : ""}
+		'RegAdd' : { 'ipt' : form['address'],'Etip' : "请输入详细地址",'Rtip' : "",'tip' : ""},
+		'RegMustRead' : { 'ipt' : form['mustRead'],'Etip' : "请勾选",'Rtip' : "",'tip' : ""}
     }
 }
 var chkOptions = {
@@ -70,7 +71,6 @@ var chkOptions = {
         if(val.length>20||/\s/.test(val)) level=0; //不包括空格
         if(level==0||!level){
 			//tmp = tmp;
-			console.log("dd")
 			$(ipt).addClass("bd_col");
         	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("6-20位字符，建议由字母，数字和符号两种以上组合");
         }
@@ -97,10 +97,16 @@ var chkOptions = {
         ipt = iobj.ipt,
         val = iobj.ipt.value,
         tmp = true;
-
-        if(val!==pval)
-            tmp = false;
-
+        if(!tmp){
+        	$(ipt).addClass("bd_col");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入公司全称");
+        }
+        else{
+        	if(val!==pval){
+        		$(ipt).addClass("bd_col");
+	            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("两次密码不一致,请重新输入");
+	        }
+        }
         return tmp;
     },
     RegName: function(input_obj,reg){   // 联系人 非空
@@ -128,7 +134,6 @@ var chkOptions = {
         return tmp;
     },
     RegLandline: function(input_obj,reg){   // 固话 非空
-    	console.log(reg)
         var
         iobj = input_obj,
         ipt = iobj.ipt,
@@ -223,6 +228,17 @@ var chkOptions = {
         	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入详细地址");
         }
         return tmp;
+    },
+    RegMustRead: function(input_obj,reg){   // 地址 非空
+        var
+        iobj = input_obj,
+        ipt = iobj.ipt,
+        val = iobj.ipt.value,
+        tmp = reg.notempty.test(val);    //code check
+        if(!tmp||tmp==0){
+        	alert("请勾选!!");
+        }
+        return tmp;
     }
 }
 function Regfocus(){
@@ -295,7 +311,7 @@ function bindInputDefaultEvent(){
                 $(ipt).bind('blur',function(){
                    //send mobile message
                     tmp = formValide(chkOptions)
-                   (inputs[ele],'RegrePwd')
+                   ([inputs['RegPwd'],inputs[ele]],'RegrePwd')
                    ();
                 });
             }
@@ -362,12 +378,40 @@ function bindInputDefaultEvent(){
                    ();
                 });
             }
+            if(ele=='RegCity'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegCity')
+                   ();
+                });
+            }
+            if(ele=='RegCounty'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('blur',function(){
+                   //send mobile message
+                    tmp = formValide(chkOptions)
+                   (inputs[ele],'RegCounty')
+                   ();
+                });
+            }            
             if(ele=='RegAdd'){
             	Regfocus.call(ipt);
                 $(ipt).bind('blur',function(){
                    //send mobile message
                     tmp = formValide(chkOptions)
                    (inputs[ele],'RegAdd')
+                   ();
+                });
+            }
+            if(ele=='RegMustRead'){
+            	Regfocus.call(ipt);
+                $(ipt).bind('click',function(){
+                   //send mobile message
+                   $(ipt).val($(ipt).val()==0?1:0);
+                   tmp = formValide(chkOptions)
+                   (inputs[ele],'RegMustRead')
                    ();
                 });
             }
@@ -390,25 +434,28 @@ function getRegion(id,cb){
 //三级联动
 $('.u_address').delegate('select','change',function(){
     var index = $(this).index();
+    console.log(index)
     var id = $(this).val();
     //省份
     if(index===1){
-        $('.city').html('');
+        $('#city').html('');
+        $('#city').append("<option value=''>--选择城市--</option>");
         getRegion(id,function(body){
             //设置传输数据
             var citys = body.data.regionList;
-            citys.map(function(city,i){
-                $('.city').append('<option value='+city.id+'>'+city.regionName+'</option>')
+            citys.map(function(city,i){            	
+                $('#city').append('<option value='+city.id+'>'+city.regionName+'</option>');
             })
         })
     }
     if(index===2){
-        $('.county').html('');
+        $('#district').html('');
+        $('#district').append("<option value=''>--选择区县--</option>");
         getRegion(id,function(body){
             //设置传输数据
             var countys = body.data.regionList;
             countys.map(function(county,i){
-                $('.county').append('<option value='+county.id+'>'+county.regionName+'</option>')
+                $('#district').append('<option value='+county.id+'>'+county.regionName+'</option>')
             })
         })
     }
@@ -416,7 +463,6 @@ $('.u_address').delegate('select','change',function(){
 
 function chkPhoneValue(){
 	var inputs = getFormData();
-
 	//valide login value
 	var RegPhoneStat = formValide(chkOptions)
 	(inputs.loginPhone,'RegPhone')
@@ -429,6 +475,7 @@ function chkPhoneValue(){
 	if(RegPhoneStat){
         //ajax 提交
 		api.req('regist',query,function(body){
+			console.log(body)
 			if(body.success){
 	            $("#mobile_error").html("");
 	            mobileFlags = true;
@@ -476,6 +523,8 @@ function chkCodeValue(){
 	if(RegCodeStat){
         //ajax 提交
 		api.req('regist',query,function(body){
+			console.log(body)
+			console.log("dddddddddddd")
 			//var jo = JSON.parse(body);
 			if(body.success){
 	          //dropAlert(jo.success);
@@ -493,15 +542,16 @@ function chkCodeValue(){
 $('#login_ok').click(function(){
 	chkCodeValue();
 });
+
 function checkAccount(){
 	var inputs = getFormData();
-	//code
+	var mustRead = 0;
 	var RegAccountStat = formValide(chkOptions)
 	(inputs.loginPhone,'RegPhone')
 	(inputs.Regcode,'Regcode')
 	(inputs.RegLoginname,'RegLoginname')
 	(inputs.RegPwd,'RegPwd')
-	([inputs.RegPwd],'RegrePwd')
+	([inputs.RegPwd,inputs.RegrePwd],'RegrePwd')
 	(inputs.RegName,'RegName')
 	(inputs.RegFullname,'RegFullname')
 	(inputs.RegLandline,'RegLandline')
@@ -510,6 +560,7 @@ function checkAccount(){
 	(inputs.RegCity,'RegCity')
 	(inputs.RegCounty,'RegCounty')
 	(inputs.RegAdd,'RegAdd')
+	(inputs.RegMustRead,'RegMustRead')
 	();
 
 	//assemble query 
@@ -518,24 +569,27 @@ function checkAccount(){
 		code: inputs.Regcode.ipt.value,
 		loginName: inputs.RegLoginname.ipt.value,
 		password: inputs.RegPwd.ipt.value,
-		repassword: inputs.RegrePwd.ipt.value,
+		rePassword: inputs.RegrePwd.ipt.value,
 		name: inputs.RegName.ipt.value,
 		firmFullName: inputs.RegFullname.ipt.value,
 		landline: inputs.RegLandline.ipt.value,
 		fax: inputs.RegFax.ipt.value,
 		province: inputs.RegProv.ipt.value,
 		city: inputs.RegCity.ipt.value,
-		county: inputs.RegCounty.ipt.value,
+		district: inputs.RegCounty.ipt.value,
 		address: inputs.RegAdd.ipt.value,
-		isForgetPassword: false
+		mustRead: inputs.RegMustRead.ipt.value
 	}
+	console.log(mustRead)
+	console.log(query)
 	if(RegAccountStat){
         //ajax 提交
-        console.log(query,RegAccountStat)
 		api.req('regist',query,function(body){
 			console.log(body)
+			console.log("333333333333333333333")
 			//var jo = JSON.parse(body);
 			if(body.success){
+				console.log("成功")
 				var SregName = $("#loginName").val();
 				$(".r_wmessage").addClass("hidden");
 				$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");
@@ -543,6 +597,7 @@ function checkAccount(){
 				$(".Regname").html(SregName);
 				$(".r_wrap_list.r_wmessage,.r_wrap_list.r_wyzsj").remove();
 	        }else{
+	        	console.log("失败")
 	        	alert(body.msg);
 	        	//dropAlert(jo.errmsg);
 	        }
