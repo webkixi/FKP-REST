@@ -121,6 +121,7 @@ function init(app,mapper,rend){
     .post('/:cat/:title',forBetter)
 }
 
+//获取地址
 function *getRegion(){
     libs.clog('获取地址列表联动信息');
     var body={};
@@ -137,14 +138,19 @@ function *getRegion(){
     }
 }
 
+//上传数据
 function *uploader(){
     libs.clog('上传数据');
     var fileUpLoader = require('./uploader');
     var saveFileStat = yield fileUpLoader.call(this,this.config.upload_root);
-    if(saveFileStat)
-        return { success: true }
-    else
-        return { success: false}
+    if(saveFileStat){
+        var success = { success: true}
+        this.body = JSON.stringify(success)
+    }
+    else{
+        var error = { success: false}
+        this.body = JSON.stringify(error)
+    }
 }
 
 /**
