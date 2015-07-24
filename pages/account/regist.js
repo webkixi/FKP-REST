@@ -26,18 +26,15 @@ var chkCode = {
     }
 }
 var chkReg = {
-    RegLoginname: function(loginName, reg){   // username 长度大于8，小于20        
-        console.log('11111111111111')
+    RegLoginname: function(loginName, reg){   // RegLoginname 长度大于8，小于20        
         tmp = reg.username.test(loginName);    //email check
         return tmp;
     },
-    RegName: function(name, reg){   // username 长度大于8，小于20        
-        console.log('222222222222222222222')
+    RegName: function(name, reg){   // RegName 长度大于8，小于20        
         tmp = reg.notempty.test(name);    //email check
         return tmp;
     },
-    RegPwd: function(input_obj, reg){   // username 长度大于8，小于20        
-        console.log('9999999999999999')
+    RegPwd: function(input_obj, reg){   // RegPwd 长度大于8，小于20        
         var
         val = input_obj,
         tmp = true,
@@ -49,8 +46,7 @@ var chkReg = {
         }
         return tmp;
     },
-    RegrePwd: function(input_obj, reg){   // username 长度大于8，小于20
-        console.log('3333333333333333333')
+    RegrePwd: function(input_obj, reg){   // RegrePwd 长度大于8，小于20
         var
         pval = input_obj[0],   //password object
         val = input_obj[1],    //repassword object
@@ -59,48 +55,39 @@ var chkReg = {
             tmp = false;
         return tmp;
     },        
-    RegFullname: function(firmFullName, reg){   // username 长度大于8，小于20        
-        console.log('444444444444444444444')
-        tmp = reg.notempty.test(firmFullName);    //email check
+    RegFullname: function(firmFullName, reg){   // RegFullname 长度大于8，小于20        
+        tmp = reg.notempty.test(firmFullName);    
         return tmp;
     },
-    RegLandline: function(landline, reg){   // username 长度大于8，小于20        
-        console.log('5555555555555555555555')
+    RegLandline: function(landline, reg){   // RegLandline 长度大于8，小于20        
         tmp = reg.guhua.test(landline);    //email check
         return tmp;
     },
-    RegFax: function(fax, reg){   // username 长度大于8，小于20        
-        console.log('66666666666666666666666')
+    RegFax: function(fax, reg){   // RegFax 长度大于8，小于20        
         tmp = reg.guhua.test(fax);    //email check
         return tmp;
     },
-    RegProv: function(province, reg){   // username 长度大于8，小于20        
-        console.log('777777777777777777')
+    RegProv: function(province, reg){   // RegProv 长度大于8，小于20        
         tmp = reg.notempty.test(province);    //email check
         return tmp;
     },
-    RegCity: function(city, reg){   // username 长度大于8，小于20        
-        console.log('88888888888888888888888')
+    RegCity: function(city, reg){   // RegCity 长度大于8，小于20        
         tmp = reg.notempty.test(city);    //email check
         return tmp;
     },
-    RegCounty: function(district, reg){   // username 长度大于8，小于20        
-        console.log('000000000000000000')
+    RegCounty: function(district, reg){   // RegCounty 长度大于8，小于20        
         tmp = reg.notempty.test(district);    //email check
         return tmp;
     },
-    RegAdd: function(address, reg){   // username 长度大于8，小于20        
-        console.log('aaaaaaaaaaaaaaaaaaaaaaa')
+    RegAdd: function(address, reg){   // RegAdd 长度大于8，小于20        
         tmp = reg.notempty.test(address);    //email check
         return tmp;
     },
-    RegMustRead: function(mustRead, reg){   // username 长度大于8，小于20        
-        console.log('bbbbbbbbbbbbbbbbbbbbbbbbbb')
+    RegMustRead: function(mustRead, reg){   // RegMustRead 长度大于8，小于20        
         tmp = reg.notempty.test(mustRead);    //email check
         return tmp;
     }
 }
-console.log(chkReg)
 function *demoRegistData(oridata){
     libs.clog('pages/regist.js');
 
@@ -114,8 +101,6 @@ function *demoRegistData(oridata){
             provinces.push("<option value='"+item.id+"'>"+item.regionName+"</option>");
         });
         var tmp_p = provinces.join('\n');
-        console.log(tmp_p)
-
         var user;
         if(typeof this.sess.user!=='undefined'&&this.sess.user){
             user = this.sess.user;
@@ -150,14 +135,11 @@ function *demoRegistData(oridata){
                 error.msg = "请输入正确的手机号码格式";
                 return error;
             }else{
-                console.log("ddd")
                 this.sess.step = 1;
                 //return success;
             }
         }
-        
-        console.log('uuuuuuuuuuuuuuu')
-        console.log(this.sess.step)
+
         if(this.sess.step===1){
             var stat =  formValide(chkPhone)
             (body.loginPhone,'RegPhone')
@@ -173,7 +155,6 @@ function *demoRegistData(oridata){
                         var javaPhonecode = jsonData.data.phoneCode;
                         this.sess.code = javaPhonecode;
                         console.log(this.sess.code)
-                        console.log("sssssssssssssssssssssssss")
                         this.sess.step = 2;
                         return success;
                     }
@@ -226,7 +207,6 @@ function *demoRegistData(oridata){
                             return error;
                         }
                     }else{
-                        console.log("code为空")
                         error.errStat = 7;
                         error.msg = jsonData.errMsg;
                         return error;
@@ -243,8 +223,6 @@ function *demoRegistData(oridata){
         }
         if(this.sess.step===3){
             //验证注册时的基本信息
-            console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-            console.log(body)
             if(typeof(body.loginName)=='undefined' || typeof(body.name)=='undefined' || typeof(body.password)=='undefined' || typeof(body.rePassword)=='undefined' || typeof(body.firmFullName)=='undefined' || typeof(body.landline)=='undefined' || typeof(body.fax)=='undefined' || typeof(body.province)=='undefined' || typeof(body.city)=='undefined' || typeof(body.district)=='undefined' || typeof(body.address)=='undefined' || typeof(body.mustRead)=='undefined'){
                 if(typeof(body.loginName)=='undefined'){
                     error.errStat= 13;
@@ -326,18 +304,14 @@ function *demoRegistData(oridata){
             (body.address,'RegAdd')
             (body.mustRead,'RegMustRead')
             ();
-            console.log("Rcode")
             if(Rcode){
                 apiDataReg = yield api.pullApiData('regist',body);
                 var jsonDataReg = JSON.parse(apiDataReg[1]);
-                console.log(jsonDataReg)
                 if(jsonDataReg.success){
-                    console.log("注册信息通过")
                     this.sess.step = 4;
                     return success;
                 }
                 else{
-                    console.log("注册失败!")
                     error.errStat = 26;
                     error.msg = jsonDataReg.errMsg;
                     return error;

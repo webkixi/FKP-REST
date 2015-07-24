@@ -1,6 +1,4 @@
 <!doctype html>
-<!doctype html>
-
 <html lang="en">
 <head>
 <title>联华大宗</title>
@@ -8,10 +6,8 @@
 <script>
 </script>
 </head>
-
 <body>
 @@include('../_common/header/header.html')
-	
 [#include 'common/menu.html' /]
 <link href="{{root}}/statics/front/css/jquery.fileupload.css" rel="stylesheet">
 <link href="{{root}}/statics/front/css/lightbox.css" rel="stylesheet">
@@ -30,8 +26,8 @@
 							企业简介
 					</div>
 					<div class="">
-					<form action="{{root}}/firm/detail/save.html" id="firmIntroduceForm" method="post">
-						<script id="editor" name="introduce" type="text/plain" style="width:1004px; height:500px;">${firmDetail.introduce!''}</script>
+					<form action="{{root}}/firm/save.html" id="firmIntroduceForm" method="post">
+						<script id="editor" name="introduce" type="text/plain" style="width:1004px; height:500px;">{{firmDetail.introduce}}</script>
 					</form>
 					</div>
 					<div>
@@ -55,10 +51,8 @@
 		</div>
 	</div>
 </div>
-
 @@include('../_common/footer/footer.html')
 @@include('../_common/footer/foot.html')
-
 <script type="text/javascript">
 	window.CTX = "{{root}}";
     $(document).ready(function() {
@@ -82,9 +76,7 @@
 	        elementPathEnabled: false,
             autoHeight: false
         });
-
     });
-
 	function updateFirmDetail() {
 		$.ajax({
 			type : "post",
@@ -96,7 +88,7 @@
 			success : function(resp) {
 				if (resp.success == true) {
         			messager.alert({title:"提示",content:"保存成功",type:"success",fn:function(){
-        				document.location.href = '{{root}}/firm/detail/view.html'
+        				document.location.href = '{{root}}/firm/view.html'
         			}});
 		    		return;
 				} else {
@@ -110,9 +102,5 @@
 	}    
     
 </script>
-<script type="text/javascript" charset="utf-8" src="{{root}}/statics/front/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="{{root}}/statics/front/ueditor/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="{{root}}/statics/front/ueditor/lang/zh-cn/zh-cn.js"></script>
-
 </body>
 </html>	

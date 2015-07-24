@@ -1,12 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>联华大宗</title>
+<title>联商所</title>
 @@include('../_common/header/head.html')
 </head>
 <body>
-@@include('../_common/header/header.html')
-<div class="wrapper">
+<div class="wrapper"  style="padding-top:0px;">
     <div class="myaccount_main">
         <div class="container">
             <div class="row clearfix">
@@ -14,117 +13,157 @@
                     <div class="ele_contract">
                       <div class="ele_comt">
                         <div class="ele_chead">
-                          <h2>联华商品交易平台电子购销合同</h2>
+                          <h2>联商所电子购销合同</h2>
                           <ul>
-                            <li>合同编号：${(order.orderNo)!''}</li>
-                            <li>签订地点：广东省广州市</li>
-                            <li>签订时间：${order.signTime?string("yyyy-MM-dd HH:mm:ss")}</li>
+                            <li>合同编号：{{contract.contractNo}}</li>
+                            <li>签订地点：{{contract.signPlace}}</li>
+                            <li>签订时间：{{contract.signTime}}</li>
                           </ul>
                         </div>
                         <div class="ele_cmain">
-                          <h3>甲方(卖方)名称：${order.sellerName}</h3>
-                          <h3>乙方(买方)名称：${order.buyerName}</h3><br/>
+                          <h3>甲方(卖方)名称：{{order.sellerName}}</h3>
+                          <h3>乙方(买方)名称：{{order.buyerName}}</h3><br/>
                           <em>一、商品信息、数量和金额</em>
                           <table class="table ">
                             <thead>
                               <tr>
-                                <th>类别</th>
                                 <th>商品名称</th>
                                 <th>品牌</th>
-                                <th>仓库</th>
                                 <th>规格型号</th>
-                                <th>数量(${order.unit})</th>
-                                [#if spGoods.valuation==0] 
-                                <th>基价</th>
-                                <th>升贴水(元/${order.unit})</th>
+                                <th>数量({{order.unit}})</th>
+                                {{#if spGoods.valuation0}} 
+                                <th>升贴水(元/{{order.unit}})</th>
+                                <th>点价方</th>
                                 <th>点价截止时间</th>
-                                [#else]
+                                {{else}}
                                 <th>单价</th>
-                                [/#if]
                                 <th>总金额(元)</th>
-                              </tr>
+                                <th>交货时间</th>
+                                {{/if}}
+                             </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td>${order.catName1}</td>
-                                <td>${order.catName2}</td>
-                                <td>${order.brandName}</td>
-                                <td>${order.storageName}</td>
-                                <td>${spGoods.model}</td>
-                                <td>[#if order.quantity?if_exists] ${order.quantity?string('0.####')} [/#if]</td>
-                                [#if spGoods.valuation==0]
-                                       [#if order.status==3]
-                                <td>[#if orderConfirmLog?if_exists] ${orderConfirmLog.price?string('0.00')} [/#if]</td>
-                                       [#else]
-                                <td>${order.pricingContract!}</td>
-                                     [/#if]
-                                <td>${order.premium?string('0.00')}</td>
-                                <td>${order.pricingDendline}</td>
-                                [#else]
-                                <td>[#if order.unitPrice?if_exists] ${order.unitPrice?string("currency")} [/#if]</td>
-                                [/#if]
-                                [#if spGoods.valuation==0]
-                                  [#if order.status==3]
-                                  <td>${(order.totalPrice)?string("currency")}</td>
-                                  [#else]
-                                  <td>(${spGoods.exchangeName}${spCat2.pageTitle}${spGoods.contractPeriod} [#if order.premium>0]+[/#if] [#if order.premium != 0]${order.premium?string('0.00')}[/#if]) * ${order.quantity?string('0.####')}</td>
-                                  [/#if]
-                                [#else]
-                                <td>${(order.totalPrice)?string("currency")}</td>
-                                [/#if]
+                                <td>{{order.catName2}}</td>
+                                <td>{{order.brandName}}</td>
+                                <td>{{spGoods.model}}</td>
+                                <td>{{#if order.quantity}} {{order.quantity}} {{/if}}</td>
+                                {{#if spGoods.valuation0}}
+                                <td>{{order.premium}}</td>
+                                <td>{{spGoods.partyPriceName}}</td>
+                                <td>{{order.pricingDendline}}</td>
+                                {{else}}
+                                <td>{{#if order.unitPrice}} {{order.unitPrice}} {{/if}}</td>
+                                <td>{{order.totalPrice}}</td>
+                                <td>{{#if contract.deliveryTime}}{{contract.deliveryTime}}{{/if}}</td>
+                                {{/if}}
                               </tr>
                               <tr>
                                 <td colspan="11" class="ele_cmoney"><b>合计（大写）：</b>
-                                [#if spGoods.valuation==0]
-                                  [#if order.status==3]
-                                  ${money}
-                                  [#else]
-                                  (${spGoods.exchangeName}${spCat2.pageTitle}${spGoods.contractPeriod} [#if order.premium>0]+[/#if] [#if order.premium != 0]${order.premium?string('0.00')}[/#if]) * ${order.quantity?string('0.####')}
-                                  [/#if]
-                                [#else]
-                                  [#if money?if_exists]
-                                    ${money}
-                                  [#else]
-                                    ${(order.totalPrice)?string("currency")}
-                                  [/#if]
-                                [/#if]
+                                {{#if spGoods.valuation0}}
+                                  {{#if order.statusS}}
+                                  {{money}}
+                                  {{else}}
+                                  ({{spGoods.exchangeName}}{{spCat2.pageTitle}}{{spGoods.contractPeriod}} {{#if order.premiumD0}}+{{/if}} {{#if order.premiumN0}}{{order.premium}}{{/if}}) * {{order.quantity}}
+                                  {{/if}}
+                                {{else}}
+                                  {{#if money}}
+                                    {{money}}
+                                  {{else}}
+                                    {{order.totalPrice}}
+                                  {{/if}}
+                                {{/if}}
                                 </td>
                               </tr>
                             </tbody>
                           </table>
-                          <h5>备注：</h5>
-                          <p>1.收市前10分钟不接受点价。</p>
-                          <p>2.[#if spGoods.isNightPlate?if_exists && spGoods.isNightPlate==1] 接受夜盘点价
-                            [#else] 不接受夜盘点价 [/#if]</p>
-                          <p>3.合同总金额=[#if spGoods.valuation==0] (基价+升贴水)*数量 [#else] 单价*数量 [/#if]</p>
-                          <em>二、交货方式</em>
-                          [#if spGoods.deliveryWay?if_exists && spGoods.deliveryWay==0]
-                          <span>
-                          ${spGoods.deliveryWayName}
-                          </span>
-                          <p>自提地址：[#if spGoods.storage==99] ${spGoods.storageAddr} [#else] ${spGoods.storageName} [/#if]</p>
-                          [#else]
-                          <span>
-                          ${spGoods.deliveryWayName}
-                          </span>
-                          <p>送货地址：${order.deliveryAddress}</p>
-                          [/#if]
+                          <em>二、交货方式、交易期限及开票</em>
+                          <div class="delivery">
+                            <span class="delivery_title">
+                            {{#if contract.deliveryWay0}}
+                            &#8730;&nbsp;&nbsp;买方自提&nbsp;&nbsp;(<span class="delivery_input">{{contract.storageName}}</span>&nbsp;仓库&nbsp;&nbsp;
+                              地址：<span class="delivery_input">{{contract.storageAddress}}</span>) 
+                              &nbsp;&nbsp;运输费由
+                              <span class="delivery_input">
+                              {{#each partyTypeList}}
+                              {{#if contract.freightPartyV}} {{desc}} {{/if}}
+                              {{/each}}
+                              </span>承担。
+                            {{else}}
+                            &#8693;&nbsp;&nbsp;买方自提&nbsp;&nbsp;(<span class="delivery_input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>仓库&nbsp;&nbsp;
+                              地址：<span class="delivery_input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>) 
+                              &nbsp;&nbsp;运输费由<span class="delivery_input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>承担。
+                            {{/if}}
+                            </span>
+                            <span class="delivery_title">
+                            {{#if contract.deliveryWay1}}
+                            &#8730;&nbsp;&nbsp;卖方送货&nbsp;&nbsp;(<span class="delivery_input">{{contract.storageName}}</span>&nbsp;仓库&nbsp;&nbsp;
+                              地址：<span class="delivery_input">{{contract.storageAddress}}</span>)
+                                &nbsp;&nbsp;运输费由
+                                <span class="delivery_input">
+                              {{#each partyTypeList}}
+                              {{#if contract.freightPartyV}} {{desc}} {{/if}}
+                              {{/each}}
+                                </span>承担。
+                            {{else}}
+                            &#8693;&nbsp;&nbsp;卖方送货&nbsp;&nbsp;(<span class="delivery_input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>仓库&nbsp;&nbsp;
+                              地址：<span class="delivery_input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>)
+                              &nbsp;&nbsp;运输费由<span class="delivery_input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>承担。
+                            {{/if}}
+                            </span>
+                            <p class="delivery_tip">本合同业务先款后货。如果是买方自提，则买方须不迟于交货日付款，卖方不迟于交货日将货物或货权转移给买方，货权转移之后产生的仓储费、过户费、出库费、运输费用、过磅费、检测费及保险费等由买方承担；
+                              如果是卖方送货，则卖方须在收到买方的货款后一天内安排发货，如果由于买方付款原因导致卖方没能按时交货，则责任在买方；本合同约定的单价和总价为含税价，实际结算后，卖方于合同签订当月25日前开具税率为17%的增值税发票给买方。</p>
+                          </div>
                           <em>三、资金结算支付方式</em>
-                          <p>${spGoods.paymentWayName}</p>
+                          <p>
+                            货款结算方式：
+                            {{#if spGoods.valuation0}}
+                                        款到发货，全款（如果发货时未完成点价，则暂定价格的计算以付款当日点价合约的结算价作为基价再加上升贴水）；</br>
+                            {{else}}全款，款到发货；</br>
+                            {{/if}}
+                            支付方式：{{spGoods.paymentWayName}}；
+                          </p>
                           <p></p>
                           <em>四、合理损耗及计算方式</em>
-                          <p>以仓库出库单为准，合力磅差为±1‰。</p>
-                          <p>货款结算方式：全款</p>
+                          <p>以仓库出库单为准，合理磅差为 ±1‰。</p>
                           <em>五、解决合同纠纷的方式</em>
-                          <p>买卖双方友好协商解决，协商不成，则向合同签订地所在地法院提起诉讼。</p>
+                          <p>买卖双方协商解决，协商不成，则向合同签订地所在地法院提起诉讼，本合同的签订地为广州联华实业有限公司注册所在地。</p>
                           <em>六、验货办法、质量标准及违约条款</em>
-                          <p>1、买方应从速检验卖方所交商品，如有质量异议的，应于交货之日起 5 个工作日内通知卖方，卖方需在 3 个工作日内回复相关问题，双方本着协商的原则解决质量问题。</p>
-                          <p>2、质量技术标准要求： [#if spGoods.quality?if_exists]  ${spGoods.quality} [#else] 按厂家标准 [/#if] 。</p>
-                          <p>3、包装方式： [#if spGoods.manner?if_exists] ${spGoods.manner} [#else] 厂家出厂包装 [/#if]。 </p>
-                          <p>4、卖方延迟交货的，每延迟一日须向买方支付相当于未提货物价值  0.5‰ 的滞纳金。</p>
-                          <p>5、任何一方违反约定导致合同客观上无法履行或守约方守约方行使解除权的，应向守约方支付本批货款 10% 的违约金，并赔偿守约方受到的全部经济损失。</p>
-                          <em>七、合同的生效</em>
-                          <p>本合同自买方付款成功之时起生效，若自签订合同起 3 日内买方未支付相应款项，合同自动失效。</p>
+                          <p>1、买方应从速检验卖方所交商品，如有质量异议的，应于交货之日起3日内书面通知卖方，卖方需在<span style="min-width:30px;" class="delivery_input">1</span>个工作日内回复相关问题，双方本着协商的原则解决质量问题，双方对质量问题无法达成一致，可共同委托有资质的鉴定单位对质量进行鉴定，对该鉴定结果，双方均无异议。</p>
+                          <p>2、质量技术标准要求： <span class="delivery_input">
+                          {{#if contract.contractVnew}}{{spGoods.quality}}{{/if}}
+                          {{#if contract.contractVold}}
+                            {{#if spGoods.quality}}  {{spGoods.quality}} {{else}} 按厂家标准 {{/if}}
+                          {{/if}}</span>。</p>
+                          <p>3、买方延迟付款的，每延迟一日须向卖方支付相当于未付款总额的 <span class="delivery_input">0.5‰</span>的滞纳金；卖方延迟交货的，每延迟一日须向买方支付相当于未提货物价值<span class="delivery_input">0.5‰</span>的滞纳金，逾期付款或逾期交货达十五日的，守约方有权解除合同。</p>
+                          <p>4、任何一方违反约定导致合同客观上无法履行或守约方行使解除权的，应向守约方支付本批货款  <span class="delivery_input">10%</span>的违约金，并赔偿守约方受到的全部经济损失。</p>
+                          {{#if spGoods.valuation0}}
+                            <em>七、其他约定</em>
+                            <p>1、当点价的合约处于涨停/跌停版时点价方不能点价，除非有特别约定，日盘的点价时间为9点到14点50分。</p>
+                            <p>2、如果点价方在点价截止期的最后一个交易日14点30分仍未点价，则由另一方对该合约即时强行点价，点价方须无条件接受此点价结果。</p>
+                            <p>3、在点价截止日期之前，点价方可以对挂牌总数量一次点价也可分批点价。</p>
+                            <em>八、附则</em>
+                          {{else}}
+                            <em>七、附则</em>
+                          {{/if}}
+                            <p>1、本合同一经签订，立即生效，任何一方不单独具有变更合同条款的变更权，如须变动，须双方协商解决。</p>
+                            <p>2、本合同经双方签名盖章后生效。</p>
+                            <p>3、本合同一式三份，买卖双方以及广州联华实业发展有限公司各执一份。</p>
+                            <p>4、未尽事宜，双方协商解决。</p>
+                            <div class="both_info clearfix">
+                                <div class="span5">
+                                  <p>卖方：{{order.sellerName}}</p>
+                                  <p>代表签名：</p>
+                                  <p>联系方式：{{contract.sellerContactWay}}</p>
+                                  <p>通信地址：{{contract.sellerAddress}}</p>
+                                </div>
+                                <div class="span5">
+                                  <p>买方：{{order.buyerName}}</p>
+                                  <p>代表签名：</p>
+                                  <p>联系方式：{{contract.buyerContactWay}}</p>
+                                  <p>通信地址：{{contract.buyerAddress}}</p>
+                                </div>
+                            </div>
                         </div>
                       </div>
                     </div>
@@ -133,7 +172,8 @@
         </div>
     </div>
 </div>
-@@include('../_common/footer/footer.html')
-@@include('../_common/footer/foot.html')
+<script type="text/javascript">
+    print();   
+</script>
 </body>
 </html>
