@@ -7,6 +7,17 @@ var lib = require('../libs/libs')
 var parse = require('co-busboy');
 var path = require('path');
 var _ = require('lodash');
+var assert = require('assert');
+
+
+// var oss = require('ali-oss');
+//
+// var store = oss({
+//     accessKeyId: "e9lpoiqUPkmNrupH",
+//     accessKeySecret: "II8SFBfkQXzWheLyB3GQulzgYYzd7d",
+//     region : 'oss-cn-shenzhen',
+//     bucket : 'jh-ljs-account'
+// })
 
 
 var ALY = require('aliyun-sdk');
@@ -28,8 +39,11 @@ var oss = new ALY.OSS({
   // 香港：http://oss-cn-hongkong-internal.aliyuncs.com
   endpoint: 'http://oss-cn-shenzhen.aliyuncs.com/',
   // 这是 oss sdk 目前支持最新的 api 版本, 不需要修改
-  apiVersion: '2015-7-23'
+  apiVersion: '2013-10-15'
 });
+
+
+
 
 
 
@@ -150,9 +164,9 @@ function *aliService(path2save){
         }
     }
 
-
+    //ali 图片上传
     function mup(buffer,fileKey){
-        console.log(oss);
+
         // File
         // var fileName = 'test.mp3';
         // var filePath = './' + fileName;
