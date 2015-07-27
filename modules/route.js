@@ -213,8 +213,9 @@ function *distribute(_mapper){
                 else{
 
                     if(typeof pageData.errStat == 'undefined'){
-                        var header = yield header_nav();
-                        pageData.header_nav = header.navData
+                        var header = yield header_nav.call(this);
+                        pageData.header_nav = header.navData;
+                        pageData.user = header.user;
                     }
 
                     if(this.method==='GET')
