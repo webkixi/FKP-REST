@@ -6,6 +6,8 @@ require('../../_comm_plug/jquery_ui')
 require('../../_comm_plug/jquery.fileupload')
 require('../../_comm_plug/jquery_i')
 require('../../_comm_plug/jquery_form')
+
+
 // $(function(){
 //     var ajaxAsync = true;
 //     var ajaxTimeout = 3000;
