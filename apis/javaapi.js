@@ -37,6 +37,8 @@ var apiPath = {
         updateBaseInfo: src+'api/account/account-save-baseInfo.html',
         goods_list:src+'api/goods/list.html',//商品列表
         goods_cat_list:src+'api/goods/cat/list.html',//商品类别列表
+        goods_cat2_list:src+'api/goods/cat2/list.html',//商品品名列表
+        goods_brand_list:src+'api/goods/brand/list.html',//商品品牌列表
         goods_storages_list:src+'api/goods/storages/list.html',//仓库列表
 
         //公共部分
