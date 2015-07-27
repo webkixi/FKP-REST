@@ -13,7 +13,8 @@ var apiPath = {
         login: '/account/login',
         account_goods_list: '/goods/list.html',
         updateAccount: '/account/myaccount',
-        updateAccountBase: '/account/myaccount_base'
+        updateAccountBase: '/account/myaccount_base',
+        updateAccountAuth: '/account/myaccount_auth'
     }
 }
 

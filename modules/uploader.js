@@ -99,6 +99,12 @@ function *upLoaderService(path2save){
 function *aliService(path2save){
 
     if (!this.request.is('multipart/*')) return yield next
+
+    var part;
+    var filename;
+    var buffers = [];
+    var nread = 0;
+
     var parts = parse(this, {
         // only allow upload `.jpg` files
         checkFile: function (fieldname, file, filename) {
@@ -110,11 +116,6 @@ function *aliService(path2save){
         }
     })
 
-    var part;
-    var filename;
-    var buffers = [];
-    var nread = 0;
-
     while (part = yield parts) {
         if (part.length) {
             // arrays are busboy fields
@@ -125,15 +126,15 @@ function *aliService(path2save){
             }
         }
         else {
-            if(filename){
-                var ext = path.extname(filename);
-                filename = lib.guid()+ext
-                // filename = path.join(path2save,filename);
-            }
-
-            else{
-                return false;
-            }
+            // if(filename){
+            //     var ext = path.extname(filename);
+            //     filename = lib.guid()+ext
+            //     // filename = path.join(path2save,filename);
+            // }
+            //
+            // else{
+            //     return false;
+            // }
 
             part.on('data', function (chunk) {
                 buffers.push(chunk);
@@ -163,121 +164,121 @@ function *aliService(path2save){
             });
         }
     }
-
-    //ali 图片上传
-    function mup(buffer,fileKey){
-
-        // File
-        // var fileName = 'test.mp3';
-        // var filePath = './' + fileName;
-        // var fileKey = fileName;
-        // var buffer = fs.readFileSync(filePath);
-        // Upload options
-
-        var bucket = 'jh-ljs-account';
-
-        // Upload
-        var startTime = new Date();
-        var partNum = 0;
-        var partSize = 1024 * 1024 * 5; // Minimum 5MB per chunk (except the last part)
-        var numPartsLeft = Math.ceil(buffer.length / partSize);
-        var maxUploadTries = 3;
-
-        var multipartMap = {
-            Parts: []
-        };
-
-        function completeMultipartUpload(oss, doneParams) {
-            oss.completeMultipartUpload(doneParams, function (err, data) {
-                if (err) {
-                    console.log("An error occurred while completing the multipart upload");
-                    console.log(err);
-                }
-
-                else {
-                    var delta = (new Date() - startTime) / 1000;
-                    console.log('Completed upload in', delta, 'seconds');
-                    console.log('Final upload data:', data);
-                }
-            });
-        }
-
-        function uploadPart(oss, multipart, partParams, tryNum) {
-            var tryNum = tryNum || 1;
-            oss.uploadPart(partParams, function (multiErr, mData) {
-                if (multiErr) {
-                    console.log('multiErr, upload part error:', multiErr);
-                    if (tryNum < maxUploadTries) {
-                        console.log('Retrying upload of part: #', partParams.PartNumber)
-                        uploadPart(oss, multipart, partParams, tryNum + 1);
-                    }
-                    else {
-                        console.log('Failed uploading part: #', partParams.PartNumber)
-                    }
-                    return;
-                }
-
-                multipartMap.Parts[this.request.params.PartNumber - 1] = {
-                    ETag: mData.ETag,
-                    PartNumber: Number(this.request.params.PartNumber)
-                };
-
-                console.log("Completed part", this.request.params.PartNumber);
-                console.log('mData', mData);
-
-                if (--numPartsLeft > 0) return; // complete only when all parts uploaded
-
-                var doneParams = {
-                    Bucket: bucket,
-                    Key: fileKey,
-                    CompleteMultipartUpload: multipartMap,
-                    UploadId: multipart.UploadId
-                };
-
-                console.log("Completing upload...");
-                completeMultipartUpload(oss, doneParams);
-            });
-        }
-
-        // Multipart
-        console.log("Creating multipart upload for:", fileKey);
-        oss.createMultipartUpload({
-          ACL: 'public-read',
-          Bucket: bucket,
-          Key: fileKey,
-          ContentType: 'audio/mpeg',
-          ContentDisposition: ''
-          //CacheControl: '',
-          //ContentEncoding: '',
-          //Expires: '',
-          //ServerSideEncryption: ''
-        }, function (mpErr, multipart) {
-          if (mpErr) {
-            console.log('Error!', mpErr);
-            return;
-          }
-          console.log("Got upload ID", multipart.UploadId);
-
-          // Grab each partSize chunk and upload it as a part
-          for (var rangeStart = 0; rangeStart < buffer.length; rangeStart += partSize) {
-            partNum++;
-            var end = Math.min(rangeStart + partSize, buffer.length),
-              partParams = {
-                Body: buffer.slice(rangeStart, end),
-                Bucket: bucket,
-                Key: fileKey,
-                PartNumber: String(partNum),
-                UploadId: multipart.UploadId
-              };
-
-            // Send a single part
-            console.log('Uploading part: #', partParams.PartNumber, ', Range start:', rangeStart);
-            uploadPart(oss, multipart, partParams);
-          }
-        });
-    }
+    return yield {filename: filename};
 }
 
+//ali 图片上传
+function mup(buffer,fileKey){
+
+    // File
+    // var fileName = 'test.mp3';
+    // var filePath = './' + fileName;
+    // var fileKey = fileName;
+    // var buffer = fs.readFileSync(filePath);
+    // Upload options
+
+    var bucket = 'jh-ljs-account';
+
+    // Upload
+    var startTime = new Date();
+    var partNum = 0;
+    var partSize = 1024 * 1024 * 5; // Minimum 5MB per chunk (except the last part)
+    var numPartsLeft = Math.ceil(buffer.length / partSize);
+    var maxUploadTries = 3;
+
+    var multipartMap = {
+        Parts: []
+    };
+
+    function completeMultipartUpload(oss, doneParams) {
+        oss.completeMultipartUpload(doneParams, function (err, data) {
+            if (err) {
+                console.log("An error occurred while completing the multipart upload");
+                console.log(err);
+            }
+
+            else {
+                var delta = (new Date() - startTime) / 1000;
+                console.log('Completed upload in', delta, 'seconds');
+                console.log('Final upload data:', data);
+            }
+        });
+    }
+
+    function uploadPart(oss, multipart, partParams, tryNum) {
+        var tryNum = tryNum || 1;
+        oss.uploadPart(partParams, function (multiErr, mData) {
+            if (multiErr) {
+                console.log('multiErr, upload part error:', multiErr);
+                if (tryNum < maxUploadTries) {
+                    console.log('Retrying upload of part: #', partParams.PartNumber)
+                    uploadPart(oss, multipart, partParams, tryNum + 1);
+                }
+                else {
+                    console.log('Failed uploading part: #', partParams.PartNumber)
+                }
+                return;
+            }
+
+            multipartMap.Parts[this.request.params.PartNumber - 1] = {
+                ETag: mData.ETag,
+                PartNumber: Number(this.request.params.PartNumber)
+            };
+
+            console.log("Completed part", this.request.params.PartNumber);
+            console.log('mData', mData);
+
+            if (--numPartsLeft > 0) return; // complete only when all parts uploaded
+
+            var doneParams = {
+                Bucket: bucket,
+                Key: fileKey,
+                CompleteMultipartUpload: multipartMap,
+                UploadId: multipart.UploadId
+            };
+
+            console.log("Completing upload...");
+            completeMultipartUpload(oss, doneParams);
+        });
+    }
+
+    // Multipart
+    console.log("Creating multipart upload for:", fileKey);
+    oss.createMultipartUpload({
+      ACL: 'public-read',
+      Bucket: bucket,
+      Key: fileKey,
+      ContentType: 'audio/mpeg',
+      ContentDisposition: ''
+      //CacheControl: '',
+      //ContentEncoding: '',
+      //Expires: '',
+      //ServerSideEncryption: ''
+    }, function (mpErr, multipart) {
+      if (mpErr) {
+        console.log('Error!', mpErr);
+        return;
+      }
+      console.log("Got upload ID", multipart.UploadId);
+
+      // Grab each partSize chunk and upload it as a part
+      for (var rangeStart = 0; rangeStart < buffer.length; rangeStart += partSize) {
+        partNum++;
+        var end = Math.min(rangeStart + partSize, buffer.length),
+          partParams = {
+            Body: buffer.slice(rangeStart, end),
+            Bucket: bucket,
+            Key: fileKey,
+            PartNumber: String(partNum),
+            UploadId: multipart.UploadId
+          };
+
+        // Send a single part
+        console.log('Uploading part: #', partParams.PartNumber, ', Range start:', rangeStart);
+        uploadPart(oss, multipart, partParams);
+      }
+    });
+}
 
 module.exports = {
     local: upLoaderService,
