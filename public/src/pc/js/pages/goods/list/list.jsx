@@ -140,7 +140,6 @@ $(".queryGoodsBtn").click(function(){
 	param.brandId =  $(this).parents(".tab-content").find(".brandId").val();
 	param.storage =  $(this).parents(".tab-content").find(".storage").val();
 	param.pageCurrent=1;
-	console.log(param)
 	getGoodsList(param,rdquery);
 	
 });
@@ -150,7 +149,6 @@ function rdquery(body){
 	var datas = dealwithdata(body.pagination.recordList)
 	delete pagination.recordList
 	pagination.recordList = datas;
-	console.log(body);
 	SA.setter('tabswitch',{data: pagination});
 }
 
