@@ -20,7 +20,7 @@
 @@include('../_common/header/header.html')
 <div class="wrapper">
     <div class="current_path container">
-        <a href="/index.html">首页</a> > <a href="/account/myaccount.html">会员中心</a> > <a href="/goods/list.html">我的商品</a> > <a class="currents"> 商品详情 </a>
+        <a href="/index.html">首页</a> > <a href="/account-center.html">会员中心</a> > <a href="/goods/list.html">我的商品</a> > <a class="currents"> 商品详情 </a>
     </div>
     <div class="myaccount_main">
         <div class="container">
@@ -43,15 +43,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="catId">类别：</label>
-                                <select class="select" name="catId_1" id="catId_1" >
-                                    <option value="">--请选择类别--</option>
-                                    {{{catList}}}
-                                </select>
-                                <span class="required">*</span>
+                                <select class="form-control g_cate" name="catId" id="catId" >
+                                      <option value="0">--请选择类别--</option>
+                                      {{{catList}}}
+                                </select><span class="required">*</span>
                             </div>
                             <div class="form-group">
                                 <label for="catId2">品名：</label>
                                 <select class="form-control g_cname" name="catId2" id="catId2" maxlength="100"><span class="required">*</span>
+                                {{{cat2List}}}
                                 </select>
                             </div>
                             <div class="form-group">
@@ -70,12 +70,11 @@
                             <div class="form-group mygoods_upload">
                                 <div class="pictures_box">
                                     <ul id="pictures" class="pictures">
-
-                                [#assign index=1/]
+<!--                                 [#assign index=1/]
                                 [#list spGoodsPictureList as picture]
                                     [#if index > 3] [#break] [/#if]
-                                        <li class="goods_updown exist_img" data-id="{{picture.id}}">
-                                            <img src="{{path}}{{picture.original}}" alt="" class="goods_upic">
+                                        <li class="goods_updown exist_img" data-id="${picture.id}">
+                                            <img src="${path}${picture.original}" alt="" class="goods_upic">
                                             <div class="goods_upicbtn">
                                                 <span title="删除" class="del_img"></span>
                                                 <span title="更新" class="updata_img"></span>
@@ -83,11 +82,11 @@
                                             <span class="upload_test">正在上传···</span>
                                             <span class="file_btn">+</span>
                                             <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" class="pic_src" name="" val="{{picture.original}}">
+                                            <input type="hidden" class="pic_src" name="" val="${picture.original}">
                                         </li>
                                     [#assign index=index+1/]
                                 [/#list]
-                                [#if 3 > index - 1]
+                                [#if 3 > index - 1] 
                                     [#list index..3 as x]
                                         <li class="goods_updown " data-id="">
                                             <img src="" alt="" class="goods_upic">
@@ -101,7 +100,7 @@
                                             <input type="hidden" class="pic_src" name="" val="">
                                         </li>
                                     [/#list]
-                                [/#if]
+                                [/#if] -->
                                     </ul>
                                 </div>
                             </div>
@@ -117,9 +116,9 @@
                                 <label for="stock">挂牌量：</label>
                                 <input class="user_stock form-control" type="text" style="width: 150px;" maxlength="15" value="{{spGoods.stock}}" name="stock" id="stock" >
                                 <select class="form-control" id="unit" name="unit">
-                                      [#list unitTypeList as bean]
-                                      <option value="{{bean.value}}" [#if spGoods.unit==bean.value] selected [/#if]>{{bean.desc}}</option>
-                                      [/#list]
+<!--                                       [#list unitTypeList as bean]
+                                      <option value="${bean.value}" [#if spGoods.unit==bean.value] selected [/#if]>${bean.desc!''}</option>
+                                      [/#list] -->
                                 </select><span class="required">*</span>
                             </div>
                             <div class="form-group">
@@ -138,7 +137,7 @@
                                 <label for="valuation">计价方式：</label>
                                 <select class="form-control form-methods" name="valuation" id="valuation" >
                                       [#list valuationTypeList as bean]
-                                      <option value="{{bean.value}}" [#if spGoods.valuation==bean.value] selected [/#if]>{{bean.desc}}</option>
+                                      <option value="${bean.value}" [#if spGoods.valuation==bean.value] selected [/#if]>${bean.desc!''}</option>
                                       [/#list]
                                 </select>
                             </div>
@@ -146,13 +145,13 @@
                                 <label for="exchange">点价合约：</label>
                                 <select class="form-control form-midpoints"  style="width: 200px;" name="exchange" id="exchange">
                                       [#list exchangeList as bean]
-                                      <option value="{{bean.value}}" [#if spGoods.exchange==bean.value] selected [/#if]>{{bean.desc}}</option>
+                                      <option value="${bean.value}" [#if spGoods.exchange==bean.value] selected [/#if]>${bean.desc!''}</option>
                                       [/#list]
                                 </select>
                                 <span id="brandTradeCode" style="width: 80px;">&nbsp;</span>
                                 <select class="form-control form-midpoints" style="width: 150px;" name="contractPeriod" id="contractPeriod">
                                       [#list contractPeriodList as bean]
-                                      <option value="{{bean}}" [#if spGoods.contractPeriod==bean] selected [/#if]>{{bean}}</option>
+                                      <option value="${bean}" [#if spGoods.contractPeriod==bean] selected [/#if]>${bean}</option>
                                       [/#list]
                                 </select>
                             </div>
@@ -169,7 +168,7 @@
                             </div>
                             <div class="form-group" data-valuation="0">
                                 <label for="stopDate">点价截止时间：</label>
-                                <input type="text" class="form-control" style="width:120px;" name="stopDate" id="stopDate" value="{{spGoods.stopDate}}" >
+                                <input type="text" class="form-control" style="width:120px;" name="stopDate" id="stopDate" value="${spGoods.stopDate?string("yyyy-MM-dd")}" >
                                 <select class="form-control form-midpoints" style="width:70px;" name="stopHour" id="stopHour">
                                 </select>时
                                 <select class="form-control form-midpoints" style="width:70px;" name="stopMinute" id="stopMinute">
@@ -180,32 +179,32 @@
                                 <label for="partyPrice">点价方：</label>
                                 <select class="form-control form-party" name="partyPrice" id="partyPrice">
                                       [#list partyTypeList as bean]
-                                      <option value="{{bean.value}}" [#if spGoods.partyPrice==bean.value] selected [/#if]>{{bean.desc}}</option>
+                                      <option value="${bean.value}" [#if spGoods.partyPrice==bean.value] selected [/#if]>${bean.desc!''}</option>
                                       [/#list]
                                 </select>
                             </div>
                             <div class="form-group" data-valuation="1">
                                 <label for="price">单价：</label>
-                                <input class="user_discount form-control" style="width:150px;" type="text" maxlength="15" name="price" id="price" value="[#if spGoods.price?if_exists]{{spGoods.price}}[/#if]" >
+                                <input class="user_discount form-control" style="width:150px;" type="text" maxlength="15" name="price" id="price" value="[#if spGoods.price?if_exists]${spGoods.price?string('#.00')}[/#if]" >
                                 <span class="required">*</span>元<span id="priceUnit"></span>
                             </div>
                             <div class="form-group">
                                 <label for="storage">仓库：</label>
                                 <select class="form-control form-warehouse" name="storage" id="storage">
                                       [#list storageList as bean]
-                                      <option value="{{bean.value}}" [#if spGoods.storage==bean.value] selected [/#if]>{{bean.desc}}</option>
+                                      <option value="${bean.value}" [#if spGoods.storage==bean.value] selected [/#if]>${bean.desc!''}</option>
                                       [/#list]
                                 </select>
                             </div>
                             <div class="form-group" data-storage="99">
                                 <label for="storageAddr">仓库地址：</label>
-                                <textarea class="form-control form-place" rows="3" name="storageAddr" id="storageAddr" maxlength="100">{{spGoods.storageAddr}}</textarea>
+                                <textarea class="form-control form-place" rows="3" name="storageAddr" id="storageAddr" maxlength="100">${spGoods.storageAddr}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="deliveryWay">交货方式：</label>
                                 <select class="form-control form-delivery" name="deliveryWay" id="deliveryWay">
                                       [#list deliveryWayList as bean]
-                                      <option value="{{bean.value}}" [#if spGoods.deliveryWay==bean.value] selected [/#if]>{{bean.desc}}</option>
+                                      <option value="${bean.value}" [#if spGoods.deliveryWay==bean.value] selected [/#if]>${bean.desc!''}</option>
                                       [/#list]
                                 </select>
                             </div>
@@ -213,7 +212,7 @@
                                 <label for="paymentWay">付款方式：</label>
                                 <select class="form-control form-payment" name="paymentWay" id="paymentWay">
                                       [#list paymentTypeList as bean]
-                                      <option value="{{bean.value}}" [#if spGoods.paymentWay==bean.value] selected [/#if]>{{bean.desc}}</option>
+                                      <option value="${bean.value}" [#if spGoods.paymentWay==bean.value] selected [/#if]>${bean.desc!''}</option>
                                       [/#list]
                                 </select>
                             </div>
@@ -221,13 +220,13 @@
                                 <label for="isShelves">挂牌状态：</label>
                                 <select class="form-control form-state" name="isShelves" id="isShelves">
                                       [#list listStatusList as bean]
-                                      <option value="{{bean.value}}" [#if spGoods.isShelves==bean.value] selected [/#if]>{{bean.desc}}</option>
+                                      <option value="${bean.value}" [#if spGoods.isShelves==bean.value] selected [/#if]>${bean.desc!''}</option>
                                       [/#list]
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="remark">备注：</label>
-                                <textarea class="form-control form-descr" rows="3" name="remark" id="remark" maxlength="100">{{spGoods.remark}}</textarea>
+                                <textarea class="form-control form-descr" rows="3" name="remark" id="remark" maxlength="100">${spGoods.remark}</textarea>
                             </div>
                             <div class="form-group r_yzxx"><label for="name"></label><button id="btnSave" type="button" class="btn btn-orange">保存</button><button id="btnCancel" type="button" class="btn btn-default">取消</button></div>
                         </form>
