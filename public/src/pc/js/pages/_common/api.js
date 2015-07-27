@@ -8,7 +8,7 @@ var apiPath = {
         region: '/region',
         user: src+'checkUserStatus.html',
         mall_list: src+'api/mall/item/list/query.html',
-        mall_attr: src+'api/mall/item/list/attributes.html',
+        mall_attr: '/mall/api_list_attr',
         goods_attr: '/common/goods_attr',
         login: '/account/login',
         account_goods_list: '/goods/list.html',

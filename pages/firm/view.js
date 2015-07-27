@@ -3,12 +3,15 @@ var api = require('../../apis/javaapi');
 
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/h5/lazypage')
-    var dataSet = {};
-    
-    dataSet.root = api.apiPath.base;
-    dataSet.navFirm = "active";
-    oridata = libs.$extend(true,oridata,dataSet);
+    libs.wlog('pages/firm/view.js')
+    var mtd = this.method;
+    var local = this.local;
+    var apiData = [];
+    if(mtd==='GET'){
+
+    }else if(mtd==='POST'){
+    	
+    }
     return oridata
 }
 

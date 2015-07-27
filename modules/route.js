@@ -142,7 +142,7 @@ function *getRegion(){
 function *uploader(){
     libs.clog('上传数据');
     var fileUpLoader = require('./uploader');
-    var saveFileStat = yield fileUpLoader.call(this,this.config.upload_root);
+    var saveFileStat = yield fileUpLoader.ali.call(this,this.config.upload_root);
     if(saveFileStat){
         var success = { success: true}
         this.body = JSON.stringify(success)

@@ -47,7 +47,7 @@ var tmpApp = React.createClass({
 	render: function () {
 		var fills = this.loopRender();
 		return (
-			<ul {...this.props} className={"hlist elephant u-clearfix"}>
+			<ul className={"hlist elephant u-clearfix"}>
 				{fills}
 			</ul>
 		)

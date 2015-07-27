@@ -6,11 +6,8 @@
 <script>
 </script>
 </head>
-
 <body>
 @@include('../_common/header/header.html')
-	
-
 <div class="wrapper">
 	<div class="current_path container">
 		<a href="${rc.contextPath}/index.html">首页</a> > <a class="currents"> 企业介绍 </a>
@@ -27,11 +24,11 @@
 					</div>
 					<div class="myaccount_abcom">
 						<p>
-						[#if firmDetail.introduce?exists] 
-						${firmDetail.introduce!}
-						[#else]
-						提示:您的企业简介尚未填写,立即 <i> <a style="color: red;" href='${rc.contextPath}/firm/detail/edit.html'>添加企业简介</a></i>!
-						[/#if]
+						{{#if firmDetail.introduce}}
+						{{firmDetail.introduce}}
+						{{else}}
+						提示:您的企业简介尚未填写,立即 <i> <a style="color: red;" href='/firm/edit.html'>添加企业简介</a></i>!
+						{{/if}}
 						</p>
 					</div>
 					<div>
@@ -48,9 +45,8 @@
 
 <script type="text/javascript">
 	function editFirmDetail() {
-		document.location.href = "${rc.contextPath}/firm/detail/edit.html";
+		document.location.href = "/firm/edit.html";
 	}
 </script>
-
 </body>
 </html>	

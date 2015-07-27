@@ -2,7 +2,7 @@
 var React = require('react/addons');
 var config = require('../../config');
 
-var imagePath = config.imagePath;
+var imagePath = config.goods_img;
 
 var elephant = React.createClass({
 	componentDidMount: function () {
@@ -49,7 +49,7 @@ var elephant = React.createClass({
             <li className={clsName} style={sty}>
                 <div className={"inner"}>
 					<div className={"hheader"}>
-	                    <a href={"http://www.163.com"}>
+	                    <a href={"/mall/item_detail/"+data.id+'.html'}>
 	                        <img src={image} />
 	                    </a>
 	                </div>

@@ -29,12 +29,15 @@ var apiPath = {
         //用户中心
         loginCheck: src+'api/account/loginCheck.html',  //用户检测
         regist: src+'api/account/account-save.html',  //注册
-        checkMC: src+'api/account/checkLoginPhoneAndCode.html',  //
+        checkMC: src+'api/account/checkLoginPhoneAndCode.html',  //校验验证码
         code: src+'api/account/send-sms-code.html',   //拿取手机验证码
         forget: src+'api/checkForgetPassword.html',  //忘记密码
         user: src+'checkUserStatus.html',   //检测用户状态
         updatePassword: src+'api/account/account-save-password.html',
         updateBaseInfo: src+'api/account/account-save-baseInfo.html',
+
+        //商品
+
         goods_list:src+'api/goods/list.html',//商品列表
         goods_cat_list:src+'api/goods/cat/list.html',//商品类别列表
         goods_cat2_list:src+'api/goods/cat2/list.html',//商品品名列表
@@ -59,7 +62,11 @@ var apiPath = {
         mall_order_detail: src+'api/mall/trade/order/detail.html',//确定订单
         mall_order_submit: src+'api/mall/trade/order/submit.html',//提交订单
         mall_list: src+'api/mall/item/list/query.html',  //商城列表
-        mall_attr: src+'api/mall/item/list/attributes.html'  //商城筛选
+        mall_attr: src+'api/mall/item/list/attributes.html',  //商城筛选
+
+        //订单页
+        detail: src+'api/order/contract/detail.html',  //我的卖单详情
+        attr:src+'api/goods/attrs/list.html'    //查询商品常量属性列表.
     }
 }
 

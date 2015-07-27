@@ -580,28 +580,6 @@ div.info-wrap .info-left a{overflow: visible;}
 /***************************************资讯页面 end*****************************************/
 /***************************************账号信息 start*****************************************/
 
-
-
-/*电子合同*/
-.ele_contract{ color: #666; margin-left: 20px; font-size: 16px;}
-.ele_contract .ele_chead{ border-bottom: 1px solid #ddd; text-align: center;}
-.ele_contract .ele_chead h2{ font-weight: 600; font-size: 20px;float:left;width:100%;}
-.ele_contract .ele_chead ul{ text-align: left; font-size: 18px;float:right;}
-.ele_contract .ele_chead li{ display: block; margin-bottom: 5px; font-size: 16px;}
-.ele_contract .ele_cmain{ text-align: left; margin-bottom: 50px;}
-.ele_contract .ele_cmain h3,.ele_contract .ele_cmain em,.ele_contract .ele_cmain h4{ font-size: 16px; font-weight: 600; margin-bottom: 10px;}
-.ele_contract .ele_cmain em{ margin-bottom: 5px; display: block; font-style: normal;}
-.ele_contract .ele_cmain h4{ margin-bottom: 15px;}
-.ele_contract .ele_cmain h5{ margin-bottom: 10px; margin-top: 0; font-weight: bold;}
-.ele_contract .ele_cmain span{ font-size: 16px; margin-left: 33px; margin-bottom: 10px; display: block;}
-.ele_contract .ele_cmain p{ font-size: 14px; margin-left: 33px; line-height: 25px;}
-.ele_cfoot{ border-top: 2px solid #ddd; text-align: right; margin-bottom: 50px; padding-top: 10px;}
-.ele_cfoot a{ display: inline-block; color: #ff6600;}
-.ele_contract .table>thead>tr>th{ border:1px solid #666!important;}
-.ele_contract .table>tbody>tr>td{ font-size: 14px;}
-.ele_contract .ele_cmoney{ text-align: left!important;  font-size: 16px!important;}
-.ele_contract .table th,.ele_contract .table td{border: 1px solid #666;min-width: 82px; text-align: center}
-.myorder-inp{border: none;border-bottom: 1px solid #ff6600;width: 92%; color: #666; padding: 0 5px;}
 /***************************************账号信息 end*****************************************/
 
 span.required{
@@ -634,7 +612,7 @@ span.required{
 .doc li ul{padding-left:0;}
 
 /**************************企业简介************************************/
-.myaccount_about{min-height: 585px;}
+.myaccount_about{min-height: 585px; padding-left:20px;}
 .myaccount_abtitle{ color: #ff6600; font-size: 16px; margin-bottom: 10px;border-bottom: 2px solid #ff6600; font-weight: bold; padding-bottom: 10px;}
 .myaccount_abcom{ min-height: 200px; padding: 20px; border: 1px solid #ff6600;}
 .myaccount_abcom p{ color: #666; margin-bottom: 0;}
@@ -673,6 +651,9 @@ p.text-danger,p.text-danger:hover{
     color: #ff6600;
     background: url(../images/r.png) no-repeat right center;
     display: block;
+}
+.myaccount_main{
+  margin-top: 20px;
 }
 .account_nav{
   margin-right: 10px;

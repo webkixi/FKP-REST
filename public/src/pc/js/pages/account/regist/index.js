@@ -72,7 +72,7 @@ var chkOptions = {
         if(level==0||!level){
 			//tmp = tmp;
 			$(ipt).addClass("bd_col");
-        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("6-20位字符，建议由字母，数字和符号两种以上组合");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("8-20位字符，建议由字母，数字和符号两种以上组合");
         }
         if(level==1){
         	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("您输入的密码强度过弱!");
@@ -434,7 +434,6 @@ function getRegion(id,cb){
 //三级联动
 $('.u_address').delegate('select','change',function(){
     var index = $(this).index();
-    console.log(index)
     var id = $(this).val();
     //省份
     if(index===1){
@@ -475,7 +474,6 @@ function chkPhoneValue(){
 	if(RegPhoneStat){
         //ajax 提交
 		api.req('regist',query,function(body){
-			console.log(body)
 			if(body.success){
 	            $("#mobile_error").html("");
 	            mobileFlags = true;
@@ -523,8 +521,6 @@ function chkCodeValue(){
 	if(RegCodeStat){
         //ajax 提交
 		api.req('regist',query,function(body){
-			console.log(body)
-			console.log("dddddddddddd")
 			//var jo = JSON.parse(body);
 			if(body.success){
 	          //dropAlert(jo.success);
@@ -580,16 +576,11 @@ function checkAccount(){
 		address: inputs.RegAdd.ipt.value,
 		mustRead: inputs.RegMustRead.ipt.value
 	}
-	console.log(mustRead)
-	console.log(query)
 	if(RegAccountStat){
         //ajax 提交
 		api.req('regist',query,function(body){
-			console.log(body)
-			console.log("333333333333333333333")
 			//var jo = JSON.parse(body);
 			if(body.success){
-				console.log("成功")
 				var SregName = $("#loginName").val();
 				$(".r_wmessage").addClass("hidden");
 				$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");
@@ -597,7 +588,6 @@ function checkAccount(){
 				$(".Regname").html(SregName);
 				$(".r_wrap_list.r_wmessage,.r_wrap_list.r_wyzsj").remove();
 	        }else{
-	        	console.log("失败")
 	        	alert(body.msg);
 	        	//dropAlert(jo.errmsg);
 	        }

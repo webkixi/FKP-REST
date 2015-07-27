@@ -29,6 +29,18 @@
 	.ele_cmain{
 		text-align: left;
 		margin-bottom: 50px;
+		.span{
+			margin-left: 33px;
+			display: block;
+		}
+		.delivery_input{
+			border-bottom: 1px solid #000;
+			display: inline-block;
+			margin: 0;
+			padding: 0 5px;
+			min-width: 60px;
+			text-align: center;
+		}		
 	}
 	h3,em,h4{
 		font-size: 16px;
@@ -48,11 +60,9 @@
 		margin-top: 0;
 		font-weight: bold;
 	}
-	span{
-		font-size: 16px;
-		margin-left: 33px;
-		margin-bottom: 10px;
-		display: block;
+	.delivery span{
+		display: inline-block;
+		margin: 0;
 	}
 	p{
 		font-size: 14px;
