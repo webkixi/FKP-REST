@@ -144,7 +144,7 @@ function *uploader(){
     var fileUpLoader = require('./uploader');
     var saveFileStat = yield fileUpLoader.ali.call(this,this.config.upload_root);
     if(saveFileStat){
-        var success = { success: true}
+        var success = { success: true, data: saveFileStat}
         this.body = JSON.stringify(success)
     }
     else{

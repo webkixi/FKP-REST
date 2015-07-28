@@ -28,15 +28,15 @@ function *demoIndexData(oridata){
                 });
                 var apiData = JSON.parse(apiData[1]);
                  if(apiData.success){
-                    console.log(apiData.pagination)
+                    // console.log(apiData.pagination)
                    datas[i]=apiData.pagination.totalCount
                 }
     		};
             dataset.listedPage=datas[1];
             dataset.unlistedPage=datas[2];
 	        dataset.overduePage=datas[3];
-           
-	        
+
+
             //商品类别
             var catData = {};
             catData = yield api.pullApiData('goods_cat_list',{});
@@ -61,10 +61,10 @@ function *demoIndexData(oridata){
         if(typeof this.sess.user!=='undefined'&&this.sess.user){
             userId = this.sess.user.accountNo;
             for (var i = 1; i <= 3; i++) {
-                
+
             };
             //商品列表
-            var param = yield libs.$parse.form(this); 
+            var param = yield libs.$parse.form(this);
             param.accountNo=userId;
             apiData = yield api.pullApiData('goods_list',param);
             dataset = yield JSON.parse(apiData[1]);

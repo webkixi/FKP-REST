@@ -35,6 +35,9 @@ var apiPath = {
         user: src+'checkUserStatus.html',   //检测用户状态
         updatePassword: src+'api/account/account-save-password.html',
         updateBaseInfo: src+'api/account/account-save-baseInfo.html',
+        uploadPictureAuth: src+'api/account/account-picture-auth.html',
+
+        //商品
         goods_list:src+'api/goods/list.html',//商品列表
         goods_cat_list:src+'api/goods/cat/list.html',//商品类别列表
         goods_cat2_list:src+'api/goods/cat2/list.html',//商品品名列表

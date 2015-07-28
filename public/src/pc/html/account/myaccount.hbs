@@ -114,72 +114,84 @@
                             </form>
                         </div>
                         <div class="tab-pane fade " id="myapprove">
-                            <form role="form">
-                                <div class="form-group">
+                            <form id="part2">
+                                <div class="form-group" style="height:140px;">
                                     <label for="name">企业营业执照：</label>
                                     <div class="myaccount_uploadfieldbase">
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
                                         {{#if auth.status}}
-                                        <span class="btn btn-success fileinput-button">
+                                        <!-- 上传营业执照 -->
+                                        <div id="up_yyzz"></div>
+                                        <input type="hidden" id="inputLiecncesName" name="inputLiecncesName">
+                                        <!-- <span id="up_yyzz" class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
                                             <span>上传营业执照</span>
                                             <input id="inputLiecnces" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputLiecncesName" name="inputLiecncesName">
-                                        </span>
-                                        {{/if}}
+                                        </span> -->
+                                        {{else}}
                                         <div class="gallery">
                                             <a href='{{config.imagePath}}{{firm.firmAuth.liecncesPath}}' class='lightbox' rel='roadtrip' title='' id='inputLiecncesHref'>
                                                 <img alt="" src="{{config.account_img}}{{firm.firmAuth.liecncesPath}}" id="inputLiecncesPic" width="100" height="100">
                                             </a>
                                         </div>
+                                        {{/if}}
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="height:140px;">
+                                    <label for="name">组织机构代码：</label>
                                     <div class="myaccount_uploadfieldbase">
-                                        <label for="name">组织机构代码：</label>
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
                                         {{#if auth.status}}
-                                        <span class="btn btn-success fileinput-button">
+                                        <!-- 上传组织机构代码 -->
+                                        <div id="up_zzjg"></div>
+                                        <input type="hidden" id="inputOrgCodeName" name="inputOrgCodeName">
+                                        <!-- <span class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
                                             <span>上传组织机构代码</span>
                                             <input id="inputOrgCode" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputOrgCodeName" name="inputOrgCodeName">
-                                        </span>
-                                        {{/if}}
+                                        </span> -->
+                                        {{else}}
                                         <div class="gallery">
                                             <a href='{{config.account_img}}{{firm.firmAuth.orgCodePath}}' class='lightbox' rel='roadtrip' title='' id='<inputOrgCodeHr></inputOrgCodeHr>ef'>
                                                 <img alt="" src="{{config.account_img}}{{firm.firmAuth.orgCodePath}}" id="inputOrgCodePic" width="100" height="100">
                                             </a>
                                         </div>
+                                        {{/if}}
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="height:140px;">
+                                    <label for="name">税务登记证：</label>
                                     <div class="myaccount_uploadfieldbase">
-                                        <label for="name">税务登记证：</label>
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
                                         {{#if auth.status}}
-                                        <span class="btn btn-success fileinput-button">
+                                        <!-- 上传税务登记证 -->
+                                        <div id="up_swdj"></div>
+                                        <input type="hidden" id="inputTaxName" name="inputTaxName">
+                                        <!-- <span class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
                                             <span>上传税务登记证</span>
                                             <input id="inputTax" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputTaxName" name="inputTaxName">
-                                        </span>
-                                        {{/if}}
+                                        </span> -->
+                                        {{else}}
                                         <div class="gallery">
                                             <a href='{{config.account_img}}{{firm.firmAuth.taxRegPath}}' class='lightbox' rel='roadtrip' title='' id='inputTaxHref'>
                                                 <img alt="" src="{{config.account_img}}{{firm.firmAuth.taxRegPath}}" id="inputTaxPic" width="100" height="100">
                                             </a>
                                         </div>
+                                        {{/if}}
                                     </div>
                                 </div>
                                 {{#if auth.status_init}}
                                     <div class="myapprove_btn">
-                                        <a href="javascript:;" type="button" onclick="accountAuth()" id="accountAuth" class="btn btn-orange">认证申请</a>
+                                        <a href="javascript:;" type="button" id="accountAuth" class="btn btn-orange">认证申请</a>
                                     </div>
                                 {{/if}}
                                 {{#if auth.status_fail}}
                                     <div class="myapprove_btn">
-                                        <a href="javascript:;" type="button" onclick="accountAuth()" id="re-accountAuth" class="btn btn-orange">重新认证</a>
+                                        <a href="javascript:;" type="button" id="re-accountAuth" class="btn btn-orange">重新认证</a>
                                     </div>
                                     <p class="myapprove_error">认证失败原因：&nbsp;&nbsp;
                                         {{firm.firmAuthRecord.description}}

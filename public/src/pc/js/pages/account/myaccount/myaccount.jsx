@@ -51,6 +51,7 @@ $('.u_address').delegate('select','change',function(){
 * 3个表单
 */
 var rePassForm = $('#accountSavePassword')[0];
+var authForm = $('#part2')[0];
 var baseForm = $('#accountSaveBaseInfo')[0];
 
 function getFormData(fff){
@@ -151,4 +152,70 @@ $('#updateBaseInfo').click(function(){
 			alert(222);
 		}
 	})
+});
+
+$('#accountAuth').click(function(){
+    var query={};
+    $(authForm).find('input[type="hidden"]').map(function(i,item){
+        var n = item.name;
+        var v = item.value;
+        query[n] = v;
+    });
+
+    console.log(query);
+
+    api.req('updateAccountAuth',query,function(body){
+		if(body.success){
+            alert(111)
+		}
+		if(body.errStat){
+			alert(222);
+		}
+	})
+
 })
+
+var Uploader = require('modules/upload/upload');
+var render = React.render;
+
+var set_yyzz = function(){
+    //上传完成后的回掉 this是上传图片信息
+    var filename = this.name;
+    $('#inputLiecncesName').val(filename)
+}
+var set_zzjg = function(){
+    var filename = this.name;
+    $('#inputOrgCodeName').val(filename)
+}
+var set_swdj = function(){
+    var filename = this.name;
+    $('#inputTaxName').val(filename)
+}
+
+render(
+    <Uploader btn={'yyzz'} type={2} cb={set_yyzz}/>,
+   document.getElementById('up_yyzz')
+)
+
+render(
+    <Uploader btn={'zzjg'} type={2} cb={set_zzjg}/>,
+   document.getElementById('up_zzjg')
+)
+
+render(
+    <Uploader btn={'swdj'} type={2} cb={set_swdj}/>,
+   document.getElementById('up_swdj')
+)
+
+// render(
+//     <Uploader btn={'ctlBtn'}>
+//         <div id={"uploader"} className={"wu-example"}>
+//            <div id={"thelist"} className={"uploader-list"}></div>
+//            <div className={"btns"}>
+//                <div id={"picker"}>{"选择文件"}</div>
+//                <button id={"ctlBtn"} className={"btn btn-default"}>{"开始上传"}</button>
+//            </div>
+//        </div>
+//    </Uploader>,
+//    document.getElementById('upup')
+// )
