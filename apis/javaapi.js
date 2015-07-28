@@ -33,9 +33,13 @@ var apiPath = {
         code: src+'api/account/send-sms-code.html',   //拿取手机验证码
         forget: src+'api/checkForgetPassword.html',  //忘记密码
         user: src+'checkUserStatus.html',   //检测用户状态
-        updatePassword: src+'api/account/account-save-password.html',
-        updateBaseInfo: src+'api/account/account-save-baseInfo.html',
-        uploadPictureAuth: src+'api/account/account-picture-auth.html',
+        updatePassword: src+'api/account/account-save-password.html',  //更新用户密码
+        updateBaseInfo: src+'api/account/account-save-baseInfo.html',  //更新用户基本信息
+        uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
+
+        //企业信息
+        firmDetailView: src+'api/firm/detail/view.html',  //企业信息浏览
+        firmDetailSave: src+'api/firm/detail/save.html',  //企业信息保存
 
         //商品
         goods_list:src+'api/goods/list.html',//商品列表

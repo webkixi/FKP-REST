@@ -91,3 +91,4 @@ module.exports = (gulp,$)->
 
     return ()->
         gulp.start 'buildMap:writeMap'
+        gulp.start 'copyThirdJsToDist:pro'
