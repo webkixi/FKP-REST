@@ -39,10 +39,11 @@ var apiPath = {
         goods_cat_list:src+'api/goods/cat/list.html',//商品类别列表
         goods_cat2_list:src+'api/goods/cat2/list.html',//商品品名列表
         goods_brand_list:src+'api/goods/brand/list.html',//商品品牌列表
-        goods_storages_list:src+'api/goods/storages/list.html',//仓库列表
+        goods_storages_list:src+'api/goods/storages/list.html',//所有仓库列表
+        goods_mystorages_list:src+'api/goods/myStorages/list.html',//我的仓库列表
         goods_detail: src+'api/goods/detail.html',//查询商品详情
         goods_update: src+'api/goods/update.html',//修改商品详情
-        
+
         //公共部分
         header_nav: src+'api/navbar.html',  //头部导航栏
 
