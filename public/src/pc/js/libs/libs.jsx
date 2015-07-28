@@ -269,7 +269,7 @@ var form_valide = function(opts) {
         verify   : /^[a-z\d]{4}$/i,
         verify_m : /^[\d]{6}$/,
         pwd      : /^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$/,//密码
-        guhua    : /^(\d{3,4})?[-]?\d{7,8}$/,//电话号码的格式        
+        guhua    : /^(\d{3,4})?[-]?\d{7,8}$/,//电话号码的格式
         mobile   : /^(13[0-9]{9}|15[012356789][0-9]{8}|18[0256789][0-9]{8}|147[0-9]{8})$/, //手机
         url      : /^http[s]?:\/\/([\w-]+\.)+[\w-]+([\w-.\/?%&=]*)?$/, //url
         ip4      : /^(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)$/, //ip地址
@@ -337,6 +337,31 @@ var form_valide = function(opts) {
     };
 }
 
+//计算字符变量的长度，包含处理中文
+function strLen(str){return str.replace(/[^\x00-\xff]/g,"aaa").length;}
+
+
+/* 2007-11-28 XuJian */
+//截取字符串 包含中文处理
+//(串,长度,增加...)
+function grabString(str, len, hasDot) {
+    var newLength = 0;
+    var newStr = "";
+    var chineseRegex = /[^\x00-\xff]/g;
+    var singleChar = "";
+    var strLength = str.replace(chineseRegex,"**").length;
+    for(var i = 0;i < strLength;i++) {
+        singleChar = str.charAt(i).toString();
+        if(singleChar.match(chineseRegex) != null) newLength += 2;
+        else newLength++;
+
+        if(newLength > len) break;
+        newStr += singleChar;
+    }
+    if(hasDot && strLength > len) newStr += "...";
+    return newStr;
+}
+
 
 /**
 /* 2015-1-13 yc
@@ -383,19 +408,38 @@ var urlparse = function (url) {
     }
 }
 
+
 module.exports = {
-  getOffset: getOffset,
-  DocmentView: DocmentView,
-  addEvent: addEvent,
-  rmvEvent: rmvEvent,
-  extend: extend,
-  getObjType: getObjType,
-  arg2arr: arg2arr,
-  addSheet: addSheet,
-  lodash: lodash,
-  node: node,
-  guid: guid,
-  clone: clone,
-  formValide: form_valide,
-  urlparse:urlparse
+
+    getOffset:      getOffset,      //取得元素的绝对位置
+
+    DocmentView:    DocmentView,    //取得当前浏览区域的宽、高
+
+    addEvent:       addEvent,       //兼容性绑定方法
+
+    rmvEvent:       rmvEvent,       //兼容性删除方法
+
+    // extend:         extend,         //继承方法，未完成
+
+    getObjType:     getObjType,     //获取对象类型
+
+    arg2arr:        arg2arr,        //类数组对象转成数组
+
+    addSheet:       addSheet,       //动态注入 CSS
+
+    lodash:         lodash,         //引入lodash
+
+    node:           node,           //兼容性原生 DOM操作，目前只有删除DOM
+
+    guid:           guid,           //生成随机名字
+
+    clone:          clone,          //clone一个对象
+
+    formValide:     form_valide,    //校验基础方法
+
+    urlparse:       urlparse,       //url地址解析
+
+    strLen:         strLen,         //获取字符串长度，包含中文
+
+    grabString:     grabString      //截取字符串长度，包含中文
 }
