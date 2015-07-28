@@ -54,12 +54,16 @@ gulp.task 'fonts:build', getTask('fonts-build')
 gulp.task 'html', getTask('html')
 gulp.task 'html:build', getTask('html','pro')
 
+# 拷贝如编辑器这样的无法分解的前端js
+gulp.task 'copyThirdJsToDist:dev', getTask('js-copy2-dev')
+gulp.task 'copyThirdJsToDist:pro', getTask('js-copy2-build')
+
 # 生成API文档，有待改良
 gulp.task 'doc', getTask('doc')
 
 #本地资源静态DEMO服务器
-gulp.task "server", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev'] , getTask('server')
-gulp.task "dev", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev'] , getTask('server','pro')
+gulp.task "server", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server')  # for demo
+gulp.task "dev", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for dev and pro
 
 # 编译webpack未压缩的资源
 gulp.task 'wp:dev', getTask('wp')

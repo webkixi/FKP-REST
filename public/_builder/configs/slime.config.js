@@ -234,6 +234,11 @@ var custom_modules = function(){
       },{
           test: /\.md$/,
           loader: "html!markdown"
+      },{
+          // Only apply on tinymce/tinymce
+          include: require.resolve('tinymce/tinymce'),
+          // Export window.tinymce
+          loader: 'exports?window.tinymce',
       },
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'} // inline base64 URLs for <=8k images, direct URLs for the rest
       // , {
