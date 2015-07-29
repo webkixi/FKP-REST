@@ -70,7 +70,6 @@ function *demoIndexData(oridata){
                         })
                         dataset.catList = renderCatList.join('\n');
                     }
-
                     //查询商品常量属性
                     var attData = {};
                     var renderAttrList = [];
@@ -145,6 +144,8 @@ function *demoIndexData(oridata){
                     var stopHour = apiData.data.spGoods.stopHour < 10 ? "0"+ apiData.data.spGoods.stopHour:apiData.data.spGoods.stopHour;
                     var stopMinute = apiData.data.spGoods.stopMinute < 10 ? "0"+ apiData.data.spGoods.stopMinute:apiData.data.spGoods.stopMinute;
                     apiData.data.spGoods.stopDate = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate() +" "+ stopHour +":"+ stopMinute +":00";
+                    // apiData.data.spGoods.stopDateH = stopHour;
+                    // apiData.data.spGoods.stopDateM = stopMinute;
                     //仓库列表  0==显示自己的
                     var strongsData = {};
                     strongsData =yield api.pullApiData('goods_mystorages_list',{'accountNo':this.sess.user.accountNo});
@@ -167,12 +168,36 @@ function *demoIndexData(oridata){
                         }
                         dataset.storageList1 = strongsData1.list;
                     }
- 
+                    //获取时间 >15   <15
+                    var dateT = new Date();
+                    var month = [];
+                    var dateY = dateT.getFullYear()%100;
+                    var nowMonth = dateT.getMonth()+1;
+                    var nowYear = dateY;                 
+                    for(var i=0;i<12;i++){
+                       //dataset.hyTime = dateM+i
+                        var InowMonth = nowMonth+i;
+                        if(dateT.getDate()>15){
+                            InowMonth++;                    
+                        }                      
+                        if(InowMonth>12){
+                            nowYear = dateY+1;
+                            InowMonth = InowMonth-12;
+                        }  
+                        InowMonth = InowMonth<10?"0"+InowMonth:InowMonth.toString();
+                        var timeData = {'name':nowYear+InowMonth};
+                        if(dataset.spGoods.contractPeriod==(nowYear+InowMonth))timeData.contractPeriod=true;
+                        month[i] =timeData;
+                        dataset.timeHY=month;
+                    }
+                    //单价
+                    if(dataset.spGoods.price != null) dataset.spGoods.price = dataset.spGoods.price.toFixed(2);
                 }    
             }else if(mtd==='POST'){
             }
         }else{
-            dataset.errState = true;
+            if (mtd === "POST") {
+            };
         }
     }else{
       this.redirect('/account/login');

@@ -18,30 +18,35 @@ $(function(){
             $('#storage').html(allStorage);
             $(this).nextAll(".hidden").html(storage);
         }
-    })
+    });
+
     var catId2Init = false;
+    var brandInit = false;
     $('#catId').change(function() {
         changeGoodsCat();
     });
+    $('#catId2').change(function() {
+        changeGoodsCat2();
+    });
+    $('#catId').trigger("change"); 
+
     function changeGoodsCat() {
         if(!$('#catId').val()){
                 messager.alert({title:"提示",content:"请选择类别！",type:"warning"});
             return;
         }
-        var query={
-            catId: $('#catId').val()
-        }
-        api.req('goods/cat2/list.html',query,function(body){
+        //商品属性类型type值为，category类别，product品名，brand品牌，storage仓库 ，参数2为查询条件
+        api.req('goods_attr',{type:'product',catId: $('#catId').val()},function(body){
             if(body.success){
+                
                 $('#catId2').empty();
-                $(response).each(function(index, item){ 
+                body.list.map(function(item){ 
                     $('#catId2').append("<option value='" + item.id + "' tradeCode='" + item.pageTitle + "'>" + item.catName + "</option>");
                 });
                 if(catId2Init == false) {
-                    //$('#catId2').val({{spGoods.catId2}});
+                    $('#catId2').val(cI);
                     catId2Init = true;
                 }
-
                 //显示交易代码
                 var tradeCode = $("#catId2").find("option:selected").attr("tradeCode");
                 if(tradeCode && tradeCode != "") {
@@ -51,5 +56,22 @@ $(function(){
                 return;                
             }
         })
+    }
+    function changeGoodsCat2() {
+        if(!$('#catId2').val()){
+            return;
+        }
+        api.req('goods_attr',{type:'brand',catId: $('#catId').val()},function(body){
+            if(body.success){
+                $('#brandId').empty();
+                body.list.map(function(item){ 
+                    $("#brandId").append("<option value='" + item.id + "' logo='" + item.logo + "'>" + item.brandName + "</option>");
+                });
+                if(brandInit == false) {
+                    $("#brandId").val(bI);
+                    brandInit = true;
+                }            
+            }
+        })          
     }    
 })

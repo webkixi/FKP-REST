@@ -3,18 +3,10 @@
 <head>
 <title>联华大宗</title>
 @@include('../_common/header/head.html')
-<style>
-<!--
-
-.picker__day th, table td {
-    border: 0px;
-}
-.picker__wrap {
-    margin: 0px;
-}
-
--->
-</style>
+<script type="text/javascript">
+    var cI = {{spGoods.catId2}};
+    var bI = {{spGoods.brandId}};
+</script>
 </head>
 <body>
 @@include('../_common/header/header.html')
@@ -143,15 +135,14 @@
                                 </select>
                                 <span id="brandTradeCode" style="width: 80px;">&nbsp;</span>
                                 <select class="form-control form-midpoints" style="width: 150px;" name="contractPeriod" id="contractPeriod">
-                                      [#list contractPeriodList as bean]
-                                      <option value="${bean}" [#if spGoods.contractPeriod==bean] selected [/#if]>${bean}</option>
-                                      [/#list]
+                                      {{#each timeHY}}
+                                      <option value="{{name}}" {{#if contractPeriod}} selected {{/if}} >{{name}}</option>
+                                      {{/each}}
                                 </select>
                             </div>
                             <div class="form-group" data-valuation="0">
                                 <label for="discount">升贴水：</label>
-                                <input class="user_discount form-control" style="width: 150px;" maxlength="10" type="text" name="discount" id="discount" value="{{spGoods.discount}}">
-                                      元<span id="discountUnit"></span>
+                                <input class="user_discount form-control" style="width: 150px;" maxlength="10" type="text" name="discount" id="discount" value="{{spGoods.discount}}">元<span id="discountUnit"></span>
                             </div>
                             <div class="form-group checkbox" data-valuation="0">
                                 <label for=""></label>
@@ -176,7 +167,7 @@
                             </div>
                             <div class="form-group" data-valuation="1">
                                 <label for="price">单价：</label>
-                                <input class="user_discount form-control" style="width:150px;" type="text" maxlength="15" name="price" id="price" value="[#if spGoods.price?if_exists]${spGoods.price?string('#.00')}[/#if]" >
+                                <input class="user_discount form-control" style="width:150px;" type="text" maxlength="15" name="price" id="price" value="{{#if spGoods.price}}{{spGoods.price}}{{/if}}" >
                                 <span class="required">*</span>元<span id="priceUnit"></span>
                             </div>
                             <div class="form-group">
@@ -232,5 +223,6 @@
 </div>
 @@include('../_common/footer/footer.html')
 @@include('../_common/footer/foot.html')
+
 </body>
 </html>
