@@ -1,7 +1,7 @@
-
-
 libs = require('libs/libs');
 var api = require('../../_common/api');
+
+
 
 
 // react
@@ -14,7 +14,10 @@ function initNum(num){
 }
 function initTime(time){
 		time = new Date(time);
-		return  time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate()
+		return  time.getFullYear() + "-" + initNum(time.getMonth()+1) + "-" + time.getDate()
+}
+function initCurrency(num){
+	return "￥"+num.toFixed(2);
 }
 
 function dealwithdata(data){
@@ -22,37 +25,56 @@ function dealwithdata(data){
 		for (var i = 0; i < data.length; i++) {
 			var items = data[i];
 			datas[i] = [];
-			datas[i].push(items.goodsNo);
-			datas[i].push(items.catName);
+			datas[i].push(items.catName1);
 			datas[i].push(items.catName2);
 			datas[i].push(items.brandName);
 			datas[i].push(items.storageName);
-			datas[i].push(initNum(items.stock) + items.unitName);
-			datas[i].push(initNum(items.minQuantity) + items.unitName);
-			if (items.valuation === 0) {
-				datas[i].push(items.exchangeName + items.contractPeriod + (items.discount>0?"+":"") + (items.discount != 0?items.discount:""));
-				datas[i].push(initTime(items.stopDate)+ " "+ initNum(items.stopHour)+":"+initNum(items.stopMinute)+":00")
+			if(!!items.quantity)datas[i].push(items.quantity+items.unit);
+			else datas[i].push("");
+			if(items.valuationType ===0){
+				if(items.status ===3){
+					if(!!items.unitPrice)datas[i].push(initCurrency(items.unitPrice));
+					else datas[i].push("￥0.00");
+					if(!!items.totalPrice)datas[i].push(initCurrency(items.totalPrice));
+					else datas[i].push("￥0.00");
+				}else{
+					var td = items.pricingContract;
+					if(items.premium>0)td+="+";
+					if(items.premium!=0)td+=items.premium;
+					datas[i].push(td);
+					datas[i].push(td +"*"+items.quantity);
+				}
 			}else{
-				datas[i].push(items.price==""?"":"%"+items.price);
-				datas[i].push("");
-			};
-			datas[i].push(initTime(items.createTime));
-			datas[i].push(<span><a href={"/goods/edit/"+items.id+".html"} target={"_blank"}>编辑</a> <a href={"/mall/item_detail/"+items.id+".html"} target={"_blank"}>详情</a></span>);
+				if(!!items.unitPrice)datas[i].push(initCurrency(items.unitPrice));
+				else datas[i].push("￥0.00");
+				datas[i].push(initCurrency(items.totalPrice));
+			}
+			datas[i].push(initTime(items.signTime));
+			datas[i].push(<a href={"javascript:void(0)"} className={"accountDetail"} data-buyerid={items.buyerAccountNo}>{items.buyerName}</a>);
+			datas[i].push( <a href={"/order/detail/"+items.id+".html"} target={"_blank"}>详情</a>);
 		};
 	return datas;
 }
+var nowTime = initTime(new Date());
+var beginTime = initTime(new Date(new Date())-7776000000);
 
+$("#endDate").val(nowTime);
+$("#beginDate").val(beginTime);
+$("input[data-type='date']").pickadate({
+	max : new Date("2015-07-29")
+});
 var param={
 	pageSize:15,
 	pageCurrent:1,
-	catId:"",
 	catId2:"",
 	brandId:"",
 	storage:"",
-	type:1
+	beginDate:beginTime,
+	endDate:nowTime,
+	type:"seller" //seller卖单 buyer买单
 }
-var thead = ['商品编号','类别','品名','品牌','仓库','挂牌量','起订量','单价（元)','点价截止时间','发布时间','编辑/详情'];
-var itemW = [0,0,0,0,185,0,0,0,105,100,0];//单列宽度，0表示自动
+var thead = ['类别','品名','品牌','仓库','数量','单价（元)','总金额（元)','订单日期','买/卖方','详情'];
+var itemW = [50,60,60,155,185,0,0,100,105,50];//单列宽度，0表示自动
 function pageClick(){
 	var that = this;
 	$(".reactPage").delegate("a","click",function(){
@@ -89,7 +111,7 @@ function rd(body){
 
 function getGoodsList(obj,cb){
 	//request数据并回掉渲染
-	api.req('account_goods_list',obj,cb);
+	api.req('account_order_list',obj,cb);
 }
 getGoodsList(param,rd);
 
@@ -134,14 +156,15 @@ $(".catId2").change(function(){
 })
 
 //查找商品
-$(".queryGoodsBtn").click(function(){
-	param.catId =  $(this).parents(".tab-content").find(".catId").val();
+$("#queryOrderBtn").click(function(){
 	param.catId2 =  $(this).parents(".tab-content").find(".catId2").val();
 	param.brandId =  $(this).parents(".tab-content").find(".brandId").val();
 	param.storage =  $(this).parents(".tab-content").find(".storage").val();
+	param.beginDate =  $(this).parents(".tab-content").find("#beginDate").val();
+	param.endDate =  $(this).parents(".tab-content").find("#endDate").val();
 	param.pageCurrent=1;
 	getGoodsList(param,rdquery);
-	
+	return false;
 });
 function rdquery(body){
 
@@ -156,10 +179,11 @@ $("#myTab>li").click(function(){
 	var params={
 		pageSize:15,
 		pageCurrent:1,
-		catId:"",
 		catId2:"",
 		brandId:"",
 		storage:"",
+		beginDate:beginTime,
+		endDate:nowTime,
 		type:$(this).attr("data-type")
 	}
 	param = params;
@@ -169,4 +193,57 @@ $("#myTab>li").click(function(){
 	for (var i = 0; i < select_box.length; i++) {
 		select_box.eq(i).find("option").eq(0).attr("selected","selected");
 	};
+	$("#endDate").val(nowTime);
+	$("#beginDate").val(beginTime);
 })
+$("#myTabContent").delegate(".accountDetail","click",function(){
+	var accountNo = $(this).attr("data-buyerid");
+	api.req('updateAccount',{'accountNo':accountNo},account);
+	console.log($(this).attr("data-buyerid"));
+})
+function account(body){
+	if(body.success){
+		var data = body.data;
+		console.log(data);
+		var lis = [];
+		lis.push(
+			<li className={"clearfix"}>
+				<div className={"span6"}><b>企业名称：</b>{data.firmInfo.firmFullName}</div>
+				<div className={"span6"}><b>联系人：</b>{data.firmContact.name}</div>
+			</li>
+			)
+		lis.push(
+			<li className={"clearfix"}>
+				<div className={"span6"}><b>联系电话：</b>{data.firmContact.phone}</div>
+				<div className={"span6"}><b>公司固话：</b>{data.firmContact.landline}</div>
+			</li>
+			)
+		lis.push(
+			<li className={"clearfix"}>
+				<div className={"span6"}><b>联系邮箱：</b>{data.firmContact.email}</div>
+				<div className={"span6"}><b>联系QQ：</b>{data.firmContact.qq}</div>
+			</li>
+			)
+		lis.push(
+			<li className={"clearfix"}>
+				<div className={"span6"}><b>传真号码：</b>{data.firmContact.fax}</div>
+			</li>
+			)
+		lis.push(
+			<li className={"clearfix"}>
+				<div className={"span6"}><b>地区：</b>{data.firmContact.provinceName +"	"+data.firmContact.cityName +"	"+data.firmContact.districtName }</div>
+			</li>
+			)
+		lis.push(
+			<li className={"clearfix"}><div className={"span12"}><b>地址：</b>{data.firmContact.address}</div></li>
+			)
+		rend(
+			<ul>{lis}</ul>
+			,document.getElementById("myaccountInfo")
+			)
+		$("#myModalmerchant").addClass("in show");
+		$("#myModalmerchant").find(".close").click(function(){
+			$("#myModalmerchant").removeClass("in show");
+		});
+	}
+}

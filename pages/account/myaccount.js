@@ -121,70 +121,103 @@ function *demoLoginData(oridata){
 
     else if(mtd==='POST'){
         libs.clog('pages/login.js========POST');
-
         var body = yield libs.$parse(this);
 
-        var error = {
-            errStat: 100,
-            errMsg: '重置密码错误'
-        };
-        var success = {
-            success: true
-        }
+        if (!!body.accountNo) {
+            //查找用户信息
+            var apiData= [];
+            apiData = yield api.pullApiData('get_account_info',{'accountNo':body.accountNo});
+            apiData = JSON.parse(apiData[1]);
+            //province id
+            var pid = apiData.data.firmContact.province;
+            //city id
+            var cid = apiData.data.firmContact.city;
+            //county id
+            var did = apiData.data.firmContact.district;
+            var province = yield region.getRegion();
+            province =  JSON.parse(province[1]);
+            province.data.regionList.map(function(items){
+                if(pid == items.id)apiData.data.firmContact.provinceName = items.regionName;
+            })
 
-        if(typeof(body.oldPassword)=='undefined' || typeof(body.newPassword)=='undefined'|| typeof(body.repassword)=='undefined'){
-            if(typeof(body.oldPassword)=='undefined'){
-                error.errStat= 1;
-                error.msg = "原密码不能为空";
+            var city = yield region.getRegion(pid);
+            city =  JSON.parse(city[1]);
+            city.data.regionList.map(function(items){
+                if(cid == items.id)apiData.data.firmContact.cityName = items.regionName;
+            })
+            
+            var county = yield region.getRegion(cid);
+            county =  JSON.parse(county[1]);
+            county.data.regionList.map(function(items){
+                if(did == items.id)apiData.data.firmContact.districtName = items.regionName;
+            })
+            
+
+            return apiData;
+        }else{
+
+            var error = {
+                errStat: 100,
+                errMsg: '重置密码错误'
+            };
+            var success = {
+                success: true
+            }
+
+            if(typeof(body.oldPassword)=='undefined' || typeof(body.newPassword)=='undefined'|| typeof(body.repassword)=='undefined'){
+                if(typeof(body.oldPassword)=='undefined'){
+                    error.errStat= 1;
+                    error.msg = "原密码不能为空";
+                    return error;
+                }
+                if(typeof(body.newPassword)=='undefined'){
+                    error.errStat= 2;
+                    error.msg = "新密码不能为空";
+                    return error;
+                }
+                if(typeof(body.repassword)=='undefined'){
+                    error.errStat= 3;
+                    error.msg = "与新密码不匹配";
+                    return error;
+                }
+            }
+            if(!body.oldPassword||!body.newPassword||!body.repassword){
+                error.errStat= 4;
+                error.msg = "密码不合法，请重新输入";
                 return error;
             }
-            if(typeof(body.newPassword)=='undefined'){
-                error.errStat= 2;
-                error.msg = "新密码不能为空";
-                return error;
-            }
-            if(typeof(body.repassword)=='undefined'){
-                error.errStat= 3;
-                error.msg = "与新密码不匹配";
-                return error;
-            }
-        }
-        if(!body.oldPassword||!body.newPassword||!body.repassword){
-            error.errStat= 4;
-            error.msg = "密码不合法，请重新输入";
-            return error;
-        }
 
-        if(error.errStat===100){
+            if(error.errStat===100){
 
-            //后台校验用户提交数据
-            var stat = formValide(chkOptions)
-        	(body.oldPassword,'password')
-        	(body.newPassword,'password')
-        	([body.newPassword,body.repassword],'repassword')
-        	();
+                //后台校验用户提交数据
+                var stat = formValide(chkOptions)
+            	(body.oldPassword,'password')
+            	(body.newPassword,'password')
+            	([body.newPassword,body.repassword],'repassword')
+            	();
 
-            if(stat){
-                body.accountNo = this.sess.user.accountNo;
-                apiData = yield api.pullApiData('updatePassword',body);
-                var jsonData = JSON.parse(apiData[1]);
-                if(jsonData.success){
-                    this.sess.user = null;
-                    success.redirect = "/account/login.html";
-                    return success;
+                if(stat){
+                    body.accountNo = this.sess.user.accountNo;
+                    apiData = yield api.pullApiData('updatePassword',body);
+                    var jsonData = JSON.parse(apiData[1]);
+                    if(jsonData.success){
+                        this.sess.user = null;
+                        success.redirect = "/account/login.html";
+                        return success;
+                    }
+                    else{
+                        error.errStat = 5;
+                        error.msg = jsonData.errMsg;
+                        return error;
+                    }
                 }
                 else{
-                    error.errStat = 5;
-                    error.msg = jsonData.errMsg;
                     return error;
                 }
             }
             else{
                 return error;
             }
-        }
-        else{
-            return error;
         }
     }
 }
