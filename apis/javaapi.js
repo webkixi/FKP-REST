@@ -28,6 +28,7 @@ var apiPath = {
 
         //用户中心
         loginCheck: src+'api/account/loginCheck.html',  //用户检测
+        get_account_info: src+'api/account/account-center.html',  //用户信息
         regist: src+'api/account/account-save.html',  //注册
         checkMC: src+'api/account/checkLoginPhoneAndCode.html',  //校验验证码
         code: src+'api/account/send-sms-code.html',   //拿取手机验证码
@@ -73,7 +74,9 @@ var apiPath = {
 
         //订单页
         detail: src+'api/order/contract/detail.html',  //我的卖单详情
-        attr:src+'api/goods/attrs/list.html'    //查询商品常量属性列表.
+        attr:src+'api/goods/attrs/list.html',    //查询商品常量属性列表.
+        order_list_buyer:src+'api/order/list/buyer.html',    //买家订单列表.
+        order_list_seller:src+'api/order/list/seller.html'    //卖家订单列表.
     }
 }
 

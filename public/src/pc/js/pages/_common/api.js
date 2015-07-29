@@ -11,7 +11,8 @@ var apiPath = {
         mall_attr: '/mall/api_list_attr',
         goods_attr: '/common/goods_attr',
         login: '/account/login',
-        account_goods_list: '/goods/list.html',
+        account_goods_list: '/goods/list.html',//会员中心，商品列表
+        account_order_list: '/order/list.html',//会员中心，订单列表
         updateAccount: '/account/myaccount',
         updateAccountBase: '/account/myaccount_base',
         updateAccountAuth: '/account/myaccount_auth',
