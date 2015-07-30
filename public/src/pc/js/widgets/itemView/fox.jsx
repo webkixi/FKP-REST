@@ -32,10 +32,23 @@ var fox = React.createClass({
 			sty = this.props.itemStyle;
 		}
 
+		if( this.props.cat > -1){
+			var catParam = '';
+			var cat = this.props.cat;
+			if ( cat === 0 )
+				catParam = 'catId2';
+			if( cat === 1 )
+				catParam = 'model'
+			if( cat === 2 )
+				catParam = 'quality'
+			if( cat === 3 )
+				catParam = 'vender'
+		}
+
 		var guid = libs.guid('fox-');
 		var that = this;
 		return (
-            <li data-val={k1}  className={clsName} style={sty} >
+            <li data-val={k1}  data-param={catParam} className={clsName} style={sty} >
 				<div className={"hheader"} >
 					<a href={v1}>{k2}</a>
 				</div>

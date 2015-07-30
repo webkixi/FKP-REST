@@ -212,14 +212,20 @@ function *distribute(_mapper){
                 if(typeof pageData.errState!=='undefined' && pageData.errState) yield htmlRender.call(this,false,route);
                 else{
 
-                    if(typeof pageData.errStat == 'undefined'){
-                        var header = yield header_nav.call(this);
-                        pageData.header_nav = header.navData;
-                        pageData.user = header.user;
-                    }
+                    // if(typeof pageData.errStat == 'undefined'){
+                    //     var header = yield header_nav.call(this);
+                    //     pageData.header_nav = header.navData;
+                    //     pageData.user = header.user;
+                    // }
 
-                    if(this.method==='GET')
+                    if(this.method==='GET'){
+                        if(typeof pageData.errStat == 'undefined'){
+                            var header = yield header_nav.call(this);
+                            pageData.header_nav = header.navData;
+                            pageData.user = header.user;
+                        }
                         yield htmlRender.call(this,true,route,pageData);
+                    }
 
                     else if(this.method==='POST')
                         yield returnJson.call(this,true,route,pageData);
@@ -247,7 +253,6 @@ function *htmlRender(stat,route,data){
         this.body = yield render(route,data);
     else{
         this.redirect('/404')
-        // this.body = yield render('404');
     }
 }
 
