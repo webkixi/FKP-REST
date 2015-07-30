@@ -18,7 +18,7 @@ var apiPath = {
         updateAccountAuth: '/account/myaccount_auth',
         firmDetailView: '/firm/view',
         firmDetailSave: '/firm/edit',
-        edit: '/goods/edit'
+        edit: '/goods/edit',
     }
 }
 

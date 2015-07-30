@@ -30,15 +30,13 @@
                 </div>
                 <div class="account_r fl wid-10">
                     <div class="mygoods-arclist">
-                        <form id="goodsForm" action="${rc.contextPath}/goods/save.html" method="post">
+                        <form id="goodsForm" action="/goods/save.html" method="post">
                             <input type="hidden" name="fullName" id="fullName">
                             <div class="form-group">
                                 <label for="catId">类别：</label>
                                 <select class="form-control g_cate" name="catId" id="catId" >
                                       <option value="">--请选择类别--</option>
-                                      [#list level1SpCatList as bean]
-                                      <option value="${bean.id}">${bean.catName!''}</option>
-                                      [/#list]
+                                      {{{catList}}}
                                 </select><span class="required">*</span>
                             </div>
                             <div class="form-group">
@@ -62,7 +60,6 @@
                             <div class="form-group mygoods_upload">
                                 <div class="pictures_box">
                                     <ul id="pictures" class="pictures">
-
                                         <li class="goods_updown exist_img">
                                             <img id="brandLogo" src="" alt="" class="goods_upic">
                                             <div class="goods_upicbtn">
@@ -111,9 +108,7 @@
                                 <label for="stock">挂牌量：</label>
                                 <input class="user_stock form-control" type="text" style="width: 134px;" maxlength="15" name="stock" id="stock" >
                                 <select class="form-control"  id="unit" name="unit">
-                                      [#list unitTypeList as bean]
-                                      <option value="${bean.value}">${bean.desc!''}</option>
-                                      [/#list]
+                                {{{attrList}}}
                                 </select><span class="required">*</span>
                             </div>
                             <div class="form-group">
@@ -131,23 +126,19 @@
                             <div class="form-group">
                                 <label for="valuation">计价方式：</label>
                                 <select class="form-control form-methods" name="valuation" id="valuation" >
-                                      [#list valuationTypeList as bean]
-                                      <option value="${bean.value}">${bean.desc!''}</option>
-                                      [/#list]
+                                {{{valuationTList}}}
                                 </select>
                             </div>
                             <div class="form-group" data-valuation="0">
                                 <label for="exchange">点价合约：</label>
                                 <select class="form-control form-midpoints"  style="width: 134px;" name="exchange" id="exchange">
-                                      [#list exchangeList as bean]
-                                      <option value="${bean.value}">${bean.desc!''}</option>
-                                      [/#list]
-                                </select>
+                                {{{exchangeList}}}
+                               </select>
                                 <span id="brandTradeCode" style="width: 80px;">&nbsp;</span>
                                 <select class="form-control form-midpoints" style="width: 92px;" name="contractPeriod" id="contractPeriod">
-                                      [#list contractPeriodList as bean]
-                                      <option value="${bean}">${bean}</option>
-                                      [/#list]
+                                {{#each timeHY}}
+                                  <option value="{{name}}" {{#if contractPeriod}} selected {{/if}} >{{name}}</option>
+                                {{/each}}
                                 </select>
                             </div>
                             <div class="form-group" data-valuation="0">
@@ -172,9 +163,7 @@
                             <div class="form-group" data-valuation="0">
                                 <label for="partyPrice">点价方：</label>
                                 <select class="form-control form-party" name="partyPrice" id="partyPrice">
-                                      [#list partyTypeList as bean]
-                                      <option value="${bean.value}">${bean.desc!''}</option>
-                                      [/#list]
+                                {{{partyTypeList}}}
                                 </select>
                             </div>
                             <div class="form-group" data-valuation="1">
@@ -186,10 +175,16 @@
                             <div class="form-group">
                                 <label for="storage">仓库：</label>
                                 <select class="form-control form-warehouse" name="storage" id="storage">
-                                      [#list storageList as bean]
-                                      <option value="${bean.value}">${bean.desc!''}</option>
-                                      [/#list]
+                                    {{#each storageList}}
+                                        <option class="a" value="{{id}}">{{fullName}} </option>
+                                    {{/each}}
                                 </select>
+                                <input type="checkbox" id="getAllStorage" value="1" style="width:20px;"><label style="text-align: left;" for="getAllStorage">显示所有仓库</label>
+                                <div class="hidden">
+                                      {{#each storageList1}}
+                                        <option value="{{id}}">{{fullName}} </option>
+                                      {{/each}}
+                                </div>                                
                             </div>
                             <div class="form-group" data-storage="99">
                                 <label for="storageAddr">仓库地址：</label>
@@ -198,25 +193,19 @@
                             <div class="form-group">
                                 <label for="deliveryWay">交货方式：</label>
                                 <select class="form-control form-delivery" name="deliveryWay" id="deliveryWay">
-                                      [#list deliveryWayList as bean]
-                                      <option value="${bean.value}">${bean.desc!''}</option>
-                                      [/#list]
+                                {{{deliveryWayList}}}
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="paymentWay">付款方式：</label>
                                 <select class="form-control form-payment" name="paymentWay" id="paymentWay">
-                                      [#list paymentTypeList as bean]
-                                      <option value="${bean.value}">${bean.desc!''}</option>
-                                      [/#list]
+                                {{{paymentTypeList}}}
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="isShelves">挂牌状态：</label>
                                 <select class="form-control form-state" name="isShelves" id="isShelves">
-                                      [#list listStatusList as bean]
-                                      <option value="${bean.value}">${bean.desc!''}</option>
-                                      [/#list]
+                                {{{listStatusList}}}
                                 </select>
                             </div>
                             <div class="form-group">

@@ -36,7 +36,7 @@ function *demoIndexData(oridata){
                     // }
                     // apiData.data.spGoodsPictureList = spGoodsPictureList;
                     //挂牌量
-                    if(dataset.spGoods.stock != null) dataset.spGoods.stock = dataset.spGoods.stock.toFixed(4);
+                    //if(dataset.spGoods.stock != null) dataset.spGoods.stock = dataset.spGoods.stock.toFixed(4);
                     //采购量
                     // if(apiData.data.spGoods.increase != null && apiData.data.spGoods.increase > 0){
                     //     apiData.data.spGoods.disab ="disabled =disabled";
@@ -141,11 +141,10 @@ function *demoIndexData(oridata){
                     }
                     //点价时间
                     var time = new Date(apiData.data.spGoods.stopDate);
-                    var stopHour = apiData.data.spGoods.stopHour < 10 ? "0"+ apiData.data.spGoods.stopHour:apiData.data.spGoods.stopHour;
-                    var stopMinute = apiData.data.spGoods.stopMinute < 10 ? "0"+ apiData.data.spGoods.stopMinute:apiData.data.spGoods.stopMinute;
-                    apiData.data.spGoods.stopDate = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate() +" "+ stopHour +":"+ stopMinute +":00";
-                    // apiData.data.spGoods.stopDateH = stopHour;
-                    // apiData.data.spGoods.stopDateM = stopMinute;
+                    // var stopHour = apiData.data.spGoods.stopHour < 10 ? "0"+ apiData.data.spGoods.stopHour:apiData.data.spGoods.stopHour;
+                    // var stopMinute = apiData.data.spGoods.stopMinute < 10 ? "0"+ apiData.data.spGoods.stopMinute:apiData.data.spGoods.stopMinute;
+                    //apiData.data.spGoods.stopDate = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate() +" "+ stopHour +":"+ stopMinute +":00";
+                    dataset.spGoods.stopDate = time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate();
                     //仓库列表  0==显示自己的
                     var strongsData = {};
                     strongsData =yield api.pullApiData('goods_mystorages_list',{'accountNo':this.sess.user.accountNo});
@@ -192,12 +191,21 @@ function *demoIndexData(oridata){
                     }
                     //单价
                     if(dataset.spGoods.price != null) dataset.spGoods.price = dataset.spGoods.price.toFixed(2);
+                    dataset.navGoods="active";
                 }    
             }else if(mtd==='POST'){
             }
         }else{
-            if (mtd === "POST") {
-            };
+            if (mtd === "POST") { 
+                var apiData = [];
+                body = yield libs.$parse(this);
+                console.log(body)
+                body.accountNo = this.sess.user.firm.firmInfo.accountNo;
+                apiData = yield api.pullApiData('goods_update',body);
+                console.log(apiData[1])
+                var rtn = JSON.parse(apiData[1]);
+                return rtn;
+            }
         }
     }else{
       this.redirect('/account/login');
