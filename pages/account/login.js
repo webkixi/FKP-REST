@@ -57,6 +57,13 @@ function *demoLoginData(oridata){
             success: true
         }
 
+        if(body.logout){
+            delete this.sess.user;
+            success.redirect = '/';
+            success.msg = "已成功退出登录";
+            return success;
+        }
+
         if(typeof(body.loginPhone)=='undefined' || typeof(body.password)=='undefined'){
             if(typeof(body.loginPhone)=='undefined'){
                 error.errStat= 1;

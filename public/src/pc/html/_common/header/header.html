@@ -6,6 +6,7 @@
                 <ul class="head_tcom fr clearfix">
                     <li><a href="/account/myaccount.html">欢迎您： {{user.name}}</a></li>
                     <li><span style="color:{{#if user.autoSuccess}}green{{else}}red{{/if}} ">{{user.statusName}}</span></li>
+                    <li><span style="color:{{#if user.autoSuccess}}green{{else}}red{{/if}} "><a href="javascript:;" id="logout" >退出</a></span></li>
                     <li><a href="/help.html">帮助中心</a></li>
                     <li><a href="/contact.html">联系我们</a></li>
                 </ul>

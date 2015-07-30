@@ -112,6 +112,8 @@ function init(app,mapper,rend){
     }
 
     router
+    .redirect('/mall/item/list.html', '/mall/list.html')
+
     .get('/',forBetter)
     .get('/:cat',forBetter)
     .get('/:cat/:title',forBetter)
@@ -119,6 +121,7 @@ function init(app,mapper,rend){
 
     .post('/:cat',forBetter)
     .post('/:cat/:title',forBetter)
+
 }
 
 //获取地址

@@ -22,7 +22,16 @@
 		}
 	})
 
-	
+    $('#logout').click(function(){
+        $.post('/account/login', {logout: true}, function(body){
+            if(body.success){
+                if(body.redirect)
+                    window.location = body.redirect;
+            }
+        }, "json")
+    })
+
+
 //页面提示框；
 //如果使用默认的提示框样式 dropAlert("提示内容")
 //自定义提示信息dropAlert（{title:"标题",content:"提示内容",type:"提示框类型"}）;
@@ -144,4 +153,3 @@ function getObjType(object){
 }
 
 })();
-
