@@ -4,7 +4,7 @@ var domain = require('domain');
 var extend = require('extend');
 var parse = require('co-body');
 var lodash = require('lodash');
-// var rct = require('../modules/parseReact');
+var qs = require('querystring');
 
 //libs
 var getObjType = function(object){
@@ -35,18 +35,28 @@ var wlog = function(msg){
     console.log(msg);
 }
 
+var parseQuery = function(uri){
+    var q = url.parse(uri);
+    return qs.parse(q.query);
+}
+
+var guid = function(prefix) {
+    prefix = prefix || "web-";
+    return (prefix + Math.random() + Math.random()).replace(/0\./g, "");
+}
+
 module.exports = {
     getObjType: getObjType,
     clone: clone,
     clog: clog,
     elog: elog,
     wlog: wlog,
-    // react: rct,
+    uri: parseQuery,
+    guid: guid,
     $extend: extend,
     $url: url,
     $path: path,
     $domain: domain,
     $parse: parse,
     $lodash: lodash
-
 }

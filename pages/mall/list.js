@@ -8,45 +8,63 @@ d.on('error',function(msg){
 });
 
 
-function *demoIndexData(oridata){
-
+function *demoIndexData( oridata ){
     libs.clog('pages/malllist.js');
 
     var apiData={};
     var mtd = this.method;
+    var local = this.local;
+    var attrHtml;
+    var jsonData;
+    var reactHtml;
+    var query;
 
-    if(mtd==='GET'){
-        // var path = libs.$url.parse(this.path).pathname.replace('/','') // 处理query和hash
-        apiData = yield api.mallList({
-            'pageCurrent': 1,
-            'orderField': '网',
-            'orderDirection':'',
-            'pageSize':24,
-            '_rt': new Date().getTime()
-        });
-        // libs.wlog(apiData[1]);
+    if( mtd==='GET' ){
+        libs.clog('pages/malllist.js=================GET===========');
+        var props;
+
+        //商品列表数据，默认全部商品
+        //查询参数
+        query = {
+          pageCurrent: 1,
+          orderField: '',
+          orderDirection:'',
+          pageSize:24,
+          _rt: new Date().getTime()
+        }
+
+        apiData = yield api.mallList(query);
+        jsonData = JSON.parse(apiData[1]);
+
+        // react
+        //商城商品列表模板render
+        props = {
+          itemStyle: {width:'240px'},
+          data: jsonData.pagination.recordList  //数组
+        }
+        reactHtml = rct( 'list', props);
+        jsonData.reactMallGoodsList = reactHtml;
+
+        oridata = libs.$extend(true,oridata,jsonData);
+        return oridata;
     }
 
-    else if(mtd==='POST'){
-        libs.clog('pages/malllist.js========POST');
-        // var userInfo = yield api.user({'loginPhone':'13268280401'})
-        // console.log(userInfo); 
+    else
 
-        var body = yield libs.$parse(this);
-        body._rt = new Date().getTime();
-        apiData = yield api.mallList(body);
-    }
+        if( mtd==='POST' ){
+            libs.clog('pages/malllist.js========POST==============');
 
-    var jsonData = JSON.parse(apiData[1]);
+            var body = yield libs.$parse( this );
+                body._rt = new Date().getTime();
 
-    //react
-    var reactHtml = rct('list');
-    jsonData.reacttest = reactHtml;
+                //商品列表，默认全部商品
+                apiData = yield api.pullApiData('mall_list',body);
+                jsonData = JSON.parse(apiData[1]);
+
+                return jsonData;
+        }
 
 
-    oridata = libs.$extend(true,oridata,jsonData);
-
-    return oridata;
 }
 
 module.exports = {

@@ -4,11 +4,14 @@
 var fs = require('fs');
 var path = require('path')
 var api = require('../apis/javaapi');
-var router = require('koa-router');
+var header_nav = require('../pages/common/header_nav');
+var router = require('koa-router')();
 var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
 var sessi = require('./session');
+var region = require('./region');
+var config = require('../config');
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
 
@@ -89,22 +92,65 @@ function *createTempPath2(pms,rjson){
 **/
 function init(app,mapper,rend){
     render = rend;
-    app.use(router(app));
+    app.use(router.routes());
 
     var _mapper = mapper||{};
 
     function *forBetter(){
         this.sess = sessi();
-        yield distribute.call(this,mapper)
+        this.config = config;
+        var param = this.params;
+        console.log(param);
+        if(param.cat === 'region'){
+            yield getRegion.call(this);
+        }
+        else if(param.cat === 'upload'){
+            yield uploader.call(this);
+        }
+        else
+            yield distribute.call(this,mapper)
     }
 
-    app
+    router
     .get('/',forBetter)
     .get('/:cat',forBetter)
     .get('/:cat/:title',forBetter)
     .get('/:cat/:title/:id',forBetter)
 
     .post('/:cat',forBetter)
+    .post('/:cat/:title',forBetter)
+}
+
+//获取地址
+function *getRegion(){
+    libs.clog('获取地址列表联动信息');
+    var body={};
+    if(this.method==='GET'){
+        body = this.query;
+    }
+    if(this.method==='POST'){
+        body = yield libs.$parse(this)
+    }
+    if(typeof body.id!=='undefined'&&body.id){
+        var zones = yield region.getRegion(body.id);
+        var data = JSON.parse(zones[1]);
+        yield returnJson.call(this,true,'region',data);
+    }
+}
+
+//上传数据
+function *uploader(){
+    libs.clog('上传数据');
+    var fileUpLoader = require('./uploader');
+    var saveFileStat = yield fileUpLoader.ali.call(this,this.config.upload_root);
+    if(saveFileStat){
+        var success = { success: true, data: saveFileStat}
+        this.body = JSON.stringify(success)
+    }
+    else{
+        var error = { success: false}
+        this.body = JSON.stringify(error)
+    }
 }
 
 /**
@@ -158,20 +204,38 @@ function *distribute(_mapper){
                     }
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
-                        yield htmlRender.call(this,false);
+                        yield htmlRender.call(this,true,route,pageData);
                         return false;
                     }
                 }
 
-                if(this.method==='GET')
-                    yield htmlRender.call(this,true,route,pageData);
+                if(typeof pageData.errState!=='undefined' && pageData.errState) yield htmlRender.call(this,false,route);
+                else{
 
-                else if(this.method==='POST')
-                    yield returnJson.call(this,true,route,pageData);
+                    // if(typeof pageData.errStat == 'undefined'){
+                    //     var header = yield header_nav.call(this);
+                    //     pageData.header_nav = header.navData;
+                    //     pageData.user = header.user;
+                    // }
 
+                    if(this.method==='GET'){
+                        if(typeof pageData.errStat == 'undefined'){
+                            var header = yield header_nav.call(this);
+                            pageData.header_nav = header.navData;
+                            pageData.user = header.user;
+                        }
+                        yield htmlRender.call(this,true,route,pageData);
+                    }
+
+                    else if(this.method==='POST')
+                        yield returnJson.call(this,true,route,pageData);
+
+                }
             }
 
-            else{ /* todo something */ }
+            else{
+                this.redirect('/404')
+            }
 
         }
     }
@@ -184,20 +248,21 @@ function *distribute(_mapper){
  * return rende pages
 **/
 function *htmlRender(stat,route,data){
-    libs.clog('route.js/htmlRender'+route);
+    libs.clog('route.js/htmlRender/'+route);
     if (stat)
         this.body = yield render(route,data);
-    else
-        this.body = 'no pages config file';
-        // this.body = yield render('404');
+    else{
+        this.redirect('/404')
+    }
 }
 
 
 
 function *returnJson(stat,route,data){
-    libs.clog('route.js/htmlRender'+route);
-    if (stat)
+    libs.clog('route.js/htmlRender/'+route);
+    if (stat){
         this.body = JSON.stringify(data);
+    }
     else
         this.body = '{"stat": 0}';
 }

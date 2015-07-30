@@ -25,14 +25,16 @@ module.exports = {
     hash: false,
     vendorList: [
         path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
+        path.join(__dirname, src_dir, '/js/vendor/browser-request/dist/browser/request.js'),
         path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js')
     ],
     globalList: [
+        path.join(__dirname, src_dir, '/js/global/config.js'),
         path.join(__dirname, src_dir, '/js/global/libs.js'),
         path.join(__dirname, src_dir, '/js/global/core.js'),
         path.join(__dirname, src_dir, '/js/global/toolkits.js')
     ],
-    ieRequireList: (function(){            
+    ieRequireList: (function(){
         if(platform === '/pc'){
             return [
                 path.join(__dirname, src_dir, '/js/vendor/html5shiv/dist/html5shiv.js'),

@@ -1,16 +1,20 @@
-$(function() {
-  $(".search_buttom").click(function(){
-    var text = $(".search_text").val();
-    var type = 0;
-    var data = {
-      'st': type,
-      'sc':text
-    }
-    $.post("/search",data,function(result){
-        console.log(result)
-    })
-  })
-})
+
+var laypage = require('../_common/laypage.dev');
+
+   laypage({
+        cont: $("#page"), //容器。值支持id名、原生dom对象，jquery对象,
+        pages: page.pageCount, //总页数
+        curr: page.currentPage,
+        skip: true, //是否开启跳页
+        skin: '#ff6600',
+        groups: 5, //连续显示分页数
+        jump: function(obj, first){ //触发分页后的回调
+            if(!first){ //一定要加此判断，否则初始时会无限刷新
+                $('#pageCurrent').val(obj.curr);
+                $("#searchForm").submit();
+            }
+        }
+    });
 
 module.exports = {};
 

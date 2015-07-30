@@ -1,0 +1,298 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+
+<body>
+@@include('../_common/header/header.html')
+	
+<div class="wrapper">
+  <div class="container menu-container">
+    <div class="current_path container">
+        <a href="/index.html">首页</a> > 
+        <a href="/mall/item/list.html">金属商城</a> >
+         <a href="/mall/item/list.html?catId={{spGoods.catId}}">{{spGoods.catName}}</a> > 
+         <a class="currents"> {{spGoods.brandName}}{{spGoods.catName2}} {{spGoods.model}} </a>
+    </div>
+    <div class="ty-item-grid-c1">
+      <div class="ty-c1-content">
+        <div class="ty-c1-grid-l">
+          <div class="ty-grid-galleryShow">
+	        {{#each spGoodsPictureList}}
+              {{#if index}}
+                {{#if pictureLibUrl}}
+                <a href="{{pictureLibUrl}}{{original}}" class="jqzoom" rel='gal1'  title="triumph">
+                  <img src="{{pictureLibUrl}}{{original}}" jqimg="{{pictureLibUrl}}{{original}}" class="ty-grid-gsPic">
+                </a>
+                {{else}}
+                  <a href="/images/blank.gif" class="jqzoom" rel='gal1'  title="triumph">
+                    <img src="/images/blank.gif" jqimg="/images/blank.gif" class="ty-grid-gsPic error_img">
+                  </a>
+                {{/if}}
+              {{/if}}
+			     {{/each}}
+            <i class="scaling"></i>
+          </div>
+          <div class="ty-grid-thumb goods_slides">
+            <div class="ty-grid-thumbdiv slides_list">
+                <ul id="thumblist">   
+                   {{#each spGoodsPictureList}}
+                    <li><a {{#if index}} class="zoomThumbActive" {{/if}} href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '{{pictureLibUrl}}{{original}}',largeimage: '{{pictureLibUrl}}{{original}}'}">
+                      {{#if pictureLibUrl}}
+                      <img src="{{pictureLibUrl}}{{original}}">
+                      {{else}}
+                       <img class="error_img" src="/images/blank.gif">
+                      {{/if}}
+                    </a></li>
+                   {{/each}}
+                </ul>
+            </div>
+            <div class="ty-grid-gspic-btn slides_btn">
+                <a href="javascript:;" class="sbtn-left slides_btn_left"><i></i></a>
+                <a href="javascript:;" class="sbtn-right slides_btn_right"><i></i></a>
+            </div>
+          </div>
+          <div class="ty-grid-ad">
+            <img src="{{root}}/statics/front/images/ad/ad.jpg">
+          </div>
+        </div>
+        <div class="ty-c1-grid-r clearfix">
+          <div class="ty-c1-grid-m  left">
+            <div class="ty-Xbase">
+              <div class="ty-Xbase-row1 ty-Xbase-row">
+                <h1>{{spGoods.brandName}} {{spGoods.catName2}}{{spGoods.model}}</h1>
+	              </div>
+              <div class="ty-Xbase-row3 ty-Xbase-row">
+                <div class="ty-panel">
+                  <div class="ty-p-content">
+                    <dl>
+                        <dt><span>类别：</span></dt>
+                        <dd>{{spGoods.catName}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>品名：</span></dt>
+                        <dd>{{spGoods.catName2}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>规格型号：</span></dt>
+                        <dd>{{spGoods.model}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>厂家：</span></dt>
+                        <dd>{{spGoods.vender}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>品牌：</span></dt>
+                        <dd>{{spGoods.brandName}}</dd>
+                    </dl>
+                    <dl class="pro-ghl">
+                        <dt>挂牌量：</dt>
+                        <dd>{{spGoods.stock}} {{spGoods.unitName}}</dd>
+                    </dl>
+                    <dl class="pro-cgl">
+                        <dt>采购量：</dt>
+                        <dd class="o-amount">
+                          <a class="minus amount-btn" href="javascript:;" data-minval="{{spGoods.minQuantity}}" data-increase="{{spGoods.increase}}">-</a>
+                        <input id="quantity" data-minval="{{spGoods.minQuantity}}" value="{{spGoods.minQuantity}}" {{spGoods.disab}} style="width: 90px;">
+                        <a class="plus amount-btn" href="javascript:;" data-maxval="{{spGoods.stock}}" data-increase="{{spGoods.increase}}">+</a>&nbsp;{{spGoods.unitName}}  
+                        {{#if spGoods.disab}}(增幅{{spGoods.increase}}{{spGoods.unitName}}) {{/if}}</dd>
+                    </dl>
+                    <dl class="pro-qdl">
+                        <dt>起订量：</dt>
+                        <dd>{{spGoods.minQuantity}} {{spGoods.unitName}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>挂牌时间：</span></dt>
+                        <dd>{{spGoods.createTime}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>有效期：</span></dt>
+                        <dd>{{spGoods.validity}}天</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>计价方式：</span></dt>
+                        <dd>{{spGoods.valuationName}}</dd>
+                    </dl>
+                    {{#if spGoods.valuation0}}
+                    <dl>
+                        <dt><span>点价方：</span></dt>
+                        <dd>{{spGoods.partyPriceName}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>点价合约：</span></dt>
+                        <dd>{{spGoods.exchangeName}}{{spCat2.pageTitle}}{{spGoods.contractPeriod}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>升贴水（元/{{spGoods.unitName}}）：</span></dt>
+                        <dd>{{spGoods.discount}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>点价截止时间：</span></dt>
+                        <dd>{{spGoods.stopDate}}
+                        {{#if spGoods.isNightPlate0}} <i>(不接受夜盘点价)</i> {{/if}}
+                        {{#if spGoods.isNightPlate1}} <i>(接受夜盘点价)</i> {{/if}}
+                        </dd>
+                    </dl>
+                    {{/if}}
+			        {{#if spGoods.valuation1}}
+                    <dl>
+                        <dt><span>单价（元/{{spGoods.unitName}}）：</span></dt>
+                        <dd>{{spGoods.price}}</dd>
+                    </dl>
+			        {{/if}}
+                    <dl>
+                        <dt><span>付款方式：</span></dt>
+                        <dd>{{spGoods.paymentWayName}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>仓库：</span></dt>
+                        <dd>{{spGoods.storageName}}</dd>
+                    </dl>
+			        {{#if spGoods.storage99}}
+                    <dl>
+                        <dt><span>仓库地址：</span></dt>
+                        <dd>{{spGoods.storageAddr}}</dd>
+                    </dl>
+			        {{/if}}
+                    <dl>
+                        <dt><span>交货方式：</span></dt>
+                        <dd>{{spGoods.deliveryWayName}}</dd>
+                    </dl>
+                    <dl>
+                        <dt><span>备注说明：</span></dt>
+                        <dd>{{spGoods.remark}}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+              {{#if listed0}}
+              <div class="ty-Xbase-row4 ty-Xbase-row">
+                <div class="ty-Xaction-Buy">
+			        <a class="ty-X-btn-buy ty-X-btn-nobuy" href="javascript:;"></a>自家商品，不可下单。
+                </div>
+              </div>  
+              {{else}}
+                {{#if listed1}}
+                <div class="ty-Xbase-row4 ty-Xbase-row">
+                  <div class="ty-Xaction-Buy">
+                    <a class="ty-X-btn-buy" gid="{{spGoods.id}}" href="javascript:;" id="submitOrderBtn"></a>
+                  </div>
+                </div>
+                {{else}}
+                <div class="ty-Xbase-row4 ty-Xbase-row">
+                  <div class="ty-Xaction-Buy">
+  			        <a class="ty-X-btn-buy ty-X-btn-nobuy" href="javascript:;"></a> 该商品已经撤牌，不可交易。
+                  </div>
+                </div>              
+                {{/if}}
+              {{/if}} 
+            </div>
+          </div>     
+        </div>
+      </div>
+    </div>
+    <div class="ty-item-grid-c2">
+      <div class="ty-item-grid-m">
+        <div class="ty-item-grid-inner">
+          <div class="ty-item-grid-inner-t">
+            <ul>
+              <li class="select"><div class="ty-item-c"><a href="javascript:;"><i class="all_icon icon-spjs"></i><span>厂家详情</span></a></div></li>
+              <li><div class="ty-item-c"><a href="javascript:;"><i class="all_icon icon-spxq"></i><span>质量标准</span></a></div></li>
+              <li><div class="ty-item-c"><a href="javascript:;"><i class="all_icon icon-shbz"></i><span>包装方式</span></a></div></li>
+              <li><div class="ty-item-c"><a href="javascript:;"><i class="all_icon icon-tchy"></i><span>联系方式</span></a></div></li>
+            </ul>
+          </div>
+          <div class="ty-item-grid-inner-c ty-main-tab">
+            <div class="ty-item-tab">
+                <p>{{{firmDetail.introduce}}}</p>
+            </div>
+            <div class="ty-item-tab disN">
+                <p>{{spGoods.quality}}</p>
+            </div>
+            <div class="ty-item-tab disN">
+              <p>{{spGoods.manner}}</p>
+            </div>
+            <div class="ty-item-tab disN">
+                <p>
+                	<table>
+                		<tbody>
+                			<tr><th>企业名称：</th><td>{{firmInfo.firmFullName}}</td></tr>
+                			<tr><th>联系人：</th><td>{{firmContact.name}}</td></tr>
+                			<tr><th>联系人电话：</th><td>{{firmContact.phone}}</td></tr>
+               				<tr><th>公司电话：</th><td>{{firmContact.landline}}</td></tr>
+                			<tr><th>传真号码：</th><td>{{firmContact.fax}}</td></tr>
+                			<tr><th>邮箱：</th><td>{{firmContact.email}}</td></tr>
+                			<tr><th>联系地址：</th><td>
+               				{{province}}
+               				{{city}}
+               				{{district}}
+                			{{firmContact.address}}
+                			</td></tr>
+                			<!-- tr><th>备注：</th><td>${firmContact.remark!' '}</td></tr-->
+                		</tbody>
+                	</table>
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog"><!-- 登录框 start -->
+      <div class="modal-content modal-contents">
+         <div class="clearfix modal-heads">
+           <div class="r_logo">
+             <button type="button" class="close right" data-dismiss="modal" aria-hidden="true">
+                 &times;
+             </button>           
+             <a class="rlogo" href="/index.html"><img src="/images/logo.png"></a>   
+             <span>&nbsp;&nbsp;|</span>      
+             <span class="rlogo">账号登录</span>      
+           </div>
+         </div>
+         <div class="modal-body login_body">
+           <form action="" id="loginCheck">
+     			  <div class="login_input">
+                  <div class="form-group">
+                      <label for="name">手机号码：</label>
+                      <input type="text" class="form-control user_phone" value="{{loginPhone}}" id="loginPhone" name="loginPhone" placeholder="手机号">
+                  </div>
+                  <div class="form-group">
+                      <label for="name">密码：</label>
+                      <input type="password" class="form-control user_pwd" id="password" name="password" placeholder="密码" autocomplete="off">
+                  </div> 
+                  <div class="l_code clearfix hidden">
+                      <input class="code fl form-control" placeholder="验证码" type="text">
+                      <img src="{{root}}/images/yzm.png"/>
+                      <a href="#">换一张</a>
+                  </div>
+                </div>
+                <div class="login_tip clear hidden">
+                  <div class="login_remeber fl"><b class="checkbox"></b><span class="m_t5 fl">下次自动登录</span></div>
+                </div>
+						    <p class="errorMsg"></p>                        
+                <div class="login_btn">
+                  <a href="javascript:;" type="button" id="login" class="btn btn-primary">登录</a>
+                </div>
+                <div class="login_other"><a href="/account/forget.html" class="fl">忘记密码？</a><a href="/account/regist.html" target="_blank" class="fr">立即注册</a></div>
+            </form>
+         </div>
+      </div>
+    </div><!-- 登录框 end -->
+</div>
+
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+
+
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>

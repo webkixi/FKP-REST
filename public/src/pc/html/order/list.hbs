@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+<body>
+@@include('../_common/header/header.html')
+<div class="wrapper">
+    <div class="current_path container">
+      <a href="${rc.contextPath}">首页</a>
+      >
+      <a class="currents"> 我的订单 </a>
+    </div>
+    <div class="myaccount_main">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="account_l fl wid-2">
+                    @@include('../_common/account.hbs')
+                </div>
+                <form id="listPageQueryForm" action="${rc.contextPath}/order/list.html">
+                  <input type="hidden" name="curList" id="curList" value="${curList}" />
+                  <input type="hidden" name="pageCurrent_1" id="pageCurrent_1" value="${pageCurrent_1}" />
+                  <input type="hidden" name="pageCurrent_2" id="pageCurrent_2" value="${pageCurrent_2}" />
+                  <div class="account_r fl wid-10">
+                    <ul id="myTab" class="nav nav-tabs">
+                      <li class="active" data-type="seller">
+                        <a href="javascript:void(0);" data-toggle="tab">
+                          我的卖单（<i>{{seller}}宗</i>）
+                        </a>
+                      </li>
+                      <li data-type="buyer">
+                        <a href="javascript:void(0);" data-toggle="tab">
+                          我的买单（<i>{{buyer}}宗</i>）
+                        </a>
+                      </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content myorder_content">
+                      <div class="tab-pane fade [#if curList==1] in active [/#if]" id="myo_seller">
+                        <div class="text-c">
+                            <span class="select-box" style="width:150px">类别：
+                              <select class="select catId" name="catId_1" id="catId_1" >
+                                  <option value="">--请选择--</option>
+                                  {{#each catList}}
+                                  <option value="{{id}}" >{{catName}}</option>
+                                  {{/each}}
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品名：
+                              <select class="select catId2" name="catId2_1" id="catId2_1">
+                                <option value="">--请选择--</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品牌：
+                              <select class="select brandId" name="brandId_1" id="brandId_1">
+                                <option value="">--请选择--</option>
+                              </select>
+                            </span>
+                        </div>
+                        <div class="text-c">
+                            <span class="select-box" style="width:150px">仓库：
+                              <select class="select storage" name="storage_1" id="storage_1">
+                                  <option value="">--请选择--</option>
+                                  {{#each storagesList}}
+                                  <option value="{{id}}" >{{fullName}}</option>
+                                  {{/each}}
+                              </select>
+                            </span>
+                            <span>
+                              日期：
+                              <input type="text" id="beginDate" name="beginDate" value="" data-type="date" class="input-text" style="width:110px;margin:0;">
+                              -
+                              <input type="text" id="endDate" name="endDate" value="" data-type="date" class="input-text" style="width:110px;">
+                            </span>
+                          
+                          <button name="queryOrderBtn" id="queryOrderBtn" class="btn btn-orange" type="bottom">
+                            <i class="icon-search"></i> 查找
+                          </button>
+                        </div>
+                        <div id="myorder_table" class="myorder_table">
+                          
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 弹出框 start -->
+<div class="modal fade" id="myModalmerchant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <!-- 商家详情 start -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">已认证会员</h4>
+      </div>
+      <div id="myaccountInfo" class="myaccountInfo"></div>
+    </div>
+    <!-- 登录框 end -->
+  </div>
+</div>
+<!-- 弹出框 end -->
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+</body>
+</html>

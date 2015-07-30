@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+<body>
+@@include('../_common/header/header.html')
+<div class="wrapper">
+    <div class="current_path container">
+        <a href="${rc.contextPath}/index.html">首页</a> > <a href="${rc.contextPath}/account-center.html">会员中心</a> > <a href="#">我的商品</a> 
+    </div>
+    <div class="myaccount_main">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="account_l fl wid-2">
+                    @@include('../_common/account.hbs')
+                </div>
+                <div class="account_r fl wid-10">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li data-type="1" class="active"><a href="javascript:void(0)">挂牌中（<i>{{listedPage}}宗</i>）</a></li>
+                        <li data-type="2"><a href="javascript:void(0)">未挂牌（<i>{{unlistedPage}}宗</i>）</a></li>
+                        <li data-type="3"><a href="javascript:void(0)">逾期撤牌（<i>{{overduePage}}宗</i>）</a></li>
+                    </ul>
+                    <form id="listPageQueryForm" action="${rc.contextPath}/goods/list.html">
+                    <div id="myTabContent" class="tab-content myorder_content">
+                          <div class="text-c">
+                            <span class="select-box" style="width:150px">类别
+                              <select class="select catId" name="catId_1" id="catId_1" >
+                                  <option value="">--请选择--</option>
+                                  {{#each catList}}
+                                  <option value="{{id}}" >{{catName}}</option>
+                                  {{/each}}
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品名
+                              <select class="select catId2" name="catId2_1" id="catId2_1">
+                                <option value="">--请选择--</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">品牌
+                              <select class="select brandId" name="brandId_1" id="brandId_1">
+                                <option value="">--请选择--</option>
+                              </select>
+                            </span>
+                            <span class="select-box" style="width:150px">仓库
+                              <select class="select storage" name="storage_1" id="storage_1">
+                                  <option value="">--请选择--</option>
+                                  {{#each storagesList}}
+                                  <option value="{{id}}" >{{fullName}}</option>
+                                  {{/each}}
+                              </select>
+                            </span>
+                            <button id="queryGoodsBtn" class="btn btn-orange queryGoodsBtn" type="button"><i class="icon-search"></i> 查找</button>
+                            <button id="addGoodsBtn" class="btn btn-orange" type="submit"><i class="icon-search"></i> 添加</button>
+                          </div>
+                          <div id="myorder_table" class="myorder_table"></div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+</body>
+</html>

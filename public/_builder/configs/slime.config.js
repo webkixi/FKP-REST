@@ -135,7 +135,8 @@ var plugins = function(dirname, isPack, options){
     var venders,
         common_trunk_config = {
             filename: '_common.js',
-            minChunks: 2,
+            // minChunks: 2,
+            minChunks: 3,
             async: false
             //children: true
             //minChunks: 5 //Infinity
@@ -234,6 +235,13 @@ var custom_modules = function(){
           test: /\.md$/,
           loader: "html!markdown"
       },
+
+        //   { // Only apply on tinymce/tinymce
+        //       include: require.resolve('tinymce/tinymce'),    //检测到路径包含tinymce/tinymce
+        //       // Export window.tinymce
+        //       loader: 'exports?window.tinymce',             //输出全局变量tinymce
+        //   },
+
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'} // inline base64 URLs for <=8k images, direct URLs for the rest
       // , {
       //     test: /\.js$/,
@@ -249,7 +257,8 @@ var custom_modules = function(){
 custom_externals = {
     "jquery": "jQuery",
     "$": "jQuery",
-    "React": "React"
+    "React": "React",
+    "request": "request"
 }
 
 // module.exports = {

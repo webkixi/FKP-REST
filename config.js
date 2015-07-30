@@ -6,6 +6,8 @@ var config = {
   	mapJson:   path.join(static_dir,'/dist/1.0.0/map.json'),
   	mapDevJson:   path.join(static_dir,'/dist/1.0.0/dev/map.json'),
     demoindex: path.join(static_dir,'/dist/1.0.0/html/demoindex.html'),
+    goods_img: 'http://jh-ljs-goods.oss-cn-shenzhen.aliyuncs.com/',
+    account_img:'http://jh-ljs-account.oss-cn-shenzhen.aliyuncs.com/',
   	static: {
     		dft:  path.join(static_dir,'/dist/1.0.0/'),
     		html: path.join(static_dir,'/dist/1.0.0/html'),
@@ -19,7 +21,8 @@ var config = {
             css:  path.join(static_dir,'/dist/1.0.0/dev/css'),
             img:  path.join(static_dir,'/dist/1.0.0/dev/images')
         }
-  	}
+  	},
+    upload_root: path.join(static_dir,'/dist/upload') 
 }
 
 module.exports = config

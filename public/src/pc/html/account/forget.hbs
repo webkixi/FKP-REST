@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+<body>
+@@include('../_common/header/header2.html')
+  <div class="wrapper">
+    <div class="container">
+      <div class="clearfix">
+        <ul class="r_logo fl">
+          <li class="rlogo">
+            <a href="/index.html">
+              <img src="/images/logo.png">
+            </a>
+          </li>
+          <li>|</li>
+          <li class="rlogo">找回密码</li>
+        </ul>
+        <div class="r_login">
+          我已经注册，马上
+          <a href="/login.html"> 登录</a>
+        </div>
+      </div>
+      <div class="r_main">
+        <div class="r_progress for_progress r_p1">
+          <em>找回密码流程</em>
+        </div>
+        <div class="r_wrap">
+          <div class="r_wrap_list r_wyzsj">
+            <div class="form-group">
+              <label for="name">手机号码：</label>
+              <input type="text" id="loginPhone" name="loginPhone" class="form-control user_phone" placeholder="请输入您的手机号码">
+              <p id="mobile_error" class="error_msg text-danger"></p>
+            </div>
+            <div class="form-group">
+              <label for="name">验证码：</label>
+              <input type="text" class="form-control phone_yzm" id="code" name="code" placeholder="短信验证码" autocomplete="off">
+              <a class="btn btn-orange forget_msgs" href="javascript:;" id="sendMobileCode">
+                <span id="dyMobileButton">获取短信验证码</span>
+              </a>
+              <span id="mobileCode_error" class="text-danger"></span>
+            </div>
+            <a href="javascript:;" type="button" id="login_ok" class="btn btn-orange for-phonebtn">下一步</a>
+          </div>
+          <div class="r_wrap_list r_szpwd hidden">
+            <form action="" method="">
+              <div class="form-group">
+                <label for="name">新密码：</label>
+                <input type="password" class="form-control user_pwd" id="newPassword" name="newPassword" placeholder="新密码" autocomplete="off">
+                <p class="error_msg text-danger">
+              </div>
+              <div class="form-group">
+                <label for="name">确认密码：</label>
+                <input type="password" class="form-control user_pwds" id="repassword" name="repassword" autocomplete="off" placeholder="再次输入密码">
+                <p class="error_msg text-danger"></p>
+              </div>
+              <div class="r_yzbtn">
+                <a href="javascript:;" type="button" id="updatePassword" class="btn btn-orange">确定</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+</body>
+</html>

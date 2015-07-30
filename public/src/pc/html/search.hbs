@@ -5,6 +5,12 @@
 <head>
 <title>联华大宗</title>
 @@include('./_common/header/head.html')
+<script>
+    var page={
+        pageCount:{{pageBean.pageCount}},
+        currentPage:{{pageBean.currentPage}}
+    }
+</script>
 </head>
 
 <body>
@@ -18,326 +24,82 @@
   </div>
 </div> -->
 <div class="wrapper">
-    <div class="section1">
+    <div class="search_curr container">
+        <p>为您查找到<i>“{{sc}}”</i>的相关结果{{pageBean.totalCount}}个</p>
+    </div>
+    <div class="info-wrap search-wrap">
         <div class="container">
-            <div class="sort_class">
-                <dl class="nav nav-tabs">
-                    <dt><a href="#myTab2_t1" data-toggle="tab"><i class="nav-icon"></i>搜索结果</a></dt>
-                </dl>
-                <a href="#" class="more">更多>></a>
-            </div>
+            <div class="clearfix row">
+                <div class="info-main col-lg-10 fl">
+                    {{#if goods}}
+                    <div class="search_item">
+                        <h2><i class="nav-icon"></i>金属商城相关产品<b class="col-ff6600">(共{{pageBean.totalCount}}条)</b></h2>
+                        <div class="search_ilist goods_slides">
+                            <div class="search_ilul">
+                                <ul class="clearfix">
+                                    {{#each pageBean.recordList}}
+                                    <li>
+                                        <dl>
+                                            <dt><a target="_blank" href="{{root}}/mall/item/detail/{{id}}.html"><img src="{{pictureLibUrl}}{{picture}}"></a></dt>
+                                            
+                                            <dd><span>{{catName}}</span> {{vender}}</dd>
+                                            <dd><span>{{catName2}}</span> {{model}}</dd>
+                                            <dd><span>挂牌量： </span> {{stock}} {{unitName}}</dd>
+                                            <dd><span>起订量： </span> {{minQuantity}} {{unitName}}</dd>
+                                            <dd><span>供货商： </span> {{accountName}}</dd>
+                                        </dl>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                                {{#if pages}}
+                                <div id="page"></div>
 
-            <div class="tab-content row u-clearfix">
-                <ul class="list col-lg-12">
-                    <li class="list-item">
-                        <div class="list-left" style="">
-                            fsafdsg
+                                    <form id="searchForm" action="" >
+                                        <input type="hidden" name="pageCurrent" id="pageCurrent" value=""/>
+                                        <input type="hidden" name="st" id="st" value="2"/>
+                                        <input type="hidden" name="sc" id="sc" value="{{sc}}"/>
+                                    </form>
+                                    {{/if}}
+                            </div>
                         </div>
-                        <div class="list-bd">
-                            <h4 class="list-heading">2015年部分省市钢铁及铁合金落后产能淘... </h4><i class="list-small">2015-05-05</i>
-                            <p class="list-des">年部分省市钢铁及铁合金落后产能淘年部分省市钢铁及铁合金落后产能淘年部分省市钢铁及铁合金落后产能淘年部分省市钢铁及铁合金落后产能淘年部分省市钢铁及铁合金落后产能淘年部分省市钢铁及铁合金落后产能淘年部分省市钢铁及铁合金落后产能淘年部分省市钢铁及铁合金落后产能淘</p>
-                        </div>
-                    </li>
+                    </div>
+                    {{else}}
+                    <div class="search_info">
+                        <h2><i class="nav-icon"></i>相关资讯</h2>
+                        <ul class="info-mlist">
+                            {{#each pageBean.recordList}}
+                            <li>
+                                <div class="info-mcom">
+                                    <div class="info-mtitle clearfix">
+                                        <em><a target="_blank" href="{{root}}/info/view/{{id}}.html">{{title}}</a></em>
+                                        <span>{{publishTime}}</span>
+                                    </div>
+                                    <p>{{summary}}</p>
+                                    <a href="{{root}}/info/view/{{id}}.html" class="more">查看详情 >></a>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                        <!-- 分页 begin -->
+                        {{#if pages}}
+                        <div id="page"></div>
+                        <form id="searchForm" action="">
+                            <input type="hidden" id="pageSt" name="st" value="{{st}}">
+                            <input type="hidden" id="pageSc" name="sc" value="{{sc}}">
+                            <input type="hidden" id="pageCurrent" name="pageCurrent" value="">
+                        </form>
+                        {{/if}}
+                        <!-- 分页 end -->
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="info-right col-lg-2 fl">
+                    <img src="{{root}}/statics/front/images/ad/ad2.jpg"><img src="{{root}}/statics/front/images/ad/ad2.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
 
-                </ul>
-
-                <ul class="list col-lg-12">
-                    {{#each pageBean.recordList}}
-                    <li class="list-item">
-                        <div class="list-left">
-                            fsafdsg
-                        </div>
-                        <div class="list-bd">
-                            <h4 class="list-heading"><a href="http://120.25.223.175:5051/jh-web-portal/info/view/{{id}}.html">{{title}}</a></h4><i class="list-small">{{publishTime}}</i>
-                            <p class="list-des">{{summary}}</p>
-                        </div>
-                    </li>
-                    {{/each}}
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="section1 ggt_big">
-        <div class="container">
-            <img src="/images/ad/ad.jpg"/>
-        </div>
-    </div>
-    <div class="section1">
-        <div class="container">
-            <div class="sort_class">
-                <dl id="myTab3" class="nav nav-tabs">
-                    <dt><a href="#myTab3_t1" data-toggle="tab"><i class="nav-icon"></i>金属商城</a></dt>
-                    <dd><a href="#myTab3_t2" data-toggle="tab">铜</a></dd>
-                    <dd><a href="#myTab3_t3" data-toggle="tab">铝</a></dd>
-                    <dd><a href="#myTab3_t4" data-toggle="tab">锌</a></dd>
-                </dl>
-                <a href="#" class="more">更多>></a>
-            </div>
-            <div id="myTabContent3" class="tab-content index_metal">
-                <div class="sort_product tab-pane fade in active" id="myTab3_t1">
-                    <ul class="row clearfix">
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sort_product tab-pane fade" id="myTab3_t2">
-                    <ul class="row clearfix">
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sort_product tab-pane fade" id="myTab3_t3">
-                    <ul class="row clearfix">
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sort_product tab-pane fade" id="myTab3_t4">
-                    <ul class="row clearfix">
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                        <li class="col-lg-2">
-                            <dl>
-                                <dt><a href="item.html"><img src="/images/updown/pic1.jpg"></a></dt>
-                                <dd><label>热轧卷 </label> 鞍钢</dd>
-                                <dd><label>热轧卷 </label> 3.0*1250*C</dd>
-                                <dd><label>存货量： </label> 2000 吨</dd>
-                                <dd><label>起订量： </label> 200 吨</dd>
-                                <dd><label>供货商： </label> 佛山市顺德区启日贸易有限公司</dd>
-                            </dl>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="section1 ggt_big">
-        <div class="container">
-            <img src="/images/ad/ad.jpg"/>
-        </div>
-    </div>
 </div>
 
 @@include('./_common/footer/footer.html')

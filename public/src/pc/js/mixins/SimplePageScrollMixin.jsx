@@ -8,7 +8,7 @@ var SimplePageScrollMixin = {
     componentDidMount: function() {
         libs.addEvent(window,'scroll',this._onScroll,false);
     },
-    
+
     componentWillUnmount: function() {
         libs.rmvEvent(window,'scroll', this._onScroll, false);
     }

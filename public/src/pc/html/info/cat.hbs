@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+<script>
+</script>
+</head>
+
+<body>
+@@include('../_common/header/header.html')
+<div class="banner slide">
+  <div id="product-slider" class="rsDefault">
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner1.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner2.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner3.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner4.jpg"/></a>
+  </div>
+</div>
+	
+<div class="wrapper">
+    <div class="current_path container">
+        <a href="/index.html">首页</a>
+        {{{current_path}}}
+    </div>
+    <div class="info-wrap">
+        <div class="container">
+            <div class="clearfix row">
+                <div class="info-left span2 fl">
+                    <h3><a href="/info/cat/{{infoCatId}}.html"><i class="nav-icon"></i>{{catName}}</a></h3>
+                    {{{test}}}
+                </div>
+                <div class="info-main span8 fl">
+                    {{{list}}}
+                    <!-- 分页 begin -->
+                    <div id="page"></div>
+                    <form id="info-cat-form" action="/info/cat/{{catId}}.html" method="get">
+                    	<input type="hidden" id="pageCurrent_1" name="pageCurrent" value="">
+                    </form>
+                    <!-- 分页 end -->
+                    
+                </div>
+                <div class="info-right span2 fl">
+                    <img src="{{root}}/statics/front/images/ad/ad2.jpg">
+                    <img src="{{root}}statics/front/images/ad/ad2.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{#if error}}
+<script>
+window.location = "/404.html";
+</script>
+{{/if}}
+<script src="{{root}}/statics/front/js/laypage.js"></script>
+
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+<script>
+    laypage({
+        cont: $('#page'), //容器。值支持id名、原生dom对象，jquery对象
+        pages: {{pageCount}}, //总页数
+        curr: {{currentPage}}, //当前页
+        skip: true, //是否开启跳页
+        skin: '#ff6600',
+        groups: 5, //连续显示分页数
+        jump: function(e, first){ //触发分页后的回调
+            if(!first){ //一定要加此判断，否则初始时会无限刷新
+                $('#pageCurrent_1').val(e.curr);
+                $('#info-cat-form').submit();
+            }
+        }
+    });
+</script>
+</body>
+</html>

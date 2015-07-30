@@ -10,15 +10,29 @@ function *demoIndexData(oridata){
 
     libs.clog('pages/search.js');
 
-    var apiData={};
+    var apiData=[];
+    var dataSet = {};
     var mtd = this.method;
 
     if(mtd==='GET'){
         // var path = libs.$url.parse(this.path).pathname.replace('/','') // 处理query和hash
-        apiData = yield api.search({
-            'st': 1,
-            'sc': '网'
-        });
+        var type=1,text="",pageCurrent=1;
+        if(!!this.local.query){ 
+
+            var query = this.local.query.split("&");
+            for (var i = 0; i < query.length; i++) {
+                var param = query[i].split("=");
+                if (param[0]=="st") {type = param[1]};
+                if (param[0]=="sc") {text = decodeURI(param[1])};
+                if (param[0]=="pageCurrent") {pageCurrent = decodeURI(param[1])};
+            };
+       
+            apiData = yield api.search({
+                'st': type,
+                'sc': text,
+                'pageCurrent':pageCurrent
+            });
+         }
     }
 
     else if(mtd==='POST'){
@@ -30,9 +44,29 @@ function *demoIndexData(oridata){
         apiData = yield api.search(body);
     }
 
-    var jsonData = JSON.parse(apiData[1]);
-    oridata = libs.$extend(true,oridata,jsonData);
+    if(apiData.length){
+        var jsonData = JSON.parse(apiData[1]);
+        libs.clog(jsonData);
+        if(jsonData.success){
+            if (jsonData.data.st==2){
+                jsonData.data.goods = jsonData.data.sc;
+                dataSet = jsonData.data;
+            }else{ 
+                for (var i = 0; i < jsonData.data.pageBean.recordList.length; i++) {
+                    var time = new Date(jsonData.data.pageBean.recordList[i].publishTime);
 
+                    jsonData.data.pageBean.recordList[i].publishTime = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
+                };
+            }
+            dataSet = jsonData.data;
+        }else{
+            dataSet.errCode = jsonData.errCode;
+            dataSet.errMsg = jsonData.errMsg;
+        }
+        if(jsonData.data.pageBean.pageCount != 1)dataSet.pages = "show";
+        dataSet.root = api.apiPath.base
+        oridata = libs.$extend(true,oridata,dataSet);
+    }
     return oridata;
 }
 
