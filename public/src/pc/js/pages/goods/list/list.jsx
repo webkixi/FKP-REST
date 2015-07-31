@@ -52,7 +52,7 @@ var param={
 	type:1
 }
 var thead = ['商品编号','类别','品名','品牌','仓库','挂牌量','起订量','单价（元)','点价截止时间','发布时间','编辑/详情'];
-var itemW = [0,0,0,0,185,0,0,0,105,100,0];//单列宽度，0表示自动
+var itemW = [0,50,0,0,185,0,60,0,105,100,80];//单列宽度，0表示自动
 function pageClick(){
 	var that = this;
 	$(".reactPage").delegate("a","click",function(){

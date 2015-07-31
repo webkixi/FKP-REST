@@ -108,6 +108,7 @@ function *demoLoginData(oridata){
                 oridata.account = userData;
                 oridata.firm = userData.firm;
                 oridata.auth = auth;
+                oridata.navAccount="active";
             }
             else{
                 this.redirect('/account/login')

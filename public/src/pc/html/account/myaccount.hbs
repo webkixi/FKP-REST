@@ -16,28 +16,7 @@
         <div class="container">
             <div class="row clearfix">
                 <div class="account_l fl wid-2">
-                    <div class="account_nav">
-                        <dl>
-                            <dt>
-                                <i class="nav-icon"></i>会员中心
-                            </dt>
-                            <dd class="active">
-                                <a href="/account-center.html">我的账号</a>
-                            </dd>
-                            <dd>
-                                <a href="/firm/view.html">企业介绍</a>
-                            </dd>
-                            <dd>
-                                <a href="/goods/list.html">我的商品</a>
-                            </dd>
-                            <dd>
-                                <a href="/order/list.html">我的订单</a>
-                            </dd>
-                            <dd class="hidden">
-                                <a href="#">我的求购</a>
-                            </dd>
-                        </dl>
-                    </div>
+                    @@include('../_common/account.hbs')
                 </div>
                 <div class="account_r fl wid-10">
                     <ul id="myTab" class="nav nav-tabs">
@@ -97,11 +76,11 @@
                                 </div>
                                 <div class="form-group u_address ">
                                     <label for="name">地区：</label>
-                                     <select class="form-control user_asheng province" name="province">
+                                     <select class="form-control user_asheng province select_address" name="province">
                                         {{{account.provinces}}}
-                                    </select> <select class="form-control user_ashi city" name="city">
+                                    </select> <select class="form-control user_ashi city select_address" name="city">
                                         {{{account.city}}}
-                                    </select> <select class="form-control user_aqu county" name="county">
+                                    </select> <select class="form-control user_aqu county select_address" name="district">
                                         {{{account.county}}}
                                     </select>
                                     <p class="error_msg text-danger"></p>

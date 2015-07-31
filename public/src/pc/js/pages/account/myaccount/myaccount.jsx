@@ -8,43 +8,44 @@ var libs = require('libs/libs');
 var formValide = libs.formValide;
 var api = require('../../_common/api')
 
-/*
+
+    /*
 * 地区选择
 */
-function getRegion(id,cb){
+function getRegion(id,_this,arr1){
+    var arr = [];
+    if(arr1)arr = arr1;
     var query = {id: id};
     api.req('region',query,function(body){
-		if(body.success){
-            cb(body);
-		}
+      if(body.success&&body.data.regionList.length){
+        _this.empty()
+        body.data.regionList.map(function(item){
+          if(item.id == arr[0]||item.id == arr[1]||item.id == arr[2])_this.append('<option selected="selected" value='+item.id+'>'+item.regionName+'</option>');
+          else _this.append('<option value='+item.id+'>'+item.regionName+'</option>');
+        })
+        if(_this.find("option[selected]").length<=0)_this.find("option").eq(0).attr("selected","selected");
+
+        if(_this.attr("name")=="province"){
+          getRegion(_this.find("option[selected]").val(),$("select[name='city']"),arr)
+        }
+        if(_this.attr("name")=="city"){
+          getRegion(_this.find("option[selected]").val(),$("select[name='district']"),arr)
+        }
+      }
     })
 }
-
-$('.u_address').delegate('select','change',function(){
-    var index = $(this).index();
-    var id = $(this).val();
-    //省份
-    if(index===1){
-        $('.city').html('');
-        getRegion(id,function(body){
-            //设置传输数据
-            var citys = body.data.regionList;
-            citys.map(function(city,i){
-                $('.city').append('<option value='+city.id+'>'+city.regionName+'</option>')
-            })
-        })
-    }
-    if(index===2){
-        $('.county').html('');
-        getRegion(id,function(body){
-            //设置传输数据
-            var countys = body.data.regionList;
-            countys.map(function(county,i){
-                $('.county').append('<option value='+county.id+'>'+county.regionName+'</option>')
-            })
-        })
-    }
+// 需要异步获取默认地址时可以执行以下语句，数组参数为省，市，区 ID
+//getRegion(0,$(select[name='province']),[19,233,2375]);
+$(".select_address").change(function(){
+  var _this = $(this);
+  if(_this.attr("name")=="province"){
+    getRegion(_this.val(),$("select[name='city']"))
+  }
+  if(_this.attr("name")=="city"){
+    getRegion(_this.val(),$("select[name='district']"))
+  }
 })
+
 
 /*
 * form 表单提交
@@ -120,7 +121,7 @@ function chkInputValue(){
                 window.location = body.redirect;
 			}
 			if(body.errStat){
-				alert(222);
+				messager.alert({title:"提示",content:'更新失败',type:"error"});
 			}
 		})
         //normal submit
@@ -142,14 +143,14 @@ $('#updateBaseInfo').click(function(){
 
     query.province = baseForm['province'].value;
     query.city = baseForm['city'].value;
-    query.county = baseForm['county'].value;
+    query.county = baseForm['district'].value;
 
     api.req('updateAccountBase',query,function(body){
 		if(body.success){
-            alert(111)
+            messager.alert({title:"提示",content:'更新成功',type:"success"});
 		}
 		if(body.errStat){
-			alert(222);
+			messager.alert({title:"提示",content:'更新失败',type:"error"});
 		}
 	})
 });
@@ -166,10 +167,10 @@ $('#accountAuth').click(function(){
 
     api.req('updateAccountAuth',query,function(body){
 		if(body.success){
-            alert(111)
+            messager.alert({title:"提示",content:'更新成功',type:"success"});
 		}
 		if(body.errStat){
-			alert(222);
+			messager.alert({title:"提示",content:'更新失败',type:"error"});
 		}
 	})
 

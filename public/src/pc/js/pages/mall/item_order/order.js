@@ -30,14 +30,15 @@ function getRegion(id,_this,arr1){
       }
     })
 }
-getRegion(0,$("#province"),[19,233,2375]);
+// 需要异步获取默认地址时可以执行以下语句，数组参数为省，市，区 ID
+getRegion(0,$("select[name='province']"),[19,233,2375]);
 $(".select_address").change(function(){
   var _this = $(this);
   if(_this.attr("name")=="province"){
-    getRegion(_this.val(),$("#city"))
+    getRegion(_this.val(),$("select[name='city']"))
   }
   if(_this.attr("name")=="city"){
-    getRegion(_this.val(),$("#district"))
+    getRegion(_this.val(),$("select[name='district']"))
   }
 })
 $(function(){

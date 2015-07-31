@@ -30,7 +30,7 @@ function *demoIndexData(oridata){
                 apiData  = yield api.pullApiData('firmDetailView',body);
                 jsonData = JSON.parse(apiData[1]).data;
 
-
+                jsonData.navFirm="active";
                 oridata = libs.$extend(true,{},oridata,jsonData);
         }
 
