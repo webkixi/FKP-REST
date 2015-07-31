@@ -36,13 +36,13 @@
                                 <label for="catId">类别：</label>
                                 <select class="form-control g_cate" name="catId" id="catId" >
                                       <option value="">--请选择类别--</option>
-                                      {{{catList}}}
+                                      {{#each catList}} <option value="{{id}}">{{catName}}</option> {{/each}}
                                 </select><span class="required">*</span>
                             </div>
                             <div class="form-group">
                                 <label for="catId2">品名：</label>
-                                <select class="form-control g_cname" name="catId2" id="catId2" maxlength="100"><span class="required">*</span>
-                                </select>
+                                <select class="form-control g_cname" name="catId2" id="catId2" maxlength="100">
+                                </select><span class="required">*</span>
                             </div>
                             <div class="form-group">
                                 <label for="vender">厂家：</label>
@@ -50,8 +50,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="brandId">品牌：</label>
-                                <select class="form-control user_brand" name="brandId" id="brandId" ><span class="required">*</span>
-                                </select>
+                                <select class="form-control user_brand" name="brandId" id="brandId" >
+                                </select><span class="required">*</span>
                             </div>
                             <div class="form-group">
                                 <label for="model">规格型号：</label>
@@ -137,7 +137,7 @@
                                 <span id="brandTradeCode" style="width: 80px;">&nbsp;</span>
                                 <select class="form-control form-midpoints" style="width: 92px;" name="contractPeriod" id="contractPeriod">
                                 {{#each timeHY}}
-                                  <option value="{{name}}" {{#if contractPeriod}} selected {{/if}} >{{name}}</option>
+                                  <option value="{{name}}">{{name}}</option>
                                 {{/each}}
                                 </select>
                             </div>
@@ -154,7 +154,7 @@
                             </div>
                             <div class="form-group" data-valuation="0">
                                 <label for="stopDate">点价截止时间：</label>
-                                <input type="text" class="form-control" style="width:95px; padding:0;" name="stopDate" id="stopDate" >
+                                <input type="text" class="form-control" style="width:95px; padding:0;" name="stopDate" id="stopDate" value="{{stopDate}}">
                                 <select class="form-control form-midpoints" style="width:55px;padding:0;" name="stopHour" id="stopHour">
                                 </select>时
                                 <select class="form-control form-midpoints" style="width:55px;padding:0;" name="stopMinute" id="stopMinute">

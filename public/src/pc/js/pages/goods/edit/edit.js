@@ -177,21 +177,16 @@ $(function(){
         $('#goodsForm').find("select").map(function(i, item){
             query[item.name] = $(item).val();
         })
-
         $('#goodsForm').find('textarea').map(function(i, item){
             query[item.name] = $(item).val().toString();
         })
-        console.log(query)
-        api.req('edit',query,function(body){
-            console.log(body)
+        api.req('goods_edit',query,function(body){
             if(body.success){
-                console.log("22222222222")
                  messager.alert({title:"提示",content:"商品保存成功！",type:"success", fn: function(){
                     document.location.href = "/goods/list.html";
                 }});
                 return;
             }else{
-                console.log("333333333333")
                 if(body.errMsg) {
                     messager.alert({title:"错误提示",content:body.errMsg,type:"error"});
                 } else {

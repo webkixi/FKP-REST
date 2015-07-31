@@ -175,10 +175,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="storage">仓库：</label>
-                                <select class="form-control form-warehouse" id="storage">
-<!--                                       [#list storageList as bean]
-                                      <option value="${bean.id}" [#if spGoods.storage==bean.id] selected [/#if]>[#if bean.shortName?if_exists] ${bean.fullName!}(${bean.shortName!}) [#else] ${bean.fullName!} [/#if]</option>
-                                      [/#list] -->
+                                <select class="form-control form-warehouse" id="storage" name="storage">
                                       {{#each storageList}}
                                         <option class="a" value="{{id}}" {{#if select}} selected {{/if}}>{{fullName}} </option>
                                       {{/each}}

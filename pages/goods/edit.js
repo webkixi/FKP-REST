@@ -152,7 +152,7 @@ function *demoIndexData(oridata){
                     if(strongsData.success){
                         for(var i = 0; i<strongsData.list.length;i++){
                             if(!!strongsData.list[i].shortName) strongsData.list[i].fullName = strongsData.list[i].fullName +"("+strongsData.list[i].shortName+")";
-                            if(dataset.spGoods.storage == strongsData.list[i].id)strongsData.list[i].select = "select";
+                            if(dataset.spGoods.storage == strongsData.list[i].id)strongsData.list[i].select = "selected";
                         }
                         dataset.storageList = strongsData.list;
                     }
@@ -163,7 +163,7 @@ function *demoIndexData(oridata){
                     if(strongsData1.success){
                         for(var i = 0; i<strongsData1.list.length;i++){
                             if(!!strongsData1.list[i].shortName) strongsData1.list[i].fullName = strongsData1.list[i].fullName +"("+strongsData1.list[i].shortName+")";
-                            if(dataset.spGoods.storage == strongsData1.list[i].id)strongsData1.list[i].select = "select";
+                            if(dataset.spGoods.storage == strongsData1.list[i].id)strongsData1.list[i].select = "selected";
                         }
                         dataset.storageList1 = strongsData1.list;
                     }
@@ -204,6 +204,7 @@ function *demoIndexData(oridata){
                 apiData = yield api.pullApiData('goods_update',body);
                 console.log(apiData[1])
                 var rtn = JSON.parse(apiData[1]);
+                console.log(rtn)
                 return rtn;
             }
         }
