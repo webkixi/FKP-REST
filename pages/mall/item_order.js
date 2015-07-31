@@ -29,6 +29,7 @@ function *demoIndexData(oridata){
                     if(apiData.data.spGoods.deliveryWay==0) apiData.data.spGoods.deliveryWay0 = true;
                     //盘点价
                     if(apiData.data.spGoods.isNightPlate==1) apiData.data.spGoods.isNightPlate1 = true;
+                    //合同签订点
                     //仓库信息
                     var storageData = [];
                         storageData = yield api.pullApiData('goods_storages_list',{});
@@ -36,12 +37,32 @@ function *demoIndexData(oridata){
                         //console.log(storageData);break;
                     for(var i=0;i<storageData.list.length;i++){
                         if(storageData.list[i].id===apiData.data.spGoods.storage){
-                            var address = ""
-                            apiData.data.spGoods.storageAddress = address;
-                        console.log(storageData.list[i]);
+                            //根据仓库ID找仓库地址
+                        var provinceName = yield address(storageData.list[i].province);
+                        var cityName = yield address(storageData.list[i].city);
+                        var districtName = yield address(storageData.list[i].district);
+                        apiData.data.spGoods.storageAddress = provinceName+cityName+districtName+storageData.list[i].address;
+                        break;
                         }
                     }
+                    // 买、卖家信息
+                    var buyer = yield accountInfo(apiData.data.order.buyerAccountNo);
+                    var seller = yield accountInfo(apiData.data.order.sellerAccountNo);
 
+                    if(!!seller){
+                        var sellerProvince = yield address(seller.firmContact.province);
+                        var sellerCity = yield address(seller.firmContact.city);
+                        var sellerdistrict = yield address(seller.firmContact.district);
+                        apiData.data.sellerContactWay = seller.firmContact.landline;
+                        apiData.data.sellerAddress = sellerProvince + sellerCity + sellerdistrict + seller.firmContact.address;
+                    }
+                    if(!!buyer){
+                        var buyerProvince = yield address(buyer.firmContact.province);
+                        var buyerCity = yield address(buyer.firmContact.city);
+                        var buyerdistrict = yield address(buyer.firmContact.district);
+                        apiData.data.buyerContactWay = buyer.firmContact.landline;
+                        apiData.data.buyerAddress = buyerProvince + buyerCity + buyerdistrict + buyer.firmContact.address;
+                    }
                     //质量标准
                     if(!!apiData.data.spGoods.quality) apiData.data.spGoods.quality0 = true;
                     //包装
@@ -55,9 +76,24 @@ function *demoIndexData(oridata){
                     var time = new Date(apiData.data.order.createTime);
                     apiData.data.order.createTime = time.getFullYear() + "-" + twoNo(time.getMonth()+1) + "-" + twoNo(time.getDate()) +" "+ twoNo(time.getHours()) +":"+ twoNo(time.getMinutes()) +":"+twoNo(time.getSeconds());
                     dataSet = apiData.data;
-                    console.log(dataSet);
+                    //console.log(dataSet);
                     function twoNo(num){
                         return num<10?"0"+num:num;
+                    }
+                    function *address(id){
+                        var region = [];
+                            region = yield api.pullApiData('region',{'regionId':id});
+                            region = JSON.parse(region[1]);
+                            if(region.success)return region.data.parentRegion;
+                            else return "";
+                    }
+                    function *accountInfo(no){
+                    var account = [];
+                        account = yield api.pullApiData('get_account_info',{'accountNo':no});
+                        account = JSON.parse(account[1]);
+                        if(account.success)return account.data;
+                        else return "";
+                        
                     }
                 }
             }else{
@@ -65,17 +101,19 @@ function *demoIndexData(oridata){
             }
         }
     }else if(mtd === 'POST'){
-        var body = yield libs.$parse(this);  
-        var session = this.sess;
-        if(body.step == 'submit'){
-            apiData = yield api.pullApiData('mall_order_submit',{
-                'accountNo':session.user.accountNo,
-                'orderId':orderId,
-            })
-            console.log(session.user.accountNo)
-            console.log("提交了")
+        if(typeof this.sess.user!=='undefined'&&this.sess.user){
+            var body = yield libs.$parse(this);  
+            body.accountNo=this.sess.user.accountNo
+            if(body.step == 'submit'){
+                apiData = yield api.pullApiData('mall_order_submit',body)
+                apiData = JSON.parse(apiData[1]);
+                console.log(body)
+                console.log(apiData)
+                console.log("提交了")
+            }
+        }else{
+            return {errMsg:"请先登录！"};
         }
-        
     }
     dataSet.navOrder="active";
 
