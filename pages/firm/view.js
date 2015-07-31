@@ -16,6 +16,7 @@ function *demoIndexData(oridata){
     var success = {
         success: true
     }
+    var dataset={};
 
     if(mtd==='GET'){
     libs.clog('pages/edit.js========GET===========pull firm detail introduce');
@@ -32,6 +33,7 @@ function *demoIndexData(oridata){
 
 
                 oridata = libs.$extend(true,{},oridata,jsonData);
+            oridata.navFirm ="active"; 
         }
 
         else

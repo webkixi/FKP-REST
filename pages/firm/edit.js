@@ -17,7 +17,6 @@ function *demoIndexData(oridata){
         success: true
     }
 
-
     if(mtd==='GET'){
     libs.clog('pages/edit.js========GET===========pull firm detail introduce');
 
@@ -33,7 +32,7 @@ function *demoIndexData(oridata){
 
 
                 oridata = libs.$extend(true,{},oridata,jsonData);
-                console.log(oridata);
+                oridata.navFirm="active"; 
         }
 
         else
@@ -75,7 +74,7 @@ function *demoIndexData(oridata){
 
                         return error;
                     }
-
+                oridata.navFirm="active"; 
             }
 
             //没有登陆，返回错误信息

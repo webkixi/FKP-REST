@@ -77,7 +77,7 @@ function *demoRegistData(oridata){
                 if(body.newPassword =="" || body.repassword ==""){
                     oridata.errmsg = jsonData.errMsg;
                 }else{
-                    apiDataFor = yield api.pullApiData('forget',body);
+                    apiDataFor = yield api.pullApiData('updatePassword',body);
                     var jsonDataFor = JSON.parse(apiDataFor[1]);
                     if(jsonDataFor.success){
                         this.sess.step = 4;
