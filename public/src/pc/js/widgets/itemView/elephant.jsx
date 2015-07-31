@@ -1,11 +1,10 @@
 /** @jsx React.DOM */
-var config = require('../../config');
 
-var imagePath = config.imagePath;
+var imagePath = CFG.goods_img;
 
 var elephant = React.createClass({
 	componentDidMount: function () {
-		console.log('fakeData');
+		// console.log('fakeData');
 	},
 
 	render: function () {
@@ -48,7 +47,7 @@ var elephant = React.createClass({
             <li className={clsName} style={sty}>
                 <div className={"inner"}>
 					<div className={"hheader"}>
-	                    <a href={"http://www.163.com"}>
+	                    <a href={"/mall/item_detail/"+data.id+'.html'}>
 	                        <img src={image} />
 	                    </a>
 	                </div>

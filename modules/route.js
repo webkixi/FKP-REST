@@ -112,6 +112,8 @@ function init(app,mapper,rend){
     }
 
     router
+    .redirect('/mall/item/list.html', '/mall/list.html')
+
     .get('/',forBetter)
     .get('/:cat',forBetter)
     .get('/:cat/:title',forBetter)
@@ -119,6 +121,7 @@ function init(app,mapper,rend){
 
     .post('/:cat',forBetter)
     .post('/:cat/:title',forBetter)
+
 }
 
 //获取地址
@@ -212,14 +215,20 @@ function *distribute(_mapper){
                 if(typeof pageData.errState!=='undefined' && pageData.errState) yield htmlRender.call(this,false,route);
                 else{
 
-                    if(typeof pageData.errStat == 'undefined'){
-                        var header = yield header_nav.call(this);
-                        pageData.header_nav = header.navData;
-                        pageData.user = header.user;
-                    }
+                    // if(typeof pageData.errStat == 'undefined'){
+                    //     var header = yield header_nav.call(this);
+                    //     pageData.header_nav = header.navData;
+                    //     pageData.user = header.user;
+                    // }
 
-                    if(this.method==='GET')
+                    if(this.method==='GET'){
+                        if(typeof pageData.errStat == 'undefined'){
+                            var header = yield header_nav.call(this);
+                            pageData.header_nav = header.navData;
+                            pageData.user = header.user;
+                        }
                         yield htmlRender.call(this,true,route,pageData);
+                    }
 
                     else if(this.method==='POST')
                         yield returnJson.call(this,true,route,pageData);
@@ -247,7 +256,6 @@ function *htmlRender(stat,route,data){
         this.body = yield render(route,data);
     else{
         this.redirect('/404')
-        // this.body = yield render('404');
     }
 }
 

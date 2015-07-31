@@ -29,6 +29,7 @@ module.exports = {
         path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js')
     ],
     globalList: [
+        path.join(__dirname, src_dir, '/js/global/config.js'),
         path.join(__dirname, src_dir, '/js/global/libs.js'),
         path.join(__dirname, src_dir, '/js/global/core.js'),
         path.join(__dirname, src_dir, '/js/global/toolkits.js')
