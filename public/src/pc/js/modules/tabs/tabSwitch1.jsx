@@ -10,7 +10,7 @@ var attrClick = function(){
 
 //react Page
 var Page = React.createClass({
-    mixins: [Store],
+    mixins: [Store('Page')],
     getInitialState: function() {
     	return {};
     },
@@ -64,7 +64,7 @@ var Page = React.createClass({
 
 //react cnt
 var Cnt = React.createClass({
-    mixins: [Store],
+    mixins: [Store('Cnt')],
     getInitialState: function() {
          SA.setter('tabswitch',{}, this.act);
         return {};
@@ -155,13 +155,12 @@ var Cnt = React.createClass({
 
 //react tabswitch
 var tabswitch = React.createClass({
-    mixins: [Store],
+    mixins: [Store('tabswitch')],
 	getDefaultProps: function() {
 		return { }
 	},
 
 	getInitialState: function() {
-        SA.setter('tabswitch',{}, this.act);
         this.addSheet();
 		return {
         	data: [],
@@ -170,9 +169,6 @@ var tabswitch = React.createClass({
 
 	    };
 	},
-    act: function(data){
-        this.setState(data);
-    },
 
     addSheet: function(){
         //添加css到头部
@@ -209,7 +205,7 @@ var tabswitch = React.createClass({
 
 
     renderChilds: function(){
-        
+
     },
 
 	render:function(){
