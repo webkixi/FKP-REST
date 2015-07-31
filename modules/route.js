@@ -113,6 +113,8 @@ function init(app,mapper,rend){
 
     router
     .redirect('/mall/item/list.html', '/mall/list.html')
+    .redirect('/firm/detail/view.html', '/firm/view.html')
+
 
     .get('/',forBetter)
     .get('/:cat',forBetter)
