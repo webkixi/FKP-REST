@@ -114,10 +114,12 @@ function *demoLoginData(oridata){
                 this.redirect('/account/login')
                 // jump to login
             }
+            oridata.navAccount ="active";
         }else{
             this.redirect('/account/login')
         }
         return oridata;
+
     }
 
     else if(mtd==='POST'){

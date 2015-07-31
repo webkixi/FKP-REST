@@ -39,6 +39,8 @@ $(function(){
     });
     //获取时间 时 分
     $('#isNightPlate').click(function() {
+        if($(this).val()==1)$(this).val(0);
+        else $(this).val(1);
         $('#stopHour').empty();
         var cutDate = dayStopHours;
         dayStopHours = nightStopHours;
@@ -90,6 +92,12 @@ $(function(){
             stopMinuteInit = true;
         }
     });
+    if($("#isNightPlate").val()!=1){
+        $("#isNightPlate").attr("checked","checked");
+        var cutDate = dayStopHours;
+        dayStopHours = nightStopHours;
+        nightStopHours = cutDate;
+    }
     dayStopHours.map(function(item){
         $('#stopHour').append("<option value='" + item + "'>" + item + "</option>"); 
     });
@@ -126,7 +134,6 @@ $(function(){
         //商品属性类型type值为，category类别，product品名，brand品牌，storage仓库 ，参数2为查询条件
         api.req('goods_attr',{type:'product',catId: $('#catId').val()},function(body){
             if(body.success){
-                
                 $('#catId2').empty();
                 body.list.map(function(item){ 
                     $('#catId2').append("<option value='" + item.id + "' tradeCode='" + item.pageTitle + "'>" + item.catName + "</option>");
@@ -149,7 +156,7 @@ $(function(){
         if(!$('#catId2').val()){
             return;
         }
-        api.req('goods_attr',{type:'brand',catId: $('#catId').val()},function(body){
+        api.req('goods_attr',{type:'brand',catId: $('#catId2').val()},function(body){
             if(body.success){
                 $('#brandId').empty();
                 body.list.map(function(item){ 
