@@ -49,11 +49,19 @@ $(function(){
 })
 
 
-$('#submitOrderBtn1').click(function() {
+$('#submitOrderBtn').click(function() {
   var province = $("#province").find("option[value='"+$("#province").val()+"']").text()
-  var city = $("#province").find("option[value='"+$("#city").val()+"']").text()
+  var city = $("#city").find("option[value='"+$("#city").val()+"']").text()
   var district = $("#district").find("option[value='"+$("#district").val()+"']").text()
   $("#signPlace").val(province+city+district)
+  if(!$("input[name='signTime']").val()) return  messager.alert({title:"提示",content:"请输入签订时间。",type:"warning"});
+  if(!$("input[name='deliveryTime']").val()&&$("input[name='deliveryTime']").length>0) return  messager.alert({title:"提示",content:"请输入签订时间。",type:"warning"});
+  if(!$("input[name='storageAddress']").val()&&$("input[name='storageAddress']").length>0) return  messager.alert({title:"提示",content:"请输入交货仓库地址。",type:"warning"});
+  if(!$("input[name='quality']").val()&&$("input[name='quality']").length>0) return  messager.alert({title:"提示",content:"请输入质量标准。",type:"warning"});
+  if(!$("input[name='sellerContactWay']").val()) return  messager.alert({title:"提示",content:"请输入卖方联系方式。",type:"warning"});
+  if(!$("input[name='sellerAddress']").val()) return  messager.alert({title:"提示",content:"请输入卖方通信地址。",type:"warning"});
+  if(!$("input[name='buyerContactWay']").val()) return  messager.alert({title:"提示",content:"请输入买方联系方式。",type:"warning"});
+  if(!$("input[name='buyerAddress']").val()) return  messager.alert({title:"提示",content:"请输入买方通信地址。",type:"warning"});
   if(messager.confirm({title:"确定提示",content:"订单提交后将无法修改，确定要提交该订单吗？",cancel:function(){return true},confirm:function(){submit();}})){
     return false;
   }
@@ -61,7 +69,32 @@ $('#submitOrderBtn1').click(function() {
 });
 
 function submit(){
+  var query = {};
+    query.orderId = $("input[name='orderId']").val();
+    query.step = $("input[name='step']").val();
+    query.signPlace = $("#signPlace").val();
+    query.signTime = $("input[name='signTime']").val();
+    if($("input[name='deliveryTime']").length>0) query.deliveryTime = $("input[name='deliveryTime']").val();
+    if($("input[name='storageAddress']").length>0) query.storageAddress = $("input[name='storageAddress']").val();
+    query.freightParty = $("#freightParty").val();
+    query.quality = $("input[name='quality']").val();
+    query.sellerContactWay = $("input[name='sellerContactWay']").val();
+    query.sellerAddress = $("input[name='sellerAddress']").val();
+    query.buyerContactWay = $("input[name='buyerContactWay']").val();
+    query.buyerAddress = $("input[name='buyerAddress']").val();
   api.req('submitOrder',query,function(body){
-
+    if(body.success){
+      messager.alert({title:"提示",content:"订单提交成功！",type:"success",fn:function(){
+              document.location.href = "/order/list.html";
+        }});
+        
+    }else{
+      if (!!body.errMsg) {
+          messager.alert({title:"提示",content:body.errMsg,type:"error"});
+              $('#submitOrderBtn').attr("disabled",false);
+      }else{
+        messager.alert({title:"提示",content:'提交订单失败',type:"error"});
+      }
+    }
   })
 }

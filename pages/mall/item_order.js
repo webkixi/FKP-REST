@@ -103,13 +103,16 @@ function *demoIndexData(oridata){
     }else if(mtd === 'POST'){
         if(typeof this.sess.user!=='undefined'&&this.sess.user){
             var body = yield libs.$parse(this);  
-            body.accountNo=this.sess.user.accountNo
+            body.accountNo=this.sess.user.accountNo;
+            body.signPlace = decodeURI(body.signPlace);
+            body.storageAddress = decodeURI(body.storageAddress);
+            body.quality = decodeURI(body.quality);
+            body.sellerAddress = decodeURI(body.sellerAddress);
+            body.buyerAddress = decodeURI(body.buyerAddress);
             if(body.step == 'submit'){
                 apiData = yield api.pullApiData('mall_order_submit',body)
                 apiData = JSON.parse(apiData[1]);
-                console.log(body)
-                console.log(apiData)
-                console.log("提交了")
+                return apiData
             }
         }else{
             return {errMsg:"请先登录！"};
