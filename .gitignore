@@ -5,3 +5,5 @@ node_modules
 /public/dist/*
 npm-debug.log
 /dist_mir
+/public/dist_mir
+/public/dist_mir/*
