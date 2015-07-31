@@ -10,6 +10,7 @@ var apiPath = {
         mall_attr: '/mall/api_list_attr',
         mall_exhibition: '/mall/list',
         goods_attr: '/common/goods_attr',
+        submitOrder: '/mall/item_order.html',//提交订单
         login: '/account/login',
         account_goods_list: '/goods/list.html',//会员中心，商品列表
         account_order_list: '/order/list.html',//会员中心，订单列表
@@ -18,7 +19,8 @@ var apiPath = {
         updateAccountAuth: '/account/myaccount_auth',
         firmDetailView: '/firm/view',
         firmDetailSave: '/firm/edit',
-        edit: '/goods/edit'
+        goods_edit: '/goods/edit',
+        goods_add: '/goods/add'
     }
 }
 

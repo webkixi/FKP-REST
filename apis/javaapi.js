@@ -50,7 +50,8 @@ var apiPath = {
         goods_storages_list:src+'api/goods/storages/list.html',//所有仓库列表
         goods_mystorages_list:src+'api/goods/myStorages/list.html',//我的仓库列表
         goods_detail: src+'api/goods/detail.html',//查询商品详情
-        goods_update: src+'api/goods/update.html',//修改商品详情
+        goods_update: src+'api/goods/update.html',//修改商品
+        goods_add: src+'api/goods/save.html',//添加商品
 
         //公共部分
         header_nav: src+'api/navbar.html',  //头部导航栏

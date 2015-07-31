@@ -6,6 +6,8 @@
 <script type="text/javascript">
     var cI = {{spGoods.catId2}};
     var bI = {{spGoods.brandId}};
+    var hour = {{spGoods.stopHour}};
+    var minute = {{spGoods.stopMinute}};
 </script>
 </head>
 <body>
@@ -149,10 +151,11 @@
                                 <label style="width:auto;">
                                     <input type="checkbox" value="1" name="isNightPlate" id="isNightPlate">接受夜盘点价
                                 </label>
+                                <div class="dateData hidden"></div>
                             </div>
                             <div class="form-group" data-valuation="0">
                                 <label for="stopDate">点价截止时间：</label>
-                                <input type="text" class="form-control" style="width:120px;" name="stopDate" id="stopDate" value="{{spGoods.stopDate}}" >
+                                <input type="text" class="form-control" data-type='date' style="width:120px;" name="stopDate" id="stopDate" value="{{spGoods.stopDate}}" >
                                 <select class="form-control form-midpoints" style="width:70px;" name="stopHour" id="stopHour">
                                 </select>时
                                 <select class="form-control form-midpoints" style="width:70px;" name="stopMinute" id="stopMinute">
@@ -172,10 +175,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="storage">仓库：</label>
-                                <select class="form-control form-warehouse" id="storage">
-<!--                                       [#list storageList as bean]
-                                      <option value="${bean.id}" [#if spGoods.storage==bean.id] selected [/#if]>[#if bean.shortName?if_exists] ${bean.fullName!}(${bean.shortName!}) [#else] ${bean.fullName!} [/#if]</option>
-                                      [/#list] -->
+                                <select class="form-control form-warehouse" id="storage" name="storage">
                                       {{#each storageList}}
                                         <option class="a" value="{{id}}" {{#if select}} selected {{/if}}>{{fullName}} </option>
                                       {{/each}}
