@@ -1,3 +1,4 @@
+require('../banner/banner')
 var jqcookie = require('./jqcookie');
 
 var test_goods = [
