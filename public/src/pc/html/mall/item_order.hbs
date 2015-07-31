@@ -29,7 +29,13 @@
                           <h2>联商所电子购销订单</h2>
                           <ul>
                             <li>合同编号：{{order.orderNo}}</li>
-                            <li>签订地点：广东省广州市</li>
+                            <li>签订地点：
+                                
+                                <select class="select_address" id="province" name="province" style="width: 100px;" ></select>
+                                <select class="select_address" id="city" name="city" style="width: 100px;"></select>
+                                <select class="select_address" id="district" name="district" style="width: 100px;"></select>
+                                <input type="hidden" id="signPlace" name="signPlace" >
+                            </li>
                             <li>签订时间：<input type="text" name="signTime" value="{{order.createTime}}"></li>
                           </ul>
                         </div>
@@ -68,7 +74,7 @@
                                 {{else}}
 	                                <td>{{#if order.unitPriceNull}} {{order.unitPrice}} {{/if}}</td>
 	                                <td>{{order.totalPrice}}</td>
-	                                <td><input type="text" value="" id="deliveryTime" name="deliveryTime" ></td>
+	                                <td><input type="text" value="" data-type='date' id="deliveryTime" name="deliveryTime" ></td>
                                 {{/if}}
                               </tr>
                               <tr>
@@ -92,7 +98,7 @@
                             <span class="delivery_title">
                             {{#if spGoods.deliveryWay0}}
                            	&#8730;&nbsp;&nbsp;买方自提&nbsp;&nbsp;(<span class="delivery_input">{{spGoods.storageName}}</span>&nbsp;仓库&nbsp;&nbsp;
-                           		地址：<input type="text" size="50" maxlength="50" id="storageAddress" name="storageAddress" value="{{spGoods.storageAddress}}"/>) 
+                           		地址：<input type="text" size="50" style="width:335px" maxlength="50" id="storageAddress" name="storageAddress" value="{{spGoods.storageAddress}}"/>) 
                            	 	&nbsp;&nbsp;运输费由<select id="freightParty" name="freightParty"><option value="0" selected="selected">买方</option><option value="1">卖方</option></select>承担。
                             {{else}}
                           	&#8693;&nbsp;&nbsp;买方自提&nbsp;&nbsp;(<span class="delivery_input"></span>仓库&nbsp;&nbsp;
@@ -102,7 +108,7 @@
                             <span class="delivery_title">
                             {{#if spGoods.deliveryWay1}}
                           	&#8730;&nbsp;&nbsp;卖方送货&nbsp;&nbsp;(<span class="delivery_input">{{spGoods.storageName}}</span>&nbsp;仓库&nbsp;&nbsp;
-                          		地址：<input type="text" size="50" maxlength="50" id="storageAddress" name="storageAddress" value="{{spGoods.storageAddress}}"/>)
+                          		地址：<input type="text" size="50" style="width:335px" maxlength="50" id="storageAddress" name="storageAddress" value="{{spGoods.storageAddress}}"/>)
                           	  	&nbsp;&nbsp;运输费由<select id="freightParty" name="freightParty"><option value="0">买方</option><option value="1" selected="selected">卖方</option></select>承担。
                             {{else}}
                             &#8693;&nbsp;&nbsp;卖方送货&nbsp;&nbsp;(<span class="delivery_input"></span>仓库&nbsp;&nbsp;
@@ -117,11 +123,11 @@
                           <em>三、资金结算支付方式</em>
                           <p>
                             	货款结算方式：
-                            [#if spGoods.valuation==0] 
+                            {{#if spGoods.valuation0}} 
 					                              款到发货，全款（如果发货时未完成点价，则暂定价格的计算以付款当日点价合约的结算价作为基价再加上升贴水）</br>
-                            [#else]
+                            {{else}}
                             	全款，款到发货；</br>
-                            [/#if]
+                            {{/if}}
                             	支付方式：{{spGoods.paymentWayName}}；
                           </p>
                           <p></p>
@@ -132,7 +138,7 @@
                           <em>六、验货办法、质量标准及违约条款</em>
                           <p>1、买方应从速检验卖方所交商品，如有质量异议的，应于交货之日起3日内书面通知卖方，卖方需在<span style="min-width:30px;" class="delivery_input">1</span>个工作日内回复相关问题，双方本着协商的原则解决质量问题，
                           		双方对质量问题无法达成一致，可共同委托有资质的鉴定单位对质量进行鉴定，对该鉴定结果，双方均无异议。</p>
-                          <p>2、质量技术标准要求： <input type="text" value="[#if spGoods.quality?if_exists]  ${spGoods.quality} [#else] 按厂家标准 [/#if]" id="quality" name="quality" maxlength="50" ></p>
+                          <p>2、质量技术标准要求： <input type="text" value="{{#if quality0}}  {{spGoods.quality}} {{else}} 按厂家标准 {{/if}}" id="quality" name="quality" maxlength="50" ></p>
                           <p>3、买方延迟付款的，每延迟一日须向卖方支付相当于未付款总额的 <span class="delivery_input">0.5‰</span>的滞纳金；卖方延迟交货的，每延迟一日须向买方支付相当于未提货物价值
                           	<span class="delivery_input">0.5‰</span>的滞纳金，逾期付款或逾期交货达十五日的，守约方有权解除合同。</p>
                           <p>4、任何一方违反约定导致合同客观上无法履行或守约方行使解除权的，应向守约方支付本批货款  <span class="delivery_input">10%</span>的违约金，并赔偿守约方受到的全部经济损失。</p>
@@ -170,7 +176,7 @@
                     
                     <div class="ele_cfoot">
                     	{{#if order.status1 }}  
-                        <button id="submitOrderBtn" class="btn btn-warning">提交订单</button>
+                        <button id="submitOrderBtn" type="button" class="btn btn-warning">提交订单</button>
 						          {{/if}}
                         <a target="_blank" href="/mall/item/detail/{{spGoods.id}}.html">该订单对应商品详情</a>
                       </div>
@@ -193,9 +199,6 @@
 		</div>
 	</div>
 </div>
-
-<script src="/statics/front/js/jquery.form.min.js"></script>
-
 
 @@include('../_common/footer/footer.html')
 @@include('../_common/footer/foot.html')
