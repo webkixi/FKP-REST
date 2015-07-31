@@ -26,7 +26,7 @@ function *demoIndexData(oridata){
                 })
                 apiData = JSON.parse(apiData[1]);
                 if(apiData.success){
-                     dataset = apiData.data;
+                     dataset = apiData.data;                    
                     //图片相册
                     // var pictureLibUrl =  apiData.data.spGoods.pictureLibUrl;
                     // var spGoodsPictureList = apiData.data.spGoodsPictureList;

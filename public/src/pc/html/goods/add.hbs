@@ -62,14 +62,16 @@
                                     <ul id="pictures" class="pictures">
                                         <li class="goods_updown exist_img">
                                             <img id="brandLogo" src="" alt="" class="goods_upic">
-                                            <div class="goods_upicbtn">
+                                            <!-- <div class="goods_upicbtn">
                                                 <span title="删除" class="del_img"></span>
                                                 <span title="更新" class="updata_img"></span>
                                             </div>
                                             <span class="upload_test">正在上传···</span>
                                             <span class="file_btn">+</span>
-                                            <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" class="pic_src">
+                                            <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple> -->
+                                            <div id="pic_logo"></div>
+                                            <input type="hidden" class="pic_src" id="pir_src1" name="pic_src">
+                                            
                                         </li>
                                         <li class="goods_updown">
                                             <img src="" alt="" class="goods_upic">
@@ -80,7 +82,7 @@
                                             <span class="upload_test">正在上传···</span>
                                             <span class="file_btn">+</span>
                                             <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" class="pic_src">
+                                            <input type="hidden" class="pic_src"  id="pir_src2" name="pic_src">
                                         </li>
                                         <li class="goods_updown">
                                             <img src="" alt="" class="goods_upic">
@@ -91,7 +93,7 @@
                                             <span class="upload_test">正在上传···</span>
                                             <span class="file_btn">+</span>
                                             <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" class="pic_src">
+                                            <input type="hidden" class="pic_src"  id="pir_src3" name="pic_src">
                                         </li>
                                     </ul>
                                 </div>
@@ -144,7 +146,7 @@
                             <div class="form-group" data-valuation="0">
                                 <label for="discount">升贴水：</label>
                                 <input class="user_discount form-control" style="width: 134px;" maxlength="10" type="text" name="discount" id="discount">
-                                    元/<span id="discountUnit"></span>
+                                    元<span id="discountUnit"></span>
                             </div>
                             <div class="form-group" data-valuation="0">
                                 <label for="discount"></label>

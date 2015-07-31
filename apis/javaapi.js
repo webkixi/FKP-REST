@@ -32,9 +32,9 @@ var apiPath = {
         regist: src+'api/account/account-save.html',  //注册
         checkMC: src+'api/account/checkLoginPhoneAndCode.html',  //校验验证码
         code: src+'api/account/send-sms-code.html',   //拿取手机验证码
-        forget: src+'api/checkForgetPassword.html',  //忘记密码
+        //forget: src+'api/checkForgetPassword.html',  //忘记密码
         user: src+'checkUserStatus.html',   //检测用户状态
-        updatePassword: src+'api/account/account-save-password.html',  //更新用户密码
+        updatePassword: src+'api/account/account-save-password.html',  //更新用户密码false 忘记密码true
         updateBaseInfo: src+'api/account/account-save-baseInfo.html',  //更新用户基本信息
         uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
 
