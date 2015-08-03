@@ -13,6 +13,8 @@ function *demoIndexData(oridata){
     var apiData=[];
     var dataSet = {};
     var mtd = this.method;
+    var goodsData = {};
+    var infoData = {};
 
     if(mtd==='GET'){
         // var path = libs.$url.parse(this.path).pathname.replace('/','') // 处理query和hash
@@ -26,12 +28,16 @@ function *demoIndexData(oridata){
                 if (param[0]=="sc") {text = decodeURI(param[1])};
                 if (param[0]=="pageCurrent") {pageCurrent = decodeURI(param[1])};
             };
-       
-            apiData = yield api.search({
-                'st': type,
-                'sc': text,
-                'pageCurrent':pageCurrent
-            });
+
+            if(type == 1){
+                infoData = yield info();
+            }else if(type == 2){
+                goodsData = yield goods();
+            }else{
+                infoData = yield info();
+                goodsData = yield goods();
+            }
+
          }
     }
 
@@ -42,28 +48,74 @@ function *demoIndexData(oridata){
 
         var body = yield libs.$parse(this);   
         apiData = yield api.search(body);
+
+        if(body.st == 1){
+            infoData = yield info();
+        }else if(body.st == 2){
+            goodsData = yield goods();
+        }else{
+            infoData = yield info();
+            goodsData = yield goods();
+        }
     }
 
-    if(apiData.length){
-        var jsonData = JSON.parse(apiData[1]);
-        libs.clog(jsonData);
-        if(jsonData.success){
-            if (jsonData.data.st==2){
-                jsonData.data.goods = jsonData.data.sc;
-                dataSet = jsonData.data;
-            }else{ 
-                for (var i = 0; i < jsonData.data.pageBean.recordList.length; i++) {
-                    var time = new Date(jsonData.data.pageBean.recordList[i].publishTime);
+     function *goods(){
+        var datas = []
+        datas = yield api.search({
+                'st': 2,
+                'sc': text,
+                'pageCurrent':pageCurrent
+            });
+        return JSON.parse(datas[1]);
+     }
+     function *info(){
+        var datas = []
+        datas = yield api.search({
+                'st': 1,
+                'sc': text,
+                'pageCurrent':pageCurrent
+            });
+        return JSON.parse(datas[1]);
+     }
+    if(type.length){
+        if(goodsData.success || infoData.success){
+            dataSet.goods = goodsData.data;
+            dataSet.infos = infoData.data;
+            // if (jsonData.data.st==2){
+            //     jsonData.data.goods = jsonData.data.sc;
+            //     dataSet.goods = jsonData.data;
+            // }else{ 
+            //     for (var i = 0; i < jsonData.data.pageBean.recordList.length; i++) {
+            //         var time = new Date(jsonData.data.pageBean.recordList[i].publishTime);
 
-                    jsonData.data.pageBean.recordList[i].publishTime = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
-                };
-            }
-            dataSet = jsonData.data;
+            //         jsonData.data.pageBean.recordList[i].publishTime = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
+            //     };
+            //      dataSet.info = jsonData.data;
+            // }
+            if(type == 1){
+                dataSet.totalCount =dataSet.infos.pageBean.totalCount;
+                dataSet.info = dataSet.infos.pageBean.recordList;
+                dataSet.st1 = true;
+                dataSet.sc =dataSet.infos.sc;
+            }else if(type==2){
+                dataSet.totalCount = dataSet.goods.pageBean.totalCount;
+                dataSet.goods = dataSet.goods.pageBean.recordList;
+                dataSet.st2 = true;
+                dataSet.sc =dataSet.goods.sc;
+            }else {
+                dataSet.totalCount = dataSet.goods.pageBean.totalCount + dataSet.infos.pageBean.totalCount; 
+                dataSet.info = dataSet.infos.pageBean.recordList;
+                dataSet.goods = dataSet.goods.pageBean.recordList;
+                dataSet.st1 = true;
+                dataSet.st2 = true;                
+                dataSet.st0 = true; 
+                dataSet.sc =dataSet.infos.sc;      
+            } 
         }else{
-            dataSet.errCode = jsonData.errCode;
-            dataSet.errMsg = jsonData.errMsg;
+            dataSet.errCode = goodsData.errCode || infoData.errCode;
+            dataSet.errMsg = goodsData.errMsg ||infoData.errMsg ;
         }
-        if(jsonData.data.pageBean.pageCount != 1)dataSet.pages = "show";
+        //if(jsonData.data.pageBean.pageCount != 1)dataSet.pages = "show";
         dataSet.root = api.apiPath.base
         oridata = libs.$extend(true,oridata,dataSet);
     }

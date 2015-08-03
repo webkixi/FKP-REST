@@ -122,9 +122,12 @@ function *demoRegistData(oridata){
             errMsgCode: '验证码校验错误'
         };
         var success = {
+            step:body.step,
             success: true
         };
-        if(typeof this.sess.step=='undefined'){
+        console.log(body.step + "```````````````````````````````````````````````")
+        if(body.step == 0){
+            console.log(body)
             if(typeof(body.loginPhone)=='undefined'){
                 error.errStat= 1;
                 error.msg = "请输入手机号！";
@@ -135,39 +138,29 @@ function *demoRegistData(oridata){
                 error.msg = "请输入正确的手机号码格式";
                 return error;
             }else{
-                this.sess.step = 1;
-                //return success;
-            }
-        }
-
-        if(this.sess.step===1){
-            var stat =  formValide(chkPhone)
-            (body.loginPhone,'RegPhone')
-            ();            
-            if(stat){
-                apiData = yield api.pullApiData('code',body);
-                var jsonData = JSON.parse(apiData[1]);
-                if(jsonData.success){
-                    if(this.sess.code){
-                        error.errStat = 200;
-                        //return success;                       
-                    }else{
+                 var stat =  formValide(chkPhone)
+                (body.loginPhone,'RegPhone')
+                ();            
+                if(stat){
+                    apiData = yield api.pullApiData('code',body);
+                    var jsonData = JSON.parse(apiData[1]);
+                    if(jsonData.success){
                         var javaPhonecode = jsonData.data.phoneCode;
-                        this.sess.code = javaPhonecode;
-                        console.log(this.sess.code)
-                        this.sess.step = 2;
+                        console.log(javaPhonecode)
+                        success.step = 2;
+                       // this.sess.step = 2;
                         return success;
+                    }else{
+                        error.errStat = 5;
+                        error.msg = jsonData.errMsg;
+                        return error;
                     }
                 }else{
-                    error.errStat = 5;
-                    error.msg = jsonData.errMsg;
                     return error;
                 }
-            }else{
-                return error;
             }
         }
-        if(this.sess.step===2){
+        if(body.step == 2){
             //验证手机号码与验证码
             if(typeof(body.loginPhone)=='undefined' || typeof(body.code)=='undefined'){
                 if(typeof(body.loginPhone)=='undefined'){
@@ -193,24 +186,13 @@ function *demoRegistData(oridata){
             if(Vcode){
                 apiDataCode = yield api.pullApiData('checkMC',body);
                 var jsonDataCode = JSON.parse(apiDataCode[1]);
+            console.log(jsonDataCode)
                 if(jsonDataCode.success){
                     // 验证验证码
                     //return success;
-                    if(body.code){
-                        if(body.code === this.sess.code){
-                            error.errStat = 300;
-                            this.sess.step = 3;
-                            return success;
-                        }else{
-                            error.errStat = 8;
-                            error.msg = "短信验证码错误,请重新输入!";
-                            return error;
-                        }
-                    }else{
-                        error.errStat = 7;
-                        error.msg = jsonData.errMsg;
-                        return error;
-                    }
+                    
+                    success.step = 3;
+                    return success;
                 }
                 else{
                     error.errStat = 6;
@@ -221,7 +203,7 @@ function *demoRegistData(oridata){
                 return error;
             }            
         }
-        if(this.sess.step===3){
+        if(body.step == 3){
             //验证注册时的基本信息
             if(typeof(body.loginName)=='undefined' || typeof(body.name)=='undefined' || typeof(body.password)=='undefined' || typeof(body.rePassword)=='undefined' || typeof(body.firmFullName)=='undefined' || typeof(body.landline)=='undefined' || typeof(body.fax)=='undefined' || typeof(body.province)=='undefined' || typeof(body.city)=='undefined' || typeof(body.district)=='undefined' || typeof(body.address)=='undefined' || typeof(body.mustRead)=='undefined'){
                 if(typeof(body.loginName)=='undefined'){

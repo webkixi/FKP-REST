@@ -25,49 +25,17 @@
 </div> -->
 <div class="wrapper">
     <div class="search_curr container">
-        <p>为您查找到<i>“{{sc}}”</i>的相关结果{{pageBean.totalCount}}个</p>
+        <p>为您查找到<i>“{{sc}}”</i>的相关结果{{totalCount}}个</p>
     </div>
     <div class="info-wrap search-wrap">
         <div class="container">
             <div class="clearfix row">
                 <div class="info-main col-lg-10 fl">
-                    {{#if goods}}
-                    <div class="search_item">
-                        <h2><i class="nav-icon"></i>金属商城相关产品<b class="col-ff6600">(共{{pageBean.totalCount}}条)</b></h2>
-                        <div class="search_ilist goods_slides">
-                            <div class="search_ilul">
-                                <ul class="clearfix">
-                                    {{#each pageBean.recordList}}
-                                    <li>
-                                        <dl>
-                                            <dt><a target="_blank" href="{{root}}/mall/item/detail/{{id}}.html"><img src="{{pictureLibUrl}}{{picture}}"></a></dt>
-                                            
-                                            <dd><span>{{catName}}</span> {{vender}}</dd>
-                                            <dd><span>{{catName2}}</span> {{model}}</dd>
-                                            <dd><span>挂牌量： </span> {{stock}} {{unitName}}</dd>
-                                            <dd><span>起订量： </span> {{minQuantity}} {{unitName}}</dd>
-                                            <dd><span>供货商： </span> {{accountName}}</dd>
-                                        </dl>
-                                    </li>
-                                    {{/each}}
-                                </ul>
-                                {{#if pages}}
-                                <div id="page"></div>
-
-                                    <form id="searchForm" action="" >
-                                        <input type="hidden" name="pageCurrent" id="pageCurrent" value=""/>
-                                        <input type="hidden" name="st" id="st" value="2"/>
-                                        <input type="hidden" name="sc" id="sc" value="{{sc}}"/>
-                                    </form>
-                                    {{/if}}
-                            </div>
-                        </div>
-                    </div>
-                    {{else}}
+                {{#if st1}}
                     <div class="search_info">
                         <h2><i class="nav-icon"></i>相关资讯</h2>
                         <ul class="info-mlist">
-                            {{#each pageBean.recordList}}
+                            {{#each info}}
                             <li>
                                 <div class="info-mcom">
                                     <div class="info-mtitle clearfix">
@@ -91,10 +59,42 @@
                         {{/if}}
                         <!-- 分页 end -->
                     </div>
-                    {{/if}}
+                {{/if}}
+                {{#if st2}}
+                    <div class="search_item">
+                        <h2><i class="nav-icon"></i>金属商城相关产品<b class="col-ff6600">(共{{pageBean.totalCount}}条)</b></h2>
+                        <div class="search_ilist goods_slides">
+                            <div class="search_ilul">
+                                <ul class="clearfix">
+                                    {{#each goods}}
+                                    <li>
+                                        <dl>
+                                            <dt><a target="_blank" href="/mall/item_detail/{{id}}.html"><img src="{{pictureLibUrl}}{{picture}}"></a></dt>
+                                            <dd><span>{{catName}}</span> {{vender}}</dd>
+                                            <dd><span>{{catName2}}</span> {{model}}</dd>
+                                            <dd><span>挂牌量： </span> {{stock}} {{unitName}}</dd>
+                                            <dd><span>起订量： </span> {{minQuantity}} {{unitName}}</dd>
+                                            <dd><span>供货商： </span> {{accountName}}</dd>
+                                        </dl>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                                {{#if pages}}
+                                <div id="page"></div>
+
+                                    <form id="searchForm" action="" >
+                                        <input type="hidden" name="pageCurrent" id="pageCurrent" value=""/>
+                                        <input type="hidden" name="st" id="st" value="2"/>
+                                        <input type="hidden" name="sc" id="sc" value="{{sc}}"/>
+                                    </form>
+                                    {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
                 </div>
                 <div class="info-right col-lg-2 fl">
-                    <img src="{{root}}/statics/front/images/ad/ad2.jpg"><img src="{{root}}/statics/front/images/ad/ad2.jpg">
+                    <img src="/images/ad/ad2.jpg"><img src="/images/ad/ad2.jpg">
                 </div>
             </div>
         </div>

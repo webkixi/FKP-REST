@@ -23,9 +23,9 @@ var tmpApp = React.createClass({
 					<li>
 						<dl>
 						<dt>
-							<a href={"/info/cat/"+item.id+".html"}>{item.catName}</a>
+							<a href={"/info/cat/"+item.id+".html"}><i></i>{item.catName}</a>
 						</dt>
-						<dd>{dds}</dd>
+						{dds}
 						</dl>
 					</li>
 				)
