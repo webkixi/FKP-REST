@@ -10,14 +10,20 @@
 <body>
 @@include('../_common/header/header.html')
 <div class="banner slide">
-  <div id="product-slider" class="rsDefault">
-    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner1.jpg"/></a>
-    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner2.jpg"/></a>
-    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner3.jpg"/></a>
-    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner4.jpg"/></a>
-  </div>
+    <ul class="ban_ul banpic">
+        <li  data-image="url(/images/banner/banner1.jpg)"><a href='#'></a></li>
+        <li  data-image="url(/images/banner/banner2.jpg)"><a href='#'></a></li>
+        <li  data-image="url(/images/banner/banner3.jpg)"><a href='#'></a></li>
+        <li  data-image="url(/images/banner/banner4.jpg)"><a href='#'></a></li>
+    </ul>
+    <div class="layer-control">
+        <a class="btn_prev" href="javascript:;"></a>
+            <div class="pagenationPanel">
+                <a class="pagenation pagenationActive"><i></i></a>
+            </div>
+        <a class="btn_next" href="javascript:;"></a>
+    </div>
 </div>
-	
 <div class="wrapper">
     <div class="current_path container">
         <a href="/index.html">首页</a>
@@ -38,7 +44,6 @@
                     	<input type="hidden" id="pageCurrent_1" name="pageCurrent" value="">
                     </form>
                     <!-- 分页 end -->
-                    
                 </div>
                 <div class="info-right span2 fl">
                     <img src="{{root}}/statics/front/images/ad/ad2.jpg">

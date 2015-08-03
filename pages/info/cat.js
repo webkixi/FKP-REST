@@ -24,7 +24,6 @@ function *demoIndexData(oridata){
                 };
 
             }
-
             apiData = yield api.pullApiData('info_cat',{
             	'catId':catId,
             	'pageCurrent':pageCurrent,
