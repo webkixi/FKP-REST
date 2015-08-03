@@ -23,7 +23,7 @@ var Cnt = React.createClass({
         if(this.state.data){
             this.state.data.map(function(it,i){
                 items.push(
-                    <List {...this.props} data={it} cat={i} />
+                    <List key={'list'+i} {...this.props} data={it} cat={i} />
                 )
             }.bind(this))
         }
