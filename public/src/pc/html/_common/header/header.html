@@ -28,14 +28,27 @@
                     <div class="head_look">
                         <form action="/search.html" id="searchHeader">
                             <div class="item-select">
-                              <a class="arrow-select-down"><span>全部</span><i class="all_icon s_down_icon"></i></a>
+                              <a class="arrow-select-down">
+                              <span>
+                              {{#if st0}} 
+                                全部
+                              {{else}}
+                                {{#if st1}}
+                                    资讯新闻
+                                {{else}}
+                                    金属商城
+                                {{/if}}
+                              {{/if}}
+                              </span>
+                              <i class="all_icon s_down_icon"></i></a>
                               <ul class="hidden">
+                                <li data="0">全部</li>
                                 <li data="1">资讯新闻</li>
                                 <li data="2">金属商城</li>
                               </ul>
                             </div>
-                            <input type="hidden" name="st" id="search_hide" value="1">
-                            <input type="text" name="sc" class="search_text" placeholder="请输入关键字"/>
+                            <input type="hidden" name="st" value="{{#if st}}{{st}}{{else}}0{{/if}}" id="search_hide">
+                            <input type="text" name="sc" value="{{sc}}" class="search_text" placeholder="请输入关键字"/>
                             <input type="submit" class="search_buttom" value="搜索"/>
                         </form>
                     </div>
