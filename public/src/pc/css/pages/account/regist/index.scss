@@ -2,9 +2,6 @@
 @import "../../_common/com.scss";
 @import "../../_common/bootstrap.min.scss";
 /***************************************注册 start*****************************************/
-.reg_head{
-	border-bottom: 3px solid #ffb000;
-}
 .r_progress em{
 	background: url(../images/reg_progress.jpg) no-repeat;
 	width: 100%;
@@ -31,11 +28,14 @@ div.r_wrap_list{
 	min-height: 500px;
 	input{
 		width: 335px; 
+		height:39px;
+		padding:0 30px;
 		display: inline-block;
 		margin-top: 0;
 	}
 	select{
 		width: 110px;
+		padding:6px 0;
 	}
 	.form-group label,.r_waddress{
 		display: inline-block;
@@ -108,7 +108,7 @@ div.r_wrap_list input.phone_yzm{
 	}
 }
 
-.r_wcheckbox input{
+.r_wrap_list div.r_wcheckbox input{
 	width: 13px!important;
 	height: 13px;
 }
@@ -166,6 +166,9 @@ p.error_msg2{
 }
 .r_wyzsj .form-group label,.r_wmessage .form-group label{
 	width: 85px;
+	font-weight: normal;
+	text-align: right;
+	color:#666;
 }
 input.bd_col{
 	border:1px solid #ff6600!important;
