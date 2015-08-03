@@ -20,7 +20,7 @@
         </ul>
         <div class="r_login">
           我已经注册，马上
-          <a href="/login.html"> 登录</a>
+          <a href="/account/login.html"> 登录</a>
         </div>
       </div>
       <div class="r_main">
@@ -28,6 +28,7 @@
           <em>找回密码流程</em>
         </div>
         <div class="r_wrap">
+        <form action="/account/forget" id="ForgetReg" method="post">
           <div class="r_wrap_list r_wyzsj">
             <div class="form-group">
               <label for="name">手机号码：</label>
@@ -45,7 +46,6 @@
             <a href="javascript:;" type="button" id="login_ok" class="btn btn-orange for-phonebtn">下一步</a>
           </div>
           <div class="r_wrap_list r_szpwd hidden">
-            <form action="" method="">
               <div class="form-group">
                 <label for="name">新密码：</label>
                 <input type="password" class="form-control user_pwd" id="newPassword" name="newPassword" placeholder="新密码" autocomplete="off">
