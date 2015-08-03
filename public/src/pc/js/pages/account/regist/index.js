@@ -420,46 +420,85 @@ function bindInputDefaultEvent(){
 }
 bindInputDefaultEvent();
 
-/*
+
+    /*
 * 地区选择
 */
-function getRegion(id,cb){
+function getRegion(id,_this,arr1){
+    var arr = [];
+    if(arr1)arr = arr1;
     var query = {id: id};
     api.req('region',query,function(body){
-		if(body.success){
-            cb(body);
-		}
+      if(body.success&&body.data.regionList.length){
+        console.log(name);
+        _this.empty()
+        body.data.regionList.map(function(item){
+          if(item.id == arr[0]||item.id == arr[1]||item.id == arr[2])_this.append('<option selected="selected" value='+item.id+'>'+item.regionName+'</option>');
+          else _this.append('<option value='+item.id+'>'+item.regionName+'</option>');
+        })
+        if(_this.find("option[selected]").length<=0)_this.find("option").eq(0).attr("selected","selected");
+
+        if(_this.attr("name")=="province"){
+          getRegion(_this.find("option[selected]").val(),$("select[name='city']"),arr)
+        }
+        if(_this.attr("name")=="city"){
+          getRegion(_this.find("option[selected]").val(),$("select[name='district']"),arr)
+        }
+      }
     })
 }
-//三级联动
-$('.u_address').delegate('select','change',function(){
-    var index = $(this).index();
-    var id = $(this).val();
-    //省份
-    if(index===1){
-        $('#city').html('');
-        $('#city').append("<option value=''>--选择城市--</option>");
-        getRegion(id,function(body){
-            //设置传输数据
-            var citys = body.data.regionList;
-            citys.map(function(city,i){            	
-                $('#city').append('<option value='+city.id+'>'+city.regionName+'</option>');
-            })
-        })
-    }
-    if(index===2){
-        $('#district').html('');
-        $('#district').append("<option value=''>--选择区县--</option>");
-        getRegion(id,function(body){
-            //设置传输数据
-            var countys = body.data.regionList;
-            countys.map(function(county,i){
-                $('#district').append('<option value='+county.id+'>'+county.regionName+'</option>')
-            })
-        })
-    }
+// 需要异步获取默认地址时可以执行以下语句，数组参数为省，市，区 ID
+//getRegion(0,$("select[name='province']"),[19,233,2375]);
+$(".select_address").change(function(){
+  var _this = $(this);
+  if(_this.attr("name")=="province"){
+    getRegion(_this.val(),$("select[name='city']"))
+  }
+  if(_this.attr("name")=="city"){
+    getRegion(_this.val(),$("select[name='district']"))
+  }
 })
+// /*
+// * 地区选择
+// */
+// function getRegion(id,cb){
+//     var query = {id: id};
+//     api.req('region',query,function(body){
+// 		if(body.success){
+//             cb(body);
+// 		}
+//     })
+// }
+// //三级联动
+// $('.u_address').delegate('select','change',function(){
+//     var index = $(this).index();
+//     var id = $(this).val();
+//     //省份
+//     if(index===1){
+//         $('#city').html('');
+//         $('#city').append("<option value=''>--选择城市--</option>");
+//         getRegion(id,function(body){
+//             //设置传输数据
+//             var citys = body.data.regionList;
+//             citys.map(function(city,i){            	
+//                 $('#city').append('<option value='+city.id+'>'+city.regionName+'</option>');
+//             })
+//         })
+//     }
+//     if(index===2){
+//         $('#district').html('');
+//         $('#district').append("<option value=''>--选择区县--</option>");
+//         getRegion(id,function(body){
+//             //设置传输数据
+//             var countys = body.data.regionList;
+//             countys.map(function(county,i){
+//                 $('#district').append('<option value='+county.id+'>'+county.regionName+'</option>')
+//             })
+//         })
+//     }
+// })
 
+var step=0;
 function chkPhoneValue(){
 	var inputs = getFormData();
 	//valide login value
@@ -469,7 +508,8 @@ function chkPhoneValue(){
 	//assemble query 
 	var query = {
 		loginPhone: inputs.loginPhone.ipt.value,
-		isForgetPassword: false
+		isForgetPassword: false,
+        step: step
 	}
 	if(RegPhoneStat){
         //ajax 提交
@@ -480,6 +520,7 @@ function chkPhoneValue(){
 	            var validCode=true
 	            var time=60;
 				var code=$(".msgs");
+                step = body.step;
 				if (validCode) {
 					validCode=false;
 					code.attr("disabled", "disabled");
@@ -516,7 +557,8 @@ function chkCodeValue(){
 	var query = {
 		loginPhone: inputs.loginPhone.ipt.value,
 		code: inputs.Regcode.ipt.value,
-		isForgetPassword: false
+		isForgetPassword: false,
+        step: step
 	}
 	if(RegCodeStat){
         //ajax 提交
@@ -524,6 +566,7 @@ function chkCodeValue(){
 			//var jo = JSON.parse(body);
 			if(body.success){
 	          //dropAlert(jo.success);
+                step = body.step;
 	          	$(".r_wyzsj").addClass("hidden");
 				$(".r_wyzsj").next().removeClass("hidden");
 				$(".r_progress").addClass("r_p2");
@@ -574,13 +617,15 @@ function checkAccount(){
 		city: inputs.RegCity.ipt.value,
 		district: inputs.RegCounty.ipt.value,
 		address: inputs.RegAdd.ipt.value,
-		mustRead: inputs.RegMustRead.ipt.value
+		mustRead: inputs.RegMustRead.ipt.value,
+        step: step
 	}
 	if(RegAccountStat){
         //ajax 提交
 		api.req('regist',query,function(body){
 			//var jo = JSON.parse(body);
 			if(body.success){
+                step = body.step;
 				var SregName = $("#loginName").val();
 				$(".r_wmessage").addClass("hidden");
 				$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");
