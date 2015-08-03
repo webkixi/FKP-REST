@@ -41,16 +41,19 @@ var getOffset = function(el){
       }
 
 			var node = el.parentNode;
-			while(CurrentStyle(node).position!=='relative'){
-					node = node.parentNode;
-					if(CurrentStyle(node).position==='relative'){
-							parent = node;
-							pbox = parent.getBoundingClientRect();
-							var ptop = pbox.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
-				      pleft = pbox.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
-							break;
-					}
-			}
+            if(node.nodeName.toLowerCase()!=='body'){
+    			while(CurrentStyle(node).position!=='relative'){
+    					node = node.parentNode;
+                        if(node.nodeName.toLowerCase()!=='body') break;
+    					if(CurrentStyle(node).position==='relative'){
+    							parent = node;
+    							pbox = parent.getBoundingClientRect();
+    							var ptop = pbox.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
+                                    pleft = pbox.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
+    							break;
+    					}
+    			}
+            }
 
       var top = box.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
       left = box.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
@@ -228,8 +231,8 @@ var clone =function(target){
 var CurrentStyle = function(element){
     // if(element.nodeName==='BODY'||element.nodeName==='HTML')
     //     return false;
-    // return element.currentStyle || document.defaultView.getComputedStyle(element, null);
-    return element.currentStyle || window.getComputedStyle(element, null);
+    return element.currentStyle || document.defaultView.getComputedStyle(element, null);
+    // return element.currentStyle || window.getComputedStyle(element, null);
 }
 
 function guid(prefix) {
@@ -362,6 +365,25 @@ function grabString(str, len, hasDot) {
     return newStr;
 }
 
+//json数据转换成query查询
+//如 {x:1,y:2}    转化后 ?x=1&y=2
+var json2url = function(obj){
+
+    if(!obj) return;
+    if(getObjType(obj)!=='Object') return;
+
+    var url = '';
+    var keys = Object.keys(obj);
+    keys.map(function(item,i){
+        if(i===(keys.length-1))
+            url += item + '=' + obj[item];
+        else {
+            url += item + '=' + obj[item] + '&';
+        }
+    })
+    return url;
+}
+
 
 /**
 /* 2015-1-13 yc
@@ -441,5 +463,7 @@ module.exports = {
 
     strLen:         strLen,         //获取字符串长度，包含中文
 
-    grabString:     grabString      //截取字符串长度，包含中文
+    grabString:     grabString,     //截取字符串长度，包含中文
+
+    json2url:       json2url        //json转成url的query部分
 }

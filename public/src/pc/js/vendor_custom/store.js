@@ -91,6 +91,16 @@
             }
         },
 
+        deleter: function( name ){
+            if(!name||name=='')
+                return;
+
+            var save = stock;
+            if(save[name]){
+                delete save[name];
+            }
+        },
+
         lister: function(){
             return Object.keys( stock );
         }

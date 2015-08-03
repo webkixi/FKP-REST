@@ -6,14 +6,14 @@ var fox = React.createClass({
 		if(this.props.itemMethod){
 			var mtd = this.props.itemMethod;
 			if(typeof mtd==='function'){
-				mtd.call(this.getDOMNode(),this.props.store);
+				mtd.call(this.getDOMNode());
 			}
 		}
 	},
 
 	render: function () {
 		var clsName = "item wid-3";
-		itemStyle = '';
+		var itemStyle = '';
 		var sty = {};
 		var wid = '';
 		var data = this.props.data;
@@ -23,6 +23,7 @@ var fox = React.createClass({
 			v1 = data.url||'javascript:;';
 
 			k2 = data.catName||data.model||data.quality||data.vender||data||'';
+			v2 = data.attr;
 		}
 		if(this.props.itemClass){
 			clsName = "item "+this.props.itemClass;
@@ -48,7 +49,18 @@ var fox = React.createClass({
 		var guid = libs.guid('fox-');
 		var that = this;
 		return (
-            <li data-val={k1}  data-param={catParam} className={clsName} style={sty} >
+            <li data-val={k1}  data-param={catParam} data-cls={v2} className=
+				{
+					(
+						function(){
+							if(v2&&v2==='second'){
+								return clsName+' active'
+							}else{
+								return clsName
+							}
+						}
+					)()
+				} style={sty} >
 				<div className={"hheader"} >
 					<a href={v1}>{k2}</a>
 				</div>

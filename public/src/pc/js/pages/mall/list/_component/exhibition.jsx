@@ -32,7 +32,7 @@ var Exhibition = React.createClass({
 		var cls = this.props.itemClass ? this.props.itemClass : false;
 
 		this.state.data.map(function(item,i){
-			items.push(<Elephant itemStyle={sty} itemClass={cls} data={item} />);
+			items.push(<Elephant key={'elephant'+i} itemStyle={sty} itemClass={cls} data={item} />);
 		});
 
 		return items;
@@ -48,9 +48,12 @@ var Exhibition = React.createClass({
 	render: function () {
 		var fills = this.loopRender();
 		return (
-			<ul className={"hlist elephant u-clearfix"}>
-				{fills}
-			</ul>
+			<div>
+				<ul className={"hlist elephant u-clearfix"}>
+					{fills}
+				</ul>
+				{this.props.children}
+			</div>
 		)
 	}
 });
