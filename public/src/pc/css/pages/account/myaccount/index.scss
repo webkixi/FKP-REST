@@ -1,6 +1,5 @@
 @import "../../../modules/_settings/_setting_pages";
 @import "../../_common/com.scss";
-@import "../../_common/bootstrap.min.scss";
 /***************************************会员中心 start*****************************************/
 /*我的账号*/
 @mixin box-border() {
@@ -88,8 +87,15 @@
 	}
 }
 
-.myapprove_btn{ text-align:center;}
-.myapprove_error{ display: block;color: #ff6600;margin: 10px 0 0 0; text-align:center;}
+.myapprove_btn{
+	text-align:center;
+}
+.myapprove_error{
+	display: block;
+	color: #ff6600;
+	margin: 10px 0 0 0;
+	text-align:center;
+}
 #mybasic .u_address input{ margin-left:130px;}
 #accountSavePassword{
 	.form-control{width:38%;}

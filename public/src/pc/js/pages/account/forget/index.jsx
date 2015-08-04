@@ -156,6 +156,7 @@ function bindInputDefaultEvent(){
 }
 bindInputDefaultEvent();
 function chkPhoneValue(){
+	$("#step").val(0);
 	var inputs = getFormData();
 	//valide login value
 	var RegPhoneStat = formValide(chkOptions)

@@ -33,7 +33,7 @@
                 <div class="info-main col-lg-10 fl">
                 {{#if st1}}
                     <div class="search_info">
-                        <h2><i class="nav-icon"></i>相关资讯</h2>
+                        <h2><i class="nav-icon"></i>相关资讯<b class="col-ff6600">(共{{totalCount_infos}}条)</b></h2>
                         <ul class="info-mlist">
                             {{#each info}}
                             <li>
@@ -62,7 +62,7 @@
                 {{/if}}
                 {{#if st2}}
                     <div class="search_item">
-                        <h2><i class="nav-icon"></i>金属商城相关产品<b class="col-ff6600">(共{{pageBean.totalCount}}条)</b></h2>
+                        <h2><i class="nav-icon"></i>金属商城相关产品<b class="col-ff6600">(共{{totalCount_goods}}条)</b></h2>
                         <div class="search_ilist goods_slides">
                             <div class="search_ilul">
                                 <ul class="clearfix">

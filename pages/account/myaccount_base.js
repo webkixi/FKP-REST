@@ -81,10 +81,10 @@ function *demoLoginData(oridata){
             //后台校验用户提交数据
             body.accountNo = this.sess.user.accountNo;
             body.loginPhone = this.sess.user.loginPhone;
-            body.district = body.county;
+            body.district = body.district;
 
             //忽略校验
-            var ignore = ['email','qq','province','city','county'];
+            var ignore = ['email','qq','province','city','district'];
 
             //校验数据不能为空
             for(var item in body){
@@ -92,6 +92,7 @@ function *demoLoginData(oridata){
                     continue;
 
                 if(!body[item]){
+                    console.log(item)
                     error.errStat = 1;
                     error.errMsg = item+'不能为空';
                     return error;
