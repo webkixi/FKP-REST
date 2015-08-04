@@ -37,35 +37,74 @@ function rd(body){
 			tmp[id][str] = list_data[item];
 		})
 
+		// cnt_tabs.all=[];
+		// (function(){
+		// 	var tmp = [];
+		// 	keys.map(function(item, i){
+		// 		cnt_tabs[item].map(function(it, j){
+		// 			if(!tmp[j]){
+		// 				tmp[j]=[];
+		// 			}
+		// 			tmp[j] = tmp[j].concat(it);
+		// 		})
+		// 	})
+		// 	cnt_tabs.all = tmp;
+		// })()
+
 		//新对象数组，用于取出新对象的数据
 		var cnt_tabs = {};
+		var all = [];
 		for(unit in tmp){
 			var items = []
 			var i = 0;
 			for(u in tmp[unit]){
+				if(!all[i])
+					all[i]=[];
 				var ele = tmp[unit][u];
+				all[i] = all[i].concat(libs.clone(ele))
 				if(libs.getObjType(ele[0])==='Object'){
 					ele.unshift({id: 'unlimit', attr: 'second', catName: '不限'});
 					ele.unshift({id: 'pinming',attr: 'first', catName: '品名'})
+					if(all[i][1].attr!=='second'){
+						all[i].unshift({id: 'unlimit', attr: 'second', catName: '不限'});
+						all[i].unshift({id: 'pinming',attr: 'first', catName: '品名'})
+					}
 				}else{
 					ele.unshift({id: 'unlimit', attr: 'second', catName: '不限'});
-					if(i===1)
+					if(all[i][1].attr!=='second'){
+						all[i].unshift({id: 'unlimit', attr: 'second', catName: '不限'});
+					}
+					if(i===1){
 						ele.unshift({id: 'guige',attr: 'first', catName: '规格'})
-					if(i===2)
+						if(all[i][1].attr!=='second'){
+							all[i].unshift({id: 'guige',attr: 'first', catName: '规格'})
+						}
+					}
+					if(i===2){
 						ele.unshift({id: 'zhiliang',attr: 'first', catName: '质量标准'})
-					if(i===3)
+						if(all[i][1].attr!=='second'){
+							all[i].unshift({id: 'zhiliang',attr: 'first', catName: '质量标准'})
+						}
+					}
+					if(i===3){
 						ele.unshift({id: 'changjia',attr: 'first', catName: '厂家'})
+						if(all[i][1].attr!=='second'){
+							all[i].unshift({id: 'changjia',attr: 'first', catName: '厂家'})
+						}
+					}
 				}
 				items.push(ele);
 				i++;
 			}
 			cnt_tabs[unit] = items;
 		}
+		cnt_tabs['all']=all;
 		var keys = Object.keys(cnt_tabs);
 		//end 按序号大小重组对象
 
 
-		var ddd = cnt_tabs[keys[0]];
+		// var ddd = cnt_tabs[keys[0]];
+		var ddd = cnt_tabs['all'];
 
 		//每一个tab响应事件
 		var itemClick = function(){
@@ -284,10 +323,12 @@ function exb_cb( body ){
 				query: queryStr
 			};
 		rend(
-			<Exhibition data={body.pagination.recordList} listClass={'tiger'} itemStyle={{width:'240px'}}>
-				<Page data={padata} listClass={'pagi'} itemMethod={pageClick}/>
-			</Exhibition>
+			<Exhibition data={body.pagination.recordList} listClass={'tiger'} itemStyle={{width:'240px'}}/>
 			,document.getElementById('exhibition')
+		)
+		rend(
+			<Page data={padata} listClass={'pagi'} itemMethod={pageClick}/>
+			,document.getElementById('page')
 		)
 	}
 }

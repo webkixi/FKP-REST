@@ -86,13 +86,21 @@ var PageItem = React.createClass({
 
 // 分页容器，组织数据格式如下
 /*
-* data format
+* datas format
 * {
-*	total: 123 ,  {Number}
-* 	per:   10, 	  {Number}
-*	url:   '/xxx/yyy.html'   {String}
-* 	query: 'abc="slime"&xyz="pack"&curentPage='   {String}
+* data: {
+*	total: 123 ,  {Number}   产品总的个数
+* 	per:   10, 	  {Number}   每页显示的个数
+*	url:   '/xxx/yyy.html'   {String}    分页链接开头
+* 	query: 'abc="slime"&xyz="pack"&curentPage='   {String}   分页向后台查询的query
+* },
+
+* //分页展示页数，从第几页到第几页
+* begin: {
+*   start: 0,    {Number}   从几开始
+*	off: 10		{Number}   偏移值
 * }
+}
 */
 //react tabswitch
 var pagenation = React.createClass({
@@ -162,31 +170,38 @@ var pagenation = React.createClass({
 				end = pre===0 ? off>=pages?aft:off : aft;
 			}
 
-			for( var i=start; i<end; i++){
-				query = data.query+i;
-                newData.push({
-                    url: data.url+'?'+query,
-                    text: i+1,
-					active:(function(){
-						if(ostart < half || (ostart+half)>pages){
-							return ostart===i?true:false
-						}else{
-							return (half+start)===i?true:false
-						}
-					})()
-                })
-            }
-			newData.push({url: 'javascript:;', text: '...'+i} );
-			newData.push({url: data.url+'?'+query+(pages), text: (Math.ceil(pages)) });
+			if( end > 0 ){
+				for( var i=start; i<end; i++){
+					query = data.query+i;
+	                newData.push({
+	                    url: data.url+'?'+query,
+	                    text: i+1,
+						active:(function(){
+							if(ostart < half || (ostart+half)>pages){
+								return ostart===i?true:false
+							}else{
+								return (half+start)===i?true:false
+							}
+						})()
+	                })
+	            }
+				newData.push({url: 'javascript:;', text: '...'+i} );
+				newData.push({url: data.url+'?'+query+(pages), text: (Math.ceil(pages)) });
+			}
         }
 
 		var props = {
 			itemMethod: this.props.itemMethod
 		}
 		var that = this;
-		return <div className={'pagenation wid-12 u-clearfix'}>
-				<List {...this.props} data={newData} itemView={PageItem}/>
-          </div>
+
+		if( end> 0 ){
+			return <div className={'pagenation wid-12 u-clearfix'}>
+					<List {...this.props} data={newData} itemView={PageItem}/>
+	          </div>
+		}else{
+			return <div></div>
+		}
 	}
 });
 
