@@ -51,64 +51,67 @@ function *demoRegistData(oridata){
         libs.clog('pages/forget.js========POST');
         var body = yield libs.$parse(this);
         var error = {
+            errStat: 100,
             errMsgPhone: '手机号码校验错误',
             errMsgCode: '验证码校验错误'
         };
         var success = {
             success: true
         };
-        if(typeof this.sess.step=='undefined'){
+        if(body.step == 0){
             if(typeof(body.loginPhone)=='undefined'){
+                error.errStat = 1;
                 error.msg = "请输入手机号！";
                 return error;
             }
             if(!body.loginPhone){
+                error.errStat = 2;
                 error.msg = "请输入正确的手机号码格式";
                 return error;
             }else{
-                this.sess.step = 1;
+                var stat =  formValide(chkReg)
+                (body.loginPhone,'RegPhone')
+                ();            
+                if(stat){
+                    apiData = yield api.pullApiData('code',body);
+                    var jsonData = JSON.parse(apiData[1]);
+                    if(jsonData.success){
+                        if(this.sess.code){
+                            //return success;                       
+                        }else{
+                            var javaPhonecode = jsonData.data.phoneCode;
+                            this.sess.code = javaPhonecode;
+                            console.log(this.sess.code)
+                            success.step = 2;
+                            return success;
+                        }
+                    }else{
+                        error.errStat = 5;
+                        error.msg = jsonData.errMsg;
+                        return error;
+                    }
+                }else{
+                    return error;
+                }
                 //return success;
             }
         }
-
-        if(this.sess.step===1){
-            var stat =  formValide(chkReg)
-            (body.loginPhone,'RegPhone')
-            ();            
-            if(stat){
-                apiData = yield api.pullApiData('code',body);
-                var jsonData = JSON.parse(apiData[1]);
-                if(jsonData.success){
-                    if(this.sess.code){
-                        //return success;                       
-                    }else{
-                        var javaPhonecode = jsonData.data.phoneCode;
-                        this.sess.code = javaPhonecode;
-                        console.log(this.sess.code)
-                        this.sess.step = 2;
-                        return success;
-                    }
-                }else{
-                    error.msg = jsonData.errMsg;
-                    return error;
-                }
-            }else{
-                return error;
-            }
-        }
-        if(this.sess.step===2){
+        if(body.step==2){
             //验证手机号码与验证码
             if(typeof(body.loginPhone)=='undefined' || typeof(body.code)=='undefined'){
                 if(typeof(body.loginPhone)=='undefined'){
+                    error.errStat = 6;
                     error.msg = "请输入手机号！";
                     return error;
                 }
                 if(typeof(body.code)=='undefined'){
+                    error.errStat = 7;
                     error.msg = '请输入验证码！';
                     return error;
                 }
             }
             if(!body.loginPhone||!body.code){
+                error.errStat = 8;
                 error.msg = "手机或短信验证码不正确，请重新输入";
                 return error;
             }
@@ -124,18 +127,24 @@ function *demoRegistData(oridata){
                     //return success;
                     if(body.code){
                         if(body.code === this.sess.code){
-                            this.sess.step = 3;
+                            error.errStat = 9;
+                            success.step = 3;
+                            console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+                            console.log(success)
                             return success;
                         }else{
+                            error.errStat = 10;
                             error.msg = "短信验证码错误,请重新输入!";
                             return error;
                         }
                     }else{
+                        error.errStat = 11;
                         error.msg = jsonData.errMsg;
                         return error;
                     }
                 }
                 else{
+                    error.errStat = 12;
                     error.msg = error.errMsgCode;
                     return error;
                 }
@@ -143,36 +152,43 @@ function *demoRegistData(oridata){
                 return error;
             }            
         }
-        if(this.sess.step===3){
+        if(body.step==3){
+            console.log("3333333333333333333333333333333")
             //验证注册时的基本信息
             if(typeof(body.newPassword)=='undefined' || typeof(body.repassword)=='undefined'){
                 if(typeof(body.newPassword)=='undefined'){
+                    error.errStat = 13;
                     error.msg = '请输入密码！';
                     return error;
                 }
                 if(typeof(body.repassword)=='undefined'){
+                    error.errStat = 14;
                     error.msg = '两次密码不一止,请重新输入密码！';
                     return error;
                 }
             }
             if(!body.loginPhone||!body.code||!body.newPassword||!body.repassword){
+                error.errStat = 15;
                 error.msg = "信息不正确，请重新输入";
                 return error;
             }
             var Rcode = formValide(chkReg)
             (body.loginPhone,'RegPhone')
-            (body.code,'RegCode')
             (body.newPassword,'RegPwd')
             ([body.newPassword,body.repassword],'RegrePwd')
             ();
             if(Rcode){
                 apiDataReg = yield api.pullApiData('updatePassword',body);
                 var jsonDataReg = JSON.parse(apiDataReg[1]);
+                console.log(jsonDataReg)
                 if(jsonDataReg.success){
-                    this.sess.step = 4;
+                    console.log("ddddddddd")
+                    error.errStat = 16;
+                    //success.step = 4;
                     return success;
                 }
                 else{
+                    error.errStat = 17;
                     error.msg = jsonDataReg.errMsg;
                     return error;
                 }
