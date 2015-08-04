@@ -126,7 +126,9 @@ function chkInputValue(){
 		})
         //normal submit
         // $(rePassForm).submit();
-	}
+	}else{
+        messager.alert({title:"提示",content:'密码不可为空',type:"warning"});
+    }
 }
 
 $('#updatePassword').click(function(){

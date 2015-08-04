@@ -110,7 +110,7 @@
                                         </span> -->
                                         {{else}}
                                         <div class="gallery">
-                                            <a href='{{config.imagePath}}{{firm.firmAuth.liecncesPath}}' class='lightbox' rel='roadtrip' title='' id='inputLiecncesHref'>
+                                            <a href='{{config.account_img}}{{firm.firmAuth.liecncesPath}}' class='lightbox' rel='roadtrip' title='' id='inputLiecncesHref'>
                                                 <img alt="" src="{{config.account_img}}{{firm.firmAuth.liecncesPath}}" id="inputLiecncesPic" width="100" height="100">
                                             </a>
                                         </div>
@@ -133,7 +133,7 @@
                                         </span> -->
                                         {{else}}
                                         <div class="gallery">
-                                            <a href='{{config.account_img}}{{firm.firmAuth.orgCodePath}}' class='lightbox' rel='roadtrip' title='' id='<inputOrgCodeHr></inputOrgCodeHr>ef'>
+                                            <a href='{{config.account_img}}{{firm.firmAuth.orgCodePath}}' class='lightbox' rel='roadtrip' title='' id='inputOrgCodeHref'>
                                                 <img alt="" src="{{config.account_img}}{{firm.firmAuth.orgCodePath}}" id="inputOrgCodePic" width="100" height="100">
                                             </a>
                                         </div>
@@ -176,7 +176,7 @@
                                         {{firm.firmAuthRecord.description}}
                                     </p>
                                     <div class="myapprove_btn">
-                                        <a class="btn btn-info">${auth.AUTH_ING.desc}</a>
+                                        <a class="btn btn-info">{{auth.AUTH_ING.desc}}</a>
                                     </div>
                                 {{/if}}
                                 {{#if auth.status_success}}
