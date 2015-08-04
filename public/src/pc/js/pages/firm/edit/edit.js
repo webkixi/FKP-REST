@@ -46,6 +46,9 @@ function chkInputValue(){
         api.req('firmDetailSave',query,function(body){
             if(body.success){
                 console.log(body);
+                messager.alert({title:"提示",content:"保存成功",type:"success",fn:function(){
+                    window.location.href="/firm/view.html";
+                }});
 			}
 			else
                 messager.alert({title:"企业简介更新失败",content:resp,type:"warning"});

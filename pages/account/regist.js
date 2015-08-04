@@ -125,7 +125,6 @@ function *demoRegistData(oridata){
             step:body.step,
             success: true
         };
-        console.log(body.step + "```````````````````````````````````````````````")
         if(body.step == 0){
             console.log(body)
             if(typeof(body.loginPhone)=='undefined'){
@@ -147,6 +146,7 @@ function *demoRegistData(oridata){
                     if(jsonData.success){
                         var javaPhonecode = jsonData.data.phoneCode;
                         console.log(javaPhonecode)
+                        this.sess.code = javaPhonecode;
                         success.step = 2;
                        // this.sess.step = 2;
                         return success;
@@ -190,9 +190,23 @@ function *demoRegistData(oridata){
                 if(jsonDataCode.success){
                     // 验证验证码
                     //return success;
-                    
-                    success.step = 3;
-                    return success;
+
+                    if(body.code){
+                        if(body.code === this.sess.code){
+                            error.errStat = 9;
+                            success.step = 3;
+                            console.log(success)
+                            return success;
+                        }else{
+                            error.errStat = 10;
+                            error.msg = "短信验证码错误,请重新输入!";
+                            return error;
+                        }
+                    }else{
+                        error.errStat = 11;
+                        error.msg = jsonData.errMsg;
+                        return error;
+                    }
                 }
                 else{
                     error.errStat = 6;

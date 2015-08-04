@@ -109,8 +109,9 @@ div.r_wrap_list input.phone_yzm{
 }
 
 .r_wrap_list div.r_wcheckbox input{
-	width: 13px!important;
-	height: 13px;
+	width: auto;
+	height: auto;
+	padding:0;
 }
 .r_wrap_list .form-group label,.r_waddress{
 	display: inline-block;

@@ -112,7 +112,9 @@ function chkInputValue(){
 			}
 		})
         // $(form).submit();
-	}
+	}else{
+        messager.alert({title:"提示",content:"请输入正确的手机号或密码!",type:"warning"});
+    }
 }
 $('#login').click(function(){
 	chkInputValue();

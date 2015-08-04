@@ -430,13 +430,17 @@ function getRegion(id,_this,arr1){
     if(arr1)arr = arr1;
     var query = {id: id};
     api.req('region',query,function(body){
-      if(body.success&&body.data.regionList.length){
+      if(body.success){
         console.log(name);
         _this.empty()
-        body.data.regionList.map(function(item){
-          if(item.id == arr[0]||item.id == arr[1]||item.id == arr[2])_this.append('<option selected="selected" value='+item.id+'>'+item.regionName+'</option>');
-          else _this.append('<option value='+item.id+'>'+item.regionName+'</option>');
-        })
+        if(body.data.regionList.length>0){
+            body.data.regionList.map(function(item){
+              if(item.id == arr[0]||item.id == arr[1]||item.id == arr[2])_this.append('<option selected="selected" value='+item.id+'>'+item.regionName+'</option>');
+              else _this.append('<option value='+item.id+'>'+item.regionName+'</option>');
+            })
+        }else{
+            _this.append('<option>城区</option>');
+        }
         if(_this.find("option[selected]").length<=0)_this.find("option").eq(0).attr("selected","selected");
 
         if(_this.attr("name")=="province"){
@@ -445,6 +449,8 @@ function getRegion(id,_this,arr1){
         if(_this.attr("name")=="city"){
           getRegion(_this.find("option[selected]").val(),$("select[name='district']"),arr)
         }
+      }else{
+        _this.empty().append('<option>城区</option>');
       }
     })
 }
