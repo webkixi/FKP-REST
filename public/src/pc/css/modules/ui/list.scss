@@ -6,6 +6,7 @@
  * list，定义一些list列表项
  */
 
+//水平列表
 .hlist{
     list-style: none;
     font: normal normal normal 14px/150% Arial,Verdana,"宋体";
@@ -45,7 +46,7 @@
         }
     }
 }
-
+//产品中心的图片列表
 .elephant{
     small{
         font-size: 12px;
@@ -74,6 +75,7 @@
     }
 }
 
+//tabswitch的内容列表栏
 .fox{
     display: block;
     border-bottom: 1px solid #efefef;
@@ -113,6 +115,11 @@
     background-color: red;
 }
 
+//tabswitch 的头部切换栏
+// item  <li class="item">
+// inner <li ..><div class="inner">
+// hheader <li ..><div class="inner"><div class="hheader">
+// hbody <li ..><div class="inner"><div class="hbody">
 .tiger{
     font-size:16px;
     font-weight: bold;
@@ -156,4 +163,36 @@
 }
 .tiger-active{
     border-bottom: 1px solid red;
+}
+
+//分页列表
+.pagi{
+    display: block;
+    font-size: 12px;
+    .item{
+        cursor: pointer;
+        float: left;
+        padding: 6px 9px;
+        margin: 0 3px 3px;
+        border-radius: 2px;
+        background-color: #f1eff0;
+        .inner{ }
+        .hheader{
+            padding: 0;
+            a{
+                border: none;
+            }
+        }
+        .hbody{ }
+    }
+    .active{
+        background-color: red;
+        a{
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+}
+.fox-active{
+    background-color: red;
 }

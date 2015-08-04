@@ -107,7 +107,8 @@ function chkInputValue(){
                 window.location = body.redirect;
 			}
 			if(body.errStat){
-				alert(222);
+				//alert(222);
+                messager.alert({title:"提示",content:"手机号码或密码错误,请重新输入!",type:"warning"});
 			}
 		})
         // $(form).submit();

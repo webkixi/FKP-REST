@@ -44,11 +44,17 @@ var tmpApp = React.createClass({
 			this.state.data.map(function(item,i){
 				if(that.props.itemView){
 					var view = that.props.itemView;
-					that.props.data = item;
-					var it = React.createElement(view,that.props,that.props.children);
+					var props = {
+						key: 'view'+i,
+						data: item,
+						itemClass: that.props.itemClass,
+						itemStyle: that.props.itemStyle,
+						itemMethod: that.props.itemMethod
+					}
+					var it = React.createElement(view, props, that.props.children);
 					items.push(it);
 				}else{
-					items.push(<Fox {...that.props} data={item} />);
+					items.push(<Fox key={'fox'+i} {...that.props} data={item} />);
 				}
 			});
 		}

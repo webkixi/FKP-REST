@@ -12,6 +12,7 @@ var apiPath = {
         goods_attr: '/common/goods_attr',
         submitOrder: '/mall/item_order.html',//提交订单
         login: '/account/login',
+        forget: '/account/forget',
         account_goods_list: '/goods/list.html',//会员中心，商品列表
         account_order_list: '/order/list.html',//会员中心，订单列表
         updateAccount: '/account/myaccount',

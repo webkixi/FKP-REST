@@ -55,10 +55,19 @@ var SelectBar = React.createClass({
 		if(this.state.data && this.state.data.length){
 			var contents = [];
 			var cnts = this.state.data;
-			cnts.map(function(item){
-				contents.push(
-					<a href={'javascript:;'}>{item}</a>
-				)
+			cnts.map(function(item,i){
+				if(item.indexOf('###')>-1){
+					var tmps = item.split('###');
+					var pinming = tmps[1];
+					item = tmps[0];
+					contents.push(
+						<a key={'select'+i} href={'javascript:;'} data-pm={pinming}>{item}</a>
+					)
+				}else{
+					contents.push(
+						<a key={'select'+i} href={'javascript:;'}>{item}</a>
+					)
+				}
 			})
 			return contents;
 		}
