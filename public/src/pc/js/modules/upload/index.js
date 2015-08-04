@@ -1712,7 +1712,7 @@
             container: null,
             label: null,
             innerHTML: null,
-            multiple: true,
+            multiple: false,//lwb 控制不可以选择多个文件
             accept: null,
             name: 'file'
         };
@@ -6839,7 +6839,7 @@
                 this.abort();
             },
 
-            //yc xhr.upload
+            //yc xhr._object.upload
             _initAjax: function() {
                 var me = this,
                     xhr = new XMLHttpRequest(),
@@ -6850,7 +6850,7 @@
                     xhr = new XDomainRequest();
                 }
 
-                xhr._object.upload.onprogress = function( e ) {
+                xhr.upload.onprogress = function( e ) {
                     var percentage = 0;
 
                     if ( e.lengthComputable ) {
@@ -6866,7 +6866,7 @@
                         return;
                     }
 
-                    xhr._object.upload.onprogress = noop;
+                    xhr.upload.onprogress = noop;
                     xhr.onreadystatechange = noop;
                     me._xhr = null;
                     me._status = xhr.status;

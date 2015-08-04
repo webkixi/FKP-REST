@@ -593,7 +593,7 @@ render(
 )
 
 render(
-    <Uploader btn={'zzjg'} type={2} cb={set_zzjg}/>,
+    <Uploader btn={'zzjg'} maxNumber={1} type={2} cb={set_zzjg}/>,
    document.getElementById('up_zzjg')
 )
 

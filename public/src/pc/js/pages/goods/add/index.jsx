@@ -36,11 +36,9 @@ $(function(){
     $('#catId').trigger("change");
     //获取最小时间与最大时间值
     var time = new Date();
-    var nowTime = time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate();
-    var behindTime = time.getFullYear() + "-" + (time.getMonth()+4) + "-" + time.getDate();
     $("#stopDate").pickadate({
-        'min': new Date(nowTime),
-        'max': new Date(behindTime)        
+        'min': time,
+        'max': new Date(time.getTime()+7948800000)        
     });
 
     //改变单位时更新库订购量，增量，升贴水单位

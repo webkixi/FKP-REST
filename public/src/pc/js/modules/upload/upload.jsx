@@ -88,7 +88,7 @@ function uploadAction(btn){
 
 
 
-function uploadAction2(btn,callback){
+function uploadAction2(btn,callback,maxNumber){
     // var $list = $('#fileList'),
     var $list = $('#'+btn).siblings(),
         // 优化retina, 在retina下这个值是2
@@ -221,6 +221,11 @@ var Upl = React.createClass({
                 type: this.props.type
             })
         }
+        if(this.props.maxNumber){
+            this.setState({
+                maxNumber: this.props.maxNumber
+            })
+        }
 
         if(this.props.cb)
             this.setState({
@@ -230,7 +235,7 @@ var Upl = React.createClass({
     },
 
     componentDidMount: function() {
-        var callback;
+        var callback,maxNumber;
         if(this.state.cb)
             callback = this.state.cb;
         else {
@@ -241,11 +246,12 @@ var Upl = React.createClass({
             btn = this.state.btn||'';
         }
 
+        maxNumber = this.state.maxNumber||0;
         if(this.state.type===1)
             uploadAction(btn,callback);
         else
             if(this.state.type===2)
-                uploadAction2(btn,callback);
+                uploadAction2(btn,callback,maxNumber);
     },
 
     componentWillReceiveProps:function(nextProps){
