@@ -138,7 +138,7 @@ function *demoRegistData(oridata){
                 error.msg = "请输入正确的手机号码格式";
                 return error;
             }else{
-                 var stat =  formValide(chkPhone)
+                var stat =  formValide(chkPhone)
                 (body.loginPhone,'RegPhone')
                 ();            
                 if(stat){

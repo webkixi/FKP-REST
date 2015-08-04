@@ -75,7 +75,7 @@ var chkOptions = {
         tmp = true;
         if(!tmp){
         	$(ipt).addClass("bd_col");
-        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入公司全称");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入密码");
         }
         else{
         	if(val!==pval){
@@ -155,7 +155,6 @@ function bindInputDefaultEvent(){
     }
 }
 bindInputDefaultEvent();
-
 function chkPhoneValue(){
 	var inputs = getFormData();
 	//valide login value
@@ -165,8 +164,10 @@ function chkPhoneValue(){
 	//assemble query 
 	var query = {
 		loginPhone: inputs.loginPhone.ipt.value,
-		isForgetPassword: true
+		isForgetPassword: true,
+		step: $("#step").val()
 	}
+	console.log(query)
 	if(RegPhoneStat){
         //ajax 提交
 		api.req('forget',query,function(body){
@@ -176,10 +177,10 @@ function chkPhoneValue(){
 	            var validCode=true
 	            var time=60;
 				var code=$("#sendMobileCode");
-
 				if (validCode) {
 					validCode=false;
 					code.attr("disabled", "disabled");
+					$("#step").val(body.step);
 					var t=setInterval(function  () {
 						time--;
 						code.html(time+"秒");
@@ -190,6 +191,7 @@ function chkPhoneValue(){
 							code.removeAttr("disabled");
 						}
 						$("#mobileCode_error").html("验证码已发送，请查收短信。");
+						
 					},1000)
 				}
 	        }else{
@@ -213,17 +215,20 @@ function chkCodeValue(){
 	var query = {
 		loginPhone: inputs.loginPhone.ipt.value,
 		code: inputs.Regcode.ipt.value,
-		isForgetPassword: true
+		isForgetPassword: true,
+		step: $("#step").val()
 	}
+	console.log(query)
 	if(RegCodeStat){
         //ajax 提交
 		api.req('forget',query,function(body){
 			//var jo = JSON.parse(body);
 			if(body.success){
-	          //dropAlert(jo.success);
+	          //dropAlert(jo.success);	          	
 	          	$(".r_wyzsj").addClass("hidden");
 				$(".r_wyzsj").next().removeClass("hidden");
 				$(".r_progress").addClass("r_p2");
+				$("#step").val(body.step);
 	        }else{
 	        	//alert(body.msg);
 	        	messager.alert({title:"提示",content:"手机号码或短信验证码错误,请重新输入!",type:"warning"});
@@ -238,25 +243,24 @@ $('#login_ok').click(function(){
 function checkAccount(){
 	var inputs = getFormData();
 	var RegAccountStat = formValide(chkOptions)
-	(inputs.loginPhone,'RegPhone')
-	(inputs.Regcode,'Regcode')
 	(inputs.RegPwd,'RegPwd')
 	([inputs.RegPwd,inputs.RegrePwd],'RegrePwd')
 	();
 	//assemble query 
 	var query = {
 		loginPhone: inputs.loginPhone.ipt.value,
-		code: inputs.Regcode.ipt.value,
 		newPassword: inputs.RegPwd.ipt.value,
 		repassword: inputs.RegrePwd.ipt.value,
-		isForgetPassword: true
+		isForgetPassword: true,
+		step: $("#step").val()
 	}
-
+console.log(query)
 	if(RegAccountStat){
         //ajax 提交
 		api.req('forget',query,function(body){
 			//var jo = JSON.parse(body);
 			if(body.success){
+				console.log(body.step)
 				messager.alert({title:"提示",content:"密码更新成功！",type:"success"});
 	        }else{
 	        	messager.alert({title:"提示",content:body.msg,type:"warning"});

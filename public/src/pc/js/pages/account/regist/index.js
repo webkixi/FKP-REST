@@ -236,7 +236,8 @@ var chkOptions = {
         val = iobj.ipt.value,
         tmp = reg.notempty.test(val);    //code check
         if(!tmp||tmp==0){
-        	alert("请勾选!!");
+        	//alert("请勾选!!");
+            messager.alert({title:"提示",content:"请勾选!",type:"warning"});
         }
         return tmp;
     }
@@ -571,7 +572,8 @@ function chkCodeValue(){
 				$(".r_wyzsj").next().removeClass("hidden");
 				$(".r_progress").addClass("r_p2");
 	        }else{
-	        	alert(body.msg);
+                messager.alert({title:"提示",content:body.msg,type:"warning"});
+	        	//alert(body.msg);
 	        	//dropAlert(jo.errmsg);
 	        }
 		})
@@ -633,7 +635,8 @@ function checkAccount(){
 				$(".Regname").html(SregName);
 				$(".r_wrap_list.r_wmessage,.r_wrap_list.r_wyzsj").remove();
 	        }else{
-	        	alert(body.msg);
+                messager.alert({title:"提示",content:body.msg,type:"warning"});
+	        	//alert(body.msg);
 	        	//dropAlert(jo.errmsg);
 	        }
 		})

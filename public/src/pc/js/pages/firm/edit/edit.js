@@ -48,7 +48,8 @@ function chkInputValue(){
                 console.log(body);
 			}
 			else
-				alert(222);
+                messager.alert({title:"企业简介更新失败",content:resp,type:"warning"});
+				//alert(222);
 
         })
 	}

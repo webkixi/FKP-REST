@@ -22,68 +22,6 @@ $(function(){
 			$(this).removeClass("bd_col");
 		}
 	});
-	$("#mypwd .user_pwdn").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("6-20位字符，建议由字母，数字和符号两种以上组合");
-		$(this).removeClass("bd_col");
-	});	
-	$("#mypwd .user_pwdn").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("密码不能为空");
-		}
-	});
-	$("#mypwd .user_pwdn").keyup(function(){
-		var t=$(this).val();
-		var num=/^\d+$/;
-		var zm=/^[A-Za-z]+$/;
-		var fh=/^[!@#$,.';%^&*()_+|{}?><\-\]\\[\/]*$/;
-		var zn=/^[\da-zA-Z]+$/;// 字母跟数字
-		var zf=/^[a-zA-Z-`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]+$/;
-		var nf=/^[-\d`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]+$/;
-		var znf=/^[-\da-zA-Z`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]*$/;
-		if((num.test(t) && t.length>=6 && t.length<12)||(zm.test(t)&& t.length>=6 && t.length<12)||(fh.test(t)&& t.length>=6 && t.length<12)){
-			$('.pswInput b').css('background-position','0 0');
-			$(this).next(".error_msg").css("color","#666");
-			$(this).next(".error_msg").html("您输入的密码强度过弱!");
-		}
-		else if((num.test(t) && t.length>=12)||(zm.test(t) && t.length>=12) ||(fh.test(t) && t.length>=12)|| (zf.test(t) && t.length>=6 &&t.length<12)|| (nf.test(t) && t.length>=6 &&t.length<12) || (zn.test(t) && t.length>=6 &&t.length<12)){
-			$(this).next(".error_msg").css("color","#666");
-			$(this).next(".error_msg").html("您的密码已经很安全！");
-		}
-		else if((znf.test(t)&& t.length>=6)||(zf.test(t)&& t.length>=12)||(nf.test(t) && t.length>=12) ||(zn.test(t) && t.length>=12)){
-			$(this).next(".error_msg").css("color","#666");
-			$(this).next(".error_msg").html("无懈可击！");
-		}
-		else if(t.length<6){
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("密码长度只能在6-20位字符之间");
-		}
-		$(this).removeClass("bd_col");
-	});
-	$("#mypwd .user_pwdnd").focus(function(){
-		$(this).next(".error_msg").css("color","#666");
-		$(this).next(".error_msg").html("请再输入密码");
-		$(this).removeClass("bd_col");
-	});	
-	$("#mypwd .user_pwdnd").blur(function(){
-		if($(this).val()==""){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("密码不能为空");
-		}
-		else if($(this).val()!=$(".r_wrap_list .user_pwd").val()){
-			$(this).addClass("bd_col");
-			$(this).next(".error_msg").css("color","#ff6600");
-			$(this).next(".error_msg").html("密码输入不一致");
-		}
-		else{
-			$(this).removeClass("bd_col");
-			$(this).next(".error_msg").css("color","#666");
-			$(this).next(".error_msg").html("");
-		}
-	});
 	$("#mybasic .user_tname").focus(function(){
 		$(this).next(".error_msg").css("color","#666");
 		$(this).next(".error_msg").html("请输入联系人姓名");
@@ -203,6 +141,71 @@ $(function(){
 		$(this).removeClass("bd_col");
 
 	});	
+//修改密码
+
+	$("#mypwd .user_pwdn").focus(function(){
+		$(this).next(".error_msg").css("color","#666");
+		$(this).next(".error_msg").html("6-20位字符，建议由字母，数字和符号两种以上组合");
+		$(this).removeClass("bd_col");
+	});	
+	$("#mypwd .user_pwdn").blur(function(){
+		if($(this).val()==""){
+			$(this).addClass("bd_col");
+			$(this).next(".error_msg").css("color","#ff6600");
+			$(this).next(".error_msg").html("密码不能为空");
+		}
+	});
+	$("#mypwd .user_pwdn").keyup(function(){
+		var t=$(this).val();
+		var num=/^\d+$/;
+		var zm=/^[A-Za-z]+$/;
+		var fh=/^[!@#$,.';%^&*()_+|{}?><\-\]\\[\/]*$/;
+		var zn=/^[\da-zA-Z]+$/;// 字母跟数字
+		var zf=/^[a-zA-Z-`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]+$/;
+		var nf=/^[-\d`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]+$/;
+		var znf=/^[-\da-zA-Z`=\\\[\];',.\/~!@#$%^&*()_+|{}:"<>?]*$/;
+		if((num.test(t) && t.length>=6 && t.length<12)||(zm.test(t)&& t.length>=6 && t.length<12)||(fh.test(t)&& t.length>=6 && t.length<12)){
+			$('.pswInput b').css('background-position','0 0');
+			$(this).next(".error_msg").css("color","#666");
+			$(this).next(".error_msg").html("您输入的密码强度过弱!");
+		}
+		else if((num.test(t) && t.length>=12)||(zm.test(t) && t.length>=12) ||(fh.test(t) && t.length>=12)|| (zf.test(t) && t.length>=6 &&t.length<12)|| (nf.test(t) && t.length>=6 &&t.length<12) || (zn.test(t) && t.length>=6 &&t.length<12)){
+			$(this).next(".error_msg").css("color","#666");
+			$(this).next(".error_msg").html("您的密码已经很安全！");
+		}
+		else if((znf.test(t)&& t.length>=6)||(zf.test(t)&& t.length>=12)||(nf.test(t) && t.length>=12) ||(zn.test(t) && t.length>=12)){
+			$(this).next(".error_msg").css("color","#666");
+			$(this).next(".error_msg").html("无懈可击！");
+		}
+		else if(t.length<6){
+			$(this).next(".error_msg").css("color","#ff6600");
+			$(this).next(".error_msg").html("密码长度只能在6-20位字符之间");
+		}
+		$(this).removeClass("bd_col");
+	});
+	$("#mypwd .user_pwdnd").focus(function(){
+		$(this).next(".error_msg").css("color","#666");
+		$(this).next(".error_msg").html("请再输入密码");
+		$(this).removeClass("bd_col");
+	});	
+	$("#mypwd .user_pwdnd").blur(function(){
+		if($(this).val()==""){
+			$(this).addClass("bd_col");
+			$(this).next(".error_msg").css("color","#ff6600");
+			$(this).next(".error_msg").html("密码不能为空");
+		}
+		else if($(this).val()!=$(".r_wrap_list .user_pwd").val()){
+			$(this).addClass("bd_col");
+			$(this).next(".error_msg").css("color","#ff6600");
+			$(this).next(".error_msg").html("密码输入不一致");
+		}
+		else{
+			$(this).removeClass("bd_col");
+			$(this).next(".error_msg").css("color","#666");
+			$(this).next(".error_msg").html("");
+		}
+	});
+
 	/*判断是否有图片*/
 	base_url = document.location.href.substring(0, document.location.href.indexOf('index.html'), 0);
 	$(".gallery a").lightBox();
