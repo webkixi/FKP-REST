@@ -94,16 +94,22 @@ function *demoIndexData(oridata){
             // }
             if(type == 1){
                 dataSet.totalCount =dataSet.infos.pageBean.totalCount;
+                dataSet.totalCount_infos = dataSet.infos.pageBean.totalCount;
                 dataSet.info = dataSet.infos.pageBean.recordList;
                 dataSet.st1 = true;
                 dataSet.sc =dataSet.infos.sc;
             }else if(type==2){
                 dataSet.totalCount = dataSet.goods.pageBean.totalCount;
-                dataSet.goods = dataSet.goods.pageBean.recordList;
+                dataSet.totalCount_goods = dataSet.goods.pageBean.totalCount;
+                console.log(dataSet.goods)
+               // dataSet.goods = dataSet.goods.pageBean.recordList;
                 dataSet.st2 = true;
-                dataSet.sc =dataSet.goods.sc;
+
+                dataSet.sc = dataSet.goods.sc;
             }else {
-                dataSet.totalCount = dataSet.goods.pageBean.totalCount + dataSet.infos.pageBean.totalCount; 
+                dataSet.totalCount_goods = dataSet.goods.pageBean.totalCount;
+                dataSet.totalCount_infos = dataSet.infos.pageBean.totalCount;
+                dataSet.totalCount = dataSet.totalCount_goods + dataSet.totalCount_infos; 
                 dataSet.info = dataSet.infos.pageBean.recordList;
                 dataSet.goods = dataSet.goods.pageBean.recordList;
                 dataSet.st1 = true;

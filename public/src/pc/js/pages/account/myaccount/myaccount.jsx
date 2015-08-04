@@ -511,7 +511,6 @@ function chkBaseInfo(){
     (inputs.RegCounty,'RegCounty')
     (inputs.RegAdd,'RegAdd')
     ();
-console.log(chkBaseinfoValue)
     //assemble query
     var query = {
         loginPhone: inputs.loginPhone.ipt.value,        
@@ -524,15 +523,13 @@ console.log(chkBaseinfoValue)
         district: inputs.RegCounty.ipt.value,
         address: inputs.RegAdd.ipt.value
     }
-console.log(query)
     if(chkBaseinfoValue){
-        console.log("11111111111111")
         api.req('updateAccountBase',query,function(body){
-            console.log("2222222222222")
             if(body.success){
                 messager.alert({title:"提示",content:'更新成功',type:"success"});
             }
             if(body.errStat){
+                console.log(body.errStat)
                 messager.alert({title:"提示",content:'更新失败',type:"error"});
             }
         })

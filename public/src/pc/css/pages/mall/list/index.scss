@@ -1,3 +1,245 @@
 @import "../../../modules/_settings/_setting_pages";
 @import "../../_common/com.scss";
-@import "../../_common/bootstrap.min.scss";
+/***************************************商城首页 start*****************************************/
+
+.category{
+	position: relative;
+	z-index: 70;
+	ul.nav{
+		border-bottom: 1px solid #ff6600;
+		border-top: 1px solid #ccc; 
+		border-right: 1px solid #ddd;
+		li{
+			a{
+				border-left: 1px solid #ddd;
+				min-width: 100px;
+				text-align: center; 
+				margin-right: 0; 
+				display: block;
+				border-radius: 0 0 0 0;
+			}
+		}
+	}
+	.nav-tabs{
+		&>li{
+			&.active{
+				a{
+					border: 1px solid #ff6600; 
+					border-bottom-color: transparent;	
+					&:hover,&:focus{
+						border: 1px solid #ff6600; 
+						border-bottom-color: transparent;
+					}
+				}
+			}
+		}
+	}
+	.sort_product{
+		li{
+			dd{
+				margin-bottom:0; 
+				width: 175px; 
+				overflow:hidden; 
+				white-space:nowrap; 
+				text-overflow:ellipsis;
+			}
+		}
+	}
+}
+.account_r{
+	.nav-tabs{
+		&>li{
+			&.active{
+				a{
+					color: #ff6600;
+					border: 1px solid #ff6600;
+					border-bottom-color: transparent;
+					&:hover,a:focus {
+						color: #ff6600;
+						border: 1px solid #ff6600;
+						border-bottom-color: transparent;
+					}
+				}
+			}
+		}
+	}
+}
+.filter{
+	-webkit-transition: all .2s ease-in 0s;
+	transition: all .2s ease-in 0s; 
+	border: 1px solid #ccc; 
+	border-top: none;
+}
+.filter-con{
+	overflow:hidden;
+	dl{
+		position:relative;
+		padding-left:57px;
+		min-height: 20px;
+		margin-bottom: 0;
+		dt{
+			position:absolute;
+			top:0;
+			left:0;
+			float:left;
+		}
+		dd{
+			float:left;
+		}
+	}
+	.selected{
+		a{
+			background:#ff6600;
+			color:#fff;
+			padding:2px 5px;
+		}
+	}
+}
+.filter-items{
+	@extend .filter-con;
+	padding:13px 0;
+	border-bottom:1px dotted #d6d6d6;
+	.filter-con{
+		max-width:1090px;
+	}
+}
+.filter-tita{
+	float:left; 
+	display: inline-block; 
+	width:61px;
+	text-align:right;
+	margin-right:43px;
+}
+.filter-con,.filter-act{
+	float:left; 
+	display: inline-block; 
+}
+.filter-items-blank{
+	margin-top:-1px;
+	border-top: 1px solid #fff;
+}
+.filter-item-brand, .filter-item-mate,.filter-item-size,.filter-item-vender{
+	.filter-con{
+		dd{
+			margin-right:24px;
+		}
+	}
+
+}
+.cateTags{
+	border: 1px solid #ccc; 
+	border-top: none;
+	dl{ 
+		padding-top: 20px;
+		dt{ 
+			display: inline-block; 
+			margin-left: 30px;
+		}
+		dd{ 
+			display: inline-block; 
+			margin-right: 20px; 
+			background: #ff6600; 
+			padding: 3px 3px 3px 10px;
+			a { 
+				padding-right: 20px;
+				background:url(../images/close.gif) right 7px no-repeat; 
+				color: #fff;
+			}
+		}
+	}
+}
+.sort{
+	height:44px;
+	border:1px solid #eaeaea;
+	border-top:2px solid #ff6600;
+	margin-top: 20px;
+	.col{
+		float:left;
+		position:relative;
+		ul{
+			overflow:hidden; 
+			margin: 0;
+			li{
+				float:left;
+				position: relative;
+				a{
+					display:block;
+					color:#333;
+					font-size:12px;
+					padding:12px 25px 12px 15px;
+					border-right:1px solid #eaeaea;
+					background:#fff;
+				}
+				&.active{
+					a{
+						color:#ff6600;
+						text-decoration:none;
+						cursor:pointer;
+						background:#fff;
+					}
+				}
+				&.selected {
+					a{
+						color: #2eb3e8;
+						span{
+							background-position:-121px -10px;
+						}
+					}
+				}
+				.icon_view{
+					width:9px;
+					height:9px; 
+					background-position:-105px -10px;
+					top: 16px;
+					right: 10px;
+				}
+				&.dropUp {
+					a {
+						span{
+							background-position: -121px -10px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.icon-view{
+	background: url(../images/item/icon2.png) no-repeat;
+}
+.cate-prolist{
+	margin-top: 20px;
+	ul{
+		margin: 0;
+		li{
+			height:250px;
+			margin-bottom: 15px;
+			dl{
+				margin: 0 10px;
+				dt{
+					width: 175px;
+					height: 142px;
+					margin-bottom: 5px;
+					img{
+						width: 100%;
+						height: 142px;
+					}
+				}
+			}
+		}
+	}
+}
+#page{
+	text-align: center;
+	margin: 20px 0 30px 0;
+}
+.account_content, .myorder_content {
+  border: 1px solid #ff6600;
+  padding: 40px 20px;
+  border-top: none;
+}
+.account_r .nav-tabs {
+  border-bottom: 1px solid #ff6600;
+}
+
+/***************************************商城首页 end*****************************************/

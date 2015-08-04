@@ -154,8 +154,7 @@ function *demoLoginData(oridata){
             county.data.regionList.map(function(items){
                 if(did == items.id)apiData.data.firmContact.districtName = items.regionName;
             })
-            
-
+            console.log(apiData)
             return apiData;
         }else{
 

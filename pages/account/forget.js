@@ -77,7 +77,11 @@ function *demoRegistData(oridata){
                     var jsonData = JSON.parse(apiData[1]);
                     if(jsonData.success){
                         if(this.sess.code){
-                            //return success;                       
+                            //return success;
+                            error.errStat = 15;
+                            success.step = 2;
+                            console.log(this.sess.code)
+                            return success;                                               
                         }else{
                             var javaPhonecode = jsonData.data.phoneCode;
                             this.sess.code = javaPhonecode;
@@ -129,8 +133,6 @@ function *demoRegistData(oridata){
                         if(body.code === this.sess.code){
                             error.errStat = 9;
                             success.step = 3;
-                            console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
-                            console.log(success)
                             return success;
                         }else{
                             error.errStat = 10;
@@ -153,7 +155,6 @@ function *demoRegistData(oridata){
             }            
         }
         if(body.step==3){
-            console.log("3333333333333333333333333333333")
             //验证注册时的基本信息
             if(typeof(body.newPassword)=='undefined' || typeof(body.repassword)=='undefined'){
                 if(typeof(body.newPassword)=='undefined'){
@@ -180,9 +181,7 @@ function *demoRegistData(oridata){
             if(Rcode){
                 apiDataReg = yield api.pullApiData('updatePassword',body);
                 var jsonDataReg = JSON.parse(apiDataReg[1]);
-                console.log(jsonDataReg)
                 if(jsonDataReg.success){
-                    console.log("ddddddddd")
                     error.errStat = 16;
                     //success.step = 4;
                     return success;
