@@ -9,13 +9,7 @@ d.on('error',function(msg){
     console.log(msg);
 });
 
-var chkPhone = {
-    RegPhone: function(phone, reg){   // username 长度大于8，小于20        
-        tmp = reg.mobile.test(phone);    //email check
-        return tmp;
-    }
-}
-var chkCode = {
+var chkReg = {
     RegPhone: function(phone, reg){   // username 长度大于8，小于20        
         tmp = reg.mobile.test(phone);    //email check
         return tmp;
@@ -23,9 +17,7 @@ var chkCode = {
     RegCode: function(code, reg){   // username 长度大于8，小于20        
         tmp = reg.notempty.test(code);    //email check
         return tmp;
-    }
-}
-var chkReg = {
+    },
     RegLoginname: function(loginName, reg){   // RegLoginname 长度大于8，小于20        
         tmp = reg.username.test(loginName);    //email check
         return tmp;
@@ -136,7 +128,7 @@ function *demoRegistData(oridata){
                 error.msg = "请输入正确的手机号码格式";
                 return error;
             }else{
-                var stat =  formValide(chkPhone)
+                var stat =  formValide(chkReg)
                 (body.loginPhone,'RegPhone')
                 ();            
                 if(stat){
@@ -178,7 +170,7 @@ function *demoRegistData(oridata){
                 error.msg = "手机或短信验证码不正确，请重新输入";
                 return error;
             }
-            var Vcode =  formValide(chkCode)
+            var Vcode =  formValide(chkReg)
             (body.loginPhone,'RegPhone')
             (body.code,'RegCode')
             ();
@@ -284,6 +276,7 @@ function *demoRegistData(oridata){
                 return error;
             }
             var Rcode = formValide(chkReg)
+            (body.loginPhone,'RegPhone')
             (body.loginName,'RegLoginname')
             (body.name,'RegName')
             (body.password,'RegPwd')
@@ -297,11 +290,31 @@ function *demoRegistData(oridata){
             (body.address,'RegAdd')
             (body.mustRead,'RegMustRead')
             ();
+            console.log(Rcode)
+            console.log(body)
             apiDataReg = yield api.pullApiData('regist',body);
             var jsonDataReg = JSON.parse(apiDataReg[1]);
             if(Rcode){
                 if(jsonDataReg.success){
-                    this.sess.step = 4;
+                    apiData = yield api.pullApiData('loginCheck',{
+                        'loginPhone':body.loginPhone,
+                        'password' :body.password
+                    });
+                    var jsonData = JSON.parse(apiData[1]);
+                    if(jsonData.success){
+                        // 用户信息
+                        var account = jsonData.data.account;
+                        account.auth = jsonData.data.AccountAuthStatusEnum;
+                        account.authStatus = jsonData.data.authStatus;
+                        account.login = true;
+                        //企业信息
+                        var firm = libs.$extend({},jsonData.data);
+                        delete firm.account;
+                        delete firm.AccountAuthStatusEnum;
+                        //保存session
+                        account.firm = firm;
+                        this.sess.user = account;
+                    }
                     return success;
                 }
                 else{
