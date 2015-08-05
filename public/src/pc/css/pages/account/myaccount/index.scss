@@ -54,6 +54,23 @@
 }
 #myapprove .myaccount_uploadfieldbase{width: 82%; display: inline-block;}
 #myapprove.tab-pane{
+	.myaccount_file_box{
+		position:relative;
+		display: inline-block;
+		vertical-align: middle;
+		.uploader-list{
+			display: none;
+		}
+		.webuploader-container{
+			position: static !important;
+			opacity:1 !important;
+			width:auto !important;
+			height:auto !important;
+		}
+		.webuploader-pick{
+			height:auto !important;
+		}
+	}
 	label{
 		width: 100px;
 	}
@@ -77,8 +94,10 @@
 	}
 	.form-group .gallery{
 		display: inline-block;
+		vertical-align: middle;
 		width: 100px;
 		height: 100px;
+		margin-left:20px;
 		img{
 			display: inline-block;
 			width: 100%;

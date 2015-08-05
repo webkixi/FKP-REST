@@ -216,69 +216,69 @@ $(function(){
 			imgObj.parents(".gallery").css("visibility", "hidden");
 		}
 	});
-	/*图片认证上传*/
-	var iframe = false;
-	var dataType = "json";
-	var url = "/account-picture-upload.html";
-	if (!$.support.leadingWhitespace) {
-		iframe = true;
-		dataType = "text";
-	}
-	$('#inputLiecnces').fileupload({
-		dataType : dataType,
-		iframe : iframe,
-		autoUpload : true,
-		sequentialUploads : true,
-		maxChunkSize : 10000000,
-		minFileSize : 1000,
-		url : url,
-		add : function(e, data) {
-			data.submit();
-		},
-		done : function(e, data) {
-			var gallery = $(this).parent().next(".gallery");
-			gallery.css("visibility", "");
-			$("#inputLiecncesPic").attr("src", data.result.path + data.result.fileName);
-			$("#inputLiecncesName").val(data.result.fileName);
-			$("#inputLiecncesHref").attr("href", data.result.path + data.result.fileName);
-		}
-	});
-	$('#inputOrgCode').fileupload({
-		dataType : dataType,
-		iframe : iframe,
-		autoUpload : true,
-		sequentialUploads : true,
-		maxChunkSize : 10000000,
-		minFileSize : 1000,
-		url : url,
-		add : function(e, data) {
-			data.submit();
-		},
-		done : function(e, data) {
-			var gallery = $(this).parent().next(".gallery");
-			gallery.css("visibility", "");
-			$("#inputOrgCodePic").attr("src", data.result.path + data.result.fileName);
-			$("#inputOrgCodeName").val(data.result.fileName);
-			$("#inputOrgCodeHref").attr("href", data.result.path + data.result.fileName);
-		}
-	});
-	$('#inputTax').fileupload({
-		dataType : dataType,
-		iframe : iframe,
-		autoUpload : true,
-		sequentialUploads : true,
-		maxChunkSize : 10000000,
-		minFileSize : 1000,
-		url : url,
-		add : function(e, data) {
-			data.submit();
-		},
-		done : function(e, data) {
-			var gallery = $(this).parent().next(".gallery");
-			gallery.css("visibility", "");
-			$("#inputTaxPic").attr("src", data.result.path + data.result.fileName);
-			$("#inputTaxName").val(data.result.fileName);
-			$("#inputTaxHref").attr("href", data.result.path + data.result.fileName);
-		}
-	});	
+	// /*图片认证上传*/
+	// var iframe = false;
+	// var dataType = "json";
+	// var url = "/account-picture-upload.html";
+	// if (!$.support.leadingWhitespace) {
+	// 	iframe = true;
+	// 	dataType = "text";
+	// }
+	// $('#inputLiecnces').fileupload({
+	// 	dataType : dataType,
+	// 	iframe : iframe,
+	// 	autoUpload : true,
+	// 	sequentialUploads : true,
+	// 	maxChunkSize : 10000000,
+	// 	minFileSize : 1000,
+	// 	url : url,
+	// 	add : function(e, data) {
+	// 		data.submit();
+	// 	},
+	// 	done : function(e, data) {
+	// 		var gallery = $(this).parent().next(".gallery");
+	// 		gallery.css("visibility", "");
+	// 		$("#inputLiecncesPic").attr("src", data.result.path + data.result.fileName);
+	// 		$("#inputLiecncesName").val(data.result.fileName);
+	// 		$("#inputLiecncesHref").attr("href", data.result.path + data.result.fileName);
+	// 	}
+	// });
+	// $('#inputOrgCode').fileupload({
+	// 	dataType : dataType,
+	// 	iframe : iframe,
+	// 	autoUpload : true,
+	// 	sequentialUploads : true,
+	// 	maxChunkSize : 10000000,
+	// 	minFileSize : 1000,
+	// 	url : url,
+	// 	add : function(e, data) {
+	// 		data.submit();
+	// 	},
+	// 	done : function(e, data) {
+	// 		var gallery = $(this).parent().next(".gallery");
+	// 		gallery.css("visibility", "");
+	// 		$("#inputOrgCodePic").attr("src", data.result.path + data.result.fileName);
+	// 		$("#inputOrgCodeName").val(data.result.fileName);
+	// 		$("#inputOrgCodeHref").attr("href", data.result.path + data.result.fileName);
+	// 	}
+	// });
+	// $('#inputTax').fileupload({
+	// 	dataType : dataType,
+	// 	iframe : iframe,
+	// 	autoUpload : true,
+	// 	sequentialUploads : true,
+	// 	maxChunkSize : 10000000,
+	// 	minFileSize : 1000,
+	// 	url : url,
+	// 	add : function(e, data) {
+	// 		data.submit();
+	// 	},
+	// 	done : function(e, data) {
+	// 		var gallery = $(this).parent().next(".gallery");
+	// 		gallery.css("visibility", "");
+	// 		$("#inputTaxPic").attr("src", data.result.path + data.result.fileName);
+	// 		$("#inputTaxName").val(data.result.fileName);
+	// 		$("#inputTaxHref").attr("href", data.result.path + data.result.fileName);
+	// 	}
+	// });	
 });

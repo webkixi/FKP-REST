@@ -101,7 +101,7 @@
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
                                         {{#if auth.status}}
                                         <!-- 上传营业执照 -->
-                                        <div id="up_yyzz"></div>
+                                        <div id="up_yyzz" class="myaccount_file_box"></div>
                                         <input type="hidden" id="inputLiecncesName" name="inputLiecncesName">
                                         <!-- <span id="up_yyzz" class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
@@ -109,13 +109,16 @@
                                             <input id="inputLiecnces" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputLiecncesName" name="inputLiecncesName">
                                         </span> -->
-                                        {{else}}
-                                        <div class="gallery">
+                                        {{/if}}
+                                        <div class="gallery" site="{{config.account_img}}">
                                             <a href='{{config.account_img}}{{firm.firmAuth.liecncesPath}}' class='lightbox' rel='roadtrip' title='' id='inputLiecncesHref'>
+                                                {{#if firm.firmAuth.liecncesPath}}
                                                 <img alt="" src="{{config.account_img}}{{firm.firmAuth.liecncesPath}}" id="inputLiecncesPic" width="100" height="100">
+                                                {{else}}
+                                                <img alt="" src="/images/blank.gif" id="inputOrgCodePic" width="100" height="100">
+                                                {{/if}}
                                             </a>
                                         </div>
-                                        {{/if}}
                                     </div>
                                 </div>
                                 <div class="form-group" style="height:140px;">
@@ -124,7 +127,7 @@
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
                                         {{#if auth.status}}
                                         <!-- 上传组织机构代码 -->
-                                        <div id="up_zzjg"></div>
+                                        <div id="up_zzjg" class="myaccount_file_box"></div>
                                         <input type="hidden" id="inputOrgCodeName" name="inputOrgCodeName">
                                         <!-- <span class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
@@ -132,13 +135,16 @@
                                             <input id="inputOrgCode" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputOrgCodeName" name="inputOrgCodeName">
                                         </span> -->
-                                        {{else}}
-                                        <div class="gallery">
+                                        {{/if}}
+                                        <div class="gallery" site="{{config.account_img}}">
                                             <a href='{{config.account_img}}{{firm.firmAuth.orgCodePath}}' class='lightbox' rel='roadtrip' title='' id='inputOrgCodeHref'>
+                                            {{#if firm.firmAuth.orgCodePath}}
                                                 <img alt="" src="{{config.account_img}}{{firm.firmAuth.orgCodePath}}" id="inputOrgCodePic" width="100" height="100">
+                                            {{else}}
+                                                <img alt="" src="/images/blank.gif" id="inputOrgCodePic" width="100" height="100">
+                                            {{/if}}
                                             </a>
                                         </div>
-                                        {{/if}}
                                     </div>
                                 </div>
                                 <div class="form-group" style="height:140px;">
@@ -147,7 +153,7 @@
                                         <!-- 未认证/重新提交认证状态，按钮激活 -->
                                         {{#if auth.status}}
                                         <!-- 上传税务登记证 -->
-                                        <div id="up_swdj"></div>
+                                        <div id="up_swdj" class="myaccount_file_box"></div>
                                         <input type="hidden" id="inputTaxName" name="inputTaxName">
                                         <!-- <span class="btn btn-success fileinput-button">
                                             <i class="glyphicon glyphicon-plus"></i>
@@ -155,13 +161,16 @@
                                             <input id="inputTax" type="file" name="file" accept=".jpg,.jpeg,.png" multiple>
                                             <input type="hidden" id="inputTaxName" name="inputTaxName">
                                         </span> -->
-                                        {{else}}
-                                        <div class="gallery">
+                                        {{/if}}
+                                        <div class="gallery" site="{{config.account_img}}">
                                             <a href='{{config.account_img}}{{firm.firmAuth.taxRegPath}}' class='lightbox' rel='roadtrip' title='' id='inputTaxHref'>
+                                                {{#if firm.firmAuth.taxRegPath}}
                                                 <img alt="" src="{{config.account_img}}{{firm.firmAuth.taxRegPath}}" id="inputTaxPic" width="100" height="100">
+                                                {{else}}
+                                                <img alt="" src="/images/blank.gif" id="inputOrgCodePic" width="100" height="100">
+                                                {{/if}}
                                             </a>
                                         </div>
-                                        {{/if}}
                                     </div>
                                 </div>
                                 {{#if auth.status_init}}
@@ -170,12 +179,20 @@
                                     </div>
                                 {{/if}}
                                 {{#if auth.status_fail}}
-                                    <div class="myapprove_btn">
-                                        <a href="javascript:;" type="button" id="re-accountAuth" class="btn btn-orange">重新认证</a>
-                                    </div>
-                                    <p class="myapprove_error">认证失败原因：&nbsp;&nbsp;
-                                        {{firm.firmAuthRecord.description}}
-                                    </p>
+                                    {{#if firm.firmAuthRecord.description}}
+                                        <div class="myapprove_btn">
+                                            <a href="javascript:;" type="button" id="re-accountAuth" class="btn btn-orange">重新认证</a>
+                                        </div>
+                                        <p class="myapprove_error">认证失败原因：&nbsp;&nbsp;
+                                            {{firm.firmAuthRecord.description}}
+                                        </p>
+                                        {{else}}
+                                        <div class="myapprove_btn">
+                                            <a class="btn btn-info">{{auth.AUTH_ING.desc}}</a>
+                                        </div>
+                                    {{/if}}
+                                {{/if}}
+                                {{#if auth.status_ing}}
                                     <div class="myapprove_btn">
                                         <a class="btn btn-info">{{auth.AUTH_ING.desc}}</a>
                                     </div>
