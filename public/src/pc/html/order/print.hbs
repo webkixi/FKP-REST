@@ -85,9 +85,7 @@
                               地址：<span class="delivery_input">{{contract.storageAddress}}</span>) 
                               &nbsp;&nbsp;运输费由
                               <span class="delivery_input">
-                              {{#each partyTypeList}}
-                              {{#if contract.freightPartyV}} {{desc}} {{/if}}
-                              {{/each}}
+                              {{partyTypeLists}}
                               </span>承担。
                             {{else}}
                             &#8693;&nbsp;&nbsp;买方自提&nbsp;&nbsp;(<span class="delivery_input">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>仓库&nbsp;&nbsp;

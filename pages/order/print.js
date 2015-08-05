@@ -48,7 +48,7 @@ function *demoIndexData(oridata){
                     var time = new Date(dataSet.contract.signTime);
                     var stopHour = dataSet.spGoods.stopHour < 10 ? "0"+ dataSet.spGoods.stopHour:dataSet.spGoods.stopHour;
                     var stopMinute = dataSet.spGoods.stopMinute < 10 ? "0"+ dataSet.spGoods.stopMinute:dataSet.spGoods.stopMinute;
-                    dataSet.spGoods.stopDate = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate() +" "+ stopHour +":"+ stopMinute +":00";
+                    dataSet.contract.signTime = time.getFullYear() + "年" + (time.getMonth()+1) + "月" + time.getDate() +"日";
                     //
                     if(dataSet.contract.deliveryWay==0) dataSet.contract.deliveryWay0=true;
                     if(dataSet.contract.deliveryWay==1) dataSet.contract.deliveryWay1=true;
@@ -58,7 +58,9 @@ function *demoIndexData(oridata){
                     });
                     var jsonArrdata = JSON.parse(arrApidata[1]);
                     if(jsonArrdata.success){
-                        if(dataSet.contract.freightParty == jsonArrdata.data.partyTypeList.value)  dataSet.contract.freightPartyV=true;
+                        for(i=0;i<jsonArrdata.data.partyTypeList.length;i++){
+                            if(dataSet.contract.freightParty == jsonArrdata.data.partyTypeList[i].value) dataSet.partyTypeLists=jsonArrdata.data.partyTypeList[i].desc;
+                        }
                     }
                     if(dataSet.contract.contractVersion=='20150628'){
                         dataSet.contract.contractVold=true;
