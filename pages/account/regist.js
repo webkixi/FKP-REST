@@ -126,7 +126,6 @@ function *demoRegistData(oridata){
             success: true
         };
         if(body.step == 0){
-            console.log(body)
             if(typeof(body.loginPhone)=='undefined'){
                 error.errStat= 1;
                 error.msg = "请输入手机号！";
@@ -186,7 +185,6 @@ function *demoRegistData(oridata){
             if(Vcode){
                 apiDataCode = yield api.pullApiData('checkMC',body);
                 var jsonDataCode = JSON.parse(apiDataCode[1]);
-            console.log(jsonDataCode)
                 if(jsonDataCode.success){
                     // 验证验证码
                     //return success;
@@ -195,7 +193,6 @@ function *demoRegistData(oridata){
                         if(body.code === this.sess.code){
                             error.errStat = 9;
                             success.step = 3;
-                            console.log(success)
                             return success;
                         }else{
                             error.errStat = 10;
@@ -277,7 +274,7 @@ function *demoRegistData(oridata){
                 }
                 if(typeof(body.mustRead)=='undefined'){
                     error.errStat= 24;
-                    error.msg = "请勾选！ss";
+                    error.msg = "您未勾选同意《注册协议》";
                     return error;
                 }
             }
@@ -300,19 +297,23 @@ function *demoRegistData(oridata){
             (body.address,'RegAdd')
             (body.mustRead,'RegMustRead')
             ();
+            apiDataReg = yield api.pullApiData('regist',body);
+            var jsonDataReg = JSON.parse(apiDataReg[1]);
             if(Rcode){
-                apiDataReg = yield api.pullApiData('regist',body);
-                var jsonDataReg = JSON.parse(apiDataReg[1]);
                 if(jsonDataReg.success){
                     this.sess.step = 4;
                     return success;
                 }
                 else{
+                    console.log("ddddddddd")
                     error.errStat = 26;
                     error.msg = jsonDataReg.errMsg;
                     return error;
                 }
             }else{
+                console.log("ddddssssssssssssssssss")
+                error.errStat = 27;
+                error.msg = jsonDataReg.errMsg;
                 return error;
             }           
         }

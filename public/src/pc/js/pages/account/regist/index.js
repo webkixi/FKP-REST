@@ -21,7 +21,7 @@ function getFormData(){
 		'RegEmail' : { 'ipt' : form['eMail'],'Etip' : "请输入电子邮件",'Rtip' : "邮箱格式错误,请重新输入",'tip' : ""},
 		'RegQq' : { 'ipt' : form['qq'],'Etip' : "请输入qq",'Rtip' : "qq格式错误,请重新输入",'tip' : ""},
 		'RegAdd' : { 'ipt' : form['address'],'Etip' : "请输入详细地址",'Rtip' : "",'tip' : ""},
-		'RegMustRead' : { 'ipt' : form['mustRead'],'Etip' : "请勾选",'Rtip' : "",'tip' : ""}
+		'RegMustRead' : { 'ipt' : form['mustRead'],'Etip' : "您未勾选同意《注册协议》",'Rtip' : "",'tip' : ""}
     }
 }
 var chkOptions = {
@@ -67,12 +67,12 @@ var chkOptions = {
         ipt = iobj.ipt,
         val = iobj.ipt.value,
         tmp = true,
-        level = (val.length>5) ? 0 + (val.length>7) + (/[a-z]/.test(val) && /[A-Z]/.test(val)) + (/\d/.test(val) && /\D/.test(val)) + (/\W/.test(val) && /\w/.test(val)) + (val.length > 12) : 0;  //level  0  1  2  3  4  password stronger
+        level = (val.length>5) ? 0 + (val.length>=6) + (/[a-z]/.test(val) && /[A-Z]/.test(val)) + (/\d/.test(val) && /\D/.test(val)) + (/\W/.test(val) && /\w/.test(val)) + (val.length > 12) : 0;  //level  0  1  2  3  4  password stronger
         if(val.length>20||/\s/.test(val)) level=0; //不包括空格
         if(level==0||!level){
 			//tmp = tmp;
 			$(ipt).addClass("bd_col");
-        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("8-20位字符，建议由字母，数字和符号两种以上组合");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("6-20位字符，建议由字母，数字和符号两种以上组合");
         }
         if(level==1){
         	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("您输入的密码强度过弱!");
@@ -237,7 +237,7 @@ var chkOptions = {
         tmp = reg.notempty.test(val);    //code check
         if(!tmp||tmp==0){
         	//alert("请勾选!!");
-            messager.alert({title:"提示",content:"请勾选!",type:"warning"});
+            messager.alert({title:"提示",content:"您未勾选同意《注册协议》",type:"warning"});
         }
         return tmp;
     }
@@ -609,7 +609,7 @@ function checkAccount(){
 	(inputs.RegAdd,'RegAdd')
 	(inputs.RegMustRead,'RegMustRead')
 	();
-
+    console.log(RegAccountStat)
 	//assemble query 
 	var query = {
 		loginPhone: inputs.loginPhone.ipt.value,
@@ -628,12 +628,16 @@ function checkAccount(){
 		mustRead: inputs.RegMustRead.ipt.value,
         step: step
 	}
+    console.log(query)
 	if(RegAccountStat){
         //ajax 提交
+        console.log("bods")
 		api.req('regist',query,function(body){
 			//var jo = JSON.parse(body);
+            console.log('body')
 			if(body.success){
                 step = body.step;
+                console.log(step)
 				var SregName = $("#loginName").val();
 				$(".r_wmessage").addClass("hidden");
 				$(".r_wmessage").next(".r_wsuccess").removeClass("hidden");

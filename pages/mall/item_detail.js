@@ -44,11 +44,13 @@ function *demoIndexData(oridata){
                 var time = new Date(apiData.data.spGoods.stopDate);
                 var stopHour = apiData.data.spGoods.stopHour < 10 ? "0"+ apiData.data.spGoods.stopHour:apiData.data.spGoods.stopHour;
                 var stopMinute = apiData.data.spGoods.stopMinute < 10 ? "0"+ apiData.data.spGoods.stopMinute:apiData.data.spGoods.stopMinute;
-                apiData.data.spGoods.stopDate = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate() +" "+ stopHour +":"+ stopMinute +":00";
+                apiData.data.spGoods.stopDate = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate() +" "+ stopHour +":"+ stopMinute +":00";
                 //摘牌下单
                 if(apiData.data.listed) apiData.data.listed1 = true;
                 if(userId === apiData.data.spGoods.accountNo) apiData.data.listed0 = true;
-
+                //挂牌时间
+                var createTime =new Date(apiData.data.spGoods.createTime);
+                apiData.data.spGoods.createTime = createTime.getFullYear() + "-" + (createTime.getMonth() + 1) + "-" + createTime.getDate();
                 dataSet = apiData.data;
             }
 

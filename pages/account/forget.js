@@ -168,7 +168,7 @@ function *demoRegistData(oridata){
                     return error;
                 }
             }
-            if(!body.loginPhone||!body.code||!body.newPassword||!body.repassword){
+            if(!body.newPassword||!body.repassword){
                 error.errStat = 15;
                 error.msg = "信息不正确，请重新输入";
                 return error;
@@ -178,9 +178,10 @@ function *demoRegistData(oridata){
             (body.newPassword,'RegPwd')
             ([body.newPassword,body.repassword],'RegrePwd')
             ();
+            apiDataReg = yield api.pullApiData('updatePassword',body);
+            var jsonDataReg = JSON.parse(apiDataReg[1]);
             if(Rcode){
-                apiDataReg = yield api.pullApiData('updatePassword',body);
-                var jsonDataReg = JSON.parse(apiDataReg[1]);
+                console.log(jsonDataReg)
                 if(jsonDataReg.success){
                     error.errStat = 16;
                     //success.step = 4;
@@ -192,6 +193,7 @@ function *demoRegistData(oridata){
                     return error;
                 }
             }else{
+                error.msg = jsonDataReg.errMsg;
                 return error;
             }           
         }

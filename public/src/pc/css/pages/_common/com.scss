@@ -6,6 +6,7 @@ ul,li{list-style: none;padding:0;}
 .clear{ clear: both;}
 .fl{float: left;}
 .fr{float:right;}
+.clearfix{overflow:hidden;_zoom:1;}
 .middle{display:inline-block;*display:inline;*zoom:1;vertical-align:middle;height:100%;overflow:hidden;}
 .btn:hover, .btn:focus{ color: #fff!important;}
 .mgr5{margin-right: 5px;}
