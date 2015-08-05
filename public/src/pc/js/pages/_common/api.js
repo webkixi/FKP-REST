@@ -6,6 +6,7 @@ var apiPath = {
     dirs: {
         search: src+'api/search.html',
         region: '/region',
+        regist: '/account/regist',
         user: src+'checkUserStatus.html',
         mall_attr: '/mall/api_list_attr',
         mall_exhibition: '/mall/list',

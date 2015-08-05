@@ -197,11 +197,11 @@ function *demoLoginData(oridata){
             	(body.newPassword,'password')
             	([body.newPassword,body.repassword],'repassword')
             	();
-
+                body.accountNo = this.sess.user.accountNo;
+                apiData = yield api.pullApiData('updatePassword',body);
+                var jsonData = JSON.parse(apiData[1]);
                 if(stat){
-                    body.accountNo = this.sess.user.accountNo;
-                    apiData = yield api.pullApiData('updatePassword',body);
-                    var jsonData = JSON.parse(apiData[1]);
+                    
                     if(jsonData.success){
                         this.sess.user = null;
                         success.redirect = "/account/login.html";
@@ -214,6 +214,8 @@ function *demoLoginData(oridata){
                     }
                 }
                 else{
+                    error.errStat = 5;
+                    error.msg = jsonData.errMsg;
                     return error;
                 }
             }

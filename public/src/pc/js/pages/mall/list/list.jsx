@@ -263,7 +263,7 @@ function rd(body){
 
 		rend(
 			<Tabswitch data={nav_data} listClass={'tiger'} itemStyle={{width:'150px'}} itemMethod={itemClick}>
-				<Cnt data={ddd} listClass={'fox'} itemStyle={{width:'auto'}} itemMethod={attrClick}/>
+				<Cnt data={ddd} listClass={'fox'} itemMethod={attrClick}/>
 				<SelectBar itemMethod={seleClick}/>
 			</Tabswitch>
 			,document.getElementById('tab-test')

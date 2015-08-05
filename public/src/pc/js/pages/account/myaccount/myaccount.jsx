@@ -93,20 +93,18 @@ var chkOptions = {
         if(level==0||!level){
             //tmp = tmp;
             $(ipt).addClass("bd_col");
-            $(ipt).parent(".form-group").find(".error_msg").html("6-20位字符，建议由字母，数字和符号两种以上组合");
+            $(ipt).parent(".form-group").find(".error_msg").html("");
         }
         if(level==1){
-            $(ipt).parent(".form-group").find(".error_msg").html("您输入的密码强度过弱!");
+            $(ipt).parent(".form-group").find(".error_msg").html("");
         }
         if(level==2){
-            $(ipt).parent(".form-group").find(".error_msg").html("您的密码已经很安全!");
+            $(ipt).parent(".form-group").find(".error_msg").html("");
         }
 
         if(level==3){
-            $(ipt).parent(".form-group").find(".error_msg").html("无懈可击！");
+            $(ipt).parent(".form-group").find(".error_msg").html("");
         }
-        // chk['password']={};
-        // chk['password']['level']=level;
         return tmp;
     },
     RegPwd: function(input_obj,reg){   // 密码 非空
@@ -319,15 +317,15 @@ function bindInputDefaultEvent(){
                 //console.log(ipt.value);
                 //ipt.value='';
             }
-            if(ele=='RegOldPwd'){
-                Regfocus.call(ipt);
-                $(ipt).bind('blur',function(){
-                   //send mobile message
-                    tmp = formValide(chkOptions)
-                   (inputs[ele],'RegOldPwd')
-                   ();
-                });
-            }
+            // if(ele=='RegOldPwd'){
+            //     Regfocus.call(ipt);
+            //     $(ipt).bind('blur',function(){
+            //        //send mobile message
+            //         tmp = formValide(chkOptions)
+            //        (inputs[ele],'RegOldPwd')
+            //        ();
+            //     });
+            // }
             if(ele=='RegPwd'){
                 Regfocus.call(ipt);
                 $(ipt).bind('blur',function(){
