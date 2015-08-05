@@ -1,7 +1,7 @@
 require('../../_comm_plug/jquery_ui')
 // require('../../_comm_plug/jquery.fileupload')
 // require('./index')
-// require('./jquery.lightbox')
+require('./jquery.lightbox')
 // require('./index2')
 
 var libs = require('libs/libs');
@@ -549,13 +549,27 @@ $('#updateBaseInfo').click(function(){
     chkBaseInfo();
 });
 
-$('#accountAuth').click(function(){
+$('#accountAuth,#re-accountAuth').click(function(){
     var query={};
     $(authForm).find('input[type="hidden"]').map(function(i,item){
         var n = item.name;
         var v = item.value;
-        query[n] = v;
+        if(!!v)query[n] = v;
+        
     });
+    if(this.id == "accountAuth"){
+        var objLength = Object.keys(query);
+        if(objLength.length<3){
+            messager.alert({title:"提示",content:'请输入完整信息',type:"error"});
+            return false;
+        }
+    }else{
+        var objLength = Object.keys(query);
+        if(objLength.length==0){
+            messager.alert({title:"提示",content:'请输入完整信息',type:"error"});
+            return false;
+        }
+    }
 
     console.log(query);
 
@@ -570,21 +584,40 @@ $('#accountAuth').click(function(){
 
 })
 
+$(".gallery a").lightBox();
+
 var Uploader = require('modules/upload/upload');
 var render = React.render;
 
 var set_yyzz = function(){
     //上传完成后的回掉 this是上传图片信息
     var filename = this.name;
-    $('#inputLiecncesName').val(filename)
+    setFilename($('#inputLiecncesName'),filename);
 }
 var set_zzjg = function(){
     var filename = this.name;
-    $('#inputOrgCodeName').val(filename)
+    setFilename($('#inputOrgCodeName'),filename);
 }
+
 var set_swdj = function(){
     var filename = this.name;
-    $('#inputTaxName').val(filename)
+    setFilename($('#inputTaxName'),filename);
+}
+function setFilename(obj,filename){
+    
+    var num = 0;
+    var site = obj.next(".gallery").attr("site");
+    obj.val(filename).next(".gallery").find("img").attr("src",site+filename);
+    obj.val(filename).next(".gallery").find("a").attr("href",site+filename);
+    obj.next(".gallery").find("img").error(function(){
+        obj.next(".gallery").find("img").addClass("hidden")
+        if(num<20){
+            num++;
+            setTimeout(function(){
+                 obj.val(filename).next(".gallery").find("img").attr("src",site+filename).removeClass("hidden");
+             },500)
+        }
+    })
 }
 
 render(
@@ -614,3 +647,6 @@ render(
 //    </Uploader>,
 //    document.getElementById('upup')
 // )
+
+
+
