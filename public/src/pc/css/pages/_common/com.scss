@@ -616,10 +616,34 @@ p.text-danger,p.text-danger:hover{
 .helf-left li.active a{ @include box-navdd-active ();}
 .account_l{
   border-right: 1px solid #fce8dc;
-  padding: 0 15px;
+  padding: 0 0 0 15px;
 }
 .account_r{
+  padding: 0 0 0 15px;
   min-height: 700px!important;
+  .nav-tabs{
+      border-bottom: 1px solid #ff6600;
+      >li.active{
+        >a{
+            color: #ff6600; 
+            border: 1px solid #ff6600; 
+            border-bottom-color: transparent;
+          &.hover,&.focus{
+              color: #ff6600; 
+              border: 1px solid #ff6600; 
+              border-bottom-color: transparent;
+          }
+        }
+      }
+  }
+  i{ 
+    font-style: normal;
+  }
+}
+.account_content, .myorder_content{
+  border: 1px solid #ff6600;
+  padding: 40px 20px;
+  border-top: none;
 }
 .reactPage a, .reactPage span {
   display: inline-block;
