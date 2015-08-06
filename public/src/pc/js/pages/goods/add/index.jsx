@@ -441,7 +441,14 @@ $(function(){
     // })
 
     $(".del_img").click(function(){
-        $(this).parent().attr("class","goods_updown").find(".goods_upic").attr("src","").end().find(".pic_src").val("");
+        var pic_src = 0;
+        $(".pic_src").each(function(i,item){
+            if(!!item.value)pic_src++;
+        })
+        if(pic_src<=1){
+            return messager.alert({title:"提示",content:"商品图片不得少于一张",type:"warning"});
+        }
+        $(this).parent().attr("class","goods_updown").find(".pic_src").val("");
     })
 
     var Uploader = require('modules/upload/upload1');
