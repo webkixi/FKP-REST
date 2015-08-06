@@ -104,6 +104,7 @@ function *aliService(path2save){
     var filename;
     var buffers = [];
     var nread = 0;
+    var bucket = 'jh-ljs-account';
 
     var parts = parse(this, {
         // only allow upload `.jpg` files
@@ -123,6 +124,9 @@ function *aliService(path2save){
             console.log('value: ' + part[1])
             if(part[0]==='name'){
                 filename = part[1];
+                var names = filename.split("&&&");
+                filename = names[1];
+                if (names[0] === 'goods')bucket = 'jh-ljs-goods';
             }
         }
         else {
@@ -159,7 +163,7 @@ function *aliService(path2save){
                         }
                     break;
                 }
-                mup(buffer,filename);
+                mup(buffer,filename,bucket);
                 console.log('push picture to aliyun')
             });
         }
@@ -168,7 +172,7 @@ function *aliService(path2save){
 }
 
 //ali 图片上传
-function mup(buffer,fileKey){
+function mup(buffer,fileKey,bucket){
 
     // File
     // var fileName = 'test.mp3';
@@ -176,8 +180,6 @@ function mup(buffer,fileKey){
     // var fileKey = fileName;
     // var buffer = fs.readFileSync(filePath);
     // Upload options
-
-    var bucket = 'jh-ljs-account';
 
     // Upload
     var startTime = new Date();

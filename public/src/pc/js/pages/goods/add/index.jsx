@@ -4,6 +4,8 @@ require('../../_common/laypage.dev')*/
 /*require('../../_comm_plug/jquery.fileupload')*/
 /*require('../../_comm_plug/jquery_i')
 require('../../_comm_plug/jquery_form')*/
+// require('./jquery.ui.widget')
+// require('./jquery.fileupload')
 require('../../order/list/jquery.picker')
 require('../../order/list/jquery.picker.data')
 var libs = require('libs/libs');
@@ -129,53 +131,7 @@ $(function(){
             $(item).css("visibility", "hidden");
         }
     });
-    var iframe = false;
-    var dataType = "json";
-    var url = "${rc.contextPath}/goods/picture/upload.html";
-     if($.browser.msie && $.browser.version < 10) {
-        iframe = true;
-        dataType = "text";
-        $(".goods_updown").addClass("ie_updown");
-    }
-    $('.hide_file').fileupload({
-        dataType: dataType,
-        iframe: iframe,
-        autoUpload: true,
-        sequentialUploads: true,
-        maxChunkSize: 10000000,
-        minFileSize: 1000,
-        url: url,
-        add: function (e, data) {
-            $(this).parents(".goods_updown").addClass("uploading");
-            data.submit();
-        },
-        done: function (e, data) {
-            if(iframe){
-                data.result = JSON.parse(data.result);
-            }
-            var src = data.result.path + data.result.fileName ;
-            $(this).next(".pic_src").attr("name","pictures").val(data.result.fileName);
-            $(this).prevAll(".goods_upic").attr("src",src).css("visibility","visible");
-            $(this).parents(".goods_updown").removeClass("uploading").addClass("exist_img");
-        }
-    });
-    //删除图片
-    $(".del_img").click(function(){
-        if($(".goods_updown.exist_img").length<=1)return messager.alert({title:"提示",content:"商品图片不得少于一张",type:"warning"});
-        var upicbtn = $(this).parent();
-        upicbtn.nextAll(".pic_src").attr("name","").val("");
-        upicbtn.prevAll(".goods_upic").attr("src","").css("visibility","hidden");
-        upicbtn.parents(".goods_updown").removeClass("exist_img")
-    })
-    //更新图片
-    $(".updata_img").click(function(){
-        var upicbtn = $(this).parent();
-        upicbtn.nextAll(".hide_file ").trigger("click");
-    })
-    //上传图片
-    $(".file_btn").click(function(){
-        $(this).nextAll(".hide_file ").trigger("click");
-    })*/
+*/
     function changeGoodsCat() {
         if(!$('#catId').val()){
             return;
@@ -217,12 +173,19 @@ $(function(){
         $('#brandLogo').attr("src", "");
         var logo = $("#brandId").find("option:selected").attr("logo");
         //var src = "${path}" + logo;
-        var src = "/" + logo;
+        var src = rootImg + logo;
         if(logo && logo != "") {
-            $('#brandLogo').attr("src",src).css("visibility","").nextAll(".pic_src").val(logo).attr("name","pictures");
+            $('#brandLogo').attr("src",src).css("visibility","").nextAll(".pic_src").val(logo);
         }
     }
     $('#btnSave').click(function() {
+        var pictures = ""
+        $(".pic_src").each(function(i,item){
+            if(!!pictures) pictures+=",";
+            pictures += $(item).val();
+        })
+        $("#hidPictures").val(pictures);
+
         $('#btnSave').attr("disabled",true);
         if($("#catId").val().trim() == "") {
             messager.alert({title:"提示",content:"请选择商品类别！",type:"warning"});
@@ -420,14 +383,118 @@ $(function(){
     $('#btnCancel').click(function() {
         window.close();
     });
-    var Uploader = require('modules/upload/upload');
+
+
+    //     var b_version = navigator.appVersion;
+    //     var iframe = false;
+    //     var dataType = "json";
+    //     var url = "/goods/add";
+    //      if(navigator.appName=="Microsoft Internet Explorer" && b_version.substr(-3) < 10) {
+    //         iframe = true;
+    //         dataType = "text";
+    //         $(".goods_updown").addClass("ie_updown");
+    //     }
+
+
+    //     $('.hide_file').fileupload({
+    //         dataType: dataType,
+    //         iframe: iframe,
+    //         autoUpload: true,
+    //         sequentialUploads: true,
+    //         maxChunkSize: 10000000,
+    //         minFileSize: 1000,
+    //         url: url,
+    //         add: function (e, data) {
+    //             $(this).parents(".goods_updown").addClass("uploading");
+    //             data.submit();
+    //         },
+    //         done: function (e, data) {
+    //             if(iframe){
+    //                 data.result = JSON.parse(data.result);
+    //             }
+    //             var src = data.result.path + data.result.fileName ;
+    //             $(this).next(".pic_src").attr("name","pictures").val(data.result.fileName);
+    //             $(this).prevAll(".goods_upic").attr("src",src).css("visibility","visible");
+    //             $(this).parents(".goods_updown").removeClass("uploading").addClass("exist_img");
+    //         }
+    //     });
+
+
+    // //删除图片
+    // $(".del_img").click(function(){
+    //     if($(".goods_updown.exist_img").length<=1)return messager.alert({title:"提示",content:"商品图片不得少于一张",type:"warning"});
+    //     var upicbtn = $(this).parent();
+    //     upicbtn.nextAll(".pic_src").attr("name","").val("");
+    //     upicbtn.prevAll(".goods_upic").attr("src","").css("visibility","hidden");
+    //     upicbtn.parents(".goods_updown").removeClass("exist_img")
+    // })
+
+    // //更新图片
+    // $(".updata_img").click(function(){
+    //     var upicbtn = $(this).parent();
+    //     upicbtn.nextAll(".hide_file ").trigger("click");
+    // })
+
+    // //上传图片
+    // $(".file_btn").click(function(){
+    //     $(this).nextAll(".hide_file ").trigger("click");
+    // })
+
+    $(".del_img").click(function(){
+        $(this).parent().attr("class","goods_updown").find(".goods_upic").attr("src","").end().find(".pic_src").val("");
+    })
+
+    var Uploader = require('modules/upload/upload1');
     var render = React.render;
+    var rootImg = $("#rootImg").val();
     
     var set_yyzz = function(){
         //上传完成后的回掉 this是上传图片信息
         var filename = this.name;
-        $('#pir_src1').val(filename)
+        setFilename($('#pir_src1'),filename)
+
     }
+    var set_yyzz2 = function(){
+        //上传完成后的回掉 this是上传图片信息
+        var filename = this.name;
+        setFilename($('#pir_src2'),filename)
+
+    }
+    var set_yyzz3 = function(){
+        //上传完成后的回掉 this是上传图片信息
+        var filename = this.name;
+        setFilename($('#pir_src3'),filename)
+
+    }
+
+    function setFilename(obj,filename){
+    
+    var num = 0;
+    var clearT;
+    obj.parent(".goods_updown").attr("class","goods_updown uploading");
+    obj.val(filename).prevAll(".goods_upic").attr("src",rootImg+filename);
+    obj.val(filename).prevAll(".goods_upic").error(function(){
+        clearTimeout(clearT);
+        if(num<20){
+            num++;
+            setTimeout(function(){
+                 obj.prevAll(".goods_upic").attr("src",rootImg+filename);
+                 clearT = setTimeout(function(){
+                    obj.parent(".goods_updown").attr("class","goods_updown exist_img");
+                    console.log("成功了")
+                 },200)
+
+             },500)
+        }
+    })
+    setTimeout(function(){
+        if(num>=20){
+            obj.parent(".goods_updown").attr("class","goods_updown");
+            alert("上传失败！")
+            console.log("失败了")
+        }
+    },11000)
+}
     // var set_zzjg = function(){
     //     var filename = this.name;
     //     $('#pir_src2').val(filename)
@@ -442,6 +509,14 @@ $(function(){
     render(
         <Uploader btn={'pic1'} type={2} cb={set_yyzz}/>,
        document.getElementById('pic_logo')
+    )
+    render(
+        <Uploader btn={'pic2'} type={2} cb={set_yyzz2}/>,
+       document.getElementById('pic_box2')
+    )
+    render(
+        <Uploader btn={'pic3'} type={2} cb={set_yyzz3}/>,
+       document.getElementById('pic_box3')
     )
 
     // render(
