@@ -101,23 +101,37 @@
 		position: absolute;
 		bottom:0;
 		right:0;
+		width:100%;
+		height:100%;
+		div{
+			width:100%;
+			height:100%;
+		}
+		.webuploader-pick{
+			padding:0;
+			background:none;
+			  text-align: center;
+			  line-height: 90px;
+			  font-size: 80px;
+			  color: #165FA6;
+		}
+	}
+
+	.del_img{
+		background: url(../images/del24.png) no-repeat center center;
 		display: none;
-		span{
-			display: inline-block;
-			width:26px;
-			height:26px;
-			cursor: pointer;
-		}
-		.del_img{
-			background: url(../images/del24.png) no-repeat center center;
-		}
-		.updata_img{
-			background: url(../images/updata24.png) no-repeat center center;
-		}
+		position: absolute;
+		bottom: 4px;
+		right: 30px;
+		width: 26px;
+		height: 26px;
+	}
+	.uploader-list{
+		display: none;
 	}
 	.upload_test{
 		position: absolute;
-		bottom:0;
+		top:0;
 		left:0;
 		width:100%;
 		display: none;
@@ -148,14 +162,31 @@
 		}
 		.goods_upicbtn{
 			display:block;
+			width:26px;
+			height:26px;
+			bottom:3px;
+			right:3px;
+		}
+		.webuploader-pick{
+			font-size:0;
+			background: url(../images/updata24.png) no-repeat center center;
+		}
+		.del_img{
+			display: block;
+		}
+		.goods_upic{
+			display: block;
 		}
 	}
 	.uploading{
-		.file_btn{
-			display:none;
-		} 
+		.goods_upic{
+			display: none;
+		}
 		.upload_test{
-			display:block;
+			display: block;
+		}
+		.goods_upicbtn{
+			display: none;
 		}
 	}
 	.ie_updown{

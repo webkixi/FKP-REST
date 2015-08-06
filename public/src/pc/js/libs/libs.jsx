@@ -431,6 +431,16 @@ var urlparse = function (url) {
 }
 
 
+var _IE = (function(){
+    var v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+        all[0]
+    );
+    return v > 4 ? v : false ;
+}());
+
+
 module.exports = {
 
     getOffset:      getOffset,      //取得元素的绝对位置
@@ -465,5 +475,7 @@ module.exports = {
 
     grabString:     grabString,     //截取字符串长度，包含中文
 
-    json2url:       json2url        //json转成url的query部分
+    json2url:       json2url,        //json转成url的query部分
+
+    _IE:            _IE               //输出IE版本
 }

@@ -20,7 +20,7 @@
 @@include('../_common/header/header.html')
 <div class="wrapper">
     <div class="current_path container">
-         <a href="${rc.contextPath}/index.html">首页</a> > <a href="${rc.contextPath}/account-center.html">会员中心</a> > <a href="${rc.contextPath}/goods/list.html">我的商品</a> > <a class="currents"> 商品详情 </a>
+         <a href="/index.html">首页</a> > <a href="/account/myaccount.html">会员中心</a> > <a href="/goods/list.html">我的商品</a> > <a class="currents"> 商品详情 </a>
     </div>
     <div class="myaccount_main">
         <div class="container">
@@ -32,6 +32,8 @@
                     <div class="mygoods-arclist">
                         <form id="goodsForm" action="/goods/save.html" method="post">
                             <input type="hidden" name="fullName" id="fullName">
+                            <input type="hidden" name="pictures" id="hidPictures">
+                            <input type="hidden" id="rootImg" value="{{goods_img}}">
                             <div class="form-group">
                                 <label for="catId">类别：</label>
                                 <select class="form-control g_cate" name="catId" id="catId" >
@@ -62,37 +64,24 @@
                                     <ul id="pictures" class="pictures">
                                         <li class="goods_updown exist_img">
                                             <img id="brandLogo" src="" alt="" class="goods_upic">
-                                            <!-- <div class="goods_upicbtn">
-                                                <span title="删除" class="del_img"></span>
-                                                <span title="更新" class="updata_img"></span>
-                                            </div>
-                                            <span class="upload_test">正在上传···</span>
-                                            <span class="file_btn">+</span>
-                                            <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple> -->
-                                            <div id="pic_logo"></div>
+                                            <div id="pic_logo" class="goods_upicbtn"></div>
+                                            <a href="javascript:void(0)"  title="删除" class="del_img"></a>
+                                            <div class="upload_test">正在上传···</div>
                                             <input type="hidden" class="pic_src" id="pir_src1" name="pic_src">
                                             
                                         </li>
                                         <li class="goods_updown">
                                             <img src="" alt="" class="goods_upic">
-                                            <div class="goods_upicbtn">
-                                                <span title="删除" class="del_img"></span>
-                                                <span title="更新" class="updata_img"></span>
-                                            </div>
-                                            <span class="upload_test">正在上传···</span>
-                                            <span class="file_btn">+</span>
-                                            <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple>
+                                            <div id="pic_box2" class="goods_upicbtn"></div>
+                                            <a href="javascript:void(0)"  title="删除" class="del_img"></a>
+                                            <div class="upload_test">正在上传···</div>
                                             <input type="hidden" class="pic_src"  id="pir_src2" name="pic_src">
                                         </li>
                                         <li class="goods_updown">
                                             <img src="" alt="" class="goods_upic">
-                                            <div class="goods_upicbtn">
-                                                <span title="删除" class="del_img"></span>
-                                                <span title="更新" class="updata_img"></span>
-                                            </div>
-                                            <span class="upload_test">正在上传···</span>
-                                            <span class="file_btn">+</span>
-                                            <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple>
+                                            <div id="pic_box3" class="goods_upicbtn"></div>
+                                            <a href="javascript:void(0)"  title="删除" class="del_img"></a>
+                                            <div class="upload_test">正在上传···</div>
                                             <input type="hidden" class="pic_src"  id="pir_src3" name="pic_src">
                                         </li>
                                     </ul>

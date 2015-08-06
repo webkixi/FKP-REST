@@ -18,8 +18,13 @@ function *demoIndexData(oridata){
     var userId = "";
     if(typeof this.sess.user!=='undefined'&&this.sess.user){
       if(mtd === "POST"){ 
+
+        
+        
+
           var apiData = [];
           body = yield libs.$parse(this);
+          console.log(body);
           body.accountNo = this.sess.user.firm.firmInfo.accountNo;
           apiData = yield api.pullApiData('goods_add',body);
           var rtn = JSON.parse(apiData[1]);
@@ -123,7 +128,7 @@ function *demoIndexData(oridata){
             dataset.timeHY=month;
         }
         dataset.navGoods="active";  
-        console.log(dataset)                                                 
+        dataset.goods_img=this.config.goods_img;                                                
       }
     }else{
       this.redirect('/account/login');
