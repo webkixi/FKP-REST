@@ -103,15 +103,17 @@
                     <dl class="pro-qdl">
                         <dt>起订量：</dt>
                         <dd>{{spGoods.minQuantity}} {{spGoods.unitName}}</dd>
-                    </dl>
+                    </dl>                   
                     <dl>
                         <dt><span>挂牌日期：</span></dt>
                         <dd>{{spGoods.createTime}}</dd>
                     </dl>
+                    {{#if spGoods.validity}}
                     <dl>
                         <dt><span>有效期：</span></dt>
                         <dd>{{spGoods.validity}}天</dd>
                     </dl>
+                    {{/if}}
                     <dl>
                         <dt><span>计价方式：</span></dt>
                         <dd>{{spGoods.valuationName}}</dd>

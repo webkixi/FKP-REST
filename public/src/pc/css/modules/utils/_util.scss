@@ -17,7 +17,23 @@
   @include clearfix;
   @extend %clearfix;
 }
-
+//
+.u-cleaarfixs,.cl{
+  position: relative;
+}
+.u-cleaarfixs { 
+  *zoom: 1;
+} 
+.u-cleaarfixs:before,.u-cleaarfixs:after{
+  content:".";
+  display:block;
+  height:0;
+  clear:both;
+  visibility:hidden
+}
+.u-cleaarfixs:after {
+  clear: both;
+} 
 
 //字体颜色
 .u-color_red{

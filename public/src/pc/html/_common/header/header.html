@@ -21,24 +21,26 @@
         </div>
     </div>
     <div class="head_wrap">
-        <div class="container clearfix">
-            <a href="/index.html" class="head_wlogo fl"></a>
-            <div class="head_wnav fl">
+        <div class="container u-cleaarfixs">
+            <a href="/index.html" class="head_wlogo"></a>
+            <div class="head_wnav">
                 <div class="head_search clearfix">
                     <div class="head_look">
                         <form action="/search.html" id="searchHeader">
                             <div class="item-select">
                               <a class="arrow-select-down">
                               <span>
-                              {{#if st0}} 
-                                全部
-                              {{else}}
-                                {{#if st1}}
-                                    资讯新闻
+                                {{# if st0}}
+                                    全部
                                 {{else}}
-                                    金属商城
+                                    {{#if st1}}
+                                        资讯新闻
+                                    {{else}}
+                                        {{#if st2}}
+                                            金属商城                                           
+                                        {{/if}}
+                                    {{/if}}
                                 {{/if}}
-                              {{/if}}
                               </span>
                               <i class="all_icon s_down_icon"></i></a>
                               <ul class="hidden">

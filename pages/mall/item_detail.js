@@ -51,6 +51,8 @@ function *demoIndexData(oridata){
                 //挂牌时间
                 var createTime =new Date(apiData.data.spGoods.createTime);
                 apiData.data.spGoods.createTime = createTime.getFullYear() + "-" + (createTime.getMonth() + 1) + "-" + createTime.getDate();
+                //有效期
+                if(apiData.data.spGoods.validity > 0)apiData.data.spGoods.validity = true;
                 dataSet = apiData.data;
             }
 

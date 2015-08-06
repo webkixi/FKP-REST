@@ -6,19 +6,19 @@ ul,li{list-style: none;padding:0;}
 .clear{ clear: both;}
 .fl{float: left;}
 .fr{float:right;}
-.clearfix{overflow:hidden;_zoom:1;}
+.clearfix{_zoom:1;}
 .middle{display:inline-block;*display:inline;*zoom:1;vertical-align:middle;height:100%;overflow:hidden;}
 .btn:hover, .btn:focus{ color: #fff!important;}
 .mgr5{margin-right: 5px;}
 .mgr26{margin-right: 26px!important;}
 .mgl20{margin-left: 20px!important;}
 .mgt35{margin-top: 30px;}
-.container{margin:0 auto; padding:0!important; width: 1200px;}
-div.container{margin:0 auto; padding:0!important; width: 1200px;}
+div.container{margin:0 auto; padding:0; width: 1200px;}
 .error_img{display:block;width:100%;height:100%;background:url(../images/error_img.png) no-repeat center center;background-size:110%;}
 
 .all_icon {display: inline-block;width: 20px;height: 17px;top: 13px; background: url(../images/all_icon.png) no-repeat;vertical-align: middle; position: absolute;}
 
+/*.head_wrap>.container>.clearfix{ overflow: hidden; width:1200px;}*/
 .header{  position: relative;}
 .head_top{ height: 35px; line-height: 35px; background: #fafafa; border-bottom: #eee;}
 .head_top .container{}
@@ -26,7 +26,7 @@ div.container{margin:0 auto; padding:0!important; width: 1200px;}
 .head_top h4 i{ background: url(../images/all_icon.png) no-repeat; width: 25px; height: 25px; position: absolute; top: -5px; left: -30px; background-position: -93px -33px;}/*0609*/
 .head_tcom li{ display: inline-block; float: left; margin-left: 30px;}
 .head_tcom a{  color: #666;}
-.head_wlogo{ background: url(../images/logo.png) no-repeat; width: 160px; height: 60px; text-indent: -999999em; display: block; margin-top: 20px;}/*0609*/
+.head_wlogo{ background: url(../images/logo.png) no-repeat; width: 160px; height: 60px; text-indent: -999999em; display: block; margin-top: 10px;float: left;}/*0609*/
 .head_wnav .head_search{ margin-bottom: 20px; }/*0609*/
 .head_look{ float: left;  margin-top: 20px;}/*0609*/
 .item-select{ position:relative; width:98px; background:#fff;  display: inline-block; *display: block; *zoom:1;}
@@ -46,7 +46,7 @@ div.container{margin:0 auto; padding:0!important; width: 1200px;}
 .head_nav li a{ color: #fff; width: 127px; text-align: center; display: block;  text-decoration: none;border-left:1px solid #fff;}/*0609*/
 .head_nav li.active a{border:none;}
 .head_nav li:hover .dropdown_menus{display: block}
-.head_wnav{ margin-left: 12%;}/*0609*/
+.head_wnav{  width: 870px; float: right;}/*0609*/
 .top-tel{ float: right; margin-left: 150px;}/*0609*/
 .top-tel h4 {font-weight: 400;font-size: 14px; position: relative;padding-left: 30px;}
 .icon_tel{ background-position: -60px -10px;; width: 24px;height: 15px; position: absolute; top: 1px; left: 0;}
@@ -616,6 +616,7 @@ p.text-danger,p.text-danger:hover{
 .helf-left li.active a{ @include box-navdd-active ();}
 .account_l{
   border-right: 1px solid #fce8dc;
+  padding: 0 15px;
 }
 .account_r{
   min-height: 700px!important;

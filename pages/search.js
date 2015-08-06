@@ -81,41 +81,40 @@ function *demoIndexData(oridata){
         if(goodsData.success || infoData.success){
             dataSet.goods = goodsData.data;
             dataSet.infos = infoData.data;
-            // if (jsonData.data.st==2){
-            //     jsonData.data.goods = jsonData.data.sc;
-            //     dataSet.goods = jsonData.data;
-            // }else{ 
-            //     for (var i = 0; i < jsonData.data.pageBean.recordList.length; i++) {
-            //         var time = new Date(jsonData.data.pageBean.recordList[i].publishTime);
-
-            //         jsonData.data.pageBean.recordList[i].publishTime = time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
-            //     };
-            //      dataSet.info = jsonData.data;
-            // }
             if(type == 1){
                 dataSet.totalCount =dataSet.infos.pageBean.totalCount;
                 dataSet.totalCount_infos = dataSet.infos.pageBean.totalCount;
                 dataSet.info = dataSet.infos.pageBean.recordList;
                 dataSet.st1 = true;
                 dataSet.sc =dataSet.infos.sc;
+                for (var i = 0; i < dataSet.info.length; i++) {
+                    var time = new Date(dataSet.info[i].publishTime);
+                    dataSet.info[i].publishTime = time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate();
+                };
+                dataSet.publishTime = dataSet.infos;
             }else if(type==2){
+                console.log("222222222222222222222222222222222222")
                 dataSet.totalCount = dataSet.goods.pageBean.totalCount;
                 dataSet.totalCount_goods = dataSet.goods.pageBean.totalCount;
-                console.log(dataSet.goods)
-               // dataSet.goods = dataSet.goods.pageBean.recordList;
+                dataSet.sc =dataSet.goods.sc;                
+                dataSet.goodsall = dataSet.goods.pageBean.recordList;
                 dataSet.st2 = true;
 
-                dataSet.sc = dataSet.goods.sc;
             }else {
                 dataSet.totalCount_goods = dataSet.goods.pageBean.totalCount;
                 dataSet.totalCount_infos = dataSet.infos.pageBean.totalCount;
                 dataSet.totalCount = dataSet.totalCount_goods + dataSet.totalCount_infos; 
                 dataSet.info = dataSet.infos.pageBean.recordList;
-                dataSet.goods = dataSet.goods.pageBean.recordList;
+                dataSet.goodsall = dataSet.goods.pageBean.recordList;
                 dataSet.st1 = true;
-                dataSet.st2 = true;                
-                dataSet.st0 = true; 
-                dataSet.sc =dataSet.infos.sc;      
+                dataSet.st2 = true;
+                if(dataSet.st1 == dataSet.st2) dataSet.st0= true;
+                dataSet.sc =dataSet.infos.sc;    
+                for (var i = 0; i < dataSet.info.length; i++) {
+                    var time = new Date(dataSet.info[i].publishTime);
+                    dataSet.info[i].publishTime = time.getFullYear() + "-" + (time.getMonth()+1) + "-" + time.getDate();
+                };
+                dataSet.publishTime = dataSet.infos;                  
             } 
         }else{
             dataSet.errCode = goodsData.errCode || infoData.errCode;
