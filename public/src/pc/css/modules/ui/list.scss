@@ -80,6 +80,11 @@
     display: block;
     border-bottom: 1px solid #efefef;
     font-size: 12px;
+    padding-right: 50px;
+    padding-left: 180px;
+    position: relative;
+    margin-top:10px;
+    padding-bottom:10px;
     .item{
         float: left;
         padding: 5px 10px;
@@ -114,10 +119,20 @@
     li[data-cls="first"]{
         width: 104px;
         text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        a{
+            color:#666;
+            cursor: default;
+        }
     }
     li[data-cls="second"]{
         width: 50px;
         text-align: center;
+        position: absolute;
+        top: 0;
+        left: 110px;
     }    
 }
 .fox-active{

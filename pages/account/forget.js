@@ -76,19 +76,12 @@ function *demoRegistData(oridata){
                     apiData = yield api.pullApiData('code',body);
                     var jsonData = JSON.parse(apiData[1]);
                     if(jsonData.success){
-                        if(this.sess.code){
-                            //return success;
-                            error.errStat = 15;
-                            success.step = 2;
-                            console.log(this.sess.code)
-                            return success;                                               
-                        }else{
-                            var javaPhonecode = jsonData.data.phoneCode;
-                            this.sess.code = javaPhonecode;
-                            console.log(this.sess.code)
-                            success.step = 2;
-                            return success;
-                        }
+                        var javaPhonecode = jsonData.data.phoneCode;
+                        console.log(javaPhonecode)
+                        this.sess.code = javaPhonecode;
+                        success.step = 2;
+                       // this.sess.step = 2;
+                        return success;
                     }else{
                         error.errStat = 5;
                         error.msg = jsonData.errMsg;

@@ -61,11 +61,11 @@ var SelectBar = React.createClass({
 					var pinming = tmps[1];
 					item = tmps[0];
 					contents.push(
-						<a key={'select'+i} href={'javascript:;'} data-pm={pinming}>{item}</a>
+						<dd key={'select'+i} ><a data-pm={pinming} href={'javascript:;'}>{item}</a></dd>
 					)
 				}else{
 					contents.push(
-						<a key={'select'+i} href={'javascript:;'}>{item}</a>
+						<dd ey={'select'+i}><a href={'javascript:;'}>{item}</a></dd>
 					)
 				}
 			})
@@ -75,8 +75,11 @@ var SelectBar = React.createClass({
     render: function () {
         var fill = this.renderContent();
         return(
-            <div className={'tab-select'}>
-                <div className={'lable'}><span>{"您选择的是："}</span>{fill}</div>
+            <div className={'cateTags'}>
+            	<dl class="cf">
+                	<dt>{"您选择的是："}</dt>
+                	{fill}
+                </dl>
             </div>
         )
     }

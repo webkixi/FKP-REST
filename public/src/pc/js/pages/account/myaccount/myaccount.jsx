@@ -161,9 +161,13 @@ var chkOptions = {
         ipt = iobj.ipt,
         val = iobj.ipt.value,
         tmp = reg.mobile.test(val);    //mobile check
-        if(!tmp){
+        if(val==""){
             $(ipt).addClass("bd_col");
-            $(ipt).parent(".form-group").find(".error_msg").html("请输入正确的手机号码格式");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入手机号码");
+        }
+        else if(!tmp){
+            $(ipt).addClass("bd_col");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入正确的手机号码格式");
         }
         return tmp;
     },
@@ -197,9 +201,13 @@ var chkOptions = {
         ipt = iobj.ipt,
         val = iobj.ipt.value,
         tmp = reg.guhua.test(val);    //code check
-        if(!tmp){
+        if(val==""){
             $(ipt).addClass("bd_col");
-            $(ipt).parent(".form-group").find(".error_msg").html("格式:区号-电话号码;如 020-88888888");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入公司固话");
+        }
+        else if(!tmp){
+            $(ipt).addClass("bd_col");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("格式:区号-电话号码;如 020-88888888");
         }
         return tmp;
     },
@@ -209,9 +217,13 @@ var chkOptions = {
         ipt = iobj.ipt,
         val = iobj.ipt.value,
         tmp = reg.guhua.test(val);    //code check
-        if(!tmp){
+        if(val==""){
             $(ipt).addClass("bd_col");
-            $(ipt).parent(".form-group").find(".error_msg").html("格式:区号-电话号码;如 020-88888888");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入传真号码");
+        }
+        else if(!tmp){
+            $(ipt).addClass("bd_col");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("格式:区号-电话号码;如 020-88888888");
         }
         return tmp;
     },
@@ -221,9 +233,13 @@ var chkOptions = {
         ipt = iobj.ipt,
         val = iobj.ipt.value,
         tmp = reg.email.test(val);    //code check
-        if(!tmp){
+        if(val==""){
+            //$(ipt).addClass("bd_col");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("");
+        }
+        else if(!tmp){
             $(ipt).addClass("bd_col");
-            $(ipt).parent(".form-group").find(".error_msg").html("请输入电子邮件");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入正确的邮箱格式");
         }
         return tmp;
     },
@@ -233,9 +249,13 @@ var chkOptions = {
         ipt = iobj.ipt,
         val = iobj.ipt.value,
         tmp = reg.qq.test(val);    //code check
-        if(!tmp){
+        if(val==""){
+            //$(ipt).addClass("bd_col");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("");
+        }
+        else if(!tmp){
             $(ipt).addClass("bd_col");
-            $(ipt).parent(".form-group").find(".error_msg").html("请输入qq号码");
+            $(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入正确的qq格式");
         }
         return tmp;
     },
