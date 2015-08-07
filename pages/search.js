@@ -93,7 +93,6 @@ function *demoIndexData(oridata){
                 };
                 dataSet.publishTime = dataSet.infos;
             }else if(type==2){
-                console.log("222222222222222222222222222222222222")
                 dataSet.totalCount = dataSet.goods.pageBean.totalCount;
                 dataSet.totalCount_goods = dataSet.goods.pageBean.totalCount;
                 dataSet.sc =dataSet.goods.sc;                
