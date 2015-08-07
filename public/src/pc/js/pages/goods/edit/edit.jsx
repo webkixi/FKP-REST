@@ -11,7 +11,6 @@ var libs = require('libs/libs');
 var formValide = libs.formValide;
 var api = require('../../_common/api')
 
-$(function(){
     //获取仓库列表,切换0 1
     $("#getAllStorage").click(function(){
         if($("#getAllStorage").val()==1) {
@@ -171,6 +170,7 @@ $(function(){
     }
     //提交内容
     $('#btnSave').click(function() {
+        
         $('#btnSave').attr("disabled",true);   
         var catName = $("#catId").find("option:selected").text();
         var catName2 = $("#catId2").find("option:selected").text();
@@ -288,4 +288,119 @@ $(function(){
     $('#btnCancel').click(function() {
         window.close();
     });
-})
+
+    //图片上传
+
+    $(".del_img").click(function(){
+        var pic_src = 0;
+        $(".pic_src").each(function(i,item){
+            if(!!item.value)pic_src++;
+        })
+        if(pic_src<=1){
+            return messager.alert({title:"提示",content:"商品图片不得少于一张",type:"warning"});
+        }
+        var _this = $(this);
+        if(!!_this.parent().attr("gid")){
+            api.req('goods_edit',{
+                "action":"del_img",
+                "goodsId":$("input[name='goodsId']").val(),
+                "pictureId":$(this).parent().attr("gid")
+            },function(body){
+                if(body.success){
+                    _this.parent().attr("gid","").attr("class","goods_updown").find(".pic_src").val("");
+                }else{
+                   messager.alert({title:"提示",content:"删除图片失败",type:"error"});
+                }
+                console.log(body);
+            })
+        }else{
+            _this.parent().attr("class","goods_updown").find(".pic_src").val("");
+        }
+        
+    })
+
+    var Uploader = require('modules/upload/upload1');
+    var render = React.render;
+    var rootImg = $("#rootImg").val();
+    
+    var set_yyzz = function(){
+        //上传完成后的回掉 this是上传图片信息
+        var filename = this.name;
+        setFilename($('#pir_src1'),filename)
+
+    }
+    var set_yyzz2 = function(){
+        //上传完成后的回掉 this是上传图片信息
+        var filename = this.name;
+        setFilename($('#pir_src2'),filename)
+
+    }
+    var set_yyzz3 = function(){
+        //上传完成后的回掉 this是上传图片信息
+        var filename = this.name;
+        setFilename($('#pir_src3'),filename)
+
+    }
+
+    function setFilename(obj,filename){
+    
+    var num = 0;
+    var clearT;
+    obj.parent(".goods_updown").attr("class","goods_updown uploading");
+    obj.val(filename).prevAll(".goods_upic").attr("src",rootImg+filename);
+    obj.val(filename).prevAll(".goods_upic").error(function(){
+        clearTimeout(clearT);
+        if(num<20){
+            num++;
+            setTimeout(function(){
+                 obj.prevAll(".goods_upic").attr("src",rootImg+filename);
+                 clearT = setTimeout(function(){
+                    addImage(obj,filename);
+                    console.log("成功了")
+                 },200)
+
+             },500)
+        }
+    })
+    setTimeout(function(){
+        if(num>=20){
+            obj.parent(".goods_updown").attr("class","goods_updown");
+            alert("上传失败！")
+            console.log("失败了")
+        }
+    },11000)
+}
+function addImage(obj,imageSrc){
+    var action = "add_img";
+    var pictureId = obj.parent().attr("gid");
+    console.log(obj.parent().attr("gid"))
+    if(!!obj.parent().attr("gid"))action = "update_img"
+        console.log(action)
+    api.req('goods_edit',{
+        "action":action,
+        "goodsId":$("input[name='goodsId']").val(),
+        "picture":imageSrc,
+        "pictureId":pictureId
+    },function(body){
+        console.log(body)
+        if (body.success) {
+            obj.parent(".goods_updown").attr("class","goods_updown exist_img").attr("gid",body.data.picId);
+        }else{
+            messager.alert({title:"提示",content:"上传图片失败",type:"error"});
+        }
+    })
+}
+
+
+    render(
+        <Uploader btn={'pic1'} type={2} cb={set_yyzz}/>,
+       document.getElementById('pic_box1')
+    )
+    render(
+        <Uploader btn={'pic2'} type={2} cb={set_yyzz2}/>,
+       document.getElementById('pic_box2')
+    )
+    render(
+        <Uploader btn={'pic3'} type={2} cb={set_yyzz3}/>,
+       document.getElementById('pic_box3')
+    )

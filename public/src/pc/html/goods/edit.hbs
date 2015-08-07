@@ -26,6 +26,7 @@
                     <div class="mygoods-arclist">
                         <form id="goodsForm" action="/goods/update.html" method="post">
                             <input type="hidden" name="goodsId" value="{{spGoods.id}}"/>
+                            <input type="hidden" id="rootImg" value="{{path}}">
                             <input type="hidden" name="fullName" id="fullName" value="{{spGoods.fullName}}">
                             <div class="form-group">
                                 <label for="catId2">商品编号：</label>
@@ -63,37 +64,16 @@
                             <div class="form-group mygoods_upload">
                                 <div class="pictures_box">
                                     <ul id="pictures" class="pictures">
-<!--                            [#assign index=1/]
-                                [#list spGoodsPictureList as picture]
-                                    [#if index > 3] [#break] [/#if]
-                                        <li class="goods_updown exist_img" data-id="${picture.id}">
-                                            <img src="${path}${picture.original}" alt="" class="goods_upic">
-                                            <div class="goods_upicbtn">
-                                                <span title="删除" class="del_img"></span>
-                                                <span title="更新" class="updata_img"></span>
-                                            </div>
-                                            <span class="upload_test">正在上传···</span>
-                                            <span class="file_btn">+</span>
-                                            <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" class="pic_src" name="" val="${picture.original}">
+                                        {{#each spGoodsPictureList}}
+                                        <li class="goods_updown {{#if original}} exist_img {{/if}}" gid="{{id}}">
+                                            <img src="{{path}}{{original}}" alt="" class="goods_upic">
+                                            <div id="pic_box{{num}}" class="goods_upicbtn"></div>
+                                            <a href="javascript:void(0)"  title="删除" class="del_img"></a>
+                                            <div class="upload_test">正在上传···</div>
+                                            <input type="hidden" class="pic_src" id="pir_src{{num}}" name="pic_src" value="{{original}}">
+                                            
                                         </li>
-                                    [#assign index=index+1/]
-                                [/#list]
-                                [#if 3 > index - 1] 
-                                    [#list index..3 as x]
-                                        <li class="goods_updown " data-id="">
-                                            <img src="" alt="" class="goods_upic">
-                                            <div class="goods_upicbtn">
-                                                <span title="删除" class="del_img"></span>
-                                                <span title="更新" class="updata_img"></span>
-                                            </div>
-                                            <span class="upload_test">正在上传···</span>
-                                            <span class="file_btn">+</span>
-                                            <input type="file" class="hide_file" name="picture" accept=".jpg,.jpeg,.png" multiple>
-                                            <input type="hidden" class="pic_src" name="" val="">
-                                        </li>
-                                    [/#list]
-                                [/#if] -->
+                                        {{/each}}
                                     </ul>
                                 </div>
                             </div>

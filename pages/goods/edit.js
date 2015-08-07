@@ -26,7 +26,7 @@ function *demoIndexData(oridata){
                 })
                 apiData = JSON.parse(apiData[1]);
                 if(apiData.success){
-                     dataset = apiData.data;                    
+                     dataset = apiData.data;               
                     //图片相册
                     // var pictureLibUrl =  apiData.data.spGoods.pictureLibUrl;
                     // var spGoodsPictureList = apiData.data.spGoodsPictureList;
@@ -55,6 +55,21 @@ function *demoIndexData(oridata){
                     // if(apiData.data.listed) apiData.data.listed1 = true;
                     // if(userId === apiData.data.spGoods.accountNo) apiData.data.listed0 = true;
                     // dataSet = apiData.data;
+
+                    //图片相册
+                    for(var i = 0;i<3;i++){
+                        if(!dataset.spGoodsPictureList[i]){
+                            dataset.spGoodsPictureList[i]={
+                                original:"",
+                                num: i+1
+                            }
+                        }else{
+                            dataset.spGoodsPictureList[i].path=this.config.goods_img; 
+                            dataset.spGoodsPictureList[i].num=i+1; 
+                        }
+                        
+                    }
+                     console.log(dataset);     
 
                     //商品类别 一级
                     var catData = {};
@@ -191,7 +206,7 @@ function *demoIndexData(oridata){
                     }
                     //单价
                     if(dataset.spGoods.price != null) dataset.spGoods.price = dataset.spGoods.price.toFixed(2);
-                    dataset.navGoods="active";
+                    dataset.navGoods="active";  
                 }    
             }else if(mtd==='POST'){
             }
@@ -201,16 +216,40 @@ function *demoIndexData(oridata){
                 body = yield libs.$parse(this);
                 console.log(body)
                 body.accountNo = this.sess.user.firm.firmInfo.accountNo;
-                apiData = yield api.pullApiData('goods_update',body);
-                console.log(apiData[1])
-                var rtn = JSON.parse(apiData[1]);
-                console.log(rtn)
-                return rtn;
+                if(body.action=="del_img"){
+                    apiData = yield api.pullApiData('goods_img_del',body);
+                    var rtn = JSON.parse(apiData[1]);
+                    console.log(rtn)
+                    console.log("删除图片");
+                    return rtn;
+                }else if(body.action == "add_img"){
+                    apiData = yield api.pullApiData('goods_img_add',body);
+                    var rtn = JSON.parse(apiData[1]);
+                    console.log(rtn)
+                    console.log("添加图片");
+                    return rtn;
+
+                }else if(body.action == "update_img"){
+                    apiData = yield api.pullApiData('goods_img_del',body);
+                    if(JSON.parse(apiData[1]).success){
+                        apiData = yield api.pullApiData('goods_img_add',body);
+                        var rtn = JSON.parse(apiData[1]);
+                        return rtn;
+                    }
+                }else{
+                    apiData = yield api.pullApiData('goods_update',body);
+                    console.log(apiData[1])
+                    var rtn = JSON.parse(apiData[1]);
+                    console.log(rtn)
+                    return rtn;
+                }
             }
         }
     }else{
       this.redirect('/account/login');
     }
+
+    dataset.path=this.config.goods_img; 
     dataset.root = api.apiPath.base;
     oridata = libs.$extend(true,oridata,dataset);
 

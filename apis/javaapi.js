@@ -52,6 +52,8 @@ var apiPath = {
         goods_detail: src+'api/goods/detail.html',//查询商品详情
         goods_update: src+'api/goods/update.html',//修改商品
         goods_add: src+'api/goods/save.html',//添加商品
+        goods_img_del: src+'api/goods/picture/delete.html',//删除商品图片
+        goods_img_add: src+'api/goods/picture/add.html',//添加商品图片
 
         //公共部分
         header_nav: src+'api/navbar.html',  //头部导航栏
