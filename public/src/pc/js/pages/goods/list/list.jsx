@@ -27,8 +27,8 @@ function dealwithdata(data){
 			datas[i].push(items.catName2);
 			datas[i].push(items.brandName);
 			datas[i].push(items.storageName);
-			datas[i].push(initNum(items.stock) + items.unitName);
-			datas[i].push(initNum(items.minQuantity) + items.unitName);
+			datas[i].push(items.stock + items.unitName);
+			datas[i].push(items.minQuantity + items.unitName);
 			if (items.valuation === 0) {
 				datas[i].push(items.exchangeName + items.contractPeriod + (items.discount>0?"+":"") + (items.discount != 0?items.discount:""));
 				datas[i].push(initTime(items.stopDate)+ " "+ initNum(items.stopHour)+":"+initNum(items.stopMinute)+":00")
@@ -37,7 +37,8 @@ function dealwithdata(data){
 				datas[i].push("");
 			};
 			datas[i].push(initTime(items.createTime));
-			datas[i].push(<span><a href={"/goods/edit/"+items.id+".html"} target={"_blank"}>编辑</a> <a href={"/mall/item_detail/"+items.id+".html"} target={"_blank"}>详情</a></span>);
+			datas[i].push(<span><a href={"/goods/edit/"+items.id+".html"} target={"_blank"}>编辑</a>
+			 <a href={"/mall/item_detail/"+items.id+".html"} target={"_blank"}>详情</a></span>);
 		};
 	return datas;
 }

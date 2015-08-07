@@ -5,12 +5,10 @@ var Store = require('mixins/store');
 //分页回掉
 var _pageClick = function(){
 	libs.addEvent(this, 'click', function(e){
+		console.log(this)
 		e=e||arguments[0];
 		e.preventDefault();
-		var page = this.innerText;
-		if(page.indexOf('...')>-1){
-			page = this.getAttribute("data-page");
-		}
+		var page = this.getAttribute("data-page");
 		var tmp = SA.getter('pagination').data;
 		tmp.begin.start = page-1;
 		SA.setter( 'pagination', tmp );
@@ -68,19 +66,17 @@ var PageItem = React.createClass({
 		var value='';
 		if(data.text){
 			if(data.text.toString().indexOf('...')>-1){
-				value = data.text.toString().replace('...','')
+				value = data.dataPage
 				text = '...'
 			}else{
 				text = data.text;
-				value = data.text;
+				value = data.dataPage;
 			}
 		}
 
 		return <li data-page={value} className={clsName} style={sty}>
-            <div className={"hheader"}>
-                <a href={data.url}>{text}</a>
-            </div>
-        </li>
+	                <a href={data.url}>{text}</a>
+		        </li>
 	}
 });
 
@@ -127,7 +123,7 @@ var pagenation = React.createClass({
         	data: this.props.data,
 			begin: {
 				start: 0,
-				off: 10
+				off: 7
 			}
 	    });
 	},
@@ -169,6 +165,11 @@ var pagenation = React.createClass({
 				start = pre;
 				end = pre===0 ? off>=pages?aft:off : aft;
 			}
+			if(ostart>0)newData.push({url: data.url+'?'+data.query+ostart, text: '上一页',dataPage:ostart} );
+			if(start>1){
+				newData.push({url: data.url+'?'+(data.query+1), text: '1',dataPage:'1'} );
+				newData.push({url: 'javascript:;', text: '...',dataPage:ostart-off>0?ostart-off:1} );
+			}
 
 			if( end > 0 ){
 				for( var i=start; i<end; i++){
@@ -176,6 +177,7 @@ var pagenation = React.createClass({
 	                newData.push({
 	                    url: data.url+'?'+query,
 	                    text: i+1,
+	                    dataPage:i+1,
 						active:(function(){
 							if(ostart < half || (ostart+half)>pages){
 								return ostart===i?true:false
@@ -185,8 +187,13 @@ var pagenation = React.createClass({
 						})()
 	                })
 	            }
-				newData.push({url: 'javascript:;', text: '...'+i} );
-				newData.push({url: data.url+'?'+query+(pages), text: (Math.ceil(pages)) });
+
+	            if(end<pages){
+	            	newData.push({url: 'javascript:;', text: '...'+i,dataPage:ostart+off>pages?pages:ostart+off} );
+					newData.push({url: data.url+'?'+query+(pages), text: (Math.ceil(pages)),dataPage:pages });
+					newData.push({url: data.url+'?'+data.query+(ostart+2), text: '下一页',dataPage:ostart+2} );
+	            }
+				
 			}
         }
 
