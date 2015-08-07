@@ -108,12 +108,13 @@ function rd(body){
 
 		//每一个tab响应事件
 		var itemClick = function(){
+			$(this).parent().addClass('tiger-active');
+			$(this).siblings('li[data-val="all"]').addClass("active");
 		    $(this).click(function(){
 				var id = this.getAttribute('data-val');
 				var ddd = cnt_tabs[id];
 	                $('.tabswitch li').removeClass('active');
-					$('.tabswitch li[data-cls="second"]').addClass('active');
-	                $(this).parent().addClass('tiger-active');
+					$('.tabswitch li[data-cls="second"]').addClass('active');	                
 	                $(this).toggleClass('active');
 	                $(this).siblings().removeClass('active');
 	                SA.setter( 'Cnt',{ data: ddd } );
@@ -131,12 +132,14 @@ function rd(body){
 			$(this).toggleClass('active');
 	        $(this).siblings().removeClass('active');
 			$(this).siblings('li[data-cls="second"]').addClass('active');
+
 		}
 
 		//cnt内每一个筛选元素点击响应事件
 		var attrClick = function(){
-
 		    $(this).click(function(){
+		    	$(".cateTags").show();	    	
+		    	if($(this).attr('data-cls')=="first") return false;
 				var text = $(this).text();
 				var catParam = $(this).attr('data-param')
 				var catValue = $(this).attr('data-val')
@@ -158,15 +161,20 @@ function rd(body){
 					} );
 					attr[catParam] = {};
 					attr[catParam].ctx = that;
+
 				}
 		    })
 		}
 
 		// selectBar中每一个元素点击响应事件
 		var seleClick = function(){
+			var filter = SA.getter('SelectBar').data;
+			if(!filter){
+				$(this).hide();
+			}					
 			$(this).delegate( 'a', 'click', function(){
 				var text = $(this).text();
-				var pm = $(this).attr('data-pm');
+				var pm = $(this).attr('data-pm');				
 				if( pm ){
 					text = text + '###' + pm;
 				}
@@ -230,8 +238,11 @@ function rd(body){
 				}
 			}
 			if( filter && filter.data ){
-				if( type === 'delete' )
-					libs.lodash.remove( filter.data, function( n ){ return ( n === item ) })
+				if( type === 'delete' ){					
+					libs.lodash.remove( filter.data, function( n ){ return ( n === item ) })					
+					if(!filter.data.length)
+						$(".cateTags").hide();
+				}
 				else{
 					var dublicatIndex = libs.lodash.indexOf(filter.data, item);
 					if(dublicatIndex === -1)
@@ -240,6 +251,8 @@ function rd(body){
 				SA.setter( 'SelectBar',filter );
 			}else
 				SA.setter( 'SelectBar',{ data: [item] } );
+
+
 
 			//在selectBar数据处理完成后，异步请求更新图片列表
 			api.req( 'mall_exhibition', exbQuery, function(body){

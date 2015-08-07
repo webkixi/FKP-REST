@@ -1,0 +1,59 @@
+@import "../../../modules/_settings/_setting_pages";
+@import "../../_common/com.scss";
+
+.filter{
+	-webkit-transition: all .2s ease-in 0s;
+	transition: all .2s ease-in 0s; 
+	border: 1px solid #ccc; 
+	border-top: none;
+	margin-bottom:0px;
+	.filter-items {
+		padding:13px 0;
+		border-bottom:1px dotted #d6d6d6;
+		position: relative;
+		margin-bottom: 0;
+		.filter-tit{
+			float: left;
+			min-width: 104px;
+			text-align: center;
+		}
+		.filter-con{
+			display: inline-block;
+			overflow:hidden;
+			ul{
+				position:relative;
+				height: 20px;
+				margin-bottom: 0;
+				width: 960px;
+				padding-left: 70px;
+				&.active{
+					height: auto;
+				}
+				li.filter-all{
+					position: absolute;
+					top: 0;
+					left:0;
+					width: 38px;
+					text-align: center;
+					margin-right: 6px;
+				}
+				li{
+					display: inline-block;
+					margin-right: 24px;
+				}
+			}
+			.selected{
+				a{
+					background:#ff6600;
+					color:#fff;
+					padding:2px 5px;
+				}
+			}
+			a.more{
+				position: absolute;
+				top: 13px;
+				right: 40px;
+			}
+		}
+	}
+}
