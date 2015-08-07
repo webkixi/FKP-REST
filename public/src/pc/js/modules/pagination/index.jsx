@@ -5,7 +5,6 @@ var Store = require('mixins/store');
 //分页回掉
 var _pageClick = function(){
 	libs.addEvent(this, 'click', function(e){
-		console.log(this)
 		e=e||arguments[0];
 		e.preventDefault();
 		var page = this.getAttribute("data-page");
