@@ -13,7 +13,7 @@ var getMapJson = function(stat){
     console.log('===============');
     console.log('===============');
     console.log(stat)
-  	if(fs.existsSync(config.mapJson))
+  	if(fs.existsSync(config.mapJson)||fs.existsSync(config.mapDevJson))
   		return mapJson = stat === 'dev' ? JSON.parse(fs.readFileSync(config.mapDevJson,'utf-8')) : JSON.parse(fs.readFileSync(config.mapJson,'utf-8'));
   	else
   		return false;

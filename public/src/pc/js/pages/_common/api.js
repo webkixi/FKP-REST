@@ -7,6 +7,7 @@ var apiPath = {
         search: src+'api/search.html',
         region: '/region',
         regist: '/account/regist',
+        check_code: '/common/check_code',//校验验证码
         user: src+'checkUserStatus.html',
         mall_attr: '/mall/api_list_attr',
         mall_exhibition: '/mall/list',

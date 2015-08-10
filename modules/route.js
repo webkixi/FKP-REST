@@ -106,6 +106,8 @@ function init(app,mapper,rend){
         }
         else if(param.cat === 'upload'){
             yield uploader.call(this);
+        }else if(param.cat === 'captcha'){
+            yield captcha.call(this);
         }
         else
             yield distribute.call(this,mapper)
@@ -156,6 +158,13 @@ function *uploader(){
         var error = { success: false}
         this.body = JSON.stringify(error)
     }
+}
+
+//上传数据
+function *captcha(){
+    libs.clog('获取验证码');
+    this.body = yield require('./captcha').call(this,{len:4,fontsize:42,offset:50,quality:50});
+    console.log('captcha code is:' + this.sess.captcha)
 }
 
 /**

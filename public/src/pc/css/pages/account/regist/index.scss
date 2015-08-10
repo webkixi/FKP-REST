@@ -96,6 +96,16 @@ div.r_wrap_list input.phone_yzm{
 	color:#fff;
 	width: auto;
 	margin-left: 20px;
+	&.gray{
+		background-color: #eee;
+		color:#333;
+		border:1px solid transparent;
+		&:hover{
+			background-color:#ccc;
+			color:#fff;
+			border-color:#aaa;
+		}
+	}
 }
 .r_yzbtn{
 	margin-left:20%;

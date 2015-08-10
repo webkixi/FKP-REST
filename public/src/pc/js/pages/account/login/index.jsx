@@ -119,3 +119,8 @@ function chkInputValue(){
 $('#login').click(function(){
 	chkInputValue();
 })
+
+$('#recode').click(function(){
+    var random = libs.guid('capcode-');
+    $('#capcode').attr('src','/captcha?'+random)
+})
