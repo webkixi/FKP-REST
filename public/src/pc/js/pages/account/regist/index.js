@@ -49,7 +49,7 @@ var chkOptions = {
         tmp = reg.notempty.test(val);    //code check
         if(!tmp){
         	$(ipt).addClass("bd_col");
-        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("请输入短信验证码");
+        	$(ipt).parent(".r_wrap_list .form-group").find(".error_msg").html("");
         }
         return tmp;
     },
@@ -528,6 +528,7 @@ $(".select_address").change(function(){
 
 var step=0;
 function chkPhoneValue(){
+        step=0;
 	var inputs = getFormData();
 	//valide login value
 	var RegPhoneStat = formValide(chkOptions)
