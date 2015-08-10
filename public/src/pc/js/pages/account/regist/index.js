@@ -294,6 +294,7 @@ function bindInputDefaultEvent(){
             if(ele=='loginPhone'){
                 Regfocus.call(ipt);
                 $(ipt).bind('blur',function(){
+                     $("#enterCode").val("");
                     //form loginPhone
                    tmp = formValide(chkOptions)
                    (inputs[ele],'RegPhone')
@@ -571,6 +572,7 @@ function chkPhoneValue(){
 	}
 }
 $('.msgs').click(function(){
+    if($(this).hasClass("gray")) return false;
 	chkPhoneValue();
 });
 function chkCodeValue(){
@@ -676,3 +678,37 @@ function checkAccount(){
 $('#account_ok').click(function(){
 	checkAccount();
 });
+
+
+$('#capcode,#recode').click(function(){
+    var random = libs.guid('capcode-');
+    $('#capcode').attr('src','/captcha?'+random);
+     $("#sendMobileCode").addClass("gray");
+     $("#enterCode").val("");
+});
+$("#enterCode").keyup(function(){
+    var _this = this;
+    if(_this.value.length>=4){
+        api.req('check_code',{code:_this.value},function(body){
+            console.log(body)
+            if(body.success){
+                $(_this).removeClass("bd_col");
+                $("#codeError").html("");
+                if(!!$("#loginPhone").val()){
+                    $("#sendMobileCode").removeClass("gray");
+                }else{
+                    $("#loginPhone").addClass("bd_col");
+                    $("#mobile_error").html("请输入手机号码");
+                }
+
+            }else{
+                $(_this).addClass("bd_col");
+                $("#codeError").html(body.errMsg);
+            }
+        })
+    }else{
+                $(_this).removeClass("bd_col");
+                $("#codeError").html("");
+    }
+    
+})

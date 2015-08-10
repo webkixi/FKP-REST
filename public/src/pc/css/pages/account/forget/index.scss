@@ -46,7 +46,9 @@ div.r_wrap_list{
 	.form-group{
 		label{
 			display: inline-block;
-			width: 80px;
+			width: 108px;
+			text-align: right;
+			font-weight: normal;
 		}
 		p{
 			margin: 0;
@@ -137,5 +139,19 @@ div.r_wrap_list{
 
 div.r_wcheckbox label{
 	width: 300px;
+}
+
+.forget_msgs{
+
+	&.gray{
+		background-color: #eee;
+		color:#333;
+		border:1px solid transparent;
+		&:hover{
+			background-color:#ccc;
+			color:#fff;
+			border-color:#aaa;
+		}
+	}
 }
 /***************************************找回密码 end*****************************************/
