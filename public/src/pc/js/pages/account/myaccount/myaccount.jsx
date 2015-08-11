@@ -593,7 +593,9 @@ $('#accountAuth,#re-accountAuth').click(function(){
 
     api.req('updateAccountAuth',query,function(body){
 		if(body.success){
-            messager.alert({title:"提示",content:'更新成功',type:"success"});
+            messager.alert({title:"提示",content:'更新成功',type:"success",fn:function(){
+                window.location.href="/account/myaccount";
+            }});
 		}
 		if(body.errStat){
 			messager.alert({title:"提示",content:'更新失败',type:"error"});

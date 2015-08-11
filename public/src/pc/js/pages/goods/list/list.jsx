@@ -37,7 +37,7 @@ function dealwithdata(data){
 				datas[i].push("");
 			};
 			datas[i].push(initTime(items.createTime));
-			datas[i].push(<span><a href={"/goods/edit/"+items.id+".html"} target={"_blank"}>编辑</a>
+			datas[i].push(<span><a href={"/goods/edit/"+items.id+".html"} target={"_blank"}>编辑</a>&nbsp;
 			 <a href={"/mall/item_detail/"+items.id+".html"} target={"_blank"}>详情</a></span>);
 		};
 	return datas;

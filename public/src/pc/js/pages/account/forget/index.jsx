@@ -264,7 +264,9 @@ console.log(query)
 			//var jo = JSON.parse(body);
 			if(body.success){
 				console.log(body.step)
-				messager.alert({title:"提示",content:"密码更新成功！",type:"success"});
+				messager.alert({title:"提示",content:"密码更新成功！",type:"success",fn:function(){
+                    window.location.href="/account/login.html";
+                }});
 	        }else{
 	        	messager.alert({title:"提示",content:body.msg,type:"warning"});
 	        	//dropAlert(jo.errmsg);

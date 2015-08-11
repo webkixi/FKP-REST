@@ -28,6 +28,7 @@ var apiPath = {
 
         //用户中心
         loginCheck: src+'api/account/loginCheck.html',  //用户检测
+        accountDetail: src+'api/account/detail.html',  //通过账号查找用户信息
         get_account_info: src+'api/account/account-center.html',  //用户信息
         regist: src+'api/account/account-save.html',  //注册
         checkMC: src+'api/account/checkLoginPhoneAndCode.html',  //校验验证码

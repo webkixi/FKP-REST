@@ -57,6 +57,27 @@ function *demoLoginData(oridata){
         if(typeof this.sess.user !== 'undefined'){
             user = this.sess.user;
             if(user.login){
+                //更新session数据
+                apiData = yield api.pullApiData('accountDetail',{
+                    accountNo:user.accountNo,
+                });
+                var jsonData = JSON.parse(apiData[1]);
+                if(jsonData.success){
+                    // 用户信息
+                    var account = jsonData.data.account;
+                    account.auth = jsonData.data.AccountAuthStatusEnum;
+                    account.authStatus = jsonData.data.authStatus;
+                    account.login = true;
+                    //企业信息
+                    var firm = libs.$extend({},jsonData.data);
+                    delete firm.account;
+                    delete firm.AccountAuthStatusEnum;
+                    //保存session
+                    account.firm = firm;
+                    this.sess.user = account;
+
+                }
+
                 userData = this.sess.user;
                 //province id
                 var pid = userData.firm.firmContact.province;
@@ -101,7 +122,7 @@ function *demoLoginData(oridata){
                 userData.city = tmp_c;
                 userData.county = tmp_d;
                 var auth = userData.auth;
-                auth.status =  userData.authStatus==auth.AUTH_FAIL.value || userData.authStatus==auth.AUTH_INIT.value;
+                auth.status =  userData.authStatus==auth.AUTH_FAIL.value;
                 auth.status_init =  userData.authStatus==auth.AUTH_INIT.value;
                 auth.status_ing =  userData.authStatus==auth.AUTH_ING.value;
                 auth.status_fail =  userData.authStatus==auth.AUTH_FAIL.value;

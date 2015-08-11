@@ -687,11 +687,10 @@ $('#capcode,#recode').click(function(){
      $("#sendMobileCode").addClass("gray");
      $("#enterCode").val("");
 });
-$("#enterCode").keyup(function(){
+$("#enterCode").blur(function(){
     var _this = this;
-    if(_this.value.length>=4){
+    if(_this.value.length>0){
         api.req('check_code',{code:_this.value},function(body){
-            console.log(body)
             if(body.success){
                 $(_this).removeClass("bd_col");
                 $("#codeError").html("");
