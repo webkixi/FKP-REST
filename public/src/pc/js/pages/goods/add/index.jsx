@@ -159,7 +159,7 @@ $(function(){
         if(!$('#catId2').val()){
             return;
         }
-        api.req('goods_attr',{type:'brand',catId: $('#catId').val()},function(body){
+        api.req('goods_attr',{type:'brand',catId: $('#catId2').val()},function(body){
             if(body.success){
                 $('#brandId').empty();
                 body.list.map(function(item){ 

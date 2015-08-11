@@ -125,8 +125,10 @@ function *aliService(path2save){
             if(part[0]==='name'){
                 filename = part[1];
                 var names = filename.split("&&&");
-                filename = names[1];
-                if (names[0] === 'goods')bucket = 'jh-ljs-goods';
+                if (names[0] === 'goods'){
+                    bucket = 'jh-ljs-goods';
+                    filename = names[1];
+                }
             }
         }
         else {
