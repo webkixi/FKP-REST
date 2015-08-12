@@ -189,10 +189,9 @@ var pagenation = React.createClass({
 
 	            if(end<pages){
 	            	newData.push({url: 'javascript:;', text: '...'+i,dataPage:ostart+off>pages?pages:ostart+off} );
-					newData.push({url: data.url+'?'+query+(pages), text: (Math.ceil(pages)),dataPage:pages });
+					newData.push({url: data.url+'?'+query+(pages), text: (Math.ceil(pages)),dataPage:Math.ceil(pages) });
 					newData.push({url: data.url+'?'+data.query+(ostart+2), text: '下一页',dataPage:ostart+2} );
-	            }
-				
+	            }				
 			}
         }
 
