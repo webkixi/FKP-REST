@@ -122,7 +122,7 @@ function *demoLoginData(oridata){
                 userData.city = tmp_c;
                 userData.county = tmp_d;
                 var auth = userData.auth;
-                auth.status =  userData.authStatus==auth.AUTH_FAIL.value;
+                auth.status =  userData.authStatus==auth.AUTH_FAIL.value || userData.authStatus==auth.AUTH_INIT.value;
                 auth.status_init =  userData.authStatus==auth.AUTH_INIT.value;
                 auth.status_ing =  userData.authStatus==auth.AUTH_ING.value;
                 auth.status_fail =  userData.authStatus==auth.AUTH_FAIL.value;
