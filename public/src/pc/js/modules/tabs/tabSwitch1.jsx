@@ -12,7 +12,7 @@ var attrClick = function(){
 var Page = React.createClass({
     mixins: [Store('Page')],
     getInitialState: function() {
-    	return {};
+        return {};
     },
 
     //插入真实 DOM之前
@@ -29,17 +29,17 @@ var Page = React.createClass({
         var items=[];
         var num = 5;
         if(this.state.data&&this.state.data.totalCount!=0){
-	        var pageData = this.state.data;
-	        var begin = 0;
-	        if(pageData.currentPage-1-parseInt(num/2)>0)begin=pageData.currentPage-1-parseInt(num/2);//收个分页
-	        if(pageData.pageCount - begin < num) num = pageData.pageCount - begin;//显示分页个数
-	        if (pageData.currentPage!=1) items.push(<a href={"javascript:void(0)"} data-page={pageData.currentPage-1}>上一页</a>);
-	        for (var i = 1; i <=num; i++) {
-	        	if((begin+i)==pageData.currentPage)items.push(<span className={"active"}>{begin+i}</span>);
-	        	else items.push(<a href={"javascript:void(0)"} data-page={begin+i}>{begin+i}</a>);
-	        };
-	        if (pageData.currentPage!=pageData.pageCount) items.push(<a href={"javascript:void(0)"} data-page={pageData.currentPage+1}>下一页</a>);
-	    }
+            var pageData = this.state.data;
+            var begin = 0;
+            if(pageData.currentPage-1-parseInt(num/2)>0)begin=pageData.currentPage-1-parseInt(num/2);//收个分页
+            if(pageData.pageCount - begin < num) num = pageData.pageCount - begin;//显示分页个数
+            if (pageData.currentPage!=1) items.push(<a href={"javascript:void(0)"} data-page={pageData.currentPage-1}>上一页</a>);
+            for (var i = 1; i <=num; i++) {
+                if((begin+i)==pageData.currentPage)items.push(<span className={"active"}>{begin+i}</span>);
+                else items.push(<a href={"javascript:void(0)"} data-page={begin+i}>{begin+i}</a>);
+            };
+            if (pageData.currentPage!=pageData.pageCount) items.push(<a href={"javascript:void(0)"} data-page={pageData.currentPage+1}>下一页</a>);
+        }
         return items;
     },
     //已加载组件收到新的参数时调用
@@ -51,22 +51,66 @@ var Page = React.createClass({
         }
     },
 
-    render: function () {
+    renderChildren: function () {
         var fill = this.loopRender();
+        return React.Children.map(fill, function (child) {
+            return child
+        }.bind(this))
+    },
+
+    render: function () {
         return(
             <div className={'reactPage'} style={{width:'100%',height:'auto'}} >
-                {fill}
+                {this.renderChildren()}
             </div>
         )
     }
 });
+
+var Trr = React.createClass({
+    getInitialState: function(){
+        return {
+            data: []
+        }
+    },
+    componentWillMount: function(){
+        if(this.props.data){
+            this.setState({
+                data: this.props.data
+            })
+        }
+    },
+
+    renderTd: function(){
+        var items = [];
+        this.state.data.map(function(td,i){
+            items.push(<td>{td}</td>)
+        })
+        return items
+    },
+
+    renderChildren: function () {
+        var fill = this.renderTd();
+        return React.Children.map(fill, function (child) {
+            return child
+        }.bind(this))
+    },
+
+    render: function () {
+        return(
+            <tr>
+                {this.renderChildren()}
+            </tr>
+        )
+    }
+})
 
 
 //react cnt
 var Cnt = React.createClass({
     mixins: [Store('Cnt')],
     getInitialState: function() {
-         SA.setter('tabswitch',{}, this.act);
+        SA.setter('tabswitch',{}, this.act);
         return {};
     },
 
@@ -90,7 +134,48 @@ var Cnt = React.createClass({
         }
     },
 
+    renderTable: function (son) {
+        var fill = son;
+        return React.Children.map(fill, function (child) {
+            return child
+        }.bind(this))
+    },
+
     loopRender: function(){
+        // var items=[];
+        // var th = [];
+        // var tbd = []
+        // if(this.state.hddata){
+        //     var tiemWidth = [];
+        //     if(this.state.itemWidth) tiemWidth=this.state.itemWidth;
+        //         this.state.hddata.map(function(item,i){
+        //             th.push(
+        //                     <th width={tiemWidth[i]>0?tiemWidth[i]:""}>{item}</th>
+        //                 )
+        //     })
+        // }
+        // if(this.state.data){
+        //     this.state.data.recordList.map(function(item){
+        //         tbd.push(
+        //             <Trr data={item}/>
+        //         )
+        //     })
+        // }        
+        // items.push(
+        //         <thead>
+        //             <tr>
+        //                 {this.renderTable(th)}
+        //             </tr>
+        //         </thead>
+        //     )
+        // items.push(
+        //         <tbody>
+        //             {this.renderTable(tbd)}
+        //         </tbody>
+        //     )
+        // return items;
+
+
         var items=[];
         var th = [];
         var tbd = []
@@ -106,33 +191,23 @@ var Cnt = React.createClass({
         if(this.state.data){
             this.state.data.recordList.map(function(item){
                 tbd.push(
-                        <tr>
-                            {(function(){
-                                var tds =[];
-                                item.map(function(td){
-                                    tds.push(
-                                            <td>{td}</td>
-                                        )
-                                })
-                                return  tds;
-                            })()}
-                        </tr>
-                    )
+                    <Trr data={item}/>
+                )
             })
-        }
-        items.push(
+        }         
+
+        return(
+            <table className={'table table-hover table-org'} style={{width:'100%',height:'auto'}} >
                 <thead>
                     <tr>
-                        {th}
+                        {this.renderTable(th)}
                     </tr>
                 </thead>
-            )
-        items.push(
                 <tbody>
-                    {tbd}
+                    {this.renderTable(tbd)}
                 </tbody>
-            )
-        return items;
+            </table>
+        )
     },
     //已加载组件收到新的参数时调用
     componentWillReceiveProps:function(nextProps){
@@ -144,11 +219,10 @@ var Cnt = React.createClass({
     },
 
     render: function () {
-        var fill = this.loopRender();
         return(
-            <table className={'table table-hover table-org'} style={{width:'100%',height:'auto'}} >
-                {fill}
-            </table>
+            <div>
+                {this.loopRender()}
+            </div>
         )
     }
 });
@@ -156,19 +230,19 @@ var Cnt = React.createClass({
 //react tabswitch
 var tabswitch = React.createClass({
     mixins: [Store('tabswitch')],
-	getDefaultProps: function() {
-		return { }
-	},
+    getDefaultProps: function() {
+        return { }
+    },
 
-	getInitialState: function() {
+    getInitialState: function() {
         this.addSheet();
-		return {
-        	data: [],
+        return {
+            data: [],
             hdData: [],
             itemWidth:[]
 
-	    };
-	},
+        };
+    },
 
     addSheet: function(){
         //添加css到头部
@@ -176,8 +250,8 @@ var tabswitch = React.createClass({
         //libs.addSheet([tabcss,'tabswt']);
     },
 
-	//插入真实 DOM之前
-	componentWillMount:function(){
+    //插入真实 DOM之前
+    componentWillMount:function(){
         var that = this;
         if(that.props.data){
             that.setState({
@@ -195,11 +269,11 @@ var tabswitch = React.createClass({
                 itemWidth: that.props.itemWidth
             })
         }
-	},
+    },
 
-	componentDidMount: function() {
+    componentDidMount: function() {
         if(this.props.itemMethod){
-        	this.props.itemMethod.call(this);
+            this.props.itemMethod.call(this);
         }
     },
 
@@ -208,13 +282,13 @@ var tabswitch = React.createClass({
 
     },
 
-	render:function(){
+    render:function(){
 
-		return <div className={'tabswitch'}>
+        return <div className={'tabswitch'}>
                 <Cnt data={this.state.data} hddata={this.state.hdData}  itemWidth={this.state.itemWidth} />
-				<Page data={this.state.data}/>
+                <Page data={this.state.data}/>
           </div>
-	}
+    }
 });
 
 module.exports = tabswitch;

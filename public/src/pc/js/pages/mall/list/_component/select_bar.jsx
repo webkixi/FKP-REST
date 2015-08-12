@@ -76,7 +76,7 @@ var SelectBar = React.createClass({
         var fill = this.renderContent();
         return(
             <div className={'cateTags'}>
-            	<dl class="cf">
+            	<dl className={"cf"}>
                 	<dt>{"您选择的是："}</dt>
                 	{fill}
                 </dl>
