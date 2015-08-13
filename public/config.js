@@ -25,7 +25,7 @@ module.exports = {
     hash: false,
     vendorList: [
         path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
-        path.join(__dirname, src_dir, '/js/vendor/browser-request/dist/browser/request.js'),
+        //path.join(__dirname, src_dir, '/js/vendor/browser-request/dist/browser/request.js'),
         path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js')
     ],
     globalList: [
