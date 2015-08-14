@@ -46,6 +46,55 @@
         }
     }
 }
+/*无margin的水平列表*/
+.slist{
+    list-style: none;
+    font: normal normal normal 14px/150% Arial,Verdana,"微软雅黑";
+    padding: 0;
+    .item{
+        .inner{ }
+        height: auto;
+        position: relative;
+        img{
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        p{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+            border: none;
+        }
+        .hheader{
+            padding: 10px;
+        }
+        .hbody{
+            padding: 10px;
+        }
+        .hfoot{
+            padding: 10px;
+        }
+        .dot{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+}
+.shadows{
+    -webkit-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    &:hover{
+        z-index: 2;
+        -webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        -webkit-transform: translate3d(0, -2px, 0);
+        transform: translate3d(0, -2px, 0);
+    }
+}
 //产品中心的图片列表
 .elephant{
     small{
@@ -72,6 +121,46 @@
                 // font-weight: bold;
             }
         }
+    }
+}
+//新闻列表
+.news_ul{
+    .item{
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+/*        .hheader{
+            display: inline-block;
+        }
+        .hbody{
+            display: inline-block;
+            vertical-align: top;
+        }*/
+        em{
+            font-style: normal; 
+        }
+/*        span{
+            font-size: 12px;
+            color: #999;
+            margin: 5px 0 2px 0;
+            display: block;
+        }
+        p{
+            font-size: 12px;
+            padding: 0;
+            margin: 0;
+            height: 67px;
+            overflow: hidden;
+            cursor: default;
+        }
+        .dot{
+            &.more{
+                  left: auto;
+                  right: 14px;
+                  bottom: 2px;
+                  top: auto;
+                  font-size: 12px;
+            }
+        }*/
     }
 }
 

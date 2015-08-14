@@ -118,6 +118,25 @@
     }
   }
 }
+//lgh 20150813
+@if $gridSpanSwitch2 {
+  @for $i from 1 through $gridColumns2 {
+    .span10-#{$i} {
+      @extend %float;
+      @extend %margin-gutter2;
+
+      width:getWidth2($i);
+
+      @if $gridPercentSwitch2 and $lte7{
+        *width:getWidth2($i) - $gridCorrection;
+      }
+    }
+  }
+  .span_ul{
+     @extend %margin-gutter-2;
+  }
+}
+
 
 @if $gridRemSwitch {
   .remrow{

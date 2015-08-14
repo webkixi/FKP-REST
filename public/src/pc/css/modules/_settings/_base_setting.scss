@@ -8,6 +8,12 @@ $gridPercentSwitchN : true !default; //流体布局
 $gridSpanSwitch: true !default;;//是否开启grid class(.span1, .span2...)，默认不开启
 $gridRemSwitch: true !default;;//是否开启grid class(.col-1, .col-2...)，默认不开启
 $gridWidSwitch: true !default;;//是否开启grid class(.col-1, .col-2...)，默认不开启
+
+$gridColumns2 : 10 !default; //总栅格数，默认为10栏
+$gridPercentSwitch2 : true !default; //流体布局
+$gridSpanSwitch2: true !default;;//是否开启grid class(.span10-1, .span10-2...)，默认不开启
+
+
 // font相关
 //-----------------------------------------------------
 $baseFontSize:          12px !default;
