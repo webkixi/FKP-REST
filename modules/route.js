@@ -149,15 +149,19 @@ function *getRegion(){
 function *uploader(){
     libs.clog('上传数据');
     var fileUpLoader = require('./uploader');
-    var saveFileStat = yield fileUpLoader.ali.call(this,this.config.upload_root);
-    if(saveFileStat){
-        var success = { success: true, data: saveFileStat}
-        this.body = JSON.stringify(success)
-    }
-    else{
-        var error = { success: false}
-        this.body = JSON.stringify(error)
-    }
+    yield fileUpLoader.ali.call(this,this.config.upload_root);
+    // var saveFileStat = yield fileUpLoader.ali.call(this,this.config.upload_root);
+    // console.log('==========================');
+    // console.log('==========================');
+    // console.log(saveFileStat);
+    // if(saveFileStat.success){
+    //     var success = { success: true, data: saveFileStat}
+    //     this.body = JSON.stringify(success)
+    // }
+    // else{
+    //     var error = { success: false}
+    //     this.body = JSON.stringify(error)
+    // }
 }
 
 //上传数据

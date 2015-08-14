@@ -93,13 +93,41 @@ function *upLoaderService(path2save){
         }
     }
     console.log('and we are done parsing the form!')
-    return true;
+    this.body = {success: true}
 }
 
+var buffer = null;
+var ctype = 'text/plain';
+var csize = 0;
 function *aliService(path2save){
 
     if (!this.request.is('multipart/*')) return yield next
 
+    var oss = require('ali-oss')
+
+    var store = oss({
+        accessKeyId: 'e9lpoiqUPkmNrupH',
+        accessKeySecret: 'II8SFBfkQXzWheLyB3GQulzgYYzd7d',
+        bucket: 'jh-ljs-account',
+        region: 'oss-cn-shenzhen'
+    });
+
+    // var result = yield store.listBuckets()
+    // var object = yield store.put('/' + name, new Buffer('foo content'));
+    // var object = yield this.store.put(name, fs.createReadStream(__filename), {
+    //     headers: {
+    //       'Content-Length': (yield cfs.stat(__filename)).size
+    //     }
+    //   });
+
+    // result.buckets.map(function (item) {
+    //     console.log( item.name + ':' + item.region );
+    // })
+    // console.log(result);
+
+
+    var stat = false;
+    var object;
     var part;
     var filename;
     var buffers = [];
@@ -130,47 +158,148 @@ function *aliService(path2save){
                     filename = names[1];
                 }
             }
+            if(part[0]==='type'){
+                ctype = part[1];
+            }
+            if(part[0]==='size'){
+                csize = part[1];
+            }
         }
-        else {
-            // if(filename){
-            //     var ext = path.extname(filename);
-            //     filename = lib.guid()+ext
-            //     // filename = path.join(path2save,filename);
-            // }
-            //
-            // else{
-            //     return false;
-            // }
-
-            part.on('data', function (chunk) {
-                buffers.push(chunk);
-                nread += chunk.length;
-            });
-
-            part.on('end', function () {
-                var buffer = null;
-                switch(buffers.length) {
-                    case 0:
-                        buffer = new Buffer(0);
-                        break;
-                    case 1:
-                        buffer = buffers[0];
-                        break;
-                    default:
-                        buffer = new Buffer(nread);
-                        for (var i = 0, pos = 0, l = buffers.length; i < l; i++) {
-                            var chunk = buffers[i];
-                            chunk.copy(buffer, pos);
-                            pos += chunk.length;
-                        }
-                    break;
+        else{
+            var object = yield store.put(filename, part, {
+            headers: {
+                  'Content-Length': csize,
+                  'Content-Type': ctype
                 }
-                mup(buffer,filename,bucket);
-                console.log('push picture to aliyun')
             });
         }
     }
-    return yield {filename: filename};
+    if(object)
+        this.body = {success: true}
+    else {
+        this.body = {success: false}
+    }
+
+    // if (!this.request.is('multipart/*')) return yield next
+    //
+    // var stat = false;
+    // var part;
+    // var filename;
+    // var buffers = [];
+    // var nread = 0;
+    // var bucket = 'jh-ljs-account';
+    //
+    // var parts = parse(this, {
+    //     // only allow upload `.jpg` files
+    //     checkFile: function (fieldname, file, filename) {
+    //         if(_.indexOf(filterPicture,path.extname(filename))===-1){
+    //             var err = new Error('invalid jpg image')
+    //             err.status = 400
+    //             return err;
+    //         }
+    //     }
+    // })
+    //
+    // while (part = yield parts) {
+    //     if (part.length) {
+    //         // arrays are busboy fields
+    //         console.log('key: ' + part[0])
+    //         console.log('value: ' + part[1])
+    //         if(part[0]==='name'){
+    //             filename = part[1];
+    //             var names = filename.split("&&&");
+    //             if (names[0] === 'goods'){
+    //                 bucket = 'jh-ljs-goods';
+    //                 filename = names[1];
+    //             }
+    //         }
+    //         if(part[0]==='type'){
+    //             ctype = part[1];
+    //         }
+    //     }
+    //     else {
+    //         // if(filename){
+    //         //     var ext = path.extname(filename);
+    //         //     filename = lib.guid()+ext
+    //         //     // filename = path.join(path2save,filename);
+    //         // }
+    //         //
+    //         // else{
+    //         //     return false;
+    //         // }
+    //
+    //         part.on('data', function (chunk) {
+    //             buffers.push(chunk);
+    //             nread += chunk.length;
+    //         });
+    //
+    //         part.on('end', function () {
+    //             stat = true;
+    //
+    //             switch(buffers.length) {
+    //                 case 0:
+    //                     buffer = new Buffer(0);
+    //                     break;
+    //                 case 1:
+    //                     buffer = buffers[0];
+    //                     break;
+    //                 default:
+    //                     buffer = new Buffer(nread);
+    //                     for (var i = 0, pos = 0, l = buffers.length; i < l; i++) {
+    //                         var chunk = buffers[i];
+    //                         chunk.copy(buffer, pos);
+    //                         pos += chunk.length;
+    //                     }
+    //                 break;
+    //             }
+    //             objup(buffer,filename,bucket);
+    //             // mup(buffer,filename,bucket);
+    //             console.log('push picture to aliyun')
+    //         });
+    //     }
+    // }
+    // // yield buffer
+    // if(stat)
+    //     this.body = {success: true};
+    // else
+    //     this.body = {success: false};
+
+
+}
+
+function *objup(buffer,fileKey,bucket){
+    // return yield function*(){
+    //     return {xxx:12365}
+    // }
+
+    function* test(){
+        oss.putObject({
+            Bucket: bucket,
+            Key: fileKey,                 // 注意, Key 的值不能以 / 开头, 否则会返回错误.
+            Body: buffer,
+            AccessControlAllowOrigin: '',
+            ContentType: ctype,
+            // CacheControl: 'no-cache',         // 参考: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+            // ContentDisposition: '',           // 参考: http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.5.1
+            // ContentEncoding: 'utf-8',         // 参考: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.11
+            // ServerSideEncryption: 'AES256',
+            // Expires: ''                       // 参考: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
+        },
+        function (err, data) {
+
+            if (err) {
+                console.log('error:', err);
+                return;
+            }
+
+            console.log('success:', data);
+            return data
+
+        });
+    }
+    return yield test
+
+    // return yield
 }
 
 //ali 图片上传
@@ -266,21 +395,21 @@ function mup(buffer,fileKey,bucket){
       console.log("Got upload ID", multipart.UploadId);
 
       // Grab each partSize chunk and upload it as a part
-      for (var rangeStart = 0; rangeStart < buffer.length; rangeStart += partSize) {
-        partNum++;
-        var end = Math.min(rangeStart + partSize, buffer.length),
-          partParams = {
-            Body: buffer.slice(rangeStart, end),
-            Bucket: bucket,
-            Key: fileKey,
-            PartNumber: String(partNum),
-            UploadId: multipart.UploadId
-          };
+        for (var rangeStart = 0; rangeStart < buffer.length; rangeStart += partSize) {
+            partNum++;
+            var end = Math.min(rangeStart + partSize, buffer.length),
+              partParams = {
+                Body: buffer.slice(rangeStart, end),
+                Bucket: bucket,
+                Key: fileKey,
+                PartNumber: String(partNum),
+                UploadId: multipart.UploadId
+              };
 
-        // Send a single part
-        console.log('Uploading part: #', partParams.PartNumber, ', Range start:', rangeStart);
-        uploadPart(oss, multipart, partParams);
-      }
+            // Send a single part
+            console.log('Uploading part: #', partParams.PartNumber, ', Range start:', rangeStart);
+            uploadPart(oss, multipart, partParams);
+        }
     });
 }
 

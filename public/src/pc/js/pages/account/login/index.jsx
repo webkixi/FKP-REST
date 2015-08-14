@@ -125,3 +125,18 @@ $('#recode').click(function(){
     var random = libs.guid('capcode-');
     $('#capcode').attr('src','/captcha?'+random)
 })
+
+
+var Uploader = require('modules/upload/upload');
+var render = React.render;
+
+var set_yyzz = function(){
+    //上传完成后的回掉 this是上传图片信息
+    var filename = this.name;
+    // setFilename($('#inputLiecncesName'),filename);
+}
+
+render(
+    <Uploader btn={'yyzz'} type={2} cb={set_yyzz}/>,
+   document.getElementById('upup')
+)

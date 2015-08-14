@@ -48,6 +48,8 @@ function uploadAction(btn){
 
     uploader.on( 'uploadSuccess', function( file, ret ) {
         $( '#'+file.id ).find('p.state').text('已上传');
+        if(callback && ret.success)
+            callback.call(file);
     });
 
     uploader.on( 'uploadError', function( file ) {
@@ -180,6 +182,8 @@ function uploadAction2(btn,callback,maxNumber){
     uploader.on( 'uploadSuccess', function( file, ret ) {
         $( '#'+file.id ).addClass('upload-state-done');
         console.log(ret);
+        if(callback && ret.success)
+            callback.call(file);
     });
 
     // 文件上传失败，现实上传出错。
@@ -198,7 +202,7 @@ function uploadAction2(btn,callback,maxNumber){
     // 完成上传完了，成功或者失败，先删除进度条。
     uploader.on( 'uploadComplete', function( file ) {
         $( '#'+file.id ).find('.progress').remove();
-        file.name = file.name.split("&&&")[1]; 
+        file.name = file.name.split("&&&")[1];
         if(callback)
             callback.call(file);
     });
