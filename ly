@@ -32,15 +32,16 @@ demo(){
 }
 
 install(){
-    cd public
+    npm install gulp -g
+    npm install nodemon -g
     npm install node-gyp -g
+    npm install
+
+    cd public
     npm install
     npm install node-sass
 
     cd ..
-    npm install
-    npm install gulp -g
-    npm install nodemon -g
 }
 
 server(){
