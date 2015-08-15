@@ -97,7 +97,8 @@ function init(app,mapper,rend){
     var _mapper = mapper||{};
 
     function *forBetter(){
-        this.sess = sessi();
+        // this.sess = sessi();
+        this.sess = this.session;
         this.config = config;
         var param = this.params;
         console.log(param);
