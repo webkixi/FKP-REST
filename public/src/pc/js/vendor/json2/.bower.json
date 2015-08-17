@@ -1,0 +1,13 @@
+{
+  "name": "json2",
+  "homepage": "https://github.com/douglascrockford/JSON-js",
+  "_release": "c07c287e39",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "c07c287e39ab5a1726818e0436490bf071b7c838"
+  },
+  "_source": "git://github.com/douglascrockford/JSON-js.git",
+  "_target": "*",
+  "_originalSource": "json2"
+}

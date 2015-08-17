@@ -1,0 +1,108 @@
+
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('./_common/header/head.html')
+<script>
+    var page={
+        pageCount:{{pageBean.pageCount}},
+        currentPage:{{pageBean.currentPage}}
+    }
+</script>
+</head>
+
+<body>
+@@include('./_common/header/header.html')
+<!-- <div class="banner slide">
+  <div id="product-slider" class="rsDefault">
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner1.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner2.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner3.jpg"/></a>
+    <a href="#"><img class="rsImg rsMainSlideImage" src="/images/banner/banner4.jpg"/></a>
+  </div>
+</div> -->
+<div class="wrapper">
+    <div class="search_curr container">
+        <p>为您查找到<i>“{{sc}}”</i>的相关结果{{totalCount}}个</p>
+    </div>
+    <div class="info-wrap search-wrap">
+        <div class="container">
+            <div class="clearfix row">
+                <div class="info-main col-lg-10 fl">
+                {{#if st1}}
+                    <div class="search_info">
+                        <h2><i class="nav-icon"></i>相关资讯<b class="col-ff6600">(共{{totalCount_infos}}条)</b></h2>
+                        <ul class="info-mlist">
+                            {{#each info}}
+                            <li>
+                                <div class="info-mcom">
+                                    <div class="info-mtitle clearfix">
+                                        <em><a target="_blank" href="{{root}}/info/view/{{id}}.html">{{title}}</a></em>
+                                        <span>{{publishTime}}</span>
+                                    </div>
+                                    <p>{{summary}}</p>
+                                    <a href="{{root}}/info/view/{{id}}.html" class="more">查看详情 >></a>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                        <!-- 分页 begin -->
+                        {{#if pages}}
+                        <div id="page"></div>
+                        <form id="searchForm" action="">
+                            <input type="hidden" id="pageSt" name="st" value="{{st}}">
+                            <input type="hidden" id="pageSc" name="sc" value="{{sc}}">
+                            <input type="hidden" id="pageCurrent" name="pageCurrent" value="">
+                        </form>
+                        {{/if}}
+                        <!-- 分页 end -->
+                    </div>
+                {{/if}}
+                {{#if st2}}
+                    <div class="search_item">
+                        <h2><i class="nav-icon"></i>金属商城相关产品<b class="col-ff6600">(共{{totalCount_goods}}条)</b></h2>
+                        <div class="search_ilist goods_slides">
+                            <div class="search_ilul">
+                                <ul class="clearfix">
+                                    {{#each goodsall}}
+                                    <li>
+                                        <dl>
+                                            <dt><a target="_blank" href="/mall/item_detail/{{id}}.html"><img src="{{pictureLibUrl}}{{picture}}"></a></dt>
+                                            <dd><span>{{catName}}</span> {{vender}}</dd>
+                                            <dd><span>{{catName2}}</span> {{model}}</dd>
+                                            <dd><span>挂牌量： </span> {{stock}} {{unitName}}</dd>
+                                            <dd><span>起订量： </span> {{minQuantity}} {{unitName}}</dd>
+                                            <dd><span>供货商： </span> {{accountName}}</dd>
+                                        </dl>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                                {{#if pages}}
+                                <div id="page"></div>
+
+                                    <form id="searchForm" action="" >
+                                        <input type="hidden" name="pageCurrent" id="pageCurrent" value=""/>
+                                        <input type="hidden" name="st" id="st" value="2"/>
+                                        <input type="hidden" name="sc" id="sc" value="{{sc}}"/>
+                                    </form>
+                                    {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+                </div>
+                <div class="info-right col-lg-2 fl">
+                    <img src="/images/ad/ad2.jpg"><img src="/images/ad/ad2.jpg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@@include('./_common/footer/footer.html')
+@@include('./_common/footer/foot.html')
+</body>
+</html>

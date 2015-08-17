@@ -1,0 +1,78 @@
+@import "../../modules/_settings/_setting_pages";
+@import "../_common/com.scss";
+.helf-left h3 a{
+	color: #ff6600!important;
+}
+.tab_helf{
+	min-height: 600px!important;
+	border-right: none;
+	em{ font-size: 16px; color: #333; 
+		border-bottom: 1px solid #ff6600;
+	 	margin-bottom: 10px; 
+		padding-bottom: 10px; 
+		display: block;
+		color: #ff6600; 
+		font-style: normal;
+	}
+	ul{ 
+		margin-top: 0;
+	}
+	li{ 
+		display: block; 
+		width: 100%;
+	}
+	dt{ 
+		font-weight: 500; 
+		font-size: 16px; 
+		margin-bottom: 15px;
+	}
+	dd{ 
+		line-height: 25px;
+	}
+	i{ 
+		display: block; 
+		color: #ff6600;
+	}
+}
+.tab_helpdiv{ 
+	font-size: 12px; 
+	color: #666; 
+	line-height: 25px;
+}
+.helf-kf img{ 
+	width: 191px; 
+	height: 171px;
+}
+.hlef-kfcom{ 
+	margin-left: 20px; 
+	display: inline;
+}
+div.tab_helf li {
+  display: block;
+}
+.jygz.tab-pane ul li em{
+	display: block;
+	text-align: center;
+}
+.jygz{
+	.tab_helpdiv {
+	  width: 1000px;
+	}
+	h4 {
+	  font-size: 14px;
+	  margin-bottom: 20px;
+	  color: #666;
+	  text-align: center;
+	}
+	p {
+	  font-size: 12px;
+	  margin-bottom: 0;
+	  color: #666;
+	}
+	span {
+	  display: block;
+	  text-align: right;
+	  font-size: 12px;
+	  color: #666;
+	}	
+}

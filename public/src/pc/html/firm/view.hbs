@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+<script>
+</script>
+</head>
+<body>
+@@include('../_common/header/header.html')
+<div class="wrapper">
+	<div class="current_path container">
+		<a href="${rc.contextPath}/index.html">首页</a> > <a class="currents"> 企业介绍 </a>
+	</div>
+	<div class="myaccount_main">
+		<div class="container">
+			<div class="row clearfix">
+				<div class="account_l fl wid-2">
+					@@include('../_common/account.hbs')
+				</div>
+				<div class="fl wid-10 myaccount_about">
+					<div class="myaccount_abtitle">
+							企业简介
+					</div>
+					<div class="myaccount_abcom">
+						<p>
+						{{#if firmDetail.introduce}}
+						{{{firmDetail.introduce}}}
+						{{else}}
+						提示:您的企业简介尚未填写,立即 <i> <a style="color: red;" href='/firm/edit.html'>添加企业简介</a></i>!
+						{{/if}}
+						</p>
+					</div>
+					<div>
+						<button type="button" onclick="editFirmDetail()" class="btn btn-orange">修改内容</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+
+<script type="text/javascript">
+	function editFirmDetail() {
+		document.location.href = "/firm/edit.html";
+	}
+</script>
+</body>
+</html>

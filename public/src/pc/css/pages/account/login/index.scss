@@ -1,0 +1,160 @@
+@import "../../../modules/_settings/_setting_pages";
+@import "../../_common/com.scss";
+/***************************************登录 start*****************************************/
+input.bd_col{
+	border:1px solid #ff6600!important;
+}
+p.text-danger,p.text-danger:hover{
+	color: #ff6600;
+}
+.r_logo{
+	overflow:auto;
+	zoom:1;
+	width:100%;
+	.rlogo{
+		margin-left:27px;
+		font-size:24px;
+		color:#666666;
+		img{
+			height: 60px;
+			width: 160px;
+		}
+	}
+	li{
+		float:left;
+		margin-left:13px; 
+		color:#e6e6e6;
+		line-height:62px;
+	}
+}
+.r_login{
+	float:right;
+	padding-left:29px;
+	display:inline;
+	background-image:url(../images/register/icon.png);
+	background-position:0px -20px;
+	background-repeat:no-repeat;
+	height:15px;
+	line-height:15px;
+	a{
+		color:#ff6600;
+		font-size:12px;
+	}
+}
+.msgs{display:inline-block;width:104px;color:#fff; width: auto; margin-left: 20px;}
+.login_input{
+	width: 50%;
+	margin: auto;
+	.form-group{
+		margin-bottom: 15px;
+		label{
+			width: 80px;
+			font-weight: 100;
+			text-align: right;
+		}
+	}
+	input{
+		width:74%;
+		height:39px;
+		color:#666;
+		padding: 0 30px;
+		border-radius: 3px;
+		-moz-border-radius: 3px; -webkit-border-radius: 3px;
+	}
+}
+.login_tip{
+	height:28px;
+	padding-top:10px;
+	width: 28%;
+	margin: 0 auto;
+	> div{
+		display:inline-block;
+		line-height:28px;
+		color:#646464;
+	}
+	span{
+		display:block;
+		width:150px;
+	}
+	b{
+		float:left;
+		display:inline-block;
+		width:13px;
+		height:13px;
+		margin-right:5px;
+		padding:0px;
+		background-image:url(../images/all_icon.png);
+		cursor:pointer;
+		margin-top: 8px;
+		min-height: 13px;
+	}
+	b.checkbox{
+		background-position: -9px -10px;
+	}
+	b.checkbox_check{
+		background-position: -9px -30px;
+	}
+}
+.login_btn{
+	height:60px;
+}
+.login-yh .login_btn{
+	width: 18%;
+	text-align: center;
+	margin: auto;
+	margin-top: 50px;
+}
+.login_btn button{
+	width:100%;
+	height:38px;
+	font-size:18px;
+	line-height:38px;
+	padding:0px;
+	float:left;
+	background-color: #ff6600;
+	border-color: #ff6600;
+}
+.login_btn button:hover,.login_btn button:focus,.login_btn button:active,.login_btn button.active{
+	background-color: #E5620B;
+	border-color: #E5620B;
+}
+.login-yh.login_body{
+	width: 100%;
+	min-height: 590px;
+	padding: 130px 0 0 0;
+	border: 1px solid #ff6600;
+	margin: 20px auto;
+}
+.l_code{
+	margin-left: 130px;
+	.code{
+		width: 160px;
+	}
+	img{ 
+		float: left; 
+		width: 84px; 
+		height: 39px; 
+		margin:0 15px;
+	}
+	a{ 
+		float: left; 
+		color: #333; 
+		margin-top: 10px;
+	}
+}
+.login_reg{ 
+	text-align: right;
+}
+.login-yh .login_password{
+	margin: auto;
+	width: 46%;
+	text-align: right;
+}
+.login_erroA{
+	text-align: center;
+	width: 100%;
+	display: block;
+	margin-top: 10px; 
+	color: #ff6600;
+}
+/***************************************登录 end*****************************************/

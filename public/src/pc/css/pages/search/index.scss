@@ -1,0 +1,124 @@
+@import "../../modules/_settings/_setting_pages";
+@import "../_common/com.scss";
+@import "../_common/bootstrap.min.scss";
+
+/*搜索页面 start*/
+.col-ff6600{ 
+  color: #ff6600;
+}
+.search_curr{
+  p{ 
+    font-size: 16px;
+    i{ 
+      margin: 0 5px; 
+      color: #ff6600; 
+      font-style: normal;
+    }
+  }
+}
+.search_info{
+  h2{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 2px solid #eb6d1b;
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #666; 
+    position: relative;
+    padding-left: 18px;
+    b{ 
+      font-weight: 500; 
+      font-size: 14px; 
+      margin-left: 15px;
+    }
+  }
+  a{
+    &.more{
+      font-size: 14px;
+    }
+  }
+  .info-mcom{
+    width: 98%;
+  }
+}
+.search_item{ 
+  margin-bottom: 50px;
+  h2{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 2px solid #eb6d1b;
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #666; 
+    position: relative;
+    padding-left: 18px;
+    b{ 
+      font-weight: 500; 
+      font-size: 14px; 
+      margin-left: 15px;
+    }
+  }
+  a{
+    &.more{
+      font-size: 14px;
+    }
+  }
+}
+.search_ilist{
+  position: relative;
+}
+.search_ilul { 
+  margin-left: -6px;
+  ul{
+    overflow: hidden;
+    li{
+      float: left; 
+      width: 195px; 
+      margin-bottom: 15px;
+      dl{
+        margin: 0 10px;
+        dt{ 
+          width: 175px; 
+          height: 142px;
+          img{ 
+            width: 100%; 
+            height: 142px;
+          }
+        }
+      }
+    }
+  }
+}
+.search-wrap{
+  .info-right{
+    margin-top: 57px;
+  }
+}
+#page{
+  text-align: center;
+  margin: 20px 0 30px 0;
+  a,span{
+      padding: 0 12px;
+      border-radius: 2px;
+      margin: 0 3px 6px;
+      height: 26px;
+      line-height: 26px;
+      text-decoration: none;
+      color: #666;
+  }
+  a{
+    background-color: #f1eff0;
+  }
+  .laypage_main *{
+    display: inline-block;
+    & input, button{
+          width: 40px;
+          height: 26px;
+          line-height: 26px;
+          margin: 0 5px;
+          padding: 0 5px;
+          border: 1px solid #ccc;
+          background-color: #fff;
+    }
+  }
+}

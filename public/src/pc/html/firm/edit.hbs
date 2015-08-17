@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+<script>
+</script>
+</head>
+<body>
+@@include('../_common/header/header.html')
+[#include 'common/menu.html' /]
+<link href="{{root}}/statics/front/css/jquery.fileupload.css" rel="stylesheet">
+<link href="{{root}}/statics/front/css/lightbox.css" rel="stylesheet">
+<div class="wrapper">
+	<div class="current_path container">
+		<a href="{{root}}/index.html">首页</a> > <a class="currents"> 企业介绍 </a>
+	</div>
+	<div class="myaccount_main">
+		<div class="container">
+			<div class="row clearfix">
+				<div class="account_l fl wid-2">
+					@@include('../_common/account.hbs')
+				</div>
+				<div class="fl wid-10 myaccount_about">
+					<div class="myaccount_abtitle">
+							企业简介
+					</div>
+					<div id="container" class="">
+					<form action="" id="firmIntroduceForm" method="post">
+						<script id="editor" name="introduce" type="text/plain" style="width:1004px; height:500px;">
+							{{{firmDetail.introduce}}}
+						</script>
+					</form>
+					</div>
+					<div>
+						<button type="button" id="save-firm-introduce" class="btn btn-orange">保存内容</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="infoDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">提示</h4>
+			</div>
+			<div class="modal-body login_body">
+				<p id="infoDialogText"></p>
+			</div>
+		</div>
+	</div>
+</div>
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+<script src="/js/t/ueditor/ueditor.config.js"></script>
+<script src="/js/t/ueditor/ueditor.all.min.js"></script>
+<script src="/js/t/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript">
+window.CTX = "{{root}}";
+$(document).ready(function() {
+	UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+	UE.Editor.prototype.getActionUrl = function(action) {
+	    if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+	        return '{{root}}/ueditor/uploadimage.html';
+	    } else if (action == 'uploadvideo') {
+	        return '{{root}}/ueditor/uploadimage.html';
+	    } else {
+	        return this._bkGetActionUrl.call(this, action);
+	    }
+	};
+    var ue = UE.getEditor('editor', {
+    	toolbars: [
+    		['undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript',
+    		 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor',
+    		 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'simpleupload']
+        ],
+        imagePathFormat: "",
+        elementPathEnabled: false,
+        autoHeight: false
+    });
+});
+</script>
+</body>
+</html>

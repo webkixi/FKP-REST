@@ -1,0 +1,45 @@
+@import "../../../modules/_settings/_setting_pages";
+@import "../../_common/com.scss";
+.text-c{
+	margin-bottom: 15px;
+}
+.myorder_table{
+	min-height: 200px;
+}
+.myorder_content{
+	#page{
+		margin: 20px 0 0px 0;
+	}
+	input,select{
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		width: 12%;
+		margin-right: 20px;
+	}
+	.btn{
+		width: 8%;
+		padding: 1px 12px;
+	}
+	.table-org{
+		border: 1px solid #ddd;
+		>thead>tr>th{
+			border-bottom: 1px solid #ddd;
+		}
+		th{
+			color: #666;
+		}
+		th,td{
+			text-align: center;
+			border: 1px solid #ddd;
+		}
+	}
+}
+.merchant_body{
+	text-align: center;
+	input{
+		margin-top: 0;
+	}
+	select{
+		margin-bottom: 8px;
+	}
+}

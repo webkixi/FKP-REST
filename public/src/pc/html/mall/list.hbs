@@ -1,0 +1,55 @@
+
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('../_common/header/head.html')
+</head>
+
+<body>
+@@include('../_common/header/header.html')
+
+<div class="wrapper">
+    <div class="container">
+        <div class="category">
+            <div id="myTabContent" class="tab-content">
+
+                 <div class="sort hidden">
+                     <div class="col">
+                       <ul>
+                         <li class="select active" data-param=""><a>默认排序</a></li>
+                         <li class="select" data-param="salesVolume"><a>销量<span class="all_icon icon_view"></span></a></li>
+                         <li class="select" data-param="risePrice"><a>涨价<span class="all_icon icon_view"></span></a></li>
+                         <li class="select" data-param="reducedPrice"><a>跌价<span class="all_icon icon_view"></span></a></li>
+                         <li class="select" data-param="price"><a>价格<span class="all_icon icon_view"></span></a></li>
+                         <li class="select" data-param="favorite"><a>收藏<span class="all_icon icon_view"></span></a></li>
+                       </ul>
+                     </div>
+                 </div>
+
+                 <!-- tabs -->
+                 <div id="tab-test"></div>
+                 <div id="tab-attr"></div>
+                 <div id="tab-sele"></div>
+            </div>
+
+
+                 <div class="sort_product cate-prolist" id="mall-list">
+                    <div id="exhibition">
+                        
+                    </div>
+                    <div class="u-clearfix">
+                        <div id="page" ></div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@@include('../_common/footer/footer.html')
+@@include('../_common/footer/foot.html')
+</body>
+</html>

@@ -1,0 +1,157 @@
+@import "../../../modules/_settings/_setting_pages";
+@import "../../_common/com.scss";
+/***************************************找回密码 start*****************************************/
+.reg_head{
+	border-bottom: 3px solid #ffb000;
+}
+.r_progress em{
+	background: url(../images/reg_progress.jpg) no-repeat;
+	width: 100%;
+	height: 38px;
+	text-indent: -99999em;
+	display: block;
+}
+.r_progress.r_p2 em{
+	background-position: 0 -38px;
+}
+.r_progress.r_p3 em{
+	background-position: 0 -75px;
+}
+.r_main{
+	margin-top: 20px;
+}
+.r_wrap{
+	margin: 50px 0;
+	min-height: 325px;
+}
+div.r_wrap_list{ 
+	width: 730px; 
+	margin: 0 auto;
+	min-height: 500px;
+	input{ 
+		width: 335px; 
+		display: inline-block; 
+		margin-top: 0;
+	}
+	input.user_adetail{ 
+		margin-top: 15px;
+	}
+	input.phone_yzm{
+		width: 185px;
+		background:none;
+	}
+	select{ 
+		width: 110px;
+	}
+	.form-group{
+		label{
+			display: inline-block;
+			width: 108px;
+			text-align: right;
+			font-weight: normal;
+		}
+		p{
+			margin: 0;
+		}
+	}
+}
+.r_wrap_list.r_szpwd{
+	width:900px;
+	margin-left:240px;
+}
+.r_wrap_list.r_wyzsj,.r_wrap_list.r_szpwd{
+	padding-top: 50px;
+}
+.r_logo{ 
+	overflow:auto; 
+	zoom:1;  
+	width:100%;
+	.rlogo{ 
+		margin-left:27px; 
+		font-size:24px; 
+		color:#666666;
+		img{ 
+			height: 60px; 
+			width: 160px;
+		}
+	}
+	li{ 
+		float:left;
+		margin-left:13px;
+		color:#e6e6e6; 
+		line-height:62px;
+	}
+}
+.r_login{
+	float:right;
+	padding-left:29px;
+	display:inline;
+	background-image:url(../images/register/icon.png);
+	background-position:0px -20px;
+	background-repeat:no-repeat;
+	height:15px;
+	line-height:15px;
+	a{ 
+		color:#ff6600; 
+		font-size:12px;
+	}
+}
+.msgs{
+	display:inline-block;
+	width:104px;
+	color:#fff;
+	width: auto;
+	margin-left: 20px;
+}
+.r_yzbtn{
+	margin-left:20%;
+	margin-top: 50px;
+	a.btn{
+		width: 30%;
+		margin: 0 auto;
+		font-size: 18px;
+	}
+}
+.for-phonebtn{
+	margin-left: 30%;
+}
+.error_msg{
+	display: inline-block;
+
+	margin-left: 20px;}
+.for_progress em{
+	background: url(../images/for_progress.jpg) no-repeat;
+	width: 100%;
+	height: 38px;
+	text-indent: -99999em;
+	display: block;
+}
+.for_progress.r_p2 em{
+	background-position: 0 -38px;
+}
+#vCode{
+	border:none; 
+	color: #333; 
+	padding: 0;
+	width: 50px!important; 
+	margin-left: 20px;
+}
+
+div.r_wcheckbox label{
+	width: 300px;
+}
+
+.forget_msgs{
+
+	&.gray{
+		background-color: #eee;
+		color:#333;
+		border:1px solid transparent;
+		&:hover{
+			background-color:#ccc;
+			color:#fff;
+			border-color:#aaa;
+		}
+	}
+}
+/***************************************找回密码 end*****************************************/

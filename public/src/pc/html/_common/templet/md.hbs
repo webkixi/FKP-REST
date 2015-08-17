@@ -1,0 +1,43 @@
+
+<!doctype html>
+
+<html>
+<head>
+    <title>h5首页</title>
+    @@include('../_common/header/head.html')
+    <link rel="stylesheet" href="/css/markdown.css">
+    <style>
+        .container{
+            width: 1000px;
+        }
+        .side{
+            position: relative;
+        }
+        .side-menu{
+            /*position: fixed;top: 10px;*/
+        }
+    </style>
+
+</head>
+<body>
+    <div class="markdown-preview">
+        <div class="container u-ma" style="">
+            <div class="span9" style="">
+                    ~~md~~
+            </div>
+
+            <div class="span3 side">                
+                <div id="side-menu" class="side-menu">
+                    <h4>文章目录</h4>
+                    <ul>
+                        ~~md-menu~~
+                    </ul>
+                </div>
+                <div id="good" style="position: relative;"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src='/js/{{commonjs}}'></script>
+    <script type="text/javascript" src='/js/markdown.js'></script>
+</body>
+</html>
