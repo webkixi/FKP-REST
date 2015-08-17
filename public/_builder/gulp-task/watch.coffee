@@ -4,7 +4,7 @@ config = require '../configs/config.coffee'
 module.exports = (gulp,$,slime,env)->
     return () ->
         browserSync(
-            proxy: "http://127.0.0.1:3000"
+            proxy: "http://127.0.0.1:8070"
             files: [ config.htmlDevPath + '/**/*.html', config.staticPath+ '/dev/**']
             logFileChanges: false
         )
