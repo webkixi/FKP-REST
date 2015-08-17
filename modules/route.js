@@ -9,7 +9,6 @@ var router = require('koa-router')();
 var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
-var sessi = require('./session');
 var region = require('./region');
 var config = require('../config');
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
@@ -97,7 +96,8 @@ function init(app,mapper,rend){
     var _mapper = mapper||{};
 
     function *forBetter(){
-        this.sess = sessi();
+        // this.sess = sessi();
+        this.sess = this.session;
         this.config = config;
         var param = this.params;
         console.log(param);

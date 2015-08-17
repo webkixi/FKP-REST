@@ -110,7 +110,7 @@ $(".catId").change(function(){
 		}else{
 			_this.parents(".tab-content").find(".catId2").html(html);
 		}
-		
+
 	}
 })
 
@@ -130,7 +130,7 @@ $(".catId2").change(function(){
 		}else{
 			_this.parents(".tab-content").find(".brandId").html(html);
 		}
-		
+
 	}
 })
 
@@ -142,7 +142,7 @@ $(".queryGoodsBtn").click(function(){
 	param.storage =  $(this).parents(".tab-content").find(".storage").val();
 	param.pageCurrent=1;
 	getGoodsList(param,rdquery);
-	
+
 });
 function rdquery(body){
 
