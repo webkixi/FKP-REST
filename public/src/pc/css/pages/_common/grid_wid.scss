@@ -1,0 +1,14 @@
+@import "./_grid.scss";
+//无边距12等份栅格
+
+
+// lgh 20150708
+@if $gridWidSwitch {
+  @for $i from 1 through $gridColumns {
+    .wid-#{$i} {
+      @extend %float;
+
+      width:getwidthNomargin($i);
+    }
+  }
+}
