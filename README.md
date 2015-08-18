@@ -4,6 +4,20 @@ BY `koa` / `webpack` / `gulp` / `npm` / `git`/`sass`
 
 #INSTALL
 
+##安装
+ - python
+ - nodejs
+ - npm
+ - git
+
+git clone https://github.com/webkixi/FKP-REST.git
+
+//转到根目录下
+```
+ly install
+```
+
+
 # LOG
 2015/6/29
 ```

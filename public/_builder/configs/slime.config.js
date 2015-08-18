@@ -234,6 +234,9 @@ var custom_modules = function(){
       },{
           test: /\.md$/,
           loader: "html!markdown"
+      },,{
+          test: /\.json$/,
+          loader: "json-loader"
       },
 
         //   { // Only apply on tinymce/tinymce

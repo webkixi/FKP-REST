@@ -59,6 +59,7 @@
     "less-loader": "^2.2.0",
     "lite-flux": "^0.0.5",
     "lodash": "^3.7.0",
+    "lowdb": "^0.10.2",
     "marked": "^0.3.3",
     "raw-loader": "^0.5.1",
     "react-hot-loader": "^1.2.4",

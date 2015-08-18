@@ -1,6 +1,7 @@
 var libs = require('libs/libs')
 var qs = require('querystring');
 var src = "http://120.25.223.175:5051/jh-web-portal/";
+var demoSrc = "http://mock.agzgz.com/";
 var apiPath = {
     base: src,
     dirs: {

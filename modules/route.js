@@ -9,7 +9,6 @@ var router = require('koa-router')();
 var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
-var sessi = require('./session');
 var region = require('./region');
 var config = require('../config');
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx

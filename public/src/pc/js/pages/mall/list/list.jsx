@@ -114,7 +114,7 @@ function rd(body){
 				var id = this.getAttribute('data-val');
 				var ddd = cnt_tabs[id];
 	                $('.tabswitch li').removeClass('active');
-					$('.tabswitch li[data-cls="second"]').addClass('active');	                
+					$('.tabswitch li[data-cls="second"]').addClass('active');
 	                $(this).toggleClass('active');
 	                $(this).siblings().removeClass('active');
 	                SA.setter( 'Cnt',{ data: ddd } );
@@ -138,7 +138,7 @@ function rd(body){
 		//cnt内每一个筛选元素点击响应事件
 		var attrClick = function(){
 		    $(this).click(function(){
-		    	$(".cateTags").show();	    	
+		    	$(".cateTags").show();
 		    	if($(this).attr('data-cls')=="first") return false;
 				var text = $(this).text();
 				var catParam = $(this).attr('data-param')
@@ -171,10 +171,10 @@ function rd(body){
 			var filter = SA.getter('SelectBar').data;
 			if(!filter){
 				$(this).hide();
-			}					
+			}
 			$(this).delegate( 'a', 'click', function(){
 				var text = $(this).text();
-				var pm = $(this).attr('data-pm');				
+				var pm = $(this).attr('data-pm');
 				if( pm ){
 					text = text + '###' + pm;
 				}
@@ -238,8 +238,8 @@ function rd(body){
 				}
 			}
 			if( filter && filter.data ){
-				if( type === 'delete' ){					
-					libs.lodash.remove( filter.data, function( n ){ return ( n === item ) })					
+				if( type === 'delete' ){
+					libs.lodash.remove( filter.data, function( n ){ return ( n === item ) })
 					if(!filter.data.length)
 						$(".cateTags").hide();
 				}
@@ -335,6 +335,7 @@ function exb_cb( body ){
 				url: '/mall/list.html',
 				query: queryStr
 			};
+		console.log(padata);
 		rend(
 			<Exhibition data={body.pagination.recordList} listClass={'tiger'} itemStyle={{width:'240px'}}/>
 			,document.getElementById('exhibition')

@@ -95,6 +95,7 @@ function pageClick(){
 
 //回掉函数
 function rd(body){
+	console.log(body);
 	if(body.success){
 		var pagination = body.pagination;
 		var datas = dealwithdata(body.pagination.recordList)
@@ -131,7 +132,7 @@ $(".catId").change(function(){
 		}else{
 			_this.parents(".tab-content").find(".catId2").html(html);
 		}
-		
+
 	}
 })
 
@@ -151,7 +152,7 @@ $(".catId2").change(function(){
 		}else{
 			_this.parents(".tab-content").find(".brandId").html(html);
 		}
-		
+
 	}
 })
 

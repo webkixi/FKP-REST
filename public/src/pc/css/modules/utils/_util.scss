@@ -21,9 +21,9 @@
 .u-cleaarfixs,.cl{
   position: relative;
 }
-.u-cleaarfixs { 
+.u-cleaarfixs {
   *zoom: 1;
-} 
+}
 .u-cleaarfixs:before,.u-cleaarfixs:after{
   content:".";
   display:block;
@@ -33,7 +33,7 @@
 }
 .u-cleaarfixs:after {
   clear: both;
-} 
+}
 
 //字体颜色
 .u-color_red{
@@ -137,7 +137,6 @@
   }
 }
 
-
 @if $gridRemSwitch {
   .remrow{
       @include clearfix;
@@ -151,8 +150,6 @@
         @extend %float;
         padding-left: 0.2rem;
         padding-right: 0.2rem;
-        margin-left: -0.2rem;
-        margin-right: -0.2rem;
 
         width:getRem($i);
     }

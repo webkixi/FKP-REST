@@ -167,7 +167,7 @@ function addSheet() {
     } else {
         alert("addSheet函数最多接受两个参数!");
     }
-    if(libs.getObjType(tmpCssCode)==='Array'){
+    if(getObjType(tmpCssCode)==='Array'){
         id = tmpCssCode[1];
         cssCode = tmpCssCode[0];
     }
