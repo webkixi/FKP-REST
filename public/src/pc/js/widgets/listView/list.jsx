@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-var Fox = require('../itemView/fox');
+var Fox = require('../itemView/ant');
 
 var tmpApp = React.createClass({
 	getDefaultProps: function() {
@@ -16,19 +16,27 @@ var tmpApp = React.createClass({
 
 	//插入真实 DOM之前
 	componentWillMount:function(){
+		var pdata = this.props.data;
 		// if(this.props.data && this.props.data.pagination.recordList.length){
-		if(this.props.data && this.props.data.length){
+		if( pdata ){
+			if(!Array.isArray( pdata )){
+				pdata = [ pdata ]
+			}
 			this.setState({
-				data: this.props.data
+				data: pdata
 			});
 		}
 	},
 
 	//已加载组件收到新的参数时调用
 	componentWillReceiveProps:function(nextProps){
-		if(nextProps.data && nextProps.data.length){
+		var pdata = nextProps.data;
+		if(!Array.isArray( pdata )){
+			pdata = [ pdata ]
+		}
+		if( nextProps.data ){
 			this.setState({
-				data: nextProps.data
+				data: pdata
 			});
 		}
 	},
@@ -41,10 +49,16 @@ var tmpApp = React.createClass({
 		var that = this;
 
 		if(this.state.data){
-			this.state.data.map(function(item,i){
+			// React.Children.map(this.state.data, function (item,i) {
+			var data = this.state.data
+			// if(!Array.isArray(data)){
+			// 	data = [ data ];
+			// }
+			data.map(function(item,i){
 				if(that.props.itemView){
 					var view = that.props.itemView;
 					var props = {
+						idf: i,
 						key: 'view'+i,
 						data: item,
 						itemClass: that.props.itemClass,
@@ -54,9 +68,10 @@ var tmpApp = React.createClass({
 					var it = React.createElement(view, props, that.props.children);
 					items.push(it);
 				}else{
-					items.push(<Fox key={'fox'+i} {...that.props} data={item} />);
+					items.push(<Fox idf={i} key={'fox'+i} {...that.props} data={item} />);
 				}
-			});
+			}.bind(this));
+
 		}
 
 		return items;

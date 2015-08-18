@@ -49,12 +49,12 @@ var tabswitch = React.createClass({
 			if(typeof mtd==='function'){
 				mtd.call(this.getDOMNode());
 			}
-		}        
+		}
     },
 
     renderChildren: function () {
         return React.Children.map(this.props.children, function (child) {
-            return child            
+            return child
         }.bind(this))
     },
 

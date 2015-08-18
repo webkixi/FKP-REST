@@ -1,37 +1,102 @@
 
+// require compoent
+var Tabswitch = require('modules/tabs/tabswitch');
+var Uls = require('./_component/uls');
+var SelectBar = require('./_component/select_bar');
+var render = React.render;
 
-var
-test_goods = [
-  {'id':1,'title':'haha','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-  {'id':2,'title':'good','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-  {'id':3,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-  {'id':4,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-  {'id':5,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-  {'id':6,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-  {'id':7,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-  {'id':8,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-  {'id':9,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'}
-];
+var css = require('../_css/tabswitch.less')
+// var data = require('../_json/mall_list.json')
 
-
-var
-second_goods = [
-{'id':11,'title':'haha','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':12,'title':'good','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':13,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':14,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':15,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':16,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':17,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':18,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':19,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'},
-{'id':20,'title':'ni mei a','lsrc':'/images/slime1.png','src':'/images/slime.png'}
-];
+//标签切换标题
+var tab_nav_data = [
+    '前端开发',
+    '后端开发',
+    '移动开发',
+    '数据处理',
+    '图像处理'
+]
 
 
-var data = require('../_json/mall_list.json')
-console.log(data);
 
+//标签切换内容
+var tab_cnt_data = [
+    //0
+    [
+        {attr: 'first', title: '前端开发'},
+        {attr: 'second', catName: '不限'},
+        'HTML/CSS' ,
+        'JavaScript'  ,
+        'CSS3'  ,
+        'Html5'  ,
+        'jQuery'  ,
+        'AngularJS',
+        'Node.js'  ,
+        'Bootstrap' ,
+        'WebApp',
+        '前端工具'
+    ],
+    //1
+    [
+        {attr: 'first', title: '后端开发'},
+        {attr: 'second', catName: '不限'},
+        'PHP' ,
+        'JAVA' ,
+        'Linux' ,
+        'Python' ,
+        'C'       ,
+        'C++'      ,
+        'Go'
+    ],
+    //2
+    [
+        {attr: 'first', title: '移动端开发'},
+        {attr: 'second', catName: '不限'},
+        'Android',
+        'iOS'     ,
+        'Unity 3D' ,
+        'Cocos2d-x'
+    ],
+    //3
+    [
+        {attr: 'first', title: '数据处理'},
+        {attr: 'second', catName: '不限'},
+        'MySQL'       ,
+        'MongoDB'      ,
+        '云计算'         ,
+        'Oracle'       ,
+        '大数据'         ,
+        'SQL Server'
+    ],
+    //4
+    [
+        {attr: 'first', title: '图像处理'},
+        {id: 'unlimit', attr: 'second', catName: '不限'},
+        'Photoshop' ,
+        'Maya' ,
+        'Premiere'
+    ]
+]
+
+// Tabswitch
+//      ->  List
+
+// Uls
+//      -> List
+
+var tabItemMethod = function(){
+    $(this).click(function(e){
+        var idf = $(this).attr('data-idf');
+        SA.setter('Uls', { data: [ tab_cnt_data[idf] ] })
+    })
+}
+
+render(
+    <Tabswitch data={tab_nav_data} listClass={'tiger'} itemStyle={{width:'150px'}} itemMethod={tabItemMethod}>
+        <Uls data={tab_cnt_data} listClass={'fox'}/>
+    </Tabswitch>
+    ,document.getElementById('tab-switch')
+)
 
 //react LoadList实例
 // var
