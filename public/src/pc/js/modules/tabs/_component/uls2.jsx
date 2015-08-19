@@ -8,7 +8,6 @@ var Cnt = React.createClass({
     getInitialState: function() {
         return {}
     },
-
     componentWillMount: function(){
         if(this.props.data){
             this.setState({
@@ -16,7 +15,6 @@ var Cnt = React.createClass({
             })
         }
     },
-
     loopRender: function(){
         var items=[];
         if(this.state.data){
@@ -28,7 +26,6 @@ var Cnt = React.createClass({
         }
         return items;
     },
-
     componentWillReceiveProps:function(nextProps){
         if(nextProps.data){
             this.setState({
@@ -36,7 +33,6 @@ var Cnt = React.createClass({
             })
         }
     },
-
     render: function () {
         var fill = this.loopRender();
         return(
