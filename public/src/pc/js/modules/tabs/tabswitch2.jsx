@@ -1,5 +1,5 @@
 var Tabswitch = require('./_component/tabswitch2');
-var Uls = require('./_component/uls');
+var Uls = require('./_component/uls2');
 var SelectBar = require('./_component/select_bar');
 var render = React.render;
 
@@ -21,7 +21,6 @@ function tabswitch(tab_nav_data,tab_cnt_data,ele,opts){
             $(this).hide();
         });
         $(".tabswitch").hover(function(){
-            console.log("dd")
         },function(){
             $(".tab-cnt2").prev(".vlist").children("li").removeClass("active"); 
         })
@@ -35,6 +34,4 @@ function tabswitch(tab_nav_data,tab_cnt_data,ele,opts){
     )
     
 }
-
-console.log(tabswitch)
 module.exports = tabswitch;

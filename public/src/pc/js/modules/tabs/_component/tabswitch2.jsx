@@ -21,7 +21,7 @@ var tabswitch = React.createClass({
 
     addSheet: function(){
         //添加css到头部
-        tabcss = '.tabswitch{border:1px solid #ccc;\n margin-bottom:10px;}'
+        tabcss = '.tabswitch{margin-bottom:10px;}'
         libs.addSheet([tabcss,'tabswt']);
     },
 
