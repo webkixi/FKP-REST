@@ -62,7 +62,7 @@
     "lowdb": "^0.10.2",
     "marked": "^0.3.3",
     "raw-loader": "^0.5.1",
-    "react-hot-loader": "^1.2.4",
+    "react-hot-loader": "^1.2.8",
     "react-templates-loader": "^0.1.0",
     "sass-loader": "^0.6.0",
     "script-loader": "^0.6.1",

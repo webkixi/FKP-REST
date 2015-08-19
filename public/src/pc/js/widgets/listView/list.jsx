@@ -1,4 +1,5 @@
 /** @jsx React.DOM */
+var libs = require('libs/libs')
 var Fox = require('../itemView/ant');
 
 var tmpApp = React.createClass({
@@ -41,37 +42,70 @@ var tmpApp = React.createClass({
 		}
 	},
 
+	_dealWithItemView: function(opts){
+		var that = this;
+		if(that.props.itemView){
+			var view = that.props.itemView;
+			var props = {
+				idf: opts.i,
+				key: 'view'+opts.i,
+				data: opts.item,
+				itemClass: that.props.itemClass,
+				itemStyle: that.props.itemStyle,
+				itemMethod: that.props.itemMethod
+			}
+			return React.createElement(view, props, that.props.children);
+		}else{
+			return <Fox idf={opts.i} key={'fox'+opts.i} {...that.props} data={opts.item} />;
+		}
+	},
+
+	_dealWithData: function(data){
+		var that = this;
+		var cls = "hlist elephant u-clearfix";
+		var sty = {};
+		if(this.props.listClass){
+			cls = "hlist " + this.props.listClass + ' u-clearfix';
+		}
+		if(this.props.listStyle){
+			cls = "hlist u-clearfix";
+			sty = this.props.listStyle;
+		}
+
+		var itemCollection = [];
+		function organizeData(record){
+			var items = [];
+			record.map(function(item,i){
+				if(Array.isArray(item)){
+					itemCollection.push(organizeData(item));
+				}
+				else{
+					var it = that._dealWithItemView({i: i, item: item})
+					items.push(it);
+				}
+			});
+			if(items.length){
+				return <ul key={libs.guid('ul-')} className={cls} style={sty}>
+					{items}
+				</ul>
+			}else {
+				return;
+			}
+		}
+		itemCollection.push(organizeData(data));
+
+		return itemCollection;
+	},
+
 	loopRender: function(){
 		var items = [];
 		var sty = this.props.itemStyle ? this.props.itemStyle : false;
 		var cls = this.props.itemClass ? this.props.itemClass : false;
 
-		var that = this;
-
 		if(this.state.data){
 			// React.Children.map(this.state.data, function (item,i) {
 			var data = this.state.data
-			// if(!Array.isArray(data)){
-			// 	data = [ data ];
-			// }
-			data.map(function(item,i){
-				if(that.props.itemView){
-					var view = that.props.itemView;
-					var props = {
-						idf: i,
-						key: 'view'+i,
-						data: item,
-						itemClass: that.props.itemClass,
-						itemStyle: that.props.itemStyle,
-						itemMethod: that.props.itemMethod
-					}
-					var it = React.createElement(view, props, that.props.children);
-					items.push(it);
-				}else{
-					items.push(<Fox idf={i} key={'fox'+i} {...that.props} data={item} />);
-				}
-			}.bind(this));
-
+			items = this._dealWithData(data);
 		}
 
 		return items;
@@ -92,19 +126,10 @@ var tmpApp = React.createClass({
 
 	render: function () {
 		var fills = this.loopRender();
-		var cls = "hlist elephant u-clearfix";
-		var sty = {};
-		if(this.props.listClass){
-			cls = "hlist " + this.props.listClass + ' u-clearfix';
-		}
-		if(this.props.listStyle){
-			cls = "hlist u-clearfix";
-			sty = this.props.listStyle;
-		}
 		return (
-			<ul className={cls} style={sty}>
+			<div>
 				{fills}
-			</ul>
+			</div>
 		)
 	}
 });

@@ -1,15 +1,10 @@
 /** @jsx React.DOM */
 var libs = require('libs/libs');
+var ItemMixin = require('mixins/item')
 
 var fox = React.createClass({
-	componentDidMount: function () {
-		if(this.props.itemMethod){
-			var mtd = this.props.itemMethod;
-			if(typeof mtd==='function'){
-				mtd.call(this.getDOMNode());
-			}
-		}
-	},
+	mixins: [ItemMixin],
+	componentDidMount: function () {},
 
 	render: function () {
 		var clsName = "item wid-3";
@@ -23,7 +18,7 @@ var fox = React.createClass({
 			v1 = data.url||'javascript:;';
 
 			k2 = data.title||data.catName||data.model||data.quality||data.vender||data||'';
-			v2 = data.attr;
+			v2 = data.attr||'';
 		}
 		if(this.props.itemClass){
 			clsName = "item "+this.props.itemClass;
@@ -50,18 +45,16 @@ var fox = React.createClass({
 		return (
             <li data-idf={this.props.idf} data-id={k1}  data-param={catParam} data-cls={v2} className=
 				{
-					(
-						function(){
+					(function(){
 							if(v2&&v2==='second'){
 								return clsName+' active'
 							}else{
 								return clsName
 							}
-						}
-					)()
+					})()
 				} style={sty} >
 				<div className={"hheader"} >
-					<a href={v1}>{k2}</a>
+					<a href={v1} target={'_blank'}>{k2}</a>
 				</div>
             </li>
 	) }
