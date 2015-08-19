@@ -136,7 +136,7 @@
             vertical-align: top;
         }*/
         em{
-            font-style: normal; 
+            font-style: normal;
         }
 /*        span{
             font-size: 12px;
@@ -222,7 +222,7 @@
         position: absolute;
         top: 0;
         left: 110px;
-    }    
+    }
 }
 .fox-active{
     background-color: #ff6600;
@@ -308,4 +308,22 @@
 }
 .fox-active{
     background-color: red;
+}
+
+
+.tab-nav{
+    @extend .tiger;
+    font-size:14px;
+    background:#efefef;
+    li:first-child{border-right: none;border-left: none;}
+    li.active:first-child{border-right: none;border-left: none;}
+    margin-bottom: 20px;
+    .item{
+        border-left: none;
+    }
+    .active{
+        border: none;
+        border-top: 3px solid red;
+        margin-top:-1px;
+    }
 }

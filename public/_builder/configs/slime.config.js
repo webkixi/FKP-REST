@@ -214,7 +214,8 @@ var custom_modules = function(){
           loader: "handlebars-loader"
       }, {
           test: /\.jsx$/,
-          loader: "jsx-loader"
+          //loader: "jsx-loader"
+          loaders: ['react-hot', 'jsx?harmony']
       }, {
           test: /[\/\\]js[\/\\](vendor|vendor_custom|global)[\/\\]/,   //http://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
           loader: "script-loader"   //不做任何处理
