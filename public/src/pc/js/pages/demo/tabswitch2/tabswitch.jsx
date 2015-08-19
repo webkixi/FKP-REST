@@ -1,6 +1,5 @@
 // require compoent
 var Tabswitch = require('modules/tabs/tabswitch2');
-var css = require('../_css/tabswitch.less')
 // var data = require('../_json/mall_list.json')
 
 //标签切换标题
@@ -80,7 +79,7 @@ Tabswitch(tab_nav_data,tab_cnt_data,"tab-switch2")
 /*var tabItemMethod = function(){
     $(this).hover(function(e){
         $(".tab-cnt2").show();
-        $(this).addClass('active').siblings().removeClass("active");     
+        $(this).addClass('active').siblings().removeClass("active");
         var idf = $(this).attr('data-idf');
         SA.setter('Uls', { data: [ tab_cnt_data[idf] ] })
     },function(){
@@ -94,7 +93,7 @@ Tabswitch(tab_nav_data,tab_cnt_data,"tab-switch2")
     $(".tabswitch").hover(function(){
         console.log("dd")
     },function(){
-        $(".tab-cnt2").prev(".vlist").children("li").removeClass("active"); 
+        $(".tab-cnt2").prev(".vlist").children("li").removeClass("active");
     })
 }
 

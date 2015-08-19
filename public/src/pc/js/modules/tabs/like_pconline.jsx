@@ -12,10 +12,10 @@ var render = React.render;
 * ele     {String}  页面元素的ID
 * {return}  渲染结构到指定ID
 */
-function likePConline( navData, cntData, ele ){
+function likePConline( navData, cntData, ele, opts ){
 
     // 绑定tab的item元素的方法
-    var tabItemMethod = function(){
+    var tabItemDefaultMethod = function(){
         $(this).click(function(e){
             $(this).addClass('active')
             $(this).siblings().removeClass('active')
@@ -28,7 +28,7 @@ function likePConline( navData, cntData, ele ){
     }
 
     // 绑定所有的attr的item元素的方法
-    var ulItemMethod = function(){
+    var ulItemDefaultMethod = function(){
         $(this).click(function(e){
             if($(this).attr('data-cls')=="first") return false;
             if($(this).hasClass('active')){
@@ -40,11 +40,15 @@ function likePConline( navData, cntData, ele ){
         })
     }
 
+    var options = {
+
+    }
+
 
     // 渲染结构到页面
     render(
-        <Tabswitch data={navData} listClass={'tab-nav'} itemStyle={{width:'150px'}} itemDefaultMethod={tabItemMethod}>
-            <Uls data={cntData} listClass={'fox'} itemDefaultMethod={ulItemMethod}/>
+        <Tabswitch data={navData} listClass={'tab-nav'} itemStyle={{width:'150px'}} itemDefaultMethod={tabItemDefaultMethod}>
+            <Uls data={cntData} listClass={'fox'} itemDefaultMethod={ulItemDefaultMethod}/>
         </Tabswitch>
         ,document.getElementById(ele)
     )
