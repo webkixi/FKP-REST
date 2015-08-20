@@ -1,4 +1,6 @@
 var tabSwitch_likePConline = require('modules/tabs/like_pconline')
+var Tabswitch = require('modules/tabs/tabswitch2');
+
 var css = require('../_css/tabswitch.less')
 // var data = require('../_json/mall_list.json')
 
@@ -95,3 +97,6 @@ var tab_cnt_data = [
 
 // 仿太平洋的多属性选择框
 tabSwitch_likePConline( tab_nav_data, tab_cnt_data, 'tab-switch')
+
+// 仿京东
+Tabswitch( tab_nav_data, tab_cnt_data, "tab-switch2" )

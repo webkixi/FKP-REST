@@ -1,9 +1,9 @@
-var List = require('widgets/listView/list2');
+var List = require('widgets/listView/list');
 var Store = require('mixins/store');
 
 //react cnt
 var Cnt = React.createClass({
-    mixins: [Store('Uls')],
+    mixins: [Store('Jd')],
 
     getInitialState: function() {
         return {}
@@ -17,10 +17,11 @@ var Cnt = React.createClass({
     },
     loopRender: function(){
         var items=[];
+        var that = this;
         if(this.state.data){
             this.state.data.map(function(it,i){
                 items.push(
-                    <List key={'list'+i} {...this.props} data={it} cat={i} />
+                    <List key={'list'+i} {...that.props} data={it} cat={i} />
                 )
             }.bind(this))
         }
@@ -36,7 +37,7 @@ var Cnt = React.createClass({
     render: function () {
         var fill = this.loopRender();
         return(
-            <div className={'tab-cnt2'} style={{height:'auto'}}>
+            <div className={'tab-cnt'} style={{height:'auto'}}>
                 {fill}
             </div>
         )

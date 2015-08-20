@@ -41,6 +41,11 @@ var fox = React.createClass({
 				catParam = 'vender'
 		}
 
+		var icon = '';
+		if(this.props.itemIcon){
+			icon = <i>{'>'}</i>
+		}
+
 		//idf ： 每一个元素的index
 		return (
             <li data-idf={this.props.idf} data-id={k1}  data-param={catParam} data-cls={v2} className=
@@ -54,7 +59,7 @@ var fox = React.createClass({
 					})()
 				} style={sty} >
 				<div className={"hheader"} >
-					<a href={v1} target={'_blank'}>{k2}</a>
+					<a href={v1} target={'_blank'}>{k2}{icon}</a>
 				</div>
             </li>
 	) }

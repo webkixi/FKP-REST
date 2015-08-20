@@ -46,6 +46,32 @@
         }
     }
 }
+
+.vlist{
+    @extend .hlsit;
+    width: 210px;
+    background-color: #FF6600;
+    height: 400px;
+    margin-bottom: 0;
+    border: 1px solid #ff6600;
+    .item{
+        .inner{ }
+        margin: 0;
+        border-left: none;
+        font-size: 14px;
+        .active{
+            a{
+                color: #ff6600;
+            }
+        }
+        a{
+            color: #fff;
+            display: block;
+            font-weight: normal;
+        }
+    }
+}
+
 /*无margin的水平列表*/
 .slist{
     list-style: none;
@@ -278,28 +304,6 @@
     border-bottom: 1px solid red;
 }
 
-.vlist{
-    width: 210px;
-    background-color: #FF6600;
-    height: 400px;
-    margin-bottom: 0;
-    border: 1px solid #ff6600;
-    .item{
-        position: relative;
-        border-left: none;
-        font-size: 14px;
-        &.active{
-            a{
-                color: #ff6600;
-            }
-        }
-        a{
-            color: #fff;
-            display: block;
-            font-weight: normal;
-        }
-    }
-}
 .tiger2{
     .item{
         float: none;
@@ -319,7 +323,7 @@
             height: 42px;
             line-height: 42px;
         }
-    }    
+    }
     i{
         font-style: normal;
         position: absolute;
@@ -331,7 +335,7 @@
         font: 400 9px/14px consolas;
     }
 }
-.tab-cnt2{
+#tab-switch2 .tab-cnt{
     display: none;
     position: absolute;
     top: 0px;
@@ -351,8 +355,11 @@
             a{
                 font-weight: 700;
             }
-        } 
-        .item{           
+        }
+        li[data-cls="second"]{
+            display: none;
+        }
+        .item{
             font-size: 12px;
             text-align: left;
             &.active{
@@ -362,7 +369,7 @@
                         color:#fff;
                     }
                 }
-            }            
+            }
             a{
                 min-width: 10px;
                 color: #666;
