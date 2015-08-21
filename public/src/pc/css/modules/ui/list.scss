@@ -59,7 +59,7 @@
         margin: 0;
         border-left: none;
         font-size: 14px;
-        .active{
+        &.active{
             a{
                 color: #ff6600;
             }
@@ -224,7 +224,7 @@
             }
         }
     }
-    .active{
+    &.active{
         background-color: #ff6600;
         a{
             color: #fff;

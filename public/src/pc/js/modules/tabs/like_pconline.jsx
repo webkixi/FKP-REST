@@ -1,8 +1,7 @@
 
 // require compoent
-var Tabswitch = require('./_component/tabswitch');
-var Uls = require('./_component/uls');
-var SelectBar = require('./_component/select_bar');
+var Tabswitch = require('./_component/tabswitch')('pc_tab');
+var Uls = require('./_component/uls')('pc_uls');
 var render = React.render;
 
 
@@ -23,7 +22,7 @@ function likePConline( navData, cntData, ele, opts ){
             $('.tabswitch li[data-cls="second"]').addClass('active');
 
             var idf = $(this).attr('data-idf');
-            SA.setter('Uls', { data: cntData[idf] })
+            SA.setter('pc_uls', { data: cntData[idf] })
         })
     }
 
@@ -39,11 +38,6 @@ function likePConline( navData, cntData, ele, opts ){
             $(this).toggleClass('active')
         })
     }
-
-    var options = {
-
-    }
-
 
     // 渲染结构到页面
     render(

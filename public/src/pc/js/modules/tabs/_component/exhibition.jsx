@@ -2,7 +2,7 @@
 var Store = require('mixins/store');
 var Elephant = require('widgets/itemView/elephant');
 
-var Exhibition = React.createClass({
+var exhibition = {
 	mixins: [Store('Exhibition')],
 	getDefaultProps: function() {
 		return {
@@ -56,6 +56,13 @@ var Exhibition = React.createClass({
 			</div>
 		)
 	}
-});
+}
 
-module.exports = Exhibition;
+var mkExhibition = function( storeName ){
+    if( storeName )
+        exhibition.mixins = [ Store(storeName) ]
+
+    return React.createClass(exhibition);
+}
+
+module.exports = mkExhibition;

@@ -1,7 +1,7 @@
 var libs = require('libs/libs');
 var Store = require('mixins/store');
 
-var SelectBar = React.createClass({
+var selectBar = {
 	mixins: [Store('SelectBar')],
 	getInitialState: function() {
         this.addSheet();
@@ -83,6 +83,13 @@ var SelectBar = React.createClass({
             </div>
         )
     }
-});
+}
 
-module.exports = SelectBar;
+function mkSelectBar( storeName ){
+    if( storeName )
+        selectBar.mixins = [ Store( storeName ) ]
+
+    return React.createClass( selectBar );
+}
+
+module.exports = mkSelectBar;

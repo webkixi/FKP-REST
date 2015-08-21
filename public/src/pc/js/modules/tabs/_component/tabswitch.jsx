@@ -4,8 +4,8 @@ var Store = require('mixins/store');
 
 
 //react tabswitch
-var tabswitch = React.createClass({
-    mixins: [Store('tabswitch')],
+var tabswitch = {
+    // mixins: [Store('tabswitch')],
 
 	getDefaultProps: function() {
 		return {}
@@ -62,7 +62,18 @@ var tabswitch = React.createClass({
                 {this.renderChildren()}
           </div>
 	}
-});
-                // <Cnt data={this.state.cntData} listClass={'fox'} itemStyle={{width:'auto'}} />
+}
 
-module.exports = tabswitch;
+
+function mkTabSwitch( storeName ){
+    // if(storeName){
+    //     tabswitch.mixins = [Store(storeName)];
+    // }
+    
+    storeName = 'tabswitch';
+    tabswitch.mixins = [Store(storeName)];
+
+    return React.createClass(tabswitch);
+}
+
+module.exports = mkTabSwitch;

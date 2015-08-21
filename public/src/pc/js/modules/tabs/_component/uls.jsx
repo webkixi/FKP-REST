@@ -3,8 +3,10 @@ var Store = require('mixins/store');
 
 // react ULS
 // 列表容器
-// ul > li 结构的 ul
-var ULS = React.createClass({
+// 返回一个或多个 { ul > li } 结构
+
+
+var uls = {
     mixins: [Store('Uls')],
 
     getInitialState: function() {
@@ -74,6 +76,15 @@ var ULS = React.createClass({
             </div>
         )
     }
-});
+}
 
-module.exports = ULS;
+
+
+var mkuls = function( storeName ){
+    if( storeName )
+        uls.mixins = [ Store(storeName) ]
+
+    return React.createClass(uls);
+}
+
+module.exports = mkuls;
