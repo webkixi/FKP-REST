@@ -116,6 +116,7 @@ function init(app,mapper,rend){
         }else if(param.cat === 'captcha'){
             yield captcha.call(this);
         }else if(param.cat === 'weixin'){
+            console.log('aaaaaaaaaaa');
             yield wechat.call(this,app);
         }
         else
