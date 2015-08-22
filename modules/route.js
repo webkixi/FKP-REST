@@ -17,8 +17,15 @@ var wechat = require('co-wechat')
 var wx_config = {
   token: 'agzgz',
   appid: 'wxc9edcce4f4d915e6',
+  appsecret: '926ba5478ce3f06ed153d294b1b22030',
   encodingAESKey: 'a4JE5P7ImZWnU6UpLVgr6uldgrthwiwkweo8LTapZmC'
 };
+var wx_config2 = {
+  token: 'agzgz',
+  appid: 'wxc9edcce4f4d915e6',
+  encodingAESKey: 'ukoVZyQxYlxcEFiNq9tkuWqQxQrYCjXTkIH9bylDVIS'
+};
+//https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxc9edcce4f4d915e6&secret=926ba5478ce3f06ed153d294b1b22030
 
 
 
@@ -176,7 +183,8 @@ function *uploader(){
 
 function *wechat(app){
     libs.clog('微信')
-    app.use(wechat('agzgz').middleware(function *() {
+    app.use(wechat(wx_config2).middleware(function *() {
+        console.log('yyyyyyyyyyyyyyyyy');
         var message = this.weixin;
           if (message.FromUserName === 'diaosi') {
             // 回复屌丝(普通回复)
