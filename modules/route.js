@@ -183,8 +183,7 @@ function *uploader(){
 
 function *weixin(app){
     libs.clog('微信')
-    console.log(this.req.body);
-    app.use(wechat(wx_config2).middleware(function *() {
+    app.use(wechat('agzgz').middleware(function *() {
         console.log('yyyyyyyyyyyyyyyyy');
         var message = this.weixin;
           if (message.FromUserName === 'diaosi') {
