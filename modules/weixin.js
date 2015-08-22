@@ -1,28 +1,14 @@
 /**
  * Module dependencies.
  */
-var fs = require('fs');
 var libs = require('../libs/libs')
-var render;
 var config = require('../config');
-// require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
 var wechat = require('co-wechat')
-var wx_config = {
-  token: 'agzgz',
-  appid: 'wxc9edcce4f4d915e6',
-  appsecret: '926ba5478ce3f06ed153d294b1b22030',
-  encodingAESKey: 'a4JE5P7ImZWnU6UpLVgr6uldgrthwiwkweo8LTapZmC'
-};
-var wx_config2 = {
-  token: 'agzgz',
-  appid: 'wxc9edcce4f4d915e6',
-  encodingAESKey: 'ukoVZyQxYlxcEFiNq9tkuWqQxQrYCjXTkIH9bylDVIS'
-};
 //https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxc9edcce4f4d915e6&secret=926ba5478ce3f06ed153d294b1b22030
 
-function weixin(token){
-    return wechat(token).middleware(function *() {
+function weixin(){
+    return wechat(config.weixin).middleware(function *() {
         var message = this.weixin;
           if (message.FromUserName === 'diaosi') {
             // 回复屌丝(普通回复)
