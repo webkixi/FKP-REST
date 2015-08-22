@@ -183,6 +183,7 @@ function *uploader(){
 
 function *wechat(app){
     libs.clog('微信')
+    console.log(this.req.body);
     app.use(wechat(wx_config2).middleware(function *() {
         console.log('yyyyyyyyyyyyyyyyy');
         var message = this.weixin;
