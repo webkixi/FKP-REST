@@ -30,7 +30,9 @@ var tabswitch = {
         var that = this;
         if(this.props.data){
             var data = this.props.data;
-            SA.setter('tabswitch',{datas:data});
+			this.setState({
+				datas: data
+			})
         }
 
         if(this.props.cntData){
@@ -66,12 +68,8 @@ var tabswitch = {
 
 
 function mkTabSwitch( storeName ){
-    // if(storeName){
-    //     tabswitch.mixins = [Store(storeName)];
-    // }
-    
-    storeName = 'tabswitch';
-    tabswitch.mixins = [Store(storeName)];
+    if(storeName)
+        tabswitch.mixins = [Store(storeName)];
 
     return React.createClass(tabswitch);
 }
