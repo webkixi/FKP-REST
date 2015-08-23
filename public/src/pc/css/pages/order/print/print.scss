@@ -1,11 +1,11 @@
-@import "../../../modules/_settings/_setting_pages";
+@import "../../../global/_settings/_setting_pages";
 @import "../../_common/com.scss";
 /*电子合同*/
 .ele_contract{
 	color: #666;
 	margin-left: 20px;
 	font-size: 16px;
-	.ele_chead{ 
+	.ele_chead{
 		text-align: center;
 		h2{
 			font-weight: 600;
@@ -38,7 +38,7 @@
 			padding: 0 5px;
 			min-width: 60px;
 			text-align: center;
-		}		
+		}
 	}
 	h3,em,h4{
 		font-size: 16px;

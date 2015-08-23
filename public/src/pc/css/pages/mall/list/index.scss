@@ -1,4 +1,4 @@
-@import "../../../modules/_settings/_setting_pages";
+@import "../../../global/_settings/_setting_pages";
 @import "../../_common/com.scss";
 /***************************************商城首页 start*****************************************/
 
@@ -7,14 +7,14 @@
 	z-index: 70;
 	ul.nav{
 		border-bottom: 1px solid #ff6600;
-		border-top: 1px solid #ccc; 
+		border-top: 1px solid #ccc;
 		border-right: 1px solid #ddd;
 		li{
 			a{
 				border-left: 1px solid #ddd;
 				min-width: 100px;
-				text-align: center; 
-				margin-right: 0; 
+				text-align: center;
+				margin-right: 0;
 				display: block;
 				border-radius: 0 0 0 0;
 			}
@@ -24,10 +24,10 @@
 		&>li{
 			&.active{
 				a{
-					border: 1px solid #ff6600; 
-					border-bottom-color: transparent;	
+					border: 1px solid #ff6600;
+					border-bottom-color: transparent;
 					&:hover,&:focus{
-						border: 1px solid #ff6600; 
+						border: 1px solid #ff6600;
 						border-bottom-color: transparent;
 					}
 				}
@@ -37,10 +37,10 @@
 	.sort_product{
 		li{
 			dd{
-				margin-bottom:0; 
-				width: 175px; 
-				overflow:hidden; 
-				white-space:nowrap; 
+				margin-bottom:0;
+				width: 175px;
+				overflow:hidden;
+				white-space:nowrap;
 				text-overflow:ellipsis;
 			}
 		}
@@ -66,8 +66,8 @@
 }
 .filter{
 	-webkit-transition: all .2s ease-in 0s;
-	transition: all .2s ease-in 0s; 
-	border: 1px solid #ccc; 
+	transition: all .2s ease-in 0s;
+	border: 1px solid #ccc;
 	border-top: none;
 }
 .filter-con{
@@ -104,15 +104,15 @@
 	}
 }
 .filter-tita{
-	float:left; 
-	display: inline-block; 
+	float:left;
+	display: inline-block;
 	width:61px;
 	text-align:right;
 	margin-right:43px;
 }
 .filter-con,.filter-act{
-	float:left; 
-	display: inline-block; 
+	float:left;
+	display: inline-block;
 }
 .filter-items-blank{
 	margin-top:-1px;
@@ -127,20 +127,20 @@
 
 }
 .cateTags{
-	dl{ 
+	dl{
 		padding-top: 20px;
-		dt{ 
-			display: inline-block; 
+		dt{
+			display: inline-block;
 			margin-left: 30px;
 		}
-		dd{ 
-			display: inline-block; 
-			margin-right: 20px; 
-			background: #ff6600; 
+		dd{
+			display: inline-block;
+			margin-right: 20px;
+			background: #ff6600;
 			padding: 3px 3px 3px 10px;
-			a { 
+			a {
 				padding-right: 20px;
-				background:url(../images/close.gif) right 7px no-repeat; 
+				background:url(../images/close.gif) right 7px no-repeat;
 				color: #fff;
 			}
 		}
@@ -155,7 +155,7 @@
 		float:left;
 		position:relative;
 		ul{
-			overflow:hidden; 
+			overflow:hidden;
 			margin: 0;
 			li{
 				float:left;
@@ -186,7 +186,7 @@
 				}
 				.icon_view{
 					width:9px;
-					height:9px; 
+					height:9px;
 					background-position:-105px -10px;
 					top: 16px;
 					right: 10px;

@@ -71,7 +71,7 @@ var uls = {
     render: function () {
         var fill = this.loopRender();
         return(
-            <div className={'tab-cnt'} style={{width:'100%',height:'auto'}} >
+            <div className={'tab-uls'}>
                 {fill}
             </div>
         )

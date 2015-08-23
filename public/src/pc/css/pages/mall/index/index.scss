@@ -1,10 +1,10 @@
-@import "../../../modules/_settings/_setting_pages";
+@import "../../../global/_settings/_setting_pages";
 @import "../../_common/com.scss";
 
 .filter{
 	-webkit-transition: all .2s ease-in 0s;
-	transition: all .2s ease-in 0s; 
-	border: 1px solid #ccc; 
+	transition: all .2s ease-in 0s;
+	border: 1px solid #ccc;
 	border-top: none;
 	margin-bottom:0px;
 	.filter-items {

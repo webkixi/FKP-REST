@@ -1,4 +1,4 @@
-@import "../../../modules/_settings/_setting_pages";
+@import "../../../global/_settings/_setting_pages";
 @import "../../_common/com.scss";
 /***************************************注册 start*****************************************/
 .r_progress em{
@@ -26,7 +26,7 @@ div.r_wrap_list{
 	margin: 0 auto;
 	min-height: 500px;
 	input{
-		width: 335px; 
+		width: 335px;
 		height:39px;
 		padding:0 30px;
 		display: inline-block;

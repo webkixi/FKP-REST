@@ -1,4 +1,4 @@
-@import "../../../modules/_settings/_setting_pages";
+@import "../../../global/_settings/_setting_pages";
 @import "../../_common/com.scss";
 /***************************************登录 start*****************************************/
 input.bd_col{
@@ -22,7 +22,7 @@ p.text-danger,p.text-danger:hover{
 	}
 	li{
 		float:left;
-		margin-left:13px; 
+		margin-left:13px;
 		color:#e6e6e6;
 		line-height:62px;
 	}
@@ -130,19 +130,19 @@ p.text-danger,p.text-danger:hover{
 	.code{
 		width: 160px;
 	}
-	img{ 
-		float: left; 
-		width: 84px; 
-		height: 39px; 
+	img{
+		float: left;
+		width: 84px;
+		height: 39px;
 		margin:0 15px;
 	}
-	a{ 
-		float: left; 
-		color: #333; 
+	a{
+		float: left;
+		color: #333;
 		margin-top: 10px;
 	}
 }
-.login_reg{ 
+.login_reg{
 	text-align: right;
 }
 .login-yh .login_password{
@@ -154,7 +154,7 @@ p.text-danger,p.text-danger:hover{
 	text-align: center;
 	width: 100%;
 	display: block;
-	margin-top: 10px; 
+	margin-top: 10px;
 	color: #ff6600;
 }
 /***************************************登录 end*****************************************/

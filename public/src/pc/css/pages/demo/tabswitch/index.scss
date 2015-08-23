@@ -1,0 +1,52 @@
+@import "../../../modules/tabs/tabs";
+#tab-switch2{
+	margin-top: 20px;
+	position: relative;
+}
+
+#tab-switch2 .tab-uls{
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 210px;
+    min-height: 400px;
+    background-color: #f7f7f7;
+    border: 1px solid #ff6600;
+    width: 100%;
+    height: auto;
+    .vlist{
+        background: none;
+        width: auto;
+        height: auto;
+        border: none;
+        padding-left: 80px;
+        li[data-cls="first"]{
+            padding: 5px 0 5px 20px;
+            a{
+                font-weight: 700;
+            }
+        }
+        li[data-cls="second"]{
+            display: none;
+        }
+        .item{
+            font-size: 12px;
+            text-align: left;
+            &.active{
+                a{
+                    color: #fff;
+                    &:hover{
+                        color:#fff;
+                    }
+                }
+            }
+            a{
+                min-width: 10px;
+                color: #666;
+                &:hover{
+                    color:#ff6600;
+                }
+            }
+        }
+    }
+}

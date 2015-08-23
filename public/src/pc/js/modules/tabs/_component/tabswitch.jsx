@@ -59,7 +59,7 @@ var tabswitch = {
     },
 
 	render:function(){
-		return <div className={'tabswitch wid-12 u-clearfix'}>
+		return <div className={'tabswitch u-clearfix'}>
 				<List {...this.props} data={this.state.datas}/>
                 {this.renderChildren()}
           </div>

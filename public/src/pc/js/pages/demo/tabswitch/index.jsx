@@ -1,7 +1,6 @@
 var tabSwitch_likePConline = require('modules/tabs/like_pconline')
 var Tabswitch = require('modules/tabs/like_jd');
 
-var css = require('../_css/tabswitch.less')
 // var data = require('../_json/mall_list.json')
 
 //标签切换标题

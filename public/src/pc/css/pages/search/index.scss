@@ -1,17 +1,17 @@
-@import "../../modules/_settings/_setting_pages";
+@import "../../global/_settings/_setting_pages";
 @import "../_common/com.scss";
 @import "../_common/bootstrap.min.scss";
 
 /*搜索页面 start*/
-.col-ff6600{ 
+.col-ff6600{
   color: #ff6600;
 }
 .search_curr{
-  p{ 
+  p{
     font-size: 16px;
-    i{ 
-      margin: 0 5px; 
-      color: #ff6600; 
+    i{
+      margin: 0 5px;
+      color: #ff6600;
       font-style: normal;
     }
   }
@@ -23,12 +23,12 @@
     border-bottom: 2px solid #eb6d1b;
     margin-bottom: 20px;
     font-size: 26px;
-    color: #666; 
+    color: #666;
     position: relative;
     padding-left: 18px;
-    b{ 
-      font-weight: 500; 
-      font-size: 14px; 
+    b{
+      font-weight: 500;
+      font-size: 14px;
       margin-left: 15px;
     }
   }
@@ -41,7 +41,7 @@
     width: 98%;
   }
 }
-.search_item{ 
+.search_item{
   margin-bottom: 50px;
   h2{
     height: 40px;
@@ -49,12 +49,12 @@
     border-bottom: 2px solid #eb6d1b;
     margin-bottom: 20px;
     font-size: 26px;
-    color: #666; 
+    color: #666;
     position: relative;
     padding-left: 18px;
-    b{ 
-      font-weight: 500; 
-      font-size: 14px; 
+    b{
+      font-weight: 500;
+      font-size: 14px;
       margin-left: 15px;
     }
   }
@@ -67,21 +67,21 @@
 .search_ilist{
   position: relative;
 }
-.search_ilul { 
+.search_ilul {
   margin-left: -6px;
   ul{
     overflow: hidden;
     li{
-      float: left; 
-      width: 195px; 
+      float: left;
+      width: 195px;
       margin-bottom: 15px;
       dl{
         margin: 0 10px;
-        dt{ 
-          width: 175px; 
+        dt{
+          width: 175px;
           height: 142px;
-          img{ 
-            width: 100%; 
+          img{
+            width: 100%;
             height: 142px;
           }
         }

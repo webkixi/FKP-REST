@@ -1,4 +1,4 @@
-@import "../../../modules/_settings/_setting_pages";
+@import "../../../global/_settings/_setting_pages";
 @import "../../_common/com.scss";
 /***************************************找回密码 start*****************************************/
 .reg_head{
@@ -24,23 +24,23 @@
 	margin: 50px 0;
 	min-height: 325px;
 }
-div.r_wrap_list{ 
-	width: 730px; 
+div.r_wrap_list{
+	width: 730px;
 	margin: 0 auto;
 	min-height: 500px;
-	input{ 
-		width: 335px; 
-		display: inline-block; 
+	input{
+		width: 335px;
+		display: inline-block;
 		margin-top: 0;
 	}
-	input.user_adetail{ 
+	input.user_adetail{
 		margin-top: 15px;
 	}
 	input.phone_yzm{
 		width: 185px;
 		background:none;
 	}
-	select{ 
+	select{
 		width: 110px;
 	}
 	.form-group{
@@ -62,23 +62,23 @@ div.r_wrap_list{
 .r_wrap_list.r_wyzsj,.r_wrap_list.r_szpwd{
 	padding-top: 50px;
 }
-.r_logo{ 
-	overflow:auto; 
-	zoom:1;  
+.r_logo{
+	overflow:auto;
+	zoom:1;
 	width:100%;
-	.rlogo{ 
-		margin-left:27px; 
-		font-size:24px; 
+	.rlogo{
+		margin-left:27px;
+		font-size:24px;
 		color:#666666;
-		img{ 
-			height: 60px; 
+		img{
+			height: 60px;
 			width: 160px;
 		}
 	}
-	li{ 
+	li{
 		float:left;
 		margin-left:13px;
-		color:#e6e6e6; 
+		color:#e6e6e6;
 		line-height:62px;
 	}
 }
@@ -91,8 +91,8 @@ div.r_wrap_list{
 	background-repeat:no-repeat;
 	height:15px;
 	line-height:15px;
-	a{ 
-		color:#ff6600; 
+	a{
+		color:#ff6600;
 		font-size:12px;
 	}
 }
@@ -130,10 +130,10 @@ div.r_wrap_list{
 	background-position: 0 -38px;
 }
 #vCode{
-	border:none; 
-	color: #333; 
+	border:none;
+	color: #333;
 	padding: 0;
-	width: 50px!important; 
+	width: 50px!important;
 	margin-left: 20px;
 }
 
