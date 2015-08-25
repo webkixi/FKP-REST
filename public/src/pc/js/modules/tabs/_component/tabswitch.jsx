@@ -20,8 +20,9 @@ var tabswitch = {
 	},
 
     addSheet: function(){
-        //添加css到头部
-        tabcss = '.tabswitch{margin-bottom:10px;}'
+        //模块内CSS
+		//添加css/modules到头部
+		tabcss = '/css/t/tabs/tabs.css'
         libs.addSheet([tabcss,'tabswt']);
     },
 

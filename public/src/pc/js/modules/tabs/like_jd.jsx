@@ -8,14 +8,19 @@ var Uls = require('./_component/uls')('Jd_uls');
 var render = React.render;
 
 
-//react tabswitch
+/*
+* tab_nav_data {Array}   一维数组
+* tab_cnt_data {Array}   二维数组
+* ele     {String}  页面元素的ID
+* {return}  渲染结构到指定ID
+*/
 function tabswitch(tab_nav_data,tab_cnt_data,ele,opts){
     var tabItemMethod = function(){
         $(this).hover(function(e){
             $("#"+ele+" .tab-uls").show();
             $(this).addClass('active').siblings().removeClass("active");
             var idf = $(this).attr('data-idf');
-            SA.setter('Jd_uls', { data: [ tab_cnt_data[idf] ] })
+            SA.setter('Jd_uls', { data: tab_cnt_data[idf] })
         },function(){
             $("#"+ele+" .tab-uls").hide();
         });

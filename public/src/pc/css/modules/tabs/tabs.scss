@@ -1,4 +1,10 @@
-.tab-uls{
-    width: auto;
-    height: auto;
+.tabswitch{
+    margin-bottom:0;
+    .list-wrap{
+        position: static;
+        .tab-uls{
+            width: auto;
+            height: auto;
+        }
+    }
 }

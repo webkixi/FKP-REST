@@ -127,7 +127,7 @@ var tmpApp = React.createClass({
 	render: function () {
 		var fills = this.loopRender();
 		return (
-			<div>
+			<div className={'list-wrap'}>
 				{fills}
 			</div>
 		)

@@ -35,6 +35,7 @@ function likePConline( navData, cntData, ele, opts ){
             }else{
                 $(this).siblings().removeClass('active')
             }
+            console.log('aaaaaaaaaa');
             $(this).toggleClass('active')
         })
     }
