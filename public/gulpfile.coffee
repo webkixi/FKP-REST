@@ -55,8 +55,12 @@ gulp.task 'html', getTask('html')
 gulp.task 'html:build', getTask('html','pro')
 
 # 拷贝如编辑器这样的无法分解的前端js
-gulp.task 'copyThirdJsToDist:dev', getTask('js-copy2-dev')
-gulp.task 'copyThirdJsToDist:pro', getTask('js-copy2-build')
+gulp.task 'copyThirdJsToDist:dev', ['copyThirdCssToDist:dev'], getTask('js-copy2-dev')
+gulp.task 'copyThirdJsToDist:pro', ['copyThirdCssToDist:pro'], getTask('js-copy2-build')
+
+# 拷贝如组件（JS + CSS）类似的CSS
+gulp.task 'copyThirdCssToDist:dev', getTask('css-copy2-dev')
+gulp.task 'copyThirdCssToDist:pro', getTask('css-copy2-build')
 
 # 生成API文档，有待改良
 gulp.task 'doc', getTask('doc')
