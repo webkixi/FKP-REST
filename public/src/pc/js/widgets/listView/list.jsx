@@ -85,7 +85,8 @@ var tmpApp = React.createClass({
 				}
 			});
 			if(items.length){
-				return <ul key={libs.guid('ul-')} className={cls} style={sty}>
+				var group = libs.guid('group-')
+				return <ul data-group={group} key={libs.guid('ul-')} className={cls} style={sty}>
 					{items}
 				</ul>
 			}else {
