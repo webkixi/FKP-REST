@@ -57,7 +57,7 @@ makeHtmlListData = (htmlPath) ->
                     if(fs.existsSync(firstMd))
                         desContent = fs.readFileSync(firstMd,'utf8')
                         mdname = gutil.replaceExtension(filename,'_md.html')
-                        des = _subString(desContent,40,true)
+                        des = _subString(desContent,200,true)
                         fileprofile.des = des
                         fileprofile.mdname = mdname
 
