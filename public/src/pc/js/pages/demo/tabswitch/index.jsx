@@ -24,6 +24,7 @@ var tab_cnt_data = [
         [
             {attr: 'first', title: '前端开发'},
             {attr: 'second', title: '全部'},
+            {url: 'http://www.pconline.com.cn', title: '我是链接'},
             {url: 'http://www.163.com', title: 'HTML/CSS'},
             'JavaScript'  ,
             'CSS3'  ,
