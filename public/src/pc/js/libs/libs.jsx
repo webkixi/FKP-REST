@@ -158,6 +158,7 @@ function arg2arr(s){
 */
 function addSheet() {
     var doc, tmpCssCode, cssCode, id;
+
     if (arguments.length == 1) {
         doc = document;
         tmpCssCode = arguments[0]
@@ -167,9 +168,21 @@ function addSheet() {
     } else {
         alert("addSheet函数最多接受两个参数!");
     }
+
+    var headElement = doc.getElementsByTagName("head")[0];
+
     if(getObjType(tmpCssCode)==='Array'){
         id = tmpCssCode[1];
         cssCode = tmpCssCode[0];
+    }
+    if(cssCode.indexOf('http')===0 || cssCode.indexOf('/')===0){
+        if(document.getElementById(id))
+            return;
+        var tmpLink = doc.createElement('link');
+        tmpLink.setAttribute("href", cssCode);
+        tmpLink.setAttribute("id", id);
+        headElement.appendChild(tmpLink);
+        return;
     }
     if (! +"\v1") {//增加自动转换透明度功能，用户只需输入W3C的透明样式，它会自动转换成IE的透明滤镜
         var t = cssCode.match(/opacity:(\d?\.\d+);/);
@@ -178,7 +191,6 @@ function addSheet() {
         }
     }
     cssCode = cssCode + "\n"; //增加末尾的换行符，方便在firebug下的查看。
-    var headElement = doc.getElementsByTagName("head")[0];
     var styleElements = headElement.getElementsByTagName("style");
 
 
@@ -192,6 +204,9 @@ function addSheet() {
     //     }
     // }
     // var styleElement = styleElements[0];
+
+    if(document.getElementById(id))
+        return;
 
     var tempStyleElement = doc.createElement('style'); //w3c
     tempStyleElement.setAttribute("rel", "stylesheet");
