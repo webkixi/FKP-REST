@@ -629,7 +629,7 @@ module.exports = {
 
                           var re = /<h2[^>]?.*>(.*)<\/h2>/ig;
                           var mdMenu='', mdMenuList = data.match(re);
-                          if(mdMenuList.length){
+                          if(mdMenuList&&mdMenuList.length){
                               mdMenuList.map(function(item){
                                   mdMenu += '<li>'+ re.exec(item)[1]+'</li>\n\r';
                                   re.lastIndex = 0;
