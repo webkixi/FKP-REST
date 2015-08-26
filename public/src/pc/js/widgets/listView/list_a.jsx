@@ -1,6 +1,6 @@
 /** @jsx React.DOM
 * list 通用组件
-* 返回 div > (ul > li)*n
+* 返回 div > a*n
 */
 var libs = require('libs/libs')
 var Fox = require('../itemView/ant');
