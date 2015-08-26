@@ -1,7 +1,13 @@
-//这个JQ扩展插件用于商品的切换展示
-
-$(function(){ 
-	
+(function(f) {
+	if (typeof exports === "object" && typeof module !== "undefined") {
+		module.exports = f()
+	} else if (typeof define === "function" && define.amd) {
+		define( [], f)
+	} else {
+		f()
+	}
+}
+(function(){ 	
 	$(".pro_carousel").each(function(index,_this){
 		_this=$(_this);
 		var inner=_this.find(".pro_carousel_ul li");
@@ -60,6 +66,9 @@ $(function(){
 			}
 			
 			return false;
+			console.log(touch.pageY,touch.pageX)
+			console.log(ev.clientY,ev.clientX)
+			console.log(_this.DX,_this.MX)
 		});
 		_this.on('touchend',function(e){
 			//if(_this.mark)return;
@@ -74,7 +83,6 @@ $(function(){
 					
 					return false;
 				}
-		
 			if(_this.DX-_this.MX>20){
 				if(index<_this.num)
 					btnFlag = true;
@@ -84,12 +92,11 @@ $(function(){
 				if(index>0)
 					btnFlag = false;
 					pro_carousel();
-			}
+			}			
 			_this.mark = true;
 			_this.slide();
 			return false;
 		});
-		console.log(_this.DX,_this.MX)
 		_this.slide=function()
 		{
 			btnFlag = true;
@@ -103,14 +110,14 @@ $(function(){
 				inner.animate({left:-width},"normal");
 				inner.eq(index).stop(true,true).css("left",index*width);
 			}else{
-				index = index--<(_this.num-2)?_this.num-1:index;
-				nner.animate({left:width},"normal");
+				index = index--<_this.num-2?(_this.num-1):index;
+				inner.animate({left:width},"normal");
 				inner.eq(index).stop(true,true).css("left",-index*width);
+				console.log(index)
 			}
-			console.log(index)
 			inner.eq(index).animate({left:"0"},"normal");
 			indicators.eq(index).addClass("active").siblings().removeClass("active");
 		}
 		_this.init();
 	});
-});
+}));
