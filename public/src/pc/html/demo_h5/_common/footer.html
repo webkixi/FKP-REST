@@ -1,0 +1,26 @@
+<div class="footer">
+	<div class="foot_lan">
+		<a href="#" onclick="changeLang('cn');" class="head_lanE [#if Session.langType == 'cn' || Session.langType == '']active[/#if]">中文</a>
+					<a href="#" onclick="changeLang('en');" [#if Session.langType == 'en']class="active"[/#if]>英文</a>
+	</div>
+	<div class="container">
+		<p>© <a href="http://www.cedarcapital.com.cn">雪松资本 · 君华集团</a> all rights reserved.&nbsp;&nbsp;&nbsp;&nbsp;粤ICP备11024750号</p>
+	</div>
+</div>
+<script type="text/javascript">
+function changeLang(lang){
+	var url = "lang.html?langType="+lang;
+	var uri = window.location.pathname + window.location.search;
+	$.ajax({
+		type : "GET",
+		url : url,
+		success : function(result) {
+			if ("success" == result){
+				location.href = uri;
+			}
+		},
+		error : function() {
+		}
+	});
+}
+</script>
