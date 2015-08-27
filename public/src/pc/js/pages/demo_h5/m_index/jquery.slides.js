@@ -7,12 +7,7 @@
 		f()
 	}
 }
-<<<<<<< HEAD:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
 (function(){ 	
-=======
-(function(){ 
-	
->>>>>>> lgh:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
 	$(".pro_carousel").each(function(index,_this){
 		_this=$(_this);
 		var inner=_this.find(".pro_carousel_ul");
@@ -93,24 +88,14 @@
 				}
 =======
 				}*/
-		
->>>>>>> lgh:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
 			if(_this.DX-_this.MX>20){
-				if(index<_this.num-1)index++;
-				console.log(index,_this.num)
-				
+				if(index<_this.num-1)index++;				
 				inner.animate({
 					left:-width*index
 				},500)
 				indicators.find("li").eq(index).addClass("active").siblings().removeClass("active");
 			}
 			if(_this.DX-_this.MX<-20){
-<<<<<<< HEAD:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
-				if(index>0)
-					btnFlag = false;
-					pro_carousel();
-			}			
-=======
 				if(index>0)index--;
 				
 				inner.animate({
@@ -118,16 +103,10 @@
 				},500)
 				indicators.find("li").eq(index).addClass("active").siblings().removeClass("active");
 			}
->>>>>>> lgh:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
 			_this.mark = true;
 			_this.slide();
 			return false;
 		});
-<<<<<<< HEAD:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
-=======
-		
-		
->>>>>>> lgh:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
 		_this.slide=function()
 		{
 			cycle=setInterval(function(){
@@ -148,20 +127,11 @@
 				index = index++<(_this.num-1)?index:0;
 			}else{
 				index = index--<_this.num-2?(_this.num-1):index;
-<<<<<<< HEAD:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
-				inner.animate({left:width},"normal");
-				inner.eq(index).stop(true,true).css("left",-index*width);
-				console.log(index)
-			}
-			inner.eq(index).animate({left:"0"},"normal");
-			indicators.eq(index).addClass("active").siblings().removeClass("active");
-=======
 			}
 			inner.animate({
 					left:-width*index
 				},500)
 			indicators.find("li").eq(index).addClass("active").siblings().removeClass("active");
->>>>>>> lgh:public/src/pc/js/pages/demo_h5/m_index/jquery.slides.js
 		}
 		_this.init();
 	});
