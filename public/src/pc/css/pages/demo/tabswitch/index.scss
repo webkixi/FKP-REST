@@ -1,52 +1,35 @@
 //页面业务样式
-#tab-switch2{
-	margin-top: 20px;
-	position: relative;
-	.list-wrap{ //见list.scss结构
-		position: absolute;
-	}
-	.tab-uls{
-	    // display: none;	    
-	    background-color: #f7f7f7;
-	    height: auto;
-		margin-left: 210px;
-		.list-wrap{  //见list.scss结构
-			position: static;
-		}
-	    .vlist{
-	        background: none;
-	        width: auto;
-	        height: auto;
-	        border: none;
-	        padding-left: 80px;
-	        li[data-cls="first"]{
-	            padding: 5px 0 5px 20px;
-	            a{
-	                font-weight: 700;
-	            }
-	        }
-	        li[data-cls="second"]{
-	            display: none;
-	        }
-	        .item{
-	            font-size: 12px;
-	            text-align: left;
-	            &.active{
-	                a{
-	                    color: #fff;
-	                    &:hover{
-	                        color:#fff;
-	                    }
-	                }
-	            }
-	            a{
-	                min-width: 10px;
-	                color: #666;
-	                &:hover{
-	                    color:#ff6600;
-	                }
-	            }
-	        }
-	    }
-	}
-}
+// #tab-switch2{
+// 	.tab-uls{
+// 	    background-color: #f7f7f7;
+// 	    height: auto;
+// 		margin-left: 210px;
+// 	    .vlist{
+// 	        background: none;
+// 	        width: auto;
+// 	        height: auto;
+// 	        border: none;
+// 	        padding-left: 80px;
+// 	        li[data-cls="first"]{
+// 	            padding: 5px 0 5px 20px;
+// 	            a{
+// 	                font-weight: 700;
+// 	            }
+// 	        }
+// 	        li[data-cls="second"]{
+// 	            display: none;
+// 	        }
+// 	        .item{
+// 	            font-size: 12px;
+// 	            text-align: left;
+// 	            a{
+// 	                min-width: 10px;
+// 	                color: #666;
+// 	                &:hover{
+// 	                    color:#ff6600;
+// 	                }
+// 	            }
+// 	        }
+// 	    }
+// 	}
+// }

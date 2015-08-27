@@ -16,7 +16,6 @@ var tab_nav_data = [
     '数据处理',
     '图像处理'
 ]
-
 //标签切换内容
 var tab_cnt_data = [
     //0
@@ -104,7 +103,6 @@ var tab_mc_data = [
     '数据处理',
     '图像处理'
 ]
-
 //仿幕课网数据
 var mc_cnt_data = [
     //0
@@ -155,7 +153,7 @@ var mc_cnt_data = [
         'Node.js'  ,
         'Bootstrap' ,
         'WebApp',
-        '前端工具'        
+        '前端工具'
     ],
     //1
     [
@@ -210,11 +208,48 @@ var mc_select_bar = [
 
 
 
+
+/*
+* 仿京东nav数据
+*/
+var jd_nav_data = [
+    '家用电器',
+    ['手机', '数码','京东通信'],
+    ['电脑', '办公'],
+    ['家居', '家具','家装','厨具'],
+    ['男装', '女装','内衣','珠宝'],
+]
+
+var jd_images_data = [
+    {img:'/images/jd/1.jpg', title:'hahah'},
+    {img:'/images/jd/2.jpg', title:'fdsfdsf'},
+    {img:'/images/jd/3.jpg', title:'ggggggg'},
+    {img:'/images/jd/4.jpg', title:'eeeeeeee'},
+    {img:'/images/jd/5.jpg', title:'yyyyyyy'},
+    {img:'/images/jd/6.jpg', title:'aaaaaaaaa'},
+    {img:'/images/jd/7.jpg', title:'nnnnnnnn'},
+    {img:'/images/jd/8.jpg', title:'kkkkkkk'}
+]
+
+
+
+
+
+
+
+
 // 仿太平洋的多属性选择框
+// Tabswitch( '导航数据', '分类详细数据', '页面容器id' )
 tabSwitch_likePConline( tab_nav_data, tab_cnt_data, 'tab-switch')
 
+
+
 //仿幕课网
+// Mooc( '导航数据', '分类详细数据', '热点数据', '页面容器id' )
 Mooc( tab_mc_data, mc_cnt_data, mc_select_bar, "tab-switch-mooc" )
 
-// 仿京东
-Tabswitch( tab_nav_data, tab_cnt_data, "tab-switch2" )
+
+
+// 仿京东首页详细分类导航
+// Tabswitch( '导航数据', '分类详细数据', '热点数据', '品牌图片数据', '页面容器id' )
+Tabswitch( jd_nav_data, tab_cnt_data, tab_nav_data, jd_images_data, "tab-switch2" )

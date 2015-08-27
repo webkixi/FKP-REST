@@ -66,7 +66,7 @@
         }
         a{
             color: #fff;
-            display: block;
+            display: inline-block;
             font-weight: normal;
         }
     }
@@ -254,6 +254,12 @@
     background-color: #ff6600;
 }
 
+.fox2{
+    @extend .fox;
+    padding: 0;
+    margin: 0;
+}
+
 //tabswitch 的头部切换栏
 // item  <li class="item">
 // inner <li ..><div class="inner">
@@ -305,10 +311,17 @@
 }
 
 .tiger2{
+    color: #fff;
     .item{
+        padding: 5px 10px;
         float: none;
+        a{
+            line-height: 30px;
+            margin-right: 0px;
+        }
         &.active{
             background-color: #fff;
+            color: #ff6600;
             border:none;
             &:first-child{
                 border-left:none;
@@ -316,6 +329,9 @@
             }
             a{
                 color: #ff6600;
+                &:hover{
+                    text-decoration: underline;
+                }
             }
         }
         .hheader{

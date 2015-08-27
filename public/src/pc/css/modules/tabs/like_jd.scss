@@ -1,0 +1,34 @@
+.ul-fox{padding-left: 100px}
+.catFilter {
+    .tab-uls{
+        height: auto;
+        li[data-cls="first"]{
+            font-weight:bold;
+            padding: 5px 0 5px 20px;
+        }
+        li[data-cls="second"]{
+            display: none;
+        }
+    }
+}
+.catFilter{
+    .popBox{
+        margin-left:210px;
+        background-color: #f7f7f7;
+        .pobLeft{
+            float: left;
+            width:75%;
+            .leftTop{
+                // background-color:#efefef;
+                height:60px;
+                padding:15px 27px 0;
+                .tabswitch{}
+            }
+        }
+        .popRight{
+            float: left;
+            width:25%;
+            padding:5px;
+        }
+    }
+}
