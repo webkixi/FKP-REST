@@ -48,14 +48,10 @@ var tmpApp = React.createClass({
 		var that = this;
 		if(that.props.itemView){
 			var view = that.props.itemView;
-			var props = {
-				idf: opts.i,
-				key: 'view'+opts.i,
-				data: opts.item,
-				itemClass: that.props.itemClass,
-				itemStyle: that.props.itemStyle,
-				itemMethod: that.props.itemMethod
-			}
+			var props = libs.clone(that.props);
+			props.idf = opts.i;
+			props.key = 'view'+opts.i;
+			props.data = opts.item;
 			return React.createElement(view, props, that.props.children);
 		}else{
 			return <Fox idf={opts.i} key={'fox'+opts.i} {...that.props} data={opts.item} />;
@@ -78,10 +74,17 @@ var tmpApp = React.createClass({
 		function organizeData(record){
 			var items = [];
 			record.map(function(item,i){
-				if(Array.isArray(item)){
-					itemCollection.push(organizeData(item));
+				if (Array.isArray(item)){
+
+					//inline 将数组元素放置在一个li中
+					if(that.props.inline){
+						var it = that._dealWithItemView({i: i, item: item})
+						items.push(it);
+					}
+					else
+						itemCollection.push(organizeData(item));
 				}
-				else{
+				else {
 					var it = that._dealWithItemView({i: i, item: item})
 					items.push(it);
 				}

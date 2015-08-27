@@ -53,7 +53,7 @@ var fox = React.createClass({
 						v3 = item.value||'';
 
 						if(data.img)
-							k2 = <img src={data.img} alt={k2}/> 				
+							k2 = <img src={data.img} alt={k2}/>
 
 						items.push( <a href={v1} key={'a'+i} target={'_blank'}>{k2}</a> );
 						if(i < (data.length-1))
@@ -62,20 +62,19 @@ var fox = React.createClass({
 			}
 		}
 
-		var fill = this.props.inline&&Array.isArray(data) ? items : <div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>;
-
+		var fill = (this.props.inline&&Array.isArray(data) ? items : <a href={v1} target={'_blank'}>{k2}</a>);
 		//idf ： 每一个元素的index
 		return (
             <li data-idf={this.props.idf} data-id={k1}  data-cls={v2} className=
 				{
 					(function(){
-							if(v2&&v2==='second'){
-								return clsName+' active'
-							}else{
-								return clsName
-							}
+						if(v2&&v2==='second'){
+							return clsName+' active'
+						}else{
+							return clsName
+						}
 					})()
-				} style={sty} >
+				} style={sty}>
 				{fill}
 				{icon}
             </li>

@@ -3,9 +3,24 @@ function itemMixin(){
     return {
         getInitialState: function() {
     		return {
-            	params: ''
+            	params: '',
+                icon: '',
+                iconPre: ''
     	    };
     	},
+        componentWillMount: function(){
+    		if(this.props.itemIcon){
+    			if(typeof this.props.itemIcon!=='string'){
+                    this.setState({
+                        icon: this.props.itemIcon
+                    })
+                }else{
+                    this.setState({
+                        icon: <i>{'>'}</i>
+                    })
+                }
+    		}
+        },
         componentDidMount: function() {
             var that = this.getDOMNode();
     		if(this.props.itemMethod){
@@ -21,22 +36,6 @@ function itemMixin(){
     				dMtd.call(that);
     			}
     		}
-
-            // var datas = this.props.data;
-            // var params = []
-            // if(datas){
-            //     for(var i in datas){
-            //         if(i.indexOf('data-')>-1){
-            //             params.push( { key:i, value: datas[key] } )
-            //         }
-            //     }
-            //     if(params.length){
-            //         var paramsStr = params.join(' ');
-            //         this.setState({
-            //             params: paramsStr
-            //         })
-            //     }
-            // }
         }
     }
 }

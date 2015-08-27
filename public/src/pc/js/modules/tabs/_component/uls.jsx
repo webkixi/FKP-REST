@@ -71,7 +71,7 @@ var uls = {
     render: function () {
         var fill = this.loopRender();
         return(
-            <div className={'tab-uls u-clearfix'}>
+            <div className={'tab-uls u-clearfix'} style={this.props.style}>
                 {fill}
             </div>
         )

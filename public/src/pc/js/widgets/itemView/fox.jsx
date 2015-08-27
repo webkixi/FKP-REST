@@ -22,8 +22,8 @@ var fox = React.createClass({
 			var k1 = data.id||'',
 				v1 = data.url||'javascript:;',
 
-				k2 = data.catName||data.model||data.quality||data.vender||data||'',
-				v2 = data.attr,
+				k2 = data.title||data.catName||data.model||data.quality||data.vender||data||'',
+				v2 = data.attr||'',
 
 				v3 = data.value||'';
 		}
@@ -36,23 +36,23 @@ var fox = React.createClass({
 			sty = this.props.itemStyle;
 		}
 
-		// if( this.props.cat > -1){
-		// 	var catParam = '';
-		// 	var cat = this.props.cat;
-		// 	if ( cat === 0 )
-		// 		catParam = 'catId2';
-		// 	if( cat === 1 )
-		// 		catParam = 'model'
-		// 	if( cat === 2 )
-		// 		catParam = 'quality'
-		// 	if( cat === 3 )
-		// 		catParam = 'vender'
-		// }
+		if( this.props.cat > -1){
+			var catParam = '';
+			var cat = this.props.cat;
+			if ( cat === 0 )
+				catParam = 'catId2';
+			if( cat === 1 )
+				catParam = 'model'
+			if( cat === 2 )
+				catParam = 'quality'
+			if( cat === 3 )
+				catParam = 'vender'
+		}
 
 		var guid = libs.guid('fox-');
 		var that = this;
 		return (
-            <li data-id={k1} data-value={v3} data-cls={v2} className=
+            <li data-idf={this.props.idf} data-id={k1} data-value={v3} data-param={catParam} data-cls={v2} className=
 				{
 					(
 						function(){

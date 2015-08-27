@@ -155,6 +155,9 @@ function arg2arr(s){
 
 /*
  * 动态插入style到head，并带有简单的兼容效果
+ * 接入参数模式
+ * 1、 addSheet(['csscode','ele_id'])
+ * 2、 addSheet(element, ['csscode','ele_id'])
 */
 function addSheet() {
     var doc, tmpCssCode, cssCode, id;
@@ -167,6 +170,7 @@ function addSheet() {
         tmpCssCode = arguments[1];
     } else {
         alert("addSheet函数最多接受两个参数!");
+        return;
     }
 
     var headElement = doc.getElementsByTagName("head")[0];
@@ -179,6 +183,7 @@ function addSheet() {
         if(document.getElementById(id))
             return;
         var tmpLink = doc.createElement('link');
+        tmpLink.setAttribute("rel", 'stylesheet');
         tmpLink.setAttribute("href", cssCode);
         tmpLink.setAttribute("id", id);
         headElement.appendChild(tmpLink);
