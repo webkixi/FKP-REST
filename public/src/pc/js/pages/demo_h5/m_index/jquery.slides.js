@@ -22,7 +22,8 @@
 			width=_this.width();
 			_this.num=_this.find(".pro_carousel_ul li").width(width).length;
 			console.log(_this.num)
-			inner.width(width*_this.num+width).find(".pro_carousel_ul li").eq(0).clone().appendTo(inner);
+			inner.html(inner.html()+inner.html());
+			inner.width(width*_this.num*2+width).find(".pro_carousel_ul li").eq(0).clone().appendTo(inner);
 			index=0;
 			
 			_this.z=10;
@@ -124,14 +125,19 @@
 		}
 		function lb(){
 			if(btnFlag){
-				index = index++<(_this.num-1)?index:0;
+				index = index++<(_this.num)?index:0;
 			}else{
 				index = index--<_this.num-2?(_this.num-1):index;
 			}
 			inner.animate({
 					left:-width*index
-				},500)
+				},500,function(){
+					if(index==_this.num){
+						inner.css("left","0");
+						index = 0;
+					}
 			indicators.find("li").eq(index).addClass("active").siblings().removeClass("active");
+				})
 		}
 		_this.init();
 	});
