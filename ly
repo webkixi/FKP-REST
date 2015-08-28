@@ -31,6 +31,11 @@ demo(){
     gulp
 }
 
+ngdemo(){
+    cd public
+    gulp ng
+}
+
 install(){
     npm install gulp -g
     npm install nodemon -g
@@ -63,5 +68,8 @@ case $1 in
       ;;
   demo)
       demo
+      ;;
+  ngdemo)
+      ngdemo
       ;;
 esac

@@ -684,6 +684,7 @@ module.exports = {
                   .pipe ($.size())
                   .pipe ( getHtmlData())
                   .pipe ($.if(parseTemplet, $.compileHandlebars()))
+                //   .pipe ($.if('demoindex.*', $.compileHandlebars()))
                   .pipe ($.rename(function(path){
                       if  (path.extname!=='.php' || path.extname!=='.jsp'){
                           if(path.extname === '.md'){

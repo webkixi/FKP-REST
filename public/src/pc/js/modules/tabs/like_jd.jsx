@@ -83,7 +83,7 @@ function tabswitch(nav_data, cnt_data, cnt_top_data, img_data, ele, opts){
                     <TabList data={cnt_data} listClass={'fox ul-fox'} itemView={Ant2}  itemClass={'xxx'}/>
                 </div>
                 <div className={'popRight'}>
-                    <PopImage data={jd_images_data} listClass={'fox2'} itemStyle={{padding:'1px'}} itemView={Ant2}/>
+                    <PopImage data={img_data} listClass={'fox2'} itemStyle={{padding:'1px'}} itemView={Ant2}/>
                 </div>
             </div>
         </div>

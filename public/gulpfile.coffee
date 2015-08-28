@@ -51,8 +51,8 @@ gulp.task 'fonts:dev', getTask('fonts-dev')
 gulp.task 'fonts:build', getTask('fonts-build')
 
 # 对静态页面进行编译
-gulp.task 'html', getTask('html')
-gulp.task 'html:build', getTask('html','pro')
+gulp.task 'html', getTask('html')  #webpack解析
+gulp.task 'html:build', getTask('html','pro') #交由服务器端解析
 
 # 拷贝如编辑器这样的无法分解的前端js
 gulp.task 'copyThirdJsToDist:dev', ['copyThirdCssToDist:dev'], getTask('js-copy2-dev')
@@ -67,7 +67,8 @@ gulp.task 'doc', getTask('doc')
 
 #本地资源静态DEMO服务器
 gulp.task "server", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server')  # for demo
-gulp.task "dev", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for dev and pro
+gulp.task "dev", ['buildCommon:dev','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for dev and pro
+gulp.task "ng", ['buildCommon:dev:ng','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','ng')  # for demo and angular
 
 # 编译webpack未压缩的资源
 gulp.task 'wp:dev', getTask('wp')
@@ -78,6 +79,7 @@ gulp.task 'default',['clean:dev'], ->
 
 # 构建任务，生成未压缩版
 gulp.task 'buildCommon:dev',['wp:dev'], getTask('concat-common-js')
+gulp.task 'buildCommon:dev:ng',['wp:dev'], getTask('concat-common-js','ng')
 
 # 构建任务，生成压缩版与未压缩版
 gulp.task 'build',['clean:dev','clean:build'], getTask('map','pro')
