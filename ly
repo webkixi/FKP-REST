@@ -13,6 +13,18 @@ dev(){
     gulp watch
 }
 
+bbdev(){
+    cd public
+    gulp bbdev
+
+    cd ..
+    nodemon --harmony index.js dev &
+    sleep 2
+
+    cd public
+    gulp watch
+}
+
 pro(){
 
     cd public
@@ -34,6 +46,16 @@ demo(){
 ngdemo(){
     cd public
     gulp ng
+}
+
+bbdemo(){
+    cd public
+    gulp bb
+}
+
+bbdemo(){
+    cd public
+    gulp bb
 }
 
 install(){
@@ -71,5 +93,8 @@ case $1 in
       ;;
   ngdemo)
       ngdemo
+      ;;
+  bbdemo)
+      bbdemo
       ;;
 esac

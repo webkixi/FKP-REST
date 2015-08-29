@@ -9,6 +9,9 @@ config = require '../configs/config.coffee';
 getFileMap = (env)->
 	if env == 'ng'
 		return config.globalList.concat(config.vendorList_ng)
+	if env == 'bb'
+		return config.globalList.concat(config.vendorList_bb)
+
 	return config.globalList.concat(config.vendorList)
 
 

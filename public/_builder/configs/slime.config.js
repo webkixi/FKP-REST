@@ -652,7 +652,7 @@ module.exports = {
               function parseHbs(){
                   var parseTemplet = true;
                   if(options.env){
-                      clog(options.env)
+                      clog('parse hbs:' + options.env)
                       if(options.env === 'pro')
                           parseTemplet = false;
                   }

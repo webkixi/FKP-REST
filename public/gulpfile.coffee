@@ -65,12 +65,15 @@ gulp.task 'copyThirdCssToDist:pro', getTask('css-copy2-build')
 # 生成API文档，有待改良
 gulp.task 'doc', getTask('doc')
 
-#本地资源静态DEMO服务器
+#本地资源静态DEMO服务器/代理动态(koajs)服务器
 gulp.task "server", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server')  # for demo
 gulp.task "dev", ['buildCommon:dev','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for dev and pro
+gulp.task "ngdev", ['buildCommon:dev:ng','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for angular dev and pro
+gulp.task "bbdev", ['buildCommon:dev:bb','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for backbone dev and pro
 gulp.task "ng", ['buildCommon:dev:ng','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','ng')  # for demo and angular
+gulp.task "bb", ['buildCommon:dev:bb','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','bb')  # for demo and backbone
 
-# 编译webpack未压缩的资源
+# js/pages编译并生成_common.js
 gulp.task 'wp:dev', getTask('wp')
 
 # 默认启动本地DEMO服务器
@@ -80,6 +83,7 @@ gulp.task 'default',['clean:dev'], ->
 # 构建任务，生成未压缩版
 gulp.task 'buildCommon:dev',['wp:dev'], getTask('concat-common-js')
 gulp.task 'buildCommon:dev:ng',['wp:dev'], getTask('concat-common-js','ng')
+gulp.task 'buildCommon:dev:bb',['wp:dev'], getTask('concat-common-js','bb')
 
 # 构建任务，生成压缩版与未压缩版
 gulp.task 'build',['clean:dev','clean:build'], getTask('map','pro')

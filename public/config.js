@@ -23,21 +23,31 @@ module.exports = {
         css_common: src_dir + "css/modules/base"
     },
     hash: false,
+    //react
     vendorList: [
         path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
         //path.join(__dirname, src_dir, '/js/vendor/browser-request/dist/browser/request.js'),
         path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js')
     ],
+    //angular
     vendorList_ng: [
         path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
         path.join(__dirname, src_dir, '/js/vendor/angular/angular.js')
     ],
+    //backbone
+    vendorList_bb: [
+        path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
+        path.join(__dirname, src_dir, '/js/vendor/underscore/underscore.js'),
+        path.join(__dirname, src_dir, '/js/vendor/backbone/backbone.js')
+    ],
+    //custom
     globalList: [
         path.join(__dirname, src_dir, '/js/global/config.js'),
         path.join(__dirname, src_dir, '/js/global/libs.js'),
         path.join(__dirname, src_dir, '/js/global/core.js'),
         path.join(__dirname, src_dir, '/js/global/toolkits.js')
     ],
+    //ie
     ieRequireList: (function(){
         if(platform === '/pc'){
             return [
