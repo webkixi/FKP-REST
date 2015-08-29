@@ -19,6 +19,29 @@ ly install
 
 
 # LOG
+2015/8/29
+```
+支持backbone开发H5界面
+通过ly bbdemo / ly bbdev命令分别启动纯静态开发环境和koajs动态环境
+ly pro 启动编译并启动koajs动态环境
+```
+2015/8/28
+```
+支持angular开发H5界面
+通过ly ngdemo / ly ngdev命令分别启动纯静态开发环境和koajs动态环境
+(环境支持了，但需要更改模板引擎，之前使用的handlebars,与angular冲突，所以推迟)
+ly pro 启动编译并启动koajs动态环境
+```
+2015/8/20
+```
+支持上传
+支持上传接口，先在可以选择上传到本地/上传到阿里云的oss
+```
+2015/8/19
+```
+支持验证码
+请在非windows环境下使用，搞不定windows的gyp编译环境
+```
 2015/6/29
 ```
 搞定markdown的样式
