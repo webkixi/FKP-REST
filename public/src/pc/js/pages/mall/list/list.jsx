@@ -307,7 +307,7 @@ var pageClick = function(){
 * {pageSize} {num} 每页数量
 */
 var Exhibition = require('./_component/exhibition');
-var Page = require('modules/pagination/index');
+var Page = require('modules/pagination/_component/index')();
 
 var exbQuery = {
 	pageCurrent: 1 ,

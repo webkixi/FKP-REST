@@ -87,4 +87,13 @@ var mkuls = function( storeName ){
     return React.createClass(uls);
 }
 
+// function mkuls( storeName ){
+// 	if( uls.mixins && uls.mixins.length )
+// 		uls.mixins.push( Store( storeName||'Uls' ))
+// 	else
+// 		uls.mixins = [ Store( storeName||'Uls' ) ]
+//
+//     return React.createClass( uls );
+// }
+
 module.exports = mkuls;

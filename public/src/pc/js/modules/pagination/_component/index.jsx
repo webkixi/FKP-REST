@@ -1,6 +1,7 @@
 var libs = require('libs/libs');
 var List = require('widgets/listView/list');
 var Store = require('mixins/store');
+var _storeName = 'Pagi'
 
 //分页回掉
 var _pageClick = function(){
@@ -8,9 +9,9 @@ var _pageClick = function(){
 		e=e||arguments[0];
 		e.preventDefault();
 		var page = this.getAttribute("data-page");
-		var tmp = SA.getter('pagination').data;
+		var tmp = SA.getter(_storeName).data;
 		tmp.begin.start = page-1;
-		SA.setter( 'pagination', tmp );
+		SA.setter( _storeName, tmp );
 
 	});
 }
@@ -98,8 +99,7 @@ var PageItem = React.createClass({
 }
 */
 //react tabswitch
-var pagenation = React.createClass({
-    mixins: [Store('pagination')],
+var pagenation = {
 
 	getDefaultProps: function() {
 		return {}
@@ -118,12 +118,9 @@ var pagenation = React.createClass({
 
 	//插入真实 DOM之前
 	componentWillMount:function(){
-		SA.setter('pagination',{
+		SA.setter(_storeName,{
         	data: this.props.data,
-			begin: {
-				start: 0,
-				off: 7
-			}
+			begin: this.props.begin || { start: 0, off: 5 }
 	    });
 	},
 
@@ -191,7 +188,7 @@ var pagenation = React.createClass({
 	            	newData.push({url: 'javascript:;', text: '...'+i,dataPage:ostart+off>pages?pages:ostart+off} );
 					newData.push({url: data.url+'?'+query+(pages), text: (Math.ceil(pages)),dataPage:Math.ceil(pages) });
 					newData.push({url: data.url+'?'+data.query+(ostart+2), text: '下一页',dataPage:ostart+2} );
-	            }				
+	            }
 			}
         }
 
@@ -208,6 +205,17 @@ var pagenation = React.createClass({
 			return <div></div>
 		}
 	}
-});
+}
 
-module.exports = pagenation;
+function mkPagenation( storeName ){
+	if( storeName )
+		_storeName = storeName;
+	if( pagenation.mixins && pagenation.mixins.length )
+		pagenation.mixins.push( Store( _storeName ))
+	else
+		pagenation.mixins = [ Store( _storeName ) ]
+
+    return React.createClass( pagenation );
+}
+
+module.exports = mkPagenation;

@@ -75,4 +75,14 @@ function mkTabSwitch( storeName ){
     return React.createClass(tabswitch);
 }
 
+// function mkTabSwitch( storeName ){
+// 	if( tabswitch.mixins && tabswitch.mixins.length )
+// 		tabswitch.mixins.push( Store( storeName||'tabswitch' ))
+// 	else
+// 		tabswitch.mixins = [ Store( storeName||'tabswitch' ) ]
+//
+//     return React.createClass( tabswitch );
+// }
+
+
 module.exports = mkTabSwitch;

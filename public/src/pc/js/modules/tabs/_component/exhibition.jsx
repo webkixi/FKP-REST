@@ -65,4 +65,13 @@ var mkExhibition = function( storeName ){
     return React.createClass(exhibition);
 }
 
+// function mkExhibition( storeName ){
+// 	if( exhibition.mixins && exhibition.mixins.length )
+// 		exhibition.mixins.push( Store( storeName||'Exhibition' ))
+// 	else
+// 		exhibition.mixins = [ Store( storeName||'Exhibition' ) ]
+//
+//     return React.createClass( exhibition );
+// }
+
 module.exports = mkExhibition;
