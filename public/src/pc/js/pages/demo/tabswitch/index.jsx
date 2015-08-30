@@ -1,5 +1,6 @@
 var tabSwitch_likePConline = require('modules/tabs/like_pconline')
 var Tabswitch = require('modules/tabs/like_jd');
+var Tabswitch2 = require('modules/tabs/like_table');
 var Mooc = require('modules/tabs/like_muke');
 
 // var data = require('../_json/mall_list.json')
@@ -232,6 +233,31 @@ var jd_images_data = [
 ]
 
 
+//表格
+var tab_head=[
+    '商品编号',
+    '类别',
+    '品名',
+    '品牌',
+    '仓库',
+    '挂牌量',
+    '起订量',
+    '单价（元)',
+    '点价截止时间',
+    '发布时间',
+    '编辑/详情'
+];
+
+var tab_head_width = [0,50,0,0,185,0,60,0,105,100,80];//单列宽度，0表示自动
+
+var adom = <a>编辑</a>;
+var tab_body_data=[
+    [111,'铜','铁','宝钢','华南仓',12,1,'￥120.00','00:00','00:00',adom],
+    [111,'铜','铁','宝钢','华南仓',12,1,'￥120.00','00:00','00:00',adom],
+    [111,'铜','铁','宝钢','华南仓',12,1,'￥120.00','00:00','00:00',adom],
+    [111,'铜','铁','宝钢','华南仓',12,1,'￥120.00','00:00','00:00',adom],
+    [111,'铜','铁','宝钢','华南仓',12,1,'￥120.00','00:00','00:00',adom]
+];
 
 
 
@@ -253,3 +279,8 @@ Mooc( tab_mc_data, mc_cnt_data, mc_select_bar, "tab-switch-mooc" )
 // 仿京东首页详细分类导航
 // Tabswitch( '导航数据', '分类详细数据', '热点数据', '品牌图片数据', '页面容器id' )
 Tabswitch( jd_nav_data, tab_cnt_data, tab_nav_data, jd_images_data, "tab-switch2" )
+
+
+// 表格
+// Tabswitch( '表格数据', '表头数据', '表格宽度',  '页面容器id' )
+Tabswitch2( tab_body_data, tab_head, tab_head_width, "tab-switch-table" )
