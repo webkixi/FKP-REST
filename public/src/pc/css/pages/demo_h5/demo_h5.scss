@@ -151,43 +151,45 @@ a:hover {
       &:nth-child(3) {
         background: #fff500;
       }
+      &:nth-child(4) {
+        background: #ed943a;
+      }
     }
   }
 }
 .pro_carousel_page {
   position: absolute;
   bottom: 0.8rem;
-  left: 0;
+  right: 1rem;
   width: 100%;
-  text-align: center;
+  text-align: right;
   z-index: 99;
   li {
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    padding: 10px;
+    width: 1rem;
+    height: 1rem;
     margin: 0 2px;
     cursor: pointer;
     span {
       display: block;
-      width: 10px;
-      height: 10px;
-      border: 2px solid #f5f5f5;
-      border-radius: 10px;
+      width: 0.5rem;
+      height: 0.5rem;
+      cursor: pointer;
+      background-color: #000 \9;
+      background-color: rgba(0,0,0,0);
+      border: 1px solid #fff;
+      border-radius: 0.5rem;
       text-align: left;
       text-indent: -9999em;
       overflow: hidden;
       _zoom: 1;
-      background-color: #b0b0b0;
       -webkit-transition: all 0.5s;
       transition: all 0.5s;
-      border-color: #fff;
     }
     &.active{
       span {
-        border-color: #ff6700;
-        background-color: #f5f5f5;
-        background-color: transparent;
+        background-color: #fff;
+       /* background-color: transparent;*/
       }
     }
   }
