@@ -34,6 +34,9 @@
         }
         .hbody{
             padding: 10px;
+            .caption{
+                text-align: center;
+            }
         }
         .hfoot{
             padding: 10px;
@@ -54,7 +57,7 @@
     margin-bottom: 0;
     border: 1px solid #ff6600;
     .item{
-        .inner{ }        
+        .inner{ }
         border-left: none;
         font-size: 14px;
         &.active{
@@ -418,6 +421,9 @@
         .hbody{
         	padding: 30px;
         	word-break: break-all;
+            .caption{
+                font-weight: bold;
+            }
 			em{
 				font-style: normal;
 				display: block;

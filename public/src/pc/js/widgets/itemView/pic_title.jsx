@@ -55,10 +55,17 @@ var fox = React.createClass({
 
 					body.map(function(item,i){
 						if(typeof item==='string'){
-							bodys.push(<p>item</p>)
+							bodys.push(<p>{item}</p>)
 						}
 						if(libs.getObjType(item)==='Object'){
-							bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+							if(item.title){
+								if(item.url){
+									bodys.push(<p className={'caption'}><a href={item.url}>{item.title}</a></p>)
+								}else
+									bodys.push(<p className={'caption'}>{item.title}</p>)
+							}else{
+								bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+							}
 						}
 					})
 				}
@@ -73,7 +80,11 @@ var fox = React.createClass({
 							footers.push(<p>item</p>)
 						}
 						if(libs.getObjType(item)==='Object'){
-							footers.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+							if(item.title){
+								body.push(<p className={'caption'}>{item.title}</p>)
+							}else{
+								bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+							}
 						}
 					})
 				}

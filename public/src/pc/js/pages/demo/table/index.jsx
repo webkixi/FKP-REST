@@ -1,7 +1,7 @@
 var table = require('modules/table/table');
 
 //引入模块
-var pagination = require('modules/pagination/pagi');\
+var pagination = require('modules/pagination/pagi');
 // var data = require('../_json/mall_list.json')
 
 //表格
