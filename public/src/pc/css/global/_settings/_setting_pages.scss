@@ -23,7 +23,7 @@ $sy_ratio: 1*1;
 $sy_exchange: ($sy_ratio/$sy_html_base_font_size)*1rem;//px的值转换为rem
 //$sy_exchange: 1px; 不转换直接输出px
 $px: $sy_exchange;
-$px: 1px;
+// $px: 1px;
 
 // 字体
 //==============

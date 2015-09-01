@@ -3,6 +3,17 @@
 $lte7: false;
 $gridRemSwitch: true;
 
+// float left & right
+@mixin float($float:left) {
+  float: $float;
+  @if $lte7 {
+    display: inline;
+  }
+}
+%float{
+  @include float;
+}
+
 // clearfix
 // 闭合子元素的浮动
 @mixin clearfix ($extend:true) {

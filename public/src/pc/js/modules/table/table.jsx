@@ -7,12 +7,13 @@ var render = React.render
 
 
 /*
-* nav_data {Array}   一维数组
-* cnt_data {Array}   二维数组
-* cnt_top_data {Array}   一维数组
+* tab_body_data {Array}  二维数组，表格数据
+* tab_head {Array}   一维数组，表头数据
+* tab_head_width {Array}   一维数组，指定各个td的宽度，也可设置0
 * ele     {String}  页面元素的ID
 * {return}  渲染结构到指定ID
 */
+// Tabswitch( '表格数据', '表头数据', '表格宽度',  '页面容器id' )
 function tabswitch( tab_body_data, tab_head, tab_head_width, ele){
 	render(
 		<div className={'tabswitch'}>

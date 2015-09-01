@@ -133,13 +133,18 @@ var table = {
 }
 
 
-function mkTable( storeName ){
-	if( table.mixins && table.mixins.length )
-		table.mixins.push( Store( storeName||'Table' ))
-	else
-		table.mixins = [ Store( storeName||'Table' ) ]
+function actRct( storeName ){
+    var _storeName = storeName||'Table',
+        _rct = require('libs/libs').clone(table);
 
-    return React.createClass( table );
+	if( _rct.mixins && _rct.mixins.length ){
+		_rct.mixins.push( Store( _storeName ))
+    }
+	else{
+		_rct.mixins = [ Store( _storeName ) ]
+    }
+
+    return React.createClass( _rct );
 }
 
-module.exports = mkTable;
+module.exports = actRct;
