@@ -22,6 +22,7 @@ if !fs.existsSync('./dist')
 getTask = (task,env)->
     if !env
         env = 'dev'
+
     require('./_builder/gulp-task/'+task)(gulp, $, slime, env)
 
 # 清理dist/目录
@@ -68,9 +69,9 @@ gulp.task 'doc', getTask('doc')
 #本地资源静态DEMO服务器/代理动态(koajs)服务器
 gulp.task "server", ['buildCommon:dev','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server')  # for demo
 gulp.task "dev", ['buildCommon:dev','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for dev and pro
-gulp.task "ngdev", ['buildCommon:dev:ng','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for angular dev and pro
+gulp.task "ngdev", ['buildCommon:dev:ng','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','ngpro')  # for angular dev and pro
 gulp.task "ng", ['buildCommon:dev:ng','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','ng')  # for demo and angular
-gulp.task "bbdev", ['buildCommon:dev:bb','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','pro')  # for backbone dev and pro
+gulp.task "bbdev", ['buildCommon:dev:bb','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','bbpro')  # for backbone dev and pro
 gulp.task "bb", ['buildCommon:dev:bb','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','bb')  # for demo and backbone
 
 # js/pages编译并生成_common.js
@@ -96,3 +97,5 @@ gulp.task 'ser', getTask('server')
 
 gulp.task 'watch', getTask('watch')
 gulp.task 'watch:pro', getTask('watch','pro')
+gulp.task 'watch:bb', getTask('watch','bb')
+gulp.task 'watch:ng', getTask('watch','ng')

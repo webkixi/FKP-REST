@@ -17,6 +17,8 @@ getFileMap = (env)->
 
 
 module.exports = (gulp, $, slime, env)->
+		console.log '999999999999999'
+		console.log env
 		return () ->
 			slime.build(config.dirs.src + '/js/vendor_custom',true,{
 					rename: 'common',
