@@ -1,3 +1,4 @@
+@import "../_settings/_setting_pages";
 // 常用方法
 //==============
 /**
@@ -423,6 +424,7 @@
         	word-break: break-all;
             .caption{
                 font-weight: bold;
+                font-size: 5.4*$px;
             }
 			em{
 				font-style: normal;
@@ -438,4 +440,54 @@
 			}
         }
 	}
+}
+
+.gally_caption{
+    @extend .pro_ul;
+    .item{
+        .hbody{
+            padding: 0.3rem 0.2rem;
+            p:first-child{
+                color:lighten(#000000,50%);
+                font-size: 0.44rem;
+                font-weight: bold;
+                margin: 0.25rem 0.25rem 0.25rem 0;
+                a{
+                    color:lighten(#000000,50%);
+                }
+            }
+            em{
+				font-style: normal;
+				display: inline;
+                margin: 0.25rem 0.25rem 0.25rem 0;
+			}
+			span{
+				font-size: 0.44rem;
+				color:lighten(#000000,50%);
+				display: inline;
+                margin: 0.25rem 0.25rem 0.25rem 0;
+			}
+        }
+    }
+}
+
+.gally_shop{
+    @extend .gally_caption;
+    .item{
+        padding-bottom: 0.4rem;
+        padding-top: 0.63rem;
+        border-bottom: 3px dashed #efefef;
+        .hheader{
+            height: 6rem;
+            overflow: hidden;
+        }
+        .hbody{
+            p:first-child{
+                margin: 0.15rem 0.25rem 0.45rem 0;
+                a{
+                    font-size: 0.64rem;
+                }
+            }
+        }
+    }
 }

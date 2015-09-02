@@ -58,11 +58,13 @@ var fox = React.createClass({
 							bodys.push(<p>{item}</p>)
 						}
 						if(libs.getObjType(item)==='Object'){
-							if(item.title){
+							var title = item.title||item.caption||item.text;
+							if(title){
+								var cls = item.caption?'caption':'';
 								if(item.url){
-									bodys.push(<p className={'caption'}><a href={item.url}>{item.title}</a></p>)
+									bodys.push(<p className={cls}><a href={item.url}>{title}</a></p>)
 								}else
-									bodys.push(<p className={'caption'}>{item.title}</p>)
+									bodys.push(<p className={cls}>{title}</p>)
 							}else{
 								bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
 							}
@@ -80,8 +82,13 @@ var fox = React.createClass({
 							footers.push(<p>item</p>)
 						}
 						if(libs.getObjType(item)==='Object'){
-							if(item.title){
-								body.push(<p className={'caption'}>{item.title}</p>)
+							var title = item.title||item.caption||item.text;
+							if(title){
+								var cls = item.caption?'caption':'';
+								if(item.url){
+									bodys.push(<p className={cls}><a href={item.url}>{title}</a></p>)
+								}else
+									bodys.push(<p className={cls}>{title}</p>)
 							}else{
 								bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
 							}
