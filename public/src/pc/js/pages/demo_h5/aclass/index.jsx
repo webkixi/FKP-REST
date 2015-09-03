@@ -18,7 +18,7 @@ var imgs = [
 var goods = [
     {
         title: 'aaaaaa',
-        img:'/images/demo/aclass/11.png',
+        img:'/images/demo/aclass/p1.jpg',
         body:[
             {
                 text: '高效记忆法大揭密',
@@ -36,7 +36,7 @@ var goods = [
     },
     {
         title: 'aaaaaa',
-        img:'/images/demo/aclass/22.png',
+        img:'/images/demo/aclass/p2.jpg',
         body:[
             {
                 text: '高效记忆法大揭密',
@@ -54,7 +54,7 @@ var goods = [
     },
     {
         title: 'aaaaaa',
-        img:'/images/demo/aclass/33.png',
+        img:'/images/demo/aclass/p2.jpg',
         body:[
             {
                 text: '高效记忆法大揭密',
@@ -72,7 +72,7 @@ var goods = [
     },
     {
         title: 'aaaaaa',
-        img:'/images/demo/aclass/44.png',
+        img:'/images/demo/aclass/p1.jpg',
         body:[
             {
                 text: '高效记忆法大揭密',

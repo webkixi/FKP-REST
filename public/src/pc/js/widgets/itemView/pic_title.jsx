@@ -139,10 +139,19 @@ var fox = React.createClass({
 
 						body.map(function(item,i){
 							if(typeof item==='string'){
-								bodys.push(<p>item</p>)
+								bodys.push(<p>{item}</p>)
 							}
 							if(libs.getObjType(item)==='Object'){
-								bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								var title = item.title||item.caption||item.text;
+								if(title){
+									var cls = item.caption?'caption':'';
+									if(item.url){
+										bodys.push(<p className={cls}><a href={item.url}>{title}</a></p>)
+									}else
+										bodys.push(<p className={cls}>{title}</p>)
+								}else{
+									bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								}
 							}
 						})
 					}
@@ -157,7 +166,16 @@ var fox = React.createClass({
 								footers.push(<p>item</p>)
 							}
 							if(libs.getObjType(item)==='Object'){
-								footers.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								var title = item.title||item.caption||item.text;
+								if(title){
+									var cls = item.caption?'caption':'';
+									if(item.url){
+										bodys.push(<p className={cls}><a href={item.url}>{title}</a></p>)
+									}else
+										bodys.push(<p className={cls}>{title}</p>)
+								}else{
+									bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								}
 							}
 						})
 					}

@@ -19,7 +19,6 @@
         position: relative;
         img{
             width: 100%;
-            min-height: 100%;
             border: 0;
         }
         p{
@@ -457,6 +456,7 @@
                 }
             }
             em{
+                font-size: 0.44rem;
 				font-style: normal;
 				display: inline;
                 margin: 0.25rem 0.25rem 0.25rem 0;
