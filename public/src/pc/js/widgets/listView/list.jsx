@@ -3,6 +3,7 @@
 * 返回 div > (ul > li)*n
 */
 var libs = require('libs/libs')
+// var Fox = require('../itemView/pic_title');
 var Fox = require('../itemView/ant');
 
 var tmpApp = React.createClass({

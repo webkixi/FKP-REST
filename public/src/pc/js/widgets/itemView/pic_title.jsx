@@ -30,12 +30,15 @@ var fox = React.createClass({
 			if(!Array.isArray(data)){
 				var body;
 				var footer;
+				var dot;
 
 				var bodys = []
 				var footers = []
+				var dots = []
 
 				var bodyDom;
 				var footerDom;
+				var dotDom;
 
 				var k1 = data.id||'',
 					v1 = data.url||'javascript:;',
@@ -96,12 +99,63 @@ var fox = React.createClass({
 					})
 				}
 
+				if(data.dot){
+					dot = data.dot;
+					if(!Array.isArray(dot))
+						dot = [ dot ]
+
+					dot.map(function(item,i){
+						if(typeof item==='string'){
+							dots.push(<div className={'dot'}><p>item</p></div>)
+						}
+
+						if(libs.getObjType(item)==='Object'){
+							if(React.isValidElement(item)){
+								var it = item;
+								var props = libs.clone(it.props)
+								var styl = props.style;
+								delete props.style;
+								var tmp = React.createElement(it.type, props, it.props.children)
+								dots.push(<div className={'dot'} style={styl}>{tmp}</div>)
+							}
+							else
+								{
+									var lft, top, botm, rht;
+									if(item.position){
+										lft = item.position.left
+										top = item.position.top
+										botm = item.position.bottom
+										rht = item.position.right
+									}
+
+									var styl = (function(){
+										var kkk = {}
+											lft ? kkk.left = lft : '';
+											top ? kkk.top  = top : '';
+											botm ? kkk.bottom = botm : '';
+											rht ? kkk.right = rht : '';
+											return kkk;
+									})()
+
+									var title = item.title||item.caption||item.text||item.price;
+									if(title){
+										dots.push(<div className={'dot'} style={styl}><p>{title}</p></div>)
+									}
+								}
+						}
+					})
+				}
+
 				if(bodys.length){
 					bodyDom = <div className={'hbody'}>{bodys}</div>
 				}
 
 				if(footers.length){
 					footerDom = <div className={'hfoot'}>{footers}</div>
+				}
+
+				if(dots.length){
+					dotDom = dots;
 				}
 
 			}
@@ -197,7 +251,7 @@ var fox = React.createClass({
 
 		var fill = this.props.inline&&Array.isArray(data)
 		? items
-		: ( <div className={"inner"}><div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}</div> )
+		: ( <div className={"inner"}><div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}{dotDom||''}</div> )
 
 		//idf ： 每一个元素的index
 		return (
@@ -210,7 +264,7 @@ var fox = React.createClass({
 								return clsName
 							}
 					})()
-				} style={sty} >
+				} style={sty}>
 				{fill}
             </li>
 	) }

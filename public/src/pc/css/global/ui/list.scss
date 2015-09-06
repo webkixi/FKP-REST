@@ -43,8 +43,6 @@
         }
         .dot{
             position: absolute;
-            left: 0;
-            top: 0;
         }
     }
 }
@@ -106,8 +104,6 @@
         }
         .dot{
             position: absolute;
-            left: 0;
-            top: 0;
         }
     }
 }
@@ -441,11 +437,31 @@
 	}
 }
 
+// rem or persent for h5
+$gray70: lighten(#000000, 70%);
+
 .gally_caption{
-    @extend .pro_ul;
     .item{
+        color: #666;
+		background: #fff;
+		a{
+			display: block;
+		}
+        .hheader{
+        	padding: 0;
+        	width: 100%;
+        	height: 100%
+        }
         .hbody{
             padding: 0.3rem 0.2rem;
+        	word-break: break-all;
+            .caption{
+                font-weight: bold;
+                font-size: 5.4*$px;
+            }
+            p{
+                line-height: 0.4rem;
+            }
             p:first-child{
                 color:lighten(#000000,50%);
                 font-size: 0.44rem;
@@ -456,14 +472,15 @@
                 }
             }
             em{
-                font-size: 0.44rem;
+                color: $gray70;
+                font-size: 0.5rem;
 				font-style: normal;
 				display: inline;
                 margin: 0.25rem 0.25rem 0.25rem 0;
 			}
 			span{
-				font-size: 0.44rem;
-				color:lighten(#000000,50%);
+				font-size: 0.5rem;
+				color: $gray70;
 				display: inline;
                 margin: 0.25rem 0.25rem 0.25rem 0;
 			}
@@ -471,6 +488,11 @@
     }
 }
 
+/*
+* REM list
+*/
+
+// rem or persent for h5
 .gally_shop{
     @extend .gally_caption;
     .item{
@@ -482,12 +504,79 @@
             overflow: hidden;
         }
         .hbody{
+            padding-left: 0.1rem;
+            p{
+                margin-bottom: 0.12rem;
+            }
             p:first-child{
                 margin: 0.15rem 0.25rem 0.45rem 0;
                 a{
                     font-size: 0.64rem;
                 }
             }
+        }
+        .dot{
+            font-size: 0.8rem;
+            line-height: 1rem;
+            a{
+                color: red;
+                s{
+                    color: darken(#ffffff, 20%);
+                    margin-left: 0.3rem;
+                    font-size: 0.5rem;
+                }
+            }
+        }
+    }
+}
+// rem or persent for h5
+$wh: 3rem;
+@mixin em_span {
+    font-size: 0.5rem;
+    color: $gray70;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+}
+.blog_normal{
+    @extend .gally_caption;
+    .item{
+        padding-bottom: 0.4rem;
+        padding-top: 0;
+        border-bottom: none;
+        height: $wh;
+        .hheader{
+            width: $wh;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .hbody{
+            padding: 0;
+            margin-left: 3.4rem;
+            p{
+                margin-bottom: 0;
+                color: lighten(#000000,70%);
+                line-height: 0.6rem;
+            }
+            p:first-child{
+                margin: 0.15rem 0 0.4rem 0;
+                a{
+                    color: lighten(#000000,45%);
+                    font-size: 0.74rem;
+                }
+            }
+            em{
+                @include em_span;
+			}
+			span{
+                @include em_span;
+			}
+        }
+        .hfoot{
+            margin-left: 4rem;
+        }
+        .dot{
+            display: none;
         }
     }
 }
