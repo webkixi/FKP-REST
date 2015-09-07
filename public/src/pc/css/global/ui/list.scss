@@ -580,3 +580,14 @@ $wh: 3rem;
         }
     }
 }
+
+.like_xianguo{
+    @extend .gally_caption;
+    .item{
+        .hbody{
+            margin-top: -10px;
+            color: #ffffff;
+            background-color: red;
+        }
+    }
+}
