@@ -117,20 +117,19 @@ a:hover {
   overflow: hidden;
   .pro_carousel_ul {
     margin-top: 0;
-    width: 10000px;
+    /*width: 10000px;*/
     font-size: 0;
-    position: relative;
-    top: 0;
     li{
-/*      position: absolute;
+      position: absolute;
       top: 0;
-      left: 0;*/
-      display: inline-block;
+      left: 0;
+     /* display: inline-block;*/
       width: 100%;
       height: 18rem;
       text-align: center;
+      padding-top: 4rem;
       .outer {
-        margin-top: 10%;
+        /*margin-top: 10%;*/
       }
       a{
         font-size: 3rem;
