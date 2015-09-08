@@ -207,15 +207,34 @@ var pagenation = {
 	}
 }
 
-function mkPagenation( storeName ){
-	if( storeName )
-		_storeName = storeName;
-	if( pagenation.mixins && pagenation.mixins.length )
-		pagenation.mixins.push( Store( _storeName ))
-	else
-		pagenation.mixins = [ Store( _storeName ) ]
+// function mkPagenation( storeName ){
+// 	if( storeName )
+// 		_storeName = storeName;
+// 	if( pagenation.mixins && pagenation.mixins.length )
+// 		pagenation.mixins.push( Store( _storeName ))
+// 	else
+// 		pagenation.mixins = [ Store( _storeName ) ]
+//
+//     return React.createClass( pagenation );
+// }
+//
+// module.exports = mkPagenation;
 
-    return React.createClass( pagenation );
+
+
+var libs = require('libs/libs')
+function actRct( storeName ){
+    var _storeName = storeName||'Pagi',
+        _rct = libs.clone(pagenation);
+
+	if( _rct.mixins && _rct.mixins.length ){
+		_rct.mixins.push( Store( _storeName ))
+    }
+	else{
+		_rct.mixins = [ Store( _storeName ) ]
+    }
+
+    return React.createClass( _rct );
 }
 
-module.exports = mkPagenation;
+module.exports = actRct;

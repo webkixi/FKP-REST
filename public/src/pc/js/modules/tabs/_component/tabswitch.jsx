@@ -68,21 +68,26 @@ var tabswitch = {
 }
 
 
-function mkTabSwitch( storeName ){
-    if(storeName)
-        tabswitch.mixins = [Store(storeName)];
-
-    return React.createClass(tabswitch);
-}
-
 // function mkTabSwitch( storeName ){
-// 	if( tabswitch.mixins && tabswitch.mixins.length )
-// 		tabswitch.mixins.push( Store( storeName||'tabswitch' ))
-// 	else
-// 		tabswitch.mixins = [ Store( storeName||'tabswitch' ) ]
+//     if(storeName)
+//         tabswitch.mixins = [Store(storeName)];
 //
-//     return React.createClass( tabswitch );
+//     return React.createClass(tabswitch);
 // }
 
+var libs = require('libs/libs')
+function actRct( storeName ){
+    var _storeName = storeName||'Tabswitch',
+        _rct = libs.clone(tabswitch);
 
-module.exports = mkTabSwitch;
+	if( _rct.mixins && _rct.mixins.length ){
+		_rct.mixins.push( Store( _storeName ))
+    }
+	else{
+		_rct.mixins = [ Store( _storeName ) ]
+    }
+
+    return React.createClass( _rct );
+}
+
+module.exports = actRct;

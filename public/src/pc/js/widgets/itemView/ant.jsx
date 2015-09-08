@@ -53,9 +53,9 @@ var fox = React.createClass({
 						v3 = item.value||'';
 
 						if(data.img)
-							k2 = <img src={data.img} alt={k2}/> 				
+							k2 = <img src={data.img} alt={k2}/>
 
-						items.push( <a href={v1} key={'a'+i} target={'_blank'}>{k2}</a> );
+						items.push( <div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div> );
 						if(i < (data.length-1))
 							items.push(seprete);
 				})

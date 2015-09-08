@@ -1,3 +1,0 @@
-Store = ()->
-
-module.exports = Store;

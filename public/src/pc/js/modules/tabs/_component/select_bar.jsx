@@ -66,13 +66,30 @@ var selectBar = {
     }
 }
 
-function mkSelectBar( storeName ){
-	if( selectBar.mixins && selectBar.mixins.length )
-		selectBar.mixins.push( Store( storeName||'SelectBar' ))
-	else
-		selectBar.mixins = [ Store( storeName||'SelectBar' ) ]
+// function mkSelectBar( storeName ){
+// 	if( selectBar.mixins && selectBar.mixins.length )
+// 		selectBar.mixins.push( Store( storeName||'SelectBar' ))
+// 	else
+// 		selectBar.mixins = [ Store( storeName||'SelectBar' ) ]
+//
+//     return React.createClass( selectBar );
+// }
+//
+// module.exports = mkSelectBar;
 
-    return React.createClass( selectBar );
+var libs = require('libs/libs')
+function actRct( storeName ){
+    var _storeName = storeName||'SelectBar',
+        _rct = libs.clone(selectBar);
+
+	if( _rct.mixins && _rct.mixins.length ){
+		_rct.mixins.push( Store( _storeName ))
+    }
+	else{
+		_rct.mixins = [ Store( _storeName ) ]
+    }
+
+    return React.createClass( _rct );
 }
 
-module.exports = mkSelectBar;
+module.exports = actRct;

@@ -3,7 +3,7 @@ var Store = require('mixins/store');
 var Elephant = require('widgets/itemView/elephant');
 
 var exhibition = {
-	mixins: [Store('Exhibition')],
+	// mixins: [Store('Exhibition')],
 	getDefaultProps: function() {
 		return {
 
@@ -58,20 +58,29 @@ var exhibition = {
 	}
 }
 
-var mkExhibition = function( storeName ){
-    if( storeName )
-        exhibition.mixins = [ Store(storeName) ]
+// var mkExhibition = function( storeName ){
+//     if( storeName )
+//         exhibition.mixins = [ Store(storeName) ]
+//
+//     return React.createClass(exhibition);
+// }
+//
+// module.exports = mkExhibition;
 
-    return React.createClass(exhibition);
+
+var libs = require('libs/libs')
+function actRct( storeName ){
+    var _storeName = storeName||'Exhibition',
+        _rct = libs.clone(exhibition);
+
+	if( _rct.mixins && _rct.mixins.length ){
+		_rct.mixins.push( Store( _storeName ))
+    }
+	else{
+		_rct.mixins = [ Store( _storeName ) ]
+    }
+
+    return React.createClass( _rct );
 }
 
-// function mkExhibition( storeName ){
-// 	if( exhibition.mixins && exhibition.mixins.length )
-// 		exhibition.mixins.push( Store( storeName||'Exhibition' ))
-// 	else
-// 		exhibition.mixins = [ Store( storeName||'Exhibition' ) ]
-//
-//     return React.createClass( exhibition );
-// }
-
-module.exports = mkExhibition;
+module.exports = actRct;

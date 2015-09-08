@@ -7,7 +7,6 @@ var Store = require('mixins/store');
 
 
 var uls = {
-    mixins: [Store('Uls')],
 
     getInitialState: function() {
         return {}
@@ -80,20 +79,26 @@ var uls = {
 
 
 
-var mkuls = function( storeName ){
-    if( storeName )
-        uls.mixins = [ Store(storeName) ]
-
-    return React.createClass(uls);
-}
-
-// function mkuls( storeName ){
-// 	if( uls.mixins && uls.mixins.length )
-// 		uls.mixins.push( Store( storeName||'Uls' ))
-// 	else
-// 		uls.mixins = [ Store( storeName||'Uls' ) ]
+// var mkuls = function( storeName ){
+//     if( storeName )
+//         uls.mixins = [ Store(storeName) ]
 //
-//     return React.createClass( uls );
+//     return React.createClass(uls);
 // }
 
-module.exports = mkuls;
+var libs = require('libs/libs')
+function actRct( storeName ){
+    var _storeName = storeName||'Uls',
+        _rct = libs.clone(uls);
+
+	if( _rct.mixins && _rct.mixins.length ){
+		_rct.mixins.push( Store( _storeName ))
+    }
+	else{
+		_rct.mixins = [ Store( _storeName ) ]
+    }
+
+    return React.createClass( _rct );
+}
+
+module.exports = actRct;

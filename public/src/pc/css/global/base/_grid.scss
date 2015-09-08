@@ -151,7 +151,7 @@ $gridWidSwitch:                  false !default;
     // Return the total calculated width, without the margins
     // If the second parameter of this function is not specified
     // This is what is going to be returned
-    $return: ($rem-gridColumnWidth + $rem-gridGutter) * $i - $rem-gridGutter ;
+    $return: ($rem-gridColumnWidth + $rem-gridGutter) * $i - $rem-gridGutter - 0.4rem ;
   }
 
   @return $return;

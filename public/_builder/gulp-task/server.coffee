@@ -55,32 +55,46 @@ module.exports = (gulp,$,slime,env)->
 
     gulp.task 'rebuild:html',['html:build']
 
-    gulp.task 'sync',()->
-        browserSync(
-            port: 9000
-            ui:
-                port: 9001
-            server:
-                baseDir: [ config.htmlDevPath, config.staticPath + '/dev']
-                index: "demoindex.html"
-            files: [ config.htmlDevPath + '/**/*.html', config.staticPath+ '/dev/**']
-            logFileChanges: false
-        )
-        #css and sprite
-        # if encounter 'Error: watch ENOSPC': if in linux you must do this : https://github.com/gulpjs/gulp/issues/217
-        # means edit max_user_watches number
-        gulp.watch [config.dirs.src + '/css/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['pagecss:dev']
-        #js
-        gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx|hbs|scss|css)', ['buildCommon:dev']
-        #html
-        gulp.watch config.dirs.src + '/html/**/*.*', ['html']
+
+
+    doSync = ( stat )->
+        buildCommon = 'buildCommon:dev'
+        if stat == 'ng'
+            buildCommon = 'buildCommon:dev:ng'
+        if stat == 'bb'
+            buildCommon = 'buildCommon:dev:bb'
+
+        gulp.task 'sync',()->
+            browserSync(
+                port: 9000
+                ui:
+                    port: 9001
+                server:
+                    baseDir: [ config.htmlDevPath, config.staticPath + '/dev']
+                    index: "demoindex.html"
+                files: [ config.htmlDevPath + '/**/*.html', config.staticPath+ '/dev/**']
+                logFileChanges: false
+            )
+
+            #css and sprite
+            # if encounter 'Error: watch ENOSPC': if in linux you must do this : https://github.com/gulpjs/gulp/issues/217
+            # means edit max_user_watches number
+            gulp.watch [config.dirs.src + '/css/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['pagecss:dev']
+            #js
+            gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+            #html
+            gulp.watch config.dirs.src + '/html/**/*.*', ['html']
+
+        gulp.start 'sync'
 
     return ()->
         gulp.start 'map:cssdev'
-        if env == 'pro'
+        if env.indexOf('pro') > -1
             gulp.start 'rebuild:html'
         else
             if env == 'ng'
                 gulp.start 'rebuild:html'
 
-            gulp.start 'sync'
+            doSync( env )
+
+            # gulp.start 'sync'

@@ -1,5 +1,3 @@
-require('../banner/banner')
-var jqcookie = require('./jqcookie');
 
 var test_goods = [
   {'id':1,'title':'haha','lsrc':'/images/index/mn.jpg','src':'/images/index/1F_01.jpg'},
