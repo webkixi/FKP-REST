@@ -9,26 +9,28 @@
 <div class="wrapper">
  	<div class="container m_wrapper">
 		<div class="pro_carousel">
-			<ul class="pro_carousel_ul">
-				<li>
-					<div class="outer">
-						<a href="creation.html">创造</a>
-                   		<p class="banner_text">·创造历史必须颠覆自己，颠覆是创造的起点·</p>
-                   	</div>				
-				</li>
-				<li>
-					<div class="outer">
-						<a href="creation.html">分享</a>
-                   		<p class="banner_text">·分享智慧+财富 一起彪悍一起飞·</p>
-                   	</div>				
-				</li>
-				<li>
-					<div class="outer">
-						<a href="creation.html">爱</a>
-                   		<p class="banner_text">·有爱人生 上帝说要走心·</p>
-                   	</div>				
-				</li>
-			</ul>
+			<div class="pro_carousel_b">
+				<ul class="pro_carousel_ul">
+					<li>
+						<div class="outer">
+							<a href="creation.html">创造</a>
+	                   		<p class="banner_text">·创造历史必须颠覆自己，颠覆是创造的起点·</p>
+	                   	</div>				
+					</li>
+					<li>
+						<div class="outer">
+							<a href="creation.html">分享</a>
+	                   		<p class="banner_text">·分享智慧+财富 一起彪悍一起飞·</p>
+	                   	</div>				
+					</li>
+					<li>
+						<div class="outer">
+							<a href="creation.html">爱</a>
+	                   		<p class="banner_text">·有爱人生 上帝说要走心·</p>
+	                   	</div>				
+					</li>
+				</ul>
+			</div>
 			<div class="pro_carousel_page">
 				<ul>
 					<li class="active"><span></span></li>
@@ -80,5 +82,17 @@
 <!-- include footer -->
 @@include('_common/footer.html')
 @@include('_common/foot.html')
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".pro_carousel_b").touchSlider({
+		flexible : true,
+		speed : 200,
+		paging : $(".pro_carousel_page li"),
+		counter : function (e){
+			$(".pro_carousel_page li").removeClass("active").eq(e.current-1).addClass("active");
+		}
+	});
+});
+</script>
 </body>
 </html>
