@@ -20,7 +20,7 @@ git clone https://github.com/webkixi/FKP-REST.git
 
 //windows
 1、请修改根目录下的package.json
-2、删除ccap那一行
+2、删除ccap那一行(ccap是FKP动态部分实现的校验码功能，需linux/mac)
 3、ly install
 ```
 
