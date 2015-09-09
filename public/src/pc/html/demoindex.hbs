@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/{{commoncss}}">
+    <script type="text/javascript" src="/js/t/qrcode.js"/>
     <!--[if lt IE 9]>
         <script src="/js/ie.js"></script>
     <![endif]-->
@@ -96,7 +97,7 @@
                     <tr>
                         <th style="width:150px;">{{title}}</th>
                         <td>
-                            <a target="_blank" href="{{url}}">{{url}}</a>
+                            <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="/{{url}}">二维码</span>
                             {{#if des}}
                                 <div class="profile u-mt_5">
                                     <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>

@@ -539,7 +539,7 @@ $wh: 3rem;
 .blog_normal{
     @extend .gally_caption;
     .item{
-        padding-bottom: 0.4rem;
+        margin-bottom: 0.4rem;
         padding-top: 0;
         border-bottom: none;
         height: $wh;
@@ -580,8 +580,8 @@ $wh: 3rem;
         }
     }
 }
-
-.like_xianguo{
+//鲜果index
+.like_xianguo_index{
     @extend .gally_caption;
     .item{
         img{
@@ -604,6 +604,28 @@ $wh: 3rem;
                     color: #ffffff;
                 }
             }
+        }
+    }
+}
+//鲜果list
+$border: 2px solid lighten(#000000,90%);
+.like_xianguo_list{
+    @extend .blog_normal;
+    .item{
+        width: 97%;
+        padding: 0.4rem 0;
+        border: $border;
+        border-bottom: $border;
+        border-radius:0.2rem;
+        .hheader{
+            img{
+                border-radius: 0.5rem;
+            }
+            left: 0.4rem;
+            top: 0.4rem;
+        }
+        .hbody{
+            margin-left: 3.8rem;
         }
     }
 }

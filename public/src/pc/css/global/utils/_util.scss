@@ -1,49 +1,103 @@
 @import "../_settings/_setting_pages";
 
-// 常用方法
-//==============
 /**
  * @tofishes 2015年04月14日 增加一些注释
  *
  * 前缀u-表示util，工具类前缀
  */
-// .u-wrap {
-//   @include wrapper(12,true);
-// }
-// .u-wrap_small {
-//   width:1200*$px;
-//   margin:auto;
-// }
-
-
+.u-wrap {
+  @include wrapper(12,true);
+}
+.u-wrap_small {
+  width:1200*$px;
+  margin:auto;
+}
 // 清除浮动
 .u-clearfix {
   @include clearfix;
   @extend %clearfix;
 }
 //
-.u-cleaarfixs,.cl{
-  position: relative;
+.u-clearfixs,.cl{
+  position: relative
 }
-.u-cleaarfixs {
+.u-clearfixs {
   *zoom: 1;
 }
-.u-cleaarfixs:before,.u-cleaarfixs:after{
+.u-clearfixs:before,.u-clearfixs:after{
   content:".";
   display:block;
   height:0;
   clear:both;
   visibility:hidden
 }
-.u-cleaarfixs:after {
+.u-clearfixs:after {
   clear: both;
 }
+
+//字体颜色
+.u-color_red{
+  color:$color_error;
+}
+.u-color_gold{
+  color:$color_gold;
+}
+.u-color_black{
+  color:$color_black;
+}
+.u-color_gray{
+  color:$color_gray_text;
+}
+.u-color_green{
+  color:$color_success;
+}
+.u-color_orange{
+  color:$color_orange
+}
+
 //删除线
 .u-del{
   text-decoration:line-through;
 }
-.u-inline-block{
-    display: inline-block;
+
+//link
+.u-black-link{
+  color:$color_black;
+  &:hover{
+    color:$color_gold_hover;
+  }
+}
+
+// 颜色
+.u-color_glod {
+  color: $color_gold;
+}
+.u-color_darkred {
+  color: #994b53;
+}
+.u-color_white {
+  color: #fff;
+}
+// .u-color_gray {
+//   color: $color_gray;
+// }
+
+// 分隔线
+.u-border-bottom {
+  border-bottom: 1px solid $color_gray_border;
+}
+
+//单行省略号
+.u-ellipse{
+  @extend %ellipsis-basic
+}
+
+//line-horizontal
+.u-line-horizontal{
+  height:0;
+  line-height:0;
+  font-size:0;
+  border-bottom:1px solid $color_gray_border;
 }
 
 .container {
