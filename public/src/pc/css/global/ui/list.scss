@@ -584,10 +584,26 @@ $wh: 3rem;
 .like_xianguo{
     @extend .gally_caption;
     .item{
+        img{
+            border-radius:0.2rem;
+        }
+        .inner{
+            position: relative;
+        }
         .hbody{
-            margin-top: -10px;
-            color: #ffffff;
-            background-color: red;
+            border-bottom-right-radius: 0.2rem;
+            border-bottom-left-radius: 0.2rem;
+            background-color: rgba(1,0,0,0.6);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 0.15rem 0;
+            p:first-child{
+                color: #ffffff;
+                a{
+                    color: #ffffff;
+                }
+            }
         }
     }
 }

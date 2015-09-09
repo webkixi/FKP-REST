@@ -42,6 +42,9 @@
 .u-del{
   text-decoration:line-through;
 }
+.u-inline-block{
+    display: inline-block;
+}
 
 .container {
     @include center-block(false);
