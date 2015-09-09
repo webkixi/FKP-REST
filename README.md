@@ -5,16 +5,23 @@ BY `koa` / `webpack` / `gulp` / `npm` / `git`/`sass`
 #INSTALL
 
 ##安装
- - python
+ - python2.7.x
  - nodejs
  - npm
  - git
 
 git clone https://github.com/webkixi/FKP-REST.git
 
-//转到根目录下
+转到根目录下
 ```
-ly install
+//linux
+1、chmod +x ./ly
+2、ly install
+
+//windows
+1、请修改根目录下的package.json
+2、删除ccap那一行
+3、ly install
 ```
 
 
