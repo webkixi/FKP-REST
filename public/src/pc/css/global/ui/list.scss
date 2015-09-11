@@ -28,6 +28,10 @@
         a{
             text-decoration: none;
             border: none;
+            &.caption{
+                font-size: 12*$px;
+                text-align: center;
+            }
         }
         .hheader{
             padding: 10px;
@@ -44,6 +48,7 @@
         .dot{
             position: absolute;
         }
+        .pics{}
     }
 }
 
@@ -493,6 +498,7 @@ $gray70: lighten(#000000, 70%);
 */
 
 // rem or persent for h5
+//商品属性
 .gally_shop{
     @extend .gally_caption;
     .item{
@@ -530,19 +536,21 @@ $gray70: lighten(#000000, 70%);
     }
 }
 // rem or persent for h5
-$wh: 3rem;
+$wh: 50*$px;
 @mixin em_span {
-    font-size: 0.5rem;
+    font-size: 8*$px;
     color: $gray70;
     margin: 0.25rem 0.25rem 0.25rem 0;
 }
+
+//类似博客列表的效果
 .blog_normal{
     @extend .gally_caption;
     .item{
         margin-bottom: 0.4rem;
         padding-top: 0;
         border-bottom: none;
-        height: $wh;
+        min-height: $wh;
         .hheader{
             width: $wh;
             overflow: hidden;
@@ -580,7 +588,10 @@ $wh: 3rem;
         }
     }
 }
+
 //鲜果index
+//鲜果联播首页分类
+//可以作为图片gally
 .like_xianguo_index{
     @extend .gally_caption;
     .item{
@@ -607,9 +618,9 @@ $wh: 3rem;
         }
     }
 }
-//鲜果list
+//应用宝或者华为app应用的list
 $border: 2px solid lighten(#000000,90%);
-.like_xianguo_list{
+.like_app_list{
     @extend .blog_normal;
     .item{
         width: 97%;
@@ -625,7 +636,51 @@ $border: 2px solid lighten(#000000,90%);
             top: 0.4rem;
         }
         .hbody{
-            margin-left: 3.8rem;
+            margin-top: 4*$px;
+            margin-left: 65*$px;
+        }
+        .rebody{
+            margin-left: 8*$px;
+        }
+        .pics{
+            margin-top: 10*$px;
+            img{
+                width: 76*$px;
+                float: left;
+                margin-left: 5*$px;
+                height: 50*$px;
+            }
+        }
+    }
+}
+
+//仿鲜果联播应用list
+.like_xg_list{
+    @extend .blog_normal;
+    .item{
+        width: 97%;
+        padding: 0.4rem 0;
+        border: $border;
+        border-bottom: $border;
+        border-radius:0.2rem;
+        .hheader{
+            min-width: 4.3rem;
+            height: 3rem;
+            left: auto;
+            right: 0.4rem;
+            top: 0.4rem;
+        }
+        .hbody{
+            margin-left: 8*$px;
+        }
+        .pics{
+            margin-top: 10*$px;
+            img{
+                width: 76*$px;
+                float: left;
+                margin-left: 5*$px;
+                height: 50*$px;
+            }
         }
     }
 }

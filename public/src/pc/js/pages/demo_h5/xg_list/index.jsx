@@ -19,7 +19,7 @@ var imgs = [
 var goods = [
     {
         title: 'aaaaaa',
-        img:'/images/demo/aclass/p1.jpg',
+        img: ['/images/demo/aclass/p1.jpg','/images/demo/aclass/p1.jpg','/images/demo/aclass/p1.jpg'],
         body:[
             {
                 text: '高效记忆法大揭密',
@@ -98,7 +98,7 @@ var goods = [
 var blogs = [
     {
         title: 'aaaaaa',
-        img:'/images/demo/aclass/b1.jpg',
+        img: ['/images/demo/aclass/p1.jpg','/images/demo/aclass/p1.jpg','/images/demo/aclass/p1.jpg'],
         body:[
             {
                 text: '高效记忆法大揭密',
@@ -186,6 +186,11 @@ var listData = [];
 listData = mulitifyData(4);
 
 render(
-    <List data={listData} listClass={'like_xianguo_list'} itemClass={'span12 item'} itemView={Pt}/>,
+    <List data={listData} listClass={'like_xg_list'} itemClass={'span12'} itemView={Pt}/>,
     document.getElementById('test')
+)
+
+render(
+    <List data={listData} listClass={'like_app_list'} itemClass={'span12'} itemView={Pt}/>,
+    document.getElementById('test1')
 )

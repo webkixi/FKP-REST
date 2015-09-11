@@ -43,13 +43,23 @@ var fox = React.createClass({
 				var k1 = data.id||'',
 					v1 = data.url||'javascript:;',
 
-					k2 = data.title||data.catName||data.model||data.quality||data.vender||data||'',
+					k2 = data.title||data.caption||data.catName||data.model||data.quality||data.vender||data||'',
 					v2 = data.attr||'',
 
 					v3 = data.value||'';
 
-					if(data.img)
-						k2 = <img src={data.img} alt={k2}/>
+					if(data.img){
+						if(Array.isArray(data.img)){
+							var tmp_k2 = [];
+							data.img.map(function(pic,j){
+								tmp_k2.push(<img src={pic} alt={k2}/>)
+							})
+							// k2 = <div className={'pics'}>{tmp_k2}</div>;
+							k2 = tmp_k2;
+						}
+						else
+							k2 = <img src={data.img} alt={k2}/>
+					}
 
 				if(data.body){
 					body = data.body;
@@ -147,7 +157,10 @@ var fox = React.createClass({
 				}
 
 				if(bodys.length){
-					bodyDom = <div className={'hbody'}>{bodys}</div>
+					if(data.img && k2.length){
+						bodyDom = <div className={'hbody rebody'}>{bodys}</div>
+					}else
+						bodyDom = <div className={'hbody'}>{bodys}</div>
 				}
 
 				if(footers.length){
@@ -174,84 +187,119 @@ var fox = React.createClass({
 					var bodyDom;
 					var footerDom;
 
-					var k1 = item.id||'',
+					var k1 = item.id || '',
 						v1 = item.url||'javascript:;',
 
-						k2 = item.title||item.catName||item.model||item.quality||item.vender||item||'',
+						k2 = item.title||item.caption||item.catName||item.model||item.quality||item.vender||item||'',
 						v2 = item.attr||'',
 
 						v3 = item.value||'';
 
-						if(data.img)
-							k2 = <img src={data.img} alt={k2}/>
+						// if(item.img)
+						// 	k2 = <img src={item.img} alt={k2}/>
 
-
-					if(data.body){
-						body = data.body;
-						if(!Array.isArray(body))
-							body = [ body ]
-
-						body.map(function(item,i){
-							if(typeof item==='string'){
-								bodys.push(<p>{item}</p>)
+						if(item.img){
+							if(Array.isArray(item.img)){
+								var tmp_k2 = [];
+								item.img.map(function(pic,j){
+									tmp_k2.push(<img src={pic} alt={k2}/>)
+								})
+								// k2 = <div className={'pics'}>{tmp_k2}</div>;
+								k2 = tmp_k2;
 							}
-							if(libs.getObjType(item)==='Object'){
-								var title = item.title||item.caption||item.text;
-								if(title){
-									var cls = item.caption?'caption':'';
-									if(item.url){
-										bodys.push(<p className={cls}><a href={item.url}>{title}</a></p>)
-									}else
-										bodys.push(<p className={cls}>{title}</p>)
-								}else{
-									bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+							else
+								k2 = <img src={item.img} alt={k2}/>
+						}
+
+
+
+						if(item.body){
+							body = item.body;
+							if(!Array.isArray(body))
+								body = [ body ]
+
+							body.map(function(_item,i){
+								if(typeof _item==='string'){
+									bodys.push(<p>{_item}</p>)
 								}
-							}
-						})
-					}
-
-					if(data.footer){
-						footer = data.footer;
-						if(!Array.isArray(footer))
-							footer = [ footer ]
-
-						footer.map(function(item,i){
-							if(typeof item==='string'){
-								footers.push(<p>item</p>)
-							}
-							if(libs.getObjType(item)==='Object'){
-								var title = item.title||item.caption||item.text;
-								if(title){
-									var cls = item.caption?'caption':'';
-									if(item.url){
-										bodys.push(<p className={cls}><a href={item.url}>{title}</a></p>)
-									}else
-										bodys.push(<p className={cls}>{title}</p>)
-								}else{
-									bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								if(libs.getObjType(_item)==='Object'){
+									var title = _item.title||_item.caption||_item.text;
+									if(title){
+										var cls = _item.caption?'caption':'';
+										if(_item.url){
+											bodys.push(<p className={cls}><a href={_item.url}>{title}</a></p>)
+										}else
+											bodys.push(<p className={cls}>{title}</p>)
+									}else{
+										bodys.push(<p><em>{_item.k+":"}</em><span>{_item.v}</span></p>)
+									}
 								}
-							}
-						})
-					}
+							})
+						}
 
-					if(bodys.length){
-						bodyDom = <div className={'hbody'}>{bodys}</div>
-					}
+						if(item.footer){
+							footer = item.footer;
+							if(!Array.isArray(footer))
+								footer = [ footer ]
 
-					if(footers.length){
-						footerDom = <div className={'hfoot'}>{footers}</div>
-					}
+							footer.map(function(_item,i){
+								if(typeof _item==='string'){
+									footers.push(<p>{_item}</p>)
+								}
+								if(libs.getObjType(_item)==='Object'){
+									var title = _item.title||_item.caption||_item.text;
+									if(title){
+										var cls = _item.caption?'caption':'';
+										if(_item.url){
+											bodys.push(<p className={cls}><a href={_item.url}>{title}</a></p>)
+										}else
+											bodys.push(<p className={cls}>{title}</p>)
+									}else{
+										bodys.push(<p><em>{_item.k+":"}</em><span>{_item.v}</span></p>)
+									}
+								}
+							})
+						}
 
-					items.push(  <div className={'inner'}><div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}</div> );
-					if(i < (data.length-1))
-						items.push(seprete);
+						if(bodys.length){
+							// bodyDom = <div className={'hbody'}>{bodys}</div>
+							if(item.img && k2.length){
+								bodyDom = <div className={'hbody rebody'}>{bodys}</div>
+							}else
+								bodyDom = <div className={'hbody'}>{bodys}</div>
+						}
+
+						if(footers.length){
+							footerDom = <div className={'hfoot'}>{footers}</div>
+						}
+
+						items.push(
+							(
+								item.img && k2.length
+								? <div className={'inner'}>{bodyDom||''}{footerDom||''}<div className={'pics'}>{k2}</div></div>
+								: bodyDom || footerDom
+									? <div className={'inner'}><div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}</div>
+									: <a href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
+							)
+						);
+						if(i < (data.length-1))
+							items.push(seprete);
 				})
 			}
 		}
 
-		var fill = this.props.inline&&Array.isArray(data)
+		// var fill = this.props.inline&&Array.isArray(data)
+		var fill = Array.isArray(data)
 		? items
-		: ( <div className={"inner"}><div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}{dotDom||''}</div> )
+		: (
+			(
+				data.img && k2.length
+				? <div className={'inner'}>{bodyDom||''}{footerDom||''}{dotDom||''}<div className={'pics'}>{k2}</div></div>
+				: bodyDom || footerDom
+					? <div className={"inner"}><div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}{dotDom||''}</div>
+					: <a href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
+			)
+		)
 
 		//idf ： 每一个元素的index
 		return (
