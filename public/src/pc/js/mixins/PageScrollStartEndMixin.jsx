@@ -39,7 +39,7 @@ PageScrollStartEndMixin = {
 			if(nScrollTop + nDivHight >= (nScrollHight)){
                 var that = this.getDOMNode()
 	        	if (typeof this.props.onscrollend === 'function') {
-	        		this.props.onscrollend.call(this, that, scrollTop);
+	        		this.props.onscrollend.call(that, scrollTop);
 	        	}
 			};
         }

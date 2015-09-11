@@ -3,10 +3,12 @@
 * 返回 div > (ul > li)*n
 */
 var libs = require('libs/libs')
-var List = require('widgets/listView/llist')
+var List = require('widgets/listView/list')
 var Pt = require('widgets/itemView/pic_title');
+var scrollMixins = require('mixins/PageScrollStartEndMixin');
 
 var tmpApp = {
+	mixins:[ scrollMixins ],
 	getDefaultProps: function() {
 		return {
 
@@ -31,30 +33,15 @@ var tmpApp = {
 	},
 
 	//已加载组件收到新的参数时调用
-	componentWillReceiveProps:function(nextProps){
-		var pdata = nextProps.data;
-		if(!Array.isArray( pdata )){
-			pdata = [ pdata ]
-		}
-		if( nextProps.data ){
-			this.setState({
-				data: pdata
-			});
-		}
-	},
+	componentWillReceiveProps:function(nextProps){},
 
 	loopRender: function(){
 		var tData = libs.clone(this.state.data);
 		tData.push({caption: '加载更多内容',attr: 'loadbar'});
-		return <List {...this.props} data={tData} onscrollend={this.props.loadMethod} />
+		return <List {...this.props} data={tData}/>
 	},
 
-	componentDidMount: function () {
-		// var that = this.getDOMNode();
-		// if (typeof this.props.loadMethod === 'function') {
-		// 	this.props.loadMethod.call(that);
-		// }
-	},
+	componentDidMount: function () {},
 
 	render: function () {
 		var fills = this.loopRender();
