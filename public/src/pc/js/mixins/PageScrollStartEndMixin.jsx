@@ -13,8 +13,7 @@ PageScrollStartEndMixin = {
         window.clearTimeout(this.ttt);
     },
     _onScroll: function() {
-        var
-		scrollTop =  libs.getOffset().top;
+        var scrollTop =  libs.getOffset().top;
 	    this.scrollTop = scrollTop;
 	    this.isScrolling = true;
 
@@ -27,20 +26,20 @@ PageScrollStartEndMixin = {
 
     },
     _onScrollEnd: function() {
-    	var
-        scrollTop =  libs.getOffset().top;
+    	var scrollTop =  libs.getOffset().top;
         if(scrollTop == this.scrollTop){
         	window.clearTimeout(this.ttt);
         	this.isScrolling = false;
 	        var
-	        scrollbar = document.getElementById('scrollbar'),
+	        // scrollbar = document.getElementById('scrollbar'),
 			nDivHight  = libs.DocmentView().height,
 			nScrollHight = document.documentElement.scrollHeight,
 			nScrollTop = libs.getOffset().top;
 
-			if(nScrollTop + nDivHight >= nScrollHight){
+			if(nScrollTop + nDivHight >= (nScrollHight)){
+                var that = this.getDOMNode()
 	        	if (typeof this.props.onscrollend === 'function') {
-	        		this.props.onscrollend.call(this, scrollTop);
+	        		this.props.onscrollend.call(that, scrollTop);
 	        	}
 			};
         }

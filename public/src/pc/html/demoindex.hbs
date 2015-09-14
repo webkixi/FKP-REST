@@ -2,50 +2,46 @@
 <html lang="en" ng-app>
 
 <head>
-    <title>SLIME PACK</title>
+    <title>FKP-前端编译系统</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/{{commoncss}}">
+    <script type="text/javascript" src="/js/t/qrcode.js"/>
     <!--[if lt IE 9]>
         <script src="/js/ie.js"></script>
     <![endif]-->
     <style media="screen">
-        .table {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .table-col-head {
-            background-color: #f4f4f4;
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .table-col-th td,
-        .table-col-th th {
-            border: 1px solid #ccc;
-        }
-
-        .table td,
-        .table th {
-            padding: 8px;
-        }
-
-        .des {
-            border-color: 1px solid ##f3981c;
+        html {
+            background: #fff;
+            font-family: BrixSansRegular,BrixSansMedium,"Helvetica Neue",Helvetica,sans-serif;
+            color: #5c80b3;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            letter-spacing: -.1px;
         }
     </style>
 </head>
 
-<body>    
+<body>
     <div class="page" data-module="">
         <!--header-->
         <div class="header">
             <div class="header__wrap">
-                <div class="header-logo u-wrap">
+                <h1 class="hero__heading"><b>FKP</b>,是一个简单的前端编译系统</h1>
+                <h2 class="hero__subheading">基于 nodejs， gulp， webpack，支持 coffee,原生js, react, less, sass, stylus 及 handlebars、 html、PHP模板等自动化编译打包。通过简单的打包与分包配置文件扩展gulp的task任务</h2>
+            <a href="https://github.com/webkixi/FKP-REST" target="_blank" class="button button--large">
+                尽情使用吧！
+            </a>
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img src="/images/slime.png" alt="" />
+                    </a>
+                </div>
+                <!-- <div class="header-logo u-wrap">
                     <div class="header-logo__wrap u-clearfix">
                         <div class="layout-fixed-inner u-clearfix">
 
@@ -63,13 +59,13 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
         <!--/header end-->
 
-        <div class="descript">
+      <!--   <div class="descript">
             <div class="des u-pt_20 u-pb_20 u-pl_20 u-ml_20 u-mr_20 u-f14" style="background-color: #fcf8e3">
                 <p>SLIME PACK是一个简单的前端编译系统，可产出生产、开发环境需求的文件</p>
                 <p>基于
@@ -86,9 +82,9 @@
                   html、PHP模板等自动化编译打包 </p>
                 <p>通过简单的打包与分包配置文件扩展gulp的task任务</p>
             </div>
-        </div>
+        </div> -->
 
-        <div id="page-ui-kits" class="u-pt_20 u-pb_20 u-pr_20 u-pl_20">
+        <div id="page-ui-kits">
             {{#each demoindex}}
             <table class="table table-col-th u-mb_20">
                 <tbody>
@@ -101,10 +97,10 @@
                     <tr>
                         <th style="width:150px;">{{title}}</th>
                         <td>
-                            <a class="u-inline-block" target="_blank" href="{{group}}/{{fileName}}">{{group}}/{{fileName}}</a>
+                            <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="/{{url}}">二维码</span>
                             {{#if des}}
                                 <div class="profile u-mt_5">
-                                    <a class="u-inline-block u-color_gray" target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
+                                    <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
                                 </div>
                             {{/if}}
                         </td>
@@ -115,12 +111,17 @@
             {{/each}}
 
         </div>
-
-
+    </div>
+    <div id="footer">
+        <div class="footer-content">
+            <p>献给一直孜孜不倦想干掉PHP层的前端开发者们，FUCK PHP 前端自动化工具:FKP</p>
+            <p class="copyright">
+            ©2015 FKP
+            </p>
+        </div>
     </div>
     <script src="/js/{{commonjs}}"></script>
     <script src="/js/{{pagejs}}"></script>
-
 </body>
 
 </html>

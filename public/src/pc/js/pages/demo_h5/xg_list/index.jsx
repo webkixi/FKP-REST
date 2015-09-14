@@ -19,7 +19,7 @@ var imgs = [
 var goods = [
     {
         title: 'aaaaaa',
-        img:'/images/demo/aclass/p1.jpg',
+        img: ['/images/demo/aclass/p1.jpg','/images/demo/aclass/p1.jpg','/images/demo/aclass/p1.jpg'],
         body:[
             {
                 text: '高效记忆法大揭密',
@@ -98,7 +98,7 @@ var goods = [
 var blogs = [
     {
         title: 'aaaaaa',
-        img:'/images/demo/aclass/b1.jpg',
+        img: ['/images/demo/aclass/p1.jpg','/images/demo/aclass/p1.jpg','/images/demo/aclass/p1.jpg'],
         body:[
             {
                 text: '高效记忆法大揭密',
@@ -171,20 +171,26 @@ var blogs = [
             }
         ]
     }
-]
+];
+
+function mulitifyData(num){
+    var tmpData = []
+    if(num){
+        for(var i = 0; i < num; i++){
+            tmpData = tmpData.concat(blogs)
+        }
+    }
+    return tmpData;
+}
+var listData = [];
+listData = mulitifyData(4);
 
 render(
-    <List data={imgs} listClass={'like_xianguo_index'} itemClass={'col-6 item shadows'} itemView={Pt}/>,
+    <List data={listData} listClass={'like_xg_list'} itemClass={'span12'} itemView={Pt}/>,
     document.getElementById('test')
 )
-//
-//
-// render(
-//     <List data={goods} listClass={'gally_shop'} itemClass={'span12 item'} itemView={Pt}/>,
-//     document.getElementById('test1')
-// )
-//
-// render(
-//     <List data={blogs} listClass={'blog_normal'} itemClass={'span12 item'} itemView={Pt}/>,
-//     document.getElementById('test2')
-// )
+
+render(
+    <List data={listData} listClass={'like_app_list'} itemClass={'span12'} itemView={Pt}/>,
+    document.getElementById('test1')
+)

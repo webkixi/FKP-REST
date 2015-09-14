@@ -1,0 +1,46 @@
+// 字体大小工具类
+.u-f10 {
+  font-size: 10*$px;
+}
+.u-f12 {
+  font-size: 12*$px;
+}
+.u-f14 {
+  font-size: 14*$px;
+}
+.u-f16 {
+  font-size: 16*$px;
+}
+.u-f18 {
+  font-size: 18*$px;
+}
+.u-f24 {
+  font-size: 24*$px;
+}
+.u-f36 {
+  font-size: 36*$px;
+}
+
+//
+.u-fb {
+  font-weight: 700;
+}
+
+// 文字对齐方式工具类
+.u-text-center {
+  text-align: center;
+}
+.u-text-left {
+  text-align: left;
+}
+.u-text-right {
+  text-align: right;
+}
+.u-vm {
+  vertical-align: middle;
+}
+
+//line-height
+.u-line-height_40{
+  line-height:40*$px;
+}

@@ -69,17 +69,17 @@ var loops = function(item){
 function gunOver(){
     test_goods = test_goods.concat(second_goods);
     this.setState({
-      datas:test_goods
+        datas: test_goods
     })
 }
 
 render(
 	<LoadList
 		loop={loops}   //循环item
-    datas={test_goods}   //用于更新的数据
+        datas={test_goods}   //用于更新的数据
 		span={6}
 		onscrollend={gunOver}    //scroll over 方法
-	> </LoadList>
+	></LoadList>
 	,document.getElementById('good')
 );
 

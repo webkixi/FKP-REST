@@ -5,20 +5,32 @@ BY `koa` / `webpack` / `gulp` / `npm` / `git`/`sass`
 #INSTALL
 
 ##安装
- - python
+ - python2.7.x
  - nodejs
  - npm
  - git
 
 git clone https://github.com/webkixi/FKP-REST.git
 
-//转到根目录下
+转到根目录下
 ```
-ly install
+//linux
+1、chmod +x ./ly
+2、ly install
+
+//windows
+1、请修改根目录下的package.json
+2、删除ccap那一行(ccap是FKP动态部分实现的校验码功能，需linux/mac)
+3、ly install
 ```
 
 
 # LOG
+2015//2
+```
+支持多层级目录结构
+之前只支持2级目录，现在调整为支持多级目录，理论上不限制pages下的目录层数，打包与分包规则不变
+```
 2015/8/29
 ```
 支持backbone开发H5界面
