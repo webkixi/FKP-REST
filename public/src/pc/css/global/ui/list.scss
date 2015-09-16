@@ -7,6 +7,10 @@
  * list，定义一些list列表项
  */
 
+.list-wrap{
+    position: relative;
+}
+
 //水平列表
 .hlist{
     list-style: none;
@@ -446,6 +450,8 @@
 $gray70: lighten(#000000, 70%);
 
 .gally_caption{
+    position: relative;
+    overflow: hidden;
     .item{
         color: #666;
 		background: #fff;

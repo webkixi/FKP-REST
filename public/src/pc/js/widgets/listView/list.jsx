@@ -136,6 +136,7 @@ var tmpApp = React.createClass({
 		return (
 			<div className={'list-wrap'}>
 				{fills}
+				{this.props.children}
 			</div>
 		)
 	}

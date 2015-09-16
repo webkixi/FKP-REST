@@ -30,6 +30,7 @@ _subString = (str, len, hasDot) ->
 list = {}
 makeHtmlListData = (pa, capt) ->
     list = {}
+    tmp = {};
     mklist = (htmlPath, caption) ->
         htmlDirPath = if htmlPath then htmlPath else config.dirs.src + '/html'
         # htmlDirPath = config.dirs.src + '/html'
@@ -62,7 +63,9 @@ makeHtmlListData = (pa, capt) ->
                             mdname: ''
                         }
                         firstMd = firstPath.replace(ext,'.md')
+                        filenameMd = filename.replace(ext, '.md')
                         if(fs.existsSync(firstMd))
+                            tmp[filenameMd] = true;
                             desContent = fs.readFileSync(firstMd,'utf8')
                             mdname = gutil.replaceExtension(filename,'_md.html')
                             des = _subString(desContent,200,true)
@@ -71,42 +74,80 @@ makeHtmlListData = (pa, capt) ->
 
                         list[ _caption ].list.push(fileprofile)
 
+                if ext == '.md'
+                    if !tmp[filename]
+                        content = fs.readFileSync(firstPath,'utf8')
+                        title = _subString(content,20,true)
+                        _filenameMd = filename.replace(ext, '_md.html')
+                        _url = if caption then depthFile.replace('.html','_md.html') else ( (caption || '') + '/' + _filenameMd )
+                        if title
+                            fileprofile = {
+                                url: _url,
+                                group: caption || '',
+                                title: title,
+                                fileName: filename.replace(ext,'_md.html'),
+                                fullpath: firstPath,
+                                des: '',
+                                mdname: ''
+                            }
+                            list[ _caption ].list.push(fileprofile)
+
 
             if (fs.statSync(firstPath).isDirectory() && filename.indexOf('_')!=0 )
-                list[filename] = list[filename] || {}
-                list[filename].group = list[filename].group || filename
-                list[filename].list = list[filename].list || []
-                includeDir = fs.readdirSync(firstPath)
-                includeDir.map (_filename)->
-                    secondPath = firstPath + '/' + _filename
-                    if ( !fs.statSync(secondPath).isDirectory() )
-                        ext = path.extname(_filename)
-                        if ( ext == '.hbs' || ext == '.html')
-                            content = fs.readFileSync(secondPath,'utf8')
-                            title = content.match(/<title>([\s\S]*?)<\/title>/ig)
-                            if(title!=null && title[0])
-                                title = title[0].replace(/\<(\/?)title\>/g,'')
-                                fileprofile = {
-                                    group: filename,
-                                    title: title,
-                                    fileName: _filename.replace(ext,'.html'),
-                                    fullpath: secondPath,
-                                    des: '',
-                                    mdname: '',
-                                    url: filename + '/' + _filename.replace(ext,'.html')
-                                }
-                                secondMd = secondPath.replace(ext,'.md')
-                                if(fs.existsSync(secondMd))
-                                    desContent = fs.readFileSync(secondMd,'utf8')
-                                    mdname = gutil.replaceExtension(_filename,'_md.html')
-                                    des = _subString(desContent,200,true)
-                                    fileprofile.des = des
-                                    fileprofile.mdname = mdname
+                mklist(firstPath, filename)
 
-                                list[filename].list.push(fileprofile)
-                    else
-                        if( _filename.indexOf('_')!=0 )
-                            mklist(secondPath, _filename)
+                # list[filename] = list[filename] || {}
+                # list[filename].group = list[filename].group || filename
+                # list[filename].list = list[filename].list || []
+                # includeDir = fs.readdirSync(firstPath)
+                # includeDir.map (_filename)->
+                #     secondPath = firstPath + '/' + _filename
+                #     if ( !fs.statSync(secondPath).isDirectory() )
+                #         ext = path.extname(_filename)
+                #         if ( ext == '.hbs' || ext == '.html')
+                #             content = fs.readFileSync(secondPath,'utf8')
+                #             title = content.match(/<title>([\s\S]*?)<\/title>/ig)
+                #             if(title!=null && title[0])
+                #                 title = title[0].replace(/\<(\/?)title\>/g,'')
+                #                 fileprofile = {
+                #                     group: filename,
+                #                     title: title,
+                #                     fileName: _filename.replace(ext,'.html'),
+                #                     fullpath: secondPath,
+                #                     des: '',
+                #                     mdname: '',
+                #                     url: filename + '/' + _filename.replace(ext,'.html')
+                #                 }
+                #                 secondMd = secondPath.replace(ext,'.md')
+                #                 tmp[secondMd] = true;
+                #                 if(fs.existsSync(secondMd))
+                #                     desContent = fs.readFileSync(secondMd,'utf8')
+                #                     mdname = gutil.replaceExtension(_filename,'_md.html')
+                #                     des = _subString(desContent,200,true)
+                #                     fileprofile.des = des
+                #                     fileprofile.mdname = mdname
+                #
+                #                 list[filename].list.push(fileprofile)
+                #         if ext == '.md'
+                #             if tmp[_filename]
+                #                 return
+                #             content = fs.readFileSync(secondPath,'utf8')
+                #             title = _subString(content,60,true)
+                #             _url = filename + '/' + _filename.replace(ext,'_md.html')
+                #             if title
+                #                 fileprofile = {
+                #                     url: _url,
+                #                     group: filename,
+                #                     title: title,
+                #                     fileName: filename.replace(ext,'_md.html'),
+                #                     fullpath: secondPath,
+                #                     des: '',
+                #                     mdname: ''
+                #                 }
+                #                 list[ filename ].list.push(fileprofile)
+                #     else
+                #         if( _filename.indexOf('_')!=0 )
+                #             mklist(secondPath, _filename)
         return
     mklist(pa, capt)
 

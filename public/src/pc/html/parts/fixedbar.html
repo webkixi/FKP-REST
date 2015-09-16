@@ -1,0 +1,41 @@
+
+<!doctype html>
+
+<html>
+<head>
+    <title>fixedbar挂栏，跟随滚动条促发、移动</title>
+    @@include('../_common/header/head.html')
+    <style>
+    .example-enter {
+opacity: 0.01;
+transition: opacity .5s ease-in;
+}
+
+.example-enter.example-enter-active {
+opacity: 1;
+}
+    </style>
+    <!--[if lt IE 9]>
+        <script src="/js/ie.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="" data-module="index">
+    <div class="container">
+        <div class="container__wrap">
+            <div class="layout-fixed-inner">
+                <div class="" style="height:2000px;width:100%;">
+                    fdsgsdfg
+                </div>
+                <div id='good' class="home-floor"> </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr/>
+<div class='u-clearfix' id='demo'></div>
+<script src="/js/{{commonjs}}"></script>
+<script src="/js/{{pagejs}}"></script>
+</body>
+</html>
