@@ -1,7 +1,7 @@
 #FKP-REST
 #### FRONT-END KOAJS WEBPACK
 >FKP-REST基于前端技术实现，可以用于部署一套完整的网站，例如博客、商城, H5微信端等。考虑到了前端对于并发性能的问题，因此基于webpack实现了静态资源的编译输出，同时兼顾了方便开发环境调试的非编译输出。
->FKP基于    nodejs（KOAJS），gulp，webpack等技术实现，依照前端组件化、后端模块化的构建初衷来规划部署，FKP-REST支持静态编译，适用多人协作的前后模块式开发，可分布式部署提升并发访问性能
+>FKP基于nodejs（KOAJS），gulp，webpack等技术实现，依照前端组件化、后端模块化的构建初衷来规划部署，FKP-REST支持静态编译，适用多人协作的前后模块式开发，可分布式部署提升并发访问性能
 >目前支持的前端热门静态资源解决方案，如CSS（SASS, SCSS, LESS, STYLUS）, JAVASCRIPT(COFFEE, REACT, BACKBONE, JQ), 模板引擎(html, hbs, php)等。  
 
 # NOTE
@@ -49,6 +49,11 @@ ly bbpro  动态支持backbone 生产
 
 
 # LOG
+2015/9/16
+```
+1.1.1
+修正了二维码在DEMOINDEX页面路径错误的问题，现在在本地调试H5页面，扫一扫就好了
+```
 2015/9/15
 ```
 0、调整版本依赖，支持node4.0
