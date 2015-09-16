@@ -66,9 +66,9 @@ module.exports = (gulp,$,slime,env)->
 
         gulp.task 'sync',()->
             browserSync(
-                port: 9000
+                port: config.port.demo
                 ui:
-                    port: 9001
+                    port: config.port.demo+1
                 server:
                     baseDir: [ config.htmlDevPath, config.staticPath + '/dev']
                     index: "demoindex.html"

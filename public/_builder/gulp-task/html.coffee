@@ -3,6 +3,9 @@ path = require 'path'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 config = require '../configs/config.coffee'
+os = require('os');
+ifaces = os.networkInterfaces();
+port = 0
 
 _subString = (str, len, hasDot) ->
     newLength = 0
@@ -25,12 +28,38 @@ _subString = (str, len, hasDot) ->
     return newStr;
 
 
+_getAddress = () ->
+    address = {}
+    realIp = ''
+    Object.keys(ifaces).forEach (ifname) ->
+        alias = 0
+        ifaces[ifname].forEach (iface) ->
+            if ('IPv4' != iface.family || iface.internal != false)
+                # skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+                return;
+
+            if (alias >= 1)
+                # this single interface has multiple ipv4 addresses
+                console.log(ifname + ':' + alias, iface.address);
+                address[ifname] = iface.address
+            else
+                # this interface has only one ipv4 adress
+                console.log(ifname, iface.address);
+                address[ifname] = iface.address
+
+    # console.log address
+    return address[Object.keys(address)[0]]
+    # return address
+
+
 
 # 首页列表数据
 list = {}
 makeHtmlListData = (pa, capt) ->
     list = {}
     tmp = {};
+    tip = _getAddress()
+    ipport = if port then ':'+port else ''
     mklist = (htmlPath, caption) ->
         htmlDirPath = if htmlPath then htmlPath else config.dirs.src + '/html'
         # htmlDirPath = config.dirs.src + '/html'
@@ -51,10 +80,12 @@ makeHtmlListData = (pa, capt) ->
                     content = fs.readFileSync(firstPath,'utf8')
                     title = content.match(/<title>([\s\S]*?)<\/title>/ig)
                     _url = if caption then depthFile else ( (caption || '') + '/' + filename.replace(ext,'.html') )
+                    _ipurl = 'http://'+ tip + ipport + '/' + _url
                     if(title!=null && title[0])
                         title = title[0].replace(/\<(\/?)title\>/g,'')
                         fileprofile = {
                             url: _url,
+                            ipurl: _ipurl,
                             group: caption || '',
                             title: title,
                             fileName: filename.replace(ext,'.html'),
@@ -80,9 +111,11 @@ makeHtmlListData = (pa, capt) ->
                         title = _subString(content,20,true)
                         _filenameMd = filename.replace(ext, '_md.html')
                         _url = if caption then depthFile.replace('.html','_md.html') else ( (caption || '') + '/' + _filenameMd )
+                        _ipurl = 'http://'+ tip + ipport + '/' + _url
                         if title
                             fileprofile = {
                                 url: _url,
+                                ipurl: _ipurl,
                                 group: caption || '',
                                 title: title,
                                 fileName: filename.replace(ext,'_md.html'),
@@ -96,74 +129,25 @@ makeHtmlListData = (pa, capt) ->
             if (fs.statSync(firstPath).isDirectory() && filename.indexOf('_')!=0 )
                 mklist(firstPath, filename)
 
-                # list[filename] = list[filename] || {}
-                # list[filename].group = list[filename].group || filename
-                # list[filename].list = list[filename].list || []
-                # includeDir = fs.readdirSync(firstPath)
-                # includeDir.map (_filename)->
-                #     secondPath = firstPath + '/' + _filename
-                #     if ( !fs.statSync(secondPath).isDirectory() )
-                #         ext = path.extname(_filename)
-                #         if ( ext == '.hbs' || ext == '.html')
-                #             content = fs.readFileSync(secondPath,'utf8')
-                #             title = content.match(/<title>([\s\S]*?)<\/title>/ig)
-                #             if(title!=null && title[0])
-                #                 title = title[0].replace(/\<(\/?)title\>/g,'')
-                #                 fileprofile = {
-                #                     group: filename,
-                #                     title: title,
-                #                     fileName: _filename.replace(ext,'.html'),
-                #                     fullpath: secondPath,
-                #                     des: '',
-                #                     mdname: '',
-                #                     url: filename + '/' + _filename.replace(ext,'.html')
-                #                 }
-                #                 secondMd = secondPath.replace(ext,'.md')
-                #                 tmp[secondMd] = true;
-                #                 if(fs.existsSync(secondMd))
-                #                     desContent = fs.readFileSync(secondMd,'utf8')
-                #                     mdname = gutil.replaceExtension(_filename,'_md.html')
-                #                     des = _subString(desContent,200,true)
-                #                     fileprofile.des = des
-                #                     fileprofile.mdname = mdname
-                #
-                #                 list[filename].list.push(fileprofile)
-                #         if ext == '.md'
-                #             if tmp[_filename]
-                #                 return
-                #             content = fs.readFileSync(secondPath,'utf8')
-                #             title = _subString(content,60,true)
-                #             _url = filename + '/' + _filename.replace(ext,'_md.html')
-                #             if title
-                #                 fileprofile = {
-                #                     url: _url,
-                #                     group: filename,
-                #                     title: title,
-                #                     fileName: filename.replace(ext,'_md.html'),
-                #                     fullpath: secondPath,
-                #                     des: '',
-                #                     mdname: ''
-                #                 }
-                #                 list[ filename ].list.push(fileprofile)
-                #     else
-                #         if( _filename.indexOf('_')!=0 )
-                #             mklist(secondPath, _filename)
         return
     mklist(pa, capt)
 
 
 
 module.exports = (gulp, $, slime, env, path)->
-    if env == 'REST'  # 请求来自root/index.js
-        if path
-            makeHtmlListData(path)
-            datas = { demoindex: list } # index html模板名称    list: 模板数据
-            return datas
-        else
-            return
-    else
-        makeHtmlListData()
-        datas = { demoindex: list }
         return () ->
+            if env == 'REST'  # 请求来自root/index.js
+                if path
+                    makeHtmlListData(path)
+                    datas = { demoindex: list } # index html模板名称    list: 模板数据
+                    return datas
+                else
+                    return
+            else
+                if env == 'dev'
+                    port = config.port.demo
+                makeHtmlListData()
+                datas = { demoindex: list }
+
             # 生成分页并生成列表页
             slime.build(config.dirs.src + '/html/',{type: 'hbs',data: datas, 'env': env});
