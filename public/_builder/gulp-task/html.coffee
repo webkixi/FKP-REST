@@ -103,7 +103,7 @@ makeHtmlListData = (pa, capt) ->
                     console.log _url
                     _ipurl = 'http://'+ tip + ipport + '/' + _url
                     console.log _ipurl
-                    _ipurl = _ipurl.replace('//','/').replace('http:/','http://')
+                    _ipurl = _ipurl.replace('//','/')
                     console.log _ipurl
                     if(title!=null && title[0])
                         title = title[0].replace(/\<(\/?)title\>/g,'')
