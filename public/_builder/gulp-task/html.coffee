@@ -101,7 +101,9 @@ makeHtmlListData = (pa, capt) ->
                     _url = if caption then depthFile else ( (caption || '') + '/' + filename.replace(ext,'.html') )
                     _url = _url.replace('public/src/pc/html','')
                     _ipurl = 'http://'+ tip + ipport + '/' + _url
+                    console.log _ipurl
                     _ipurl = _ipurl.replace('//','/').replace('http:/','http://')
+                    console.log _ipurl
                     if(title!=null && title[0])
                         title = title[0].replace(/\<(\/?)title\>/g,'')
                         fileprofile = {
@@ -134,7 +136,9 @@ makeHtmlListData = (pa, capt) ->
                         _url = if caption then depthFile.replace('.html','_md.html') else ( (caption || '') + '/' + _filenameMd )
                         _url = _url.replace('public/src/pc/html','')
                         _ipurl = 'http://'+ tip + ipport + '/' + _url
+                        console.log _ipurl
                         _ipurl = _ipurl.replace('//','/').replace('http:/','http://')
+                        console.log _ipurl
                         if title
                             fileprofile = {
                                 url: _url,
