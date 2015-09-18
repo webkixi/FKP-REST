@@ -262,9 +262,9 @@ function *distribute(_mapper){
 
                     if(this.method==='GET'){
                         if(typeof pageData.errStat == 'undefined'){
-                            var header = yield header_nav.call(this);
-                            pageData.header_nav = header.navData;
-                            pageData.user = header.user;
+                            // var header = yield header_nav.call(this);
+                            // pageData.header_nav = header.navData;
+                            // pageData.user = header.user;
                         }
                         yield htmlRender.call(this,true,route,pageData);
                     }
