@@ -100,6 +100,7 @@ makeHtmlListData = (pa, capt) ->
                     title = content.match(/<title>([\s\S]*?)<\/title>/ig)
                     _url = if caption then depthFile else ( (caption || '') + '/' + filename.replace(ext,'.html') )
                     _url = _url.replace('public/src/pc/html/','')
+                    console.log _url
                     _ipurl = 'http://'+ tip + ipport + '/' + _url
                     console.log _ipurl
                     _ipurl = _ipurl.replace('//','/').replace('http:/','http://')
