@@ -31,6 +31,7 @@ _subString = (str, len, hasDot) ->
 _getAddress = () ->
     address = {}
     realIp = ''
+    ipGlobal = false
     Object.keys(ifaces).forEach (ifname) ->
         alias = 0
         ifaces[ifname].forEach (iface) ->
@@ -43,9 +44,20 @@ _getAddress = () ->
                 console.log(ifname + ':' + alias, iface.address);
                 address[ifname] = iface.address
             else
-                # this interface has only one ipv4 adress
-                console.log(ifname, iface.address);
-                address[ifname] = iface.address
+                if(iface.address.indexOf('192.168')>-1 ||
+                	iface.address.indexOf('172.16')>-1 ||
+                	iface.address.indexOf('10.0')>-1)
+                    if(!ipGlobal)
+                        # this interface has only one ipv4 adress
+                        console.log(ifname, iface.address);
+                        address[ifname] = iface.address
+                else
+                    console.log(ifname, iface.address);
+                    address = []
+                    ipGlobal = true
+                    address[ifname] = iface.address
+
+    console.log ipGlobal
 
     # console.log address
     return address[Object.keys(address)[0]]
