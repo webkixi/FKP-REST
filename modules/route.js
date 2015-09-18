@@ -88,12 +88,12 @@ function *createTempPath2(pms,rjson){
     else if(cat){
         cat = cat.replace(rjson.ext,'');
         route = gtpy(cat)==='Number'
-        ? 'index'
+        ? 'demoindex'
         : cat;
     }
 
     else{
-        route = 'index'
+        route = 'demoindex'
     }
 
     return route;
