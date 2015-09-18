@@ -128,6 +128,7 @@ $font_text:12*$px;
     margin-bottom: 20px;
     color:#5c80b3;
     border: 1px solid #ececec;
+    
 }
 
 .table-col-head {
@@ -147,6 +148,7 @@ $font_text:12*$px;
 .table th {
     padding: 20px;
     font-family: 'helvetica neue', arial, "PingHei", 'Hiragino Sans GB', stheiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif, iconfont;
+    word-break: break-all; word-wrap:break-word;
 }
 .table th{
 	font-size: 14px;
@@ -170,6 +172,7 @@ $font_text:12*$px;
     .profile a{
         font-size: 14px;
         color: #b3b3b3;
+        word-wrap: break-word;
     }
 }
 
