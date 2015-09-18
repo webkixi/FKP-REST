@@ -9,7 +9,8 @@ module.exports = {
     version: "1.0.0",
     description: "FKP-REST",
     port:{
-        demo: 9000
+        demo: 9000,
+        dev: 8070
     },
     dirs: {
         src: src_dir,

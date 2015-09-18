@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en">
 
 <head>
     <title>FKP-前端编译系统</title>
@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/{{commoncss}}">
-    <script type="text/javascript" src="/js/t/qrcode.js"/>
+    <link rel="stylesheet" href="/css/{{pagecss}}">
+    <script type="text/javascript" src="/js/t/qrcode.js"></script>
     <!--[if lt IE 9]>
         <script src="/js/ie.js"></script>
     <![endif]-->
@@ -22,6 +23,9 @@
             text-rendering: optimizeLegibility;
             -moz-osx-font-smoothing: grayscale;
             letter-spacing: -.1px;
+        }
+        .qrcode{
+            cursor: pointer;
         }
     </style>
 </head>
@@ -44,48 +48,9 @@ FKP基于nodejs（KOAJS），gulp，webpack等技术实现，支持前端热门�
                         <img src="/images/slime.png" alt="" />
                     </a>
                 </div>
-                <!-- <div class="header-logo u-wrap">
-                    <div class="header-logo__wrap u-clearfix">
-                        <div class="layout-fixed-inner u-clearfix">
-
-                            <div class="header-logo__title u-fl">
-                                <a href="index.html">
-                                    <img src="/images/slime.png" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="u-fl u-mt_15">
-                                <a href="index.html">
-                                    <img src="/images/slime_title.png" alt="" />
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> -->
-
             </div>
         </div>
         <!--/header end-->
-
-      <!--   <div class="descript">
-            <div class="des u-pt_20 u-pb_20 u-pl_20 u-ml_20 u-mr_20 u-f14" style="background-color: #fcf8e3">
-                <p>SLIME PACK是一个简单的前端编译系统，可产出生产、开发环境需求的文件</p>
-                <p>基于
-                  <a title="nodejs官网" href="https://nodejs.org/" target="_blank">nodejs</a>，
-                  <a title="gulp官网" href="http://gulpjs.com/" target="_blank">gulp</a>，
-                  <a title="webpack官网" href="webpack.github.io" target="_blank">webpack</a>，支持
-                  <a title="coffee中文" href="http://coffee-script.org/" target="_blank">coffee</a>,原生js,
-                  <a title="reactjs官网" href="http://facebook.github.io/react/" target="_blank">react</a>,
-                  <a title="less中文" href="http://www.bootcss.com/p/lesscss/" target="_blank">less</a>,
-                  <a title="sass中文" href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank">sass</a>,
-                  <a title="stylus中文" href="http://www.zhangxinxu.com/jq/stylus/" target="_blank">stylus</a>
-                  及
-                  <a title="handlebars官网" href="http://handlebarsjs.com/" target="_blank">handlebars</a>、
-                  html、PHP模板等自动化编译打包 </p>
-                <p>通过简单的打包与分包配置文件扩展gulp的task任务</p>
-            </div>
-        </div> -->
 
         <div id="page-ui-kits">
             {{#each demoindex}}
@@ -93,13 +58,20 @@ FKP基于nodejs（KOAJS），gulp，webpack等技术实现，支持前端热门�
                 <tbody>
                     <tr>
                         <td class="table-col-head" colspan="2">
-                            <b class="u-f18">{{group}}</b>
+                            <h4 class="u-f24">
+                                <i class="icon-quanbufenlei"></i>
+                                {{group}}
+                            </h4>
+                            {{#if readme}}
+                            <small class="u-f12 u-color_gray">{{readme}}</small>
+                            {{/if}}
                         </td>
                     </tr>
                     {{#each list}}
                     <tr>
-                        <th style="width:150px;">{{title}}</th>
+                        <th style="width:10px;"></th>
                         <td>
+                            <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
                             <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>
                             {{#if des}}
                                 <div class="profile u-mt_5">
@@ -123,6 +95,7 @@ FKP基于nodejs（KOAJS），gulp，webpack等技术实现，支持前端热门�
             </p>
         </div>
     </div>
+
     <script src="/js/{{commonjs}}"></script>
     <script src="/js/{{pagejs}}"></script>
 </body>

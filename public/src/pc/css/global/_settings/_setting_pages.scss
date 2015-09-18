@@ -127,23 +127,25 @@ $font_text:12*$px;
     width: 100%;
     margin-bottom: 20px;
     color:#5c80b3;
+    border: 1px solid #ececec;
 }
 
 .table-col-head {
     background-color: #f9f9f9;
     vertical-align: middle;
-    text-align: center;
+    // text-align: center;
     font-size: 18px;
     color:#34495e;
 }
 .table-col-th td,
 .table-col-th th {
-    border: 1px solid #ececec;
+    padding: 10px;
+    border-bottom: 1px dotted #ececec;
 }
 
 .table td,
 .table th {
-    padding: 10px;
+    padding: 20px;
     font-family: 'helvetica neue', arial, "PingHei", 'Hiragino Sans GB', stheiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif, iconfont;
 }
 .table th{
@@ -151,11 +153,11 @@ $font_text:12*$px;
 }
 .table td {
     a {
-    	font-size: 18px;
+    	font-size: 14px;
     	color: lighten(#000000, 48%);
     	&:hover{
-    		font-weight: bold;
-    		color:#5c80b3;
+    		// font-weight: bold;
+    		color:red;
     	}
     }
     .profile{

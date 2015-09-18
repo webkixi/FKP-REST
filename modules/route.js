@@ -67,13 +67,15 @@ function *createTempPath2(pms,rjson){
     var params = pms;
     var route = false;
 
-    var cat = params.cat, title = params.title, id = params.id;
+    var cat = params.cat||'', title = params.title||'', id = params.id||'';
     var gtpy = libs.getObjType;
 
     if(id){
-        route = title
-        ? cat+'/'+title
-        : cat;
+        gtpy(id)==='Number'
+        ? route = title
+            ? cat+'/'+title
+            : cat
+        : route = cat+'/'+title +'/' + id
     }
 
     else if(title){

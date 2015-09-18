@@ -64,7 +64,7 @@ makeHtmlListData = (pa, capt) ->
         htmlDirPath = if htmlPath then htmlPath else config.dirs.src + '/html'
         # htmlDirPath = config.dirs.src + '/html'
         htmlDir = fs.readdirSync( htmlDirPath );
-        depthDir = htmlDirPath.replace('./src/pc/html/','')
+        depthDir = htmlDirPath.replace('./src/pc/html/','').replace('public/src/pc/html/','')
         _caption = caption || 'root'
         htmlDir.map (filename)->
             firstPath = htmlDirPath + '/' + filename
@@ -76,10 +76,15 @@ makeHtmlListData = (pa, capt) ->
                 list[ _caption ].group = list[ _caption ].group || (if caption then depthDir else _caption)
                 list[ _caption ].list = list[ _caption ].list || []
 
+                if filename == caption && ext == ''
+                    content = fs.readFileSync(firstPath,'utf8')
+                    list[ _caption ].readme = content
+
                 if ( ext == '.hbs' || ext == '.html')
                     content = fs.readFileSync(firstPath,'utf8')
                     title = content.match(/<title>([\s\S]*?)<\/title>/ig)
                     _url = if caption then depthFile else ( (caption || '') + '/' + filename.replace(ext,'.html') )
+                    _url = _url.replace('public/src/pc/html','')
                     _ipurl = 'http://'+ tip + ipport + '/' + _url
                     if(title!=null && title[0])
                         title = title[0].replace(/\<(\/?)title\>/g,'')
@@ -111,6 +116,7 @@ makeHtmlListData = (pa, capt) ->
                         title = _subString(content,20,true)
                         _filenameMd = filename.replace(ext, '_md.html')
                         _url = if caption then depthFile.replace('.html','_md.html') else ( (caption || '') + '/' + _filenameMd )
+                        _url = _url.replace('public/src/pc/html','')
                         _ipurl = 'http://'+ tip + ipport + '/' + _url
                         if title
                             fileprofile = {
@@ -137,6 +143,7 @@ makeHtmlListData = (pa, capt) ->
 module.exports = (gulp, $, slime, env, path)->
         return () ->
             if env == 'REST'  # 请求来自root/index.js
+                port = config.port.dev
                 if path
                     makeHtmlListData(path)
                     datas = { demoindex: list } # index html模板名称    list: 模板数据
