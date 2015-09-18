@@ -28,10 +28,10 @@ _subString = (str, len, hasDot) ->
     return newStr;
 
 
+ipGlobal = false
 _getAddress = () ->
     address = {}
     realIp = ''
-    ipGlobal = false
     Object.keys(ifaces).forEach (ifname) ->
         alias = 0
         ifaces[ifname].forEach (iface) ->
@@ -71,6 +71,9 @@ makeHtmlListData = (pa, capt) ->
     list = {}
     tmp = {};
     tip = _getAddress()
+    if ipGlobal
+        tip = 'www.agzgz.com'
+        port = 0
     ipport = if port then ':'+port else ''
     mklist = (htmlPath, caption) ->
         htmlDirPath = if htmlPath then htmlPath else config.dirs.src + '/html'
