@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en">
 
 <head>
     <title>FKP-前端编译系统</title>
@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="/css/{{commoncss}}">
-    <script type="text/javascript" src="/js/t/qrcode.js"/>
+    <link rel="stylesheet" href="/css/{{pagecss}}">
+    <script type="text/javascript" src="/js/t/qrcode.js"></script>
     <!--[if lt IE 9]>
         <script src="/js/ie.js"></script>
     <![endif]-->
@@ -23,6 +24,9 @@
             -moz-osx-font-smoothing: grayscale;
             letter-spacing: -.1px;
         }
+        .qrcode{
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -31,8 +35,11 @@
         <!--header-->
         <div class="header">
             <div class="header__wrap">
-                <h1 class="hero__heading"><b>FKP</b>,是一个简单的前端编译系统</h1>
-                <h2 class="hero__subheading">基于 nodejs， gulp， webpack，支持 coffee,原生js, react, less, sass, stylus 及 handlebars、 html、PHP模板等自动化编译打包。通过简单的打包与分包配置文件扩展gulp的task任务</h2>
+                <h1 class="hero__heading"><b>FKP-REST</b>,高性能，组件化，简单构建，快速上线</h1>
+                <h2 class="hero__subheading">
+FKP-REST基于前端技术实现，可以用于部署一套完整的网站，例如博客、商城, H5微信端等。FKP考虑到了前端对于并发性能的问题，因此基于webpack实现了静态资源的编译输出，同时兼顾了方便开发环境调试的非编译输出。
+
+FKP基于nodejs（KOAJS），gulp，webpack等技术实现，支持前端热门静态资源解决方案，如CSS（SASS, SCSS, LESS, STYLUS）, JAVASCRIPT(COFFEE, REACT, BACKBONE, JQ), 模板引擎(html, hbs, php)等。</h2>
             <a href="https://github.com/webkixi/FKP-REST" target="_blank" class="button button--large">
                 尽情使用吧！
             </a>
@@ -41,48 +48,9 @@
                         <img src="/images/slime.png" alt="" />
                     </a>
                 </div>
-                <!-- <div class="header-logo u-wrap">
-                    <div class="header-logo__wrap u-clearfix">
-                        <div class="layout-fixed-inner u-clearfix">
-
-                            <div class="header-logo__title u-fl">
-                                <a href="index.html">
-                                    <img src="/images/slime.png" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="u-fl u-mt_15">
-                                <a href="index.html">
-                                    <img src="/images/slime_title.png" alt="" />
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> -->
-
             </div>
         </div>
         <!--/header end-->
-
-      <!--   <div class="descript">
-            <div class="des u-pt_20 u-pb_20 u-pl_20 u-ml_20 u-mr_20 u-f14" style="background-color: #fcf8e3">
-                <p>SLIME PACK是一个简单的前端编译系统，可产出生产、开发环境需求的文件</p>
-                <p>基于
-                  <a title="nodejs官网" href="https://nodejs.org/" target="_blank">nodejs</a>，
-                  <a title="gulp官网" href="http://gulpjs.com/" target="_blank">gulp</a>，
-                  <a title="webpack官网" href="webpack.github.io" target="_blank">webpack</a>，支持
-                  <a title="coffee中文" href="http://coffee-script.org/" target="_blank">coffee</a>,原生js,
-                  <a title="reactjs官网" href="http://facebook.github.io/react/" target="_blank">react</a>,
-                  <a title="less中文" href="http://www.bootcss.com/p/lesscss/" target="_blank">less</a>,
-                  <a title="sass中文" href="http://www.w3cplus.com/sassguide/syntax.html" target="_blank">sass</a>,
-                  <a title="stylus中文" href="http://www.zhangxinxu.com/jq/stylus/" target="_blank">stylus</a>
-                  及
-                  <a title="handlebars官网" href="http://handlebarsjs.com/" target="_blank">handlebars</a>、
-                  html、PHP模板等自动化编译打包 </p>
-                <p>通过简单的打包与分包配置文件扩展gulp的task任务</p>
-            </div>
-        </div> -->
 
         <div id="page-ui-kits">
             {{#each demoindex}}
@@ -90,14 +58,21 @@
                 <tbody>
                     <tr>
                         <td class="table-col-head" colspan="2">
-                            <b class="u-f18">{{group}}</b>
+                            <h4 class="u-f24">
+                                <i class="ifont icon-file"></i>
+                                {{group}}
+                            </h4>
+                            {{#if readme}}
+                            <small class="u-f12 u-color_gray">{{readme}}</small>
+                            {{/if}}
                         </td>
                     </tr>
                     {{#each list}}
                     <tr>
-                        <th style="width:150px;">{{title}}</th>
+                        <th style="width:1px;"></th>
                         <td>
-                            <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="/{{url}}">二维码</span>
+                            <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
+                            <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>
                             {{#if des}}
                                 <div class="profile u-mt_5">
                                     <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
@@ -120,6 +95,7 @@
             </p>
         </div>
     </div>
+
     <script src="/js/{{commonjs}}"></script>
     <script src="/js/{{pagejs}}"></script>
 </body>

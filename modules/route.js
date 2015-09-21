@@ -67,13 +67,15 @@ function *createTempPath2(pms,rjson){
     var params = pms;
     var route = false;
 
-    var cat = params.cat, title = params.title, id = params.id;
+    var cat = params.cat||'', title = params.title||'', id = params.id||'';
     var gtpy = libs.getObjType;
 
     if(id){
-        route = title
-        ? cat+'/'+title
-        : cat;
+        gtpy(id)==='Number'
+        ? route = title
+            ? cat+'/'+title
+            : cat
+        : route = cat+'/'+title +'/' + id
     }
 
     else if(title){
@@ -86,12 +88,12 @@ function *createTempPath2(pms,rjson){
     else if(cat){
         cat = cat.replace(rjson.ext,'');
         route = gtpy(cat)==='Number'
-        ? 'index'
+        ? 'demoindex'
         : cat;
     }
 
     else{
-        route = 'index'
+        route = 'demoindex'
     }
 
     return route;
@@ -260,9 +262,9 @@ function *distribute(_mapper){
 
                     if(this.method==='GET'){
                         if(typeof pageData.errStat == 'undefined'){
-                            var header = yield header_nav.call(this);
-                            pageData.header_nav = header.navData;
-                            pageData.user = header.user;
+                            // var header = yield header_nav.call(this);
+                            // pageData.header_nav = header.navData;
+                            // pageData.user = header.user;
                         }
                         yield htmlRender.call(this,true,route,pageData);
                     }

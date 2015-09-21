@@ -52,7 +52,7 @@ $font_text:12*$px;
 .hero__heading {
     font-family: BrixSlab-Medium,BrixSlab-Regular,"Helvetica Neue",Helvetica,sans-serif;
     font-weight: 400;
-    font-size: 42px;
+    font-size: 30px;
     text-shadow: 0 1px 2px rgba(2,9,25,.2);
     margin: 0 0 21px;
     line-height: 1;
@@ -64,7 +64,7 @@ $font_text:12*$px;
 }
 .hero__subheading {
     font-family: BrixSansRegular,BrixSansMedium,"Helvetica Neue",Helvetica,sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
     color: #D7E2FF;
     text-shadow: 0 1px 2px rgba(2,9,25,.2);
@@ -127,35 +127,40 @@ $font_text:12*$px;
     width: 100%;
     margin-bottom: 20px;
     color:#5c80b3;
+    border: 1px solid #ececec;
+
 }
 
 .table-col-head {
     background-color: #f9f9f9;
     vertical-align: middle;
-    text-align: center;
+    // text-align: center;
     font-size: 18px;
     color:#34495e;
 }
 .table-col-th td,
 .table-col-th th {
-    border: 1px solid #ececec;
+    padding: 10px;
+    border-bottom: 1px dotted #ececec;
 }
 
 .table td,
 .table th {
-    padding: 10px;
+    padding: 20px;
     font-family: 'helvetica neue', arial, "PingHei", 'Hiragino Sans GB', stheiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif, iconfont;
+    word-break: break-all; word-wrap:break-word;
 }
 .table th{
 	font-size: 14px;
+    padding: 20px 10px;
 }
 .table td {
     a {
-    	font-size: 18px;
+    	font-size: 14px;
     	color: lighten(#000000, 48%);
     	&:hover{
-    		font-weight: bold;
-    		color:#5c80b3;
+    		// font-weight: bold;
+    		color:red;
     	}
     }
     .profile{
@@ -168,6 +173,7 @@ $font_text:12*$px;
     .profile a{
         font-size: 14px;
         color: #b3b3b3;
+        word-wrap: break-word;
     }
 }
 

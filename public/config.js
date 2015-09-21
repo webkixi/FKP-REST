@@ -7,7 +7,11 @@ var path = require('path');
 module.exports = {
     name: "SLAMEPACK",
     version: "1.0.0",
-    description: "SLAMEPACK",
+    description: "FKP-REST",
+    port:{
+        demo: 9000,
+        dev: 8070
+    },
     dirs: {
         src: src_dir,
         dist: "./dist",

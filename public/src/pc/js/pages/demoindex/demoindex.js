@@ -8,7 +8,11 @@ function mkQrCode(elem,content){
     qrcode.makeCode(content);
 }
 
-$('.qrcode').one('click', function(){
-    var cnt = $(this).attr('value');
-    mkQrCode(this, cnt);
+$('.qrcode').on('click', function(){
+    if($(this).find('canvas').length){
+        $(this).html('二维码');
+    }else{
+        var cnt = $(this).attr('value');
+        mkQrCode(this, cnt);
+    }
 })
