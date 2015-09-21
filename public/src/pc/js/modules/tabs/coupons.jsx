@@ -6,8 +6,13 @@
 
 // require compoent
 var Tabswitch = require('./_component/tabswitch')('mc_tab');
+<<<<<<< HEAD
 var Uls = require('./_component/uls')('mc_uls');
 var SelectBar = require('./_component/uls')('mc_sele');
+=======
+var List = require('widgets/listView/list');
+var Pt = require('widgets/itemView/pic_title');
+>>>>>>> lgh
 var render = React.render;
 
 
@@ -16,8 +21,12 @@ var render = React.render;
 * ele     {String}  页面元素的ID
 * {return}  渲染结构到指定ID
 */
+<<<<<<< HEAD
 function likeImooc( navData, cntData, seleData, ele, opts ){
 
+=======
+function likeImooc( navData, ele, opts ){
+>>>>>>> lgh
     // 绑定tab的item元素的方法
     var tabItemDefaultMethod = function(){
         $(this).click(function(e){
@@ -30,6 +39,7 @@ function likeImooc( navData, cntData, seleData, ele, opts ){
             }
             $(this).toggleClass('active')
 
+<<<<<<< HEAD
             var idf = $(this).attr('data-idf');
             SA.setter('mc_uls', { data: cntData[idf-1] })
         })
@@ -48,12 +58,22 @@ function likeImooc( navData, cntData, seleData, ele, opts ){
         })
     }
 
+=======
+            // var idf = $(this).attr('data-idf');
+            // SA.setter('mc_uls', { data: cntData[idf-1] })
+        })
+    }
+>>>>>>> lgh
     // 渲染结构到页面
     render(
         <div>
             <Tabswitch data={navData} listClass={'fox'} itemDefaultMethod={tabItemDefaultMethod}/>
+<<<<<<< HEAD
             <Uls data={cntData[0]} listClass={'fox'} itemDefaultMethod={ulItemDefaultMethod}/>
             <SelectBar data={seleData} listClass={'fox'} itemDefaultMethod={ulItemDefaultMethod}/>
+=======
+            <List data={listData} listClass={'like_xg_list'} itemClass={'span12'} itemView={Pt}/>
+>>>>>>> lgh
         </div>
         ,document.getElementById(ele)
     )
