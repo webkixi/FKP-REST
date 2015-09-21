@@ -1,0 +1,233 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+  font-family: "Microsoft YaHei","微软雅黑","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:62.5%;
+  line-height: 1.428571429;
+  color: #595757;
+  background-color: #fff;
+}
+/*.swiper-container {
+    width: 500px;
+    height: 300px;
+    margin: 20px auto;
+}*/
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.container{
+    width: 100%;
+}
+.swiper-slide1 {
+    font-size: 18px;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 30px;
+}
+.home_banner{
+    height: 13rem;
+    margin-bottom:2rem;
+    img{
+        width: 100%;
+        height: auto;
+    }
+    .swiper-pagination{
+
+    }
+
+}
+.home{
+    width: 96%;
+    margin: 0 auto;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+    h2{
+        color: red;
+        font-size: 1.2rem;
+        i{
+            font-style: normal;
+            font-size: 0.8rem;
+        }
+    }
+    p{
+        font-size: 0.6rem;
+        color: #666;
+    }
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    .foot_bg{
+        background-color: #000;
+        opacity: 0.5;
+        height: 60px;
+        width: 100%;
+    }
+    ul{
+        position: absolute;
+        bottom: 0%;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        margin-left: 0;
+        li{
+            width: 25%;
+            margin-left: 0;
+            text-align: center;
+        }
+    }
+}
+.home_banner2{
+    height: 100%;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-pagination-bullet{
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        background: url(../img/icon.png) no-repeat #fff center center ;
+    }
+}
+
+header{
+    h1{
+        font-size: 0.9rem;
+    }
+}
+.wrapper{
+    .coupons_ul{
+        font-size: 0.7rem;
+        li{
+            a{
+                padding: 0.5rem 1rem;
+                font-size: 0.7rem;
+            }
+        }
+    }  
+}
+.event {
+  display: table;
+  position: relative;
+  width: 100%;
+}
+.event-date {
+    display: table-cell;
+    width: 25%;
+    height: 25%;
+    p{
+        color: #999;
+    }
+}
+.event-coupons{
+    display: table-cell;
+    width: 20%;
+    height: 20%;
+}
+.event-pic{
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+    color: #fff;
+    text-align: center;
+    padding: 4% 8%;
+    em{
+        font-size: 1.2rem;
+        font-style: normal;
+        i{
+            font-style: normal;
+            font-size: 0.8rem;
+        }
+    }
+    span{
+        display: block;
+        font-size: 0.8rem;
+    }
+} 
+.event-desc {
+  padding: 0 0.3rem 0 0.8rem;
+  text-align: left;
+  display: table-cell;
+  vertical-align: top;
+  border-right: 1px solid #ececec;
+  margin-right: 0.5rem;
+  .event-desc-header {
+    margin: 0 0 0.5rem 0;
+    padding: 0;
+    font-size: 0.6rem;
+  }
+  p{
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.5rem;
+  }
+
+}
+.radius_word{
+    width: 96%;
+    display: block;
+    text-align: center;
+    font-size: 0.7rem;
+    font-style: normal;
+    padding: 0.7rem;
+    border-radius: 100%;
+    border: 1px solid #ececec;
+    margin-left: 0.5rem;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 22;
+    background-color: #fff;
+    width: 100%;
+    border-top: 1px solid #d1d1d1;
+    text-align: center;
+    ul[class*="block-grid-"]{
+        margin: 0;        
+        font-size: 0.7rem;
+        >li{
+            padding: 0;
+            a{
+                color: #767676;
+            }
+        }
+    }
+    li{
+        i.iconfont{
+            display: block;
+            font-style: normal;
+            font-size: 28px;
+        }
+    }
+}
+hr {
+  border: solid #DDDDDD;
+  border-width: 1px 0 0;
+  clear: both;
+  height: 0;
+  margin: 0.6rem 0 0.8rem; }
