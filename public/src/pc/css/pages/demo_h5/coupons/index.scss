@@ -4,7 +4,7 @@
 }
 body {
   font-family: "Microsoft YaHei","微软雅黑","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size:62.5%;
+  /*font-size:62.5%;*/
   line-height: 1.428571429;
   color: #595757;
   background-color: #fff;
@@ -121,11 +121,11 @@ header{
 }
 .wrapper{
     .coupons_ul{
-        font-size: 0.7rem;
+        font-size: 0.6rem;
         li{
             a{
-                padding: 0.5rem 1rem;
-                font-size: 0.7rem;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
             }
         }
     }  
