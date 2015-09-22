@@ -617,6 +617,7 @@ module.exports = {
                 }
 
                 function getMd(){
+                    var hasMermaid = false;
                     return through.obj(function (file, enc, cb) {
                         if (file.isNull()) {
                             cb(null, file);
@@ -629,6 +630,20 @@ module.exports = {
                         }
 
                         var mdtemp = fs.readFileSync(path.join(config.src,'html/_common/templet/md.hbs'),'utf-8');
+                        // var renderer = new marked.Renderer();
+                        // renderer.defaultCode = renderer.code
+                        // renderer.code = function(code, language){
+                        //     if(language==='flow'){
+                        //         html = ''
+                        //         if(!hasMermaid){
+                        //             hasMermaid = true
+                        //             html += ''
+                        //             html + ' '+code+' '
+                        //         }
+                        //     }else{
+                        //         this.defaultCode(code, language)
+                        //     }
+                        // }
                         marked(file.contents.toString(), options, function (err, data) {
                             if (err) {
                                 cb(new gutil.PluginError('gulp-markdown', err, {fileName: file.path}));

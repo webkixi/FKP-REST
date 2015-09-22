@@ -6,14 +6,12 @@
     <title>MARKDOWN文档模板</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
-    <link rel="stylesheet" href="/css/{{commoncss}}">
-    <link rel="stylesheet" href="/css/{{pagecss}}">
     <meta name="description" content="">
+    <link rel="stylesheet" href="/css/{{commoncss}}">
+    <link rel="stylesheet" href="/css/markdown.css">
     <!--[if lt IE 9]>
         <script src="/js/t/ie.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="/css/markdown.css">
     <style>
         .container{
             width: 1000px;
@@ -22,13 +20,13 @@
             position: relative;
         }
         .side-menu{
-            /*position: fixed;top: 10px;*/
+            position: fixed;top: 10px;
         }
     </style>
 
 </head>
 <body>
-    <div class="markdown-preview">
+    <div class="markdown-body">
         <div class="container u-ma" style="">
             <div class="span9" style="">
                 <p><a href="https://github.com/webkixi/FKP-REST"><strong>FKP-REST</strong></a> 是一套完全由前端技术构建的高性能框架，后端由koajs，前端由webpack/gulp构建而成  </p>
@@ -47,6 +45,6 @@
         </div>
     </div>
     <script type="text/javascript" src='/js/{{commonjs}}'></script>
-    <script type="text/javascript" src='/js/markdown.js'></script>
+    <script type="text/javascript" src='/js/t/prettfy.js'></script>
 </body>
 </html>
