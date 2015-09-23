@@ -690,3 +690,61 @@ $border: 2px solid lighten(#000000,90%);
         }
     }
 }
+
+//优惠券列表
+.coupons_list{
+   .item{
+        .hheader{
+            background: url(../images/coupons/1.jpg) no-repeat;
+            width: 19%;
+            height: 100%; 
+            background-size: 100%;          
+            em{
+                font-size: 1rem;
+                font-style: normal;
+                color: #fff;
+                display: block;
+                text-align: center;
+                line-height: 100px;
+                i{
+                    font-style: normal;
+                    font-size: 0.6rem;
+                }
+            }
+        }
+        .hbody{
+
+        }
+        .failure{
+                background: url(../images/coupons/coupons_bg.jpg) no-repeat;
+        }
+        .dot{
+            display: block;
+            top: 10px;
+            right: 5%;
+            width: 25%;
+            height: 100%;
+            i{
+                width: 90%;
+                height: 90%;
+                display: block;
+                text-align: center;
+                font-size: 0.8rem;
+                font-style: normal;
+                padding: 0.6rem;
+                border-radius: 80px;
+                border: 1px solid #ececec;
+                line-height: normal;
+            }
+        }
+   }
+}
+.coupons-nav{
+    .item{
+        padding: 0.5rem 1rem;
+        a{
+            font-size: 0.6rem;
+            color: #333;
+        }
+    }
+}
