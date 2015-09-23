@@ -7,7 +7,7 @@ config = require '../configs/config.coffee'
 
 module.exports = (gulp,$)->
     return ()->
-        gulp.src config.dirs.src + '/js/copy2dist/**/*.*'
+        gulp.src config.dirs.src + '/js/_copy2dist/**/*.*'
             # .pipe $.newer(config.jsDevPath)
             .pipe $.size()
             .pipe $.copyExt()

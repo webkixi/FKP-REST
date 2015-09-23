@@ -14,7 +14,7 @@ config = require '../configs/config.coffee'
 
 module.exports = (gulp,$)->
     return ()->
-        gulp.src [config.dirs.src + '/css/copy2dist/**/*.*', config.dirs.src + '/css/modules/**/*.*']
+        gulp.src [config.dirs.src + '/css/_copy2dist/**/*.*', config.dirs.src + '/css/modules/**/*.*']
             .pipe $.newer(config.cssBuildPath)
             .pipe($.plumber())
             # .pipe $.rimraf()
