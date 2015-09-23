@@ -15,7 +15,7 @@ var coupons = [
     // 未使用
     [
         {
-            title: '100',
+            title: '￥100',
             body:[
                 {
                     text: '组成拼班获得'
@@ -34,7 +34,7 @@ var coupons = [
             ]
         },
         {
-           title: '1000',
+           title: '￥1000',
             body:[
                 {
                     text: '组成拼班获得'
@@ -56,7 +56,7 @@ var coupons = [
     // 已使用
     [
         {
-            title: '2000',
+            title: '￥2000',
             body:[
                 {
                     text: '组成拼班获得'
@@ -75,7 +75,7 @@ var coupons = [
             ]
         },
         {
-           title: '1000',
+           title: '￥1000',
             body:[
                 {
                     text: '组成拼班获得'
@@ -97,7 +97,7 @@ var coupons = [
     // 已过期
     [
         {
-            title: '300',
+            title: '￥300',
             body:[
                 {
                     text: '组成拼班获得'
@@ -116,7 +116,7 @@ var coupons = [
             ]
         },
         {
-           title: '1000',
+           title: '￥1000',
             body:[
                 {
                     text: '组成拼班获得'

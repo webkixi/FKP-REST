@@ -697,10 +697,10 @@ $border: 2px solid lighten(#000000,90%);
         .hheader{
             background: url(../images/coupons/1.jpg) no-repeat;
             width: 19%;
-            height: 100%; 
-            background-size: 100%;          
-            em{
-                font-size: 1rem;
+            height: 100%;
+            background-size: 100%;
+            a{
+                font-size: 0.85rem;
                 font-style: normal;
                 color: #fff;
                 display: block;

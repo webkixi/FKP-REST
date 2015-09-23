@@ -8,7 +8,7 @@
 var Tabswitch = require('./_component/tabswitch')('mc_tab');
 var Uls = require('./_component/uls')('pc_uls');
 var List = require('widgets/listView/list');
-var Pt = require('widgets/itemView/coupons_li_v');
+var Pt = require('widgets/itemView/pic_title');
 var render = React.render;
 
 /*

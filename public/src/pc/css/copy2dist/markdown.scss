@@ -8,9 +8,9 @@
   text-size-adjust: 100%;
   color: #333;
   overflow: hidden;
-  font-family: sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
+  font-family: 'lucida grande', 'lucida sans unicode', lucida, helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  font-size: 0.87rem;
+  line-height: 1.8;
   word-wrap: break-word;
 }
 
@@ -101,7 +101,7 @@
 
 .markdown-body hr {
   height: 0;
-  margin: 15px 0;
+  margin: 10px 0;
   overflow: hidden;
   background: transparent;
   border: 0;
@@ -132,6 +132,10 @@
 
 .markdown-body h1 {
   font-size: 30px;
+}
+
+.markdown-body .side-menu h4{
+    margin-top: 0;
 }
 
 .markdown-body h2 {
@@ -247,10 +251,13 @@
 .markdown-body h5,
 .markdown-body h6 {
   position: relative;
-  margin-top: 1rem;
+  margin-top: 3rem;
   margin-bottom: 16px;
   font-weight: bold;
   line-height: 1.4;
+}
+.markdown-body h1{
+    margin-top: 1rem;
 }
 
 .markdown-body h1 .octicon-link,
@@ -285,7 +292,7 @@
 }
 
 .markdown-body h1 {
-  padding-bottom: 0.3rem;
+  padding: 2rem 0;
   font-size: 2.25rem;
   line-height: 1.2;
   border-bottom: 1px solid #eee;
@@ -352,16 +359,16 @@
 }
 
 .markdown-body hr {
-  height: 4px;
+  height: 1px;
   padding: 0;
-  margin: 16px 0;
+  margin: 3rem 0;
   background-color: #e7e7e7;
   border: 0 none;
 }
 
 .markdown-body ul,
 .markdown-body ol {
-  padding-left: 2rem;
+  padding-left: 0.5rem;
 }
 
 .markdown-body ul ul,
@@ -370,6 +377,10 @@
 .markdown-body ol ul {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.markdown-body li {
+  font-size: 14px;
 }
 
 .markdown-body li>p {
@@ -394,9 +405,10 @@
 }
 
 .markdown-body blockquote {
-  padding: 0 15px;
+  padding: 10px 15px;
   color: #777;
-  border-left: 4px solid #ddd;
+  border-left: 0.5rem solid #ddd;
+  background-color: #fafafa;
 }
 
 .markdown-body blockquote>:first-child {
@@ -408,7 +420,6 @@
 }
 
 .markdown-body table {
-  display: block;
   width: 100%;
   overflow: auto;
   word-break: normal;
@@ -652,7 +663,7 @@
 }
 
 /* desert scheme ported from vim to google prettify */
-pre.prettyprint { display: block; background-color: #333; padding: 5px; }
+pre.prettyprint { display: block; background-color: #333; padding: 15px; }
 pre .nocode { background-color: none; color: #000 }
 pre .str { color: #ffa0a0 } /* string  - pink */
 pre .kwd { color: #f0e68c; font-weight: bold }
