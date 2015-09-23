@@ -1,6 +1,4 @@
-// var Mooc = require('modules/tabs/coupons');
-
-// var data = require('../_json/mall_list.json')
+var Mooc = require('modules/tabs/coupons');
 
 
 /* ============

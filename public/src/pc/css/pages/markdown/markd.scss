@@ -9,8 +9,8 @@
   color: #333;
   overflow: hidden;
   font-family: 'lucida grande', 'lucida sans unicode', lucida, helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 0.87rem;
+  line-height: 1.8;
   word-wrap: break-word;
 }
 
@@ -405,9 +405,10 @@
 }
 
 .markdown-body blockquote {
-  padding: 0 15px;
+  padding: 10px 15px;
   color: #777;
-  border-left: 4px solid #ddd;
+  border-left: 0.5rem solid #ddd;
+  background-color: #fafafa;
 }
 
 .markdown-body blockquote>:first-child {

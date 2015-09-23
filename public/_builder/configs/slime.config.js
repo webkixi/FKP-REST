@@ -644,6 +644,17 @@ module.exports = {
                         //         this.defaultCode(code, language)
                         //     }
                         // }
+
+                        marked.setOptions({
+                          renderer: new marked.Renderer(),
+                          gfm: true,
+                          tables: true,
+                          breaks: false,
+                          pedantic: false,
+                          sanitize: true,
+                          smartLists: true,
+                          smartypants: false
+                        });
                         marked(file.contents.toString(), options, function (err, data) {
                             if (err) {
                                 cb(new gutil.PluginError('gulp-markdown', err, {fileName: file.path}));
