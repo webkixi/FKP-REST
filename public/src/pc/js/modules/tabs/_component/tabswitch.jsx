@@ -62,18 +62,10 @@ var tabswitch = {
 	render:function(){
 		return <div className={'tabswitch u-clearfix'} style={this.props.style}>
 				<List {...this.props} data={this.state.datas}/>
-                {this.renderChildren()}
           </div>
 	}
 }
 
-
-// function mkTabSwitch( storeName ){
-//     if(storeName)
-//         tabswitch.mixins = [Store(storeName)];
-//
-//     return React.createClass(tabswitch);
-// }
 
 var libs = require('libs/libs')
 function actRct( storeName ){
