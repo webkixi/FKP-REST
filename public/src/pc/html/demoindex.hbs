@@ -27,6 +27,9 @@
         .qrcode{
             cursor: pointer;
         }
+        .dplay{
+            display: block;
+        }
     </style>
 </head>
 
@@ -56,7 +59,7 @@ FKP基于nodejs（KOAJS），gulp，webpack等技术实现，支持前端热门�
             {{#each demoindex}}
             <table class="table table-col-th u-mb_20">
                 <tbody>
-                    <tr>
+                    <tr class='dnode'>
                         <td class="table-col-head" colspan="2">
                             <h4 class="u-f24">
                                 <i class="ifont icon-file"></i>
@@ -68,7 +71,7 @@ FKP基于nodejs（KOAJS），gulp，webpack等技术实现，支持前端热门�
                         </td>
                     </tr>
                     {{#each list}}
-                    <tr>
+                    <tr class='fnode'>
                         <th style="width:1px;"></th>
                         <td>
                             <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>

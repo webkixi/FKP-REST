@@ -1,11 +1,15 @@
 var List = require('./_component/_loadlist')()
-var Pt = require('widgets/itemView/pic_title');
+var ITEM = require('widgets/itemView/pic_title');
 var render = React.render;
 
 
-function applist(data, ele){
+function applist(data, ele, opts){
 
-    loM = function(){
+    var evt;
+    if( opts && opts.evt)
+        evt = opts.evt;
+
+    var scrollEndMethod = (opts && opts.sem) || function(){
         var td;
         var tmpData = SA.getter('LDL')
         if(!tmpData.data){
@@ -16,13 +20,20 @@ function applist(data, ele){
             td = td.concat(data);
             // SA.setter('LDL', {data:td})
         }
-        $(this).find('li[data-cls="loadbar"]').click(function(){
-            SA.setter('LDL', {data:td});
-        })
+
+        if(!evt){
+            $(this).find('li[data-cls="loadbar"]').click(function(){
+                SA.setter('LDL', {data:td});
+            })
+        }
+        else
+            if(evt === 'auto')
+                SA.setter('LDL', {data:td});
+
     }
 
     render(
-        <List data={data} onscrollend={loM} listClass={'like_app_list'} itemClass={'span12'} itemView={Pt}/>,
+        <List data={data} onscrollend={scrollEndMethod} listClass={'like_app_list'} itemClass={'span12'} itemView={ITEM}/>,
         document.getElementById(ele)
     )
 }

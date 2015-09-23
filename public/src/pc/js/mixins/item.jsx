@@ -1,4 +1,8 @@
-//store
+// widget/item默认绑定方法
+// 1、前／后置icon
+// 2、绑定默认方法 itemDefaultMethod
+// 3、绑定外传方法 itemMethod
+
 function itemMixin(){
     return {
         getInitialState: function() {

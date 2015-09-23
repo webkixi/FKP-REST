@@ -83,14 +83,14 @@ makeHtmlListData = (pa, capt) ->
         _caption = caption || 'root'
         htmlDir.map (filename)->
             firstPath = htmlDirPath + '/' + filename
-            if (fs.statSync(firstPath).isFile() && filename.indexOf('_')!=0 && filename.indexOf('demo')==-1 )
+            if (fs.statSync(firstPath).isFile() && filename.indexOf('_')!=0 && filename!='demoindex' )
                 ext = path.extname(filename)
                 depthFile = firstPath.replace('./src/pc/html/','').replace(ext, '.html')
 
                 list[ _caption ] = list[ _caption ] || {}
                 list[ _caption ].group = list[ _caption ].group || (if caption then depthDir else _caption)
                 list[ _caption ].list = list[ _caption ].list || []
-
+                
                 if filename == caption && ext == ''
                     content = fs.readFileSync(firstPath,'utf8')
                     list[ _caption ].readme = content
@@ -148,6 +148,7 @@ makeHtmlListData = (pa, capt) ->
                             }
                             list[ _caption ].list.push(fileprofile)
 
+                return
 
             if (fs.statSync(firstPath).isDirectory() && filename.indexOf('_')!=0 )
                 mklist(firstPath, filename)

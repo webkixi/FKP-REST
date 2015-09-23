@@ -1,3 +1,8 @@
+$('.fnode').hide()
+$('.dnode').click(function(){
+    $(this).siblings(".fnode").toggle()
+})
+
 function mkQrCode(elem,content){
     if(!elem) return;
     if(!content) return;

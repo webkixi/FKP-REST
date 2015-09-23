@@ -4,7 +4,6 @@
 */
 var libs = require('libs/libs')
 var List = require('widgets/listView/list')
-var Pt = require('widgets/itemView/pic_title');
 var scrollMixins = require('mixins/PageScrollStartEndMixin');
 
 var tmpApp = {
