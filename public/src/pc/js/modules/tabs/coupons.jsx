@@ -35,7 +35,7 @@ function likeImooc( navData,listData, ele, opts ){
     // 渲染结构到页面
     render(
         <div>
-            <Tabswitch data={navData} listClass={'tab-nav coupons-nav'} itemDefaultMethod={tabItemDefaultMethod}>
+            <Tabswitch data={navData} listClass={'coupons-nav'} itemDefaultMethod={tabItemDefaultMethod}>
                 <Uls data={listData} listClass={'coupons_list like_app_list'} itemView={Pt}/>
             </Tabswitch>
         </div>

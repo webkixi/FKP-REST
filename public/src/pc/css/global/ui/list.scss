@@ -705,7 +705,7 @@ $border: 2px solid lighten(#000000,90%);
                 color: #fff;
                 display: block;
                 text-align: center;
-                line-height: 100px;
+                line-height: normal;
                 i{
                     font-style: normal;
                     font-size: 0.6rem;
@@ -725,14 +725,14 @@ $border: 2px solid lighten(#000000,90%);
             width: 25%;
             height: 100%;
             i{
-                width: 90%;
-                height: 90%;
+                width: 60%;
+                height: 60%;
                 display: block;
                 text-align: center;
                 font-size: 0.8rem;
                 font-style: normal;
                 padding: 0.6rem;
-                border-radius: 80px;
+                border-radius: 50%;
                 border: 1px solid #ececec;
                 line-height: normal;
             }
@@ -740,11 +740,16 @@ $border: 2px solid lighten(#000000,90%);
    }
 }
 .coupons-nav{
+    background-color: #EFEFEF;
     .item{
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0;
+        text-align: center;
         a{
             font-size: 0.6rem;
             color: #333;
+        }
+        &.active{
+            background-color: #fff;
         }
     }
 }
