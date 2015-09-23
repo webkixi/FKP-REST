@@ -20,8 +20,9 @@ git clone https://github.com/webkixi/FKP-REST.git
 转到根目录下
 ```
 //linux
+//请先安装gcc g++等编译环境，如debian系列，`apt-get install build-essential`
 1、chmod +x ./ly
-2、ly install
+2、sudo ly install
 
 //windows
 1、请修改根目录下的package.json
