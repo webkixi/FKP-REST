@@ -47,6 +47,7 @@ var uls = {
                 )
             }.bind(this))
         }
+        console.log(items);
         return items;
     },
 

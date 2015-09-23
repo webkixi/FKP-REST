@@ -20,16 +20,16 @@ var render = React.render;
 function likeImooc( navData,listData, ele, opts ){
     // 绑定tab的item元素的方法
     var tabItemDefaultMethod = function(){
+        $('.tabswitch li[data-cls="first"]').addClass('active');
         $(this).click(function(e){
             $(this).addClass('active')
             $(this).siblings().removeClass('active')
-            /*$('.tabswitch li[data-cls="first"]').addClass('active');*/
             var idf = $(this).attr('data-idf');
-/*            if($(this).attr('data-cls')=="first") {
+            if($(this).attr('data-cls')=="first") {
                 SA.setter('pc_uls', { data: listData })
-                console.log(listData)
-            }*/
-            SA.setter('pc_uls', { data: listData[idf-1] })
+            }
+            else
+                SA.setter('pc_uls', { data: listData[idf-1] })
         })
     }
     // 渲染结构到页面

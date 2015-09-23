@@ -41,7 +41,7 @@ var fox = React.createClass({
 				var dotDom;
 
 				var k1 = data.id||'',
-					v1 = data.url||'javascript:;',
+					v1 = data.url||'javascript:void();',
 
 					k2 = data.title||data.caption||data.catName||data.model||data.quality||data.vender||data||'',
 					v2 = data.attr||'',
