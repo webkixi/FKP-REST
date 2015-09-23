@@ -41,7 +41,7 @@ var fox = React.createClass({
 				var dotDom;
 
 				var k1 = data.id||'',
-					v1 = data.url||'javascript:void();',
+					v1 = data.url||'javascript:;',
 
 					k2 = data.title||data.caption||data.catName||data.model||data.quality||data.vender||data||'',
 					v2 = data.attr||'',
@@ -278,7 +278,7 @@ var fox = React.createClass({
 								item.img && k2.length
 								? <div className={'inner'}>{bodyDom||''}{footerDom||''}<div className={'pics'}>{k2}</div></div>
 								: bodyDom || footerDom
-									? <div className={'inner'}><div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}</div>
+									? <div className={'inner'}><div className={"hheader"}><em><i>￥</i>{k2}</em></div>{bodyDom||''}{footerDom||''}</div>
 									: <a href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
 							)
 						);
@@ -296,7 +296,7 @@ var fox = React.createClass({
 				data.img && k2.length
 				? <div className={'inner'}>{bodyDom||''}{footerDom||''}{dotDom||''}<div className={'pics'}>{k2}</div></div>
 				: bodyDom || footerDom
-					? <div className={"inner"}><div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}{dotDom||''}</div>
+					? <div className={"inner"}><div className={"hheader"}><em><i>￥</i>{k2}</em></div>{bodyDom||''}{footerDom||''}{dotDom||''}</div>
 					: <a href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
 			)
 		)

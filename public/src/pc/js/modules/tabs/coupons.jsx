@@ -6,10 +6,10 @@
 
 // require compoent
 var Tabswitch = require('./_component/tabswitch')('mc_tab');
+var Uls = require('./_component/uls')('pc_uls');
 var List = require('widgets/listView/list');
-var Pt = require('widgets/itemView/pic_title');
+var Pt = require('widgets/itemView/coupons_li_v');
 var render = React.render;
-
 
 /*
 * cntData {Array}   二维数组
@@ -17,28 +17,27 @@ var render = React.render;
 * {return}  渲染结构到指定ID
 */
 
-
-function likeImooc( navData, ele, opts ){
+function likeImooc( navData,listData, ele, opts ){
     // 绑定tab的item元素的方法
     var tabItemDefaultMethod = function(){
+        $('.tabswitch li[data-cls="first"]').addClass('active');
         $(this).click(function(e){
-            if($(this).attr('data-cls')=="first") return false;
-            // if($(this).attr('data-cls')=="second") return false;
-            if($(this).hasClass('active')){
-                $(this).parent().find('li[data-cls="second"]').addClass('active')
-            }else{
-                $(this).siblings().removeClass('active')
-            }
-            $(this).toggleClass('active')
+            $(this).addClass('active')
+            $(this).siblings().removeClass('active')
             var idf = $(this).attr('data-idf');
-            SA.setter('mc_uls', { data: cntData[idf-1] })
+            if($(this).attr('data-cls')=="first") {
+                SA.setter('pc_uls', { data: listData })
+            }
+            else
+                SA.setter('pc_uls', { data: listData[idf-1] })
         })
     }
     // 渲染结构到页面
     render(
         <div>
-            <Tabswitch data={navData} listClass={'fox'} itemDefaultMethod={tabItemDefaultMethod}/>
-            <List data={listData} listClass={'like_xg_list'} itemClass={'span12'} itemView={Pt}/>
+            <Tabswitch data={navData} listClass={'tab-nav coupons-nav'} itemDefaultMethod={tabItemDefaultMethod}>
+                <Uls data={listData} listClass={'coupons_list like_app_list'} itemView={Pt}/>
+            </Tabswitch>
         </div>
         ,document.getElementById(ele)
     )
