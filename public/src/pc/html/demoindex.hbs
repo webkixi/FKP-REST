@@ -60,7 +60,11 @@ FKP基于nodejs（KOAJS），gulp，webpack等技术实现，支持前端热门�
             <table class="table table-col-th u-mb_20">
                 <tbody>
                     <tr class='dnode'>
+                        {{#if subtree}}
+                        <td class="table-col-head" colspan="2" style="background:rgb(225, 251, 252);">
+                        {{else}}
                         <td class="table-col-head" colspan="2">
+                        {{/if}}
                             <h4 class="u-f24">
                                 <i class="ifont icon-file"></i>
                                 {{group}}

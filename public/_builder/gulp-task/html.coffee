@@ -77,20 +77,28 @@ makeHtmlListData = (pa, capt) ->
     ipport = if port then ':'+port else ''
     mklist = (htmlPath, caption) ->
         htmlDirPath = if htmlPath then htmlPath else config.dirs.src + '/html'
+
         # htmlDirPath = config.dirs.src + '/html'
         htmlDir = fs.readdirSync( htmlDirPath );
         depthDir = htmlDirPath.replace('./src/pc/html/','').replace('public/src/pc/html/','')
         _caption = caption || 'root'
+
+        list[ _caption ] = list[ _caption ] || {}
+        list[ _caption ].group = list[ _caption ].group || (if caption then depthDir else _caption)
+        list[ _caption ].list = list[ _caption ].list || []
+
+        dirJson = path.parse(htmlDirPath)
+        if dirJson.base != 'html'
+            if dirJson.dir != './src/pc/html'
+                list[ _caption ].subtree = true
+
         htmlDir.map (filename)->
             firstPath = htmlDirPath + '/' + filename
             if (fs.statSync(firstPath).isFile() && filename.indexOf('_')!=0 && filename!='demoindex' )
                 ext = path.extname(filename)
                 depthFile = firstPath.replace('./src/pc/html/','').replace(ext, '.html')
 
-                list[ _caption ] = list[ _caption ] || {}
-                list[ _caption ].group = list[ _caption ].group || (if caption then depthDir else _caption)
-                list[ _caption ].list = list[ _caption ].list || []
-                
+
                 if filename == caption && ext == ''
                     content = fs.readFileSync(firstPath,'utf8')
                     list[ _caption ].readme = content
