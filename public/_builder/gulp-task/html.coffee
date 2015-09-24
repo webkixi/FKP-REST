@@ -90,6 +90,7 @@ makeHtmlListData = (pa, capt) ->
         dirJson = path.parse(htmlDirPath)
         if dirJson.base != 'html'
             if dirJson.dir != './src/pc/html' || dirJson.dir != 'public/src/pc/html'
+                console.log dirJson
                 list[ _caption ].subtree = true
 
         htmlDir.map (filename)->
@@ -173,6 +174,7 @@ module.exports = (gulp, $, slime, env, path)->
                 if path
                     makeHtmlListData(path)
                     datas = { demoindex: list } # index html模板名称    list: 模板数据
+                    console.log datas
                     return datas
                 else
                     return
