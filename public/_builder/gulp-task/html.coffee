@@ -94,6 +94,8 @@ makeHtmlListData = (pa, capt) ->
         dirJson = path.parse(htmlDirPath)
         if dirJson.base != 'html'
             if dirJson.dir != './src/pc/html'
+                console.log 'bbbbbbbbbbb'
+                console.log htmlDirPath
                 list[ _caption ].subtree = true
 
         htmlDir.map (filename)->
