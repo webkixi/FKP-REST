@@ -87,6 +87,10 @@ makeHtmlListData = (pa, capt) ->
         list[ _caption ].group = list[ _caption ].group || (if caption then depthDir else _caption)
         list[ _caption ].list = list[ _caption ].list || []
 
+        console.log 'aaaaaaaaaaaa'
+        console.log 'aaaaaaaaaaaa'
+        console.log htmlDirPath
+        console.log path.parse(htmlDirPath)
         dirJson = path.parse(htmlDirPath)
         if dirJson.base != 'html'
             if dirJson.dir != './src/pc/html'
