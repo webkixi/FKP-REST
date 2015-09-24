@@ -95,7 +95,7 @@ function *createTempPath2(pms,rjson){
     else{
         route = 'demoindex'
     }
-
+    route = route.replace(rjson.ext,'')
     return route;
 }
 
@@ -246,6 +246,7 @@ function *distribute(_mapper){
                     }
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
+                        console.log(pageData);
                         yield htmlRender.call(this,true,route,pageData);
                         return false;
                     }

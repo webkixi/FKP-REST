@@ -30,7 +30,7 @@ module.exports = (gulp,$,slime,env)->
             .pipe $.map (file)->
                 _fileparse = path.parse(file.path)
                 _filename = _fileparse.base
-                filename = _fileparse.name.replace('-','/')
+                filename = _fileparse.name.replace(/-/g,'/')
                 if(filename == "common" || filename == "ie")
                     mapJson['commonDependencies']['js'][filename] = _filename;
                 else
@@ -44,7 +44,7 @@ module.exports = (gulp,$,slime,env)->
             .pipe $.map (file)->
                 _fileparse = path.parse(file.path)
                 _filename = _fileparse.base
-                filename = _fileparse.name.replace('-','/')
+                filename = _fileparse.name.replace(/-/g,'/')
                 if(filename == "common" || filename == "ie")
                     mapJson['commonDependencies']['css'][filename] = _filename;
                 else
