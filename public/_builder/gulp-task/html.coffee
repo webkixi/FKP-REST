@@ -87,15 +87,9 @@ makeHtmlListData = (pa, capt) ->
         list[ _caption ].group = list[ _caption ].group || (if caption then depthDir else _caption)
         list[ _caption ].list = list[ _caption ].list || []
 
-        console.log 'aaaaaaaaaaaa'
-        console.log 'aaaaaaaaaaaa'
-        console.log htmlDirPath
-        console.log path.parse(htmlDirPath)
         dirJson = path.parse(htmlDirPath)
         if dirJson.base != 'html'
             if dirJson.dir != './src/pc/html'
-                console.log 'bbbbbbbbbbb'
-                console.log htmlDirPath
                 list[ _caption ].subtree = true
 
         htmlDir.map (filename)->
@@ -179,6 +173,7 @@ module.exports = (gulp, $, slime, env, path)->
                 if path
                     makeHtmlListData(path)
                     datas = { demoindex: list } # index html模板名称    list: 模板数据
+                    console.log datas
                     return datas
                 else
                     return
