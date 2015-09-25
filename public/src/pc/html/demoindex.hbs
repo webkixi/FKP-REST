@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>FKP-前端编译系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/{{commoncss}}">
+    <link rel="stylesheet" href="/css/{{pagecss}}">
+    <script type="text/javascript" src="/js/t/qrcode.js"></script>
+    <!--[if lt IE 9]>
+        <script src="/js/ie.js"></script>
+    <![endif]-->
+    <style media="screen">
+        html {
+            background: #fff;
+            font-family: BrixSansRegular,BrixSansMedium,"Helvetica Neue",Helvetica,sans-serif;
+            color: #5c80b3;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            letter-spacing: -.1px;
+        }
+        .qrcode{
+            cursor: pointer;
+        }
+        .dplay{
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page" data-module="">
+        <!--header-->
+        <div class="header">
+            <div class="header__wrap">
+                <h1 class="hero__heading"><b>FKP-REST</b>,高性能，组件化，简单构建，快速上线</h1>
+                <h2 class="hero__subheading">
+FKP-REST基于前端技术实现，可以用于部署一套完整的网站，例如博客、商城, H5微信端等。FKP考虑到了前端对于并发性能的问题，因此基于webpack实现了静态资源的编译输出，同时兼顾了方便开发环境调试的非编译输出。
+
+FKP基于nodejs（KOAJS），gulp，webpack等技术实现，支持前端热门静态资源解决方案，如CSS（SASS, SCSS, LESS, STYLUS）, JAVASCRIPT(COFFEE, REACT, BACKBONE, JQ), 模板引擎(html, hbs, php)等。</h2>
+            <a href="https://github.com/webkixi/FKP-REST" target="_blank" class="button button--large">
+                尽情使用吧！
+            </a>
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img src="/images/slime.png" alt="" />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--/header end-->
+
+        <div id="page-ui-kits">
+            {{#each demoindex}}
+            <table class="table table-col-th u-mb_20">
+                <tbody>
+                    <tr class='dnode'>
+                        {{#if subtree}}
+                        <td class="table-col-head" colspan="2" style="background:rgb(225, 251, 252);">
+                        {{else}}
+                        <td class="table-col-head" colspan="2">
+                        {{/if}}
+                            <h4 class="u-f24">
+                                <i class="ifont icon-file"></i>
+                                {{group}}
+                            </h4>
+                            {{#if readme}}
+                            <small class="u-f12 u-color_gray">{{readme}}</small>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{#each list}}
+                    <tr class='fnode'>
+                        <th style="width:1px;"></th>
+                        <td>
+                            <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
+                            <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>
+                            {{#if des}}
+                                <div class="profile u-mt_5">
+                                    <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
+                                </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{/each}}
+
+        </div>
+    </div>
+    <div id="footer">
+        <div class="footer-content">
+            <p>献给一直孜孜不倦想干掉PHP层的前端开发者们，FUCK PHP 前端自动化工具:FKP</p>
+            <p class="copyright">
+            ©2015 FKP
+            </p>
+        </div>
+    </div>
+
+    <script src="/js/{{commonjs}}"></script>
+    <script src="/js/{{pagejs}}"></script>
+</body>
+
+</html>

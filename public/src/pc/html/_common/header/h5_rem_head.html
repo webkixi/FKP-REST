@@ -1,0 +1,33 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimun-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="shortcut icon" href="/imagesfavicon.ico">
+<link rel="stylesheet" href="/css/{{commoncss}}">
+<link rel="stylesheet" href="/css/{{pagecss}}">
+<meta name="description" content="">
+<script type="text/javascript">
+    (function (doc, win) {
+        var radio = win.devicePixelRatio || 1,
+            scale = 1 / radio,
+            docEl = doc.documentElement,
+            meta = document.createElement("meta"),
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+            };
+            // recalc();
+            docEl.setAttribute("data-dpr", radio);
+            meta.setAttribute("name", "viewport")
+            meta.setAttribute("content", "initial-scale=" + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ", user-scalable=no")
+            if(docEl.firstElementChild) docEl.firstElementChild.appendChild(meta);
+
+        if  (!doc.addEventListener) return;
+
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+</script>

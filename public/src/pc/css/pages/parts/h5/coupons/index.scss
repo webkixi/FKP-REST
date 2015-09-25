@@ -1,0 +1,60 @@
+
+.tab-bar {
+    -webkit-backface-visibility: hidden;
+    background: #333333;
+    color: #FFFFFF;
+    height: 2.8125rem;
+    line-height: 2.8125rem;
+    position: relative;
+    h1{
+        font-size: 1.125rem;
+        color: #FFFFFF;
+        font-weight: bold;
+        line-height: 2.8125rem;
+        margin: 0;
+    }
+}
+.tab-bar-section {
+    height: 2.8125rem;
+    padding: 0 0.625rem;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 2.8125rem;
+    right: 2.8125rem;
+}
+.row {
+    margin: 0 auto;
+    max-width: 62.5rem;
+    width: 100%;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 22;
+    background-color: #fff;
+    width: 100%;
+    border-top: 1px solid #d1d1d1;
+    text-align: center;
+    ul{
+        display: table;
+        width: 100%;
+        font-size:0.7rem;
+        padding-top: 0.5rem;
+    }
+    li{
+        display: table-cell;
+        width: 20%;
+        height: auto;
+        a{
+            color: #767676;
+        }
+        i{
+            display: block;
+            font-style: normal;
+            font-size: 1rem;
+        }
+    }
+}

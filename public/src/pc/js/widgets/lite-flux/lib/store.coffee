@@ -1,0 +1,3 @@
+Store = ()->
+
+module.exports = Store;

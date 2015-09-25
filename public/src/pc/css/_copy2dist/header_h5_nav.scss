@@ -1,0 +1,68 @@
+@import "./iconfont";
+.header{
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: 999;
+	width:100%;
+	color:#fff;
+	background-color:#e5535d;
+    padding: 0 0.5rem;
+	.back{
+		position: absolute;
+		left:0.5rem;
+		top:0.5rem;
+		height:auto;
+		.icon{
+			font-size: 0.75rem;
+			color:#fff;
+		}
+	}
+	h1{
+		text-align: center;
+		height:2.15rem;
+		line-height: 2.15rem;
+		font-size:0.8rem;
+	}
+	.search{
+		position: absolute;
+		right:0.5rem;
+		top:0.5rem;
+		line-height: 1;
+		.icon{
+			font-size: 1rem;
+			color:#fff;
+		}
+	}
+}
+.header{
+	padding:0.5rem 0;
+	.area{
+		margin-left:0.5rem;
+		width:4.4rem;
+		float:left;
+		.icon{
+			font-size: 0.8rem;
+			&.xiangxia{
+				font-size: 0.35rem;
+			    vertical-align: super;
+			}
+		}
+	}
+	.area_name{
+		padding:0 2px;
+	}
+	.logo  {
+		margin-left:0.5rem;
+		width:5rem;
+		img{
+			width:100%;
+		}
+	}
+	.search {
+		width:0.9rem;
+		img{
+			width:100%;
+		}
+	}
+}

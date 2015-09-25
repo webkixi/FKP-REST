@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="description" content="">
+<meta name="author" content="">
+<title>联华大宗</title>
+<link href="${rc.contextPath}/statics/front/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${rc.contextPath}/statics/front/css/common.css">
+</head>
+<body>
+	<div class="header">
+		<div class="head_top">
+			<div class="container">
+				<h4>
+					<i></i>您好，欢迎来到联商所！
+				</h4>
+				[#assign sessionUser=Session.user /] [#if sessionUser?if_exists]
+				<ul class="head_tcom fr clearfix">
+					<li>
+						<a href="${rc.contextPath}/account-center.html">欢迎您：${sessionUser.loginName}</a>
+					</li>
+					<li>
+						<span id="authStatusForMenu"></span>
+					</li>
+					<li>
+						<a href="${rc.contextPath}/layout.html">退出</a>
+					</li>
+					<li>
+						<a href="${rc.contextPath}/help.html">帮助中心</a>
+					</li>
+					<li>
+						<a href="${rc.contextPath}/contact.html">联系我们</a>
+					</li>
+				</ul>
+				[#else]
+				<ul class="head_tcom fr clearfix">
+					<li>
+						<a href="${rc.contextPath}/login.html">会员登录</a>
+					</li>
+					<li>
+						<a href="${rc.contextPath}/regist.html">会员注册</a>
+					</li>
+					<li>
+						<a href="${rc.contextPath}/help.html">帮助中心</a>
+					</li>
+					<li>
+						<a href="${rc.contextPath}/contact.html">联系我们</a>
+					</li>
+				</ul>
+				[/#if]
+			</div>
+		</div>
+		<div class="head_wrap">
+			<div class="container clearfix">
+				<a href="${rc.contextPath}" class="head_wlogo fl"></a>
+				<div class="head_wnav fl">
+					<div class="head_search clearfix">
+						<div class="head_look">
+							<form id="searchFrom" action="${rc.contextPath}/search.html" method="post">
+								<div class="item-select">
+									<a class="arrow-select-down">
+										<span>[#if st==1]资讯新闻[#elseif st==2]金属商城[#else]全部[/#if]</span>
+										<i class="all_icon s_down_icon"></i>
+									</a>
+									<ul class="hidden">
+										<li data="0">全部</li>
+										<li data="1">资讯新闻</li>
+										<li data="2">金属商城</li>
+									</ul>
+								</div>
+								<input type="hidden" name="st" value="[#if st??]${st}[#else]0[/#if]" id="search_hide">
+								<input type="text" name="sc" value="${sc}" class="search_text" placeholder="请输入关键字" />
+								<input type="submit" class="search_buttom" value="搜索" />
+							</form>
+						</div>
+						<div class="top-tel">
+							<h4>
+								<span class="all_icon icon_tel"></span>
+								客服热线
+								<span class="top-tel-time">9:00-18:00</span>
+							</h4>
+							<span class="top-tel-num">020-38869600-122</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		[#include 'common/head_nav.html' /]
+	</div>
+	<script type="text/javascript">
+	[#if sessionUser?if_exists]
+	window.onload=function() {
+		checkAuthStatus();
+	};
+		function checkAuthStatus() {
+			$.ajax({
+				type : "GET",
+				url : "${rc.contextPath}/chackAuthStatus.html?_rt=" + new Date().getTime(),
+				timeout : 10000,
+				dataType : "json",
+				async : true,
+				success : function(result) {
+					if (result.authStatus == 0) {
+						$("#authStatusForMenu").text("未认证");
+					} else if (result.authStatus == 1) {
+						$("#authStatusForMenu").text("已认证");
+						$("#authStatusForMenu").attr("style","color:green;");
+					} else if (result.authStatus == 2) {
+						$("#authStatusForMenu").text("认证审核中");
+						$("#authStatusForMenu").attr("style","color:blue;");
+					} else if (result.authStatus == 3) {
+						$("#authStatusForMenu").text("认证未通过");
+						$("#authStatusForMenu").attr("style","color:red;");
+					}
+				},
+				error : function(e) {
+				}
+			});
+		}
+		[/#if]
+	</script>

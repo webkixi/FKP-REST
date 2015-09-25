@@ -1,0 +1,20 @@
+@import "./_grid.scss";
+//默认12等份栅格
+
+// class span1-$gridColumns
+// span的class循环输出，通过变量$gridSpanSwitch来控制是否输出
+//-----------------------------------------------------
+@if $gridSpanSwitch {
+  @for $i from 1 through $gridColumns {
+    .span#{$i} {
+      @extend %float;
+      @extend %margin-gutter;
+
+      width:getWidth($i);
+
+      @if $gridPercentSwitch and $lte7{
+        *width:getWidth($i) - $gridCorrection;
+      }
+    }
+  }
+}
