@@ -1,4 +1,4 @@
-
+//兼容IE8/9的console
 ;(function(global){
   'use strict';
   global.console = global.console || {};

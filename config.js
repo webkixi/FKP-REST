@@ -21,13 +21,13 @@ var config = {
     		js:   path.join(static_dir,'/dist/1.0.0/js'),
     		css:  path.join(static_dir,'/dist/1.0.0/css'),
     		img:  path.join(static_dir,'/dist/1.0.0/images'),
-        test: {
-            dft:  path.join(static_dir,'/dist/1.0.0/dev'),
-            html: path.join(static_dir,'/dist/1.0.0/dev/html'),
-            js:   path.join(static_dir,'/dist/1.0.0/dev/js'),
-            css:  path.join(static_dir,'/dist/1.0.0/dev/css'),
-            img:  path.join(static_dir,'/dist/1.0.0/dev/images')
-        }
+            test: {
+                dft:  path.join(static_dir,'/dist/1.0.0/dev'),
+                html: path.join(static_dir,'/dist/1.0.0/dev/html'),
+                js:   path.join(static_dir,'/dist/1.0.0/dev/js'),
+                css:  path.join(static_dir,'/dist/1.0.0/dev/css'),
+                img:  path.join(static_dir,'/dist/1.0.0/dev/images')
+            }
   	},
 
     //本地上传路径

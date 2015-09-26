@@ -12,7 +12,8 @@ getFileMap = (env)->
 	if env == 'bb'
 		return config.globalList.concat(config.vendorList_bb)
 
-	return config.globalList.concat(config.vendorList)
+	return config.globalList.concat(config.vendorList_adv)  # for advance browser
+	# return config.globalList.concat(config.vendorList)    # for ie8...
 
 
 
