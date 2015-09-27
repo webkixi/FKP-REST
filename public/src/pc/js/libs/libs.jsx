@@ -423,6 +423,10 @@ var json2url = function(obj){
 // myURL.source; // = 'http://abc.com:8080/dir/index.html?id=255&m=hello#top'
 */
 var urlparse = function (url) {
+    if(!url){
+        console.log('非法参数，请重新检查！');
+        return;
+    }
     var anchor = document.createElement('a');
     anchor.href = url;
     return {
