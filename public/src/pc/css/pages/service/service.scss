@@ -1,0 +1,151 @@
+body{
+  background: #f3f5f7;
+}
+.container{
+  width: 94%;
+  margin: 0 auto;
+  padding: 0;
+}
+.service_mycar{
+  margin-bottom: 0.6rem;
+  border-top: 1px solid #bababa;
+  h2{
+    background: #fff;
+    font-size: 1rem;
+    padding: 0.4rem;
+    color: #888;
+    border-bottom: 1px solid #bababa;
+  }
+
+}
+.s_m_list{
+  background: #fff;
+  ul{
+    >li{
+      font-size: 0;
+      border-bottom: 1px solid #bababa;
+      padding: 0.8rem 0.4rem;
+    }
+  }
+  .hhead{
+    display: inline-block;
+    margin-right: 0.3rem;
+  }
+  .hbody{
+    display: inline-block;
+    font-size: 0.8rem;
+    vertical-align: middle;
+    position: relative;
+    p{
+      font-size: 0.7rem;
+      color: #262626;
+    }
+    span{
+      color: #ff7800;
+      font-size: 0.8rem;
+      text-align: right;
+      i{
+        font-style: normal;
+        font-size: 0.8rem;
+        color: #a0a0a0;
+        text-decoration: line-through;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  .dot{
+    top: 40%;
+    right: -9%;
+    color: #bdbdbd;
+    display: block;
+  }
+  &.s_m_list_1{
+    ul{
+      >li{
+        border-bottom: none;
+        padding: 0;
+        &.active{
+          background: #e8f8f6;
+          ul{
+            display: block;
+          }
+        }
+        ul{
+          display: none;
+          color: #545454;
+          li{
+            border-bottom: 1px solid #d9d9d9;
+            background: #f3fbfa;
+            &.s_m_ltime{
+              background: #f7f7f7;
+            }
+          }
+        }
+      }
+    }
+    .hbody{
+      display: block;
+      text-align: right;
+      width: 89%;
+      display: table;
+      border-bottom: 1px solid #bababa;
+      padding: 0.8rem 1.4rem 0.8rem 0.4rem;
+      p{
+        display: table-cell;
+        text-align: left;
+      }
+      span{
+        display: table-cell;
+      }
+    }
+    .dot{
+      right: 3%;
+    }
+  }
+}
+
+.service_foot{
+  position: fixed;
+  bottom:0;
+  left: 0;
+  background: #48cfc0;
+  color: #fff;
+  width: 100%;
+  ul{
+    display: table;
+    width: 100%;
+  }
+  li{
+    padding: 0.8rem 0;
+    display: table-cell;
+    border-left: 1px solid #daf5f2;
+    &:first-child{
+      border-left: none;
+      margin-left: -1px;
+    }
+  }
+  span{
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+    i{
+      font-style: normal;
+      color: #daf5f2;
+      font-size: 1rem;
+    }
+    &.foot_money{
+      font-size:1rem;
+    }
+  }
+  .btn-link{
+    border-radius: 2rem;
+    width: 80%;
+    text-align: center;
+    background: #daf5f2;
+    color: #2ec1ae;
+    font-size: 1rem;
+    display: block;
+    margin-left: 1rem;
+    padding: 0.1rem 0;
+  }
+}
