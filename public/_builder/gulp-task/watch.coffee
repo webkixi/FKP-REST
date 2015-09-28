@@ -29,6 +29,6 @@ module.exports = (gulp,$,slime,env)->
 
         gulp.watch [config.dirs.src + '/css/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['pagecss:dev']
         #js
-        gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
         #html
         gulp.watch config.dirs.src + '/html/**/*.*', ['html:build']
