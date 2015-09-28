@@ -1,3 +1,4 @@
+@import "./iconfont";
 body{
   background: #f3f5f7;
 }
@@ -16,7 +17,6 @@ body{
     color: #888;
     border-bottom: 1px solid #bababa;
   }
-
 }
 .s_m_list{
   background: #fff;
@@ -53,6 +53,13 @@ body{
       }
     }
   }
+  .s_m_lc_input{
+    text-align: left;
+    input{
+      width: 0.7rem;
+      height: 0.7rem;
+    }
+  }
   .dot{
     top: 40%;
     right: -9%;
@@ -78,6 +85,9 @@ body{
             background: #f3fbfa;
             &.s_m_ltime{
               background: #f7f7f7;
+              .hbody{
+                text-align: left;
+              }
             }
           }
         }
@@ -93,6 +103,7 @@ body{
       p{
         display: table-cell;
         text-align: left;
+        vertical-align: middle;
       }
       span{
         display: table-cell;
@@ -136,16 +147,5 @@ body{
     &.foot_money{
       font-size:1rem;
     }
-  }
-  .btn-link{
-    border-radius: 2rem;
-    width: 80%;
-    text-align: center;
-    background: #daf5f2;
-    color: #2ec1ae;
-    font-size: 1rem;
-    display: block;
-    margin-left: 1rem;
-    padding: 0.1rem 0;
   }
 }
