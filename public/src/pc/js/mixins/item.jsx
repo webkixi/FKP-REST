@@ -26,7 +26,7 @@ function itemMixin(){
     		}
         },
         componentDidMount: function() {
-            var that = this.getDOMNode();
+            var that = this.getDOMNode();  //React.findDOMNode(this) // var box = React.findDOMNode(this.refs.popbox);
     		if(this.props.itemMethod){
     			var mtd = this.props.itemMethod;
     			if(typeof mtd==='function'){

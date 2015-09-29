@@ -1,0 +1,53 @@
+html,body{
+	height: 100%;
+}
+body{
+	background-color: #efefef;
+}
+.remrow{
+	background-color: #fff;
+	height: 100%;
+	.content{
+		height: 100%;
+		width: 100%;
+		display: table;
+		header{
+			display: table-cell;
+			background-color: #fff;
+			height: 3rem;
+			line-height: 3rem;
+			font-size: 1rem;
+			border-bottom: 1px solid #9f9f9f;
+			vertical-align: middle;
+			text-indent: 0.4rem;
+			color: #999;
+			margin-bottom: 0.5rem;
+		}
+
+		article{
+			display: table-row;
+			margin-bottom: 1rem;
+			height: 4rem;
+			div:first-child{
+				margin-top: 0.5rem;
+			}
+			div:last-child{
+				margin-bottom: 0.5rem;
+			}
+		}
+
+		footer{
+			display: table-cell;
+			background-color: #efefef;
+			vertical-align: middle;
+			a.btn-link{
+				background-color: #2EC1AE;
+				color: #fff;
+				margin:0 auto;
+				padding: 0.4rem 0;
+				font-size: 1rem;
+				height: 1.5rem;
+			}
+		}
+	}
+}

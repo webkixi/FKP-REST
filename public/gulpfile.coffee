@@ -39,7 +39,7 @@ gulp.task 'commoncss:dev', getTask('css-common')
 
 # page.css  合并雪碧图
 # gulp.task 'pagecss:dev', getTask('css-pages')
-gulp.task 'pagecss:dev',['commoncss:dev','images:dev'], getTask('css-pages')
+gulp.task 'pagecss:dev',['commoncss:dev','images:dev','copyThirdCssToDist:dev'], getTask('css-pages')
 
 # 对图像资源复制至dist
 gulp.task 'images:dev', getTask('images-dev')

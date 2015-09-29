@@ -239,6 +239,44 @@ var node = {
             el.removeNode(true);
         else
             el.remove();
+    },
+    /*
+    * 新建DOM元素
+    * {container} {string} 容器  除了body, 其他容器需要指定id
+    * {type} {string} 新建元素类型
+    * {opts} {object} 元素参数
+    */
+    append: function(container, type, opts){
+        var box;
+
+        if(!container) {
+            console.log('must container');
+            return;
+        }
+        if(!type) {
+            console.log('must type');
+            return;
+        }
+        var node = document.createElement(type);
+        if(opts)
+            if(getObjType(opts)==='Object'){
+                for(var attr in opts){
+                    node[attr] = opts[attr]
+                }
+            }
+        if(typeof container==='string'){
+
+            if(container!=='body')
+                box = document.getElementById('container')
+            else
+                box = document.getElementsByTagName('body')[0]
+        }else
+            if(container.nodeType){
+                box = container
+            }
+
+        if(box)
+            box.appendChild(node)
     }
 }
 

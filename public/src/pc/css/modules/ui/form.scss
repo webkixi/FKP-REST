@@ -1,0 +1,39 @@
+.form{
+    padding: 2%;
+    &.select{
+        width: 96%;
+        line-height: 1.5rem;
+        font-size: 0.6rem;
+        height: 1.65rem;
+        label{
+            display: inline-block;
+            width: 22.5%;
+            text-align: center;
+        }
+        .body{
+            text-indent: 0.4rem;
+            width: 74%;
+            display: inline-block;
+            border: 2px solid #ddd;
+            padding: 0.1rem 0;
+            span{
+                color: #999;
+            }
+            i{
+                color: #999;
+                display: block;
+                float: right;
+                margin-right: 0.3rem;
+            }
+        }
+        .dot{
+            display: none;
+            position: absolute;
+            left: 2rem;
+            top: 2rem;
+            right: 2rem;
+            background-color: blue;
+            height: 60%;
+        }
+    }
+}
