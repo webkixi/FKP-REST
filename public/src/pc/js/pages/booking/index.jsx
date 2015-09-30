@@ -2,9 +2,9 @@ var libs = require('libs/libs')
 var router = require('libs/router').router
 var route = require('libs/router').route
 
-// route({
-//     'bcd': bcd
-// });
+route({
+    'esti': esti
+});
 
 libs.addSheet([
     '/css/t/ui/form.css'
@@ -15,6 +15,7 @@ require.ensure([], function() {
     var url = libs.urlparse(location.href)
     if(!url.hash){
         index()
+        // esti()
     }else{
         var hash = url.hash
         router(hash)
@@ -24,8 +25,12 @@ require.ensure([], function() {
 
 
 
+function esti(){     
+    require('./_component/_estimate')('container-box',{}, function(){ });
+}
+
 function index(){
-    require('./_component/_index')('container-box',function(){
+    require('./_component/_index')('container-box',{}, function(){
         bindIndex();
     });
 }
@@ -75,4 +80,8 @@ function bindIndex(){
         //     $(this).find('.dot').toggle()
         // })
     });
+
+    $('#now').click(function(){
+        router('esti')
+    })
 }

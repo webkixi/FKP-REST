@@ -9,3 +9,12 @@
   margin-left: 1rem;
   padding: 0.1rem 0;
 }
+
+.btn-circle{
+    @extend .btn-link;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto;
+    padding: 0;
+}

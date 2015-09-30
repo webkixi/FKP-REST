@@ -5,7 +5,7 @@ var index = {
     mixins: [ItemMixin],
     render: function () {
         return(
-            <div className={'content'}>
+            <div className={'index'}>
                 <header>
                     {'爱车估价'}
                 </header>
@@ -18,7 +18,7 @@ var index = {
                     <div id="mileage"></div>
                 </article>
                 <footer>
-                    <a className={'btn-link'}>{'立即评估'}</a>
+                    <a id="now" className={'btn-link'}>{'立即评估'}</a>
                 </footer>
             </div>
         )
@@ -27,7 +27,7 @@ var index = {
 
 var Index = React.createClass(index)
 
-function renderDom(ele, cb){
+function renderDom(ele, data, cb){
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
@@ -39,7 +39,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemMethod={cb}/>,
+        <Index data={data} itemMethod={cb}/>,
         element
     )
 }

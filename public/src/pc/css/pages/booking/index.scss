@@ -1,33 +1,49 @@
+@import "../../_copy2dist/iconfont.scss";
 html,body{
 	height: 100%;
 }
 body{
-	background-color: #efefef;
+	background-color: #fff;
 }
+
+@mixin hd {
+	display: table-cell;
+	background-color: #fff;
+	height: 3rem;
+	line-height: 3rem;
+	font-size: 1rem;
+	border-bottom: 1px solid #9f9f9f;
+	vertical-align: middle;
+	text-indent: 0.4rem;
+	color: #999;
+	margin-bottom: 0.5rem;
+}
+
+@mixin bd {
+	display: table-row;
+	margin-bottom: 1rem;
+	height: 4rem;
+}
+
+@mixin fd {
+	display: table-cell;
+	background-color: #efefef;
+	vertical-align: middle;
+}
+
 .remrow{
 	background-color: #fff;
 	height: 100%;
-	.content{
+	.index{
 		height: 100%;
 		width: 100%;
 		display: table;
 		header{
-			display: table-cell;
-			background-color: #fff;
-			height: 3rem;
-			line-height: 3rem;
-			font-size: 1rem;
-			border-bottom: 1px solid #9f9f9f;
-			vertical-align: middle;
-			text-indent: 0.4rem;
-			color: #999;
-			margin-bottom: 0.5rem;
+			@include hd;
 		}
 
 		article{
-			display: table-row;
-			margin-bottom: 1rem;
-			height: 4rem;
+			@include bd;
 			div:first-child{
 				margin-top: 0.5rem;
 			}
@@ -37,9 +53,7 @@ body{
 		}
 
 		footer{
-			display: table-cell;
-			background-color: #efefef;
-			vertical-align: middle;
+			@include fd;
 			a.btn-link{
 				background-color: #2EC1AE;
 				color: #fff;
@@ -50,4 +64,140 @@ body{
 			}
 		}
 	}
+	.esti{
+		height: 100%;
+		width: 100%;
+		display: table;
+		header{
+			@include hd;
+		}
+		article{
+			@include bd;
+			.btn-circle{
+				font-family: "serif";
+				margin-top: 1rem;
+				width: 8rem;
+				height: 8rem;
+				font-size: 2rem;
+				background-color: transparent;
+				border: 0.2rem solid #2DC2AF;
+				box-shadow: 0rem 0rem 0rem 0.5rem #A8E5DE;
+				.title{
+					height: 1rem;
+					line-height: 1rem;
+					font-size: 0.8rem;
+					margin: 1.5rem 0 0 0;
+				}
+				.province{
+					height: 1rem;
+					line-height: 1rem;
+					font-size: 0.7rem;
+					margin: 0;
+				}
+				span{
+					color:#FF7900;
+					font-weight: bold;
+				}
+			}
+			.profile{
+				margin-top: 1rem;
+				margin-bottom: 1rem;
+				p{
+					text-align: center;
+					font-size: 0.7rem;
+					color: #999;
+					margin-bottom: 0.7rem;
+				}
+				section{
+					text-align: center;
+					font-size:0.75rem;
+				}
+			}
+		}
+
+		footer{
+			@include fd;
+			background-color: #fff;
+			vertical-align:top;
+			.coupons_list{
+				.item{
+					min-height: 2rem;
+					width: 100%;
+					margin:0;
+					.hheader{
+						background:none;
+						width: 1rem;
+						top: 0.8rem;
+						font-size: 1rem;
+						&:before{
+							font-family:"iconfont" !important;
+						    font-style:normal;
+							content: "\e640";
+						}
+						a{
+							display: none;
+						}
+					}
+					.hbody{
+						margin-left: 2rem;
+						p{
+							font-size: 0.55rem;
+						}
+						p:first-child{
+							color: #555;
+							font-size: 0.75rem;
+						}
+
+					}
+					.dot{
+						top: 0.46rem;
+						right: 0.3rem;
+						width: 6rem;
+						height: 1rem;
+						padding: 0;
+						i{
+							color: #FF7900;
+							padding: 0.3rem 0;
+							width: auto;
+			                height: auto;
+							font-size: 0.8rem;
+							border-radius: 0.1rem;
+							border: 0.1rem solid #FF7900;
+							a{
+								color: #FF7900;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.sidepop{
+	width: 80%;
+	height: 100%;
+	background-color: blue;
+	position: absolute;
+	left: -80%;
+	top: 0;
+	&.active{
+		-webkit-animation-name: anim-sideopen;
+        animation-name: anim-sideopen;
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+	}
+}
+
+
+@-webkit-keyframes anim-sideopen {
+	0% { opacity: 1; left: -80%}
+	100% { opacity: 1; left: 0}
+}
+
+@keyframes anim-sideopen {
+	0% { opacity: 1; left: -80%}
+	100% { opacity: 1; left: 0}
 }

@@ -52,7 +52,7 @@ var fox = React.createClass({
 						if(Array.isArray(data.img)){
 							var tmp_k2 = [];
 							data.img.map(function(pic,j){
-								tmp_k2.push(<img src={pic} alt={k2}/>)
+								tmp_k2.push(<img key={'img'+j} src={pic} alt={k2}/>)
 							})
 							// k2 = <div className={'pics'}>{tmp_k2}</div>;
 							k2 = tmp_k2;
@@ -68,18 +68,18 @@ var fox = React.createClass({
 
 					body.map(function(item,i){
 						if(typeof item==='string'){
-							bodys.push(<p>{item}</p>)
+							bodys.push(<p key={'body'+i}>{item}</p>)
 						}
 						if(libs.getObjType(item)==='Object'){
 							var title = item.title||item.caption||item.text;
 							if(title){
 								var cls = item.caption?'caption':'';
 								if(item.url){
-									bodys.push(<p className={cls}><a href={item.url}>{title}</a></p>)
+									bodys.push(<p key={'body'+i} className={cls}><a href={item.url}>{title}</a></p>)
 								}else
-									bodys.push(<p className={cls}>{title}</p>)
+									bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
 							}else{
-								bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								bodys.push(<p key={'body'+i}><em>{item.k+":"}</em><span>{item.v}</span></p>)
 							}
 						}
 					})
@@ -92,18 +92,18 @@ var fox = React.createClass({
 
 					footer.map(function(item,i){
 						if(typeof item==='string'){
-							footers.push(<p>item</p>)
+							footers.push(<p key={'footer'+i}>item</p>)
 						}
 						if(libs.getObjType(item)==='Object'){
 							var title = item.title||item.caption||item.text;
 							if(title){
 								var cls = item.caption?'caption':'';
 								if(item.url){
-									bodys.push(<p className={cls}><a href={item.url}>{title}</a></p>)
+									bodys.push(<p key={'footer'+i} className={cls}><a href={item.url}>{title}</a></p>)
 								}else
-									bodys.push(<p className={cls}>{title}</p>)
+									bodys.push(<p key={'footer'+i} className={cls}>{title}</p>)
 							}else{
-								bodys.push(<p><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								bodys.push(<p key={'footer'+i}><em>{item.k+":"}</em><span>{item.v}</span></p>)
 							}
 						}
 					})
@@ -116,7 +116,7 @@ var fox = React.createClass({
 
 					dot.map(function(item,i){
 						if(typeof item==='string'){
-							dots.push(<div className={'dot'}><p>item</p></div>)
+							dots.push(<div key={'dot'+i} className={'dot'}><p>item</p></div>)
 						}
 
 						if(libs.getObjType(item)==='Object'){
@@ -126,7 +126,7 @@ var fox = React.createClass({
 								var styl = props.style;
 								delete props.style;
 								var tmp = React.createElement(it.type, props, it.props.children)
-								dots.push(<div className={'dot'} style={styl}>{tmp}</div>)
+								dots.push(<div key={'dot'+i} className={'dot'} style={styl}>{tmp}</div>)
 							}
 							else
 								{
@@ -149,7 +149,7 @@ var fox = React.createClass({
 
 									var title = item.title||item.caption||item.text||item.price;
 									if(title){
-										dots.push(<div className={'dot'} style={styl}><p>{title}</p></div>)
+										dots.push(<div key={'dot'+i} className={'dot'} style={styl}><p>{title}</p></div>)
 									}
 								}
 						}
@@ -177,7 +177,7 @@ var fox = React.createClass({
 				if (typeof this.props.inline === 'string')
 					seprete = this.props.inline;
 
-				data.map(function(item,i){
+				data.map(function(item,iii){
 					var body;
 					var footer;
 
@@ -202,7 +202,7 @@ var fox = React.createClass({
 							if(Array.isArray(item.img)){
 								var tmp_k2 = [];
 								item.img.map(function(pic,j){
-									tmp_k2.push(<img src={pic} alt={k2}/>)
+									tmp_k2.push(<img key={'img'+j} src={pic} alt={k2}/>)
 								})
 								// k2 = <div className={'pics'}>{tmp_k2}</div>;
 								k2 = tmp_k2;
@@ -220,18 +220,18 @@ var fox = React.createClass({
 
 							body.map(function(_item,i){
 								if(typeof _item==='string'){
-									bodys.push(<p>{_item}</p>)
+									bodys.push(<p key={'body'+i}>{_item}</p>)
 								}
 								if(libs.getObjType(_item)==='Object'){
 									var title = _item.title||_item.caption||_item.text;
 									if(title){
 										var cls = _item.caption?'caption':'';
 										if(_item.url){
-											bodys.push(<p className={cls}><a href={_item.url}>{title}</a></p>)
+											bodys.push(<p key={'body'+i} className={cls}><a href={_item.url}>{title}</a></p>)
 										}else
-											bodys.push(<p className={cls}>{title}</p>)
+											bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
 									}else{
-										bodys.push(<p><em>{_item.k+":"}</em><span>{_item.v}</span></p>)
+										bodys.push(<p key={'body'+i}><em>{_item.k+":"}</em><span>{_item.v}</span></p>)
 									}
 								}
 							})
@@ -244,18 +244,18 @@ var fox = React.createClass({
 
 							footer.map(function(_item,i){
 								if(typeof _item==='string'){
-									footers.push(<p>{_item}</p>)
+									footers.push(<p key={'footers'+i}>{_item}</p>)
 								}
 								if(libs.getObjType(_item)==='Object'){
 									var title = _item.title||_item.caption||_item.text;
 									if(title){
 										var cls = _item.caption?'caption':'';
 										if(_item.url){
-											bodys.push(<p className={cls}><a href={_item.url}>{title}</a></p>)
+											bodys.push(<p key={'footers'+i} className={cls}><a href={_item.url}>{title}</a></p>)
 										}else
-											bodys.push(<p className={cls}>{title}</p>)
+											bodys.push(<p key={'footers'+i} className={cls}>{title}</p>)
 									}else{
-										bodys.push(<p><em>{_item.k+":"}</em><span>{_item.v}</span></p>)
+										bodys.push(<p key={'footers'+i}><em>{_item.k+":"}</em><span>{_item.v}</span></p>)
 									}
 								}
 							})
@@ -276,10 +276,10 @@ var fox = React.createClass({
 						items.push(
 							(
 								item.img && k2.length
-								? <div className={'inner'}>{bodyDom||''}{footerDom||''}<div className={'pics'}>{k2}</div></div>
+								? <div key={'items'+iii} className={'inner'}>{bodyDom||''}{footerDom||''}<div className={'pics'}>{k2}</div></div>
 								: bodyDom || footerDom
-									? <div className={'inner'}><div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}</div>
-									: <a href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
+									? <div key={'items'+iii} className={'inner'}><div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div>{bodyDom||''}{footerDom||''}</div>
+									: <a key={'items'+iii} href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
 							)
 						);
 						if(i < (data.length-1))
