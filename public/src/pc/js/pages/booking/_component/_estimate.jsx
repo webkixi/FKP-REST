@@ -2,7 +2,11 @@ var libs = require('libs/libs');
 var Uls = require('modules/tabs/_component/uls')('Fours');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
+var side_pop = require('modules/pop/sidepop')
+var List = require('widgets/listView/list')
 
+
+//虚拟数据结构
 var data = {
     profile:{
         province: '湖南',
@@ -23,7 +27,7 @@ var data = {
                 }
             ],
             dot:[
-                <i><a href="http://www.163.com">{'免费精准报价'}</a></i>
+                <i className="price">{'免费精准报价'}</i>
             ]
         },
         {
@@ -37,23 +41,75 @@ var data = {
                 }
             ],
             dot:[
-                <i><a href='http://www.163.com'>{'免费精准报价'}</a></i>
+                <i className="price">{'免费精准报价'}</i>
             ]
         }
     ]
 }
 
+
+var testdata = [
+    {
+        body:[
+            {
+                k: '店名',
+                v: '广州东本君华'
+            },
+            {
+                k: '地址',
+                v: '广州市广州大道南1398号'
+            }
+        ]
+    },
+    {
+        body:[
+            {
+                k: '店名',
+                v: '深圳东本车友'
+            },
+            {
+                k: '地址',
+                v: '深圳市南山区宝安大道嘉进隆前海汽车城A05-1'
+            }
+        ]
+    }
+]
+
+//填充结构到sidepop中
+var struct = <div>
+    <header>
+        直接收购
+    </header>
+    <article>
+        <p>东风本田君华店</p>
+        <p>
+            <h3 className="gray">收车方式</h3>
+            <h3>直接收购</h3>
+        </p>
+        <div className="dot">
+            <i className="price">免费精准报价</i>
+        </div>
+    </article>
+    <footer>
+        <List data={testdata} listClass={'like_xg_list'} itemClass={'span12'} itemView={Pt}/>,
+    </footer>
+</div>
+
+//弹出侧边栏
 var tan = function(){
     $(this).click(function(){
         var dview = libs.getOffset();
-        $('.sidepop').css({'height':dview.width})
-        $('.sidepop').toggleClass('active')         
+        SA.setter('Sidepop',{data:{body:struct,display:'block'}})
     })
 }
 
-var index = {
+
+
+var estimate = {
     mixins: [ItemMixin],
     render: function () {
+        //注入侧边栏目
+
         var fills = data.store;
         return(
             <div className={'esti'}>
@@ -80,9 +136,12 @@ var index = {
     }
 }
 
-var Index = React.createClass(index)
+var Esti = React.createClass(estimate)
 
 function renderDom(ele, data, cb){
+    //初始化侧边弹框
+    side_pop({});
+
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
@@ -94,7 +153,7 @@ function renderDom(ele, data, cb){
         return;
 
     React.render(
-        <Index data={data} itemMethod={cb}/>,
+        <Esti data={data} itemMethod={cb}/>,
         element
     )
 }
