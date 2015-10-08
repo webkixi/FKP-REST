@@ -1,4 +1,5 @@
 @import "../../_copy2dist/iconfont";
+@import "../../global/_settings/_setting_pages";
 body{
   background: #f3f5f7;
 }
@@ -21,7 +22,7 @@ body{
 .s_m_list{
   background: #fff;
   ul{
-    >li{
+    li{
       font-size: 0;
       border-bottom: 1px solid #bababa;
       padding: 0.8rem 0.4rem;
@@ -48,7 +49,7 @@ body{
         font-style: normal;
         font-size: 0.8rem;
         color: #a0a0a0;
-        text-decoration: line-through;
+        // text-decoration: line-through;
         margin-right: 0.5rem;
       }
     }
@@ -69,7 +70,7 @@ body{
   }
   &.s_m_list_1{
     ul{
-      >li{
+      li{
         border-bottom: none;
         padding: 0;
         &.active{
@@ -111,55 +112,176 @@ body{
       width: 100%;
       display: table;
       border-bottom: 1px solid #bababa;
-      padding: 0.8rem 1.4rem 0.8rem 0.4rem;
+    //   padding: 0.8rem 1.4rem 0.8rem 0.4rem;
+      padding: 0.8rem 0;
       p{
-        display: table-cell;
+        display: table-row;
         text-align: left;
         vertical-align: middle;
       }
-      span{
+      em, span{
         display: table-cell;
+        padding: 0 0.2rem;
+        i{
+            margin: 0;
+            margin-left: 0.3rem;
+        }
+        em, span{
+            display: inline;
+            border:none;
+        }
       }
+    }
+    .hfoot{
+        text-align: right;
+        width: 100%;
+        display: none;
+        border-bottom: 1px solid #bababa;
+        padding: 0;
+        background-color: #F3FCFB;
+        &.u-table{
+            display: table;
+        }
+        p{
+          font-size: 0.6rem;
+          display: table-row;
+          text-align: left;
+          vertical-align: middle;
+          height: 1.4rem;
+          line-height: 2rem;
+        }
+        em, span{
+          display: table-cell;
+          border-bottom: 1px solid #bababa;
+          padding: 0 3%;
+          em, span{
+              i{
+                  margin: 0;
+                  margin-left: 0.3rem;
+              }
+              display: inline;
+              border:none;
+          }
+        }
+        span{
+            text-align: right;
+        }
+        p:last-child{
+            background-color: #F7F7F7;
+            em, span{
+                border: none;
+            }
+        }
     }
     .dot{
       right: 1%;
     }
   }
 }
-.pop{
-  .pop_content{
-    &.hlist{
-      li{
-        border-top: 1px solid #d9d9d9;
-        -webkit-animation-name: anim-close;
-        animation-name: anim-close;
-        &:first-child{
-          border-top: none;
+
+.srvice_myservice{
+    .hlist{
+        .item{
+            background-color: #E8F8F7;
         }
-        &.active,&:hover{
-          background: #f5f5f5;
+        li:last-child{
+            background-color: #fff;
         }
-      }
-      .hbody{
-        display: table;
-        width: 88%;
-        padding: 0.8rem 0.8rem;
-        text-align: right;
-      }
-      p{
-        font-size: 0.7rem;
-        color: #262626;
-        text-align: left;
-        display: table-cell;
-      }
-      span{
-        font-size: 0.7rem;
-        color: #ff7800;
-        display: table-cell;
-      }
     }
-  }
+    .ihaved{
+        position: relative;
+        font-size: 0.7rem;
+        padding: 0.8rem 0.6rem;
+        background-color: #fff;
+        input[type='checkbox']{
+            display: none;
+        }
+        span{
+            display: inline-block;
+            margin-left: 2rem;
+        }
+        span.chk_span{
+            position: absolute;
+            left: 1rem;
+            top: 0.95rem;
+            width: 0.6rem;
+            height: 0.6rem;
+            border: 2px solid red;
+            margin-right: 0.4rem;
+            margin-left: 0.6rem;
+            &.active{
+                &:before{
+                    content: '';
+                    width: 0.4rem;
+                    height: 0.2rem;
+                    position: absolute;
+                    top: 0.1rem;
+                    left: 0.1rem;
+                    border: 3px solid #333;
+                    border-top: none;
+                    border-right: none;
+                    background: transparent;
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+    }
 }
+
+
+.srvice_myorder{
+    background-color: #fff;
+    padding:0.3rem 0 0.8rem 0;
+    margin-bottom: 0.6rem;
+    .layout{
+        @include clearfix;
+        margin-top: 0.2rem;
+        label{
+            display: block;
+            float: left;
+            width: 22.5%;
+            height: 1rem;
+            text-align: center;
+            font-size: 0.6rem;
+            padding-top: 0.1rem;
+        }
+        .box{
+            width: 74%;
+            float: left;
+            .body{
+                width: 100%;
+            }
+            >div{
+                float: left;
+                width: 50%;
+                &#address{
+                    width: 100%;
+                    .text{
+                        padding-left: 1%;
+                        width: 98%;
+                    }
+                }
+                &#code{
+                    input{
+                        width: 87%;
+                        margin-left: -0.3rem;
+                    }
+                }
+                &#verify_btn{
+                    margin-top: 0.12rem;
+                    margin-left: 2%;
+                    width: 46%;
+                    border: 2px solid red;
+                    font-size: 0.6rem;
+                    text-align: center;
+                    height: 1.8rem;
+                    line-height: 1.9rem;
+                }
+            }
+        }
+    }
+}
+
 
 .service_foot{
   position: fixed;

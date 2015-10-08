@@ -19,12 +19,8 @@ var data = {
         {
             title: '￥100',
             body:[
-                {
-                    text: '东风本田君华店'
-                },
-                {
-                    text: '直接收购'
-                }
+                '东风本田君华店',
+                '直接收购'
             ],
             dot:[
                 <i className="price">{'免费精准报价'}</i>
@@ -33,12 +29,8 @@ var data = {
         {
             title: '￥1000',
             body:[
-                {
-                    text: 'xxxxyyyy'
-                },
-                {
-                    text: '直接收购'
-                }
+                'xxxxyyyy',
+                '直接收购'                
             ],
             dot:[
                 <i className="price">{'免费精准报价'}</i>

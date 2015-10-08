@@ -1,0 +1,17 @@
+@import "./form_base";
+.form{
+    padding: 2%;
+    &.text{
+        @include form_unit;
+        .body{
+            input[type='text']{
+                border: none;
+                height: 1rem;
+                width: 94%;
+                line-height: 1rem;
+                padding: 0.3rem;
+                margin-left: -0.4rem;
+            }
+        }
+    }
+}

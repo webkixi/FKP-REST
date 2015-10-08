@@ -136,6 +136,16 @@ $flexMid:                     true !default; //用于ie10 -ms前缀
   }
 }
 
+// text-shadow
+@mixin text-shadow($shadow...) {
+  @if length($shadow) >= 1 {
+    text-shadow: $shadow;
+  } @else{
+    $shadow:0 0 4px rgba(0,0,0,.3);
+    text-shadow: $shadow;
+  }
+}
+
 // appearance
 @mixin appearance($value) {
   @include prefixer(appearance, $value, webkit moz);
@@ -154,7 +164,7 @@ $flexMid:                     true !default; //用于ie10 -ms前缀
     image-rendering: -moz-crisp-edges;         /* Firefox */
     image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
     image-rendering: crisp-edges;
-    -ms-interpolation-mode: nearest-neighbor;  
+    -ms-interpolation-mode: nearest-neighbor;
   } @else {
     @include prefixer-value(image-rendering, webkit moz);
   }
@@ -170,8 +180,8 @@ $flexMid:                     true !default; //用于ie10 -ms前缀
 // http://www.css3files.com/font/
 // 1 The eot fontfile. Can be omitted if you don`t want to support Internet Explorer prior to version 9 (including semicolon).
 // 2 Can also be omitted for Internet Explorer < 9. ?iefix prevents IE6 from interpreting all of the following. If the whole IE family (6 to 9) should be supported, 1 and 2 are needed.
-// 3 Can be omitted if iPad versions prior to iOS 4.2 shouldn’t be supported. 
-// 4 The ttf fontfile. Necessary to support (Mobile) Safari and Opera. 
+// 3 Can be omitted if iPad versions prior to iOS 4.2 shouldn’t be supported.
+// 4 The ttf fontfile. Necessary to support (Mobile) Safari and Opera.
 // 5 The woff fontfile for all modern browsers (best choice).
 @mixin font-face($font-family, $file-path, $weight: normal, $style: normal ) {
   @font-face {
@@ -489,7 +499,7 @@ $flexMid:                     true !default; //用于ie10 -ms前缀
   $originalPrefixForMicrosoft: $prefixForMicrosoft;
   $originalPrefixForOpera: $prefixForOpera;
   $originalPrefixNo: $prefixNo;
-  
+
   @each $prefix in $prefixes {
     @if $prefix == webkit and $originalPrefixForWebkit == true {
       @include disable-prefix-for-all();

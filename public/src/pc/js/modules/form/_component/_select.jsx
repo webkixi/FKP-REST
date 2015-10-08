@@ -38,11 +38,17 @@ var selectForm = {
 
     render: function () {
 		var label;
+		var placeholder;
 		var body;
 		var bodyDom='';
 		if(this.state.data){
 			var theData = this.state.data;
-			label = theData.label||'演示';
+			if(theData.label)
+				label = <label>{theData.label}</label>
+
+			if(theData.placeholder)
+				placeholder = theData.placeholder
+
 			body = theData.body||'没有传入数据'
 			var pop = document.getElementById('pop-box');
 			if(!pop)
@@ -50,9 +56,9 @@ var selectForm = {
 		}
         return(
 			<div className={'form select'} data-value={''}>
-				<label>{label}</label>
+				{label}
 				<div className={'body'}>
-					<span>{'请选择'}</span>
+					<span>{placeholder||'请选择'}</span>
 					<i className={'ifont icon-xla'}></i>
 				</div>
 				{bodyDom}

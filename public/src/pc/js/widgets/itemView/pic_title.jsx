@@ -72,15 +72,22 @@ var fox = React.createClass({
 							bodys.push(<p key={'body'+i}>{item}</p>)
 						}
 						if(libs.getObjType(item)==='Object'){
-							var title = item.title||item.caption||item.text;
-							if(title){
-								var cls = item.caption?'caption':'';
-								if(item.url){
-									bodys.push(<p key={'body'+i} className={cls}><a href={item.url}>{title}</a></p>)
-								}else
-									bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
+							if(!React.isValidElement(item)){
+								var title = item.title||item.caption||item.text;
+								if(title){
+									var cls = item.caption?'caption':'';
+									if(item.url){
+										bodys.push(<p key={'body'+i} className={cls}><a href={item.url}>{title}</a></p>)
+									}else
+										bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
+								}else{
+									var ppp = item.attr
+									? <p data-src={item.attr} key={'body'+i}><em>{item.k}:</em>{item.v}</p>
+									: <p key={'body'+i}><em>{item.k}:</em>{item.v}</p>
+									bodys.push(ppp)
+								}
 							}else{
-								bodys.push(<p key={'body'+i}><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								bodys.push(item)
 							}
 						}
 					})
@@ -93,18 +100,25 @@ var fox = React.createClass({
 
 					footer.map(function(item,i){
 						if(typeof item==='string'){
-							footers.push(<p key={'footer'+i}>item</p>)
+							footers.push(<p key={'footer'+i}>{item}</p>)
 						}
 						if(libs.getObjType(item)==='Object'){
-							var title = item.title||item.caption||item.text;
-							if(title){
-								var cls = item.caption?'caption':'';
-								if(item.url){
-									bodys.push(<p key={'footer'+i} className={cls}><a href={item.url}>{title}</a></p>)
-								}else
-									bodys.push(<p key={'footer'+i} className={cls}>{title}</p>)
+							if(!React.isValidElement(item)){
+								var title = item.title||item.caption||item.text;
+								if(title){
+									var cls = item.caption?'caption':'';
+									if(item.url){
+										footers.push(<p key={'footer'+i} className={cls}><a href={item.url}>{title}</a></p>)
+									}else
+										footers.push(<p key={'footer'+i} className={cls}>{title}</p>)
+								}else{
+									var ppp = item.attr
+									? <p data-src={item.attr} key={'footer'+i}><em>{item.k}:</em>{item.v}</p>
+									: <p key={'footer'+i}><em>{item.k}:</em>{item.v}</p>
+									footers.push(ppp)
+								}
 							}else{
-								bodys.push(<p key={'footer'+i}><em>{item.k+":"}</em><span>{item.v}</span></p>)
+								footers.push(item)
 							}
 						}
 					})
@@ -229,15 +243,22 @@ var fox = React.createClass({
 									bodys.push(<p key={'body'+i}>{_item}</p>)
 								}
 								if(libs.getObjType(_item)==='Object'){
-									var title = _item.title||_item.caption||_item.text;
-									if(title){
-										var cls = _item.caption?'caption':'';
-										if(_item.url){
-											bodys.push(<p key={'body'+i} className={cls}><a href={_item.url}>{title}</a></p>)
-										}else
-											bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
+									if(!React.isValidElement(_item)){
+										var title = _item.title||_item.caption||_item.text;
+										if(title){
+											var cls = _item.caption?'caption':'';
+											if(_item.url){
+												bodys.push(<p key={'body'+i} className={cls}><a href={_item.url}>{title}</a></p>)
+											}else
+												bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
+										}else{
+											var ppp = _item.attr
+											? <p data-src={_item.attr} key={'body'+i}><em>{_item.k}:</em>{_item.v}</p>
+											: <p key={'body'+i}><em>{_item.k}:</em>{_item.v}</p>
+											bodys.push(ppp)
+										}
 									}else{
-										bodys.push(<p key={'body'+i}><em>{_item.k+":"}</em><span>{_item.v}</span></p>)
+										bodys.push(_item)
 									}
 								}
 							})
@@ -253,15 +274,22 @@ var fox = React.createClass({
 									footers.push(<p key={'footers'+i}>{_item}</p>)
 								}
 								if(libs.getObjType(_item)==='Object'){
-									var title = _item.title||_item.caption||_item.text;
-									if(title){
-										var cls = _item.caption?'caption':'';
-										if(_item.url){
-											bodys.push(<p key={'footers'+i} className={cls}><a href={_item.url}>{title}</a></p>)
-										}else
-											bodys.push(<p key={'footers'+i} className={cls}>{title}</p>)
+									if(!React.isValidElement(_item)){
+										var title = _item.title||_item.caption||_item.text;
+										if(title){
+											var cls = _item.caption?'caption':'';
+											if(_item.url){
+												footers.push(<p key={'footers'+i} className={cls}><a href={_item.url}>{title}</a></p>)
+											}else
+												footers.push(<p key={'footers'+i} className={cls}>{title}</p>)
+										}else{
+											var ppp = _item.attr
+											? <p data-src={_item.attr} key={'footers'+i}><em>{_item.k}:</em>{_item.v}</p>
+											: <p key={'footers'+i}><em>{_item.k}:</em>{_item.v}</p>
+											footers.push(ppp)
+										}
 									}else{
-										bodys.push(<p key={'footers'+i}><em>{_item.k+":"}</em><span>{_item.v}</span></p>)
+										footers.push(_item)
 									}
 								}
 							})

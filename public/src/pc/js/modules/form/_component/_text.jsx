@@ -38,17 +38,23 @@ var textForm = {
 
     render: function () {
 		var label;
+		var placeholder='请输入';
 		var body;
 		if(this.state.data){
 			var theData = this.state.data;
-			label = theData.label||'演示';
+			if(theData.label)
+				label = <label>{theData.label}</label>
+
+			if(theData.placeholder)
+				placeholder = theData.placeholder
+
 			body = theData.body||'没有传入数据'
 		}
         return(
 			<div className={'form text'} data-value={''}>
-				<label>{label}</label>
+				{label}
 				<div className={'body'}>
-					<input type="text"></input>
+					<input type="text" placeholder={placeholder}></input>
 				</div>
 			</div>
         )

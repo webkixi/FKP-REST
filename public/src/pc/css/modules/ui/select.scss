@@ -1,0 +1,7 @@
+@import "./form_base";
+.form{
+    padding: 2%;
+    &.select{
+        @include form_unit;
+    }
+}
