@@ -82,8 +82,8 @@ var fox = React.createClass({
 										bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
 								}else{
 									var ppp = item.attr
-									? <p data-src={item.attr} key={'body'+i}><em>{item.k}:</em>{item.v}</p>
-									: <p key={'body'+i}><em>{item.k}:</em>{item.v}</p>
+									? <p data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</p>
+									: <p key={'body'+i}><em>{item.k}</em>{item.v}</p>
 									bodys.push(ppp)
 								}
 							}else{
@@ -113,8 +113,8 @@ var fox = React.createClass({
 										footers.push(<p key={'footer'+i} className={cls}>{title}</p>)
 								}else{
 									var ppp = item.attr
-									? <p data-src={item.attr} key={'footer'+i}><em>{item.k}:</em>{item.v}</p>
-									: <p key={'footer'+i}><em>{item.k}:</em>{item.v}</p>
+									? <p data-src={item.attr} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
+									: <p key={'footer'+i}><em>{item.k}</em>{item.v}</p>
 									footers.push(ppp)
 								}
 							}else{
@@ -253,8 +253,8 @@ var fox = React.createClass({
 												bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
 										}else{
 											var ppp = _item.attr
-											? <p data-src={_item.attr} key={'body'+i}><em>{_item.k}:</em>{_item.v}</p>
-											: <p key={'body'+i}><em>{_item.k}:</em>{_item.v}</p>
+											? <p data-src={_item.attr} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+											: <p key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
 											bodys.push(ppp)
 										}
 									}else{
@@ -284,8 +284,8 @@ var fox = React.createClass({
 												footers.push(<p key={'footers'+i} className={cls}>{title}</p>)
 										}else{
 											var ppp = _item.attr
-											? <p data-src={_item.attr} key={'footers'+i}><em>{_item.k}:</em>{_item.v}</p>
-											: <p key={'footers'+i}><em>{_item.k}:</em>{_item.v}</p>
+											? <p data-src={_item.attr} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
+											: <p key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
 											footers.push(ppp)
 										}
 									}else{
