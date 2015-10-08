@@ -105,9 +105,61 @@ var index = {
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的订单</h2>
+                  <div className={'order_table_mycar'}>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>保养项目</th>
+                          <th>单位</th>
+                          <th>价格</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><em>机油</em></td>
+                          <td>1</td>
+                          <td>￥380</td>
+                        </tr>
+                        <tr>
+                          <td><em>机油滤清器</em></td>
+                          <td>1</td>
+                          <td>￥38</td>
+                        </tr>
+                        <tr>
+                          <td><em>工时</em></td>
+                          <td>1</td>
+                          <td>￥68</td>
+                        </tr>
+                        <tr>
+                          <td><em>全车检测</em></td>
+                          <td>1</td>
+                          <td>￥0</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div className={'foot_order_table_mycar'}>
+                      <p className={'wid_order_table_mycar1'}>合计</p>
+                      <p className={'wid_order_table_mycar2'}>4</p>
+                      <p className={'wid_order_table_mycar3'}>￥486</p>
+                    </div>
+                  </div>
                 </div>
-                <div className={'service_mycar srvice_myservice'}>
-                  <h2>选择支付方式</h2>
+                <div className={'service_mycar pay_mycar'}>
+                  <div className={'title_pay_mycar'}>
+                    <h2>选择支付方式</h2>
+                    <ul className={'pay_icon_mycar'}>
+                      <li>
+                        <input type='radio'/>
+                        <i className={'ifont icon-roundcheckfill'}></i>
+                        <span>微信</span>
+                      </li>
+                      <li>
+                        <input type='radio'/>
+                        <i className={'ifont icon-roundcheck'}></i>
+                        <span>支付宝</span>
+                      </li>
+                    </ul>
+                  </div>
                   <a id="now" className={'btn-link'}>{'支付'}</a>
                 </div>
               </div>

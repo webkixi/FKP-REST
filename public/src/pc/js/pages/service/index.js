@@ -4,7 +4,8 @@ var route = require('libs/router').route
 
 route({
     'index': index,
-    'order': order
+    'order': order,
+    'detection': detection
 });
 
 libs.addSheet([
@@ -15,7 +16,7 @@ libs.addSheet([
 require.ensure([], function() {
     var url = libs.urlparse(location.href)
     if(!url.hash){
-        order()
+        detection()
     }else{
         var hash = url.hash
         router(hash)
@@ -27,9 +28,13 @@ function index(){
         // bindIndex();
     });
 }
-
 function order(){
     require('./_component/_order')('container-box',function(){
+        // bindIndex();
+    });
+}
+function detection(){
+    require('./_component/_detection')('container-box',function(){
         // bindIndex();
     });
 }

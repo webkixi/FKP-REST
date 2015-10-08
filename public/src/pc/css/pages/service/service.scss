@@ -8,8 +8,11 @@ body{
   margin: 0 auto;
   padding: 0;
 }
+.wrapper{
+  margin-bottom: 3rem;
+}
 .service_mycar{
-  margin-bottom: 0.6rem;
+  // margin-bottom: 0.6rem;
   border-top: 1px solid #bababa;
   h2{
     background: #fff;
@@ -187,6 +190,9 @@ body{
         li:last-child{
             background-color: #fff;
         }
+        li:first-child{
+            background-color: #E8F8F7;
+        }
     }
     .ihaved{
         position: relative;
@@ -281,7 +287,128 @@ body{
         }
     }
 }
+/*1008*/
+/*补充大小保养的个人信息*/
+.order_table_mycar{
+  font-size: 0.8rem;
+  table{
+    width: 100%;
+    border-collapse:collapse;
+    border-spacing:0;
+    background: #fff;
+    color: #383838;
+    td,th{
+      border: 1px solid #e6e6e6;
+      padding: 0.3rem 0.5rem;
+      font-weight: normal;
+      &:first-child{
+        width: 50%;
+        text-align: left;
+      }
+      &:nth-child(2){
+        width: 20%;
+        text-align: center;
+      }
+      &:nth-child(3){
+        text-align: right;
+        width: 30%;
+      }
+    }
+    em{
+      font-style: normal;
+      color: #262626;
+    }
+  }
+  .foot_order_table_mycar{
+    width: 100%;
+    display: table;
+    background: #fff;
+    padding: 0.5rem 0.5rem;
+    color: #383838;
+    margin-top: 0.1rem;
+    p{
+      display: table-cell;
+    }
+  }
+  .wid_order_table_mycar1{
+    width: 50%;
+    text-align: left;
+  }
+  .wid_order_table_mycar2{
+    text-align: center;
+    width: 20%;
+  }
+  .wid_order_table_mycar3{
+    text-align: right;
+    width: 30%;
+  }
+}
+.pay_mycar{
+  background: #fff;
+  padding-bottom: 1rem;
+  .title_pay_mycar{
+    display: table;
+    width: 100%;
+    text-align: right;
+  }
+  h2{
+    display: table-cell;
+    font-size: 0.8rem;
+    text-align: left;
+    border-bottom: none;
+  }
+  ul{
+    display: table-cell;
+  }
+  .btn-link{
+    background: #2ec1ae;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 0.4rem 0;
+    margin: auto;
+  }
+}
+.pay_icon_mycar{
+  li{
+    display: table-cell;
+    padding-left: 2rem;
+    font-size: 0.8rem;
+    input{
+      display: none;
+    }
+    i{
+      color: #2ec1ae;
+      cursor: pointer;
+    }
+  }
+}
+/*全车检测*/
+.service_mycar{
+  .detection_mycar{
+    .hfoot{
+      p{
+        color: #666666;
+        &:first-child{
+          color: #333;
+          background: #EEF7F6;
+          border-bottom: 2px solid #bababa;
+          display: table-caption;
+          font-size: 0.7rem;
+          padding-left: 3%;
+          height: 2rem;
+          em{
+            border-bottom: none;
+            span{
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
+/*1008*/
 
 .service_foot{
   position: fixed;
