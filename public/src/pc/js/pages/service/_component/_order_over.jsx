@@ -8,31 +8,10 @@ var List = require('widgets/listView/list')
 var mycar_service_order = [
     {
         body:[
-            '机油',
+            '洗车（工时费）',
             '1',
-            '￥380'
+            '￥5'
         ]
-    },
-    {
-      body:[
-          '机油滤清器',
-          '1',
-          '￥38'
-      ]
-    },
-    {
-      body:[
-          '工时',
-          '1',
-          '￥68'
-      ]
-    },
-    {
-      body:[
-          '全车检测',
-          '1',
-          '￥0'
-      ]
     }
 ]
 mycar_service_order.push(
@@ -64,28 +43,24 @@ var index = {
                   <h2>{'个人信息'}</h2>
                 </div>
                 <div className={'srvice_myorder'}>
-                    <div id="name"></div>
-                    <div id="phone"></div>
-                    <div id="verify" className="layout">
-                        <label></label>
-                        <div className="box">
-                            <div id="code"></div>
-                            <div id="verify_btn">获取验证码</div>
+                    <ul className={'message_over_order_mycar'}>
+                      <li className={'item'}>
+                        <div className={'hheader'}>
+                          <img src="/images/tx_pic.png" />
                         </div>
-                    </div>
-                    <div id="area" className="layout">
-                        <label>地址</label>
-                        <div className="box">
-                            <div id="city"></div>
-                            <div id="district"></div>
-                            <div id="address"></div>
+                        <div className={'hbody'}>
+                          <div className={'hbody_div'}>
+                            <em>林小姐</em>
+                            <span>13839487654</span>
+                          </div>
+                          <p>广州市白云区京溪南方医院地铁口2</p>
                         </div>
-                    </div>
+                      </li>
+                    </ul>
                     <div id="timer" className="layout">
                         <label>预约时间</label>
                         <div className="box">
-                            <div id="date"></div>
-                            <div id="ampm"></div>
+                            <p>2015年8月18日上午</p>
                         </div>
                     </div>
                 </div>
@@ -120,68 +95,6 @@ var index = {
 }
 
 
-var bindIndex = function(){
-    var Select = require('modules/form/select');
-    var Text = require('modules/form/text');
-
-    //电话
-    new Text({label:'姓名'}, 'name',function(){
-        $(this).click(function(){
-
-        })
-    });
-
-    //电话
-    new Text({label:'手机号码'}, 'phone',function(){
-        $(this).click(function(){
-
-        })
-    });
-
-    //验证码
-    new Text({}, 'code',function(){
-        $(this).click(function(){
-
-        })
-    });
-
-    //城市
-    new Select({}, 'city',function(){
-        $(this).click(function(){
-            SA.setter('Pop',{data:{body:'明天就会下雨',display:'block'}})
-        })
-    });
-
-    //地区
-    new Select({}, 'district',function(){
-        // $(this).click(function(){
-        //     $(this).find('.dot').toggle()
-        // })
-    });
-
-    //详细地址
-    new Text({placeholder:'请输入您的详细地址'}, 'address',function(){
-        $(this).click(function(){
-
-        })
-    });
-
-    //预约时间 年月日
-    new Select({}, 'date',function(){
-        // $(this).click(function(){
-        //     $(this).find('.dot').toggle()
-        // })
-    });
-
-    //预约时间 上午下午
-    new Select({}, 'ampm',function(){
-        // $(this).click(function(){
-        //     $(this).find('.dot').toggle()
-        // })
-    });
-}
-
-
 var Index = React.createClass(index)
 
 function renderDom(ele, cb){
@@ -196,7 +109,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemMethod={cb} itemDefaultMethod={bindIndex}/>,
+        <Index itemMethod={cb}/>,
         element
     )
 }

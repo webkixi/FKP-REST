@@ -56,7 +56,7 @@ var mycar_service_b = [
         body:[
             {
                 k: '全车检测',
-                v: <span>￥{'600'}<i className="ifont icon-roundcheck"></i></span>
+                v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
             }
         ]
     }

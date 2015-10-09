@@ -16,7 +16,7 @@ body{
   border-top: 1px solid #bababa;
   h2{
     background: #fff;
-    font-size: 1rem;
+    font-size: 0.8rem;
     padding: 0.4rem;
     color: #888;
     border-bottom: 1px solid #bababa;
@@ -124,7 +124,7 @@ body{
       }
       em, span{
         display: table-cell;
-        padding: 0 0.2rem;
+        padding: 0 0.4rem;
         i{
             margin: 0;
             margin-left: 0.3rem;
@@ -146,17 +146,18 @@ body{
             display: table;
         }
         p{
-          font-size: 0.6rem;
-          display: table-row;
+          font-size: 0.7rem;
+          display: table;
           text-align: left;
           vertical-align: middle;
           height: 1.4rem;
           line-height: 2rem;
+          width: 100%;
         }
         em, span{
           display: table-cell;
           border-bottom: 1px solid #bababa;
-          padding: 0 3%;
+
           em, span{
               i{
                   margin: 0;
@@ -166,7 +167,12 @@ body{
               border:none;
           }
         }
+        em{
+          width: 90%;
+          padding-left: 0.4rem;
+        }
         span{
+            padding-right: 0.4rem;
             text-align: right;
         }
         p:last-child{
@@ -237,23 +243,31 @@ body{
 
 .srvice_myorder{
     background-color: #fff;
-    padding:0.3rem 0 0.8rem 0;
+    padding:0.3rem 0 0.6rem 0;
     margin-bottom: 0.6rem;
     .layout{
         @include clearfix;
-        margin-top: 0.2rem;
+        margin-top: 0.4rem;
+        font-size: 0;
         label{
-            display: block;
-            float: left;
+            display: inline-block;
             width: 22.5%;
             height: 1rem;
+            padding: 0.3rem 0;
+            vertical-align: top;
             text-align: center;
-            font-size: 0.6rem;
-            padding-top: 0.1rem;
+            font-size: 0.7rem;
+            color: #888;
         }
         .box{
             width: 74%;
-            float: left;
+            display: inline-block;
+            font-size: 0.7rem;
+            p{
+              text-align: right;
+              height: 1rem;
+              padding: 0.3rem 0;
+            }
             .body{
                 width: 100%;
             }
@@ -286,62 +300,152 @@ body{
             }
         }
     }
+    .message_over_order_mycar{
+      font-size: 0;
+      padding:0.2rem 0.4rem 0.4rem 0.4rem;
+      border-bottom: 1px solid #d9d9d9;
+      .hheader{
+        display: inline-block;
+        background: none;
+        width: 19%;
+        vertical-align: top;
+        border-radius: 0.2rem;
+        overflow: hidden;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .hbody{
+        display: inline-block;
+        font-size: 0.7rem;
+        width: 80%;
+        text-align: right;
+        .hbody_div{
+          font-size: 0;
+          text-align: right;
+          width: 100%;
+          em{
+            font-size: 0.7rem;
+            display: inline-block;
+            text-align: left;
+            font-style: normal;
+            width: 58%;
+          }
+          span{
+            text-align: left;
+            display: inline-block;
+            font-size: 0.7rem;
+          }
+        }
+        p{
+          color: #888;
+        }
+      }
+    }
 }
 /*1008*/
 /*补充大小保养的个人信息*/
 .order_table_mycar{
   font-size: 0.8rem;
-  table{
-    width: 100%;
-    border-collapse:collapse;
-    border-spacing:0;
+  // table{
+  //   width: 100%;
+  //   border-collapse:collapse;
+  //   border-spacing:0;
+  //   background: #fff;
+  //   color: #383838;
+  //   td,th{
+  //     border: 1px solid #e6e6e6;
+  //     padding: 0.3rem 0.5rem;
+  //     font-weight: normal;
+  //     &:first-child{
+  //       width: 50%;
+  //       text-align: left;
+  //     }
+  //     &:nth-child(2){
+  //       width: 20%;
+  //       text-align: center;
+  //     }
+  //     &:nth-child(3){
+  //       text-align: right;
+  //       width: 30%;
+  //     }
+  //   }
+  //   em{
+  //     font-style: normal;
+  //     color: #262626;
+  //   }
+  // }
+  .foot_order_table_mycar{
+
     background: #fff;
     color: #383838;
-    td,th{
-      border: 1px solid #e6e6e6;
-      padding: 0.3rem 0.5rem;
-      font-weight: normal;
+    li{
+      font-size: 0;
+      width: 100%;
+      border-top: 1px solid #e6e6e6;
+      border-bottom: 1px solid #e6e6e6;
+      &.item{
+        background: #fff;
+      }
+      .hbody{
+        padding: 0 0.4rem;
+      }
+      &:first-child{
+        background: #fff;
+        p{
+          color: #333;
+        }
+      }
+      &:last-child{
+        margin-top: 0.1rem;
+        p{
+          color: #999;
+        }
+      }
+    }
+    p{
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.5rem 0;
+      color: #666;
       &:first-child{
         width: 50%;
         text-align: left;
+        color: #333;
+        em{
+          padding-left: 0.5rem;
+        }
       }
       &:nth-child(2){
-        width: 20%;
         text-align: center;
+        width: 20%;
       }
       &:nth-child(3){
         text-align: right;
         width: 30%;
+        em{
+          padding-right: 0.5rem;
+        }
+      }
+      em{
+        font-style: normal;
       }
     }
-    em{
-      font-style: normal;
-      color: #262626;
-    }
   }
-  .foot_order_table_mycar{
-    width: 100%;
-    display: table;
-    background: #fff;
-    padding: 0.5rem 0.5rem;
-    color: #383838;
-    margin-top: 0.1rem;
-    p{
-      display: table-cell;
-    }
-  }
-  .wid_order_table_mycar1{
-    width: 50%;
-    text-align: left;
-  }
-  .wid_order_table_mycar2{
-    text-align: center;
-    width: 20%;
-  }
-  .wid_order_table_mycar3{
-    text-align: right;
-    width: 30%;
-  }
+  // .wid_order_table_mycar1{
+  //   width: 50%;
+  //   text-align: left;
+  // }
+  // .wid_order_table_mycar2{
+  //   text-align: center;
+  //   width: 20%;
+  // }
+  // .wid_order_table_mycar3{
+  //   text-align: right;
+  //   width: 30%;
+  // }
+
 }
 .pay_mycar{
   background: #fff;
@@ -363,44 +467,48 @@ body{
   .btn-link{
     background: #2ec1ae;
     color: #fff;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     padding: 0.4rem 0;
-    margin: auto;
+    margin: 0.2rem auto 0;
   }
 }
 .pay_icon_mycar{
   li{
     display: table-cell;
     padding-left: 2rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     input{
       display: none;
     }
     i{
       color: #2ec1ae;
       cursor: pointer;
+      margin-right: 0.2rem;
     }
   }
 }
 /*全车检测*/
 .service_mycar{
+  margin-bottom: 0.6rem;
   .detection_mycar{
     .hfoot{
       p{
         color: #666666;
-        &:first-child{
+        &:last-child{
+          height: 2.5rem;
+          line-height: 2.5rem;
+        }
+        .title_detection_mycar{
           color: #333;
           background: #EEF7F6;
           border-bottom: 2px solid #bababa;
-          display: table-caption;
+          // display: table-caption;
           font-size: 0.7rem;
           padding-left: 3%;
           height: 2rem;
-          em{
-            border-bottom: none;
-            span{
-              width: 100%;
-            }
+          width: 100%;
+          span{
+            width: 100%;
           }
         }
       }

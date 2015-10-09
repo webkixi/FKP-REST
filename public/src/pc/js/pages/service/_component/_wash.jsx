@@ -26,60 +26,23 @@ mycar.map(function(item,i){
 })
 
 
-var mycar_service_b = [
+var wash_service_mycar = [
     {
         body:[
             {
-                k: '全车检测',
-                v: <span>￥{'800'}<i className="ifont icon-next"></i></span>
+                  k: '外观清洗',
+                v: <span>￥{'5'}<i className="ifont icon-next"></i></span>
             }
         ],
         footer: [
             {
-                text: <em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{'电气设备'}</em>
-            },
-            {
-                k: '检查车内外照明及信号装置工况',
-                v: '1'
-            },
-            {
-                k: '检查车内外后视镜工况',
-                v: '1'
-            },
-            {
-                k: '检查雨刮工况',
-                v: '1'
-            },
-            {
-                k: '检查喇叭',
-                v: '1'
-            },
-            {
-                k: '检查仪表',
-                v: '1'
-            },
-            {
-                k: '检查音响',
-                v: '1'
-            },
-            {
-                k: '检查空调',
-                v: '1'
-            },
-            {
-                text: <em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{'发动机'}</em>
-            },
-            {
-                k: '检查发动机是否有异响',
-                v: '1'
-            },
-            {
-              k:'工时费',
-              v:'￥100'
+                k: '洗车工时费',
+                v: <span>￥{'5'}</span>
             }
         ]
     }
 ]
+
 
 function abcd(){
     var the = this;
@@ -98,6 +61,17 @@ function abcd(){
 
 var index = {
     mixins: [ItemMixin],
+    chkClick: function(){
+        var chkspan = React.findDOMNode(this.refs.chkspan);
+        $(chkspan).toggleClass('active');
+
+        var chkb = React.findDOMNode(this.refs.chkb);
+        if($(chkspan).hasClass('active'))
+            chkb.value="1"
+        else {
+            chkb.value="0"
+        }
+    },
     render: function () {
         return(
           <div className={'body'}>
@@ -113,7 +87,7 @@ var index = {
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的服务项目</h2>
-                  <List data={mycar_service_b} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1 detection_mycar'} itemClass={'wid-12 '} itemView={Pt}/>
+                  <List data={wash_service_mycar} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
                 </div>
               </div>
             </div>
@@ -122,8 +96,8 @@ var index = {
                 <div className={'container'}>
                   <ul>
                     <li className={'wid-8'}>
-                      <span className={'foot_money'}>{'总价'}<i>{'￥790'}</i></span>
-                      <span>{'￥480'}</span>
+                      <span className={'foot_money'}>{'总价'}<i>{'￥35'}</i></span>
+                      <span>{'￥5'}</span>
                     </li>
                     <li className={'wid-4'}>
                       <a  className={'btn-link'}>{'下一步'}</a>

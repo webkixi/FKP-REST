@@ -5,6 +5,8 @@ var route = require('libs/router').route
 route({
     'index': index,
     'order': order,
+    'order_over': order_over,
+    'wash': wash,
     'detection': detection
 });
 
@@ -28,8 +30,18 @@ function index(){
         // bindIndex();
     });
 }
+function order_over(){
+    require('./_component/_order_over')('container-box',function(){
+        // bindIndex();
+    });
+}
 function order(){
     require('./_component/_order')('container-box',function(){
+        // bindIndex();
+    });
+}
+function wash(){
+    require('./_component/_wash')('container-box',function(){
         // bindIndex();
     });
 }
