@@ -1,3 +1,8 @@
+ /*
+ * 数据处理部分
+ * f_div / f_li 的公共数据处理部分
+ */
+
  var libs = require('libs/libs');
 
  function dealWithData(){
