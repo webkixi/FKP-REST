@@ -8,10 +8,31 @@ var List = require('widgets/listView/list')
 var mycar_service_order = [
     {
         body:[
-            '洗车（工时费）',
+            '机油',
             '1',
-            '￥5'
+            '￥380'
         ]
+    },
+    {
+      body:[
+          '机油滤清器',
+          '1',
+          '￥38'
+      ]
+    },
+    {
+      body:[
+          '工时',
+          '1',
+          '￥68'
+      ]
+    },
+    {
+      body:[
+          '全车检测',
+          '1',
+          '￥0'
+      ]
     }
 ]
 mycar_service_order.unshift(
@@ -53,10 +74,14 @@ var index = {
                             <em>林小姐</em>
                             <span>13839487654</span>
                           </div>
-                          <p>广州市白云区京溪南方医院地铁口2</p>
+                          <p>亲，暂无您地址信息，<a>请点击获取</a></p>
                         </div>
                       </li>
                     </ul>
+                    <div className={'obtain_info'}>
+                      <a className={'btn-link btn-link2'}><i className={'ifont icon-add'}></i>获取当前位置</a>
+                      <a className={'btn-link btn-link2'}><i className={'ifont icon-add'}></i>添加地址</a>
+                    </div>
                     <div id="timer" className="layout">
                         <label>预约时间</label>
                         <div className="box">
