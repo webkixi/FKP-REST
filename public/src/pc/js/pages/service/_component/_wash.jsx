@@ -3,7 +3,6 @@ var Uls = require('modules/tabs/_component/uls')('Fours');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
-var pop = require('modules/pop/index')
 
 var mycar = [
   {
@@ -27,76 +26,25 @@ mycar.map(function(item,i){
 })
 
 
-var mycar_service_b = [
+var wash_service_mycar = [
     {
         body:[
             {
-                k: '小保养',
-                v: <span>￥{'800'}<i className="ifont icon-next"></i></span>
+                  k: '外观清洗',
+                v: <span>￥{'5'}<i className="ifont icon-next"></i></span>
             }
         ],
         footer: [
             {
-                k: '机油',
-                v: <span>￥{'380'}<i className="ifont icon-next"></i></span>
-            },
-            {
-                k: '机油滤清器',
-                v: <span>￥{'38'}<i className="ifont icon-next"></i></span>
-            },
-            {
-                attr: 'fixed',
-                k: '工时费',
-                v: <span>￥{'68'}<i className="ifont icon-next"></i></span>
-            }
-        ]
-    },
-    {
-        attr: 'fixed',
-        body:[
-            {
-                k: '全车检测',
-                v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
+                k: '洗车工时费',
+                v: <span>￥{'5'}</span>
             }
         ]
     }
 ]
 
-var mycar_service_s = [
-    {
-        body:[
-            {
-                k: '蓝桶专用机油 (4L,5W-30)',
-                v: "￥188"
-            }
-        ]
-    },
-    {
-        body:[
-            {
-                k: '绿桶专用机油 (4L,5W-30)',
-                v: "￥380"
-            }
-        ]
-    },
-    {
-        body:[
-            {
-                k: '全合成专用机油 (4L,5W-30)',
-                v: "￥60"
-            }
-        ]
-    }
-]
-
-function popItemMethod(){
-    $(this).click(function(){
-        SA.setter('Pop',{data:{display:'none'}})
-    })
-}
 
 function abcd(){
-    pop({});
     var the = this;
     var the_footer;
     var the_i;
@@ -109,11 +57,6 @@ function abcd(){
             return 'u-table'
         });
     });
-    $(the).find('.hfoot p').click(function(){
-        if($(this).attr('data-src')==='fixed') return
-        var kkk = <List data={mycar_service_s} itemMethod={popItemMethod} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-        SA.setter('Pop',{data:{body:kkk, display:'block'}})
-    })
 }
 
 var index = {
@@ -144,12 +87,7 @@ var index = {
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的服务项目</h2>
-                  <List data={mycar_service_b} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
-                  <div className="ihaved">
-                      <input value="0" ref="chkb" className="chk_1" type="checkbox"/>
-                      <span ref="chkspan" className="chk_span" onClick={this.chkClick}></span>
-                      <span>{"已有配件只需上门服务"}</span>
-                  </div>
+                  <List data={wash_service_mycar} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
                 </div>
               </div>
             </div>
@@ -158,8 +96,8 @@ var index = {
                 <div className={'container'}>
                   <ul>
                     <li className={'wid-8'}>
-                      <span className={'foot_money'}>{'总价'}<i>{'￥790'}</i></span>
-                      <span>{'￥480'}</span>
+                      <span className={'foot_money'}>{'总价'}<i>{'￥35'}</i></span>
+                      <span>{'￥5'}</span>
                     </li>
                     <li className={'wid-4'}>
                       <a  className={'btn-link'}>{'下一步'}</a>
