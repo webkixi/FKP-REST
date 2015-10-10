@@ -51,6 +51,7 @@
     "gulp-util": "*",
     "handlebars": "*",
     "handlebars-loader": "*",
+    "json-loader": "^0.5.3",
     "jsx-loader": "*",
     "less": "*",
     "less-loader": "*",

@@ -15,7 +15,7 @@ libs.addSheet([
 require.ensure([], function() {
     var url = libs.urlparse(location.href)
     if(!url.hash){
-        order()
+        index()
     }else{
         var hash = url.hash
         router(hash)

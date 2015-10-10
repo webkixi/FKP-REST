@@ -40,6 +40,7 @@ var selectForm = {
 		var label;
 		var placeholder;
 		var body;
+		var append;
 		var bodyDom='';
 		if(this.state.data){
 			var theData = this.state.data;
@@ -49,6 +50,11 @@ var selectForm = {
 			if(theData.placeholder)
 				placeholder = theData.placeholder
 
+			if(theData.append){
+				append = theData.append;
+			}
+
+			//下拉或者弹窗
 			body = theData.body||'没有传入数据'
 			var pop = document.getElementById('pop-box');
 			if(!pop)

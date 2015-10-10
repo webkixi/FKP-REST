@@ -40,6 +40,7 @@ var textForm = {
 		var label;
 		var placeholder='请输入';
 		var body;
+		var append;
 		if(this.state.data){
 			var theData = this.state.data;
 			if(theData.label)
@@ -48,14 +49,22 @@ var textForm = {
 			if(theData.placeholder)
 				placeholder = theData.placeholder
 
+			if(theData.append){
+				append = theData.append;
+			}
+
 			body = theData.body||'没有传入数据'
 		}
+
+		if(!React.isValidElement(append)){
+			append = undefined;
+		}
+
         return(
 			<div className={'form text'} data-value={''}>
 				{label}
-				<div className={'body'}>
-					<input type="text" placeholder={placeholder}></input>
-				</div>
+					<input className={'body'} type="text" placeholder={placeholder}></input>
+				{append}
 			</div>
         )
     }

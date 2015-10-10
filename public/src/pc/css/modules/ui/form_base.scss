@@ -4,10 +4,15 @@
     line-height: 1.5rem;
     font-size: 0.6rem;
     height: 1.65rem;
+    div{
+        display: inline-block;
+        vertical-align: top;
+    }
     label{
         display: inline-block;
         width: 22.5%;
         text-align: center;
+        vertical-align: top;
     }
     .body{
         text-indent: 0.4rem;

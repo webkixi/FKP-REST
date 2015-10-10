@@ -32,10 +32,14 @@ function likeImooc( navData,listData, ele, opts ){
                 SA.setter('pc_uls', { data: listData[idf-1] })
         })
     }
+
+    a_listClass = opts && opts.navListClass ? opts.navListClass : 'coupons-nav';
+    a_itemClass = opts && opts.navItemClass ? opts.navItemClass : '';
+
     // 渲染结构到页面
     render(
         <div>
-            <Tabswitch data={navData} listClass={'coupons-nav'} itemDefaultMethod={tabItemDefaultMethod}>
+            <Tabswitch data={navData} listClass={a_listClass} itemClass={a_itemClass} itemDefaultMethod={tabItemDefaultMethod}>
                 <Uls data={listData} listClass={'coupons_list like_app_list'} itemView={Pt}/>
             </Tabswitch>
         </div>

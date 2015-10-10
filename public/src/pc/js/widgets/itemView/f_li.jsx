@@ -1,4 +1,9 @@
-/** @jsx React.DOM */
+/**
+@jsx React.DOM
+itemView
+放回 li 结构, 用于modules/list 调用，作为ul/li部分
+*/
+
 var libs = require('libs/libs');
 var ItemMixin = require('mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')
@@ -21,7 +26,7 @@ var fox = React.createClass({
 
 		//idf ： 每一个元素的index
 		return (
-            <li data-idf={this.props.idf} data-id={k1}  data-cls={v2} className=
+            <div data-idf={this.props.idf} data-id={k1}  data-cls={v2} className=
 				{
 					(function(){
 							if(v2&&v2==='second'){
@@ -32,7 +37,7 @@ var fox = React.createClass({
 					})()
 				} style={sty}>
 				{fill}
-            </li>
+            </div>
 	) }
 
 });
