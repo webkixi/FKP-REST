@@ -1,0 +1,64 @@
+@import "../../_copy2dist/iconfont";
+@import "../../global/_settings/_setting_pages";
+.about{
+  font-size: 0.7rem;
+  h2{
+    border-bottom: 1px solid #dddddd;
+    font-size: 0.7rem;
+    color: #888;
+    padding: 0.5rem 0.4rem;
+  }
+  .about_zw{
+    padding: 0 0.4rem;
+    img{
+      width: 100%;
+      height: auto;
+      margin: 1rem 0;
+    }
+    h3{
+      font-size: 0.7rem;
+      text-align: center;
+      color: #262626;
+      font-weight: normal;
+      margin: 1.2rem auto 0;
+    }
+    .ser_abot{
+      background: #48cfc0;
+      color: #fff;
+      min-height:10rem;
+      h4{
+        text-align: center;
+        font-size: 0.7rem;
+        padding: 1rem 0;
+      }
+      ul{
+        font-size: 0;
+        width: 100%;
+        padding: 1rem 0;
+        overflow: hidden;
+        li{
+          font-size: 0.6rem;
+          display: inline-block;
+          margin-bottom: 0.5rem;
+          height: 4rem;
+          text-align: center;
+          i{
+            display: block;
+            font-size: 2.5rem;
+            margin-bottom: 1.7rem;
+          }
+          em{
+            font-style: normal;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  .service_about{
+    padding: 0;
+    img{
+      margin: 0.6rem 0 0 0;
+    }
+  }
+}
