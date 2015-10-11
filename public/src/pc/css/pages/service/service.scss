@@ -340,6 +340,9 @@ body{
         }
         p{
           color: #888;
+          a{
+            color: #00b69f;
+          }
         }
       }
     }
@@ -515,7 +518,30 @@ body{
     }
   }
 }
-
+/*我的订单－无地址*/
+.obtain_info{
+  padding: 0.4rem 0.4rem 0.8rem 0.4rem;
+  border-bottom: 1px solid #d9d9d9;
+  font-size: 0;
+}
+.btn-link2{
+  margin-left: 0;
+  font-size: 0.7rem;
+  display: inline-block;
+  color: #00b69f;
+  width: 38%;
+  background: #fff;
+  border:2px solid #00b69f;
+  padding: 0.2rem 0.6rem;
+  text-align: left;
+  &:first-child{
+    margin-right: 1rem;
+  }
+  i{
+    color: #dcdcdc;
+    margin-right: 0.2rem;
+  }
+}
 /*1008*/
 
 .service_foot{

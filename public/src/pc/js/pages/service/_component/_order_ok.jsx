@@ -8,10 +8,31 @@ var List = require('widgets/listView/list')
 var mycar_service_order = [
     {
         body:[
-            '洗车（工时费）',
+            '机油',
             '1',
-            '￥5'
+            '￥380'
         ]
+    },
+    {
+      body:[
+          '机油滤清器',
+          '1',
+          '￥38'
+      ]
+    },
+    {
+      body:[
+          '工时',
+          '1',
+          '￥68'
+      ]
+    },
+    {
+      body:[
+          '全车检测',
+          '1',
+          '￥0'
+      ]
     }
 ]
 mycar_service_order.unshift(
