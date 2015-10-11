@@ -313,9 +313,9 @@
                     items.push(
                         (
                             item.img && k2.length
-                            ? <div key={'items'+iii} className={'inner'}>{bodyDom||''}{footerDom||''}<div className={'pics'}>{k2}</div></div>
+                            ? <div key={'items'+iii} className={'inner'}>{bodyDom}{footerDom}<div className={'pics'}>{k2}</div></div>
                             : bodyDom || footerDom
-                                ? <div key={'items'+iii} className={'inner'}>{headerDom||''}{bodyDom||''}{footerDom||''}</div>
+                                ? <div key={'items'+iii} className={'inner'}>{headerDom}{bodyDom}{footerDom}</div>
                                 : <a key={'items'+iii} href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
                         )
                     );
@@ -331,9 +331,9 @@
     : (
         (
             data.img && k2.length
-            ? <div className={'inner'}>{bodyDom||''}{footerDom||''}{dotDom||''}<div className={'pics'}>{k2}</div></div>
+            ? <div className={'inner'}>{bodyDom}{footerDom}{dotDom}<div className={'pics'}>{k2}</div></div>
             : bodyDom || footerDom
-                ? <div className={"inner"}>{headerDom||''}{bodyDom||''}{footerDom||''}{dotDom||''}</div>
+                ? <div className={"inner"}>{headerDom}{bodyDom}{footerDom}{dotDom}</div>
                 : <a href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
         )
     )

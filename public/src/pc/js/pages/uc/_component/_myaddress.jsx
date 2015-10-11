@@ -10,8 +10,22 @@ var myaddress = {
         json.username,
         json.phone
     ],
-    footer: json.address
+    footer: [],
+    dot: [
+        <a className="ifont icon-next" style={{right: "0.4rem", top: "0.7rem"}}></a>,
+    ]
 }
+
+json.address.map(function(item, i){
+    myaddress.footer.push(
+        {
+            k: item,
+            v: <a className="ifont icon-deletefill"></a>
+        }
+    )
+})
+
+
 
 
 var index = {
@@ -19,14 +33,16 @@ var index = {
     render: function () {
         var fdiv;
         if(json.address.length)
-            fdiv = <FDiv data={myaddress} itemClass={'wid-12'}/>
+            fdiv = <FDiv data={myaddress} itemClass={'noclass'}/>
         return(
-            <div className={'index mycar'}>
+            <div className={'index myaddress'}>
                 <header>
                     {'我的地址'}
                 </header>
-                <article id="content" className="like_app_list">
-                    {fdiv}
+                <article id="content">
+                    <div className="like_app_list">
+                        {fdiv}
+                    </div>
                 </article>
                 <footer>
                     <a id="now" className={'btn-link'}>{'添加新地址'}</a>

@@ -57,7 +57,6 @@ function *demoIndexData(oridata){
         }
     }
 
-
     dataSet.root = api.apiPath.base;
     oridata = libs.$extend(true,oridata,dataSet);
     return oridata

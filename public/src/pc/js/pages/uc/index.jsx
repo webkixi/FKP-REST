@@ -6,7 +6,9 @@ route({
     'index': index,
     'mycar': mycar,
     'addcar': addcar,
-    'myaddress': myaddress
+    'myaddress': myaddress,
+    'addaddress': addaddress,
+    'carstat': carstat
 });
 
 libs.addSheet([
@@ -17,7 +19,7 @@ libs.addSheet([
 require.ensure([], function() {
     var url = libs.urlparse(location.href)
     if(!url.hash){
-        myaddress()
+        carstat()
     }else{
         var hash = url.hash
         router(hash)
@@ -50,6 +52,24 @@ function addcar(){
 //我的地址及添加地址
 function myaddress(){
     require('./_component/_myaddress')('container-box',{}, function(){
+        // $('#now').click(function(){
+        //     router('esti')
+        // })
+    });
+}
+
+//我的地址及添加地址
+function addaddress(){
+    require('./_component/_addaddress')('container-box',{}, function(){
+        // $('#now').click(function(){
+        //     router('esti')
+        // })
+    });
+}
+
+//我的地址及添加地址
+function carstat(){
+    require('./_component/_carstat')('container-box',{}, function(){
         // $('#now').click(function(){
         //     router('esti')
         // })

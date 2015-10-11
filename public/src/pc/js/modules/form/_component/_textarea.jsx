@@ -2,7 +2,7 @@ var libs = require('libs/libs');
 var Store = require('mixins/store');
 var ItemMixin = require('mixins/item')
 
-var selectForm = {
+var textForm = {
 	mixins: [ItemMixin],
 	getInitialState: function() {
         this.addSheet();
@@ -38,10 +38,9 @@ var selectForm = {
 
     render: function () {
 		var label;
-		var placeholder;
+		var placeholder='请输入';
 		var body;
 		var append;
-		var bodyDom;
 		if(this.state.data){
 			var theData = this.state.data;
 			if(theData.label)
@@ -54,30 +53,27 @@ var selectForm = {
 				append = theData.append;
 			}
 
-			//下拉或者弹窗
 			body = theData.body||'没有传入数据'
-			var pop = document.getElementById('pop-box');
-			if(!pop)
-				bodyDom = <div className={'dot'}> {body} </div>
 		}
+
+		if(!React.isValidElement(append)){
+			append = undefined;
+		}
+
         return(
-			<div className={'form select'} data-value={''}>
+			<div className={'form textarea'} data-value={''}>
 				{label}
-				<div className={'body'}>
-					<span>{placeholder||'请选择'}</span>
-					<i className={'ifont icon-xla'}></i>
-				</div>
-				{bodyDom}
+					<textarea className={'body'} rows="10" placeholder={placeholder}> </textarea>
+				{append}
 			</div>
         )
     }
 }
 
-
 var libs = require('libs/libs')
 function actRct( storeName ){
-    var _storeName = storeName||'selectForm',
-        _rct = libs.clone(selectForm);
+    var _storeName = storeName||'Textform',
+        _rct = libs.clone(textForm);
 
 	// if( _rct.mixins && _rct.mixins.length ){
 	// 	_rct.mixins.push( Store( _storeName ))

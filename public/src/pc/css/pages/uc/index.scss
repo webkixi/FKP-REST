@@ -54,6 +54,45 @@ body{
 }
 
 
+.like_app_list{
+	.item{
+		width: 100%;
+		margin: 0;
+		border: none;
+		border-bottom: 2px solid #efefef;
+		.hheader{
+			img{
+				border-radius: 50%;
+			}
+		}
+		.hbody{
+			width: 9.5rem;
+			p{
+				margin-top: 0.7rem;
+				em, span{
+					font-size: 0.7rem;
+				}
+			}
+			p:first-child{
+				font-size: 0.7rem;
+				margin: 0;
+			}
+		}
+		.dot{
+			display: block;
+			height: 100%;
+			top: 0.75rem;
+			right: 0.3rem;
+			font-size: 0.7rem;
+			a{
+				display: block;
+				margin-bottom: 1.35rem;
+			}
+		}
+	}
+}
+
+
 .remrow{
 	background-color: #fff;
 	height: 100%;
@@ -106,6 +145,197 @@ body{
 						height: 1.4rem;
 						padding: 0.15rem;
 						border: 2px solid red;
+					}
+				}
+			}
+		}
+		&.myaddress{
+			article{
+				height: 4rem;
+				.like_app_list{
+					margin-bottom: 1rem;
+					.item{
+						width: 88%;
+						margin: 1rem auto;
+						position: relative;
+						border: none;
+						padding: 0;
+						border: 1px solid #999;
+						.hbody{
+							margin: 0;
+							width: auto;
+							background-color: #E8F8F7;
+							border-bottom: 1px solid #333;
+							padding: 0.2rem 0 1rem 0.4rem;
+							p{
+								font-size: 0.7rem;
+								display: inline-block;
+							}
+							p:first-child{
+								font-size: 0.65rem;
+							}
+						}
+						.hfoot{
+							margin: 0;
+							// border: 2px solid red;
+							// border-top: 0;
+							p{
+								background-color: #F3FCFB;
+								padding: 0.6rem 0 0.6rem 0.4rem;
+								border-bottom: 1px solid #999;
+								font-size: 0.6rem;
+								em{
+									font-style: normal;
+								}
+								a{
+									display: inline-block;
+									margin-left: 2rem;
+								}
+							}
+						}
+						.dot{
+							position: absolute;
+							height: 1rem;
+						}
+					}
+				}
+			}
+		}
+		&.addaddress{
+			article{
+				height: 3rem;
+				div{
+					overflow: visible;
+				}
+				#city, #district{
+					display: inline-block;
+				}
+				#city{
+					width: 60%;
+					label{
+						width: 40%;
+					}
+					.body{
+						width: 56%;
+					}
+				}
+				#district{
+					width: 38%;
+					.body{
+						width: 93%;
+					}
+				}
+				#address{
+					.body{
+						height: 4rem;
+					}
+				}
+				#zone{
+					margin-top: 1rem;
+				}
+				.ihaved{
+			        position: relative;
+			        font-size: 0.7rem;
+			        padding: 0.8rem 0.6rem;
+			        background-color: #fff;
+					text-align: center;
+			        input[type='checkbox']{
+			            display: none;
+			        }
+			        span{
+			            display: inline-block;
+			            margin-left: 2rem;
+			        }
+			        span.chk_span{
+			            position: absolute;
+			            left: 4rem;
+			            top: 0.95rem;
+			            width: 0.6rem;
+			            height: 0.6rem;
+			            border: 2px solid red;
+			            margin-right: 0.4rem;
+			            margin-left: 0.6rem;
+			            &.active{
+			                &:before{
+			                    content: '';
+			                    width: 0.4rem;
+			                    height: 0.2rem;
+			                    position: absolute;
+			                    top: 0.1rem;
+			                    left: 0.1rem;
+			                    border: 3px solid #333;
+			                    border-top: none;
+			                    border-right: none;
+			                    background: transparent;
+			                    transform: rotate(-45deg);
+			                }
+			            }
+			        }
+			    }
+			}
+		}
+		&.carstat{
+			article{
+				@include bd;
+				.btn-circle{
+					position: relative;
+					font-family: "serif";
+					margin-top: 1rem;
+					width: 8rem;
+					height: 8rem;
+					line-height: 8rem;
+					font-size: 2rem;
+					background-color: transparent;
+					border: 0.2rem solid #2DC2AF;
+					box-shadow: 0rem 0rem 0rem 0.5rem #A8E5DE;
+					.title{
+						height: 1rem;
+						line-height: 1rem;
+						font-size: 0.8rem;
+						margin: 1.5rem 0 0 0;
+					}
+					.province{
+						height: 1rem;
+						line-height: 1rem;
+						font-size: 0.7rem;
+						margin: 0;
+					}
+					span{
+						position: absolute;
+						left: 0;
+						top: 0;
+						right: 0;
+						bottom:0;
+						display: block;
+						color:#FF7900;
+						font-weight: bold;
+						font-size: 3.4rem;
+					}
+					span:last-child{
+						left: 5.2rem;
+						top: 0.7rem;
+						font-size: 0.75rem;
+						color: #555;
+						vertical-align: bottom;
+					}
+				}
+				.profile{
+					margin-top: 1.5rem;
+					.item{
+						margin-bottom: 3rem;
+						.hbody{
+							margin-top: 2rem;
+							text-align: center;
+							em, span{
+								font-style: normal;
+							}
+							span{
+								margin-left: 1rem;
+							}
+							p{
+								font-size: 1rem;
+							}
+						}
 					}
 				}
 			}
@@ -208,44 +438,6 @@ body{
             background-color: #fff;
         }
     }
-}
-
-.like_app_list{
-	.item{
-		width: 100%;
-		margin: 0;
-		border: none;
-		border-bottom: 2px solid #efefef;
-		.hheader{
-			img{
-				border-radius: 50%;
-			}
-		}
-		.hbody{
-			width: 9.5rem;
-			p{
-				margin-top: 0.7rem;
-				em, span{
-					font-size: 0.7rem;
-				}
-			}
-			p:first-child{
-				font-size: 0.7rem;
-				margin: 0;
-			}
-		}
-		.dot{
-			display: block;
-			height: 100%;
-			top: 0.75rem;
-			right: 0.3rem;
-			font-size: 0.7rem;
-			a{
-				display: block;
-				margin-bottom: 1.35rem;
-			}
-		}
-	}
 }
 
 

@@ -1,0 +1,14 @@
+@import "./form_base";
+.form{
+    padding: 2%;
+    &.textarea{
+        @include form_unit;
+        height: auto;
+        .body{
+            border: 2px solid #ddd;
+            height: auto;
+            width: 70%;
+            padding: 2% 2%;
+        }
+    }
+}

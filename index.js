@@ -25,7 +25,7 @@ app.use(statics(args[0]));
 //session
 app.keys = ['keys','gzgzmixcookie'];
 app.use(session({
-	key:'dazong'
+	key: 'dazong'
 }));
 
 
