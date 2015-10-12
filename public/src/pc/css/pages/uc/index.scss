@@ -340,6 +340,251 @@ body{
 				}
 			}
 		}
+		&.carlog{
+			article{
+				.profile{
+					width: 92%;
+					padding: 4% 4%;
+					position: relative;
+					height: 100%;
+					.center-line{
+						position: absolute;
+						width: 0.7rem;
+						height: 80%;
+						left: 47.8%;
+						top: 0;
+						background-color: #DCDCDC;
+						margin-top: 1.5rem;
+						border-radius: 0.5rem;
+					}
+					.item{
+						margin-top: 2rem;
+						.hbody{
+							position: relative;
+							p{
+								background-color: #eee;
+								position: relative;
+								font-size: 0.55rem;
+								width: 5.6rem;
+								border: 2px solid #999;
+								border-radius: 0.3rem;
+								padding: 2%;
+								height: 2.6rem;
+								em, span{
+									display: block;
+									font-style: normal;
+								}
+								&:first-child{
+									background-color: #FF7900;
+									border: 2px solid #FF7900;
+								}
+								&:nth-child(2){
+									background-color: #fff;
+								}
+							}
+							.left{
+								&:before{
+									content: '';
+									display: block;
+									position: absolute;
+									width:0.5rem;
+								    height:0.5rem;
+									right: -0.28rem;
+									top: 0.5rem;
+									border-top: 2px solid #999;
+									border-right: 2px solid #999;
+									@include rotate(45deg);
+									background-color: #EEEEEE;
+								}
+								&:after{
+									content: '';
+									display: block;
+									position: absolute;
+									width:0.2rem;
+								    height:0.2rem;
+									right: -1.24rem;
+									top: 0.7rem;
+									border-top: 2px solid #999;
+									border-right: 2px solid #999;
+									background-color: #EEEEEE;
+									border-radius: 50%;
+								}
+							}
+							.left-first{
+								&:before{
+									background-color: #FF7900;
+									border: 2px solid #FF7900;
+								}
+							}
+							.right{
+								&:before{
+									content: '';
+									display: block;
+									position: absolute;
+									width:0.5rem;
+								    height:0.5rem;
+									left: -0.28rem;
+									top: 0.5rem;
+									border-top: 2px solid #999;
+									border-left: 2px solid #999;
+									@include rotate(-45deg);
+									background-color: #EEEEEE;
+								}
+								&:after{
+									content: '';
+									display: block;
+									position: absolute;
+									width:0.2rem;
+								    height:0.2rem;
+									left: -1.24rem;
+									top: 0.7rem;
+									border-top: 2px solid #999;
+									border-right: 2px solid #999;
+									background-color: #EEEEEE;
+									border-radius: 50%;
+								}
+							}
+							.right-first{
+								&:before{
+									background-color: #fff;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&.carfinished{
+			article{
+				.item{
+					position: relative;
+					margin-top: 1.5rem;
+					.hheader{
+						img{
+							width: 3rem;
+							border-radius: 0.4rem;
+						}
+					}
+					.hbody{
+						width: auto;
+						p{
+							font-size: 0.6rem;
+							span{
+								margin-left: 4rem;
+							}
+						}
+						p:first-child{
+							margin-top: 0.5rem;
+						}
+					}
+					.hfoot{
+						margin: 0 auto;
+						margin-top: 2rem;
+						font-size: 0.6rem;
+						display: table;
+						width: 100%;
+						border-top: 0.5rem solid #F4F5F7;
+						p{
+							display: table-row;
+							height: 1.8rem;
+							line-height: 1.8rem;
+							em, span{
+								padding: 0.5rem;
+								border: 0.5rem solid #F4F5F7;
+								border-left: 0;
+								border-right: 0;
+								border-top: 0;
+							}
+							em{
+								display: table-cell;
+								font-style: normal;
+							}
+							span{
+								display: table-cell;
+								margin-left: 4rem;
+								text-align: right;
+							}
+						}
+					}
+					.dot{
+						position: absolute;
+						top: -1.2rem;
+						left: 0.4rem;
+						border-bottom: 1px solid #999;
+						height: auto;
+						padding-bottom: 0.17rem;
+						p{
+							font-size: 0.7rem;
+						}
+					}
+				}
+			}
+
+		}
+		&.mycaris{
+			article{
+				.order_table_mycar{
+				  font-size: 0.8rem;
+				  .foot_order_table_mycar{
+				    background: #fff;
+				    color: #383838;
+				    li{
+				      font-size: 0;
+				      width: 100%;
+				      border-bottom: 1px solid #000;
+				      &.item{
+				      }
+				      .hbody{
+				        padding: 0;
+								width: 100%;
+								font-size: 0
+				      }
+				      &:first-child{
+				        background: #fff;
+								border-bottom: 0.05rem solid #000;
+				        p{
+				          color: #333;
+				        }
+				      }
+				    }
+				    p{
+				      display: inline-block;
+							margin: 0;
+							padding: 0;
+				      font-size: 0.7rem;
+							padding: 0.5rem 0;
+				      color: #666;
+							text-align: center;
+							border-left: 1px solid #000;
+							line-height: 0.5rem;
+				      &:first-child{
+				        width: 10%;
+				        color: #333;
+				      }
+				      &:nth-child(2){
+				        text-align: center;
+				        width: 22%;
+				      }
+				      &:nth-child(3){
+				        width: 22%;
+				      }
+							&:nth-child(4){
+								width: 13.2222%;
+							}
+							&:nth-child(5){
+								width: 13.2222%;
+							}
+							&:nth-child(6){
+								width: 18%;
+							}
+				      em{
+				        font-style: normal;
+				      }
+				    }
+				  }
+				}
+			}
+		}
 	}
 }
 

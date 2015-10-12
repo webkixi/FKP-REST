@@ -22,14 +22,27 @@
       font-weight: normal;
       margin: 1.2rem auto 0;
     }
+  }
+  .about_zw{
+    p{
+      margin-bottom: 1rem;
+    }
+  }
+  .service_about{
+    padding: 0;
+    img{
+      margin: 0.6rem 0 0 0;
+    }
     .ser_abot{
       background: #48cfc0;
       color: #fff;
       min-height:10rem;
+      margin-top: -1px;
       h4{
         text-align: center;
         font-size: 0.7rem;
         padding: 1rem 0;
+        font-weight: normal;
       }
       ul{
         font-size: 0;
@@ -45,20 +58,100 @@
           i{
             display: block;
             font-size: 2.5rem;
-            margin-bottom: 1.7rem;
+            margin-bottom: 2rem;
           }
           em{
             font-style: normal;
             display: block;
+            a{
+              color: #fff;
+            }
           }
         }
       }
     }
   }
-  .service_about{
-    padding: 0;
-    img{
-      margin: 0.6rem 0 0 0;
+  .area_about{
+    padding: 0 0.4rem;
+    margin: 0 0.3rem;
+    h3{
+      font-size: 1rem;
+      font-weight: normal;
+      margin-bottom: 1rem;
+      color: #262626;
+      text-align: left;
+      margin: 1rem 0 1.7rem 0;
+      em{
+        line-height: 0;
+        display: block;
+        font-size: 0.7rem;
+        font-style: normal;
+      }
     }
+    .ser_abot{
+      background: #fff;
+    }
+    h4{
+      font-size: 0.6rem;
+      color: #262626;
+      margin-bottom: 0.5rem;
+    }
+    ul{
+      border-top: 0.1rem solid #666;
+      border-bottom: 0.1rem solid #666;
+      border-right: 1px solid #666;
+      border-left: 1px solid #666;
+      background: #e4f8f6;
+      color: #262626;
+      font-size: 0;
+      overflow: hidden;
+      li{
+        text-align: center;
+        border-bottom: 1px solid #666;
+        display: inline-block;
+        font-size: 0.7rem;
+        padding: 0.8rem 0;
+          border-left: 1px solid #666;
+          margin-left: -1px;
+        .hbody{
+          padding: 0;
+        }
+        p{
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  .com_about{
+    ul{
+      font-size: 0.7rem;
+      color: #262626;
+      margin-top: 1rem;
+      li{
+        margin-bottom: 0.2rem;
+        em{
+          margin-bottom: 0rem;
+          display: block;
+          i{
+            font-style: normal;
+            width: 1rem;
+            height: 1rem;
+            background: #48cfc0;
+            color: #fff;
+            display: inline-block;
+            text-align: center;
+            margin-right: 0.6rem;
+            border-radius: 0.2rem;
+          }
+        }
+        p{
+          font-size: 0.6rem;
+          margin-left: 1.6rem;
+        }
+      }
+    }
+  }
+  .del-wz{
+    text-indent: -9999rem;
   }
 }

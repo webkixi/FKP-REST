@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>联华大宗</title>
+@@include('./_common/header/head.html')
+<script>
+</script>
+</head>
+<body>
+@@include('./_common/header/header.html')
+<div class="banner slide">
+    <ul class="ban_ul banpic">
+        <li  data-image="url(/images/banner/banner1.jpg)"><a href='#'></a></li>
+        <li  data-image="url(/images/banner/banner2.jpg)"><a href='#'></a></li>
+        <li  data-image="url(/images/banner/banner3.jpg)"><a href='#'></a></li>
+        <li  data-image="url(/images/banner/banner4.jpg)"><a href='#'></a></li>
+    </ul>
+    <div class="layer-control">
+        <a class="btn_prev" href="javascript:;"></a>
+            <div class="pagenationPanel">
+                <a class="pagenation pagenationActive"><i></i></a>
+            </div>
+        <a class="btn_next" href="javascript:;"></a>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="section1">
+        {{{infoCat1}}}
+    </div>
+    <div class="section1 ggt_big">
+        <div class="container">
+            <img src="/images/ad/2213422106693vt1.jpg"/>
+        </div>
+    </div>
+    <div class="section1">
+        {{{infoCat2}}}
+    </div>
+    <div class="section1 ggt_big">
+        <div class="container">
+            <img src="/images/ad/2213422115055n8.jpg"/>
+        </div>
+    </div>
+    <div class="section1">
+        {{{goodsList}}}
+    </div>
+    <div class="section1 ggt_big">
+        <div class="container">
+            <img src="/images/ad/2213422128323h0v.jpg"/>
+        </div>
+    </div>
+    <div class="section1">
+        {{{infoCat3}}}
+    </div>
+    <div class="section1 ggt_big">
+        <div class="container">
+            <img src="/images/ad/2213422134442cup.jpg"/>
+        </div>
+    </div>
+    <div class="section1">
+        {{{infoCat4}}}
+    </div>
+    <div class="section1 ggt_big">
+        <div class="container">
+            <img src="/images/ad/2213422148808vop.jpg"/>
+        </div>
+    </div>
+</div>
+@@include('./_common/footer/footer.html')
+@@include('./_common/footer/foot.html')
+</body>
+</html>

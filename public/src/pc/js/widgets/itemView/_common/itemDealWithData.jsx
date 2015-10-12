@@ -130,7 +130,7 @@
 
                 dot.map(function(item,i){
                     if(typeof item==='string'){
-                        dots.push(<div key={'dot'+i} className={'dot'}><p>item</p></div>)
+                        dots.push(<div key={'dot'+i} className={'dot'}><p>{item}</p></div>)
                     }
 
                     if(libs.getObjType(item)==='Object'){
