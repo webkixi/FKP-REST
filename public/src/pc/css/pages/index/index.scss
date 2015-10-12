@@ -1,42 +1,44 @@
+@import "../../_copy2dist/iconfont";
 @import "../../global/_settings/_setting_pages";
-@import "../_common/com.scss";
 
-.sort_content{
-	width:960px;
-	float:left;
-	ul{
-		margin:0;
-	}
-	li{
-		width:50%;
-		margin-bottom:10px;
-		float:left;
-		i{
-		  display: inline-block;
-		  font-style: normal;
-		  color: #999;
-		  margin-left: 40px;
-		}
-	}
+html,body{
+  height: 100%;
 }
-.sort_goods{
-	float:right;
-	dl{
-		width:185px;
-		padding:5px;
-		border:1px solid #f60;
-		img{
-			width:100%;
-		}
-		dd{
-			span{
-				display: inline-block;
-				color:#333;
-			}
-			.lab{
-					color:#666;
-				}
-		}
-	}
-
+#container-box{
+  height: 100%;
+}
+.com_index{
+  height: 100%;
+  margin-top: -0.05rem;
+  ul{
+    font-size: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+    .item{
+      font-size: 0.8rem;
+      display: inline-block;
+      height: 33%;
+      text-align: center;
+      border-top: 0.05rem solid #d0d0d0;
+      border-left: 0.05rem solid #d0d0d0;
+      width: 49.6666%;
+      .hbody{
+        padding-top: 3.5rem;
+      }
+      i{
+        display: block;
+        font-size: 3.5rem;
+        margin-bottom: 2.5rem;
+        color: #48cfc0;
+      }
+      em{
+        font-style: normal;
+        display: block;
+        a{
+          color: #262626;
+        }
+      }
+    }
+  }
 }
