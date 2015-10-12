@@ -10,6 +10,7 @@ route({
     'addaddress': addaddress,
     'carstat': carstat,
     'carlog': carlog,
+    'mycaris': mycaris,
     'carfinished': carfinished
 });
 
@@ -21,7 +22,7 @@ libs.addSheet([
 require.ensure([], function() {
     var url = libs.urlparse(location.href)
     if(!url.hash){
-        carfinished()
+        mycaris()
     }else{
         var hash = url.hash
         router(hash)
@@ -90,6 +91,14 @@ function carlog(){
 //car log
 function carfinished(){
     require('./_component/_carfinished')('container-box',{}, function(){
+        // $('#now').click(function(){
+        //     router('esti')
+        // })
+    });
+}
+//car log
+function mycaris(){
+    require('./_component/_mycaris')('container-box',{}, function(){
         // $('#now').click(function(){
         //     router('esti')
         // })
