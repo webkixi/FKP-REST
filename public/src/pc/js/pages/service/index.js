@@ -20,7 +20,7 @@ libs.addSheet([
 require.ensure([], function() {
     var url = libs.urlparse(location.href)
     if(!url.hash){
-        order_address_no()
+        index()
     }else{
         var hash = url.hash
         router(hash)
