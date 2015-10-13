@@ -71,7 +71,7 @@ makeHtmlListData = (pa, capt) ->
     list = {}
     tmp = {};
     tip = _getAddress()
-    if ipGlobal
+    # if ipGlobal
         # port = 0
         # tip = 'www.agzgz.com'
     ipport = if port then ':'+port else ''
