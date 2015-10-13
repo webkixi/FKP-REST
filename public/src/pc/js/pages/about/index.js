@@ -4,7 +4,9 @@ var route = require('libs/router').route
 
 route({
     'about': about,
-    'about_service': about_service
+    'about_service': about_service,
+    'about_area': about_area,
+    'about_com': about_com
 });
 
 libs.addSheet([
@@ -30,6 +32,18 @@ function about(){
 //服务项目
 function about_service(){
     require('./_component/_about_service')('container-box',function(){
+        // bindIndex();
+    });
+}
+//服务区域
+function about_area(){
+    require('./_component/_about_area')('container-box',function(){
+        // bindIndex();
+    });
+}
+//关于车叮咚
+function about_com(){
+    require('./_component/_about_com')('container-box',function(){
         // bindIndex();
     });
 }

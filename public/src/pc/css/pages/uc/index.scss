@@ -521,6 +521,70 @@ body{
 			}
 
 		}
+		&.mycaris{
+			article{
+				.order_table_mycar{
+				  font-size: 0.8rem;
+				  .foot_order_table_mycar{
+				    background: #fff;
+				    color: #383838;
+				    li{
+				      font-size: 0;
+				      width: 100%;
+				      border-bottom: 1px solid #000;
+				      &.item{
+				      }
+				      .hbody{
+				        padding: 0;
+								width: 100%;
+								font-size: 0
+				      }
+				      &:first-child{
+				        background: #fff;
+								border-bottom: 0.05rem solid #000;
+				        p{
+				          color: #333;
+				        }
+				      }
+				    }
+				    p{
+				      display: inline-block;
+							margin: 0;
+							padding: 0;
+				      font-size: 0.7rem;
+							padding: 0.5rem 0;
+				      color: #666;
+							text-align: center;
+							border-left: 1px solid #000;
+							line-height: 0.5rem;
+				      &:first-child{
+				        width: 10%;
+				        color: #333;
+				      }
+				      &:nth-child(2){
+				        text-align: center;
+				        width: 22%;
+				      }
+				      &:nth-child(3){
+				        width: 22%;
+				      }
+							&:nth-child(4){
+								width: 13.2222%;
+							}
+							&:nth-child(5){
+								width: 13.2222%;
+							}
+							&:nth-child(6){
+								width: 18%;
+							}
+				      em{
+				        font-style: normal;
+				      }
+				    }
+				  }
+				}
+			}
+		}
 	}
 }
 
