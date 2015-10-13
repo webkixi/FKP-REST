@@ -23,5 +23,13 @@ require.ensure([], function() {
 
 
 function index(){
-    require('./_component/_index')('container-box',{}, function(){ });
+    require('./_component/_index')('container-box', function(){
+      $(".com_index li").each(function(i,item){
+        $(item).click(function(){
+          var _this = $(item);
+          var check_line = _this.attr("data-check");
+          window.location.href="http://localhost:9000/" + check_line;
+        })
+      })
+    });
 }

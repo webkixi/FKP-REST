@@ -12,31 +12,31 @@ var index = {
         return(
             <div className={'com_index'}>
               <ul className={'hlist'}>
-                <li className={'item'}>
+                <li className={'item'} data-check={'service.html#index'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_oil'}></i>
                     <em><a>{'小保养'}</a></em>
                   </div>
                 </li>
-                <li className={'item'}>
+                <li className={'item'} data-check={'service.html#index'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_fixed'}></i>
                     <em><a>{'大保养'}</a></em>
                   </div>
                 </li>
-                <li className={'item'}>
+                <li className={'item'} data-check={'service.html#detection'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_repaire'}></i>
                     <em><a>{'全车检测'}</a></em>
                   </div>
                 </li>
-                <li className={'item'}>
+                <li className={'item'} data-check={'service.html#wash'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_wash'}></i>
                     <em><a>{'洗车'}</a></em>
                   </div>
                 </li>
-                <li className={'item'}>
+                <li className={'item'} data-check={'booking.html#index'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_fixed'}></i>
                     <em><a>{'爱车估价'}</a></em>
