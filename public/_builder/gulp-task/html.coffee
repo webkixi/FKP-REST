@@ -72,8 +72,8 @@ makeHtmlListData = (pa, capt) ->
     tmp = {};
     tip = _getAddress()
     if ipGlobal
-        tip = 'www.agzgz.com'
-        port = 0
+        # port = 0
+        # tip = 'www.agzgz.com'
     ipport = if port then ':'+port else ''
     mklist = (htmlPath, caption) ->
         htmlDirPath = if htmlPath then htmlPath else config.dirs.src + '/html'
