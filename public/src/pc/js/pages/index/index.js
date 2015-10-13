@@ -28,7 +28,7 @@ function index(){
         $(item).click(function(){
           var _this = $(item);
           var check_line = _this.attr("data-check");
-          window.location.href="http://localhost:9000/" + check_line;
+          window.location.href="/" + check_line;
         })
       })
     });
