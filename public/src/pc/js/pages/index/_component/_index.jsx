@@ -42,7 +42,7 @@ var index = {
                     <em><a>{'爱车估价'}</a></em>
                   </div>
                 </li>
-                <li className={'item'}>
+                <li className={'item'} data-check={'index.html'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_more'}></i>
                     <em><a>{'更多'}</a></em>
