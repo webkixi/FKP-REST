@@ -6,16 +6,12 @@ var List = require('widgets/listView/list')
 var pop = require('modules/pop/index')
 var api = require('pages/_common/api');
 
+//全局数据
+var service_data=[];
+var _parts = [];
+var footer_item;   //data-reactid  parts列表的P的唯一标示
+var service_resault_data;
 
-function doIndex(){
-    api.req('service', {}, function(data){
-        console.log(data);
-    })
-}
-
-doIndex();
-
-// module.exports = doIndex;
 
 
 var mycar = [
@@ -39,71 +35,77 @@ mycar.map(function(item,i){
   )
 })
 
+//
+// var mycar_service_b = [
+//     {
+//         body:[
+//             {
+//                 k: '小保养',
+//                 v: <span>￥{'800'}<i className="ifont icon-next"></i></span>
+//             }
+//         ],
+//         footer: [
+//             {
+//                 k: '机油',
+//                 v: <span>￥{'380'}<i className="ifont icon-next"></i></span>
+//             },
+//             {
+//                 k: '机油滤清器',
+//                 v: <span>￥{'38'}<i className="ifont icon-next"></i></span>
+//             },
+//             {
+//                 attr: 'fixed',
+//                 k: '工时费',
+//                 v: <span>￥{'68'}<i className="ifont icon-next"></i></span>
+//             }
+//         ]
+//     },
+//     {
+//         attr: 'fixed',
+//         body:[
+//             {
+//                 k: '全车检测',
+//                 v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
+//             }
+//         ]
+//     }
+// ]
 
-var mycar_service_b = [
-    {
-        body:[
-            {
-                k: '小保养',
-                v: <span>￥{'800'}<i className="ifont icon-next"></i></span>
-            }
-        ],
-        footer: [
-            {
-                k: '机油',
-                v: <span>￥{'380'}<i className="ifont icon-next"></i></span>
-            },
-            {
-                k: '机油滤清器',
-                v: <span>￥{'38'}<i className="ifont icon-next"></i></span>
-            },
-            {
-                attr: 'fixed',
-                k: '工时费',
-                v: <span>￥{'68'}<i className="ifont icon-next"></i></span>
-            }
-        ]
-    },
-    {
-        attr: 'fixed',
-        body:[
-            {
-                k: '全车检测',
-                v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
-            }
-        ]
-    }
-]
-
-var mycar_service_s = [
-    {
-        body:[
-            {
-                k: '蓝桶专用机油 (4L,5W-30)',
-                v: "￥188"
-            }
-        ]
-    },
-    {
-        body:[
-            {
-                k: '绿桶专用机油 (4L,5W-30)',
-                v: "￥380"
-            }
-        ]
-    },
-    {
-        body:[
-            {
-                k: '全合成专用机油 (4L,5W-30)',
-                v: "￥60"
-            }
-        ]
-    }
-]
+// var mycar_service_s = [
+//     {
+//         body:[
+//             {
+//                 k: '蓝桶专用机油 (4L,5W-30)',
+//                 v: "￥188"
+//             }
+//         ]
+//     },
+//     {
+//         body:[
+//             {
+//                 k: '绿桶专用机油 (4L,5W-30)',
+//                 v: "￥380"
+//             }
+//         ]
+//     },
+//     {
+//         body:[
+//             {
+//                 k: '全合成专用机油 (4L,5W-30)',
+//                 v: "￥60"
+//             }
+//         ]
+//     }
+// ]
 
 function popItemMethod(){
     $(this).click(function(){
+        var idf = $(this).attr('data-idf');
+        // console.log(idf);
+        // console.log(_parts[idf]);
+        // console.log(service_data);
+        console.log(footer_item);
+        // $(footer_item).find('span').html('8000');
         SA.setter('Pop',{data:{display:'none'}})
     })
 }
@@ -124,8 +126,27 @@ function abcd(){
     });
     $(the).find('.hfoot p').click(function(){
         if($(this).attr('data-src')==='fixed') return
-        var kkk = <List data={mycar_service_s} itemMethod={popItemMethod} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-        SA.setter('Pop',{data:{body:kkk, display:'block'}})
+
+        footer_item = this;
+
+        var pn = { partno: $(this).attr('data-src')}
+        api.req('parts', pn, function(data){
+            if(data.code && data.code===1){
+                _parts = [];
+                data.results.map(function(item, i){
+                    _parts.push({
+                        body:[
+                            {
+                                k: item.name,
+                                v: item.userprice
+                            }
+                        ]
+                    })
+                })
+                var kkk = <List data={_parts} itemMethod={popItemMethod} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                SA.setter('Pop',{data:{body:kkk, display:'block'}})
+            }
+        })
     })
 }
 
@@ -157,7 +178,7 @@ var index = {
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的服务项目</h2>
-                  <List data={mycar_service_b} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
+                  <List data={service_data} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
                   <div className="ihaved">
                       <input value="0" ref="chkb" className="chk_1" type="checkbox"/>
                       <span ref="chkspan" className="chk_span" onClick={this.chkClick}></span>
@@ -188,6 +209,47 @@ var index = {
 
 var Index = React.createClass(index)
 
+function getData(ele, cb){
+    api.req('service', {}, function(data){
+        if(data.code && data.code===1)
+            organizeData(data.results[0], ele, cb)
+    })
+}
+
+function organizeData(oridata, ele, cb){
+    var _body,
+        _footer=[];
+
+    _body = [{
+            k: oridata.ServiceTypeName,
+            v: <span>￥{oridata.ServiceTypePrice}<i className="ifont icon-next"></i></span>
+        }]
+
+    oridata.PartsType.map(function(item, i){
+        _footer.push({
+            attr: item.partstypeno,
+            k: item.partstypename,
+            v: <span>￥{item.price}<i className="ifont icon-next"></i></span>
+        })
+    })
+
+    service_data.push({
+        body: _body,
+        footer: _footer
+    });
+
+    service_data.push({
+        attr: 'fixed',
+        body:[
+            {
+                k: '全车检测',
+                v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
+            }
+        ]
+    })
+    renderDom( ele, cb)
+}
+
 function renderDom(ele, cb){
     var element;
     if(typeof ele==='string')
@@ -205,4 +267,4 @@ function renderDom(ele, cb){
     )
 }
 
-module.exports = renderDom;
+module.exports = getData;

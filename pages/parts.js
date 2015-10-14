@@ -59,17 +59,23 @@ function *demoIndexData(oridata){
         //   ]
         // }
 
+        var body = yield libs.$parse(this);
+
         var postdata = {
-          "common": {},
+          "common": {
+            "uid": 3,
+            "session": "session0001"
+          },
           "content": [
             {
-              "ServiceTypeNo": "FW0001"
+              "partTypeNo": body.partno
             }
           ]
         }
-        // var body = yield libs.$parse(this);
-        var serviceData = yield api.pullApiData('service', postdata, 'post')
-        return serviceData[1];
+        var partsData = yield api.pullApiData('parts', postdata, 'post')
+        return partsData[1];
+
+        // return oridata;
     }
 
 
