@@ -4,6 +4,19 @@ var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var pop = require('modules/pop/index')
+var api = require('pages/_common/api');
+
+
+function doIndex(){
+    api.req('service', {}, function(data){
+        console.log(data);
+    })
+}
+
+doIndex();
+
+// module.exports = doIndex;
+
 
 var mycar = [
   {

@@ -35,10 +35,10 @@ var config = {
 
     //微信
     weixin:{
-        token: 'agzgz',
-        appid: 'wxc9edcce4f4d915e6',
-        appsecret: '926ba5478ce3f06ed153d294b1b22030',
-        encodingAESKey: 'ukoVZyQxYlxcEFiNq9tkuWqQxQrYCjXTkIH9bylDVIS'
+        token: '_cqch',
+        appid: 'wx1545988792d90a08',
+        appsecret: '574d8b683303755fa49ff5971416eb7b',
+        encodingAESKey: 'EiFRyp7yt4Ayw8EBIFojuDsn8S4JLYsDeBRtVkPRkW9'
     }
 }
 
