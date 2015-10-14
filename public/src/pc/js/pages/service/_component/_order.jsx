@@ -1,40 +1,62 @@
 var libs = require('libs/libs');
-var Uls = require('modules/tabs/_component/uls')('Fours');
+var Uls = require('modules/tabs/_component/uls')('Xby');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
+var api = require('pages/_common/api');
+var store = require('mixins/store');
 
+var bodys = [];
+var heji = {
+  count: 0,
+  totalprice: 0
+};
+var footer = SA.getter('_GLOBAL').data.index.footer;
+footer.map(function(item, i){
+  heji.count+=item.o.count;
+  heji.totalprice+=item.v;
+  bodys.push({
+    body:[
+      item.k,
+      item.o.count,
+      '￥'+item.v
+    ]
+  })
+})
+console.log(bodys);
+var mycar_service_order = bodys;
+// console.log(mycar_service_order);
 
-var mycar_service_order = [
-    {
-        body:[
-            '机油',
-            '1',
-            '￥380'
-        ]
-    },
-    {
-      body:[
-          '机油滤清器',
-          '1',
-          '￥38'
-      ]
-    },
-    {
-      body:[
-          '工时',
-          '1',
-          '￥68'
-      ]
-    },
-    {
-      body:[
-          '全车检测',
-          '1',
-          '￥0'
-      ]
-    }
-]
+// var mycar_service_order = [
+//     {
+//         body:[
+//             '机油',
+//             '1',
+//             '￥380'
+//         ]
+//     },
+//     {
+//       body:[
+//           '机油滤清器',
+//           '1',
+//           '￥38'
+//       ]
+//     },
+//     {
+//       body:[
+//           '工时',
+//           '1',
+//           '￥68'
+//       ]
+//     },
+//     {
+//       body:[
+//           '全车检测',
+//           '1',
+//           '￥0'
+//       ]
+//     }
+// ]
 mycar_service_order.unshift(
   {
     body:[
@@ -48,8 +70,8 @@ mycar_service_order.push(
   {
     body:[
         '合计',
-        '4',
-        '￥1000'
+        heji.count,
+        '￥'+heji.totalprice
     ]
   }
 )
@@ -63,16 +85,9 @@ var index = {
                 <div className={'service_mycar'}>
                   <h2>{'个人信息'}</h2>
                 </div>
-                <div className={'srvice_myorder'}>
+                <div className={'service_myorder'}>
                     <div id="name"></div>
                     <div id="phone"></div>
-                    <div id="verify" className="layout">
-                        <label></label>
-                        <div className="box">
-                            <div id="code"></div>
-                            <div id="verify_btn">获取验证码</div>
-                        </div>
-                    </div>
                     <div id="area" className="layout">
                         <label>地址</label>
                         <div className="box">
@@ -92,7 +107,7 @@ var index = {
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的订单</h2>
                   <div className={'order_table_mycar'}>
-                    <List data={mycar_service_order}  listClass={'foot_order_table_mycar'}  itemClass={'wid-12'} itemView={Pt}/>
+                    <Uls data={mycar_service_order}  listClass={'foot_order_table_mycar'}  itemClass={'wid-12'} itemView={Pt}/>
                   </div>
                 </div>
                 <div className={'service_mycar pay_mycar'}>
@@ -146,18 +161,18 @@ var bindIndex = function(){
     });
 
     //城市
-    new Select({}, 'city',function(){
-        $(this).click(function(){
-            SA.setter('Pop',{data:{body:'明天就会下雨',display:'block'}})
-        })
-    });
+    // new Select({}, 'city',function(){
+    //     $(this).click(function(){
+    //         SA.setter('Pop',{data:{body:'明天就会下雨',display:'block'}})
+    //     })
+    // });
 
     //地区
-    new Select({}, 'district',function(){
-        // $(this).click(function(){
-        //     $(this).find('.dot').toggle()
-        // })
-    });
+    // new Select({}, 'district',function(){
+    //     // $(this).click(function(){
+    //     //     $(this).find('.dot').toggle()
+    //     // })
+    // });
 
     //详细地址
     new Text({placeholder:'请输入您的详细地址'}, 'address',function(){
@@ -184,6 +199,18 @@ var bindIndex = function(){
 
 var Index = React.createClass(index)
 
+var ipts =[];
+var cbu= function(){
+  $(".service_myorder div").each(function(){
+    if(this.id){
+      var the = this;
+      ipts.push({
+        idf: the.id,
+        value: $(the).val()
+      })
+    }
+  })
+}
 function renderDom(ele, cb){
     var element;
     if(typeof ele==='string')

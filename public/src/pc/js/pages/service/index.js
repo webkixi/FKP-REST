@@ -47,7 +47,8 @@ function order_over(){
 function order(){
     require('./_component/_order')('container-box',function(){
         // bindIndex();
-        console.log(SA.getter('_GLOBAL').data);
+        // console.log(SA.getter('_GLOBAL').data);
+        
     });
 }
 //我的订单

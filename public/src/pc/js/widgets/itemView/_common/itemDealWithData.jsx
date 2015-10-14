@@ -43,7 +43,7 @@
             var k1 = data.id||'',
                 v1 = data.url||'javascript:void();',
 
-                k2 = data.title||data.caption||data.catName||data.model||data.quality||data.vender||(typeof data==='string'?data:'')||'',
+                k2 = data.title||data.caption||data.catName||data.model||data.quality||data.vender||(typeof data==='string'||typeof data==='number'?data:'')||'',
                 v2 = data.attr||'',
 
                 v3 = data.value||'';
@@ -67,7 +67,7 @@
                     body = [ body ]
 
                 body.map(function(item,i){
-                    if(typeof item==='string'){
+                    if(typeof item==='string'|| typeof item==='number'){
                         bodys.push(<p data-pid={i} key={'body'+i}>{item}</p>)
                     }
                     if(libs.getObjType(item)==='Object'){
@@ -98,7 +98,7 @@
                     footer = [ footer ]
 
                 footer.map(function(item,i){
-                    if(typeof item==='string'){
+                    if(typeof item==='string'|| typeof item==='number'){
                         footers.push(<p data-pid={i} key={'footer'+i}>{item}</p>)
                     }
                     if(libs.getObjType(item)==='Object'){
@@ -129,7 +129,7 @@
                     dot = [ dot ]
 
                 dot.map(function(item,i){
-                    if(typeof item==='string'){
+                    if(typeof item==='string'|| typeof item==='number'){
                         dots.push(<div data-did={i} key={'dot'+i} className={'dot'}><p>{item}</p></div>)
                     }
 
@@ -209,7 +209,7 @@
                 var k1 = item.id || '',
                     v1 = item.url||'javascript:;',
 
-                    k2 = item.title||item.caption||item.catName||item.model||item.quality||item.vender||(typeof item==='string'?item:'')||'',
+                    k2 = item.title||item.caption||item.catName||item.model||item.quality||item.vender||(typeof item==='string'|| typeof item==='number'?item:'')||'',
                     v2 = item.attr||'',
 
                     v3 = item.value||'';
@@ -238,7 +238,7 @@
                             body = [ body ]
 
                         body.map(function(_item,i){
-                            if(typeof _item==='string'){
+                            if(typeof _item==='string'|| typeof _item==='number'){
                                 bodys.push(<p data-pid={i} key={'body'+i}>{_item}</p>)
                             }
                             if(libs.getObjType(_item)==='Object'){
@@ -269,7 +269,7 @@
                             footer = [ footer ]
 
                         footer.map(function(_item,i){
-                            if(typeof _item==='string'){
+                            if(typeof _item==='string'|| typeof _item==='number'){
                                 footers.push(<p data-pid={i} key={'footers'+i}>{_item}</p>)
                             }
                             if(libs.getObjType(_item)==='Object'){
