@@ -2,7 +2,7 @@ var libs = require('libs/libs')
 var router = require('libs/router').router
 var route = require('libs/router').route
 
-var _global = {};
+SA.setter('_GLOBAL',{data:{} })
 
 route({
     'index': index,
@@ -32,6 +32,9 @@ require.ensure([], function() {
 function index(){
     require('./_component/_ycindex')('container-box',function(){
         // bindIndex();
+        $('#now').click(function(){
+            router('order');
+        })
     });
 }
 //洗车订单
@@ -44,6 +47,7 @@ function order_over(){
 function order(){
     require('./_component/_order')('container-box',function(){
         // bindIndex();
+        console.log(SA.getter('_GLOBAL').data);
     });
 }
 //我的订单

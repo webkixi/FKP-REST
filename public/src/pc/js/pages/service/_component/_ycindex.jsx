@@ -229,7 +229,7 @@ var index = {
                       <span>{'￥480'}</span>
                     </li>
                     <li className={'wid-4'}>
-                      <a  className={'btn-link'}>{'下一步'}</a>
+                      <a id='now' className={'btn-link'}>{'下一步'}</a>
                     </li>
                   </ul>
                 </div>
@@ -260,7 +260,8 @@ function organizeData(oridata, ele, cb){
         _footer.push({
             attr: item.partstypeno,
             k: item.partstypename,
-            v: item.price
+            v: item.price,
+            o: item
         })
     })
 
@@ -321,6 +322,8 @@ function renderDom(ele, cb){
         servicedata: service_data,
         totalprice: _PAGE.totalprice
     }
+
+    SA.setter('_GLOBAL',{index: service_ori_data})
 
     React.render(
         <Index data={dt} itemMethod={cb}/>,
