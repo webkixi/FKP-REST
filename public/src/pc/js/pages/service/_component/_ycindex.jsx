@@ -109,6 +109,9 @@ function abcd(){
             return 'u-table'
         });
     });
+    $(".pop_bg").click(function(){
+      SA.setter('Pop',{data:{display:'none'}})
+    })
     $(the).find('.hfoot p').click(function(){
         if($(this).attr('data-src')==='fixed') return
         var kkk = <List data={mycar_service_s} itemMethod={popItemMethod} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>

@@ -6,7 +6,9 @@ var render = React.render;
 
 function select(data, ele, cb){
     pop({})
-
+    $(".pop_bg").click(function(){
+      SA.setter('Pop',{data:{display:'none'}})
+    })
     if(data===true)
         return Select
     else{
