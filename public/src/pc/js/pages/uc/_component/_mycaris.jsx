@@ -69,7 +69,7 @@ var estimate = {
                 </header>
                 <article>
                   <div className={'order_table_mycar'}>
-                    <List data={mycaris_data}  listClass={'foot_order_table_mycar'}  itemClass={'wid-2'} itemView={Pt}/>
+                    <List data={mycaris_data}  listClass={'foot_order_table_mycar'}  itemClass={'wid-12'} itemView={Pt}/>
                   </div>
                 </article>
             </div>
