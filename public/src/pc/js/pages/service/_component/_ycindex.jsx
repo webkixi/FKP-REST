@@ -244,8 +244,9 @@ var Index = React.createClass(index)
 
 function getData(ele, cb){
     api.req('service', {}, function(data){
-        if(data.code && data.code===1)
+        if(data.code && data.code===1){
             organizeData(data.results[0], ele, cb)
+        }
     })
 }
 
@@ -256,7 +257,7 @@ function organizeData(oridata, ele, cb){
         _totalprice=0,
         _discountprice=0;
 
-    oridata.PartsType.map(function(item, i){
+    oridata.partstype.map(function(item, i){
         _footer.push({
             attr: item.partstypeno,
             k: item.partstypename,
@@ -267,7 +268,7 @@ function organizeData(oridata, ele, cb){
 
     _body = [
         {
-            k: oridata.ServiceTypeName,
+            k: oridata.servicetypename,
             v: _totalprice
         }
     ]

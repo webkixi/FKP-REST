@@ -23,7 +23,6 @@ footer.map(function(item, i){
     ]
   })
 })
-console.log(bodys);
 var mycar_service_order = bodys;
 // console.log(mycar_service_order);
 
@@ -88,21 +87,7 @@ var index = {
                 <div className={'service_myorder'}>
                     <div id="name"></div>
                     <div id="phone"></div>
-                    <div id="area" className="layout">
-                        <label>地址</label>
-                        <div className="box">
-                            <div id="city"></div>
-                            <div id="district"></div>
-                            <div id="address"></div>
-                        </div>
-                    </div>
-                    <div id="timer" className="layout">
-                        <label>预约时间</label>
-                        <div className="box">
-                            <div id="date"></div>
-                            <div id="ampm"></div>
-                        </div>
-                    </div>
+                    <div id="address"></div>
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的订单</h2>
@@ -154,20 +139,20 @@ var bindIndex = function(){
     });
 
     //验证码
-    new Text({}, 'code',function(){
-        $(this).click(function(){
+    // new Text({}, 'code',function(){
+    //     $(this).click(function(){
+    //
+    //     })
+    // });
 
-        })
-    });
-
-    //城市
+    // //城市
     // new Select({}, 'city',function(){
     //     $(this).click(function(){
     //         SA.setter('Pop',{data:{body:'明天就会下雨',display:'block'}})
     //     })
     // });
-
-    //地区
+    //
+    // 地区
     // new Select({}, 'district',function(){
     //     // $(this).click(function(){
     //     //     $(this).find('.dot').toggle()
@@ -175,42 +160,52 @@ var bindIndex = function(){
     // });
 
     //详细地址
-    new Text({placeholder:'请输入您的详细地址'}, 'address',function(){
+    new Text({label:'详细地址', placeholder:'请输入您的详细地址'}, 'address',function(){
         $(this).click(function(){
 
         })
     });
 
     //预约时间 年月日
-    new Select({}, 'date',function(){
-        // $(this).click(function(){
-        //     $(this).find('.dot').toggle()
-        // })
-    });
+    // new Select({}, 'date',function(){
+    //     // $(this).click(function(){
+    //     //     $(this).find('.dot').toggle()
+    //     // })
+    // });
 
     //预约时间 上午下午
-    new Select({}, 'ampm',function(){
-        // $(this).click(function(){
-        //     $(this).find('.dot').toggle()
-        // })
+    // new Select({}, 'ampm',function(){
+    //     // $(this).click(function(){
+    //     //     $(this).find('.dot').toggle()
+    //     // })
+    // });
+
+    $('#now').click(function(){
+        checkValue()
+    })
+}
+
+function checkValue(ele){
+    var uuu = [];
+    $('.service_myorder div').each(function(){
+        if(this.id){
+            uuu.push({
+                idf: this.id,
+                ipt: $(this).find('input').val()
+            })
+        }
     });
+
+    if(uuu.length){
+        console.log(uuu);
+        window.location.href="/uc.html"
+    }
 }
 
 
 var Index = React.createClass(index)
 
 var ipts =[];
-var cbu= function(){
-  $(".service_myorder div").each(function(){
-    if(this.id){
-      var the = this;
-      ipts.push({
-        idf: the.id,
-        value: $(the).val()
-      })
-    }
-  })
-}
 function renderDom(ele, cb){
     var element;
     if(typeof ele==='string')
