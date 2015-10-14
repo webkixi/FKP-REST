@@ -5,13 +5,17 @@ var List = require('widgets/listView/list')
 var Uls = require('modules/tabs/_component/uls')('Xby');
 var pop = require('modules/pop/index')
 var api = require('pages/_common/api');
+var store = require('mixins/store');
 
 //全局数据
 var service_data=[];
+var service_ori_data={}
 var _parts = [];
 var footer_item;   //data-reactid  parts列表的P的唯一标示
 var service_resault_data;
-var _PAGE={};
+var _PAGE={
+    totalprice: 0
+};
 
 
 var mycar = [
@@ -107,9 +111,12 @@ function popItemMethod(){
         var item_li = _PAGE.theli
 
         var wanner = _parts[idf].body[0].v;
-        service_data[item_li]['footer'][item_p].v = <span>￥{wanner}<i className="ifont icon-next"></i></span>
+        service_ori_data.footer[item_p].v=wanner;
+
+        var dataDom = mixDataAndDom(service_ori_data)
+
         SA.setter('Pop',{data:{display:'none'}})
-        SA.setter('Xby',{data:service_data})
+        SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
     })
 }
 
@@ -162,7 +169,7 @@ function abcd(){
 }
 
 var index = {
-    mixins: [ItemMixin],
+    mixins: [store('Index'), ItemMixin],
     chkClick: function(){
         var chkspan = React.findDOMNode(this.refs.chkspan);
         $(chkspan).toggleClass('active');
@@ -174,7 +181,22 @@ var index = {
             chkb.value="0"
         }
     },
+    componentWillMount: function(){
+        if(this.props.data){
+            var pdata = this.props.data;
+            this.setState({
+                data: {
+                    servicedata: pdata.servicedata,
+                    totalprice: pdata.totalprice
+                }
+            })
+        }
+    },
+
     render: function () {
+        var data = this.state.data;
+        s_data = data.servicedata;
+        totalprice = data.totalprice;
         return(
           <div className={'body'}>
             <div className={'wrapper'}>
@@ -189,7 +211,7 @@ var index = {
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的服务项目</h2>
-                  <Uls data={service_data} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
+                  <Uls data={s_data} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
                   <div className="ihaved">
                       <input value="0" ref="chkb" className="chk_1" type="checkbox"/>
                       <span ref="chkspan" className="chk_span" onClick={this.chkClick}></span>
@@ -203,7 +225,7 @@ var index = {
                 <div className={'container'}>
                   <ul>
                     <li className={'wid-8'}>
-                      <span className={'foot_money'}>{'总价'}<i>{'￥790'}</i></span>
+                      <span className={'foot_money'}>{'总价'}<i>{totalprice}</i></span>
                       <span>{'￥480'}</span>
                     </li>
                     <li className={'wid-4'}>
@@ -235,36 +257,53 @@ function organizeData(oridata, ele, cb){
         _discountprice=0;
 
     oridata.PartsType.map(function(item, i){
-        _totalprice += item.price;
         _footer.push({
             attr: item.partstypeno,
             k: item.partstypename,
-            v: <span>￥{item.price}<i className="ifont icon-next"></i></span>
+            v: item.price
         })
     })
 
-    // k: oridata.ServiceTypePrice
     _body = [
         {
             k: oridata.ServiceTypeName,
-            v: <span>￥{_totalprice}<i className="ifont icon-next"></i></span>
+            v: _totalprice
         }
     ]
 
-    service_data.push({
+    var data = mixDataAndDom({
         body: _body,
         footer: _footer
+    })
+
+    service_data.push({
+        body: data.body,
+        footer: data.footer
     });
-    // service_data.push({
-    //     attr: 'fixed',
-    //     body:[
-    //         {
-    //             k: '全车检测',
-    //             v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
-    //         }
-    //     ]
-    // })
+
     renderDom( ele, cb)
+}
+
+function mixDataAndDom( dt){
+    service_ori_data = dt;
+
+    var data = libs.extend(true, {}, dt),
+        _body = data.body,
+        _footer = data.footer,
+        _totalprice=0,
+        _discountprice=0;
+
+    _footer.map(function(item, i){
+        _totalprice += item.v;
+        item.v = <span>￥{item.v}<i className="ifont icon-next"></i></span>
+    })
+
+    _PAGE.totalprice = _totalprice;
+
+    _body[0].v = <span>￥{_totalprice}<i className="ifont icon-next"></i></span>
+
+    return data;
+
 }
 
 function renderDom(ele, cb){
@@ -278,8 +317,13 @@ function renderDom(ele, cb){
     else
         return;
 
+    var dt = {
+        servicedata: service_data,
+        totalprice: _PAGE.totalprice
+    }
+
     React.render(
-        <Index itemMethod={cb}/>,
+        <Index data={dt} itemMethod={cb}/>,
         element
     )
 }

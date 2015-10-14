@@ -1,4 +1,5 @@
 var lodash = require('lodash');
+var extend = require('extend');
 
 var getOffset = function(el){
     if(!el)el=window;
@@ -538,6 +539,8 @@ module.exports = {
     grabString:     grabString,     //截取字符串长度，包含中文
 
     json2url:       json2url,        //json转成url的query部分
+
+    extend:       extend,        //json转成url的query部分
 
     _IE:            _IE               //输出IE版本
 }
