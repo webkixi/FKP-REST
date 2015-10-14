@@ -30,7 +30,7 @@ var data = {
             title: '￥1000',
             body:[
                 'xxxxyyyy',
-                '直接收购'                
+                '直接收购'
             ],
             dot:[
                 <i className="price">{'免费精准报价'}</i>
@@ -133,7 +133,9 @@ var Esti = React.createClass(estimate)
 function renderDom(ele, data, cb){
     //初始化侧边弹框
     side_pop({});
-
+    $(".sidepop-bg").click(function(){
+      SA.setter('Sidepop',{data:{display:'none'}})
+    })
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
