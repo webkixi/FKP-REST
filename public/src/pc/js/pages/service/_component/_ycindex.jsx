@@ -229,14 +229,13 @@ function getData(ele, cb){
 
 function organizeData(oridata, ele, cb){
     var _body,
-        _footer=[];
+        _footer=[],
 
-    _body = [{
-            k: oridata.ServiceTypeName,
-            v: <span>￥{oridata.ServiceTypePrice}<i className="ifont icon-next"></i></span>
-        }]
+        _totalprice=0,
+        _discountprice=0;
 
     oridata.PartsType.map(function(item, i){
+        _totalprice += item.price;
         _footer.push({
             attr: item.partstypeno,
             k: item.partstypename,
@@ -244,11 +243,18 @@ function organizeData(oridata, ele, cb){
         })
     })
 
+    // k: oridata.ServiceTypePrice
+    _body = [
+        {
+            k: oridata.ServiceTypeName,
+            v: <span>￥{_totalprice}<i className="ifont icon-next"></i></span>
+        }
+    ]
+
     service_data.push({
         body: _body,
         footer: _footer
     });
-
     // service_data.push({
     //     attr: 'fixed',
     //     body:[
