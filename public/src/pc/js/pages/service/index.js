@@ -2,6 +2,8 @@ var libs = require('libs/libs')
 var router = require('libs/router').router
 var route = require('libs/router').route
 
+var _global = {};
+
 route({
     'index': index,
     'order': order,

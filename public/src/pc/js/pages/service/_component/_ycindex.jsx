@@ -1,8 +1,8 @@
 var libs = require('libs/libs');
-var Uls = require('modules/tabs/_component/uls')('Fours');
-var Pt = require('widgets/itemView/pic_title');
+var Pt = require('widgets/itemView/f_li');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
+var Uls = require('modules/tabs/_component/uls')('Xby');
 var pop = require('modules/pop/index')
 var api = require('pages/_common/api');
 
@@ -11,7 +11,7 @@ var service_data=[];
 var _parts = [];
 var footer_item;   //data-reactid  parts列表的P的唯一标示
 var service_resault_data;
-
+var _PAGE={};
 
 
 var mycar = [
@@ -99,14 +99,17 @@ mycar.map(function(item,i){
 // ]
 
 function popItemMethod(){
+    //pop li click
     $(this).click(function(){
         var idf = $(this).attr('data-idf');
-        // console.log(idf);
-        // console.log(_parts[idf]);
-        // console.log(service_data);
-        console.log(footer_item);
-        // $(footer_item).find('span').html('8000');
+        var item_pop_li = $(this).attr('data-idf');
+        var item_p = _PAGE.thep
+        var item_li = _PAGE.theli
+
+        var wanner = _parts[idf].body[0].v;
+        service_data[item_li]['footer'][item_p].v = <span>￥{wanner}<i className="ifont icon-next"></i></span>
         SA.setter('Pop',{data:{display:'none'}})
+        SA.setter('Xby',{data:service_data})
     })
 }
 
@@ -115,6 +118,10 @@ function abcd(){
     var the = this;
     var the_footer;
     var the_i;
+    $(the).click(function(){
+        //将li idf放入全局变量
+        _PAGE.theli = $(the).attr('data-idf');
+    });
     $(the).find('.hbody').click(function(){
         the_i = $(this).find('i');
         the_footer = $(the).find('.hfoot');
@@ -127,7 +134,8 @@ function abcd(){
     $(the).find('.hfoot p').click(function(){
         if($(this).attr('data-src')==='fixed') return
 
-        footer_item = this;
+        //将PID放入全局变量
+        _PAGE.thep = $(this).attr('data-pid');
 
         var pn = { partno: $(this).attr('data-src')}
         api.req('parts', pn, function(data){
@@ -178,7 +186,7 @@ var index = {
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的服务项目</h2>
-                  <List data={service_data} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
+                  <Uls data={service_data} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
                   <div className="ihaved">
                       <input value="0" ref="chkb" className="chk_1" type="checkbox"/>
                       <span ref="chkspan" className="chk_span" onClick={this.chkClick}></span>
@@ -238,15 +246,15 @@ function organizeData(oridata, ele, cb){
         footer: _footer
     });
 
-    service_data.push({
-        attr: 'fixed',
-        body:[
-            {
-                k: '全车检测',
-                v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
-            }
-        ]
-    })
+    // service_data.push({
+    //     attr: 'fixed',
+    //     body:[
+    //         {
+    //             k: '全车检测',
+    //             v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
+    //         }
+    //     ]
+    // })
     renderDom( ele, cb)
 }
 

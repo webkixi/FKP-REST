@@ -52,7 +52,7 @@
                     if(Array.isArray(data.img)){
                         var tmp_k2 = [];
                         data.img.map(function(pic,j){
-                            tmp_k2.push(<img key={'img'+j} src={pic} alt={k2}/>)
+                            tmp_k2.push(<img data-iid={i} key={'img'+j} src={pic} alt={k2}/>)
                         })
                         // k2 = <div className={'pics'}>{tmp_k2}</div>;
                         k2 = tmp_k2;
@@ -68,7 +68,7 @@
 
                 body.map(function(item,i){
                     if(typeof item==='string'){
-                        bodys.push(<p key={'body'+i}>{item}</p>)
+                        bodys.push(<p data-pid={i} key={'body'+i}>{item}</p>)
                     }
                     if(libs.getObjType(item)==='Object'){
                         if(!React.isValidElement(item)){
@@ -76,13 +76,13 @@
                             if(title){
                                 var cls = item.caption?'caption':'';
                                 if(item.url){
-                                    bodys.push(<p key={'body'+i} className={cls}><a href={item.url}>{title}</a></p>)
+                                    bodys.push(<p data-pid={i} key={'body'+i} className={cls}><a href={item.url}>{title}</a></p>)
                                 }else
-                                    bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
+                                    bodys.push(<p data-pid={i} key={'body'+i} className={cls}>{title}</p>)
                             }else{
                                 var ppp = item.attr
-                                ? <p data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</p>
-                                : <p key={'body'+i}><em>{item.k}</em>{item.v}</p>
+                                ? <p data-pid={i} data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</p>
+                                : <p data-pid={i} key={'body'+i}><em>{item.k}</em>{item.v}</p>
                                 bodys.push(ppp)
                             }
                         }else{
@@ -99,7 +99,7 @@
 
                 footer.map(function(item,i){
                     if(typeof item==='string'){
-                        footers.push(<p key={'footer'+i}>{item}</p>)
+                        footers.push(<p data-pid={i} key={'footer'+i}>{item}</p>)
                     }
                     if(libs.getObjType(item)==='Object'){
                         if(!React.isValidElement(item)){
@@ -107,13 +107,13 @@
                             if(title){
                                 var cls = item.caption?'caption':'';
                                 if(item.url){
-                                    footers.push(<p key={'footer'+i} className={cls}><a href={item.url}>{title}</a></p>)
+                                    footers.push(<p data-pid={i} key={'footer'+i} className={cls}><a href={item.url}>{title}</a></p>)
                                 }else
-                                    footers.push(<p key={'footer'+i} className={cls}>{title}</p>)
+                                    footers.push(<p data-pid={i} key={'footer'+i} className={cls}>{title}</p>)
                             }else{
                                 var ppp = item.attr
-                                ? <p data-src={item.attr} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
-                                : <p key={'footer'+i}><em>{item.k}</em>{item.v}</p>
+                                ? <p data-pid={i} data-src={item.attr} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
+                                : <p data-pid={i} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
                                 footers.push(ppp)
                             }
                         }else{
@@ -130,7 +130,7 @@
 
                 dot.map(function(item,i){
                     if(typeof item==='string'){
-                        dots.push(<div key={'dot'+i} className={'dot'}><p>{item}</p></div>)
+                        dots.push(<div data-did={i} key={'dot'+i} className={'dot'}><p>{item}</p></div>)
                     }
 
                     if(libs.getObjType(item)==='Object'){
@@ -140,7 +140,7 @@
                             var styl = props.style;
                             delete props.style;
                             var tmp = React.createElement(it.type, props, it.props.children)
-                            dots.push(<div key={'dot'+i} className={'dot'} style={styl}>{tmp}</div>)
+                            dots.push(<div data-did={i} key={'dot'+i} className={'dot'} style={styl}>{tmp}</div>)
                         }
                         else
                             {
@@ -163,7 +163,7 @@
 
                                 var title = item.title||item.caption||item.text||item.price;
                                 if(title){
-                                    dots.push(<div key={'dot'+i} className={'dot'} style={styl}><p>{title}</p></div>)
+                                    dots.push(<div data-did={i} key={'dot'+i} className={'dot'} style={styl}><p>{title}</p></div>)
                                 }
                             }
                     }
@@ -221,7 +221,7 @@
                         if(Array.isArray(item.img)){
                             var tmp_k2 = [];
                             item.img.map(function(pic,j){
-                                tmp_k2.push(<img key={'img'+j} src={pic} alt={k2}/>)
+                                tmp_k2.push(<img data-iid={j} key={'img'+j} src={pic} alt={k2}/>)
                             })
                             // k2 = <div className={'pics'}>{tmp_k2}</div>;
                             k2 = tmp_k2;
@@ -239,7 +239,7 @@
 
                         body.map(function(_item,i){
                             if(typeof _item==='string'){
-                                bodys.push(<p key={'body'+i}>{_item}</p>)
+                                bodys.push(<p data-pid={i} key={'body'+i}>{_item}</p>)
                             }
                             if(libs.getObjType(_item)==='Object'){
                                 if(!React.isValidElement(_item)){
@@ -247,13 +247,13 @@
                                     if(title){
                                         var cls = _item.caption?'caption':'';
                                         if(_item.url){
-                                            bodys.push(<p key={'body'+i} className={cls}><a href={_item.url}>{title}</a></p>)
+                                            bodys.push(<p data-pid={i} key={'body'+i} className={cls}><a href={_item.url}>{title}</a></p>)
                                         }else
-                                            bodys.push(<p key={'body'+i} className={cls}>{title}</p>)
+                                            bodys.push(<p data-pid={i} key={'body'+i} className={cls}>{title}</p>)
                                     }else{
                                         var ppp = _item.attr
-                                        ? <p data-src={_item.attr} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
-                                        : <p key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+                                        ? <p data-pid={i} data-src={_item.attr} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+                                        : <p data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
                                         bodys.push(ppp)
                                     }
                                 }else{
@@ -270,7 +270,7 @@
 
                         footer.map(function(_item,i){
                             if(typeof _item==='string'){
-                                footers.push(<p key={'footers'+i}>{_item}</p>)
+                                footers.push(<p data-pid={i} key={'footers'+i}>{_item}</p>)
                             }
                             if(libs.getObjType(_item)==='Object'){
                                 if(!React.isValidElement(_item)){
@@ -278,13 +278,13 @@
                                     if(title){
                                         var cls = _item.caption?'caption':'';
                                         if(_item.url){
-                                            footers.push(<p key={'footers'+i} className={cls}><a href={_item.url}>{title}</a></p>)
+                                            footers.push(<p data-pid={i} key={'footers'+i} className={cls}><a href={_item.url}>{title}</a></p>)
                                         }else
-                                            footers.push(<p key={'footers'+i} className={cls}>{title}</p>)
+                                            footers.push(<p data-pid={i} key={'footers'+i} className={cls}>{title}</p>)
                                     }else{
                                         var ppp = _item.attr
-                                        ? <p data-src={_item.attr} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
-                                        : <p key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
+                                        ? <p data-pid={i} data-src={_item.attr} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
+                                        : <p data-pid={i} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
                                         footers.push(ppp)
                                     }
                                 }else{

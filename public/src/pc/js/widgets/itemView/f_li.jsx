@@ -26,7 +26,7 @@ var fox = React.createClass({
 
 		//idf ： 每一个元素的index
 		return (
-            <div data-idf={this.props.idf} data-id={k1}  data-cls={v2} className=
+            <li data-idf={this.props.idf} data-id={k1}  data-cls={v2} className=
 				{
 					(function(){
 							if(v2&&v2==='second'){
@@ -37,7 +37,7 @@ var fox = React.createClass({
 					})()
 				} style={sty}>
 				{fill}
-            </div>
+            </li>
 	) }
 
 });
