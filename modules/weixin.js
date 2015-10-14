@@ -40,10 +40,10 @@ function weixin(){
             // 回复高富帅(图文回复)
             this.body = [
               {
-                title: '你来我家接我吧',
-                description: '这是女神与高富帅之间的对话',
-                picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
-                url: 'http://nodeapi.cloudfoundry.com/'
+                title: '车叮咚，车管家',
+                description: '与你的车一次亲密邂逅',
+                picurl: 'http://120.25.147.54/images/by.jpg',
+                url: 'http://120.25.147.54'
               }
             ];
           }
