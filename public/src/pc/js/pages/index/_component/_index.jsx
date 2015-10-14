@@ -18,7 +18,7 @@ var index = {
                     <em><a>{'小保养'}</a></em>
                   </div>
                 </li>
-                <li className={'item'} data-check={'service.html#index'}>
+                <li className={'item'} data-check={'service.html#dby'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_fixed'}></i>
                     <em><a>{'大保养'}</a></em>

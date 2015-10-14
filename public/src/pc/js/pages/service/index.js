@@ -11,7 +11,8 @@ route({
     'order_ok': order_ok,
     'order_address_no': order_address_no,
     'wash': wash,
-    'detection': detection
+    'detection': detection,
+    'dby': dby
 });
 
 libs.addSheet([
@@ -30,7 +31,17 @@ require.ensure([], function() {
 })
 //大小保养
 function index(){
-    require('./_component/_ycindex')('container-box',function(){
+    require('./_component/_ycindex')('container-box',{type: 'xby'}, function(){
+        // bindIndex();
+        $('#now').click(function(){
+            router('order');
+        })
+    });
+}
+
+//大小保养
+function dby(){
+    require('./_component/_ycindex')('container-box',{type: 'dby'}, function(){
         // bindIndex();
         $('#now').click(function(){
             router('order');
@@ -48,7 +59,7 @@ function order(){
     require('./_component/_order')('container-box',function(){
         // bindIndex();
         // console.log(SA.getter('_GLOBAL').data);
-        
+
     });
 }
 //我的订单

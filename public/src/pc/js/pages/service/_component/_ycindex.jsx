@@ -242,8 +242,9 @@ var index = {
 
 var Index = React.createClass(index)
 
-function getData(ele, cb){
-    api.req('service', {}, function(data){
+function getData(ele, param, cb){
+    var query = param||{type: 'xby'};
+    api.req('service', query, function(data){
         if(data.code && data.code===1){
             organizeData(data.results[0], ele, cb)
         }

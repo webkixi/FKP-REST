@@ -67,8 +67,24 @@ function *demoIndexData(oridata){
             }
           ]
         }
-        // var body = yield libs.$parse(this);
+        var body = yield libs.$parse(this);
+        if(body){
+            if(body.type){
+                if(body.type==='dby')
+                    postdata.content[0].ServiceTypeNo = 'FW0002';
+            }
+        }
+
+        var qcjc = libs.$extend(true, {}, postdata);
+        qcjc.content[0].ServiceTypeNo = 'FW0003';
+
+        var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
+        var qd = qcjcdata[1].results[0];
         var serviceData = yield api.pullApiData('service', postdata, 'post')
+        // serviceData[1].results.push(qd);
+        console.log(serviceData[1]);
+
+
         return serviceData[1];
     }
 
