@@ -28,7 +28,12 @@ function index(){
         $(item).click(function(){
           var _this = $(item);
           var check_line = _this.attr("data-check");
-          window.location.href="/" + check_line;
+            // window.location.href="/" + check_line;
+          if(check_line == "car_fixed"){
+            window.location.href="http://www.che300.com/car_front";
+          }else{
+            window.location.href="/" + check_line;
+          }
         })
       })
     });
