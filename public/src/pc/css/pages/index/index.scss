@@ -42,3 +42,56 @@ html,body{
     }
   }
 }
+// @media (orientation: portrait) {
+//
+//   .com_index{
+//     height: 100%;
+//     ul{
+//       height: 100%;
+//       .item{
+//         font-size: 0.8rem;
+//         height: 33%;
+//         width: 49.6666%;
+//         .hbody{
+//           padding-top: 3.5rem;
+//         }
+//         i{
+//           font-size: 3.5rem;
+//           margin-bottom: 2.5rem;
+//         }
+//       }
+//     }
+//   }
+// } //横屏
+// @media (orientation: landscape) {
+//   .com_index{
+//     width: 100%;
+//     ul{
+//       width: 100%;
+//       .item{
+//         font-size: 0.4rem;
+//         height: 4rem;
+//         width: 45%;
+//         .hbody{
+//           padding-top: 1rem;
+//         }
+//         i{
+//           font-size: 1rem;
+//           margin-bottom: 1rem;
+//         }
+//       }
+//     }
+//   }
+// } //竖屏
+// @media (max-width: 760px){
+//   .com_index{
+//     ul{
+//       .item{
+//         font-size: 0.4rem;
+//       }
+//       i{
+//         font-size: 1rem;
+//       }
+//     }
+//   }
+// }
