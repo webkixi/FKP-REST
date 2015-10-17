@@ -1,6 +1,6 @@
 {
   "name": "car",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "车前车后",
   "main": "index.js",
   "dependencies": {
