@@ -8,7 +8,7 @@ module.exports = (gulp,$,slime,env)->
     if env == 'bb'
         buildCommon = 'buildCommon:dev:bb'
 
-    return (cb) ->
+    return () ->
         browserSync(
             proxy: "http://127.0.0.1:8070"
             files: [ config.htmlDevPath + '/**/*.html', config.staticPath+ '/dev/**']

@@ -102,7 +102,7 @@ module.exports = (gulp,$,slime,env)->
         else
             if env == 'ng'
                 gulp.start 'rebuild:html'
-
-        doSync( env, cb )
+            else
+                doSync( env, cb )
 
             # gulp.start 'sync'

@@ -2,6 +2,9 @@ var request = require('request');
 var path = require('path');
 var libs = require('../libs/libs');
 var qs = require('querystring');
+var config = require('../config');
+
+var tmp_token_session = {}
 
 /*  request的常规用法
 request({method:'POST', url:url, body:paramStr, json:true}, function(err,response,body){
@@ -39,6 +42,7 @@ var src = "http://120.25.241.174:8080/v1/";
 var apiPath = {
     base: src,
     dirs: {
+        wx_token: 'https://api.weixin.qq.com/cgi-bin/token',
         service: src+'servicetype/query',
         parts: src+'parts/query'
 
@@ -57,6 +61,9 @@ var apiPath = {
         // updatePassword: src+'api/account/account-save-password.html',  //更新用户密码false 忘记密码true
         // updateBaseInfo: src+'api/account/account-save-baseInfo.html',  //更新用户基本信息
         // uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
+    },
+    weixin: {
+        userlist: 'https://api.weixin.qq.com/cgi-bin/user/get'
     }
 }
 
@@ -86,7 +93,78 @@ function *pullApiData(api, param, method){
 
 }
 
+function *getWxAccessToken(){
+
+    var the = this;
+    var date = new Date();
+
+    function *getAt(){
+        var tmp = yield pullApiData('wx_token',{
+            grant_type: 'client_credential',
+            appid: config.weixin.appid,
+            secret: config.weixin.appsecret
+        })
+        var tk = JSON.parse(tmp[0].body);
+        var now = date.getTime()/1000;
+        var sess_wx = {
+            token: tk.access_token,
+            token_expire: now + tk.expires_in,
+            token_renew: 7200
+        }
+        the.sess.wx = sess_wx;
+    }
+
+    if(!this.sess.wx){
+        yield getAt();
+    }else{
+        var tmp = this.sess.wx;
+        var now = date.getTime()/1000;
+        if(now-tmp.token_expire>6500){
+            yield getAt();
+        }else{
+            tmp.token_renew = now-tmp.token_expire;
+        }
+    }
+
+
+}
+
+function *pullWxData(api, param, method){
+    libs.elog('javaapi/'+ api);
+
+    if(libs.getObjType(param)!=='Object')
+        return yield {
+            code: 1,
+            message: 'param must be a json object'
+        };
+
+    yield getWxAccessToken.call(this);
+    param.access_token = this.sess.wx.token;
+    console.log('weixin token after '+Math.ceil(-this.sess.wx.token_renew)+' second will renew');
+    console.log(this.sess.wx.token);
+
+    var url = apiPath.weixin[api];
+    var query;
+
+    if(!method)
+        query = qs.stringify(param);
+
+    if(method==='post'||method==='POST')
+        query = param;
+
+    console.log('(((((((((((((((((((((((((((weixin)))))))))))))))))))))))))))');
+    // console.log(query);
+
+
+    if(!method)
+        return yield req(url+'?'+query);
+    else
+        return yield req(url, query);
+
+}
+
 module.exports = {
     apiPath:apiPath,
-    pullApiData: pullApiData
+    pullApiData: pullApiData,
+    pullWxData: pullWxData
 }

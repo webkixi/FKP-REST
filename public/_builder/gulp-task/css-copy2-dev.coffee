@@ -3,8 +3,6 @@ path = require 'path'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 config = require '../configs/config.coffee'
-sass = require 'gulp-ruby-sass'
-
 
 module.exports = (gulp,$)->
     return ()->
