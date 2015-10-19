@@ -36,15 +36,16 @@ var req = function(api,options){
 }
 
 // var src = "http://120.25.241.174:8080/v1/servicetype/";
-var src = "http://192.168.4.57:8080/v1/";
-// var src = "http://120.25.241.174:8080/v1/";
+//var src = "http://192.168.4.57:8080/v1/";
+var src = "http://120.25.241.174:8080/v1/";
 
 var apiPath = {
     base: src,
     dirs: {
         wx_token: 'https://api.weixin.qq.com/cgi-bin/token',
         service: src+'servicetype/query',
-        parts: src+'parts/query'
+        parts: src+'parts/query',
+        queryallbrand: src+'car/queryallbrand'
 
         // search: src+'api/search.html',    //搜索
         // region: src+'api/region/region-list.html', //地区

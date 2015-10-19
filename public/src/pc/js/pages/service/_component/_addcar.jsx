@@ -1,8 +1,9 @@
 var libs = require('libs/libs');
-var ItemMixin = require('mixins/item')
-var List = require('widgets/listView/list')
-var Pt = require('widgets/itemView/pic_title');
-
+var Pt = require('widgets/itemView/f_li');
+var ItemMixin = require('mixins/item');
+var List = require('widgets/listView/list');
+var api = require('pages/_common/api');
+var pop = require('modules/pop/index');
 var esti2 = {
     mixins: [ItemMixin],
     render: function () {
@@ -27,27 +28,54 @@ var esti2 = {
         )
     }
 }
+var _addcar =[];
+function dealWith_Data_Brand(){
 
-function dealWith_Data_Brand(data){
-    if(libs.getObjType(data)!=='Object') return;
     var nav = [];
     var resaults = []
     var rtnDom;
-    nav = Object.keys(data);
-    if(nav.length){
-        nav.map(function(item, i){
-            resaults.push(
-                {
-                    body: item,
-                    footer: data[item]
-                }
-            )
-        })
-        rtnDom = <List data={resaults} listClass={'car_linkage'} itemClass={'wid-12'} itemView={Pt}/>
-    }
+
+    api.req('queryallbrand',{}, function(data){
+        if(data.code && data.code===1){
+            _addcar = [];
+            data.results.map(function(item, i){
+                _addcar.push(
+                  {
+                      body: item,
+                      footer: data[item]
+                  }
+                )
+            })
+            console.log(_addcar);
+            rtnDom = <List data={_addcar} listClass={'car_linkage'} itemClass={'wid-12'} itemView={Pt}/>
+        }
+    })
+
+    // [
+    //   {
+    //     body: 'A',
+    //     footer: {
+    //       attr: 'select'
+    //       k: '',
+    //       v: 'jfkdlf'
+    //     }
+    //   }
+    // ]
+    //
+    // nav = Object.keys(data);
+    // if(nav.length){
+    //     nav.map(function(item, i){
+    //         resaults.push(
+    //             {
+    //                 body: item,
+    //                 footer: {data[item]}
+    //             }
+    //         )
+    //     })
+    //     rtnDom = <List data={resaults} listClass={'car_linkage'} itemClass={'wid-12'} itemView={Pt}/>
+    // }
     return rtnDom;
 }
-
 var bindEsti = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
@@ -56,11 +84,10 @@ var bindEsti = function(){
     //品牌
     new Select({label:'品牌'}, 'brand',function(){
         $(this).click(function(){
-            var brand_json = require('./_addcar_brand.json');
-            var brand_dom = dealWith_Data_Brand(brand_json);
+            var brand_dom = dealWith_Data_Brand();
+            console.log(brand_dom);
             if(brand_dom)
                 SA.setter('Pop',{data:{body:brand_dom, display:'block'}})
-                console.log(brand_dom)
         })
     });
 
