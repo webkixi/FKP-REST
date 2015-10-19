@@ -157,7 +157,19 @@ var bindIndex = function(){
     // //城市
     new Select({label: '城市'}, 'city',function(){
         $(this).click(function(){
-            SA.setter('Pop',{data:{body:'明天就会下雨',display:'block'}})
+            var dd = [
+                {
+                    body:[
+                        {
+                            attr: 'select',
+                            k: '好好学习',
+                            v: 'abc'
+                        }
+                    ]
+                }
+            ]
+            var xx = <List data={dd} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+            SA.setter('Pop',{data:{body:xx,display:'block'}})
         })
     });
     //

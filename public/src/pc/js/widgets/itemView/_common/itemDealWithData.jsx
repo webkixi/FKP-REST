@@ -80,9 +80,11 @@
                                 }else
                                     bodys.push(<p data-pid={i} key={'body'+i} className={cls}>{title}</p>)
                             }else{
-                                var ppp = item.attr
-                                ? <p data-pid={i} data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</p>
-                                : <p data-pid={i} key={'body'+i}><em>{item.k}</em>{item.v}</p>
+                                var ppp = !item.attr
+                                ? <p data-pid={i} key={'body'+i}><em>{item.k}</em>{item.v}</p>
+                                : item.attr === 'select'
+                                    ? <p data-pid={i} data-src={item.attr} data-value={item.v} key={'body'+i}>{item.k}</p>
+                                    : <p data-pid={i} data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</p>
                                 bodys.push(ppp)
                             }
                         }else{
@@ -111,9 +113,11 @@
                                 }else
                                     footers.push(<p data-pid={i} key={'footer'+i} className={cls}>{title}</p>)
                             }else{
-                                var ppp = item.attr
-                                ? <p data-pid={i} data-src={item.attr} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
-                                : <p data-pid={i} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
+                                var ppp = !item.attr
+                                ? <p data-pid={i} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
+                                : item.attr === 'select'
+                                    ? <p data-pid={i} data-src={item.attr} data-value={item.v} key={'footer'+i}>{item.k}</p>
+                                    : <p data-pid={i} data-src={item.attr} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
                                 footers.push(ppp)
                             }
                         }else{
@@ -251,9 +255,11 @@
                                         }else
                                             bodys.push(<p data-pid={i} key={'body'+i} className={cls}>{title}</p>)
                                     }else{
-                                        var ppp = _item.attr
-                                        ? <p data-pid={i} data-src={_item.attr} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
-                                        : <p data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+                                        var ppp = !_item.attr
+                                        ? <p data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+                                        : _item.attr === 'select'
+                                            ? <p data-pid={i} data-src={_item.attr} data-value={_item.v} key={'body'+i}>{_item.k}</p>
+                                            : <p data-pid={i} data-src={_item.attr} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
                                         bodys.push(ppp)
                                     }
                                 }else{
@@ -282,9 +288,11 @@
                                         }else
                                             footers.push(<p data-pid={i} key={'footers'+i} className={cls}>{title}</p>)
                                     }else{
-                                        var ppp = _item.attr
-                                        ? <p data-pid={i} data-src={_item.attr} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
-                                        : <p data-pid={i} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
+                                        var ppp = !_item.attr
+                                        ? <p data-pid={i} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
+                                        : _item.attr === 'select'
+                                            ? <p data-pid={i} data-src={_item.attr} data-value={_item.v} key={'footers'+i}>{_item.k}</p>
+                                            : <p data-pid={i} data-src={_item.attr} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
                                         footers.push(ppp)
                                     }
                                 }else{
