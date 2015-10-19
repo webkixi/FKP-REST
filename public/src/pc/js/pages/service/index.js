@@ -12,7 +12,8 @@ route({
     'order_address_no': order_address_no,
     'wash': wash,
     'detection': detection,
-    'dby': dby
+    'dby': dby,
+    'addcar': addcar
 });
 
 libs.addSheet([
@@ -83,6 +84,12 @@ function wash(){
 //全车检测
 function detection(){
     require('./_component/_detection')('container-box',function(){
+        // bindIndex();
+    });
+}
+//添加车辆
+function addcar(){
+    require('./_component/_addcar')('container-box',function(){
         // bindIndex();
     });
 }
