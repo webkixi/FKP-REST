@@ -9,7 +9,7 @@ function Checkbox(data, ele, cb){
         return Ckb
     else{
         render(
-            <Ckb data={data} itemMethod={cb} listClass={'form checkbox'}/>,
+            <Ckb name={ele} data={data} itemMethod={cb} listClass={'form checkbox'}/>,
             document.getElementById(ele)
         )
     }

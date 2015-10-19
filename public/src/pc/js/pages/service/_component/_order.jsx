@@ -6,56 +6,55 @@ var List = require('widgets/listView/list')
 var api = require('pages/_common/api');
 var store = require('mixins/store');
 
-var bodys = [];
-var heji = {
-  count: 0,
-  totalprice: 0
-};
-var footer = SA.getter('_GLOBAL').data.index.footer;
-footer.map(function(item, i){
-  heji.count+=item.o.count;
-  heji.totalprice+=item.v;
-  bodys.push({
-    body:[
-      item.k,
-      item.o.count,
-      '￥'+item.v
-    ]
-  })
-})
-var mycar_service_order = bodys;
-// console.log(mycar_service_order);
+// var bodys = [];
+// var heji = {
+//   count: 0,
+//   totalprice: 0
+// };
+// var footer = SA.getter('_GLOBAL').data.index.footer;
+// footer.map(function(item, i){
+//   heji.count+=item.o.count;
+//   heji.totalprice+=item.v;
+//   bodys.push({
+//     body:[
+//       item.k,
+//       item.o.count,
+//       '￥'+item.v
+//     ]
+//   })
+// })
+// var mycar_service_order = bodys;
 
-// var mycar_service_order = [
-//     {
-//         body:[
-//             '机油',
-//             '1',
-//             '￥380'
-//         ]
-//     },
-//     {
-//       body:[
-//           '机油滤清器',
-//           '1',
-//           '￥38'
-//       ]
-//     },
-//     {
-//       body:[
-//           '工时',
-//           '1',
-//           '￥68'
-//       ]
-//     },
-//     {
-//       body:[
-//           '全车检测',
-//           '1',
-//           '￥0'
-//       ]
-//     }
-// ]
+var mycar_service_order = [
+    {
+        body:[
+            '机油',
+            '1',
+            '￥380'
+        ]
+    },
+    {
+      body:[
+          '机油滤清器',
+          '1',
+          '￥38'
+      ]
+    },
+    {
+      body:[
+          '工时',
+          '1',
+          '￥68'
+      ]
+    },
+    {
+      body:[
+          '全车检测',
+          '1',
+          '￥0'
+      ]
+    }
+]
 mycar_service_order.unshift(
   {
     body:[
@@ -65,12 +64,21 @@ mycar_service_order.unshift(
     ]
   }
 )
+// mycar_service_order.push(
+//   {
+//     body:[
+//         '合计',
+//         heji.count,
+//         '￥'+heji.totalprice
+//     ]
+//   }
+// )
 mycar_service_order.push(
   {
     body:[
         '合计',
-        heji.count,
-        '￥'+heji.totalprice
+        12,
+        '250'
     ]
   }
 )
@@ -88,6 +96,7 @@ var index = {
                     <div id="name"></div>
                     <div id="phone"></div>
                     <div id="address"></div>
+                    <div id="city"></div>
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的订单</h2>
@@ -146,11 +155,11 @@ var bindIndex = function(){
     // });
 
     // //城市
-    // new Select({}, 'city',function(){
-    //     $(this).click(function(){
-    //         SA.setter('Pop',{data:{body:'明天就会下雨',display:'block'}})
-    //     })
-    // });
+    new Select({label: '城市'}, 'city',function(){
+        $(this).click(function(){
+            SA.setter('Pop',{data:{body:'明天就会下雨',display:'block'}})
+        })
+    });
     //
     // 地区
     // new Select({}, 'district',function(){
@@ -197,7 +206,6 @@ function checkValue(ele){
     });
 
     if(uuu.length){
-        console.log(uuu);
         window.location.href="/uc.html"
     }
 }

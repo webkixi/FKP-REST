@@ -41,6 +41,7 @@ var textForm = {
 		var placeholder='请输入';
 		var body;
 		var append;
+		var cls='body';
 		if(this.state.data){
 			var theData = this.state.data;
 			if(theData.label)
@@ -53,6 +54,10 @@ var textForm = {
 				append = theData.append;
 			}
 
+			if(theData.class){
+				cls = cls + ' ' +theData.class;
+			}
+
 			body = theData.body||'没有传入数据'
 		}
 
@@ -63,7 +68,7 @@ var textForm = {
         return(
 			<div className={'form text'} data-value={''}>
 				{label}
-					<input className={'body'} type="text" placeholder={placeholder}></input>
+					<input name={this.props.name} className={cls} type="text" placeholder={placeholder}></input>
 				{append}
 			</div>
         )

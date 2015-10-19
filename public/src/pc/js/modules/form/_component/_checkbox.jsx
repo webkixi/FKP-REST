@@ -39,6 +39,7 @@ var checkboxForm = {
 		var label;
 		var body;
 		var append;
+		var cls='chk_1';
 		if(this.state.data){
 			var theData = this.state.data;
 			if(theData.label)
@@ -46,6 +47,10 @@ var checkboxForm = {
 
 			if(theData.append){
 				append = theData.append;
+			}
+
+			if(theData.class){
+				cls = cls + ' ' + theData.class;
 			}
 
 			body = theData.body||'没有传入数据'
@@ -56,7 +61,7 @@ var checkboxForm = {
 
         return(
 			<div className={'form checkbox'} data-value={''}>
-  			<input value="0" className={'chk_1'} type="checkbox" ></input>
+  			<input name={this.props.name} value="0" className={cls} type="checkbox" ></input>
         <span ref="chkspan" className="chk_span" ></span>
 				{label}
 				{append}

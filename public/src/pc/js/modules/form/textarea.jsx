@@ -9,7 +9,7 @@ function select(data, ele, cb){
         return Select
     else{
         render(
-            <Textarea data={data} itemMethod={cb} listClass={'form textarea'}/>,
+            <Textarea name={ele} data={data} itemMethod={cb} listClass={'form textarea'}/>,
             document.getElementById(ele)
         )
     }

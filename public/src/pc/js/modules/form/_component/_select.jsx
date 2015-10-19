@@ -42,6 +42,7 @@ var selectForm = {
 		var body;
 		var append;
 		var bodyDom;
+		var cls;
 		if(this.state.data){
 			var theData = this.state.data;
 			if(theData.label)
@@ -54,6 +55,10 @@ var selectForm = {
 				append = theData.append;
 			}
 
+			if(theData.class){
+				cls = theData.class;
+			}
+
 			//下拉或者弹窗
 			body = theData.body||'没有传入数据'
 			var pop = document.getElementById('pop-box');
@@ -64,6 +69,7 @@ var selectForm = {
 			<div className={'form select'} data-value={''}>
 				{label}
 				<div className={'body'}>
+					<input className={cls} name={this.props.name} type='hidden' value=''></input>
 					<span>{placeholder||'请选择'}</span>
 					<i className={'ifont icon-xla'}></i>
 				</div>

@@ -13,7 +13,7 @@ function select(data, ele, cb){
         return Select
     else{
         render(
-            <Select data={data} itemMethod={cb} listClass={'form select'}/>,
+            <Select name={ele} data={data} itemMethod={cb} listClass={'form select'}/>,
             document.getElementById(ele)
         )
     }

@@ -9,7 +9,7 @@ function select(data, ele, cb){
         return Select
     else{
         render(
-            <Text data={data} itemMethod={cb} listClass={'form text'}/>,
+            <Text name={ele} data={data} itemMethod={cb} listClass={'form text'}/>,
             document.getElementById(ele)
         )
     }

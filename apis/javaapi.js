@@ -36,8 +36,8 @@ var req = function(api,options){
 }
 
 // var src = "http://120.25.241.174:8080/v1/servicetype/";
-// var src = "http://192.168.4.57:8080/v1/";
-var src = "http://120.25.241.174:8080/v1/";
+var src = "http://192.168.4.57:8080/v1/";
+// var src = "http://120.25.241.174:8080/v1/";
 
 var apiPath = {
     base: src,
