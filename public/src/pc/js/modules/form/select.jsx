@@ -9,11 +9,21 @@ function select(data, ele, cb){
     $(".pop_bg").click(function(){
       SA.setter('Pop',{data:{display:'none'}})
     })
+
+    function dm(){
+        var input = $(this).find('input');
+        $("#pop-box").delegate("p", "click", function(){
+            if($(this).attr('data-src')==='select'){
+                $(input).val($(this).attr('data-value'))                
+            }
+        });
+    }
+
     if(data===true)
         return Select
     else{
         render(
-            <Select name={ele} data={data} itemMethod={cb} listClass={'form select'}/>,
+            <Select name={ele} data={data} itemDefaultMethod={dm} itemMethod={cb} listClass={'form select'}/>,
             document.getElementById(ele)
         )
     }

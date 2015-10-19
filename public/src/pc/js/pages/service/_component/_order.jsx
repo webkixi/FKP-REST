@@ -169,7 +169,7 @@ var bindIndex = function(){
                 }
             ]
             var xx = <List data={dd} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-            SA.setter('Pop',{data:{body:xx,display:'block'}})
+            SA.setter('Pop',{data:{body:xx,display:'block'}} )
         })
     });
     //
