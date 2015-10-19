@@ -97,6 +97,7 @@ var index = {
                     <div id="phone"></div>
                     <div id="address"></div>
                     <div id="city"></div>
+                    <div id="district"></div>
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的订单</h2>
@@ -169,16 +170,28 @@ var bindIndex = function(){
                 }
             ]
             var xx = <List data={dd} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-            SA.setter('Pop',{data:{body:xx,display:'block'}})
+            SA.setter('Pop',{data:{body:xx,display:'block'}} )
         })
     });
     //
     // 地区
-    // new Select({}, 'district',function(){
-    //     // $(this).click(function(){
-    //     //     $(this).find('.dot').toggle()
-    //     // })
-    // });
+    new Select({label: '地区'}, 'district',function(){
+        $(this).click(function(){
+            var dd = [
+                {
+                    body:[
+                        {
+                            attr: 'select',
+                            k: '天天向上',
+                            v: 'xxx'
+                        }
+                    ]
+                }
+            ]
+            var yy = <List data={dd} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+            SA.setter('Pop',{data:{body:yy,display:'block'}} )
+        })
+    });
 
     //详细地址
     new Text({label:'详细地址', placeholder:'请输入您的详细地址'}, 'address',function(){
