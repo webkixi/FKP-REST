@@ -167,20 +167,21 @@ function abcd(){
         })
     })
 }
-
+// function check_s(){
+//   $(this).find(".ihaved").click(function(){
+//     var chkspan = $(this).find(".chk_span");
+//     chkspan.toggleClass('active');
+//     var chkb = $(this).find(".chk_1");
+//     if(chkspan.hasClass('active')){
+//         chkb.val("1")
+//     }
+//     else {
+//         chkb.val("0")
+//     }
+//   })
+// }
 var index = {
     mixins: [store('Index'), ItemMixin],
-    chkClick: function(){
-        var chkspan = React.findDOMNode(this.refs.chkspan);
-        $(chkspan).toggleClass('active');
-
-        var chkb = React.findDOMNode(this.refs.chkb);
-        if($(chkspan).hasClass('active'))
-            chkb.value="1"
-        else {
-            chkb.value="0"
-        }
-    },
     componentWillMount: function(){
         if(this.props.data){
             var pdata = this.props.data;
@@ -212,11 +213,7 @@ var index = {
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的服务项目</h2>
                   <Uls data={s_data} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
-                  <div className="ihaved">
-                      <input value="0" ref="chkb" className="chk_1" type="checkbox"/>
-                      <span ref="chkspan" className="chk_span" onClick={this.chkClick}></span>
-                      <span>{"已有配件只需上门服务"}</span>
-                  </div>
+                  <div id={'checkbox'}></div>
                 </div>
               </div>
             </div>
@@ -239,6 +236,32 @@ var index = {
         )
     }
 }
+var bindIndex = function(){
+    var Checkbox = require('modules/form/checkbox');
+
+    // var abc = new Checkbox(true)
+    // var opts = {label:"abc"}
+    // abc({data:opts,
+    //   itemMethod:ccbb,
+    //   listClass:'form checkbox'
+    // })
+    // var yyy = <abc data={opts} itemMethod={ccbb} listClass={'form checkbox'}/>;
+    //是否选择
+    new Checkbox({label:'已有配件只需上门服务'}, 'checkbox',function(){
+        $(this).click(function(){
+          var chkspan = $(this).find(".chk_span");
+          chkspan.toggleClass('active');
+          var chkb = $(this).find(".chk_1");
+          if(chkspan.hasClass('active')){
+              chkb.val("1")
+          }
+          else {
+              chkb.val("0")
+          }
+        })
+    });
+}
+
 
 var Index = React.createClass(index)
 
@@ -303,7 +326,7 @@ function mixDataAndDom( dt){
 
     _PAGE.totalprice = _totalprice;
 
-    _body[0].v = <span>￥{_totalprice}<i className="ifont icon-next"></i></span>
+    _body[0].v = <span>￥{_totalprice}<i className="ifont icon-xla"></i></span>
 
     return data;
 
@@ -328,7 +351,7 @@ function renderDom(ele, cb){
     SA.setter('_GLOBAL',{index: service_ori_data})
 
     React.render(
-        <Index data={dt} itemMethod={cb}/>,
+        <Index data={dt} itemDefaultMethod={bindIndex} itemMethod={cb}/>,
         element
     )
 }

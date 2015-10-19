@@ -200,46 +200,51 @@ body{
             background-color: #E8F8F7;
         }
     }
-    .ihaved{
-        position: relative;
-        font-size: 0.7rem;
-        padding: 0.8rem 0.6rem;
-        background-color: #fff;
-        input[type='checkbox']{
-            display: none;
-        }
-        span{
-            display: inline-block;
-            margin-left: 2rem;
-        }
-        span.chk_span{
-            position: absolute;
-            left: 1rem;
-            top: 0.95rem;
-            width: 0.6rem;
-            height: 0.6rem;
-            border: 2px solid red;
-            margin-right: 0.4rem;
-            margin-left: 0.6rem;
-            &.active{
-                &:before{
-                    content: '';
-                    width: 0.4rem;
-                    height: 0.2rem;
-                    position: absolute;
-                    top: 0.1rem;
-                    left: 0.1rem;
-                    border: 3px solid #333;
-                    border-top: none;
-                    border-right: none;
-                    background: transparent;
-                    transform: rotate(-45deg);
-                }
+}
+/*多选*/
+.checkbox{
+    position: relative;
+    font-size: 0.7rem;
+    padding: 0.8rem 0.6rem;
+    background-color: #fff;
+    input[type='checkbox']{
+        display: none;
+        width: 100%;
+        height: 1rem;
+    }
+    span{
+        display: inline-block;
+    }
+    label{
+        display: inline-block;
+        margin-left: 2rem;
+    }
+    span.chk_span{
+        position: absolute;
+        left: 0.5rem;
+        top: 0.45rem;
+        width: 0.6rem;
+        height: 0.6rem;
+        border: 2px solid red;
+        margin-right: 0.4rem;
+        margin-left: 0.6rem;
+        &.active{
+            &:before{
+                content: '';
+                width: 0.4rem;
+                height: 0.2rem;
+                position: absolute;
+                top: 0.1rem;
+                left: 0.1rem;
+                border: 3px solid #333;
+                border-top: none;
+                border-right: none;
+                background: transparent;
+                transform: rotate(-45deg);
             }
         }
     }
 }
-
 
 .service_myorder{
     background-color: #fff;
