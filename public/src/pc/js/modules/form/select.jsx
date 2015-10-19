@@ -11,12 +11,16 @@ function select(data, ele, cb){
     })
 
     function dm(){
-        var input = $(this).find('input');
-        $("#pop-box").delegate("p", "click", function(){
-            if($(this).attr('data-src')==='select'){
-                $(input).val($(this).attr('data-value'))                
-            }
-        });
+        var input;
+        $(this).click(function(){
+            $("#pop-box").undelegate("p", "click")
+            input = $(this).find('input')
+            $("#pop-box").delegate("p", "click", function(){
+                if($(this).attr('data-src')==='select'){
+                    $(input).val($(this).attr('data-value'))
+                }
+            });
+        })
     }
 
     if(data===true)
