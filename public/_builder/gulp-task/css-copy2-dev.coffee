@@ -4,7 +4,6 @@ gulp = require 'gulp'
 gutil = require 'gulp-util'
 config = require '../configs/config.coffee'
 
-
 module.exports = (gulp,$)->
     return ()->
         gulp.src [config.dirs.src + '/css/_copy2dist/**/*.*', config.dirs.src + '/css/modules/**/*.*']

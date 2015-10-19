@@ -30,5 +30,14 @@ module.exports = (gulp,$,slime,env)->
         gulp.watch [config.dirs.src + '/css/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['pagecss:dev']
         #js
         gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        # gulp.watch config.dirs.src + '/js/pages/**/*.?(coffee|js|jsx|cjsx)', (file) ->
+        #     console.log file
+        #     pt = file.path
+        #     if(file.path.indexOf('_component')>-1)
+        #         pt = file.path.substring(0,file.path.indexOf('_component'))
+        #     slime.build(pt,true)
         #html
-        gulp.watch config.dirs.src + '/html/**/*.*', ['html:build']
+        # gulp.watch config.dirs.src + '/html/**/*.*', ['html:build']
+        gulp.watch config.dirs.src + '/html/**/*.*', (file) ->
+            console.log file.path
+            slime.build(file.path, {type: 'hbs', 'env': env});
