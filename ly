@@ -6,7 +6,7 @@ dev(){
     gulp dev
 
     cd ..
-    nodemon index.js dev &
+    nodemon --harmony index.js dev &
     sleep 2
 
     cd public

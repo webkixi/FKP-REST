@@ -583,3 +583,79 @@ body{
     }
   }
 }
+/*添加车辆*/
+@mixin hd {
+	display: table-cell;
+	background-color: #fff;
+	height: 3rem;
+	line-height: 3rem;
+	font-size: 1rem;
+	border-bottom: 1px solid #9f9f9f;
+	vertical-align: middle;
+	text-indent: 0.4rem;
+	color: #999;
+	margin-bottom: 0.5rem;
+}
+@mixin bd {
+	display: table-row;
+	margin-bottom: 1rem;
+	height: 4rem;
+	padding-bottom: 1rem;
+}
+@mixin fd {
+	display: table-cell;
+	background-color: #efefef;
+	vertical-align: middle;
+}
+.index{
+  background-color: #fff;
+	height: 100%;
+	width: 100%;
+	display: table;
+  .hfoot{
+    display: block;
+  }
+	header{
+		@include hd;
+		height: 10%;
+	}
+	article{
+		@include bd;
+		height: 90%;
+	}
+	footer{
+		@include fd;
+		a.btn-link{
+			background-color: #2EC1AE;
+			color: #fff;
+			margin:0 auto;
+			padding: 0.4rem 0;
+			font-size: 1rem;
+			height: 1.5rem;
+		}
+	}
+	&.addcar{
+		article{
+			height: 11rem;
+			#vin, #engin{
+				.body{
+					width: 54%;
+				}
+				.camera{
+					&:before{
+						content:"\e600";
+						display: block;
+						text-align: center;
+						font-size: 1.3rem;
+						margin-top: -0.1rem;
+					}
+					width: 12%;
+					margin-left: 0.27rem;
+					height: 1.4rem;
+					padding: 0.15rem;
+					border: 2px solid red;
+				}
+			}
+		}
+	}
+}

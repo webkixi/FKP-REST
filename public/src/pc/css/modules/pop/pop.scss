@@ -57,6 +57,7 @@
     font-size: 0.6rem;
     overflow: auto;
     ul.hlist{
+      font-size: 0.6rem;
       li{
         border-top: 1px solid #d9d9d9;
         -webkit-animation-name: anim-close;
@@ -104,6 +105,30 @@
       animation-duration: 0.3s;
       -webkit-animation-fill-mode: forwards;
       animation-fill-mode: forwards;
+    }
+  }
+  .car_linkage{
+    &.hlist{
+      .hbody{
+        background: #F8F8F8;
+        border-bottom: 1px solid #cfcfcf;
+        p{
+          text-align: left;
+        }
+      }
+      .hfoot{
+        display: block;
+        background: #fff;
+        p{
+          line-height: 1.5rem;
+          &:hover{
+            color: #000;
+          }
+          &.active{
+            color: #000;
+          }
+        }
+      }
     }
   }
 }
