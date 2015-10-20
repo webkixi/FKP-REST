@@ -155,25 +155,40 @@ var bindIndex = function(){
     var Text = require('modules/form/text');
 
     //电话
-    new Text({label:'姓名',valide: 'username'}, 'name',function(){
+    var u_name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
         $(this).click(function(){
 
         })
     });
 
     //电话
-    new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
+    var u_phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
         $(this).click(function(){
 
         })
     });
 
     //验证码
-    new Text({valide: 'verify_m'}, 'code',function(){
+    var u_verify = new Text({valide: 'verify_m'}, 'code',function(){
         $(this).click(function(){
 
         })
     });
+
+    $('#verify_btn').click(function(){
+        if(u_phone.stat){
+            api.req('getmms', {mobile: u_phone.value}, function(data){
+                console.log(data);
+            })
+        }
+        // var phone = $('input[name="phone"]').val();
+        // alert(phone)
+        // $('input[name="phone"]')
+        // var phone_stat = libs.formValide({popmsg: false})('phone', 'mobile', null)()
+        // if(phone_stat){
+        //     api.req('getmms', function(data){
+        // }
+    })
 
     // //城市
     new Select({popclose: false}, 'city',function(){

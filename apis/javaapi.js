@@ -62,6 +62,7 @@ var apiPath = {
         // updateBaseInfo: src+'api/account/account-save-baseInfo.html',  //更新用户基本信息
         // uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
         ,region: src+'region/query'
+        ,getmms: src+'user/getsmscode'
     },
     weixin: {
         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get'

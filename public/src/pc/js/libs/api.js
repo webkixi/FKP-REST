@@ -27,6 +27,7 @@ var apiPath = {
         // goods_edit: '/goods/edit',
         // goods_add: '/goods/add'
         ,region: src+'region'
+        ,getmms: src+'getmms'
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=
