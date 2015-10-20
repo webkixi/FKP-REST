@@ -446,6 +446,64 @@ var json2url = function(obj){
 }
 
 
+function hasClass(element, className) {
+    var reg = new RegExp('(\\s|^)'+className+'(\\s|$)');
+    return element.className.match(reg);
+}
+
+function addClass(element, className) {
+    if (!this.hasClass(element, className)) {
+        element.className += " "+className;
+    }
+}
+function removeClass(element, className) {
+    if (hasClass(element, className)) {
+        var reg = new RegExp('(\\s|^)'+className+'(\\s|$)');
+        element.className = element.className.replace(reg,' ');
+    }
+}
+
+//间隔多久可以点击
+// param1 {element}  dom element not jq element
+// param2 {number}   countdown second
+// param3 {function} when countdown is 0 then run callback
+// example
+/*
+*  countDown(ele, 60, function(){})
+*/
+function countDown(ele, countdown, cb){
+    if(!ele.nodeType)
+        return false;
+
+    var that = ele;
+
+    // countdown 60 seconds
+    var count = 61;
+
+    if( getObjType(countdown)==='Function'){
+        cb = countdown;
+    }
+
+    if( typeof countdown === 'number'){
+        count = countdown
+    }
+
+    var ttt = setInterval(function(){
+        that.innerHTML = --count+'秒';
+
+        if(count === 0){
+            clearInterval(ttt);
+            that.innerHTML = '重新发送'
+            cb()
+        }
+
+        if(count < 1){
+            clearInterval(ttt);
+        }
+    }, 1000);
+}
+
+
 /**
 /* 2015-1-13 yc
 /* url解析
@@ -480,7 +538,7 @@ var urlparse = function (url) {
             var ret = {},
             seg = anchor.search.replace(/^\?/,'').split('&'),
             len = seg.length, i = 0, str;
-            for (;i<len;i++) {
+            for (; i < len; i++) {
                 if (!seg[i])  continue;
                 str = seg[i].split('=');
                 ret[str[0]] = str[1];
@@ -544,5 +602,7 @@ module.exports = {
 
     extend:       extend,        //json转成url的query部分
 
-    _IE:            _IE               //输出IE版本
+    _IE:            _IE,               //输出IE版本
+
+    countDown:      countDown
 }

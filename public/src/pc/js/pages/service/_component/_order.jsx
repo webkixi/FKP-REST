@@ -153,45 +153,52 @@ var index = {
 var bindIndex = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var u = {};
 
     //电话
-    var u_name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
+    u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
         $(this).click(function(){
 
         })
     });
 
     //电话
-    var u_phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
+    u.phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
         $(this).click(function(){
 
         })
     });
 
     //验证码
-    var u_verify = new Text({valide: 'verify_m'}, 'code',function(){
+    u.verify = new Text({valide: 'verify_m'}, 'code',function(){
         $(this).click(function(){
 
         })
-    });    
+    });
 
+    var btn_stat = 0;
     $('#verify_btn').click(function(){
-        if(u_phone.stat){
-            api.req('getmms', {mobile: u_phone.value}, function(data){
-                console.log(data);
-            })
-        }
-        // var phone = $('input[name="phone"]').val();
-        // alert(phone)
-        // $('input[name="phone"]')
-        // var phone_stat = libs.formValide({popmsg: false})('phone', 'mobile', null)()
-        // if(phone_stat){
-        //     api.req('getmms', function(data){
-        // }
+            var btn = this;
+            if(u.phone.stat){
+                if(btn_stat===0){
+                    btn_stat = 1;
+                    api.req('getmms', {mobile: u.phone.value}, function(data){
+                        if(data.code===1){
+                            SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
+                            libs.countDown(btn, 61, function(){
+                                btn_stat = 0;
+                                $(btn).html('重新发送')
+                            })
+                        }
+                    })
+                }
+            }else{
+                SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
+            }
     })
 
     // //城市
-    new Select({popclose: false}, 'city',function(){
+    u.city = new Select({}, 'city',function(){
         // api.req('region', {parent_id: 430000}, function(data){
         var parents = [];
         api.req('region', function(data){
@@ -218,7 +225,7 @@ var bindIndex = function(){
     });
     //
     // 地区
-    new Select({}, 'district',function(){
+    u.district = new Select({}, 'district',function(){
         districts = [];
         $(this).click(function(){
             var kkk = $('#city').find('input').val();
@@ -245,45 +252,105 @@ var bindIndex = function(){
     });
 
     //详细地址
-    new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
+    u.address = new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
         $(this).click(function(){
 
         })
     });
 
+    function formatDate(timer){
+        var tt = new Date(timer);
+        var year = tt.getFullYear();
+        var date = tt.getDate();
+        var month = tt.getMonth();
+        return {
+            year: year,
+            month: month,
+            date: date
+        }
+    }
+
+    function organizeDate(timer){
+        var ttt = formatDate(timer);
+        var rtn = []
+        for(var i=0; i < 3; i++){
+            rtn.push({
+                body:[
+                    {
+                        attr: 'select',
+                        k: ttt.year+'-'+ttt.month+'-'+(ttt.date+i),
+                        v: ttt.year+'-'+ttt.month+'-'+(ttt.date+i)
+                    }
+                ]
+            })
+        }
+        return <List data={rtn} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+    }
+
     //预约时间 年月日
-    new Select({}, 'date',function(){
-        // $(this).click(function(){
-        //     $(this).find('.dot').toggle()
-        // })
+    u.date = new Select({}, 'date',function(){
+        var tt;
+        api.req('getservtime', function(data){
+            tt = data;
+        })
+        $(this).click(function(){
+            if(tt){
+                var ttt = organizeDate(tt.timer);
+                SA.setter('Pop',{data:{body:ttt,display:'block'}} )
+            }
+        })
     });
 
     //预约时间 上午下午
-    new Select({}, 'ampm',function(){
-        // $(this).click(function(){
-        //     $(this).find('.dot').toggle()
-        // })
+    u.ampm = new Select({}, 'ampm',function(){
+        $(this).click(function(){
+            var ttt = [
+                { body:[
+                    {
+                        attr: 'select',
+                        k: '上午',
+                        v: 'am'
+                    } ]
+                },
+                { body:[
+                    {
+                        attr: 'select',
+                        k: '下午',
+                        v: 'pm'
+                    }
+                ] }
+            ];
+            var amtmp = <List data={ttt} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+            SA.setter('Pop',{data:{body:amtmp,display:'block'}} )
+        })
     });
 
     $('#now').click(function(){
-        checkValue()
+        checkValue(u)
     })
 }
 
 function checkValue(ele){
-    var uuu = [];
-    $('.service_myorder div').each(function(){
-        if(this.id){
-            uuu.push({
-                idf: this.id,
-                ipt: $(this).find('input').val()
-            })
-        }
-    });
+    var items = Object.keys(ele);
+    items.map(function(item, i){
+        if(!ele[item].stat)
+            console.log('aaaaaaaaaaaa');
+    })
 
-    if(uuu.length){
-        window.location.href="/uc.html"
-    }
+
+    // var uuu = [];
+    // $('.service_myorder div').each(function(){
+    //     if(this.id){
+    //         uuu.push({
+    //             idf: this.id,
+    //             ipt: $(this).find('input').val()
+    //         })
+    //     }
+    // });
+    //
+    // if(uuu.length){
+    //     window.location.href="/uc.html"
+    // }
 }
 
 

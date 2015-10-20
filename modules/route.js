@@ -108,7 +108,9 @@ function init(app,mapper,rend){
         else
             if(param.cat === 'getmms')
                 yield getMms.call(this);
-
+        else
+            if(param.cat === 'getservtime')
+                yield getServTime.call(this);
         else
             if(param.cat === 'upload'){
                 yield uploader.call(this);
@@ -151,6 +153,15 @@ function *getMms(){
     libs.clog('获取短信接口');
     var msg = yield mms.getMms.call(this);
     yield returnJson.call(this,true,'getmms',msg);
+}
+
+
+//获取服务器时间
+function *getServTime(){
+    libs.clog('获取服务器时间');
+    var dd = new Date();
+    var tt = dd.getTime();
+    yield returnJson.call(this,true,'getmms',{timer: tt});
 }
 
 //上传数据

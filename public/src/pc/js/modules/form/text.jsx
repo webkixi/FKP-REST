@@ -11,6 +11,8 @@ function text(data, ele, cb){
 
     this.stat = false;
     this.value;
+    this.ipt;
+    this.name;
     var _this = this;
 
     function ntips(msg){
@@ -28,6 +30,7 @@ function text(data, ele, cb){
                 _this.stat = true;
                 _this.value = ipt.value;
                 _this.name = ipt.name;
+                _this.ipt = ipt;
                 $(the_text).removeClass('error')
             }
         }

@@ -9,6 +9,13 @@ libs.addSheet([
 ])
 
 function select(data, ele, cb){
+
+    this.stat = false;
+    this.value;
+    this.text;
+    this.ipt;
+    var _this = this;
+
     pop({})
     $(".pop_bg").click(function(){
       SA.setter('Pop',{data:{display:'none'}})
@@ -25,11 +32,16 @@ function select(data, ele, cb){
             input = $(this).find('input')
             $("#pop-box").delegate("p", "click", function(){
                 if($(this).attr('data-src')==='select'){
-                    $(input).val($(this).attr('data-value'))
-                    $(the).find('span').text($(this).text())
+                    var val = $(this).attr('data-value')
+                    var text = $(this).text();
+                    _this.stat = true;
+                    _this.value = val;
+                    _this.text = text;
+                    _this.ipt = the;
+                    $(input).val(val)
+                    $(the).find('span').text(text)
                     if(close)
                         SA.setter('Pop',{data:{display:'none'}})
-
                 }
             });
         })
