@@ -26,6 +26,7 @@ var apiPath = {
         // firmDetailSave: '/firm/edit',
         // goods_edit: '/goods/edit',
         // goods_add: '/goods/add'
+        ,region: src+'region'
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=
@@ -36,9 +37,25 @@ var apiPath = {
 function req( api, param, cb ){
     var url = apiPath.dirs[api];
     if(url){
-        $.post( url, param, function( body, status ){
-            if( status === 'success' ) cb( body ) ;
-        }, "json")
+        if(libs.getObjType(param)==='Object'){
+            var keys = Object.keys(param)
+            if(keys.length>0){
+                $.post( url, param, function( body, status ){
+                    if( status === 'success' ) cb( body ) ;
+                }, "json")
+            }else{
+                $.post( url, {test: '123'}, function( body, status ){
+                    if( status === 'success' ) cb( body ) ;
+                }, "json")
+            }
+        }else{
+            if(libs.getObjType(param)==='Function'){
+                cb = param;
+            }
+            $.post( url, {test: '123'}, function( body, status ){
+                if( status === 'success' ) cb( body ) ;
+            }, "json")
+        }
     }
 }
 

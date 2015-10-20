@@ -36,8 +36,8 @@ var req = function(api,options){
 }
 
 // var src = "http://120.25.241.174:8080/v1/servicetype/";
-var src = "http://192.168.4.57:8080/v1/";
-// var src = "http://120.25.241.174:8080/v1/";
+// var src = "http://192.168.4.57:8080/v1/";
+var src = "http://120.25.241.174:8080/v1/";
 
 var apiPath = {
     base: src,
@@ -61,6 +61,7 @@ var apiPath = {
         // updatePassword: src+'api/account/account-save-password.html',  //更新用户密码false 忘记密码true
         // updateBaseInfo: src+'api/account/account-save-baseInfo.html',  //更新用户基本信息
         // uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
+        ,region: src+'region/query'
     },
     weixin: {
         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get'

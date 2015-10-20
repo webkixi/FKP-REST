@@ -134,18 +134,8 @@ function init(app,mapper,rend){
 //获取地址
 function *getRegion(){
     libs.clog('获取地址列表联动信息');
-    var body={};
-    if(this.method==='GET'){
-        body = this.query;
-    }
-    if(this.method==='POST'){
-        body = yield libs.$parse(this)
-    }
-    if(typeof body.id!=='undefined'&&body.id){
-        var zones = yield region.getRegion(body.id);
-        var data = JSON.parse(zones[1]);
-        yield returnJson.call(this,true,'region',data);
-    }
+    var zones = yield region.getRegion.call(this);
+    yield returnJson.call(this,true,'region',zones);
 }
 
 //上传数据
@@ -230,7 +220,7 @@ function *distribute(_mapper){
                     }
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
-                        console.log(pageData);
+                        // console.log(pageData);
                         yield htmlRender.call(this,true,route,pageData);
                         return false;
                     }
