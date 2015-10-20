@@ -281,15 +281,17 @@ body{
                 width: 50%;
                 &#address{
                     width: 100%;
-                    .text{
+                    margin-top: 0.3rem;
+                    input{
+                        padding: 0.35rem;
                         padding-left: 1%;
                         width: 98%;
+                        margin-left: -0.12rem;
                     }
                 }
                 &#code{
                     input{
-                        width: 87%;
-                        margin-left: -0.3rem;
+                        padding: 0.35rem 0;
                     }
                 }
                 &#verify_btn{

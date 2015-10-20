@@ -95,9 +95,30 @@ var index = {
                 <div className={'service_myorder'}>
                     <div id="name"></div>
                     <div id="phone"></div>
-                    <div id="address"></div>
-                    <div id="city"></div>
-                    <div id="district"></div>
+                    <div className="layout">
+                        <label></label>
+                        <div className="box">
+                            <div id="code"></div>
+                            <div id="verify_btn">获取验证码</div>
+                        </div>
+                    </div>
+
+                    <div className="layout">
+                        <label>地址</label>
+                        <div className="box">
+                            <div id="city"></div>
+                            <div id="district"></div>
+                            <div id="address"></div>
+                        </div>
+                    </div>
+
+                    <div className="layout">
+                        <label>预约时间</label>
+                        <div className="box">
+                            <div id="date"></div>
+                            <div id="ampm"></div>
+                        </div>
+                    </div>
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的订单</h2>
@@ -135,28 +156,28 @@ var bindIndex = function(){
     var Text = require('modules/form/text');
 
     //电话
-    new Text({label:'姓名'}, 'name',function(){
+    new Text({label:'姓名',valide: 'username'}, 'name',function(){
         $(this).click(function(){
 
         })
     });
 
     //电话
-    new Text({label:'手机号码'}, 'phone',function(){
+    new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
         $(this).click(function(){
 
         })
     });
 
     //验证码
-    // new Text({}, 'code',function(){
-    //     $(this).click(function(){
-    //
-    //     })
-    // });
+    new Text({valide: 'verify_m'}, 'code',function(){
+        $(this).click(function(){
+
+        })
+    });
 
     // //城市
-    new Select({label: '城市'}, 'city',function(){
+    new Select({}, 'city',function(){
         $(this).click(function(){
             var dd = [
                 {
@@ -175,7 +196,7 @@ var bindIndex = function(){
     });
     //
     // 地区
-    new Select({label: '地区'}, 'district',function(){
+    new Select({}, 'district',function(){
         $(this).click(function(){
             var dd = [
                 {
@@ -194,25 +215,25 @@ var bindIndex = function(){
     });
 
     //详细地址
-    new Text({label:'详细地址', placeholder:'请输入您的详细地址'}, 'address',function(){
+    new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
         $(this).click(function(){
 
         })
     });
 
     //预约时间 年月日
-    // new Select({}, 'date',function(){
-    //     // $(this).click(function(){
-    //     //     $(this).find('.dot').toggle()
-    //     // })
-    // });
+    new Select({}, 'date',function(){
+        // $(this).click(function(){
+        //     $(this).find('.dot').toggle()
+        // })
+    });
 
     //预约时间 上午下午
-    // new Select({}, 'ampm',function(){
-    //     // $(this).click(function(){
-    //     //     $(this).find('.dot').toggle()
-    //     // })
-    // });
+    new Select({}, 'ampm',function(){
+        // $(this).click(function(){
+        //     $(this).find('.dot').toggle()
+        // })
+    });
 
     $('#now').click(function(){
         checkValue()

@@ -66,7 +66,7 @@ var textForm = {
 		}
 
         return(
-			<div className={'form text'} data-value={''}>
+			<div className={'form text'}>
 				{label}
 					<input name={this.props.name} className={cls} type="text" placeholder={placeholder}></input>
 				{append}

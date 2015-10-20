@@ -62,7 +62,7 @@ var checkboxForm = {
         return(
 			<div className={'form checkbox'} data-value={''}>
   			<input name={this.props.name} value="0" className={cls} type="checkbox" ></input>
-        <span ref="chkspan" className="chk_span" ></span>
+        	<span ref="chkspan" className="chk_span" ></span>
 				{label}
 				{append}
 			</div>

@@ -2,6 +2,10 @@ var libs = require('libs/libs');
 var Textarea = require('./_component/_textarea')()
 var render = React.render;
 
+libs.addSheet([
+    '/css/t/ui/form.css'
+    ,'formform'
+])
 
 function select(data, ele, cb){
 
