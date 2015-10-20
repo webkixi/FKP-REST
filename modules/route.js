@@ -10,6 +10,7 @@ var libs = require('../libs/libs')
 var __ = libs.$lodash;
 var render;
 var region = require('./region');
+var mms = require('./mms')
 var config = require('../config');
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
@@ -104,13 +105,20 @@ function init(app,mapper,rend){
         if(param.cat === 'region'){
             yield getRegion.call(this);
         }
-        else if(param.cat === 'upload'){
-            yield uploader.call(this);
-        }else if(param.cat === 'captcha'){
-            yield captcha.call(this);
-        }else if(param.cat === 'weixin'){
-            console.log('aaaaaaaaaaa');
-            yield weixin.call(this,app);
+        else
+            if(param.cat === 'getmms')
+                yield getMms.call(this);
+
+        else
+            if(param.cat === 'upload'){
+                yield uploader.call(this);
+        }else
+            if(param.cat === 'captcha'){
+                yield captcha.call(this);
+        }else
+            if(param.cat === 'weixin'){
+                console.log('aaaaaaaaaaa');
+                yield weixin.call(this,app);
         }
         else
             yield distribute.call(this,mapper)
@@ -134,18 +142,15 @@ function init(app,mapper,rend){
 //获取地址
 function *getRegion(){
     libs.clog('获取地址列表联动信息');
-    var body={};
-    if(this.method==='GET'){
-        body = this.query;
-    }
-    if(this.method==='POST'){
-        body = yield libs.$parse(this)
-    }
-    if(typeof body.id!=='undefined'&&body.id){
-        var zones = yield region.getRegion(body.id);
-        var data = JSON.parse(zones[1]);
-        yield returnJson.call(this,true,'region',data);
-    }
+    var zones = yield region.getRegion.call(this);
+    yield returnJson.call(this,true,'region',zones);
+}
+
+//获取短信接口
+function *getMms(){
+    libs.clog('获取短信接口');
+    var msg = yield mms.getMms.call(this);
+    yield returnJson.call(this,true,'getmms',msg);
 }
 
 //上传数据
@@ -230,7 +235,7 @@ function *distribute(_mapper){
                     }
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
-                        console.log(pageData);
+                        // console.log(pageData);
                         yield htmlRender.call(this,true,route,pageData);
                         return false;
                     }

@@ -14,6 +14,9 @@ function select(data, ele, cb){
       SA.setter('Pop',{data:{display:'none'}})
     })
 
+
+    var close = true;
+    if(data.popclose===false) close = data.popclose;
     function dm(){
         var input;
         $(this).click(function(){
@@ -24,6 +27,9 @@ function select(data, ele, cb){
                 if($(this).attr('data-src')==='select'){
                     $(input).val($(this).attr('data-value'))
                     $(the).find('span').text($(this).text())
+                    if(close)
+                        SA.setter('Pop',{data:{display:'none'}})
+
                 }
             });
         })

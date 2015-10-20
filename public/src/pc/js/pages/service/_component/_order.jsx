@@ -3,7 +3,7 @@ var Uls = require('modules/tabs/_component/uls')('Xby');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
-var api = require('pages/_common/api');
+var api = require('libs/api');
 var store = require('mixins/store');
 
 // var bodys = [];
@@ -150,67 +150,97 @@ var index = {
     }
 }
 
-
 var bindIndex = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
 
     //电话
-    new Text({label:'姓名',valide: 'username'}, 'name',function(){
+    var u_name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
         $(this).click(function(){
 
         })
     });
 
     //电话
-    new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
+    var u_phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
         $(this).click(function(){
 
         })
     });
 
     //验证码
-    new Text({valide: 'verify_m'}, 'code',function(){
+    var u_verify = new Text({valide: 'verify_m'}, 'code',function(){
         $(this).click(function(){
 
         })
     });
 
+    $('#verify_btn').click(function(){
+        if(u_phone.stat){
+            api.req('getmms', {mobile: u_phone.value}, function(data){
+                console.log(data);
+            })
+        }
+        // var phone = $('input[name="phone"]').val();
+        // alert(phone)
+        // $('input[name="phone"]')
+        // var phone_stat = libs.formValide({popmsg: false})('phone', 'mobile', null)()
+        // if(phone_stat){
+        //     api.req('getmms', function(data){
+        // }
+    })
+
     // //城市
-    new Select({}, 'city',function(){
-        $(this).click(function(){
-            var dd = [
-                {
-                    body:[
-                        {
-                            attr: 'select',
-                            k: '好好学习',
-                            v: 'abc'
-                        }
-                    ]
+    new Select({popclose: false}, 'city',function(){
+        // api.req('region', {parent_id: 430000}, function(data){
+        var parents = [];
+        api.req('region', function(data){
+            if(data && data.code===1){
+                if(data.results.length){
+                    data.results.map(function(item, i){
+                        parents.push({
+                            body:[
+                                {
+                                    attr: 'select',
+                                    k: item.address_name,
+                                    v: item.region_id
+                                }
+                            ]
+                        })
+                    })
                 }
-            ]
-            var xx = <List data={dd} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+            }
+        })
+        $(this).click(function(){
+            var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
             SA.setter('Pop',{data:{body:xx,display:'block'}} )
         })
     });
     //
     // 地区
     new Select({}, 'district',function(){
+        districts = [];
         $(this).click(function(){
-            var dd = [
-                {
-                    body:[
-                        {
-                            attr: 'select',
-                            k: '天天向上',
-                            v: 'xxx'
-                        }
-                    ]
+            var kkk = $('#city').find('input').val();
+            api.req('region',{parent_id: kkk}, function(data){
+                if(data && data.code===1){
+                    if(data.results.length){
+                        data.results.map(function(item, i){
+                            districts.push({
+                                body:[
+                                    {
+                                        attr: 'select',
+                                        k: item.address_name,
+                                        v: item.region_id
+                                    }
+                                ]
+                            })
+                        })
+                    }
+                    var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                    SA.setter('Pop',{data:{body:yy,display:'block'}} )
                 }
-            ]
-            var yy = <List data={dd} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-            SA.setter('Pop',{data:{body:yy,display:'block'}} )
+            })
         })
     });
 

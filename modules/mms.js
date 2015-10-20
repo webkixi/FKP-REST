@@ -7,19 +7,15 @@ var api = require('../apis/javaapi');
  */
 var api = require('../apis/javaapi');
 //加密
-function *getRegion(code, secret) {
+function *getMms(code, secret) {
     //方法类型
     var mtd = this.method;
 
     //取值参数
     var postdata = {
-        "common": {
-            "session": "11",
-            "uid": 1
-        },
         "content": [
             {
-                "parent_id": "440000"
+                "mobile": "18002278121"
             }
         ]
     }
@@ -27,17 +23,17 @@ function *getRegion(code, secret) {
     //更具传入参数，修正取值参数
     var body = yield libs.$parse(this);
     if(body){
-        if(body.parent_id){
-            postdata.content[0].parent_id = body.parent_id;
+        if(body.mobile){
+            postdata.content[0].mobile = body.mobile;
         }
     }
 
-    var address = yield api.pullApiData('region', postdata, 'post');
+    var msg = yield api.pullApiData('getmms', postdata, 'post');
     // console.log(address[1]);
 
-    return address[1];
+    return msg[1];
 }
 
 module.exports = {
-    getRegion: getRegion
+    getMms: getMms
 }
