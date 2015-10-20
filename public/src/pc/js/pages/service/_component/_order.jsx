@@ -174,6 +174,12 @@ var bindIndex = function(){
 
         })
     });
+    {
+        stat: true,
+        value: 'xxxx',
+        name: 'yyyy'
+
+    }
 
     $('#verify_btn').click(function(){
         if(u_phone.stat){
