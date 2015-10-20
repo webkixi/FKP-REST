@@ -173,13 +173,7 @@ var bindIndex = function(){
         $(this).click(function(){
 
         })
-    });
-    {
-        stat: true,
-        value: 'xxxx',
-        name: 'yyyy'
-
-    }
+    });    
 
     $('#verify_btn').click(function(){
         if(u_phone.stat){
