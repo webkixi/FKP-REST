@@ -3,6 +3,10 @@ var Select = require('./_component/_select')()
 var pop = require('../pop/index')
 var render = React.render;
 
+libs.addSheet([
+    '/css/t/ui/form.css'
+    ,'formform'
+])
 
 function select(data, ele, cb){
     pop({})

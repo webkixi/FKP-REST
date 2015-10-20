@@ -9,5 +9,10 @@
             width: 70%;
             padding: 2% 2%;
         }
+        &.error{
+            .body{
+                border: 2px solid red;
+            }
+        }
     }
 }

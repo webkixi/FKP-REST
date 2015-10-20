@@ -16,15 +16,10 @@ route({
     'addcar': addcar
 });
 
-libs.addSheet([
-    '/css/t/ui/form.css'
-    ,'formform'
-])
-
 require.ensure([], function() {
     var url = libs.urlparse(location.href)
     if(!url.hash){
-        index()
+        order()
     }else{
         var hash = url.hash
         router(hash)

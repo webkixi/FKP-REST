@@ -394,6 +394,8 @@ var form_valide = function(opts) {
                     return arguments.callee;
                 }
             };
+        }else{
+            ckstat = true;
         }
         return self;
     };
