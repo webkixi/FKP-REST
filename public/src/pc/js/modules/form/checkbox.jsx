@@ -8,12 +8,31 @@ libs.addSheet([
 ])
 
 function Checkbox(data, ele, cb){
-    console.log('data');
+
+    this.value;
+    this.ipt;
+    this.name;
+
+    function dm(){
+        $(this).click(function(){
+          var chkspan = $(this).find(".chk_span");
+          chkspan.toggleClass('active');
+          var chkb = $(this).find("input")[0];
+          if(chkb.value==0){
+              chkb.value=1;
+              this.value = 1;
+          }else{
+              chkb.value=0;
+              this.value = 0;
+          }
+        })
+    }
+
     if(data===true)
         return Ckb
     else{
         render(
-            <Ckb name={ele} data={data} itemMethod={cb} listClass={'form checkbox'}/>,
+            <Ckb name={ele} data={data} itemDefaultMethod={dm} itemMethod={cb} listClass={'form checkbox'}/>,
             document.getElementById(ele)
         )
     }
