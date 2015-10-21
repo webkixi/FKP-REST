@@ -13,14 +13,12 @@ function radio(data, ele, cb){
     this.ipt;
     this.name;
 
-    console.log(data);
-    console.log(ele);
 
     if(data===true)
         return Radio
     else{
         render(
-            <Radio  data={data} value={data.value} name={data.name}  itemMethod={cb} listClass={'form radio'}/>,
+            <Radio  data={data} value={data.value} name={data.name} itemMethod={cb} listClass={'form radio'}/>,
             document.getElementById(ele)
         )
     }
