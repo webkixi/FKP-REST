@@ -471,9 +471,12 @@ body{
     font-size: 0.8rem;
     text-align: left;
     border-bottom: none;
+    width: 50%;
   }
   ul{
+    width: 50%;
     display: table-cell;
+    font-size: 0
   }
   .btn-link{
     background: #2ec1ae;
@@ -485,11 +488,16 @@ body{
 }
 .pay_icon_mycar{
   li{
-    display: table-cell;
-    padding-left: 2rem;
+    display: inline-block;
     font-size: 0.7rem;
+    text-align: left;
+    width: 50%;
     input{
       display: none;
+    }
+    label{
+      font-size: 0.7rem;
+      display: inline-block;
     }
     i{
       color: #2ec1ae;

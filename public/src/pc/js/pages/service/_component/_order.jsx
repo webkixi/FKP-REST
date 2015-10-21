@@ -130,17 +130,9 @@ var index = {
                 <div className={'service_mycar pay_mycar'}>
                   <div className={'title_pay_mycar'}>
                     <h2>选择支付方式</h2>
-                    <ul className={'pay_icon_mycar'}>
-                      <li>
-                        <input type='radio'/>
-                        <i className={'ifont icon-roundcheckfill'}></i>
-                        <span>微信</span>
-                      </li>
-                      <li>
-                        <input type='radio'/>
-                        <i className={'ifont icon-roundcheck'}></i>
-                        <span>支付宝</span>
-                      </li>
+                    <ul className={'pay_icon_mycar radioInput'}>
+                      <li id={'wechat'}></li>
+                      <li id={'alipay'}></li>
                     </ul>
                   </div>
                   <a id="now" className={'btn-link'}>{'支付'}</a>
@@ -150,12 +142,27 @@ var index = {
         )
     }
 }
-
+var _payway;
 var bindIndex = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var Radio = require('modules/form/radio');
     var u = {};
 
+    // $(".pay_icon_mycar li").click(function(){
+    //   _payway = $(this).find('input[name=payment]:checked').val()
+    // })
+
+    u.wechat =new Radio({label:'微信',value:'0',name: 'payment'},'wechat',function(){
+      $(this).click(function(){
+        _payway = 0;
+      })
+    })
+    u.alipay =new Radio({label:'支付宝',value:'1',name: 'payment'},'alipay',function(){
+      $(this).click(function(){
+        _payway = 1;
+      })
+    })
     //电话
     u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
         $(this).click(function(){
