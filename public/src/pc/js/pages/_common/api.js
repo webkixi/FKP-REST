@@ -7,7 +7,9 @@ var apiPath = {
     dirs: {
         service: src+'service',   //小保养
         parts: src+'parts',   //小保养
-        queryallbrand: src+'queryallbrand'   //汽车品牌
+        queryallbrand: src+'queryallbrand',   //汽车品牌
+        queryseries: src+'queryseries',   //汽车车系
+        querycartype: src+'querycartype'   //汽车型号
         // region: '/region',
         // regist: '/account/regist',
         // check_code: '/common/check_code',//校验验证码

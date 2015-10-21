@@ -45,7 +45,9 @@ var apiPath = {
         wx_token: 'https://api.weixin.qq.com/cgi-bin/token',
         service: src+'servicetype/query',
         parts: src+'parts/query',
-        queryallbrand: src+'car/queryallbrand'
+        queryallbrand: src+'car/queryallbrand',
+        queryseries: src+'car/queryseries',
+        querycartype: src+'car/querycartype'
 
         // search: src+'api/search.html',    //搜索
         // region: src+'api/region/region-list.html', //地区
