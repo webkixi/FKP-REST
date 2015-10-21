@@ -36,7 +36,7 @@ var req = function(api,options){
 }
 
 // var src = "http://120.25.241.174:8080/v1/servicetype/";
-// var src = "http://192.168.4.57:8080/v1/";
+//var src = "http://192.168.4.57:8080/v1/";
 var src = "http://120.25.241.174:8080/v1/";
 
 var apiPath = {
@@ -44,7 +44,10 @@ var apiPath = {
     dirs: {
         wx_token: 'https://api.weixin.qq.com/cgi-bin/token',
         service: src+'servicetype/query',
-        parts: src+'parts/query'
+        parts: src+'parts/query',
+        queryallbrand: src+'car/queryallbrand',
+        queryseries: src+'car/queryseries',
+        querycartype: src+'car/querycartype'
 
         // search: src+'api/search.html',    //搜索
         // region: src+'api/region/region-list.html', //地区
@@ -61,8 +64,6 @@ var apiPath = {
         // updatePassword: src+'api/account/account-save-password.html',  //更新用户密码false 忘记密码true
         // updateBaseInfo: src+'api/account/account-save-baseInfo.html',  //更新用户基本信息
         // uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
-        ,region: src+'region/query'
-        ,getmms: src+'user/getsmscode'
     },
     weixin: {
         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get'

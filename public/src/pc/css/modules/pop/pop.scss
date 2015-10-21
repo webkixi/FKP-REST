@@ -121,12 +121,28 @@
         background: #fff;
         p{
           line-height: 1.5rem;
+          width: 90%;
+          margin: auto;
+          span{
+            display: block;
+            color: #666;
+          }
           &:hover{
             color: #000;
           }
           &.active{
             color: #000;
           }
+        }
+        &.active{
+          background: #ececec;
+        }
+      }
+    }
+    &.car_linkage2{
+      .hfoot{
+        p{
+          text-align: left;
         }
       }
     }

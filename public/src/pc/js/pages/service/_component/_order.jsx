@@ -11,7 +11,8 @@ var store = require('mixins/store');
 //   count: 0,
 //   totalprice: 0
 // };
-// var footer = SA.getter('_GLOBAL').data.index.footer;
+var footer = SA.getter('_GLOBAL').data.index.footer;
+console.log(SA.getter('_GLOBAL').data);
 // footer.map(function(item, i){
 //   heji.count+=item.o.count;
 //   heji.totalprice+=item.v;

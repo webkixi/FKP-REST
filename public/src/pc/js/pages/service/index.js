@@ -25,7 +25,16 @@ require.ensure([], function() {
         router(hash)
     }
 })
-//大小保养
+//添加车辆
+function addcar(){
+    require('./_component/_addcar')('container-box', function(){
+        $('#now').click(function(){
+            //router("index")
+        })
+    });
+}
+
+//小保养
 function index(){
     require('./_component/_ycindex')('container-box',{type: 'xby'}, function(){
         // bindIndex();
@@ -35,7 +44,7 @@ function index(){
     });
 }
 
-//大小保养
+//大保养
 function dby(){
     require('./_component/_ycindex')('container-box',{type: 'dby'}, function(){
         // bindIndex();
@@ -79,12 +88,6 @@ function wash(){
 //全车检测
 function detection(){
     require('./_component/_detection')('container-box',function(){
-        // bindIndex();
-    });
-}
-//添加车辆
-function addcar(){
-    require('./_component/_addcar')('container-box',function(){
         // bindIndex();
     });
 }
