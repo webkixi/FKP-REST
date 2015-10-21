@@ -38,9 +38,9 @@ function addcar(){
 function index(){
     require('./_component/_ycindex')('container-box',{type: 'xby'}, function(){
         // bindIndex();
-        $('#now').click(function(){
-            router('order');
-        })
+        // $('#now').click(function(){
+        //     router('order');
+        // })
     });
 }
 
@@ -48,9 +48,9 @@ function index(){
 function dby(){
     require('./_component/_ycindex')('container-box',{type: 'dby'}, function(){
         // bindIndex();
-        $('#now').click(function(){
-            router('order');
-        })
+        // $('#now').click(function(){
+        //     router('order');
+        // })
     });
 }
 //洗车订单

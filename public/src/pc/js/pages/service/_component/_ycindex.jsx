@@ -6,10 +6,11 @@ var Uls = require('modules/tabs/_component/uls')('Xby');
 var pop = require('modules/pop/index')
 var api = require('pages/_common/api');
 var store = require('mixins/store');
-
+var router = require('libs/router').router
 //全局数据
 var service_data=[];
 var service_ori_data={}
+var service_ori_zero_data={}
 var _parts = [];
 var footer_item;   //data-reactid  parts列表的P的唯一标示
 var service_resault_data;
@@ -17,14 +18,15 @@ var _PAGE={
     totalprice: 0
 };
 
-
+var mycar_data = []
+mycar1 = SA.getter('_GLOBAL').data.index;
 var mycar = [
   {
-    title : '宝马7系（进口）760 Li 6.0T 2009-2014',
+    title : mycar1[1].body.k+mycar1[2].body.k,
     img : '/images/service/bmw_icon.png'
   }
 ]
-var mycar_data = []
+
 mycar.map(function(item,i){
   mycar_data.push(
     <li key={'mycar'+i}>
@@ -39,69 +41,6 @@ mycar.map(function(item,i){
   )
 })
 
-//
-// var mycar_service_b = [
-//     {
-//         body:[
-//             {
-//                 k: '小保养',
-//                 v: <span>￥{'800'}<i className="ifont icon-next"></i></span>
-//             }
-//         ],
-//         footer: [
-//             {
-//                 k: '机油',
-//                 v: <span>￥{'380'}<i className="ifont icon-next"></i></span>
-//             },
-//             {
-//                 k: '机油滤清器',
-//                 v: <span>￥{'38'}<i className="ifont icon-next"></i></span>
-//             },
-//             {
-//                 attr: 'fixed',
-//                 k: '工时费',
-//                 v: <span>￥{'68'}<i className="ifont icon-next"></i></span>
-//             }
-//         ]
-//     },
-//     {
-//         attr: 'fixed',
-//         body:[
-//             {
-//                 k: '全车检测',
-//                 v: <span>￥{'600'}<i className="ifont icon-next"></i></span>
-//             }
-//         ]
-//     }
-// ]
-
-// var mycar_service_s = [
-//     {
-//         body:[
-//             {
-//                 k: '蓝桶专用机油 (4L,5W-30)',
-//                 v: "￥188"
-//             }
-//         ]
-//     },
-//     {
-//         body:[
-//             {
-//                 k: '绿桶专用机油 (4L,5W-30)',
-//                 v: "￥380"
-//             }
-//         ]
-//     },
-//     {
-//         body:[
-//             {
-//                 k: '全合成专用机油 (4L,5W-30)',
-//                 v: "￥60"
-//             }
-//         ]
-//     }
-// ]
-
 function popItemMethod(){
     //pop li click
     $(this).click(function(){
@@ -114,7 +53,6 @@ function popItemMethod(){
         service_ori_data.footer[item_p].v=wanner;
 
         var dataDom = mixDataAndDom(service_ori_data)
-
         SA.setter('Pop',{data:{display:'none'}})
         SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
     })
@@ -125,6 +63,7 @@ function abcd(){
     var the = this;
     var the_footer;
     var the_i;
+    $(the).find('.hfoot').addClass("u-table")
     $(the).click(function(){
         //将li idf放入全局变量
         _PAGE.theli = $(the).attr('data-idf');
@@ -142,44 +81,34 @@ function abcd(){
       SA.setter('Pop',{data:{display:'none'}})
     })
     $(the).find('.hfoot p').click(function(){
-        if($(this).attr('data-src')==='fixed') return
-
-        //将PID放入全局变量
-        _PAGE.thep = $(this).attr('data-pid');
-
-        var pn = { partno: $(this).attr('data-src')}
-        api.req('parts', pn, function(data){
-            if(data.code && data.code===1){
-                _parts = [];
-                data.results.map(function(item, i){
-                    _parts.push({
-                        body:[
-                            {
-                                k: item.name,
-                                v: item.userprice
-                            }
-                        ]
-                    })
-                })
-                var kkk = <List data={_parts} itemMethod={popItemMethod} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                SA.setter('Pop',{data:{body:kkk, display:'block'}})
-            }
-        })
+        if($('#checkbox input').val()==0){
+          if($(this).attr('data-src')==='fixed') return
+          //将PID放入全局变量
+          _PAGE.thep = $(this).attr('data-pid');
+          var pn = { partno: $(this).attr('data-src')}
+          api.req('parts', pn, function(data){
+              if(data.code && data.code===1){
+                  _parts = [];
+                  data.results.map(function(item, i){
+                      _parts.push({
+                          body:[
+                              {
+                                  k: item.name,
+                                  v: item.userprice
+                              }
+                          ]
+                      })
+                  })
+                  var kkk = <List data={_parts} itemMethod={popItemMethod} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                  SA.setter('Pop',{data:{body:kkk, display:'block'}})
+              }
+          })
+        }else{
+          SA.setter('Pop',{data:{display:'none'}})
+        }
     })
 }
-// function check_s(){
-//   $(this).find(".ihaved").click(function(){
-//     var chkspan = $(this).find(".chk_span");
-//     chkspan.toggleClass('active');
-//     var chkb = $(this).find(".chk_1");
-//     if(chkspan.hasClass('active')){
-//         chkb.val("1")
-//     }
-//     else {
-//         chkb.val("0")
-//     }
-//   })
-// }
+
 var index = {
     mixins: [store('Index'), ItemMixin],
     componentWillMount: function(){
@@ -193,7 +122,6 @@ var index = {
             })
         }
     },
-
     render: function () {
         var data = this.state.data;
         s_data = data.servicedata;
@@ -238,28 +166,35 @@ var index = {
 }
 var bindIndex = function(){
     var Checkbox = require('modules/form/checkbox');
-
-    // var abc = new Checkbox(true)
-    // var opts = {label:"abc"}
-    // abc({data:opts,
-    //   itemMethod:ccbb,
-    //   listClass:'form checkbox'
-    // })
-    // var yyy = <abc data={opts} itemMethod={ccbb} listClass={'form checkbox'}/>;
+    var checkNum = {};
     //是否选择
-    new Checkbox({label:'已有配件只需上门服务'}, 'checkbox',function(){
+    checkNum.checkbox = new Checkbox({label:'已有配件只需上门服务'}, 'checkbox',function(){
         $(this).click(function(){
-          var chkspan = $(this).find(".chk_span");
-          chkspan.toggleClass('active');
-          var chkb = $(this).find(".chk_1");
-          if(chkspan.hasClass('active')){
-              chkb.val("1")
+          var chkb = $(this).find("input")[0];
+          if(chkb.value==1){
+              var dataDom = mixDataAndDom(service_ori_data)
+              SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
           }
           else {
-              chkb.val("0")
+              var dataDom = mixDataAndDom(service_ori_zero_data)
+              SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
           }
         })
     });
+    $("#now").click(function(){
+        var carData = SA.getter('_GLOBAL').data;
+        var orderData;
+        if($('#checkbox input').value == 1){
+          orderData = service_ori_data
+        }
+        else
+        {
+          orderData = service_ori_zero_data
+        }
+        SA.setter('_GLOBAL',{data: {carData: carData, orderData: orderData}})
+        console.log(SA.getter('_GLOBAL').data);
+        //router("order")
+    })
 }
 
 
@@ -289,6 +224,12 @@ function organizeData(oridata, ele, cb){
             o: item
         })
     })
+    var serviceTimeMoney = oridata.workprice;
+    _footer.push({
+       attr: 'fixed',
+       k: '工时费',
+       v: serviceTimeMoney
+    })
 
     _body = [
         {
@@ -297,22 +238,37 @@ function organizeData(oridata, ele, cb){
         }
     ]
 
+    service_ori_data = {body: _body, footer: _footer}
     var data = mixDataAndDom({
         body: _body,
         footer: _footer
+    })
+
+    cleanData({
+      body: _body,
+      footer: _footer
     })
 
     service_data.push({
         body: data.body,
         footer: data.footer
     });
-
     renderDom( ele, cb)
 }
 
-function mixDataAndDom( dt){
-    service_ori_data = dt;
+function cleanData(ddd){
+    var tmp = libs.extend(true, {}, ddd);
+    var lD = tmp.footer.pop();
+    tmp.footer.map(function(item,i){
+      item.v = 0;
+    })
+    tmp.footer.push(
+      lD
+    )
+    service_ori_zero_data = tmp;
+}
 
+function mixDataAndDom( dt){
     var data = libs.extend(true, {}, dt),
         _body = data.body,
         _footer = data.footer,
@@ -348,7 +304,7 @@ function renderDom(ele, cb){
         totalprice: _PAGE.totalprice
     }
 
-    SA.setter('_GLOBAL',{index: service_ori_data})
+    //SA.setter('_GLOBAL',{index: service_ori_data})
 
     React.render(
         <Index data={dt} itemDefaultMethod={bindIndex} itemMethod={cb}/>,
