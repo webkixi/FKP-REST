@@ -27,9 +27,24 @@ var req = function(api,options){
             return body;
     }
 
+
+
     return function(rp){
-        if(options && typeof options==='object')
-            request.post(api, {json: options}, rp);
+        var opts = {headers: {
+           'Content-type': 'application/json; charset=utf-8'
+        }}
+        if(options && typeof options==='object'){
+            if(options.fttype){
+                delete options.fttype;
+                opts.json = options
+            }
+            else{
+                opts.json = options
+            }
+            // console.log(options);
+            request.post(api, opts, rp);
+
+        }
         else
             request(api,rp);
     }

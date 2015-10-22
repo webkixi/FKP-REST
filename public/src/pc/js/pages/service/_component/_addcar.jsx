@@ -230,7 +230,7 @@ function checkValue(ele){
       }
 
       SA.setter('_GLOBAL',{index: uuu})
-      router('dby')
+      router.goback()
     }
     else {
       SA.setter('Pop',{data:{body:'品牌、车系、车型为必选项目，请选择！', display:'block'}})

@@ -20,12 +20,12 @@ function Checkbox(data, ele, cb){
           var chkspan = $(this).find(".chk_span");
           chkspan.toggleClass('active');
           var chkb = $(this).find("input")[0];
-          if(chkb.value==0){
-              chkb.value=1;
-              _this.value = 1;
+          if(chkb.value=="0"){
+              chkb.value="1";
+              _this.value = "1";
           }else{
-              chkb.value=0;
-              _this.value = 0;
+              chkb.value="0";
+              _this.value = "0";
           }
           cb.call(thechk, _this)
         })

@@ -239,6 +239,7 @@ var bindIndex = function(){
         })
         // console.log(orderData);
         var form = libs.extend(carData.index.form, _form)
+        form.openid = "wx766666";
         orderData.form = form;
 
         SA.setter('_GLOBAL',{index: orderData})
@@ -257,7 +258,6 @@ function getData(ele, param, cb){
     }else{
         var query = param||{type: 'xby'};
         api.req('service', query, function(data){
-            console.log(data);
             if(data.code && data.code===1){
                 organizeData(data.results[0], ele, cb)
             }

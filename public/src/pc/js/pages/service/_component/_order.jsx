@@ -132,13 +132,13 @@ var bindIndex = function(){
 
     new Radio({label:'微信',value:'0',name: 'payment'},'wechat',function(){
       $(this).click(function(){
-        _payway = 0;
+        _payway = "wechat";
       })
     })
 
     new Radio({label:'支付宝',value:'1',name: 'payment'},'alipay',function(){
       $(this).click(function(){
-        _payway = 1;
+        _payway = "alipay";
       })
     })
     //电话
@@ -321,6 +321,7 @@ var bindIndex = function(){
             _form.street = u.address.value
             _form.zip = '440000'
             _form.paych = _payway
+            _form.code = u.verify.value
             _form.subscribetime = u.date.value + u.ampm.text
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(form, _form);

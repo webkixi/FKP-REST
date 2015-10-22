@@ -62,19 +62,30 @@ function *demoIndexData(oridata){
         var postdata = {
             "common": {
                 "session": "xx",
-                "uid": 0,
+                "uid": 1,
                 "smscode":"489349"
             },
-            "content": [{}]
+            "content": [{}],
+            "fttype": "order"
         }
         var body = yield libs.$parse(this);
         if(body){
             if(body.type){
                 if(body.type==='insert')
+                    var code = body.data.code;
+                    delete body.data.code;
                     postdata.content[0] = body.data;
+                    postdata.common.smscode = code;
             }
         }
+        postdata.content[0].carid = parseInt(postdata.content[0].carid)
+
         console.log(postdata);
+        console.log(postdata.content[0].parts);
+
+
+
+
         var orderdata = yield api.pullApiData('orderins', postdata, 'post');
         console.log(orderdata[1]);
 
