@@ -11,7 +11,8 @@ route({
     'carstat': carstat,
     'carlog': carlog,
     'mycaris': mycaris,
-    'carfinished': carfinished
+    'carfinished': carfinished,
+    'reg_log': reg_log
 });
 
 libs.addSheet([
@@ -99,6 +100,14 @@ function carfinished(){
 //car log
 function mycaris(){
     require('./_component/_mycaris')('container-box',{}, function(){
+        // $('#now').click(function(){
+        //     router('esti')
+        // })
+    });
+}
+//注册跟登录（手机验证）
+function reg_log(){
+    require('./_component/_reg_log')('container-box',{}, function(){
         // $('#now').click(function(){
         //     router('esti')
         // })

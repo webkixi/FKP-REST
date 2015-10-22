@@ -838,3 +838,55 @@ body{
     }
   }
 }
+/*手机验证*/
+.regist_login{
+	width: 80%;
+	margin: auto;
+	>div{
+		margin-bottom: 5%;
+	}
+	.form{
+		&.text{
+			height: auto;
+			width: 100%;
+			padding: 0;
+			label{
+					display: block;
+					width: 100%;
+					text-align: left;
+			}
+			.body{
+				width: 100%;
+				padding: 3% 0;
+			}
+		}
+	}
+	.box{
+			width: 100%;
+			display: block;
+			font-size: 0;
+			>div{
+					&#code{
+						font-size: 0.7rem;
+						display: inline-block;
+						.form{
+							width: 98%;
+							input{
+									padding: 5% 0;
+							}
+						}
+					}
+					&#verify_btn{
+						display: inline-block;
+						width: 40%;
+						border: 2px solid red;
+						font-size: 0.6rem;
+						text-align: center;
+						height: 1.8rem;
+						line-height: 1.9rem;
+						margin-top: 12%;
+						margin-left: 2%;
+					}
+			}
+	}
+}

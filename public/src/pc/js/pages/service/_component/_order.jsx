@@ -325,7 +325,6 @@ var bindIndex = function(){
             _form.subscribetime = u.date.value + u.ampm.text
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(form, _form);
-            console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
             })
