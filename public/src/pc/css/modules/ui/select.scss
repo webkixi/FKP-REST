@@ -3,5 +3,10 @@
     padding: 2%;
     &.select{
         @include form_unit;
+        &.error{
+            .body{
+                border: 2px solid red;
+            }
+        }
     }
 }

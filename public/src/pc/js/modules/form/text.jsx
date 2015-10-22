@@ -21,11 +21,13 @@ function text(data, ele, cb){
 
     function dm(){
         var the_text = this;
+        _this.ipt = the_text;
         var formValide = libs.formValide({popmsg: false});
 
         function setTextStat(zt, ipt){
-            if(!zt)
+            if(!zt){
                 $(the_text).addClass('error')
+            }
             else {
                 _this.stat = true;
                 _this.value = ipt.value;
@@ -41,30 +43,40 @@ function text(data, ele, cb){
                 setTextStat(stat, this)
             })
         }
-        if(data.valide==='username'){
+        else
+            if(data.valide==='username'){
+                $(this).find('input').blur(function(){
+                    var stat = formValide(this.value, 'username','用户名不能包含非法字符')()
+                    setTextStat(stat, this)
+                })
+            }
+        else
+            if(data.valide==='email'){
+                $(this).find('input').blur(function(){
+                    var stat = formValide(this.value, 'email','邮箱地址不正确')()
+                    setTextStat(stat, this)
+                })
+            }
+        else
+            if(data.valide==='email'){
+                $(this).find('input').blur(function(){
+                    var stat = formValide(this.value, 'email','邮箱地址不正确')()
+                    setTextStat(stat, this)
+                })
+            }
+        else
+            if(data.valide==='verify_m'){
+                $(this).find('input').blur(function(){
+                    var stat = formValide(this.value, 'verify_m','手机验证码不正确')()
+                    setTextStat(stat, this)
+                })
+            }
+        else{
             $(this).find('input').blur(function(){
-                var stat = formValide(this.value, 'username','用户名不能包含非法字符')()
-                setTextStat(stat, this)
+                setTextStat(true, this)
             })
         }
-        if(data.valide==='email'){
-            $(this).find('input').blur(function(){
-                var stat = formValide(this.value, 'email','邮箱地址不正确')()
-                setTextStat(stat, this)
-            })
-        }
-        if(data.valide==='email'){
-            $(this).find('input').blur(function(){
-                var stat = formValide(this.value, 'email','邮箱地址不正确')()
-                setTextStat(stat, this)
-            })
-        }
-        if(data.valide==='verify_m'){
-            $(this).find('input').blur(function(){
-                var stat = formValide(this.value, 'verify_m','手机验证码不正确')()
-                setTextStat(stat, this)
-            })
-        }
+
     }
 
     if(data===true)

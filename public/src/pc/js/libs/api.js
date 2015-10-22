@@ -30,6 +30,7 @@ var apiPath = {
         ,region: src+'region'
         ,getmms: src+'getmms'
         ,getservtime: src+'getservtime'
+        ,order: src+'order'
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=

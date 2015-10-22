@@ -45,20 +45,19 @@ var radioForm = {
 				label = <label>{theData.label}</label>
 
 
-			// if(theData.append){
-			// 	append = theData.append;
-			// }
-    theData.append = (function(){
-			var kkk = [];
-      for(var i =0; i<2;i++){
-          kkk.push(
-          <div><input name={theData.name} value={theData.value} className='radio_input' type='radio' />{label}</div>
-        )
-      }
-      return kkk
-    })()
-		append = kkk;
-console.log(append);
+			if(theData.append){
+				append = theData.append;
+			}
+    // theData.append = (function(){
+		// 	var kkk = [];
+    //   for(var i =0; i<2;i++){
+    //       kkk.push(
+    //       <div><input name={theData.name} value={theData.value} className='radio_input' type='radio' />{label}</div>
+    //     )
+    //   }
+    //   return kkk
+    // })()
+		// append = kkk;
 
 			body = theData.body||'没有传入数据'
 		}
