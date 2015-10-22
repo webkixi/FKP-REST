@@ -257,6 +257,7 @@ function getData(ele, param, cb){
     }else{
         var query = param||{type: 'xby'};
         api.req('service', query, function(data){
+            console.log(data);
             if(data.code && data.code===1){
                 organizeData(data.results[0], ele, cb)
             }
@@ -278,7 +279,7 @@ function organizeData(oridata, ele, cb){
         _footer.push({
             attr: item.partstypeno,
             k: item.partstypename,
-            v: item.price,
+            v: item.defpartsprice,
             o: item
         })
     })
