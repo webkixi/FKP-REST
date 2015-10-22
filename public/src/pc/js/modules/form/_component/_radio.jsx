@@ -44,15 +44,26 @@ var radioForm = {
 			if(theData.label)
 				label = <label>{theData.label}</label>
 
+
 			if(theData.append){
 				append = theData.append;
 			}
+    // theData.append = (function(){
+		// 	var kkk = [];
+    //   for(var i =0; i<2;i++){
+    //       kkk.push(
+    //       <div><input name={theData.name} value={theData.value} className='radio_input' type='radio' />{label}</div>
+    //     )
+    //   }
+    //   return kkk
+    // })()
+		// append = kkk;
 
 			body = theData.body||'没有传入数据'
 		}
-		if(!React.isValidElement(append)){
-			append = undefined;
-		}
+		// if(!React.isValidElement(append)){
+		// 	append = undefined;
+		// }
         return(
 			<div className={'form radio'} data-value={''}>
   			<input name={this.props.name} value={this.props.value} className={'radio_input'} type="radio" ></input>
