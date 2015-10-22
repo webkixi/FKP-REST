@@ -6,56 +6,41 @@ var List = require('widgets/listView/list')
 var api = require('libs/api');
 var store = require('mixins/store');
 
-// var bodys = [];
-// var heji = {
-//   count: 0,
-//   totalprice: 0
-// };
-//var footer = SA.getter('_GLOBAL').data.index.footer;
-console.log(SA.getter('_GLOBAL').data);
-// footer.map(function(item, i){
-//   heji.count+=item.o.count;
-//   heji.totalprice+=item.v;
-//   bodys.push({
-//     body:[
-//       item.k,
-//       item.o.count,
-//       '￥'+item.v
-//     ]
-//   })
-// })
-// var mycar_service_order = bodys;
+var _form = {};
+var bodys = [];
+var heji = {
+  count: 0,
+  totalprice: 0
+};
+var footer = SA.getter('_GLOBAL').data.index.footer;
+footer.map(function(item, i){
+  // heji.count+=item.o.count;
+  heji.count++;
+  heji.totalprice+=item.v;
+  bodys.push({
+    // body:[
+    //   item.k,
+    //   item.o.count,
+    //   '￥'+item.v
+    // ]
+    body:[
+      item.k,
+      1,
+      '￥'+item.v
+    ]
+  })
+})
+var mycar_service_order = bodys;
 
-var mycar_service_order = [
-    {
-        body:[
-            '机油',
-            '1',
-            '￥380'
-        ]
-    },
-    {
-      body:[
-          '机油滤清器',
-          '1',
-          '￥38'
-      ]
-    },
-    {
-      body:[
-          '工时',
-          '1',
-          '￥68'
-      ]
-    },
-    {
-      body:[
-          '全车检测',
-          '1',
-          '￥0'
-      ]
-    }
-]
+// var mycar_service_order = [
+//     {
+//         body:[
+//             '机油',
+//             '1',
+//             '￥380'
+//         ]
+//     }
+// ]
 mycar_service_order.unshift(
   {
     body:[
@@ -65,21 +50,13 @@ mycar_service_order.unshift(
     ]
   }
 )
-// mycar_service_order.push(
-//   {
-//     body:[
-//         '合计',
-//         heji.count,
-//         '￥'+heji.totalprice
-//     ]
-//   }
-// )
+
 mycar_service_order.push(
   {
     body:[
         '合计',
-        12,
-        '250'
+        heji.count,
+        '￥'+heji.totalprice
     ]
   }
 )
@@ -131,8 +108,8 @@ var index = {
                   <div className={'title_pay_mycar'}>
                     <h2>选择支付方式</h2>
                     <ul className={'pay_icon_mycar radioInput'}>
-                      <li id={'wechat'}></li>
-                      <li id={'alipay'}></li>
+                      <li id='wechat'></li>
+                      <li id='alipay'></li>
                     </ul>
                   </div>
                   <a id="now" className={'btn-link'}>{'支付'}</a>
@@ -142,7 +119,7 @@ var index = {
         )
     }
 }
-var _payway;
+var _payway=0;
 var bindIndex = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
@@ -153,12 +130,13 @@ var bindIndex = function(){
     //   _payway = $(this).find('input[name=payment]:checked').val()
     // })
 
-    u.wechat =new Radio({label:'微信',value:'0',name: 'payment'},'wechat',function(){
+    new Radio({label:'微信',value:'0',name: 'payment'},'wechat',function(){
       $(this).click(function(){
         _payway = 0;
       })
     })
-    u.alipay =new Radio({label:'支付宝',value:'1',name: 'payment'},'alipay',function(){
+
+    new Radio({label:'支付宝',value:'1',name: 'payment'},'alipay',function(){
       $(this).click(function(){
         _payway = 1;
       })
@@ -334,16 +312,35 @@ var bindIndex = function(){
     });
 
     $('#now').click(function(){
-        checkValue(u)
+        var stat = checkValue(u);
+        if(stat){
+            _form.mobile = u.phone.value;
+            _form.province = "广东"
+            _form.city = u.city.value
+            _form.county = u.district.value
+            _form.street = u.address.value
+            _form.zip = '440000'
+            _form.paych = _payway
+            _form.subscribetime = u.date.value + u.ampm.text
+            var form = SA.getter('_GLOBAL').data.index.form;
+            var fff = libs.extend(form, _form);
+            console.log(fff);
+            api.req('order',{type: 'insert', data:fff}, function(data){
+                console.log(data);
+            })
+        }
     })
 }
 
 function checkValue(ele){
     var items = Object.keys(ele);
     items.map(function(item, i){
-        if(!ele[item].stat)
-            console.log('aaaaaaaaaaaa');
+        if(!ele[item].stat){
+            $(ele[item].ipt).addClass('error')
+            return false;
+        }
     })
+    return true;
 
 
     // var uuu = [];

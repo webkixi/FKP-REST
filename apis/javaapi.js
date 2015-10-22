@@ -47,7 +47,11 @@ var apiPath = {
         parts: src+'parts/query',
         queryallbrand: src+'car/queryallbrand',
         queryseries: src+'car/queryseries',
-        querycartype: src+'car/querycartype'
+        querycartype: src+'car/querycartype',
+
+        region: src+'region/query',
+        getmms: src+'user/getsmscode',
+        orderins: src+'order/insert'
 
         // search: src+'api/search.html',    //搜索
         // region: src+'api/region/region-list.html', //地区

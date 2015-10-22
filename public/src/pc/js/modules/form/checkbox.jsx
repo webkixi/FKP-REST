@@ -9,22 +9,25 @@ libs.addSheet([
 
 function Checkbox(data, ele, cb){
 
-    this.value;
+    this.value=0;
     this.ipt;
     this.name;
+    var _this = this;
 
     function dm(){
+        var thechk = this;
         $(this).click(function(){
           var chkspan = $(this).find(".chk_span");
           chkspan.toggleClass('active');
           var chkb = $(this).find("input")[0];
           if(chkb.value==0){
               chkb.value=1;
-              this.value = 1;
+              _this.value = 1;
           }else{
               chkb.value=0;
-              this.value = 0;
+              _this.value = 0;
           }
+          cb.call(thechk, _this)
         })
     }
 

@@ -25,6 +25,7 @@ function select(data, ele, cb){
     var close = true;
     if(data.popclose===false) close = data.popclose;
     function dm(){
+        _this.ipt = this;
         var input;
         $(this).click(function(){
             var the = this;
@@ -37,7 +38,6 @@ function select(data, ele, cb){
                     _this.stat = true;
                     _this.value = val;
                     _this.text = text;
-                    _this.ipt = the;
                     $(input).val(val)
                     $(the).find('span').text(text)
                     if(close)

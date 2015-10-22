@@ -11,10 +11,7 @@ function radio(data, ele, cb){
 
     this.value;
     this.ipt;
-    this.name;
-
-    console.log(data);
-    console.log(ele);
+    this.name;    
 
     if(data===true)
         return Radio

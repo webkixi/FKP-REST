@@ -120,47 +120,37 @@ function dealWith_Data_Type(){
     cs = { carTypes: $("#series").find("input").val()}
     api.req('querycartype',cs, function(data){
       if(data.code && data.code===1){
-        var tmp = [];
-
         data.results.map(function(item,i){
-            var key = item.cartype;
-            if(!tmp[key])
-              tmp[key]=[];
-        })
-        nav = Object.keys(tmp);
-        if(nav.length){
-            nav.map(function(item, i){
-                results.push(
-                    {
-                        footer: {
-                          attr: 'select',
-                          k: item,
-                          v: item
-                        }
-                    }
-                )
+
+            results.push({
+                footer:{
+                    attr: 'select',
+                    k: item.cartype,
+                    v: item.carid
+                }
             })
-            rtnDom = <List data={results}  listClass={'car_linkage car_linkage2'} itemClass={'wid-12'} itemView={Pt}/>
-            SA.setter('Pop',{data:{body:rtnDom, display:'block'}})
-        }
+        })
+        rtnDom = <List data={results}  listClass={'car_linkage car_linkage2'} itemClass={'wid-12'} itemView={Pt}/>
+        SA.setter('Pop',{data:{body:rtnDom, display:'block'}})
       }
     })
     return rtnDom;
 }
 
+var _car = {};
 var bindEsti = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
 
     //品牌
-    new Select({label:'品牌', popclose: true}, 'brand',function(){
+    _car.brand = new Select({label:'品牌', popclose: true}, 'brand',function(){
         $(this).click(function(){
           dealWith_Data_Brand();
         })
     });
 
     //车系
-    new Select({label:'车系', popclose: true}, 'series',function(){
+    _car.series = new Select({label:'车系', popclose: true}, 'series',function(){
         $(this).click(function(){
           if($("#brand").find("input").val())
             dealWith_Data_Series();
@@ -170,7 +160,7 @@ var bindEsti = function(){
     });
 
     //型号
-    new Select({label:'车型', popclose: true}, 'model',function(){
+    _car.model = new Select({label:'车型', popclose: true}, 'model',function(){
         $(this).click(function(){
           if($("#series").find("input").val())
             dealWith_Data_Type();
@@ -180,30 +170,22 @@ var bindEsti = function(){
     });
 
     //上牌时间
-    new Text({label:'上牌时间'}, 'license',function(){
+    _car.reg = new Text({label:'上牌时间'}, 'license',function(){
 
     });
 
     //车牌号
-    new Text({label:'车牌号'}, 'number',function(){
+    _car.number = new Text({label:'车牌号'}, 'number',function(){
 
     });
 
     //VIN
-    new Text({label:'VIN'},'vin',function(){
+    _car.vin = new Text({label:'VIN'},'vin',function(){
 
     });
-    // new Text({
-    //     label:'VIN',
-    //     append: <div className='camera'></div>
-    // },
-    // 'vin',
-    // function(){
-    //}
-    // );
 
     //发动机号
-    new Text({label:'发动机号'},'engin',function(){
+    _car.engin = new Text({label:'发动机号'},'engin',function(){
 
     });
 
@@ -234,6 +216,19 @@ function checkValue(ele){
             })
           }
       });
+
+      //form 提交数据
+      uuu.form = {
+          carid : _car.model.value,
+          carbrand: _car.brand.value,
+          carseries: _car.series.value,
+          cartype: _car.model.value,
+          carengno: _car.engin.value||'',
+          plateno: _car.number.value||'',
+          carvin: _car.vin.value||'',
+          regtime: _car.reg.value||''
+      }
+
       SA.setter('_GLOBAL',{index: uuu})
       router('dby')
     }
