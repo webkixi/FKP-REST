@@ -12,9 +12,7 @@ var index = {
     render: function () {
         return(
             <div className={'com_index'}>
-                <div>
-                    姓名： {_wx.nickname}
-                </div>
+                <div>你好{(_wx&&_wx.nickname)||''}</div>
               <ul className={'hlist'}>
                 <li className={'item'} data-check={'service.html#index'}>
                   <div className={'hbody'}>

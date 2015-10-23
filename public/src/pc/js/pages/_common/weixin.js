@@ -9,8 +9,7 @@ function getwx(){
         cd = url.params.code;
         st = url.params.state;
         // api.wx()
-        api.wx('userinfo', {code: cd, state: st})
-        .then(function(data){
+        api.wx('userinfo', {code: cd, state: st},function(data){
             alert('aaaaaaa');
             console.log(data);
             SA.setter("_WEIXIN",{user: data})
