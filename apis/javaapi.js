@@ -122,9 +122,6 @@ function *pullApiData(api, param, method){
 
 function *getWxAccessToken(params){
 
-    console.log('i waner to see params');
-    console.log(params);
-
     var the = this;
     var date = new Date();
 
@@ -213,6 +210,8 @@ function *pullWxData(api, param, method){
     yield getWxAccessToken.call(this, param);
 
     if(api === 'wx_web_token'){
+        console.log('i waner to see params');
+        console.log(api);
         // param.access_token = this.sess.wwx.token;
         return {token: this.sess.wwx.token};
     }else{
