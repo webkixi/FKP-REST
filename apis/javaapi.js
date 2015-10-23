@@ -122,6 +122,9 @@ function *pullApiData(api, param, method){
 
 function *getWxAccessToken(params){
 
+    console.log('i waner to see params');
+    console.log(params);
+
     var the = this;
     var date = new Date();
 
