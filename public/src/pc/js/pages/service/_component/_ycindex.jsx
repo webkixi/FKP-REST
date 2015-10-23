@@ -277,7 +277,7 @@ function organizeData(oridata, ele, cb){
         _footer.push({
             attr: item.partstypeno,
             k: item.partstypename,
-            v: item.price,
+            v: item.defpartsprice,
             o: item
         })
     })

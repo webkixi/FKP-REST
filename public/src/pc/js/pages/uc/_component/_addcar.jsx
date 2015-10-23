@@ -234,7 +234,8 @@ function checkValue(ele){
       //SA.setter('_GLOBAL',{index: uuu})
       console.log(uuu.form);
       api.req('useraddcar',{type: 'insert', data:uuu.form},function(data){
-        console.log(data);
+        SA.setter('_GLOBAL',{index: uuu})
+        router.goback()
       })
     }
     else {

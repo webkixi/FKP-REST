@@ -230,6 +230,7 @@ function checkValue(ele){
       }
 
       SA.setter('_GLOBAL',{index: uuu})
+      console.log(uuu);
       router.goback()
     }
     else {
