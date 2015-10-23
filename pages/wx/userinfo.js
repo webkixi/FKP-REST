@@ -47,13 +47,22 @@ function *demoIndexData(oridata){
         var postdata = {}
 
         var body = yield libs.$parse(this);
-        console.log(body);
-        console.log('ooooooooooooooo');
         if(body){
             if(body.code)
                 postdata = body
                 var web_token = yield api.pullWxData.call(this, 'wx_web_token', postdata)
-                console.log(web_token);
+                console.log('9999999999999999999');
+                console.log(this.sess.wwx);
+
+                postdata={
+                    access_token: this.sess.wwx.token,
+                    openid: this.sess.wwx.openid,
+                    lang: 'zh_CN'
+                }
+                var web_userinfo = yield api.pullWxData.call(this, 'userinfo_web', postdata)
+                console.log('88888888888888888');
+                console.log(web_userinfo);
+                // access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
         }
 
 

@@ -89,8 +89,9 @@ var apiPath = {
         // uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
     },
     weixin: {
+        //oauth2方式的api会议 '_web' 方式结尾
         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get',
-        userinfo_web: ''
+        userinfo_web: 'https://api.weixin.qq.com/sns/userinfo'  //?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
     }
 }
 
@@ -120,17 +121,13 @@ function *pullApiData(api, param, method){
 
 }
 
+
+// 获取微信的token，并session
+// 微信token分为两种，一种是服务端的token, 一种是通过oauth2方式获取的token
 function *getWxAccessToken(params){
 
     var the = this;
     var date = new Date();
-
-    // ?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
-    // {
-    //     appid: config.weixin.appid,
-    //     secret: config.weixin.appsecret,
-    //     grant_type: 'client_credential'
-    // }
 
     //normal access token
     function *getAT(){
@@ -157,12 +154,13 @@ function *getWxAccessToken(params){
             secret: config.weixin.appsecret,
             code: params.code
         })
-        console.log('wwwwwwwwwwwwwwww');
-        console.log(tmp[0].body);
 
         var tk = JSON.parse(tmp[0].body);
         var now = date.getTime()/1000;
         var sess_wx = {
+            openid: tk.openid,
+            scope: tk.scope,
+            refresh_token: tk.refresh_token,
             token: tk.access_token,
             token_expire: now + tk.expires_in,
             token_renew: 7200
@@ -212,12 +210,10 @@ function *pullWxData(api, param, method){
     yield getWxAccessToken.call(this, param);
 
     if(api == 'wx_web_token'){
-        console.log('i waner to see params');
-        console.log(api);
-        // param.access_token = this.sess.wwx.token;
-        return {token: this.sess.wwx.token};
+        return {token: true};
     }else{
-        param.access_token = this.sess.wx.token;
+        if(api.indexOf('_web')===-1)
+            param.access_token = this.sess.wx.token;
     }
     console.log('weixin token after '+Math.ceil(-this.sess.wx.token_renew)+' second will renew');
     // console.log(this.sess.wx.token);
