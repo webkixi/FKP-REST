@@ -66,7 +66,15 @@ function req( api, param, cb ){
 }
 
 function wx( api, param, cb ){
-    return new weixin( api, param, cb )
+    // return new weixin( api, param, cb )
+    var url = apiPath.weixin[api];
+    if(url){
+        $.post( url, param, function( body, status ){
+            if( status === 'success' ) {
+                cb( body );
+            }
+        }, "json")
+    }
 }
 
 function weixin( api, param, cb ){
