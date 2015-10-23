@@ -3,6 +3,14 @@
     padding: 2%;
     &.select{
         @include form_unit;
+        .body{
+          span{
+            color: #ccc;
+            &.active{
+              color: #333;
+            }
+          }
+        }        
         &.error{
             .body{
                 border: 2px solid red;

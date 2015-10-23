@@ -1,7 +1,14 @@
 var libs = require('libs/libs');
-var ItemMixin = require('mixins/item')
-var List = require('widgets/listView/list')
-var Pt = require('widgets/itemView/pic_title');
+var Pt = require('widgets/itemView/f_li');
+var ItemMixin = require('mixins/item');
+var List = require('widgets/listView/list');
+var api = require('pages/_common/api');
+var pop = require('modules/pop/index');
+var store = require('mixins/store');
+var router = require('libs/router').router
+var _addcar =[];
+var pn;
+var vs;
 
 var esti2 = {
     mixins: [ItemMixin],
@@ -28,86 +35,214 @@ var esti2 = {
     }
 }
 
-function dealWith_Data_Brand(data){
-    if(libs.getObjType(data)!=='Object') return;
+//品牌
+function dealWith_Data_Brand(){
     var nav = [];
     var resaults = []
     var rtnDom;
-    nav = Object.keys(data);
-    if(nav.length){
-        nav.map(function(item, i){
-            resaults.push(
-                {
-                    body: item,
-                    footer: data[item]
-                }
-            )
+    api.req('queryallbrand',{}, function(data){
+        if(data.code && data.code===1){
+            var tmp = {};
+            data.results.map(function(item, i){
+              var key = item.carfirstname;
+              if(!tmp[key])
+                tmp[key]=[];
+
+              tmp[key].push(
+                item.carbrand
+              )
+            })
+            nav = Object.keys(tmp);
+            if(nav.length){
+                nav.map(function(item, i){
+                   var tmp_foot = [];
+                   tmp[item].map(function(unit, j){
+                     tmp_foot.push({
+                       attr: 'select',
+                       k: unit,
+                       v: unit
+                     })
+                   })
+                    resaults.push(
+                        {
+                            body: item,
+                            footer: tmp_foot
+                        }
+                    )
+                })
+            rtnDom = <List data={resaults}  listClass={'car_linkage'} itemClass={'wid-12'} itemView={Pt}/>
+            SA.setter('Pop',{data:{body:rtnDom, display:'block'}})
+        }
+      }
+    })
+    return rtnDom;
+}
+//车系
+function dealWith_Data_Series(){
+    var results = []
+    var rtnDom;
+    var nav = [];
+    pn = { carbrand: $("#brand").find("input").val()}
+    api.req('queryseries',pn, function(data){
+      if(data.code && data.code===1){
+        var tmp = [];
+        data.results.map(function(item,i){
+            var key = item.carseries;
+            if(!tmp[key])
+              tmp[key]=[];
         })
-        rtnDom = <List data={resaults} listClass={'s_m_list s_m_list_1'} itemClass={'wid-12'} itemView={Pt}/>
-    }
+        nav = Object.keys(tmp);
+        if(nav.length){
+            nav.map(function(item, i){
+                results.push(
+                    {
+                        footer: {
+                          attr: 'select',
+                          k: item,
+                          v: item
+                        }
+                    }
+                )
+            })
+            rtnDom = <List data={results}  listClass={'car_linkage car_linkage2'} itemClass={'wid-12'} itemView={Pt}/>
+            SA.setter('Pop',{data:{body:rtnDom, display:'block'}})
+        }
+      }
+    })
+    return rtnDom;
+}
+//型号
+function dealWith_Data_Type(){
+    var results = []
+    var rtnDom;
+    var nav = [];
+    cs = { carTypes: $("#series").find("input").val()}
+    api.req('querycartype',cs, function(data){
+      if(data.code && data.code===1){
+        data.results.map(function(item,i){
+
+            results.push({
+                footer:{
+                    attr: 'select',
+                    k: item.cartype,
+                    v: item.carid
+                }
+            })
+        })
+        rtnDom = <List data={results}  listClass={'car_linkage car_linkage2'} itemClass={'wid-12'} itemView={Pt}/>
+        SA.setter('Pop',{data:{body:rtnDom, display:'block'}})
+      }
+    })
     return rtnDom;
 }
 
+var _car = {};
 var bindEsti = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
 
-
     //品牌
-    new Select({label:'品牌'}, 'brand',function(){
+    _car.brand = new Select({label:'品牌', popclose: true}, 'brand',function(){
         $(this).click(function(){
-            var brand_json = require('./_addcar_brand.json');
-            var brand_dom = dealWith_Data_Brand(brand_json);
-            if(brand_dom)
-                SA.setter('Pop',{data:{body:brand_dom, display:'block'}})
+          dealWith_Data_Brand();
         })
     });
 
     //车系
-    new Select({label:'车系'}, 'series',function(){
-        // $(this).find('.dot').toggle()
+    _car.series = new Select({label:'车系', popclose: true}, 'series',function(){
         $(this).click(function(){
-            SA.setter('Pop',{data:{body:'明天就不下雨',display:'block'}})
+          if($("#brand").find("input").val())
+            dealWith_Data_Series();
+          else
+            SA.setter('Pop',{data:{body:'请先选择品牌', display:'block'}})
         })
     });
 
     //型号
-    new Select({label:'型号'}, 'model',function(){
-
+    _car.model = new Select({label:'车型', popclose: true}, 'model',function(){
+        $(this).click(function(){
+          if($("#series").find("input").val())
+            dealWith_Data_Type();
+          else
+            SA.setter('Pop',{data:{body:'请先选择车系', display:'block'}})
+        })
     });
 
     //上牌时间
-    new Select({label:'上牌时间'}, 'license',function(){
+    _car.reg = new Text({label:'上牌时间'}, 'license',function(){
 
     });
 
     //车牌号
-    new Text({label:'车牌号'}, 'number',function(){
+    _car.number = new Text({label:'车牌号'}, 'number',function(){
 
     });
 
     //VIN
-    new Text({
-        label:'VIN',
-        append: <div className='camera'></div>
-    },
-    'vin',
-    function(){
+    _car.vin = new Text({label:'VIN'},'vin',function(){
 
     });
 
     //发动机号
-    new Text({
-        label:'发动机号',
-        append: <div className='camera'></div>
-    }, 'engin',function(){
+    _car.engin = new Text({label:'发动机号'},'engin',function(){
 
     });
+
+    $('#now').click(function(){
+        checkValue()
+    })
 }
+var uuu = [];
+var allSelect;
 
+function checkValue(ele){
+    var xxx = [];
+    $("article .select").find("input").each(function(i,item){
+        if(item.value&&item.value!==''){
+          xxx.push(
+            item.value
+          )
+        }
+    })
+    if(xxx.length===3){
+      $('article div').each(function(){
+          if(this.id){
+            uuu.push({
+                body: {
+                  k: $(this).find('input').val(),
+                  v: $(this).find('input').attr('name')
+                }
+            })
+          }
+      });
+
+      //form 提交数据
+      uuu.form = {
+          carid : _car.model.value,
+          carbrand: _car.brand.value,
+          carseries: _car.series.value,
+          cartype: _car.model.value,
+          carengno: _car.engin.value||'',
+          plateno: _car.number.value||'',
+          carvin: _car.vin.value||'',
+          regtime: _car.reg.value||'',
+          carrunkm: 50000,
+          usercarremark: "just test ,don't call me",
+          mobile: "18002278121"
+      }
+
+      //SA.setter('_GLOBAL',{index: uuu})
+      console.log(uuu.form);
+      api.req('useraddcar',{type: 'insert', data:uuu.form},function(data){
+        console.log(data);
+      })
+    }
+    else {
+      SA.setter('Pop',{data:{body:'品牌、车系、车型为必选项目，请选择！', display:'block'}})
+    }
+}
 var Esti = React.createClass(esti2)
-
-function renderDom(ele, data, cb){
+function renderDom(ele, cb){
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
@@ -118,8 +253,9 @@ function renderDom(ele, data, cb){
     else
         return;
 
+// console.log(addCarData);
     React.render(
-        <Esti data={data} itemDefaultMethod={bindEsti} itemMethod={cb}/>,
+        <Esti itemDefaultMethod={bindEsti} itemMethod={cb}/>,
         element
     )
 }

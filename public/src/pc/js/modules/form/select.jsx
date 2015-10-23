@@ -39,7 +39,7 @@ function select(data, ele, cb){
                     _this.value = val;
                     _this.text = text;
                     $(input).val(val)
-                    $(the).find('span').text(text)
+                    $(the).find('span').addClass("active").text(text)
                     if(close)
                         SA.setter('Pop',{data:{display:'none'}})
                 }

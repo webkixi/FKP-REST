@@ -32,7 +32,7 @@ var index = {
         )
     }
 }
-
+var _form = {};
 var bindIndex = function(){
     var Text = require('modules/form/text');
     var u = {};
@@ -72,8 +72,15 @@ var bindIndex = function(){
     })
     $('#now').click(function(){
       var stat = checkValue(u);
+      console.log(stat);
       if(stat){
-        //api.req('')
+        _form.mobile = u.phone.value;
+        _form.code = u.verify.value;
+        var fff = libs.extend(_form);
+        console.log(fff);
+        api.req('mobilecode',{type: 'insert', data:fff},function(data){
+          console.log(data);
+        })
       }
     })
 }

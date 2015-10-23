@@ -4,7 +4,7 @@ var api = require('../apis/javaapi');
 var rct = require('../modules/parseReact');
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/order')
+    libs.wlog('pages/useraddcar')
     var dataSet = {};
     var infoCat =[];
     var mtd = this.method;
@@ -57,11 +57,14 @@ function *demoIndexData(oridata){
         //     }
         //   ]
         // }
-
         var postdata = {
+            "common": {
+              "session": "11111",
+              "uid": 1
+            },
             "content": [
               {
-                "mobile": ""
+
               }
             ]
         }
@@ -73,7 +76,7 @@ function *demoIndexData(oridata){
             }
         }
         console.log(postdata);
-        var orderdata = yield api.pullApiData('mobile', postdata, 'post');
+        var orderdata = yield api.pullApiData('useraddcar', postdata, 'post');
         console.log(orderdata[1]);
 
         // var qcjc = libs.$extend(true, {}, postdata);
@@ -86,7 +89,7 @@ function *demoIndexData(oridata){
         //
         //
         // return serviceData[1];
-        return oridata;
+        return orderdata[1];
     }
 
 
