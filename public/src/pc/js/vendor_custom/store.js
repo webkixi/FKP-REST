@@ -66,14 +66,36 @@
             if( dataOrAct && dataOrAct!=="" ){
                 if ( getObjType(dataOrAct) === 'Function' )
                     save[name].acter(dataOrAct);
-                else
-                    save[name].dataer(dataOrAct);
+                else{
+                    if( getObjType(dataOrAct) === 'Object' )
+                        save[name].dataer(dataOrAct);
+                    if( getObjType(dataOrAct) === 'Array' ) {
+                        var isFuns = true;
+                        dataOrAct.map(function(item, i){
+                            if( getObjType(item) !== 'Function' )
+                                isFuns = false;
+                        })
+                        if( isFuns ){
+                            save[name].sact = dataOrAct;
+                        }
+                    }
                     // save[name].dataer(libs.clone(dataOrAct));
+                }
             }
 
             if ( getObjType(fun)==='Function' )
                 save[name].acter(fun);
 
+            if( getObjType(fun) === 'Array' ) {
+                var isFuns = true;
+                fun.map(function(item, i){
+                    if( getObjType(item) !== 'Function' )
+                        isFuns = false;
+                })
+                if( isFuns ){
+                    save[name].sact = dataOrAct;
+                }
+            }
         },
 
         getter: function(name){

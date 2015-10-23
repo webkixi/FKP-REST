@@ -5,14 +5,13 @@ var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 
 var myabout = [];
-var _wx = SA.getter('_WEIXIN').data.user;
 
 var index = {
     mixins: [ItemMixin],
     render: function () {
         return(
             <div className={'com_index'}>
-                <div>你好{(_wx&&_wx.nickname)||''}</div>
+                <div id="test">你好</div>
               <ul className={'hlist'}>
                 <li className={'item'} data-check={'service.html#index'}>
                   <div className={'hbody'}>
@@ -56,6 +55,18 @@ var index = {
     }
 }
 
+SA.setter('_WEIXIN',[aaa]);
+
+var aaa = function(){
+    var abc = SA.getter('_WEIXIN').data.user;
+    if(abc)
+        $('#test').html(abc.nickname)
+}
+
+var test = function(){
+    aaa();
+}
+
 var Index = React.createClass(index)
 
 function renderDom(ele, cb){
@@ -70,7 +81,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemMethod={cb}/>,
+        <Index itemDefaultMethod={test} itemMethod={cb}/>,
         element
     )
 }
