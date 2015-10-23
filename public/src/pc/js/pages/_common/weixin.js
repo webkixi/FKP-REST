@@ -10,7 +10,8 @@ function getwx(){
         st = url.params.state;
         // api.wx()
         api.wx('userinfo', {code: cd, state: st},function(data){
-            alert(data)
+            if(typeof data === 'string')
+                data = JSON.parse(data)
             var kkk = Object.keys(data)
             var bbb = kkk.join(' ')
             alert(bbb)
