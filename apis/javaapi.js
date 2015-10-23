@@ -156,6 +156,8 @@ function *getWxAccessToken(params){
             appid: config.weixin.appid,
             secret: config.weixin.appsecret
         })
+        console.log('wwwwwwwwwwwwwwww');
+        console.log(tmp);
         var tk = JSON.parse(tmp[0].body);
         var now = date.getTime()/1000;
         var sess_wx = {
@@ -208,8 +210,8 @@ function *pullWxData(api, param, method){
     yield getWxAccessToken.call(this, param);
 
     if(api === 'wx_web_token'){
-        param.access_token = this.sess.wwx.token;
-        return param;
+        // param.access_token = this.sess.wwx.token;
+        return {token: this.sess.wwx.token};
     }else{
         param.access_token = this.sess.wx.token;
     }
