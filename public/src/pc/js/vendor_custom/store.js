@@ -19,7 +19,7 @@
                 if( this.sact.length ){
                     var acts = this.sact;
                     acts.map(function( fun ){
-                        console.log( fun.toString() );
+                        alert( fun.toString() );
                         fun( data );
                     })
                 }

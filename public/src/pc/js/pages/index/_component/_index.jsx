@@ -55,7 +55,7 @@ var index = {
     }
 }
 
-SA.setter('_WEIXIN',[aaa])
+SA.setter('_WEIXIN',aaa)
 
 var aaa = function(){
     alert('aaaaaaaaaaa')
