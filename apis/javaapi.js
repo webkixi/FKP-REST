@@ -108,7 +108,7 @@ function *pullApiData(api, param, method){
         query = param;
 
     console.log('(((((((((((((((((((((((((((query)))))))))))))))))))))))))))');
-    // console.log(query);
+    console.log(query);
 
     if(libs.getObjType(param)!=='Object')
         return yield {};
