@@ -9,12 +9,8 @@ function *demoIndexData(oridata){
     var infoCat =[];
     var mtd = this.method;
     var catId = [48,62,76,84],boothNo=['index01','index02','index03','index04']
-    var body = yield libs.$parse(this);
-    if(body){
-        console.log(body);
-    }
 
-    if(mtd==='GET'){
+    if(mtd==='GET'){         
 
         //请求信息数据
         // for (var i = 0; i < catId.length; i++) {
