@@ -202,12 +202,14 @@ var bindIndex = function(){
     checkNum.checkbox = new Checkbox({label:'已有配件只需上门服务'}, 'checkbox',function(self){
         if(self){
             var chk_val = self.value;
-            if(chk_val===1){
+            if(chk_val==1){
                 var dataDom = mixDataAndDom(service_ori_zero_data)
+                //_form.cleanParts = 1
                 SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
             }
-            if(chk_val===0){
+            if(chk_val==0){
                 var dataDom = mixDataAndDom(service_ori_data)
+                //_form.cleanParts = 0
                 SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
             }
         }
@@ -216,15 +218,16 @@ var bindIndex = function(){
     $("#now").click(function(){
         var carData = SA.getter('_GLOBAL').data;
         var orderData;
-        if(checkNum.checkbox.value===1){
+        if(checkNum.checkbox.value==1){
             _form.servicemode = 1;
+            _form.cleanParts = 1;
             orderData = service_ori_zero_data
         }
-        if(checkNum.checkbox.value===0){
+        if(checkNum.checkbox.value==0){
             _form.servicemode = 0;
+            _form.cleanParts = 0;
             orderData = service_ori_data
         }
-
         orderData.footer.map(function(item, i){
             if(item.o){
                 var pno = item.o.partstypeno||'';

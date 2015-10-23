@@ -12,24 +12,42 @@ var heji = {
   count: 0,
   totalprice: 0
 };
+console.log(SA.getter('_GLOBAL').data);
 var footer = SA.getter('_GLOBAL').data.index.footer;
-footer.map(function(item, i){
-  // heji.count+=item.o.count;
-  heji.count++;
-  heji.totalprice+=item.v;
+if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
+  var a = footer.pop();
+  heji.count==1;
+  heji.totalprice+=a.v;
+
   bodys.push({
-    // body:[
-    //   item.k,
-    //   item.o.count,
-    //   '￥'+item.v
-    // ]
     body:[
-      item.k,
+      a.k,
       1,
-      '￥'+item.v
+      '￥'+a.v
     ]
   })
-})
+}else{
+  footer.map(function(item, i){
+    // heji.count+=item.o.count;
+    heji.count++;
+    heji.totalprice+=item.v;
+    console.log(item);
+    console.log(bodys);
+    bodys.push({
+      // body:[
+      //   item.k,
+      //   item.o.count,
+      //   '￥'+item.v
+      // ]
+      body:[
+        item.k,
+        1,
+        '￥'+item.v
+      ]
+    })
+  })
+}
+
 var mycar_service_order = bodys;
 
 // var mycar_service_order = [
@@ -132,13 +150,13 @@ var bindIndex = function(){
 
     new Radio({label:'微信',value:'0',name: 'payment'},'wechat',function(){
       $(this).click(function(){
-        _payway = "wechat";
+        _payway = 0;
       })
     })
 
     new Radio({label:'支付宝',value:'1',name: 'payment'},'alipay',function(){
       $(this).click(function(){
-        _payway = "alipay";
+        _payway = 1;
       })
     })
     //电话
@@ -321,7 +339,6 @@ var bindIndex = function(){
             _form.street = u.address.value
             _form.zip = '440000'
             _form.paych = _payway
-            _form.code = u.verify.value
             _form.subscribetime = u.date.value + u.ampm.text
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(form, _form);
