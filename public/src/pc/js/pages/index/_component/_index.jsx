@@ -58,8 +58,8 @@ var index = {
 SA.setter('_WEIXIN',[aaa])
 
 var aaa = function(){
-    var abc = SA.getter('_WEIXIN').data.user;
     alert('aaaaaaaaaaa')
+    var abc = SA.getter('_WEIXIN').data.user;
     if(abc)
         $('#test').html(abc.nickname)
 }
