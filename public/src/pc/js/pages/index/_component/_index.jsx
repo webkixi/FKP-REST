@@ -55,7 +55,7 @@ var index = {
     }
 }
 
-SA.setter('_WEIXIN',[aaa]);
+SA.setter('_WEIXIN',[aaa])
 
 var aaa = function(){
     var abc = SA.getter('_WEIXIN').data.user;
@@ -65,7 +65,9 @@ var aaa = function(){
 }
 
 var test = function(){
-    aaa();
+    // SA.setter('_TEST',{});
+    // SA.setter('_TEST',[aaa])
+    // SA.setter('_TEST',{user:'123'})
 }
 
 var Index = React.createClass(index)
