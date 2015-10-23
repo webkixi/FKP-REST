@@ -4,13 +4,17 @@ var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 
-var myabout = []
+var myabout = [];
+var _wx = SA.getter('_WEIXIN').data.user;
 
 var index = {
     mixins: [ItemMixin],
     render: function () {
         return(
             <div className={'com_index'}>
+                <div>
+                    姓名： {_wx.nickname}
+                </div>
               <ul className={'hlist'}>
                 <li className={'item'} data-check={'service.html#index'}>
                   <div className={'hbody'}>

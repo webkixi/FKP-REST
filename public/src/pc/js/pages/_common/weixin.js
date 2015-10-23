@@ -12,9 +12,9 @@ function getwx(){
         api.wx('userinfo', {code: cd, state: st})
         .then(function(data){
             console.log(data);
+            SA.setter("_WEIXIN",{user: data})
         })
     }
-    return true;
 }
 
 module.exports = getwx()
