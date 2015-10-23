@@ -16,10 +16,10 @@
         this.dataer = function( data ){
             if( data ){
                 this.sdata = data;
-                alert('llllllllllll');
                 if( this.sact.length ){
                     var acts = this.sact;
                     acts.map(function( fun ){
+                        console.log( fun.toString() );
                         fun( data );
                     })
                 }
