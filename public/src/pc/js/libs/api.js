@@ -66,13 +66,31 @@ function req( api, param, cb ){
 }
 
 function wx( api, param, cb ){
+    return new weixin( api, param, cb )
+}
+
+function weixin( api, param, cb ){
+
+    this.cb = this.cb || cb || undefined;
+    this.data;
+
     var url = apiPath.weixin[api];
     if(url){
         $.post( url, param, function( body, status ){
-            if( status === 'success' ) cb( body ) ;
+            if( status === 'success' ) {
+                this.data = body;
+                if(this.cb)
+                    this.cb( body );
+            }
         }, "json")
     }
+    return this;
 }
+
+weixin.prototype.then = function(cb){
+    this.cb = cb;
+}
+
 
 module.exports = {
 	apiPath: apiPath,

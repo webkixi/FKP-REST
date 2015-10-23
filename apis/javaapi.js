@@ -58,6 +58,8 @@ var apiPath = {
     base: src,
     dirs: {
         wx_token: 'https://api.weixin.qq.com/cgi-bin/token',
+        wx_web_token: 'https://api.weixin.qq.com/sns/oauth2/access_token',
+
         service: src+'servicetype/query',
         parts: src+'parts/query',
         queryallbrand: src+'car/queryallbrand',
@@ -87,7 +89,8 @@ var apiPath = {
         // uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
     },
     weixin: {
-        userlist: 'https://api.weixin.qq.com/cgi-bin/user/get'
+        userlist: 'https://api.weixin.qq.com/cgi-bin/user/get',
+        userinfo_web: ''
     }
 }
 
@@ -117,12 +120,20 @@ function *pullApiData(api, param, method){
 
 }
 
-function *getWxAccessToken(){
+function *getWxAccessToken(params){
 
     var the = this;
     var date = new Date();
 
-    function *getAt(){
+    // ?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+    // {
+    //     appid: config.weixin.appid,
+    //     secret: config.weixin.appsecret,
+    //     grant_type: 'client_credential'
+    // }
+
+    //normal access token
+    function *getAT(){
         var tmp = yield pullApiData('wx_token',{
             grant_type: 'client_credential',
             appid: config.weixin.appid,
@@ -138,19 +149,51 @@ function *getWxAccessToken(){
         the.sess.wx = sess_wx;
     }
 
-    if(!this.sess.wx){
-        yield getAt();
-    }else{
-        var tmp = this.sess.wx;
+    //web access token
+    function *getWAT(){
+        var tmp = yield pullApiData('wx_web_token',{
+            grant_type: params.code,
+            appid: config.weixin.appid,
+            secret: config.weixin.appsecret
+        })
+        var tk = JSON.parse(tmp[0].body);
         var now = date.getTime()/1000;
-        if(now-tmp.token_expire>6500){
-            yield getAt();
-        }else{
-            tmp.token_renew = now-tmp.token_expire;
+        var sess_wx = {
+            token: tk.access_token,
+            token_expire: now + tk.expires_in,
+            token_renew: 7200
         }
+        the.sess.wwx = sess_wx;
     }
 
 
+    if(params.code){   //web access token
+        if(!this.sess.wwx){
+            yield getWAT();
+        }else{
+            var tmp = this.sess.wwx;
+            var now = date.getTime()/1000;
+            if(now-tmp.token_expire>6500){
+                yield getWAT();
+            }else{
+                tmp.token_renew = now-tmp.token_expire;
+            }
+        }
+
+    }else{   //normal access token
+
+        if(!this.sess.wx){
+            yield getAT();
+        }else{
+            var tmp = this.sess.wx;
+            var now = date.getTime()/1000;
+            if(now-tmp.token_expire>6500){
+                yield getAT();
+            }else{
+                tmp.token_renew = now-tmp.token_expire;
+            }
+        }
+    }
 }
 
 function *pullWxData(api, param, method){
@@ -162,10 +205,14 @@ function *pullWxData(api, param, method){
             message: 'param must be a json object'
         };
 
-    yield getWxAccessToken.call(this);
+    yield getWxAccessToken.call(this, param);
+
     param.access_token = this.sess.wx.token;
     console.log('weixin token after '+Math.ceil(-this.sess.wx.token_renew)+' second will renew');
-    console.log(this.sess.wx.token);
+    // console.log(this.sess.wx.token);
+
+    if(api === 'wx_web_token')
+        return param;
 
     var url = apiPath.weixin[api];
     var query;
