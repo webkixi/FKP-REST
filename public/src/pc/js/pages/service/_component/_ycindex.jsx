@@ -237,6 +237,7 @@ var bindIndex = function(){
         })
         // console.log(orderData);
         var form = libs.extend(carData.index.form, _form)
+        form.openid = "wx766666";
         orderData.form = form;
 
         SA.setter('_GLOBAL',{index: orderData})

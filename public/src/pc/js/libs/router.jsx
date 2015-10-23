@@ -1,13 +1,26 @@
 var libs = require('./libs')
 
-exports.router = function(name){
+var router = function(name){
     if(typeof name!=='string') return;
+    var url = libs.urlparse(location.href);
+    SA.setter('_HISTORY', url);
     var tmp = SA.getter(name)
-    if(tmp)
+    if(tmp){
+        window.location.hash = name;
         SA.setter(name,{})
+    }
 }
 
-exports.route = function(name, handle){
+router.goback = function(){
+    var history = SA.getter('_HISTORY').data;
+    if(history.hash){
+        router(history.hash)
+    }else{
+        window.location.href = history.source
+    }
+}
+
+var route = function(name, handle){
     if(typeof SA!=='object'){
         console.log("don't set global SA variable ");
         return;
@@ -24,6 +37,11 @@ exports.route = function(name, handle){
         if(typeof handle === 'function')
             SA.setter(name, handle)
     }
+}
+
+module.exports = {
+    router: router,
+    route: route
 }
 
 /*
