@@ -11,10 +11,7 @@ function getwx(){
         // api.wx()
         api.wx('userinfo', {code: cd, state: st},function(data){
             if(typeof data === 'string')
-                data = JSON.parse(data)
-            var kkk = Object.keys(data)
-            var bbb = kkk.join(' ')
-            alert(bbb)
+                data = JSON.parse(data)            
             SA.setter("_WEIXIN",{user: data})
         })
     }

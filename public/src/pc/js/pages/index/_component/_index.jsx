@@ -59,6 +59,7 @@ SA.setter('_WEIXIN',[aaa]);
 
 var aaa = function(){
     var abc = SA.getter('_WEIXIN').data.user;
+    alert('aaaaaaaaaaa')
     if(abc)
         $('#test').html(abc.nickname)
 }
