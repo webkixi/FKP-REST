@@ -11,6 +11,7 @@ function getwx(){
         // api.wx()
         api.wx('userinfo', {code: cd, state: st})
         .then(function(data){
+            alert('aaaaaaa');
             console.log(data);
             SA.setter("_WEIXIN",{user: data})
         })
