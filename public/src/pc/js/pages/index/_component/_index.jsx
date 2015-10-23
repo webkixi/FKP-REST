@@ -58,21 +58,19 @@ var index = {
 
 var aaa = function(){
     alert('aaaaaaaaaaa')
-    // var abc = SA.getter('_WEIXIN').data.user;
-    // if(abc)
-    //     $('#test').html(abc.nickname)
+    var abc = SA.getter('_WEIXIN').data.user;
+    if(abc)
+        $('#test').html(abc.nickname)
 }
 
 var test = function(){
-    SA.setter('_WEIXIN',aaa)
-    // SA.setter('_TEST',{});
-    // SA.setter('_TEST',[aaa])
-    // SA.setter('_TEST',{user:'123'})
+    aaa();
 }
 
 var Index = React.createClass(index)
 
 function renderDom(ele, cb){
+    SA.setter('_WEIXIN',[aaa])
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
