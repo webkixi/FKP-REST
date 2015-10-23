@@ -1,14 +1,7 @@
 @import "../../_copy2dist/iconfont";
 @import "../../global/_settings/_setting_pages";
-html{
-    height: 100%;
-}
 body{
   background: #f3f5f7;
-  height: 100%;
-}
-#container-box{
-    height: 100%;
 }
 .container{
   width: 94%;
@@ -574,12 +567,12 @@ body{
   background: #48cfc0;
   color: #fff;
   width: 100%;
+  padding: 0.6rem 0;
   ul{
     display: table;
     width: 100%;
   }
   li{
-    padding: 0.8rem 0;
     display: table-cell;
     border-left: 1px solid #daf5f2;
     &:first-child{
@@ -655,12 +648,6 @@ body{
 	&.addcar{
 		article{
 			height: 11rem;
-            #brand{
-                margin-top: 1rem;
-            }
-            #engin{
-                margin-bottom: 1rem;
-            }
 			#vin, #engin{
 				.body{
 					// width: 54%;

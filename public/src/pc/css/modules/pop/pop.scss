@@ -52,12 +52,19 @@
     z-index: 5;
     opacity: 0;
     border-radius: 0.2rem;
+
     -webkit-animation-name: anim-close;
     animation-name: anim-close;
     font-size: 0.6rem;
-    overflow: auto;
+    overflow: hidden;
+    .list-wrap{
+      overflow: auto;
+      height: 100%;
+    }
     ul.hlist{
       font-size: 0.6rem;
+      padding: 0.2rem;
+
       li{
         border-top: 1px solid #d9d9d9;
         -webkit-animation-name: anim-close;
@@ -70,7 +77,9 @@
         }
       }
       .hbody{
-        padding: 0.8rem 0.8rem;
+        padding: 0.6rem 0.6rem;
+        //border-radius: 0.2rem 0.2rem 0 0;
+        border-radius: 0.2rem;
       }
       p{
         width: 88%;

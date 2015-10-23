@@ -31,6 +31,8 @@ var apiPath = {
         ,getmms: src+'getmms'
         ,getservtime: src+'getservtime'
         ,order: src+'order'
+        ,mobilecode: src+'mobilecode'
+        ,useraddcar: src+'useraddcar'
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=

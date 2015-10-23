@@ -43,6 +43,7 @@ function dealWith_Data_Brand(){
     var rtnDom;
     api.req('queryallbrand',{}, function(data){
         if(data.code && data.code===1){
+          console.log(data);
             var tmp = {};
             data.results.map(function(item, i){
               var key = item.carfirstname;
@@ -146,9 +147,9 @@ var bindEsti = function(){
     _car.brand = new Select({label:'品牌', popclose: true}, 'brand',function(){
         $(this).click(function(){
           dealWith_Data_Brand();
+          console.log($(this));
         })
     });
-
     //车系
     _car.series = new Select({label:'车系', popclose: true}, 'series',function(){
         $(this).click(function(){
