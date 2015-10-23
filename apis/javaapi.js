@@ -151,17 +151,15 @@ function *getWxAccessToken(params){
 
     //web access token
     function *getWAT(){
-        console.log('wwwwwwwwwwwwwwww');
-        console.log({
-            grant_type: params.code,
-            appid: config.weixin.appid,
-            secret: config.weixin.appsecret
-        });
         var tmp = yield pullApiData('wx_web_token',{
-            grant_type: params.code,
+            grant_type: 'authorization_code',
             appid: config.weixin.appid,
-            secret: config.weixin.appsecret
+            secret: config.weixin.appsecret,
+            code: params.code
         })
+        console.log('wwwwwwwwwwwwwwww');
+        console.log(tmp[0].body);
+
         var tk = JSON.parse(tmp[0].body);
         var now = date.getTime()/1000;
         var sess_wx = {
