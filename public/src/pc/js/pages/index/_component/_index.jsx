@@ -11,7 +11,6 @@ var index = {
     render: function () {
         return(
             <div className={'com_index'}>
-                <div id="test">你好</div>
               <ul className={'hlist'}>
                 <li className={'item'} data-check={'service.html#index'}>
                   <div className={'hbody'}>
@@ -57,10 +56,9 @@ var index = {
 
 
 var aaa = function(){
-    alert('aaaaaaaaaaa')
     var abc = SA.getter('_WEIXIN').data.user;
     if(abc)
-        $('#test').html(abc.nickname)
+        alert('您好：'+abc.nickname)
 }
 
 var test = function(){
