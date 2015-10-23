@@ -55,16 +55,16 @@ var index = {
     }
 }
 
-SA.setter('_WEIXIN',aaa)
 
 var aaa = function(){
     alert('aaaaaaaaaaa')
-    var abc = SA.getter('_WEIXIN').data.user;
-    if(abc)
-        $('#test').html(abc.nickname)
+    // var abc = SA.getter('_WEIXIN').data.user;
+    // if(abc)
+    //     $('#test').html(abc.nickname)
 }
 
 var test = function(){
+    SA.setter('_WEIXIN',aaa)
     // SA.setter('_TEST',{});
     // SA.setter('_TEST',[aaa])
     // SA.setter('_TEST',{user:'123'})
