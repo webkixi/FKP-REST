@@ -68,7 +68,7 @@ function *demoIndexData(oridata){
           },
           "content": [
             {
-              "partTypeNo": body.partno
+              "partstypeno": body.partno
             }
           ]
         }

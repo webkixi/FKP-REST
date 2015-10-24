@@ -11,7 +11,7 @@ var router = require('libs/router').router
 var service_data=[];
 var service_ori_data={}
 var service_ori_zero_data={}
-var _form = { parts:[] };
+var _form = { orderdetail:[] };
 var _parts = [];
 var footer_item;   //data-reactid  parts列表的P的唯一标示
 var service_resault_data;
@@ -230,9 +230,12 @@ var bindIndex = function(){
         }
         orderData.footer.map(function(item, i){
             if(item.o){
+              console.log(item);
                 var pno = item.o.partstypeno||'';
-                _form.parts.push({
+                _form.orderdetail.push({
+                    partsno: item.o.partsno,
                     no: pno,
+                    price: item.o.userprice,
                     name: item.k,
                     count: 1
                 })
@@ -280,7 +283,7 @@ function organizeData(oridata, ele, cb){
         _footer.push({
             attr: item.partstypeno,
             k: item.partstypename,
-            v: item.defpartsprice,
+            v: item.userprice,
             o: item
         })
     })
