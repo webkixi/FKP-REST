@@ -192,7 +192,7 @@ function *getWxAccessToken(params){
         console.log(this.sess.wx);
 
         if(!this.sess.wx && !this.sess.wwx){
-            yield getAT();
+            // yield getAT();
         }
         // else{
         //     var tmp = this.sess.wx;
@@ -204,14 +204,14 @@ function *getWxAccessToken(params){
         //     }
         // }
     }
-    var tmp = this.sess.wx||this.sess.wwx;
-    console.log(tmp);
-    var now = date.getTime()/1000;
-    if(now-tmp.token_expire>6500){
-        yield getAT();
-    }else{
-        tmp.token_renew = now-tmp.token_expire;
-    }
+    // var tmp = this.sess.wx||this.sess.wwx;
+    // console.log(tmp);
+    // var now = date.getTime()/1000;
+    // if(now-tmp.token_expire>6500){
+    //     yield getAT();
+    // }else{
+    //     tmp.token_renew = now-tmp.token_expire;
+    // }
 }
 
 function *pullWxData(api, param, method){
