@@ -46,6 +46,7 @@ function *demoIndexData(oridata){
     if(mtd === 'POST'){
 
         var postdata = {}
+        var _this = this;
 
         function *dealWith(){
             if(_this_sess.wwx){
@@ -55,7 +56,7 @@ function *demoIndexData(oridata){
                     lang: 'zh_CN'
                 }
                 console.log(postdata);
-                var web_userinfo = yield api.pullWxData.call(this, 'userinfo_web', postdata)
+                var web_userinfo = yield api.pullWxData.call(_this, 'userinfo_web', postdata)
                 web_userinfo = web_userinfo[0].body
                 libs.clog('从微信拉取用户信息')
                 console.log(web_userinfo);
