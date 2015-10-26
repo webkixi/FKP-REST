@@ -251,8 +251,9 @@ function *distribute(_mapper){
                         return false;
                     }
                 }
-
-                if(typeof pageData.errState!=='undefined' && pageData.errState) yield htmlRender.call(this,false,route);
+                console.log('7777788888');
+                console.log(pageData);
+                if(pageData.errState && typeof pageData.errState!=='undefined' ) yield htmlRender.call(this,false,route);
                 else{
 
                     // if(typeof pageData.errStat == 'undefined'){

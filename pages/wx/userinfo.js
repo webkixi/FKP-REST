@@ -9,6 +9,7 @@ function *demoIndexData(oridata){
     var dataSet = {};
     var infoCat =[];
     var mtd = this.method;
+    var _this_sess = this.sess;
     if(mtd==='GET'){
 
         //请求信息数据
@@ -45,12 +46,13 @@ function *demoIndexData(oridata){
     if(mtd === 'POST'){
 
         var postdata = {}
+        console.log('aaaaaaaaaaa');
 
-        function dealWith(){
-            if(this.sess.wwx){
+        function *dealWith(){
+            if(_this_sess.wwx){
                 postdata={
-                    access_token: this.sess.wwx.token,
-                    openid: this.sess.wwx.openid,
+                    access_token: _this_sess.wwx.token,
+                    openid: _this_sess.wwx.openid,
                     lang: 'zh_CN'
                 }
                 console.log(postdata);
@@ -64,23 +66,24 @@ function *demoIndexData(oridata){
                 return {code: 1, message: '微信号没有绑定'}
             }
         }
-
+        //
         var body = yield libs.$parse(this);
         if( body && body.code ){
             postdata = body;
             var web_token = yield api.pullWxData.call(this, 'wx_web_token', postdata)
-            dealWith()
+            return yield dealWith()
         }else{
-            dealWith();
+            return yield dealWith();
         }
 
         // var qd = qcjcdata[1].results[0];
         // var serviceData = yield api.pullApiData('service', postdata, 'post')
         // // serviceData[1].results.push(qd);
         // console.log(serviceData[1]);
-
-
         // return serviceData[1];
+
+
+        // return oridata;
     }
 
 
