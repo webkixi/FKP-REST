@@ -72,6 +72,7 @@ function *demoIndexData(oridata){
             console.log('pages/userinfo');
             console.log(postdata);
             var web_token = yield api.pullWxData.call(this, 'wx_web_token', postdata)
+            console.log(web_token);
             return yield dealWith()
         }else{
             return yield dealWith();
