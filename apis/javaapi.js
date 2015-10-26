@@ -216,8 +216,10 @@ function *pullWxData(api, param, method){
     if(api == 'wx_web_token'){
         return {token: true};
     }else{
-        if(api.indexOf('_web')===-1)
+        if(api.indexOf('_web')===-1){
+            console.log('hhhhhhhh  no _web nnnnnnn');
             param.access_token = this.sess.wx.token;
+        }
     }
     // console.log('weixin token after '+Math.ceil(-this.sess.wx.token_renew)+' second will renew');
     // console.log(this.sess.wx.token);
