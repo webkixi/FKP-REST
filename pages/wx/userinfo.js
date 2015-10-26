@@ -57,6 +57,7 @@ function *demoIndexData(oridata){
                     openid: this.sess.wwx.openid,
                     lang: 'zh_CN'
                 }
+                console.log(postdata);
                 var web_userinfo = yield api.pullWxData.call(this, 'userinfo_web', postdata)
                 web_userinfo = web_userinfo[0].body
                 libs.clog('从微信拉取用户信息')
