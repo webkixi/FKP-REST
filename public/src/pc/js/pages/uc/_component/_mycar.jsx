@@ -1,23 +1,28 @@
 var libs = require('libs/libs');
 var ItemMixin = require('mixins/item')
 var Pt = require('widgets/itemView/pic_title');
-var List = require('widgets/listView/list')
+var List = require('widgets/listView/list');
+var pop = require('modules/pop/index');
+var api = require('pages/_common/api');
+var store = require('mixins/store');
+var router = require('libs/router').router
 
+var mycarlist_data = [];
+var xx =[];
+var mycar_list =[]
 
-
-var mycars = require('./_mycar.json');
-mycars[0].dot = [ <div><a className="ifont icon-next"></a><a className="ifont icon-deletefill"></a></div> ];
 
 var index = {
-    mixins: [ItemMixin],
+    mixins: [store('Index'),ItemMixin],
     render: function () {
+
         return(
             <div className={'index mycar'}>
                 <header>
                     {'我的车'}
                 </header>
                 <article id="content">
-                    <List data={mycars} listClass={'like_app_list'} itemClass={'wid-12'} itemView={Pt}/>,
+                      <List data={mycarlist_data} listClass={'like_app_list'} itemMethod={abc} itemClass={'wid-12'} itemView={Pt}/>
                 </article>
                 <footer>
                     <a id="now" className={'btn-link'}>{'添加车辆'}</a>
@@ -26,7 +31,58 @@ var index = {
         )
     }
 }
+function abc(){
+  $(this).find('.icon-deletefill').click(function(){
+    var ymli_data = $(this).attr("data-liid");
+    var yma_data = $(this).attr("data-aid");
+    console.log(yma_data);
+    mycarlist_data.splice(yma_data,1)
+    var usercarid = { usercarid : ymli_data}
+    api.req('mycar_del',{type: 'delete',data:usercarid},function(data){
+      SA.setter('Index',{data: mycarlist_data} );
+      //router('mycar')
+    })
+  })
+}
+var bindIndex = function(){
+  $("#now").click(function(){
+    router('addcar')
+  })
+}
+console.log(mycarlist_data);
+function getData(ele, param, cb){
+  var mobile = { mobile: '18002278121'}
+  api.req('mycarlist',mobile,function(data){
+    console.log(data);
+    if(data.code && data.code===1){
+      organizeData(data.results, ele, cb)
+    }
+  })
+}
 
+function organizeData(oridata, ele, cb){
+  oridata.map(function(item,i){
+    mycar_list =
+      {
+          //title: item.usercarid,
+          attr: item.usercarid,
+          img: "/images/demo/aclass/b2.jpg",
+          body:[
+              item.carseries + item.cartype,
+              {
+                  k: "车牌号：",
+                  v: item.plateno
+              }
+          ],
+          dot: <div><a className="ifont icon-next"></a><a data-liid={item.usercarid} data-aid={i} className="ifont icon-deletefill"></a></div>
+      }
+    mycarlist_data.push(
+        mycar_list
+    )
+    //mycarlist_data[0].dot = [ <div><a className="ifont icon-next"></a><a className="ifont icon-deletefill"></a></div> ];
+  })
+    renderDom( ele, cb)
+}
 
 var Index = React.createClass(index);
 function renderDom(ele, data, cb){
@@ -41,9 +97,9 @@ function renderDom(ele, data, cb){
         return;
 
     React.render(
-        <Index data={data} itemMethod={cb}/>,
+        <Index data={data}  itemDefaultMethod={bindIndex} itemMethod={cb}/>,
         element
     )
 }
 
-module.exports = renderDom;
+module.exports = getData;

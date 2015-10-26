@@ -70,8 +70,9 @@ var apiPath = {
         getmms: src+'user/getsmscode',
         orderins: src+'order/insert',
         mobilecode: src+'user/login',
-        useraddcar: src+'usercar/insert'
-
+        useraddcar: src+'usercar/insert',
+        mycarlist: src+'usercar/querybymobile',
+        mycar_del: src+'usercar/delete'
         // search: src+'api/search.html',    //搜索
         // region: src+'api/region/region-list.html', //地区
         //

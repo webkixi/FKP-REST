@@ -10,7 +10,9 @@ var apiPath = {
         queryallbrand: src+'queryallbrand',   //汽车品牌
         queryseries: src+'queryseries',   //汽车车系
         querycartype: src+'querycartype',   //汽车型号
-        useraddcar: src+'useraddcar'   //汽车型号
+        useraddcar: src+'useraddcar',   //汽车型号
+        mycarlist: src+'mycarlist',   //汽车型号
+        mycar_del: src+'mycar_del'   //汽车型号
         // region: '/region',
         // regist: '/account/regist',
         // check_code: '/common/check_code',//校验验证码

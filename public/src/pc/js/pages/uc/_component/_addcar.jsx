@@ -232,9 +232,10 @@ function checkValue(ele){
       }
 
       //SA.setter('_GLOBAL',{index: uuu})
-      console.log(uuu.form);
-      api.req('useraddcar',{type: 'insert', data:uuu.form},function(data){
-        SA.setter('_GLOBAL',{index: uuu})
+      var fff = libs.extend(uuu.form)
+      console.log(fff);
+      api.req('useraddcar',{type: 'insert', data:fff},function(data){
+        console.log(data)
         router.goback()
       })
     }
