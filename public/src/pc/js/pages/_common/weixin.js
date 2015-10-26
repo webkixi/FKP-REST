@@ -1,7 +1,15 @@
 var libs = require('libs/libs');
 var api = require('libs/api')
 
-SA.setter("_WEIXIN",{})
+
+function init_wx(){
+    var tmp = SA.getter('_WEIXIN');
+    if(!tmp || !tmp.user){
+        SA.setter("_WEIXIN",{})
+        getwx();
+    }
+}
+
 
 function getwx(){
     var url = libs.urlparse(location.href)
@@ -21,4 +29,4 @@ function getwx(){
     })
 }
 
-module.exports = getwx()
+module.exports = init_wx()

@@ -7,6 +7,7 @@ var api = require('libs/api');
 var store = require('mixins/store');
 
 var _form = {};
+var _wx_userinfo = SA.getter('_WEIXIN').data.user;
 var bodys = [];
 var heji = {
   count: 0,
@@ -341,6 +342,9 @@ var bindIndex = function(){
             _form.paych = _payway
             _form.totalprice = heji.totalprice
             _form.subscribetime = u.date.value + u.ampm.text
+
+            _form.userinfo = _wx_userinfo;
+
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(form, _form);
             console.log(fff);
