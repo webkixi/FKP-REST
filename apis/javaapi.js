@@ -176,29 +176,38 @@ function *getWxAccessToken(params){
     if(params.code){   //web access token
         if(!this.sess.wwx){
             yield getWAT();
-        }else{
-            var tmp = this.sess.wwx;
-            var now = date.getTime()/1000;
-            if(now-tmp.token_expire>6500){
-                yield getWAT();
-            }else{
-                tmp.token_renew = now-tmp.token_expire;
-            }
         }
+        // else{
+        //     var tmp = this.sess.wwx;
+        //     var now = date.getTime()/1000;
+        //     if(now-tmp.token_expire>6500){
+        //         yield getWAT();
+        //     }else{
+        //         tmp.token_renew = now-tmp.token_expire;
+        //     }
+        // }
 
     }else{   //normal access token
 
-        if(!this.sess.wx){
+        if(!this.sess.wx && !this.sess.wwx){
             yield getAT();
-        }else{
-            var tmp = this.sess.wx;
-            var now = date.getTime()/1000;
-            if(now-tmp.token_expire>6500){
-                yield getAT();
-            }else{
-                tmp.token_renew = now-tmp.token_expire;
-            }
         }
+        // else{
+        //     var tmp = this.sess.wx;
+        //     var now = date.getTime()/1000;
+        //     if(now-tmp.token_expire>6500){
+        //         yield getAT();
+        //     }else{
+        //         tmp.token_renew = now-tmp.token_expire;
+        //     }
+        // }
+    }
+    var tmp = this.sess.wx||this.sess.wwx;
+    var now = date.getTime()/1000;
+    if(now-tmp.token_expire>6500){
+        yield getAT();
+    }else{
+        tmp.token_renew = now-tmp.token_expire;
     }
 }
 
