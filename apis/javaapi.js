@@ -202,7 +202,10 @@ function *getWxAccessToken(params){
         //     }
         // }
     }
+    console.log(this.sess.wwx);
+    console.log(this.sess.wx);
     var tmp = this.sess.wx||this.sess.wwx;
+    console.log(tmp);
     var now = date.getTime()/1000;
     if(now-tmp.token_expire>6500){
         yield getAT();
