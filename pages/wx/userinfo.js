@@ -70,7 +70,7 @@ function *demoIndexData(oridata){
         var body = yield libs.$parse(this);
         if( body && body.code ){
             postdata = body;
-            console.log('pages/userinfo');
+            console.log('pages/wx/userinfo');
             console.log(postdata);
             var web_token = yield api.pullWxData.call(this, 'wx_web_token', postdata)
             console.log(web_token);

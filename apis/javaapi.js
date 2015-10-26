@@ -125,7 +125,6 @@ function *pullApiData(api, param, method){
 // 获取微信的token，并session
 // 微信token分为两种，一种是服务端的token, 一种是通过oauth2方式获取的token
 function *getWxAccessToken(params){
-    console.log('kkkkkkkkkkkkkkkk');
     console.log(this.sess);
 
     var the = this;
@@ -158,7 +157,6 @@ function *getWxAccessToken(params){
             code: params.code,
             grant_type: 'authorization_code'
         })
-        console.log(tmp[0].body);
 
         var tk = JSON.parse(tmp[0].body);
         var now = date.getTime()/1000;
@@ -175,46 +173,25 @@ function *getWxAccessToken(params){
 
 
     if(params.code){   //web access token
-        if(!this.sess.wwx){
+        if(!this.sess.wwx)
             yield getWAT();
-        }
-        // else{
-        //     var tmp = this.sess.wwx;
-        //     var now = date.getTime()/1000;
-        //     if(now-tmp.token_expire>6500){
-        //         yield getWAT();
-        //     }else{
-        //         tmp.token_renew = now-tmp.token_expire;
-        //     }
-        // }
-
     }else{   //normal access token
-        console.log('---kkkkkkkkkkk');
-        console.log(the.sess);
-        console.log(this.sess.wwx);
-        console.log(this.sess.wx);
-
-        if(!this.sess.wx && !this.sess.wwx){
-            // yield getAT();
-        }
-        // else{
-        //     var tmp = this.sess.wx;
-        //     var now = date.getTime()/1000;
-        //     if(now-tmp.token_expire>6500){
-        //         yield getAT();
-        //     }else{
-        //         tmp.token_renew = now-tmp.token_expire;
-        //     }
-        // }
+        if(!this.sess.wx && !this.sess.wwx)
+            // yield getAT();   暂时关闭
     }
-    // var tmp = this.sess.wx||this.sess.wwx;
-    // console.log(tmp);
-    // var now = date.getTime()/1000;
-    // if(now-tmp.token_expire>6500){
-    //     yield getAT();
-    // }else{
-    //     tmp.token_renew = now-tmp.token_expire;
-    // }
+    var tmp = this.sess.wx||this.sess.wwx;
+    console.log(tmp);
+    if(tmp){
+        var now = date.getTime()/1000;
+        if(now-tmp.token_expire>6500){
+            if( this.sess.wx)
+                yield getAT()
+            if( this.sess.wwx )
+                yield getWAT();
+        }else{
+            tmp.token_renew = now-tmp.token_expire;
+        }
+    }
 }
 
 function *pullWxData(api, param, method){
@@ -232,13 +209,10 @@ function *pullWxData(api, param, method){
         return {token: true};
     }else{
         if(api.indexOf('_web')===-1){
-            console.log('hhhhhhhh  no _web nnnnnnn');
             param.access_token = this.sess.wx.token;
         }
     }
     // console.log('weixin token after '+Math.ceil(-this.sess.wx.token_renew)+' second will renew');
-    // console.log(this.sess.wx.token);
-
 
     var url = apiPath.weixin[api];
     var query;
