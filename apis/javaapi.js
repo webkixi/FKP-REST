@@ -176,7 +176,7 @@ function *getWxAccessToken(params){
         if(!this.sess.wwx)
             yield getWAT();
     }else{   //normal access token
-        if(!this.sess.wx && !this.sess.wwx)
+        // if(!this.sess.wx && !this.sess.wwx)
             // yield getAT();   暂时关闭
     }
     var tmp = this.sess.wx||this.sess.wwx;
