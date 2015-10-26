@@ -125,6 +125,7 @@ function *pullApiData(api, param, method){
 // 获取微信的token，并session
 // 微信token分为两种，一种是服务端的token, 一种是通过oauth2方式获取的token
 function *getWxAccessToken(params){
+    console.log('kkkkkkkkkkkkkkkk');
 
     var the = this;
     var date = new Date();
