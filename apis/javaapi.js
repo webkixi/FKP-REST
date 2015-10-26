@@ -215,7 +215,7 @@ function *pullWxData(api, param, method){
         if(api.indexOf('_web')===-1)
             param.access_token = this.sess.wx.token;
     }
-    console.log('weixin token after '+Math.ceil(-this.sess.wx.token_renew)+' second will renew');
+    // console.log('weixin token after '+Math.ceil(-this.sess.wx.token_renew)+' second will renew');
     // console.log(this.sess.wx.token);
 
 

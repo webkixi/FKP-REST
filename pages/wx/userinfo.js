@@ -39,14 +39,13 @@ function *demoIndexData(oridata){
         //
         // };
 
-    // oridata = libs.$extend(true,oridata,dataSet);
-    return oridata;
+        // oridata = libs.$extend(true,oridata,dataSet);
+        return oridata;
     }
 
     if(mtd === 'POST'){
 
         var postdata = {}
-        console.log('aaaaaaaaaaa');
 
         function *dealWith(){
             if(_this_sess.wwx){
