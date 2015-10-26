@@ -188,8 +188,7 @@ function *getWxAccessToken(params){
         // }
 
     }else{   //normal access token
-        console.log(this.sess.wwx);
-        console.log(this.sess.wx);
+        console.log('---kkkkkkkkkkk');
 
         if(!this.sess.wx && !this.sess.wwx){
             // yield getAT();
