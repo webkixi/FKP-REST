@@ -157,6 +157,7 @@ function *getWxAccessToken(params){
             secret: config.weixin.appsecret,
             code: params.code
         })
+        console.log(tmp);
 
         var tk = JSON.parse(tmp[0].body);
         var now = date.getTime()/1000;
