@@ -189,6 +189,7 @@ function *getWxAccessToken(params){
 
     }else{   //normal access token
         console.log('---kkkkkkkkkkk');
+        console.log(this.sess);
         console.log(this.sess.wwx);
         console.log(this.sess.wx);
 
