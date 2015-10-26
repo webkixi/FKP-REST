@@ -33,6 +33,8 @@ var apiPath = {
         ,order: src+'order'
         ,mobilecode: src+'mobilecode'
         ,useraddcar: src+'useraddcar'
+        ,mycarlist: src+'mycarlist'
+        ,mycar_del: src+'mycar_del'
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=
