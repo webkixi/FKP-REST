@@ -149,7 +149,7 @@ function *getWxAccessToken(params){
 
     //web access token
     function *getWAT(){
-        console.log('uuuuuuuuuu get normal access token uuuuuuu');
+        console.log('uuuuuuuuuu get web access token uuuuuuu');
         var tmp = yield pullApiData('wx_web_token',{
             grant_type: 'authorization_code',
             appid: config.weixin.appid,
