@@ -46,12 +46,8 @@ function *demoIndexData(oridata){
 
         var postdata = {}
 
-        var body = yield libs.$parse(this);
-        if(body){
-            if(body.code)
-                postdata = body
-                var web_token = yield api.pullWxData.call(this, 'wx_web_token', postdata)
-
+        function dealWith(){
+            if(this.sess.wwx){
                 postdata={
                     access_token: this.sess.wwx.token,
                     openid: this.sess.wwx.openid,
@@ -63,10 +59,20 @@ function *demoIndexData(oridata){
                 libs.clog('从微信拉取用户信息')
                 console.log(web_userinfo);
                 return web_userinfo;
-        }else{
-            return {code: 1, message: '微信号没有绑定'}
+            }
+            else{
+                return {code: 1, message: '微信号没有绑定'}
+            }
         }
 
+        var body = yield libs.$parse(this);
+        if( body && body.code ){
+            postdata = body;
+            var web_token = yield api.pullWxData.call(this, 'wx_web_token', postdata)
+            dealWith()
+        }else{
+            dealWith();
+        }
 
         // var qd = qcjcdata[1].results[0];
         // var serviceData = yield api.pullApiData('service', postdata, 'post')

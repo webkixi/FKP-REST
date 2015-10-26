@@ -5,16 +5,20 @@ SA.setter("_WEIXIN",{})
 
 function getwx(){
     var url = libs.urlparse(location.href)
+    var postdata = {test: '123'}
     if(url.params.code && url.params.state){
         cd = url.params.code;
         st = url.params.state;
-        // api.wx()
-        api.wx('userinfo', {code: cd, state: st},function(data){
-            if(typeof data === 'string')
-                data = JSON.parse(data)            
-            SA.setter("_WEIXIN",{user: data})
-        })
+
+        postdata = {code: cd, state: st};
     }
+
+    // api.wx()
+    api.wx('userinfo', postdata, function(data){
+        if(typeof data === 'string')
+            data = JSON.parse(data)
+        SA.setter("_WEIXIN",{user: data})
+    })
 }
 
 module.exports = getwx()
