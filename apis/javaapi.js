@@ -188,6 +188,8 @@ function *getWxAccessToken(params){
         // }
 
     }else{   //normal access token
+        console.log(this.sess.wwx);
+        console.log(this.sess.wx);
 
         if(!this.sess.wx && !this.sess.wwx){
             yield getAT();
@@ -202,8 +204,6 @@ function *getWxAccessToken(params){
         //     }
         // }
     }
-    console.log(this.sess.wwx);
-    console.log(this.sess.wx);
     var tmp = this.sess.wx||this.sess.wwx;
     console.log(tmp);
     var now = date.getTime()/1000;
