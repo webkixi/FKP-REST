@@ -59,7 +59,7 @@ var aaa = function(){
     var abc = SA.getter('_WEIXIN').data.user;
     console.log(abc);
     if(abc)
-        alert('xx：'+abc.nickname)
+        alert('您好：'+abc.nickname)
 }
 
 var test = function(){
