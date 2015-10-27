@@ -11,6 +11,7 @@ var __ = libs.$lodash;
 var render;
 var region = require('./region');
 var mms = require('./mms')
+var pay = require('./payment')
 var config = require('../config');
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
@@ -112,16 +113,18 @@ function init(app,mapper,rend){
             if(param.cat === 'getservtime')
                 yield getServTime.call(this);
         else
-            if(param.cat === 'upload'){
+            if(param.cat === 'upload')
                 yield uploader.call(this);
-        }else
-            if(param.cat === 'captcha'){
+        else
+            if(param.cat === 'captcha')
                 yield captcha.call(this);
-        }else
+        else
             if(param.cat === 'weixin'){
-                console.log('aaaaaaaaaaa');
                 yield weixin.call(this,app);
-        }
+            }
+        else
+            if(param.cat === 'payment')
+                yield payment.call(this)
         else
             yield distribute.call(this,mapper)
     }
@@ -153,6 +156,12 @@ function *getMms(){
     libs.clog('获取短信接口');
     var msg = yield mms.getMms.call(this);
     yield returnJson.call(this,true,'getmms',msg);
+}
+
+function *payment(){
+    libs.clog('支付')
+    var rtn_charge = yield pay.ping.call(this);
+    // yield returnJson.call(this,true,'getmms',msg);
 }
 
 
