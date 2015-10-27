@@ -8,14 +8,13 @@ var store = require('mixins/store');
 
 var _form = {};
 var _wx_userinfo = SA.getter('_WEIXIN').data.user;
-console.log('uuuuddddddd');
 console.log(_wx_userinfo);
 var bodys = [];
 var heji = {
   count: 0,
   totalprice: 0
 };
-console.log(SA.getter('_GLOBAL').data);
+// console.log(SA.getter('_GLOBAL').data);
 var footer = SA.getter('_GLOBAL').data.index.footer;
 if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
   var a = footer.pop();
@@ -34,8 +33,6 @@ if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
     // heji.count+=item.o.count;
     heji.count++;
     heji.totalprice+=item.v;
-    console.log(item);
-    console.log(bodys);
     bodys.push({
       // body:[
       //   item.k,
@@ -167,7 +164,7 @@ var bindIndex = function(){
         $(this).click(function(){
 
         })
-    });
+    })
 
     //电话
     u.phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
@@ -206,7 +203,6 @@ var bindIndex = function(){
 
     // //城市
     u.city = new Select({}, 'city',function(){
-        // api.req('region', {parent_id: 430000}, function(data){
         var parents = [];
         api.req('region', function(data){
             if(data && data.code===1){
@@ -349,12 +345,19 @@ var bindIndex = function(){
 
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(form, _form);
-            console.log(fff);
+            // console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
+                if(data && data.code===1){
+                    payment(data.results)
+                }
             })
         }
     })
+
+    function payment(charge){
+        console.log(charge);
+    }
 }
 
 function checkValue(ele){
