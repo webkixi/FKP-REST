@@ -8,6 +8,8 @@ var store = require('mixins/store');
 
 var _form = {};
 var _wx_userinfo = SA.getter('_WEIXIN').data.user;
+console.log('uuuuddddddd');
+console.log(_wx_userinfo);
 var bodys = [];
 var heji = {
   count: 0,
