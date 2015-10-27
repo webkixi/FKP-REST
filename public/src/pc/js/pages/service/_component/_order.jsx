@@ -371,8 +371,8 @@ var bindIndex = function(){
         //         }
         //     ]
         // }
-
-        api.req('payment', charge[0], function(data){
+        console.log(charge);
+        api.req('payment', charge, function(data){
             alert(data.message);
         })
 
