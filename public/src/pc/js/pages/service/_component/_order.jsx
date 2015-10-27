@@ -349,14 +349,34 @@ var bindIndex = function(){
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
                 if(data && data.code===1){
-                    payment(data.results)
+                    payment(data.results[0])
                 }
             })
         }
     })
 
     function payment(charge){
-        console.log(charge);
+        // {
+        //     code: 1,
+        //     message: 'success',
+        //     results:[
+        //         {
+        //             orderid: 649,
+        //             orderno: 'y2015dsldfjdslf',
+        //             charge: [
+        //                 {
+        //                     kfdlsf
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // }
+
+        api.req('payment', charge[0], function(data){
+            alert(data.message);
+        })
+
+        // console.log(charge);
     }
 }
 
