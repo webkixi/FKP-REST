@@ -17,12 +17,11 @@ function *pingpp() {
 
     //更具传入参数，修正取值参数
     var body = yield libs.$parse(this);
+
     if(body){
         console.log('999999999999 for payment 999999999');
         console.log(body);
-        if(body.mobile){
-            postdata.content[0].mobile = body.mobile;
-        }
+        console.log('hgggggggg');
     }
 
     // var msg = yield api.pullApiData('getmms', postdata, 'post');
