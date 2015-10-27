@@ -4,7 +4,7 @@ var api = require('../apis/javaapi');
 var rct = require('../modules/parseReact');
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/order_deladdr')
+    libs.wlog('pages/myorder_info')
     var dataSet = {};
     var infoCat =[];
     var mtd = this.method;
@@ -59,27 +59,18 @@ function *demoIndexData(oridata){
         //   ]
         // }
         var body = yield libs.$parse(this);
-        console.log(body.usercarid);
-        console.log("bbbbbbbbbbbbbbbb");
         var postdata = {
             "common": {
-                "session": "222",
-                "uid": 12
+                "session": "12121212",
+                "uid": 1
             },
             "content": [{
-              "id": body.id
+              "orderid": body.orderid
             }]
+        }
+        postdata.content[0].orderid = parseInt(postdata.content[0].orderid)
 
-        }
-        if(body){
-            if(body.type){
-                if(body.type==='delete')
-                console.log(postdata);
-                    postdata.content[0] = body.data;
-            }
-        }
-        postdata.content[0].id = parseInt(postdata.content[0].id)
-        var orderdata = yield api.pullApiData('order_deladdr', postdata, 'post');
+        var orderdata = yield api.pullApiData('myorder_info', postdata, 'post');
         console.log(orderdata[1]);
 
         // var qcjc = libs.$extend(true, {}, postdata);

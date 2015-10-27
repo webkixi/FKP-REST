@@ -80,6 +80,7 @@ var bindIndex = function(){
         console.log(fff);
         api.req('mobilecode',{type: 'insert', data:fff},function(data){
           console.log(data);
+          router.goback()
         })
       }
     })

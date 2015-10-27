@@ -1,100 +1,18 @@
 var libs = require('libs/libs');
 var ItemMixin = require('mixins/item')
 var Mooc = require('modules/tabs/coupons');
+var api = require('pages/_common/api');
+var store = require('mixins/store');
+var router = require('libs/router').router
 
+var _coupons = [];
+var _order_form = {};
 
-/* ============
-  仿幕克网数据
-============= */
 var tab_mc_data = [
     /*{attr: 'first', title: '方向'},*/
     {id: 'unlimit', attr: 'first', title: '全部'},
     '未完成',
     '已完成'
-]
-var coupons = [
-    // 未使用
-    [
-        {
-            title: '￥100',
-            body:[
-                '小保养'
-            ],
-            footer:[
-                {
-                    k: '单号:',
-                    v: '3534568'
-                },
-                {
-                    k: '时间:',
-                    v: '2015/11/23'
-                }
-            ],
-            dot:[
-                <i>{'马上使用'}</i>
-            ]
-        },
-        {
-            title: '￥1000',
-            body:[
-                '小保养'
-            ],
-            footer:[
-                {
-                    k: '单号:',
-                    v: '3534568'
-                },
-                {
-                    k: '时间:',
-                    v: '2015/11/23'
-                }
-            ],
-            dot:[
-                <i>{'马上使用'}</i>
-            ]
-        }
-    ],
-    // 已使用
-    [
-        {
-            title: '￥2000',
-            body:[
-                '小保养'
-            ],
-            footer:[
-                {
-                    k: '单号:',
-                    v: '3534568'
-                },
-                {
-                    k: '时间:',
-                    v: '2015/11/23'
-                }
-            ],
-            dot:[
-                <i>{'已完成'}</i>
-            ]
-        },
-        {
-           title: '￥1000',
-            body:[
-                '小保养'
-            ],
-            footer:[
-                {
-                    k: '单号:',
-                    v: '3534568'
-                },
-                {
-                    k: '时间:',
-                    v: '2015/11/23'
-                }
-            ],
-            dot:[
-                <i>{'已完成'}</i>
-            ]
-        }
-    ]
 ]
 
 
@@ -112,13 +30,172 @@ var index = {
     }
 }
 
+function bcd(){
+  $(this).click(function(){
+    _order_form.orderids = $(this).find(".hheader a").html();
+    _order_form.status = $(this).find(".hbody span").html();
+    SA.setter('_GLOBAL',{data: _order_form} );
+    router('carfinished')
+  })
+}
+
 function insertContent(){
     //仿幕课网
     // Mooc( '导航数据', '分类详细数据', '热点数据', '页面容器id' )
-    Mooc( tab_mc_data, coupons, "content", {
-        navItemClass: 'wid-4'
+    Mooc( tab_mc_data, _coupons, "content", {
+        navItemClass: 'wid-4',
+        listcb: bcd
     } )
 }
+
+function getData(ele, param, cb){
+  var mobile = { mobile: '13576757688'}
+  api.req('order_list',mobile,function(data){
+    if(data.code && data.code===1){
+      orderlistdata(data.results, ele, cb)
+    }
+  })
+}
+var order_data_list_D0 =[];
+var order_data_list_D1 =[];
+var order_data_list_D2 =[];
+var order_data_list_D3 =[];
+function orderlistdata(orderdata,  ele, cb){
+  var order_data_list = [];
+  orderdata.map(function(item,i){
+    //转时间戳
+    var a = new Date(parseInt(item.createtime));
+    var ordertime = a.getFullYear() +'-'+ a.getDate() +'-'+ a.getMonth();
+    //截取订单号
+    var orderno = 'Y'+item.orderno.substring(3,16);
+    //状态赋值
+    var stateVal = item.status;
+    if(stateVal == '0'){
+      stateVal = '未完成';
+      order_data_list =
+      [
+        {
+            title: item.orderid,
+            body:[
+                {
+                  k: item.servicetypename,
+                  v: stateVal
+                }
+            ],
+            footer:[
+
+                {
+                    k: '单号:',
+                    v: orderno
+                },
+                {
+                    k: '时间:',
+                    v: ordertime
+                }
+            ]
+            // dot:[
+            //     <i>{'马上使用'}</i>
+            // ]
+        }
+      ]
+      order_data_list_D0.push(order_data_list)
+    }
+    else if(stateVal == 1){
+      stateVal = '已完成';
+      order_data_list =
+      [
+        {
+            title: item.orderid,
+            body:[
+                {
+                  k: item.servicetypename,
+                  v: stateVal
+                }
+            ],
+            footer:[
+
+                {
+                    k: '单号:',
+                    v: orderno
+                },
+                {
+                    k: '时间:',
+                    v: ordertime
+                }
+            ]
+            // dot:[
+            //     <i>{'马上使用'}</i>
+            // ]
+        }
+      ]
+      order_data_list_D1.push(order_data_list)
+    }
+    else if(stateVal == 2){
+      stateVal = '退款中';
+      order_data_list =
+      [
+        {
+            title: item.orderid,
+            body:[
+                {
+                  k: item.servicetypename,
+                  v: stateVal
+                }
+            ],
+            footer:[
+
+                {
+                    k: '单号:',
+                    v: orderno
+                },
+                {
+                    k: '时间:',
+                    v: ordertime
+                }
+            ]
+            // dot:[
+            //     <i>{'马上使用'}</i>
+            // ]
+        }
+      ]
+      order_data_list_D2.push(order_data_list)
+    }
+    else if(stateVal == 3){
+      stateVal = '已退款';
+      order_data_list =
+      [
+        {
+            title: item.orderid,
+            body:[
+                {
+                  k: item.servicetypename,
+                  v: stateVal
+                }
+            ],
+            footer:[
+
+                {
+                    k: '单号:',
+                    v: orderno
+                },
+                {
+                    k: '时间:',
+                    v: ordertime
+                }
+            ]
+            // dot:[
+            //     <i>{'马上使用'}</i>
+            // ]
+        }
+      ]
+      order_data_list_D3.push(order_data_list)
+    }
+  })
+  // _coupons = libs.extend(xxx,xxx1,xxx2,xxx3)
+  _coupons = [order_data_list_D1, order_data_list_D1, order_data_list_D2, order_data_list_D3]
+  renderDom( ele, cb)
+}
+
 
 var Index = React.createClass(index);
 function renderDom(ele, data, cb){
@@ -138,4 +215,4 @@ function renderDom(ele, data, cb){
     )
 }
 
-module.exports = renderDom;
+module.exports = getData;

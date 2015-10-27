@@ -31,6 +31,7 @@ var apiPath = {
         ,getmms: src+'getmms'
         ,getservtime: src+'getservtime'
         ,order: src+'order'
+        ,order_list: src+'order_list'
         ,mobilecode: src+'mobilecode'
         ,useraddcar: src+'useraddcar'
         ,mycarlist: src+'mycarlist'
