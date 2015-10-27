@@ -33,6 +33,7 @@ function likeImooc( navData,listData, ele, opts ){
         })
     }
 
+
     a_listClass = opts && opts.navListClass ? opts.navListClass : 'coupons-nav';
     a_itemClass = opts && opts.navItemClass ? opts.navItemClass : '';
 
@@ -40,7 +41,7 @@ function likeImooc( navData,listData, ele, opts ){
     render(
         <div>
             <Tabswitch data={navData} listClass={a_listClass} itemClass={a_itemClass} itemDefaultMethod={tabItemDefaultMethod}>
-                <Uls data={listData} listClass={'coupons_list like_app_list'} itemView={Pt}/>
+                <Uls data={listData} listClass={'coupons_list like_app_list'} itemMethod={opts.listcb}  itemView={Pt}/>
             </Tabswitch>
         </div>
         ,document.getElementById(ele)

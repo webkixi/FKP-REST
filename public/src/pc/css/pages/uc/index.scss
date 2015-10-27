@@ -70,7 +70,18 @@ body{
 			p{
 				margin-top: 0.7rem;
 				em, span{
+					display: block;
 					font-size: 0.7rem;
+					color: #000;
+					font-weight: normal;
+				}
+				span{
+					font-size: 0.5rem;
+				  border: 1px solid #ff7800;
+				  padding: 0.1rem 0.2rem 0.1rem 0.3rem;
+				  width: 16%;
+				  margin-left: 0.1rem;
+				  color: #ff7800;
 				}
 			}
 			p:first-child{
@@ -89,9 +100,45 @@ body{
 				margin-bottom: 1.35rem;
 			}
 		}
+		&.item1{
+			.hbody{
+				p{
+					span{
+						color: #2ec1ae;
+					}
+				}
+			}
+		}
 	}
 }
 
+.order_details{
+	.inner{
+		font-size: 0;
+		width: 96%;
+		margin: auto;
+	}
+	.hheader{
+		font-size: 0.7rem;
+		display: inline-block;
+	}
+	.hbody{
+		font-size: 0.7rem;
+		display: inline-block;
+		margin-left: 0.5rem;
+		p{
+			em{
+				font-style: normal;
+			}
+			span{
+				margin-left: 6rem;
+			}
+		}
+	}
+	.dot{
+		width: 96%;
+	}
+}
 
 .remrow{
 	background-color: #fff;
