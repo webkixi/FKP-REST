@@ -92,7 +92,7 @@ function *demoIndexData(oridata){
 
         var orderdata = yield api.pullApiData('orderins', postdata, 'post');
         console.log(orderdata[1]);
-
+        return orderdata[1]
         // var qcjc = libs.$extend(true, {}, postdata);
         // qcjc.content[0].ServiceTypeNo = 'FW0003';
         //
@@ -103,7 +103,7 @@ function *demoIndexData(oridata){
         //
         //
         // return serviceData[1];
-        return oridata;
+        // return oridata;
     }
 
 
