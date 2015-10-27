@@ -4,7 +4,7 @@ var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var api = require('libs/api');
-var pingpp = require('../../_common/pingpp')
+require('../../_common/pingpp')
 
 var _form = {};
 var _wx_userinfo = SA.getter('_WEIXIN').data.user;
