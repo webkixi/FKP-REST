@@ -8,33 +8,20 @@ var apiPath = {
         service: src+'service',   //小保养
         parts: src+'parts',   //小保养
         queryallbrand: src+'queryallbrand'   //汽车品牌
-        // region: '/region',
-        // regist: '/account/regist',
-        // check_code: '/common/check_code',//校验验证码
-        // user: src+'checkUserStatus.html',
-        // mall_attr: '/mall/api_list_attr',
-        // mall_exhibition: '/mall/list',
-        // goods_attr: '/common/goods_attr',
-        // submitOrder: '/mall/item_order.html',//提交订单
-        // login: '/account/login',
-        // forget: '/account/forget',
-        // account_goods_list: '/goods/list.html',//会员中心，商品列表
-        // account_order_list: '/order/list.html',//会员中心，订单列表
-        // updateAccount: '/account/myaccount',
-        // updateAccountBase: '/account/myaccount_base',
-        // updateAccountAuth: '/account/myaccount_auth',
-        // firmDetailView: '/firm/view',
-        // firmDetailSave: '/firm/edit',
-        // goods_edit: '/goods/edit',
-        // goods_add: '/goods/add'
-        ,region: src+'region'
-        ,getmms: src+'getmms'
-        ,getservtime: src+'getservtime'
-        ,order: src+'order'
-        ,mobilecode: src+'mobilecode'
-        ,useraddcar: src+'useraddcar'
-        ,mycarlist: src+'mycarlist'
-        ,mycar_del: src+'mycar_del'
+
+
+        ,region: src+'region'   //获取地区信息
+        ,getmms: src+'getmms'   //获取短信验证码
+        ,getservtime: src+'getservtime' //获取服务器时间
+
+        ,order: src+'order' //提交订单
+        ,payment: src+'parment' //支付
+
+        ,mobilecode: src+'mobilecode'   //注册
+
+        ,useraddcar: src+'useraddcar'   //添加车辆
+        ,mycarlist: src+'mycarlist'     //我的车列表
+        ,mycar_del: src+'mycar_del'     //删除车辆
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=
@@ -78,29 +65,6 @@ function wx( api, param, cb ){
         }, "json")
     }
 }
-
-function weixin( api, param, cb ){
-
-    this.cb = this.cb || cb || undefined;
-    this.data;
-
-    var url = apiPath.weixin[api];
-    if(url){
-        $.post( url, param, function( body, status ){
-            if( status === 'success' ) {
-                this.data = body;
-                if(this.cb)
-                    this.cb( body );
-            }
-        }, "json")
-    }
-    return this;
-}
-
-weixin.prototype.then = function(cb){
-    this.cb = cb;
-}
-
 
 module.exports = {
 	apiPath: apiPath,
