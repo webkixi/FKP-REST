@@ -4,7 +4,7 @@ var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var api = require('libs/api');
-var store = require('mixins/store');
+var pingpp = require('../../_common/pingpp')
 
 var _form = {};
 var _wx_userinfo = SA.getter('_WEIXIN').data.user;
@@ -356,27 +356,56 @@ var bindIndex = function(){
     })
 
     function payment(charge){
-        // {
-        //     code: 1,
-        //     message: 'success',
-        //     results:[
-        //         {
-        //             orderid: 649,
-        //             orderno: 'y2015dsldfjdslf',
-        //             charge: [
-        //                 {
-        //                     kfdlsf
-        //                 }
-        //             ]
-        //         }
-        //     ]
-        // }
         console.log(charge);
-        api.req('payment', charge, function(data){
-            alert(data.message);
-        })
+        pingpp.createPayment(charge.charge, function(result, err) {
+            if (result=="success") {
+                alert('ok')
+                // payment succeed
+            } else {
+                console.log(result+" "+err.msg+" "+err.extra);
+            }
+        });
 
-        // console.log(charge);
+        //node的方式
+        // api.req('payment', charge, function(data){
+        //     alert(data.message);
+        // })
+
+        //从go拿到的数据结构
+  //       {orderid: '658',
+  // orderno: 'Y20151027200427000816',
+  // charge:
+  //  { id: 'ch_9yvPGKLinfv9KG0W9Gq9OyHK',
+  //    object: 'charge',
+  //    created: '1445947467',
+  //    livemode: 'false',
+  //    paid: 'false',
+  //    refunded: 'false',
+  //    app: 'app_T8C8mH1CqHK44yX5',
+  //    channel: 'wx_pub',
+  //    order_no: 'Y20151027200427000816',
+  //    client_ip: '127.0.0.1',
+  //    amount: '1',
+  //    amount_settle: '0',
+  //    currency: 'cny',
+  //    subject: 'Car Subject',
+  //    body: 'Car Body',
+  //    extra: { open_id: 'o07NUs250UkhoK8Ks6bZAZK7Hkls' },
+  //    time_paid: '0',
+  //    time_expire: '1445954667',
+  //    time_settle: '0',
+  //    transaction_no: '',
+  //    refunds:
+  //     { object: 'list',
+  //       has_more: 'false',
+  //       url: '/v1/charges/ch_9yvPGKLinfv9KG0W9Gq9OyHK/refunds' },
+  //    amount_refunded: '0',
+  //    failure_code: '',
+  //    failure_msg: '',
+  //    credential: { object: 'credential', wx_pub: [Object] },
+  //    description: '' }
+  //   }
+
     }
 }
 

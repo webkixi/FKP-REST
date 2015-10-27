@@ -18,16 +18,12 @@ function *pingpp() {
 
     //更具传入参数，修正取值参数
     var body = yield libs.$parse(this);
-    console.log('8888888888888');
-    console.log(body);
-
     if(body){
-        // console.log('999999999999 for payment 999999999');
-        // console.log(body);
-        // console.log('hgggggggg');
+        console.log('999999999999 for payment 999999999');
+        console.log(body);
+        // var charge = yield api.pullApiData('getmms', postdata, 'post');
     }
 
-    // var msg = yield api.pullApiData('getmms', postdata, 'post');
     // console.log(address[1]);
     // return msg[1];
     return postdata
