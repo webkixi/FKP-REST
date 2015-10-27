@@ -82,7 +82,10 @@ function *demoIndexData(oridata){
         postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
 
         console.log(postdata);
+        console.log('userinfo----------');
+        console.log(postdata.content[0].userinfo);
         console.log(postdata.content[0].orderdetail);
+
 
 
 
