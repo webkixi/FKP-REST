@@ -5,7 +5,7 @@ var List = require('widgets/listView/list')
 var api = require('libs/api');
 
 
-
+var _wx_userinfo = SA.getter('_WEIXIN').data.user;
 
 var index = {
     mixins: [ItemMixin],
@@ -76,6 +76,7 @@ var bindIndex = function(){
       if(stat){
         _form.mobile = u.phone.value;
         _form.code = u.verify.value;
+        _form.userinfo = _wx_userinfo;
         var fff = libs.extend(_form);
         console.log(fff);
         api.req('mobilecode',{type: 'insert', data:fff},function(data){
