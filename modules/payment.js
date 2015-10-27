@@ -14,6 +14,7 @@ function *pingpp() {
 
     //取值参数
     // var postdata = {test: '123'}
+    var postdata = {}
 
     //更具传入参数，修正取值参数
     var body = yield libs.$parse(this);
