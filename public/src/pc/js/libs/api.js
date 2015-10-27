@@ -15,7 +15,7 @@ var apiPath = {
         ,getservtime: src+'getservtime' //获取服务器时间
 
         ,order: src+'order' //提交订单
-        ,payment: src+'parment' //支付
+        ,payment: src+'payment' //支付
 
         ,mobilecode: src+'mobilecode'   //注册
 
