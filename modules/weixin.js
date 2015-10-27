@@ -5,7 +5,6 @@ var libs = require('../libs/libs')
 var config = require('../config');
 
 var wechat = require('co-wechat')
-//https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxc9edcce4f4d915e6&secret=926ba5478ce3f06ed153d294b1b22030
 
 function weixin(){
     return wechat(config.weixin).middleware(function *() {
