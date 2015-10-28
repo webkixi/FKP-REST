@@ -30,8 +30,6 @@ function *demoIndexData(oridata){
         }
 
         var body = yield libs.$parse(this);
-        console.log('999999999 for login body 9999999999');
-        console.log(body);
         if(body){
             if(body.mobile)
                 postdata.content[0].mobile = body.mobile;
@@ -42,22 +40,12 @@ function *demoIndexData(oridata){
             }
 
             var logindata = yield api.pullApiData('login', postdata, 'post')
-            console.log('ooooooooo for openid user ooooooooo');
-            console.log(logindata[1]);
-
-            return oridata;
+            // console.log('ooooooooo for openid user ooooooooo');
+            // console.log(logindata[1]);
+            if (logindata)
+                return logindata[1];
+                
         }
-
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // var serviceData = yield api.pullApiData('service', postdata, 'post')
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
     }
 
 
