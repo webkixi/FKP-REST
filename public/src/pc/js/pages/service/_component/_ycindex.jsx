@@ -19,8 +19,8 @@ var _PAGE={
     totalprice: 0
 };
 
-var _l_user  = SA.getter('_LOCAL_USER').data;    //登陆用户获取的信息
-console.log(_l_user);
+var _l_user;  //定义本地用户信息，非微信用户
+
 
 //弹窗中的item点击事件
 function popItemMethod(){
@@ -249,7 +249,7 @@ var bindIndex = function(){
 
         //car form
         _l_user
-        ? carData = SA.getter('_GLOBAL').data.form
+        ? carData = SA.getter('_GLOBAL').data.index.form
         : _l_user.usercar[0];
         form = libs.extend(carData, _form)
 
@@ -265,7 +265,19 @@ var bindIndex = function(){
 var Index = React.createClass(index)
 
 function getData(ele, param, cb){
-    if(!_l_user){
+    var index = SA.getter('_GLOBAL').data.index;
+    var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+    if(_l_data){
+        _l_user = _l_data.data;
+        console.log(_l_user);
+    }
+    if(!_l_user && !index){
+        // setTimeout(
+        //     function(){
+        //         router('addcar');
+        //     }
+        //     ,1000
+        // )
         router('addcar');
     }else{
         var query = param||{type: 'xby'};

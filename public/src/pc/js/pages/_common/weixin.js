@@ -50,7 +50,7 @@ function init_wx(){
     // SA.setter("_LOCAL_USER", tes_data.results[0]);
     // SA.setter("_WEIXIN", {user: test_wx_data})
 
-    var tmp = SA.getter('_WEIXIN').data;
+    var tmp = SA.getter('_WEIXIN');
     if(!tmp || !tmp.user){
         SA.setter("_WEIXIN",{})
         getwx();

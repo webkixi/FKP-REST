@@ -14,9 +14,14 @@ var heji = {
   totalprice: 0
 };
 var _wx_userinfo = SA.getter('_WEIXIN').data.user;
-var _l_user  = SA.getter('_LOCAL_USER').data;    //登陆用户获取的信息
 console.log(_wx_userinfo);
-console.log(_l_user);
+
+var _l_user;
+var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+if(_l_data){
+    _l_uesr = _l_data.data;
+    console.log(_l_user);
+}
 
 var footer = SA.getter('_GLOBAL').data.index.footer;
 if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
@@ -106,6 +111,14 @@ var index = {
                     </div>
                 </div>
 
+                <div className="layout">
+                    <label>预约时间</label>
+                    <div className="box">
+                        <div id="date"></div>
+                        <div id="ampm"></div>
+                    </div>
+                </div>
+
             </div>
         }
         else{
@@ -172,7 +185,6 @@ var bindIndex = function(){
     var u = {};
 
     if(!_l_user){
-
 
         //电话
         u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
