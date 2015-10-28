@@ -41,6 +41,8 @@ function dealWith_Data_Brand(){
     var nav = [];
     var resaults = []
     var rtnDom;
+    _car.series.empty();
+    _car.model.empty();
     api.req('queryallbrand',{}, function(data){
         if(data.code && data.code===1){
           console.log(data);
@@ -84,6 +86,7 @@ function dealWith_Data_Series(){
     var results = []
     var rtnDom;
     var nav = [];
+    _car.model.empty();
     pn = { carbrand: $("#brand").find("input").val()}
     api.req('queryseries',pn, function(data){
       if(data.code && data.code===1){

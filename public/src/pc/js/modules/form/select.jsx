@@ -16,11 +16,21 @@ function select(data, ele, cb){
     this.ipt;
     var _this = this;
 
+
+
     pop({})
     $(".pop_bg").click(function(){
       SA.setter('Pop',{data:{display:'none'}})
     })
 
+    this.empty = function(){
+        var input = $(_this.ipt).find('input')
+        input[0].value = '';
+        _this.value = ''
+        _this.text = ''
+        _this.stat = false;
+        $(_this.ipt).find('span').text('')
+    }
 
     var close = true;
     if(data.popclose===false) close = data.popclose;

@@ -27,6 +27,14 @@ function itemMixin(){
         },
         componentDidMount: function() {
             var that = this.getDOMNode();  //React.findDOMNode(this) // var box = React.findDOMNode(this.refs.popbox);
+
+            if(this.props.itemDefaultMethod){
+    			var dMtd = this.props.itemDefaultMethod;
+    			if(typeof dMtd==='function'){
+    				dMtd.call(that);
+    			}
+    		}
+
     		if(this.props.itemMethod){
     			var mtd = this.props.itemMethod;
     			if(typeof mtd==='function'){
@@ -34,12 +42,6 @@ function itemMixin(){
     			}
     		}
 
-    		if(this.props.itemDefaultMethod){
-    			var dMtd = this.props.itemDefaultMethod;
-    			if(typeof dMtd==='function'){
-    				dMtd.call(that);
-    			}
-    		}
         }
     }
 }
