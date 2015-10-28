@@ -1,5 +1,5 @@
 var libs = require('libs/libs')
-var wx = require('../_common/weixin')
+// var wx = require('../_common/weixin')
 var router = require('libs/router').router
 var route = require('libs/router').route
 SA.setter('_GLOBAL',{data:{} })
@@ -16,7 +16,7 @@ route({
     'addcar': addcar
 });
 
-require.ensure([], function() {
+require(['../_common/weixin'], function(wx) {
     var url = libs.urlparse(location.href)
     if(!url.hash){
         router('index')
