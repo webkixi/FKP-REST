@@ -99,6 +99,7 @@ function orderlistdata(orderdata,  ele, cb){
         }
       ]
       order_data_list_D0.push(order_data_list)
+      console.log(order_data_list_D0);
     }
     else if(stateVal == 1){
       stateVal = '已完成';
@@ -192,7 +193,7 @@ function orderlistdata(orderdata,  ele, cb){
     }
   })
   // _coupons = libs.extend(xxx,xxx1,xxx2,xxx3)
-  _coupons = [order_data_list_D1, order_data_list_D1, order_data_list_D2, order_data_list_D3]
+  _coupons = [order_data_list_D0, order_data_list_D1, order_data_list_D2, order_data_list_D3]
   renderDom( ele, cb)
 }
 
