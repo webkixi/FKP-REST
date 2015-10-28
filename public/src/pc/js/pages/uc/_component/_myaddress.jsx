@@ -33,7 +33,11 @@ function getData(ele, param, cb){
   var mobile = { mobile: '13424804857'};
   api.req('order_addr',mobile,function(data){
     console.log(data);
-    myaddressDate(data.results, ele, cb)
+    if(data.results)
+      myaddressDate(data.results, ele, cb)
+    else
+      console.log("ss");
+      renderDom( ele, cb)
   })
 }
 function myaddressDate(myaddrDate,ele, cb){
@@ -63,8 +67,9 @@ var index = {
     mixins: [ItemMixin],
     render: function () {
         var fdiv;
-        if(myaddress.footer.length)
-            fdiv = <FDiv data={myaddress} itemClass={'noclass'} itemDefaultMethod={abc}/>
+        if(myaddress)
+          div = <FDiv data={myaddress} itemClass={'noclass'} itemDefaultMethod={abc}/>
+
         return(
             <div className={'index myaddress'}>
                 <header>
@@ -83,17 +88,17 @@ var index = {
     }
 }
 
-// function abc(){
-//   $(this).find('.icon-deletefill').click(function(){
-//     var myaddressId = $(this).attr("data-id");
-//     myaddress.splice(myaddressId,1)
-//     var id = { id : myaddressId}
-//     api.req('order_deladdr',{type: 'delete',data: id},function(data){
-//       SA.setter('Index',{data: myaddress} );
-//       //router('mycar')
-//     })
-//   })
-// }
+function abc(){
+  $(this).find('.icon-deletefill').click(function(){
+    var myaddressId = $(this).attr("data-id");
+    myaddress.splice(myaddressId,1)
+    var id = { id : myaddressId}
+    api.req('order_deladdr',{type: 'delete',data: id},function(data){
+      SA.setter('Index',{data: myaddress} );
+      //router('mycar')
+    })
+  })
+}
 
 var bindIndex = function(){
   $("#now").click(function(){

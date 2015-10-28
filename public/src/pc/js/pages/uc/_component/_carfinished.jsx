@@ -8,7 +8,6 @@ var router = require('libs/router').router
 var _order_Date_act = [];
 
 var order_status = SA.getter('_GLOBAL').data.data.status;
-console.log(order_status);
 function getData(ele, param, cb){
   var order_id = SA.getter('_GLOBAL').data.data.orderids;
   var orderid = { orderid : order_id}
@@ -20,6 +19,18 @@ var order_data;
 function orderInfodata(orderInfo, ele, cb){
   console.log(orderInfo);
   var orderInfo_L = [];
+  if(orderInfo[0].paytype == 1){
+    orderInfo[0].paytype = '在线支付'
+  }
+  else if(orderInfo[0].paytype == 0){
+    orderInfo[0].paytype = '线下支付'
+  }
+  if(orderInfo[0].servicemode == 1){
+    orderInfo[0].servicemode = '上门保养'
+  }
+  else if(orderInfo[0].servicemode == 0){
+    orderInfo[0].servicemode = '到店保养'
+  }
    order_data =
   {
      title: "headerpic",
@@ -29,7 +40,7 @@ function orderInfodata(orderInfo, ele, cb){
              k: orderInfo[0].username,
              v: orderInfo[0].mobile
          },
-         "广州市白云区京溪南方医院地铁"
+         orderInfo[0].useraddr
      ],
      footer: [
          {
@@ -38,11 +49,11 @@ function orderInfodata(orderInfo, ele, cb){
          },
          {
              k: "支付方式",
-             v: "在线支付"
+             v: orderInfo[0].paytype
          },
          {
              k: "服务方式",
-             v: "上门保养"
+             v: orderInfo[0].servicemode
          }
          // {
          //     k: "我的服务员",
