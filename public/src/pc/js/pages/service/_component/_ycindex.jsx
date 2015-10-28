@@ -264,12 +264,22 @@ var bindIndex = function(){
 
 var Index = React.createClass(index)
 
+
+function init(ele, param, cb){
+    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+}
+
 function getData(ele, param, cb){
+
     var index = SA.getter('_GLOBAL').data.index;
     var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
     if(_l_data){
         _l_user = _l_data.data;
         console.log(_l_user);
+
+        if(_l_user.error){
+            _l_user = false;
+        }
     }
     if(!_l_user && !index){
         // setTimeout(
@@ -395,4 +405,4 @@ function renderDom(ele, cb){
     )
 }
 
-module.exports = getData;
+module.exports = init;

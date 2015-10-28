@@ -21,6 +21,10 @@ var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
 if(_l_data){
     _l_uesr = _l_data.data;
     console.log(_l_user);
+
+    if(_l_user.error){
+        _l_user = false;
+    }
 }
 
 var footer = SA.getter('_GLOBAL').data.index.footer;

@@ -1,5 +1,7 @@
 var libs = require('libs/libs');
 var api = require('libs/api')
+var router = require('libs/router').router
+var route = require('libs/router').route
 
 
 var tes_data = {
@@ -50,13 +52,9 @@ function init_wx(cb){
     // SA.setter("_LOCAL_USER", tes_data.results[0]);
     // SA.setter("_WEIXIN", {user: test_wx_data})
 
-    var tmp = SA.getter('_WEIXIN');
-    if(!tmp || !tmp.user){
-        SA.setter("_WEIXIN",{})
-        getwx(cb);
-    }else{
-        cb();
-    }
+    SA.setter("_LOCAL_USER",{error: "-1"});
+    SA.setter("_WEIXIN",{})
+    getwx();
 }
 
 
@@ -91,11 +89,16 @@ function getwx(cb){
                         var local_user_info = record.results[0];
                         SA.setter("_LOCAL_USER", local_user_info);
                         //{ uid: 18, nick: '天天修改', openid: 'o07NUs250UkhoK8Ks6bZAZK7Hkls', gender: '1', mobile: '13576757688', addr: [Object], usercar: [Object] }
+                    }else{
+                        SA.setter("_LOCAL_USER", {error: "-2"});
                     }
                 }
             })
-            callback()
+            if(callback)
+                callback()
         }
+        else
+            SA.setter("_LOCAL_USER",{error: "-1"});
     }
 }
 

@@ -1,5 +1,5 @@
 var libs = require('libs/libs')
-var wx = require('../_common/weixin')(init)
+var wx = require('../_common/weixin')()
 var router = require('libs/router').router
 var route = require('libs/router').route
 SA.setter('_GLOBAL',{data:{} })
@@ -25,6 +25,8 @@ function init(){
         router(hash)
     }
 }
+
+init()
 
 // require(['../_common/weixin'], function(wx) {
 //     var url = libs.urlparse(location.href)

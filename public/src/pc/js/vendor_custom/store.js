@@ -19,7 +19,12 @@
                 if( this.sact.length ){
                     var acts = this.sact;
                     acts.map(function( fun ){
-                        fun( data );
+                        if(getObjType(fun.args) === 'Array'){
+                            fun.args.push( data )
+                            fun.apply(null, fun.args)
+                        }else
+                            fun( data );
+
                     })
                 }
             }
@@ -64,8 +69,12 @@
             }
 
             if( dataOrAct && dataOrAct!=="" ){
-                if ( getObjType(dataOrAct) === 'Function' )
+                if ( getObjType(dataOrAct) === 'Function' ){
+                    if(getObjType(fun) === 'Array' ){
+                        dataOrAct.args = fun;
+                    }
                     save[name].acter(dataOrAct);
+                }
                 else{
                     if( getObjType(dataOrAct) === 'Object' )
                         save[name].dataer(dataOrAct);
