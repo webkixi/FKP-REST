@@ -49,7 +49,7 @@ var bindIndex = function(){
     router('addcar')
   })
 }
-console.log(mycarlist_data);
+
 function getData(ele, param, cb){
   var mobile = { mobile: '18002278121'}
   api.req('mycarlist',mobile,function(data){

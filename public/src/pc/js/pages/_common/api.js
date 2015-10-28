@@ -11,8 +11,13 @@ var apiPath = {
         queryseries: src+'queryseries',   //汽车车系
         querycartype: src+'querycartype',   //汽车型号
         useraddcar: src+'useraddcar',   //汽车型号
+        order_addr: src+'order_addr',   //汽车型号
+        order_addaddr: src+'order_addaddr',   //汽车型号
+        order_deladdr: src+'order_deladdr',   //汽车型号
         mycarlist: src+'mycarlist',   //汽车型号
-        mycar_del: src+'mycar_del'   //汽车型号
+        mycar_del: src+'mycar_del',   //汽车型号
+        myorder_info: src+'myorder_info',   //订单列表
+        order_list: src+'order_list'   //订单列表
         // region: '/region',
         // regist: '/account/regist',
         // check_code: '/common/check_code',//校验验证码
@@ -34,7 +39,6 @@ var apiPath = {
         // goods_add: '/goods/add'
     }
 }
-
 function req( api, param, cb ){
     var url = apiPath.dirs[api];
     if(url){

@@ -69,8 +69,13 @@ var apiPath = {
         region: src+'region/query',
         getmms: src+'user/getsmscode',
         orderins: src+'order/insert',
+        order_list: src+'order/query',
+        myorder_info: src+'order/info',
         mobilecode: src+'user/login',
         useraddcar: src+'usercar/insert',
+        order_addr: src+'addr/query',
+        order_deladdr: src+'addr/delete',
+        order_addaddr: src+'addr/insert',
         mycarlist: src+'usercar/querybymobile',
         mycar_del: src+'usercar/delete'
         // search: src+'api/search.html',    //搜索
