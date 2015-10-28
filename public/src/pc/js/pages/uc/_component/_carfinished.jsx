@@ -18,6 +18,7 @@ function getData(ele, param, cb){
 }
 var order_data;
 function orderInfodata(orderInfo, ele, cb){
+  console.log(orderInfo);
   var orderInfo_L = [];
    order_data =
   {
@@ -25,8 +26,8 @@ function orderInfodata(orderInfo, ele, cb){
      img: "/images/demo/aclass/b2.jpg",
      body:[
          {
-             k: "赵云非",
-             v: "18617323269"
+             k: orderInfo[0].username,
+             v: orderInfo[0].mobile
          },
          "广州市白云区京溪南方医院地铁"
      ],
