@@ -155,7 +155,8 @@ function *getWxAccessToken(params){
             token_expire: now + tk.expires_in,
             token_renew: 7200
         }
-        the.sess.wx = sess_wx;
+        if(tk.access_token)
+            the.sess.wx = sess_wx;
     }
 
     //web access token
@@ -179,7 +180,8 @@ function *getWxAccessToken(params){
             token_expire: now + tk.expires_in,
             token_renew: 7200
         }
-        the.sess.wwx = sess_wx;
+        if(tk.openid)
+            the.sess.wwx = sess_wx;
     }
 
 
