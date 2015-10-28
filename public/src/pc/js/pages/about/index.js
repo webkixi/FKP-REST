@@ -1,5 +1,5 @@
 var libs = require('libs/libs')
-var wx = require('../_common/weixin')
+// var wx = require('../_common/weixin')
 var router = require('libs/router').router
 var route = require('libs/router').route
 

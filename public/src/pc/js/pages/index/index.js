@@ -1,5 +1,5 @@
 var libs = require('libs/libs')
-// var wx = require('../_common/weixin')
+var wx = require('../_common/weixin')(init)
 var router = require('libs/router').router
 var route = require('libs/router').route
 
@@ -7,7 +7,7 @@ route({
     'index': index
 });
 
-require(['../_common/weixin'], function(wx) {
+function init(){
     var url = libs.urlparse(location.href)
     if(!url.hash){
         router('index')
@@ -15,7 +15,17 @@ require(['../_common/weixin'], function(wx) {
         var hash = url.hash
         router(hash)
     }
-})
+}
+
+// require.ensure([], function() {
+//     var url = libs.urlparse(location.href)
+//     if(!url.hash){
+//         router('index')
+//     }else{
+//         var hash = url.hash
+//         router(hash)
+//     }
+// })
 
 
 function index(){

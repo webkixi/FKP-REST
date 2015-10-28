@@ -1,5 +1,5 @@
 var libs = require('libs/libs')
-// var wx = require('../_common/weixin')
+var wx = require('../_common/weixin')(init)
 var router = require('libs/router').router
 var route = require('libs/router').route
 SA.setter('_GLOBAL',{data:{} })
@@ -21,7 +21,7 @@ libs.addSheet([
     ,'formform'
 ])
 
-require(['../_common/weixin'], function(wx) {
+function init(){
     var url = libs.urlparse(location.href)
     if(!url.hash){
         router('index')
@@ -29,7 +29,17 @@ require(['../_common/weixin'], function(wx) {
         var hash = url.hash
         router(hash)
     }
-})
+}
+
+// require([], function(wx) {
+//     var url = libs.urlparse(location.href)
+//     if(!url.hash){
+//         router('index')
+//     }else{
+//         var hash = url.hash
+//         router(hash)
+//     }
+// })
 
 
 function index(){

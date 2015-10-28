@@ -46,19 +46,21 @@ var test_wx_data = {
     "privilege": []
 }
 
-function init_wx(){
+function init_wx(cb){
     // SA.setter("_LOCAL_USER", tes_data.results[0]);
     // SA.setter("_WEIXIN", {user: test_wx_data})
 
     var tmp = SA.getter('_WEIXIN');
     if(!tmp || !tmp.user){
         SA.setter("_WEIXIN",{})
-        getwx();
+        getwx(cb);
+    }else{
+        cb();
     }
 }
 
 
-function getwx(){
+function getwx(cb){
     var url = libs.urlparse(location.href)
     var postdata = {test: '123'}
     if(url.params.code && url.params.state){
@@ -75,10 +77,10 @@ function getwx(){
         }
         SA.setter("_WEIXIN",{user: data})
         // {"openid":"o07NUs250UkhoK8Ks6bZAZK7Hkls","nickname":"天天修改","sex":1,"language":"zh_CN","city":"广州","province":"广东","country":"中国","headimgurl":"http:\/\/wx.qlogo.cn\/mmopen\/Lhlz6ia774dNwUgAucLtKIs94BWFSX1hPbdvibZT79y69oI7FusBz7I5qbech1olibVxribJ9vFErEoDrJFPpDa0my6yXkhmouoj\/0","privilege":[]}
-        getLocalUser(data)
+        getLocalUser(data, cb)
     })
 
-    function getLocalUser(data){
+    function getLocalUser(data, callback){
         if(data.openid){
             api.req('login',{openid: data.openid}, function(record){
                 if(record){
@@ -92,8 +94,10 @@ function getwx(){
                     }
                 }
             })
+            callback()
         }
     }
 }
 
-module.exports = init_wx()
+
+module.exports = init_wx
