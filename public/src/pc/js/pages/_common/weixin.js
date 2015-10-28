@@ -23,10 +23,29 @@ function getwx(){
 
     // api.wx()
     api.wx('userinfo', postdata, function(data){
-        if(typeof data === 'string')
+        if(typeof data === 'string'){
             data = JSON.parse(data)
-        SA.setter("_WEIXIN",{user: data})
+        }
+        getLocalUser(data)
     })
+
+    function getLocalUser(data){
+        // openid
+        if(data.openid){
+            api.req('login',{openid: data.openid}, function(record){
+                if(record){
+                    if(typeof record === 'string'){
+                        record = JSON.parse(record)
+                    }
+                    if(record.code === 1){
+                        alert('abcd')
+                    }else{
+                        SA.setter("_WEIXIN",{user: data})                         
+                    }
+                }
+            })
+        }
+    }
 }
 
 module.exports = init_wx()

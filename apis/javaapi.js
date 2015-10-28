@@ -78,7 +78,9 @@ var apiPath = {
         order_deladdr: src+'addr/delete',
         order_addaddr: src+'addr/insert',
         mycarlist: src+'usercar/querybymobile',
-        mycar_del: src+'usercar/delete'
+        mycar_del: src+'usercar/delete',
+
+        login: src+'user/login'
         // search: src+'api/search.html',    //搜索
         // region: src+'api/region/region-list.html', //地区
         //
