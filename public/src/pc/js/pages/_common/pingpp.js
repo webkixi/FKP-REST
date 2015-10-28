@@ -1,3 +1,5 @@
+//ping++支付模块
+
 var
   version = "2.0.7",
   hasOwn = {}.hasOwnProperty,
