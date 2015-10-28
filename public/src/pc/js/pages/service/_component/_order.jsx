@@ -19,7 +19,8 @@ console.log(_wx_userinfo);
 var _l_user;
 var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
 if(_l_data){
-    _l_uesr = _l_data.data;
+    _l_user = _l_data.data;
+    console.log('ppppppppppp');
     console.log(_l_user);
 
     if(_l_user.error){

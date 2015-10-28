@@ -248,9 +248,9 @@ var bindIndex = function(){
         var form = {};
 
         //car form
-        _l_user
-        ? carData = SA.getter('_GLOBAL').data.index.form
-        : _l_user.usercar[0];
+        carData = _l_user
+        ? _l_user.usercar[0]
+        : SA.getter('_GLOBAL').data.index.form
         form = libs.extend(carData, _form)
 
         //other form
@@ -405,4 +405,4 @@ function renderDom(ele, cb){
     )
 }
 
-module.exports = init;
+module.exports = getData;
