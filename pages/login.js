@@ -43,7 +43,7 @@ function *demoIndexData(oridata){
 
             var logindata = yield api.pullApiData('login', postdata, 'post')
             console.log('ooooooooo for openid user ooooooooo');
-            console.log(logindata[0]);
+            console.log(logindata[1]);
 
             return oridata;
         }
