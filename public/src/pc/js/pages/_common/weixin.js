@@ -2,8 +2,55 @@ var libs = require('libs/libs');
 var api = require('libs/api')
 
 
+var tes_data = {
+    code: 1,
+    message: 'Success',
+    results:
+    [
+        {
+            uid: 21,
+            nick: 'A赵义波',
+            openid: 'o07NUs3CiVcXXDFqB4kOWuFhgw64',
+            gender: '1',
+            mobile: '18617323269',
+            addr: [
+                {
+                    zip: '440000',
+                    province: '广东',
+                    city: '440100',
+                    county: '440103',
+                    street: '好地方'
+                }
+            ],
+            usercar: [
+                {
+                    carbrand: '本田',
+                    carseries: 'CR-V',
+                    cartype: '34310',
+                    carid: 34310
+                }
+            ]
+        }
+    ]
+}
+
+var test_wx_data = {
+    "openid": "o07NUs3CiVcXXDFqB4kOWuFhgw64",
+    "nickname": "A赵义波",
+    "sex": 1,
+    "language": "zh_CN",
+    "city": "广州",
+    "province": "广东",
+    "country": "中国",
+    "headimgurl": "http://wx.qlogo.cn/mmopen/JcZacFyaMO7UGKLzDGAQdwQmDibjB6ZPC7K1KvGTItcuvKTtHkgb6D74lT181LZHsMGLicas99GnEDoHibOxxgUXHkeiaxY1PqVic/0",
+    "privilege": []
+}
+
 function init_wx(){
-    var tmp = SA.getter('_WEIXIN');
+    // SA.setter("_LOCAL_USER", tes_data.results[0]);
+    // SA.setter("_WEIXIN", {user: test_wx_data})
+
+    var tmp = SA.getter('_WEIXIN').data;
     if(!tmp || !tmp.user){
         SA.setter("_WEIXIN",{})
         getwx();
@@ -32,7 +79,6 @@ function getwx(){
     })
 
     function getLocalUser(data){
-        // openid
         if(data.openid){
             api.req('login',{openid: data.openid}, function(record){
                 if(record){

@@ -4,23 +4,25 @@ var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var api = require('libs/api');
+var router = require('libs/router').router
 require('../../_common/pingpp')
 
 var _form = {};
-var _wx_userinfo = SA.getter('_WEIXIN').data.user;
-console.log(_wx_userinfo);
 var bodys = [];
 var heji = {
   count: 0,
   totalprice: 0
 };
-// console.log(SA.getter('_GLOBAL').data);
+var _wx_userinfo = SA.getter('_WEIXIN').data.user;
+var _l_user  = SA.getter('_LOCAL_USER').data;    //登陆用户获取的信息
+console.log(_wx_userinfo);
+console.log(_l_user);
+
 var footer = SA.getter('_GLOBAL').data.index.footer;
 if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
   var a = footer.pop();
   heji.count==1;
   heji.totalprice+=a.v;
-
   bodys.push({
     body:[
       a.k,
@@ -81,41 +83,66 @@ mycar_service_order.push(
 
 var index = {
     mixins: [ItemMixin],
+    //插入真实 DOM之前
+	willMount: function(){
+		if(!_l_user){
+            return <div className={'service_myorder'}>
+                <div id="name"></div>
+                <div id="phone"></div>
+                <div className="layout">
+                    <label></label>
+                    <div className="box">
+                        <div id="code"></div>
+                        <div id="verify_btn">获取验证码</div>
+                    </div>
+                </div>
+
+                <div className="layout">
+                    <label>地址</label>
+                    <div className="box">
+                        <div id="city"></div>
+                        <div id="district"></div>
+                        <div id="address"></div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        else{
+            return <div className={'service_myorder'}>
+                <ul className={'message_over_order_mycar'}>
+                  <li className={'item'}>
+                    <div className={'hheader'}>
+                      <img src="/images/tx_pic.png" />
+                    </div>
+                    <div className={'hbody'}>
+                      <div className={'hbody_div'}>
+                        <em>林小姐</em>
+                        <span>13839487654</span>
+                      </div>
+                      <p>广州市白云区京溪南方医院地铁口2</p>
+                    </div>
+                  </li>
+                </ul>
+                <div className="layout">
+                    <label>预约时间</label>
+                    <div className="box">
+                        <div id="date"></div>
+                        <div id="ampm"></div>
+                    </div>
+                </div>
+            </div>
+        }
+	},
     render: function () {
+        var inner = this.willMount();
         return(
             <div className={'wrapper'}>
               <div className={'row'}>
                 <div className={'service_mycar'}>
                   <h2>{'个人信息'}</h2>
                 </div>
-                <div className={'service_myorder'}>
-                    <div id="name"></div>
-                    <div id="phone"></div>
-                    <div className="layout">
-                        <label></label>
-                        <div className="box">
-                            <div id="code"></div>
-                            <div id="verify_btn">获取验证码</div>
-                        </div>
-                    </div>
-
-                    <div className="layout">
-                        <label>地址</label>
-                        <div className="box">
-                            <div id="city"></div>
-                            <div id="district"></div>
-                            <div id="address"></div>
-                        </div>
-                    </div>
-
-                    <div className="layout">
-                        <label>预约时间</label>
-                        <div className="box">
-                            <div id="date"></div>
-                            <div id="ampm"></div>
-                        </div>
-                    </div>
-                </div>
+                {inner}
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的订单</h2>
                   <div className={'order_table_mycar'}>
@@ -144,9 +171,111 @@ var bindIndex = function(){
     var Radio = require('modules/form/radio');
     var u = {};
 
-    // $(".pay_icon_mycar li").click(function(){
-    //   _payway = $(this).find('input[name=payment]:checked').val()
-    // })
+    if(!_l_user){
+
+
+        //电话
+        u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
+            $(this).click(function(){
+
+            })
+        })
+
+        //电话
+        u.phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
+            $(this).click(function(){
+
+            })
+        });
+
+        //验证码
+        u.verify = new Text({valide: 'verify_m'}, 'code',function(){
+            $(this).click(function(){
+
+            })
+        });
+
+        var btn_stat = 0;
+        $('#verify_btn').click(function(){
+                var btn = this;
+                if(u.phone.stat){
+                    if(btn_stat===0){
+                        btn_stat = 1;
+                        api.req('getmms', {mobile: u.phone.value}, function(data){
+                            if(data.code===1){
+                                SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
+                                libs.countDown(btn, 61, function(){
+                                    btn_stat = 0;
+                                    $(btn).html('重新发送')
+                                })
+                            }
+                        })
+                    }
+                }else{
+                    SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
+                }
+        })
+
+        // //城市
+        u.city = new Select({}, 'city',function(){
+            var parents = [];
+            api.req('region', function(data){
+                if(data && data.code===1){
+                    if(data.results.length){
+                        data.results.map(function(item, i){
+                            parents.push({
+                                body:[
+                                    {
+                                        attr: 'select',
+                                        k: item.address_name,
+                                        v: item.region_id
+                                    }
+                                ]
+                            })
+                        })
+                    }
+                }
+            })
+            $(this).click(function(){
+                var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                SA.setter('Pop',{data:{body:xx,display:'block'}} )
+            })
+        });
+        //
+        // 地区
+        u.district = new Select({}, 'district',function(){
+            districts = [];
+            $(this).click(function(){
+                var kkk = $('#city').find('input').val();
+                api.req('region',{parent_id: kkk}, function(data){
+                    if(data && data.code===1){
+                        if(data.results.length){
+                            data.results.map(function(item, i){
+                                districts.push({
+                                    body:[
+                                        {
+                                            attr: 'select',
+                                            k: item.address_name,
+                                            v: item.region_id
+                                        }
+                                    ]
+                                })
+                            })
+                        }
+                        var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                        SA.setter('Pop',{data:{body:yy,display:'block'}} )
+                    }
+                })
+            })
+        });
+
+        //详细地址
+        u.address = new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
+            $(this).click(function(){
+
+            })
+        });
+    }
 
     new Radio({label:'微信',value:'wx_pub',name: 'payment'},'wechat',function(){
       $(this).click(function(){
@@ -159,107 +288,6 @@ var bindIndex = function(){
         _payway = "alipay";
       })
     })
-    //电话
-    u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
-        $(this).click(function(){
-
-        })
-    })
-
-    //电话
-    u.phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
-        $(this).click(function(){
-
-        })
-    });
-
-    //验证码
-    u.verify = new Text({valide: 'verify_m'}, 'code',function(){
-        $(this).click(function(){
-
-        })
-    });
-
-    var btn_stat = 0;
-    $('#verify_btn').click(function(){
-            var btn = this;
-            if(u.phone.stat){
-                if(btn_stat===0){
-                    btn_stat = 1;
-                    api.req('getmms', {mobile: u.phone.value}, function(data){
-                        if(data.code===1){
-                            SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
-                            libs.countDown(btn, 61, function(){
-                                btn_stat = 0;
-                                $(btn).html('重新发送')
-                            })
-                        }
-                    })
-                }
-            }else{
-                SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
-            }
-    })
-
-    // //城市
-    u.city = new Select({}, 'city',function(){
-        var parents = [];
-        api.req('region', function(data){
-            if(data && data.code===1){
-                if(data.results.length){
-                    data.results.map(function(item, i){
-                        parents.push({
-                            body:[
-                                {
-                                    attr: 'select',
-                                    k: item.address_name,
-                                    v: item.region_id
-                                }
-                            ]
-                        })
-                    })
-                }
-            }
-        })
-        $(this).click(function(){
-            var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-            SA.setter('Pop',{data:{body:xx,display:'block'}} )
-        })
-    });
-    //
-    // 地区
-    u.district = new Select({}, 'district',function(){
-        districts = [];
-        $(this).click(function(){
-            var kkk = $('#city').find('input').val();
-            api.req('region',{parent_id: kkk}, function(data){
-                if(data && data.code===1){
-                    if(data.results.length){
-                        data.results.map(function(item, i){
-                            districts.push({
-                                body:[
-                                    {
-                                        attr: 'select',
-                                        k: item.address_name,
-                                        v: item.region_id
-                                    }
-                                ]
-                            })
-                        })
-                    }
-                    var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                    SA.setter('Pop',{data:{body:yy,display:'block'}} )
-                }
-            })
-        })
-    });
-
-    //详细地址
-    u.address = new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
-        $(this).click(function(){
-
-        })
-    });
 
     function formatDate(timer){
         var tt = new Date(timer);
@@ -331,12 +359,17 @@ var bindIndex = function(){
     $('#now').click(function(){
         var stat = checkValue(u);
         if(stat){
-            _form.mobile = u.phone.value;
-            _form.province = "广东"
-            _form.city = u.city.value
-            _form.county = u.district.value
-            _form.street = u.address.value
-            _form.zip = '440000'
+            if(!_l_user){
+                _form.mobile = u.phone.value;
+                _form.province = "广东"
+                _form.city = u.city.value
+                _form.county = u.district.value
+                _form.street = u.address.value
+                _form.zip = '440000'
+            }else{
+                _form = _l_user.addr[0];
+                _form.mobile = _l_user.mobile;
+            }
             _form.paych = _payway
             _form.totalprice = heji.totalprice
             _form.subscribetime = u.date.value + u.ampm.text
@@ -359,52 +392,18 @@ var bindIndex = function(){
         console.log(charge);
         pingpp.createPayment(charge.charge, function(result, err) {
             if (result=="success") {
-                alert('ok')
                 // payment succeed
+                // alert('ok')
+                router('/uc.html');
             } else {
                 console.log(result+" "+err.msg+" "+err.extra);
             }
         });
 
         //node的方式
-        // api.req('payment', charge, function(data){
+        // api.req('payment', {charge}, function(data){
         //     alert(data.message);
         // })
-
-        //从go拿到的数据结构
-  //       {orderid: '658',
-  // orderno: 'Y20151027200427000816',
-  // charge:
-  //  { id: 'ch_9yvPGKLinfv9KG0W9Gq9OyHK',
-  //    object: 'charge',
-  //    created: '1445947467',
-  //    livemode: 'false',
-  //    paid: 'false',
-  //    refunded: 'false',
-  //    app: 'app_T8C8mH1CqHK44yX5',
-  //    channel: 'wx_pub',
-  //    order_no: 'Y20151027200427000816',
-  //    client_ip: '127.0.0.1',
-  //    amount: '1',
-  //    amount_settle: '0',
-  //    currency: 'cny',
-  //    subject: 'Car Subject',
-  //    body: 'Car Body',
-  //    extra: { open_id: 'o07NUs250UkhoK8Ks6bZAZK7Hkls' },
-  //    time_paid: '0',
-  //    time_expire: '1445954667',
-  //    time_settle: '0',
-  //    transaction_no: '',
-  //    refunds:
-  //     { object: 'list',
-  //       has_more: 'false',
-  //       url: '/v1/charges/ch_9yvPGKLinfv9KG0W9Gq9OyHK/refunds' },
-  //    amount_refunded: '0',
-  //    failure_code: '',
-  //    failure_msg: '',
-  //    credential: { object: 'credential', wx_pub: [Object] },
-  //    description: '' }
-  //   }
 
     }
 }

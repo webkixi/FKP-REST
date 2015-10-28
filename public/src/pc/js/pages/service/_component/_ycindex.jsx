@@ -19,6 +19,9 @@ var _PAGE={
     totalprice: 0
 };
 
+var _l_user  = SA.getter('_LOCAL_USER').data;    //登陆用户获取的信息
+console.log(_l_user);
+
 //弹窗中的item点击事件
 function popItemMethod(){
     //pop li click
@@ -128,11 +131,12 @@ var index = {
         }
     },
     render: function () {
-        var mycar_data = []
-        mycar1 = SA.getter('_GLOBAL').data.index;
+        var mycar_data = [];
+        // mycar1 = SA.getter('_GLOBAL').data.index;
+        var carcar = _l_user.usercar[0];
         var mycar = [
           {
-            title : mycar1[1].body.k+mycar1[2].body.k,
+            title : carcar.carbrand+' '+carcar.carseries+' '+carcar.cartype,
             img : '/images/service/bmw_icon.png'
           }
         ]
@@ -216,7 +220,6 @@ var bindIndex = function(){
     });
 
     $("#now").click(function(){
-        var carData = SA.getter('_GLOBAL').data;
         var orderData;
         if(checkNum.checkbox.value==1){
             _form.servicemode = 1;
@@ -241,12 +244,19 @@ var bindIndex = function(){
                 })
             }
         })
-        // console.log(orderData);
-        var form = libs.extend(carData.index.form, _form)
+
+        var form = {};
+
+        //car form
+        _l_user
+        ? carData = SA.getter('_GLOBAL').data.form
+        : _l_user.usercar[0];
+        form = libs.extend(carData, _form)
+
+        //other form
         form.openid = "wx766666";
         orderData.form = form;
-
-        SA.setter('_GLOBAL',{index: orderData})
+        SA.setter('_GLOBAL', { index: orderData } )
         router("order")
     })
 }
@@ -255,9 +265,7 @@ var bindIndex = function(){
 var Index = React.createClass(index)
 
 function getData(ele, param, cb){
-
-    var mycar = SA.getter('_GLOBAL').data.index;
-    if(!mycar){
+    if(!_l_user){
         router('addcar');
     }else{
         var query = param||{type: 'xby'};

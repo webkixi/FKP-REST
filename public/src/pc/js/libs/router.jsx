@@ -2,6 +2,10 @@ var libs = require('./libs')
 
 var router = function(name){
     if(typeof name!=='string') return;
+    if(name.indexOf('/')===0 || name.indexOf('http')===0){
+        window.location.href = name
+        return
+    }
     var url = libs.urlparse(location.href);
     SA.setter('_HISTORY', url);
     var tmp = SA.getter(name)
