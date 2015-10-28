@@ -148,6 +148,7 @@ function *getWxAccessToken(params){
             secret: config.weixin.appsecret
         })
         var tk = JSON.parse(tmp[0].body);
+        console.log(tk);
         var now = date.getTime()/1000;
         var sess_wx = {
             token: tk.access_token,
@@ -168,6 +169,7 @@ function *getWxAccessToken(params){
         })
 
         var tk = JSON.parse(tmp[0].body);
+        console.log(tk);
         var now = date.getTime()/1000;
         var sess_wx = {
             openid: tk.openid,
