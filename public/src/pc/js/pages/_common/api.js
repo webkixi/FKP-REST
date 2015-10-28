@@ -10,33 +10,15 @@ var apiPath = {
         queryallbrand: src+'queryallbrand',   //汽车品牌
         queryseries: src+'queryseries',   //汽车车系
         querycartype: src+'querycartype',   //汽车型号
-        useraddcar: src+'useraddcar',   //汽车型号
-        order_addr: src+'order_addr',   //汽车型号
-        order_addaddr: src+'order_addaddr',   //汽车型号
-        order_deladdr: src+'order_deladdr',   //汽车型号
-        mycarlist: src+'mycarlist',   //汽车型号
-        mycar_del: src+'mycar_del',   //汽车型号
-        myorder_info: src+'myorder_info',   //订单列表
-        order_list: src+'order_list'   //订单列表
-        // region: '/region',
-        // regist: '/account/regist',
-        // check_code: '/common/check_code',//校验验证码
-        // user: src+'checkUserStatus.html',
-        // mall_attr: '/mall/api_list_attr',
-        // mall_exhibition: '/mall/list',
-        // goods_attr: '/common/goods_attr',
-        // submitOrder: '/mall/item_order.html',//提交订单
-        // login: '/account/login',
-        // forget: '/account/forget',
-        // account_goods_list: '/goods/list.html',//会员中心，商品列表
-        // account_order_list: '/order/list.html',//会员中心，订单列表
-        // updateAccount: '/account/myaccount',
-        // updateAccountBase: '/account/myaccount_base',
-        // updateAccountAuth: '/account/myaccount_auth',
-        // firmDetailView: '/firm/view',
-        // firmDetailSave: '/firm/edit',
-        // goods_edit: '/goods/edit',
-        // goods_add: '/goods/add'
+        useraddcar: src+'useraddcar',   //个人中心的添加车辆
+        order_addr: src+'order_addr',   //个人中心的地址
+        order_addaddr: src+'order_addaddr',   //个人中心的添加地址
+        order_deladdr: src+'order_deladdr',   //个人中心的删除地址
+        mycarlist: src+'mycarlist',   //个人中心的车辆
+        mycar_del: src+'mycar_del',   //个人中心的删除车辆
+        myorder_info: src+'myorder_info',   //订单详情
+        order_list: src+'order_list',   //订单列表
+        carchecking: src+'carchecking'   //订单列表
     }
 }
 function req( api, param, cb ){

@@ -66,6 +66,7 @@ var apiPath = {
         queryseries: src+'car/queryseries',
         querycartype: src+'car/querycartype',
 
+        carchecking: src+'servicetype/query/carchecking',
         region: src+'region/query',
         getmms: src+'user/getsmscode',
         orderins: src+'order/insert',
