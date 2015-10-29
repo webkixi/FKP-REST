@@ -387,6 +387,7 @@ var bindIndex = function(){
                 _form.county = u.district.value
                 _form.street = u.address.value
                 _form.zip = '440000'
+                _form.code = u.verify.value
             }else{
                 _form = _l_user.addr[0];
                 _form.uid = _l_user.uid;

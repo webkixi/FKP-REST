@@ -71,8 +71,11 @@ function *demoIndexData(oridata){
         if(body){
             if(body.type){
                 if(body.type==='insert')
-                    var code = body.data.code;
-                    delete body.data.code;
+                    if(body.data.code){
+                        var code = body.data.code;
+                        delete body.data.code;
+                        postdata.common.smscode = code;
+                    }
 
                     if(body.data.uid){
                         var uid = body.data.uid;
@@ -81,7 +84,7 @@ function *demoIndexData(oridata){
                     }
 
                     postdata.content[0] = body.data;
-                    postdata.common.smscode = code;
+
             }
         }
         postdata.content[0].carid = parseInt(postdata.content[0].carid)
