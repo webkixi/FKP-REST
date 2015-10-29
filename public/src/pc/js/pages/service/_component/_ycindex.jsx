@@ -405,4 +405,4 @@ function renderDom(ele, cb){
     )
 }
 
-module.exports = init;
+module.exports = getData;

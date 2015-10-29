@@ -430,6 +430,7 @@ function checkValue(ele){
     items.map(function(item, i){
         if(!ele[item].stat){
             $(ele[item].ipt).addClass('error')
+            alert('校验出错')
             return false;
         }
     })
