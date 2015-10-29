@@ -62,7 +62,6 @@ function *demoIndexData(oridata){
         var postdata = {
             "common": {
                 "session": "xx",
-                "uid": 1,
                 "smscode":"489349"
             },
             "content": [{}],
@@ -74,6 +73,13 @@ function *demoIndexData(oridata){
                 if(body.type==='insert')
                     var code = body.data.code;
                     delete body.data.code;
+
+                    if(body.data.uid){
+                        var uid = body.data.uid;
+                        delete body.data.uid;
+                        postdata.common.uid = uid;
+                    }
+
                     postdata.content[0] = body.data;
                     postdata.common.smscode = code;
             }

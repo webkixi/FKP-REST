@@ -389,6 +389,7 @@ var bindIndex = function(){
                 _form.zip = '440000'
             }else{
                 _form = _l_user.addr[0];
+                _form.uid = _l_user.uid;
                 _form.mobile = _l_user.mobile;
             }
             _form.paych = _payway

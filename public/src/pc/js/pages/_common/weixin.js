@@ -97,6 +97,8 @@ function getwx(cb){
                     if(typeof record === 'string'){
                         record = JSON.parse(record)
                     }
+                    console.log('－－－－－－本地用户数据－－－－－－－');
+                    console.log(record);
                     if(record.code === 1){
                         var local_user_info = record.results[0];
                         SA.setter("_LOCAL_USER", local_user_info);
