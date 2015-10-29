@@ -4,7 +4,7 @@ var api = require('../apis/javaapi');
 var rct = require('../modules/parseReact');
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/mycar_del')
+    libs.wlog('pages/order_deladdr')
     var dataSet = {};
     var infoCat =[];
     var mtd = this.method;
@@ -67,7 +67,7 @@ function *demoIndexData(oridata){
                 "uid": 12
             },
             "content": [{
-              "usercarid": body.usercarid
+              "id": body.id
             }]
 
         }
@@ -78,8 +78,8 @@ function *demoIndexData(oridata){
                     postdata.content[0] = body.data;
             }
         }
-        postdata.content[0].usercarid = parseInt(postdata.content[0].usercarid)
-        var orderdata = yield api.pullApiData('mycar_del', postdata, 'post');
+        postdata.content[0].id = parseInt(postdata.content[0].id)
+        var orderdata = yield api.pullApiData('order_deladdr', postdata, 'post');
         console.log(orderdata[1]);
 
         // var qcjc = libs.$extend(true, {}, postdata);

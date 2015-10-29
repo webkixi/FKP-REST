@@ -4,7 +4,7 @@ var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var api = require('libs/api');
 var store = require('mixins/store');
-
+var router = require('libs/router').router
 
 var _form = {};
 
@@ -18,10 +18,12 @@ var index = {
                     {'添加地址'}
                 </header>
                 <article>
-                    <div id="zone">
+                    <div className="layout">
                         <label>地址</label>
-                        <div id="city"></div>
-                        <div id="district"></div>
+                        <div className="box">
+                            <div id="city"></div>
+                            <div id="district"></div>
+                        </div>
                     </div>
                     <div id="address"></div>
                     <div id="name"></div>
@@ -39,7 +41,7 @@ var bindIndex = function(){
     var Text = require('modules/form/text');
     var u = {};
 
-    //电话
+    //联系人
     u.name = new Text({label:'联系人',valide: 'username'}, 'name',function(){
         $(this).click(function(){
 
@@ -116,6 +118,7 @@ var bindIndex = function(){
 
     $('#now').click(function(){
         var stat = checkValue(u);
+        console.log(u.phone.value);
         if(stat){
             _form.mobile = u.phone.value;
             _form.province = "广东"
@@ -129,8 +132,8 @@ var bindIndex = function(){
             var fff = libs.extend(_form);
             console.log(fff);
             api.req('order_addaddr',{type: 'insert', data:fff}, function(data){
-                console.log(data);
                 router('myaddress')
+                console.log(data)
             })
         }
     })
