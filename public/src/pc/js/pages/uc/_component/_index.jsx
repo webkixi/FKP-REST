@@ -67,18 +67,23 @@ function getData(ele, param, cb){
       }
 
       if(_l_user){
-          var mobile = { mobile: _l_user.mobile}           
+          var mobile = { mobile: _l_user.mobile}
       }
 
-      api.req('order_list',mobile,function(data){
-        if(data.code && data.code===1){
-            if(data.results && data.results.length)
-              orderlistdata(data.results, ele, cb)
-            else {
-                alert('您还没有任何订单')
+      if(mobile){
+          api.req('order_list',mobile,function(data){
+            if(data.code && data.code===1){
+                orderlistdata(data.results, ele, cb)
+                // if(data.results && data.results.length)
+                //   orderlistdata(data.results, ele, cb)
+                // else {
+                //     alert('您还没有任何订单')
+                // }
             }
-        }
-      })
+          })
+      }else{
+          router('reg_log');
+      }
   }else{
       router('reg_log')
   }
