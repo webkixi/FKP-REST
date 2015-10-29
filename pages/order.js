@@ -78,7 +78,7 @@ function *demoIndexData(oridata){
                     }
 
                     if(body.data.uid){
-                        var uid = body.data.uid;
+                        var uid = parseInt(body.data.uid);
                         delete body.data.uid;
                         postdata.common.uid = uid;
                     }
