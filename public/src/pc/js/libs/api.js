@@ -22,6 +22,8 @@ var apiPath = {
         ,useraddcar: src+'useraddcar'   //添加车辆
         ,mycarlist: src+'mycarlist'     //我的车列表
         ,mycar_del: src+'mycar_del'     //删除车辆
+
+        ,order_addaddr: src+'order_addaddr'     //删除车辆
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=

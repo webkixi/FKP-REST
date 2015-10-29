@@ -1,13 +1,14 @@
 var libs = require('libs/libs');
-var ItemMixin = require('mixins/item')
-var FDiv = require('widgets/itemView/f_div');
+var ItemMixin = require('mixins/item');
+var FLi = require('widgets/itemView/f_li');
+var List = require('widgets/listView/list');
 var api = require('pages/_common/api');
 var store = require('mixins/store');
 var router = require('libs/router').router
 
 
 var myaddress;
-
+var _ComData = [];
 // var json = require('./_myaddress.json');
 // myaddress = {
 //     body:[
@@ -29,46 +30,12 @@ var myaddress;
 //     )
 // })
 
-function getData(ele, param, cb){
-  var mobile = { mobile: '13424804857'};
-  api.req('order_addr',mobile,function(data){
-    console.log(data);
-    if(data.results)
-      myaddressDate(data.results, ele, cb)
-    else
-      console.log("ss");
-      renderDom( ele, cb)
-  })
-}
-function myaddressDate(myaddrDate,ele, cb){
-  console.log(myaddrDate);
-  myaddress = {
-      body:[
-          //myaddrDate[0].username,
-
-          '林小姐',
-          myaddrDate[0].mobile
-      ],
-      footer: [
-        {
-            k: myaddrDate[0].province + myaddrDate[0].county + myaddrDate[0].city + myaddrDate[0].street,
-            v: <a className="ifont icon-next"></a>
-        }
-      ],
-      dot: [
-          <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.7rem"}} data-id={myaddrDate[0].id}></a>,
-      ]
-  }
-  renderDom( ele, cb)
-}
-
-
 var index = {
-    mixins: [ItemMixin],
+    mixins: [store('Index'),ItemMixin],
     render: function () {
         var fdiv;
-        if(myaddress)
-          div = <FDiv data={myaddress} itemClass={'noclass'} itemDefaultMethod={abc}/>
+        if(_ComData.length)
+          fdiv = <List data={_ComData} itemClass={'noclass'} itemMethod={abc} itemView={FLi}/>
 
         return(
             <div className={'index myaddress'}>
@@ -76,13 +43,13 @@ var index = {
                     {'我的地址'}
                 </header>
                 <article id="content">
-                    <div className="like_app_list">
+                    <div className="addr_list">
                         {fdiv}
                     </div>
                 </article>
                 <footer>
                     <a id="now" className={'btn-link'}>{'添加新地址'}</a>
-                </footer>
+              </footer>
             </div>
         )
     }
@@ -91,14 +58,56 @@ var index = {
 function abc(){
   $(this).find('.icon-deletefill').click(function(){
     var myaddressId = $(this).attr("data-id");
-    myaddress.splice(myaddressId,1)
+    var myaddressIdf = $(this).parents('li').attr("data-idf");
+
+    _ComData.splice(myaddressIdf,1)
+
     var id = { id : myaddressId}
+
     api.req('order_deladdr',{type: 'delete',data: id},function(data){
-      SA.setter('Index',{data: myaddress} );
-      //router('mycar')
+      SA.setter('Index',{data: _ComData} );
     })
   })
 }
+
+function getData(ele, param, cb){
+  var mobile = { mobile: '13424804857'};
+  _ComData = [];
+  api.req('order_addr',mobile,function(data){
+    if(data.results)
+      myaddressDate(data.results, ele, cb)
+    else
+      renderDom( ele, cb)
+  })
+}
+
+function myaddressDate(myaddrDate,ele, cb){
+  myaddrDate.map(function(itme, i){
+    myaddress =
+      {
+        body:[
+            {
+              k:itme.username,
+              v:itme.mobile
+            }
+        ],
+        footer: [
+          {
+              k: itme.province + itme.county + itme.city + itme.street,
+              v: <a className="ifont icon-next"></a>
+          }
+        ],
+        dot: [
+            <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.7rem"}} data-id={itme.id} data-aid={i}></a>,
+        ]
+    }
+
+    _ComData.push(myaddress)
+  })
+  console.log(_ComData);
+  renderDom( ele, cb)
+}
+
 
 var bindIndex = function(){
   $("#now").click(function(){
