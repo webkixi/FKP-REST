@@ -26,6 +26,10 @@ if(_l_data){
     if(_l_user.error){
         _l_user = false;
     }
+
+    if(!_l_user.uid){
+        _l_user = false;
+    }
 }
 
 var footer = SA.getter('_GLOBAL').data.index.footer;
