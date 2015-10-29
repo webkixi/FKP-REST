@@ -280,6 +280,10 @@ function getData(ele, param, cb){
         if(_l_user.error){
             _l_user = false;
         }
+
+        // if(!_l_user.uid){
+        //     _l_user = false;
+        // }
     }
     if(!_l_user && !index){
         // setTimeout(

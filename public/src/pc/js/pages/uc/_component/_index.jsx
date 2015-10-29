@@ -48,17 +48,41 @@ function insertContent(){
     } )
 }
 
+function init(ele, param, cb){
+    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+}
+
 function getData(ele, param, cb){
-  var mobile = { mobile: '13576757688'}
-  api.req('order_list',mobile,function(data){
-    if(data.code && data.code===1){
-        if(data.results && data.results.length)
-          orderlistdata(data.results, ele, cb)
-        else {
-            alert('您还没有任何订单')
+  var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+  if(_l_data){
+      _l_user = _l_data.data;
+      console.log(_l_user);
+
+      if(_l_user.error){
+          _l_user = false;
+      }
+
+      if(!_l_user.uid){
+          _l_user = false;
+      }
+
+      if(_l_user){
+          var mobile = { mobile: _l_user.mobile}           
+      }
+
+      api.req('order_list',mobile,function(data){
+        if(data.code && data.code===1){
+            if(data.results && data.results.length)
+              orderlistdata(data.results, ele, cb)
+            else {
+                alert('您还没有任何订单')
+            }
         }
-    }
-  })
+      })
+  }else{
+      router('reg_log')
+  }
+
 }
 var order_data_list_D0 =[];
 var order_data_list_D1 =[];
@@ -220,4 +244,4 @@ function renderDom(ele, data, cb){
     )
 }
 
-module.exports = getData;
+module.exports = init;
