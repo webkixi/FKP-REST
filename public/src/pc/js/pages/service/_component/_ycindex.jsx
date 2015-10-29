@@ -281,9 +281,14 @@ function getData(ele, param, cb){
             _l_user = false;
         }
 
-        // if(!_l_user.uid){
-        //     _l_user = false;
-        // }
+        if(!_l_user.usercar){
+            router('/uc.html#addcar');
+        }
+
+        if(!_l_user.addr){
+            router('/uc.html#addaddress')
+        }
+
     }
     if(!_l_user && !index){
         // setTimeout(
