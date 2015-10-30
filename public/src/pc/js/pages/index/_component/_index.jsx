@@ -36,7 +36,7 @@ var index = {
                     <em><a>{'洗车'}</a></em>
                   </div>
                 </li>
-                <li className={'item'} data-check={'booking.html'}>
+                <li className={'item'} data-check={'car_fixed'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_fixed'}></i>
                     <em><a>{'爱车估价'}</a></em>
