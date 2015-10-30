@@ -50,14 +50,47 @@ var bindIndex = function(){
   })
 }
 
+function init(ele, param, cb){
+    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+}
+
 function getData(ele, param, cb){
-  var mobile = { mobile: '18002278121'}
-  api.req('mycarlist',mobile,function(data){
-    console.log(data);
-    if(data.code && data.code===1){
-      organizeData(data.results, ele, cb)
-    }
-  })
+  var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+  if(_l_data){
+      _l_user = _l_data.data;
+      console.log(_l_user);
+
+      if(_l_user.error){
+          _l_user = false;
+      }
+
+      if(!_l_user.uid){
+          _l_user = false;
+      }
+
+      if(_l_user){
+          var mobile = { mobile: _l_user.mobile}
+      }
+      if(mobile){
+        api.req('mycarlist',mobile,function(data){
+          if(data.code && data.code===1){
+              organizeData(data.results, ele, cb)
+          }
+        })
+      }else{
+          router('reg_log')
+      }
+  }else{
+      router('reg_log')
+  }
+
+  // var mobile = { mobile: '18002278121'}
+  // api.req('mycarlist',mobile,function(data){
+  //   console.log(data);
+  //   if(data.code && data.code===1){
+  //     organizeData(data.results, ele, cb)
+  //   }
+  // })
 }
 
 function organizeData(oridata, ele, cb){
@@ -102,4 +135,4 @@ function renderDom(ele, data, cb){
     )
 }
 
-module.exports = getData;
+module.exports = init;
