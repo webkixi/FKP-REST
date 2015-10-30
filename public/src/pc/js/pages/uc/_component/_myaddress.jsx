@@ -71,14 +71,45 @@ function abc(){
 }
 
 function getData(ele, param, cb){
-  var mobile = { mobile: '13424804857'};
-  _ComData = [];
-  api.req('order_addr',mobile,function(data){
-    if(data.results)
-      myaddressDate(data.results, ele, cb)
-    else
-      renderDom( ele, cb)
-  })
+  var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+  if(_l_data){
+      _l_user = _l_data.data;
+      console.log(_l_user);
+
+      if(_l_user.error){
+          _l_user = false;
+      }
+
+      if(!_l_user.uid){
+          _l_user = false;
+      }
+
+      if(_l_user){
+          var mobile = { mobile: _l_user.mobile}
+      }
+      if(mobile){
+        api.req('order_addr',mobile,function(data){
+          if(data.results){
+              myaddressDate(data.results, ele, cb)
+          }else{
+            renderDom( ele, cb)
+          }
+        })
+      }else{
+          router('reg_log')
+      }
+  }else{
+      router('reg_log')
+  }
+
+  // var mobile = { mobile: '13424804857'};
+  // _ComData = [];
+  // api.req('order_addr',mobile,function(data){
+  //   if(data.results)
+  //     myaddressDate(data.results, ele, cb)
+  //   else
+  //     renderDom( ele, cb)
+  // })
 }
 
 function myaddressDate(myaddrDate,ele, cb){
@@ -133,4 +164,4 @@ function renderDom(ele, data, cb){
     )
 }
 
-module.exports = getData;
+module.exports = init;
