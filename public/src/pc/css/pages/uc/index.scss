@@ -198,7 +198,7 @@ body{
 		}
 		&.myaddress{
 			article{
-				height: 4rem;
+				//height: 4rem;
 				.like_app_list{
 					margin-bottom: 1rem;
 					.item{
@@ -250,35 +250,50 @@ body{
 		}
 		&.addaddress{
 			article{
-				height: 3rem;
+				//height: 5rem;
+				.layout,#address,#name,#phone{
+					margin-top: 0.5rem;
+				}
 				div{
 					overflow: visible;
+					width: 98%;
 				}
-				#city, #district{
+				#city, #district,.box{
 					display: inline-block;
 				}
+				.box{
+					width: 74%;
+				}
 				#city{
-					width: 60%;
-					label{
-						width: 40%;
-					}
+					width: 50%;
 					.body{
-						width: 56%;
+						width: 100%;
 					}
 				}
 				#district{
-					width: 38%;
+					width: 50%;
 					.body{
-						width: 93%;
+						width: 100%;
 					}
 				}
 				#address{
+					height: 4rem;
 					.body{
-						height: 4rem;
+						height: 3rem;
 					}
+				}
+				label{
+					display: inline-block;
+					width: 22.5%;
+					height: 1rem;
+					padding: 0.3rem 0;
+					vertical-align: top;
+					text-align: center;
+					font-size: 0.6rem;
 				}
 				#zone{
 					margin-top: 1rem;
+
 				}
 				.ihaved{
 			        position: relative;
@@ -935,5 +950,84 @@ body{
 						margin-left: 2%;
 					}
 			}
+	}
+}
+//地址列表
+.addr_list{
+	width: 96%;
+	margin: auto;
+	ul{
+		li{
+			font-size: 0.6rem;
+
+			&.item{
+				float: none;
+				margin-top: 1rem;
+				.inner{
+					border: 0.05rem solid #ddd;
+					overflow: hidden; 
+				}
+			}
+			.inner{
+				width: 100%;
+				margin: 0;
+				border: none;
+				.hbody{
+					width: 100%;
+					border-bottom: 2px solid #efefef;
+					height: 1.5rem;
+					line-height: 1.5rem;
+					padding: 10px;
+					p{
+						margin-left: 0.4rem;
+						em, span{
+							display: inline-block;
+							font-size: 0.7rem;
+							color: #000;
+							font-weight: normal;
+						}
+						em{
+							width: 35%;
+						}
+					}
+				}
+				.hfoot{
+					height: 1.5rem;
+					line-height: 1.5rem;
+					position: relative;
+					p{
+						margin-left: 0.4rem;
+					}
+					a{
+						&.ifont{
+							position: absolute;
+						  top: 0;
+						  right: 2%;
+						  font-size: 0.7rem;
+						}
+					}
+				}
+				.dot{
+					display: block;
+					height: 100%;
+					top: 0.75rem;
+					right: 0.3rem;
+					font-size: 0.7rem;
+					a{
+						display: block;
+						margin-bottom: 1.35rem;
+					}
+				}
+				&.item1{
+					.hbody{
+						p{
+							span{
+								color: #2ec1ae;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

@@ -58,7 +58,7 @@ function *demoIndexData(oridata){
         //     }
         //   ]
         // }
-
+console.log("sssssssssssss");
         var postdata = {
             "common": {
                 "session": "111111",
@@ -78,17 +78,6 @@ function *demoIndexData(oridata){
         postdata.content[0].defflag = parseInt(postdata.content[0].defflag)
         var orderdata = yield api.pullApiData('order_addaddr', postdata, 'post');
         console.log(orderdata[1]);
-
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // // serviceData[1].results.push(qd);
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
         return orderdata[1];
     }
 
