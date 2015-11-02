@@ -36,7 +36,7 @@ var index = {
                     <em><a>{'洗车'}</a></em>
                   </div>
                 </li>
-                <li className={'item'} data-check={'booking.html'}>
+                <li className={'item'} data-check={'car_fixed'}>
                   <div className={'hbody'}>
                     <i className={'ifont icon-car_fixed'}></i>
                     <em><a>{'爱车估价'}</a></em>
@@ -55,21 +55,21 @@ var index = {
 }
 
 
-var aaa = function(){
-    var abc = SA.getter('_WEIXIN').data.user;
-    console.log(abc);
-    if(abc)
-        alert('您好：'+abc.nickname)
-}
-
-var test = function(){
-    aaa();
-}
+// var aaa = function(){
+//     var abc = SA.getter('_WEIXIN').data.user;
+//     console.log(abc);
+//     if(abc)
+//         alert('您好：'+abc.nickname)
+// }
+// 
+// var test = function(){
+//     aaa();
+// }
 
 var Index = React.createClass(index)
 
 function renderDom(ele, cb){
-    SA.setter('_WEIXIN',[aaa])
+    // SA.setter('_WEIXIN',[aaa])
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
@@ -81,7 +81,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemDefaultMethod={test} itemMethod={cb}/>,
+        <Index itemMethod={cb}/>,
         element
     )
 }

@@ -90,14 +90,25 @@ var tmp = {}
 var index = {
     mixins: [ItemMixin],
     render: function () {
-      var mycar_data = []
-      mycar1 = SA.getter('_GLOBAL').data.index;
+    //   var mycar_data = []
+    //   mycar1 = SA.getter('_GLOBAL').data.index;
+    //   var mycar = [
+    //     {
+    //       title : mycar1[1].body.k+mycar1[2].body.k,
+    //       img : '/images/service/bmw_icon.png'
+    //     }
+    //   ]
+
+      var mycar_data = [];
+      // mycar1 = SA.getter('_GLOBAL').data.index;
+      var carcar = _l_user.usercar[0];
       var mycar = [
         {
-          title : mycar1[1].body.k+mycar1[2].body.k,
+          title : carcar.carbrand+' '+carcar.carseries+' '+carcar.cartype,
           img : '/images/service/bmw_icon.png'
         }
       ]
+
       mycar.map(function(item,i){
         mycar_data.push(
           <li key={'mycar'+i}>
@@ -149,10 +160,32 @@ var index = {
     }
 }
 
+function init(ele, param, cb){
+    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+}
+
 function getData(ele, param, cb){
 
   var mycar = SA.getter('_GLOBAL').data.index;
-  if(!mycar){
+  var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+  if(_l_data){
+      _l_user = _l_data.data;
+      console.log(_l_user);
+
+      if(_l_user.error){
+          _l_user = false;
+      }
+
+      if(!_l_user.usercar && !index){
+          _l_user = false;
+      }
+
+      if(!_l_user.addr && !index){
+          _l_user = false;
+      }
+
+  }
+  if(!_l_user && !mycar){
       router('addcar');
   }else{
       api.req('carchecking',{},function(data){
@@ -226,6 +259,7 @@ function abcd(){
     var the = this;
     var the_footer;
     var the_i;
+    $(the).find('.hfoot').addClass('u-table')
     $(the).find('.hbody').click(function(){
         the_i = $(this).find('i');
         the_footer = $(the).find('.hfoot');
@@ -256,4 +290,4 @@ function renderDom(ele, cb){
     )
 }
 
-module.exports = getData;
+module.exports = init;
