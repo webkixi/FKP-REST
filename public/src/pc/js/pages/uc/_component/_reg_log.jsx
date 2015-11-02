@@ -80,7 +80,7 @@ var bindIndex = function(){
         var fff = libs.extend(_form);
         console.log(fff);
         api.req('mobilecode',{type: 'insert', data:fff},function(data){
-          console.log(data);
+          _wx_userinfo.mobile = data.results[0].mobile;
           router.goback()
         })
       }

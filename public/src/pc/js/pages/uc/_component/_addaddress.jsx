@@ -130,10 +130,9 @@ var bindIndex = function(){
             _form.remark = 'remark'
 
             var fff = libs.extend(_form);
-            console.log(fff);
             api.req('order_addaddr',{type: 'insert', data:fff}, function(data){
-                router('myaddress')
                 console.log(data)
+                router('myaddress')
             })
         }
     })

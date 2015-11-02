@@ -36,7 +36,6 @@ var index = {
         var fdiv;
         if(_ComData.length)
           fdiv = <List data={_ComData} itemClass={'noclass'} itemMethod={abc} itemView={FLi}/>
-
         return(
             <div className={'index myaddress'}>
                 <header>
@@ -135,6 +134,10 @@ function myaddressDate(myaddrDate,ele, cb){
 
     _ComData.push(myaddress)
   })
+  if(!_ComData.length){
+    console.log("xxx");
+    $('#now').hide();
+  }
   console.log(_ComData);
   renderDom( ele, cb)
 }
@@ -164,4 +167,4 @@ function renderDom(ele, data, cb){
     )
 }
 
-module.exports = init;
+module.exports = getData;
