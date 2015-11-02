@@ -29,8 +29,8 @@ router.goback = function(){
 //html5
 if(window.history.pushState){
     libs.addEvent(window, 'popstate', function(e){
-        console.log('uuuuuuuuu');
         var val = e.state;
+        console.log(val);
         if(val && val.hash){
             alert(val.hash)
         }
