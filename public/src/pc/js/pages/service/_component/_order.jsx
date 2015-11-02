@@ -14,14 +14,12 @@ var heji = {
   totalprice: 0
 };
 var _wx_userinfo = SA.getter('_WEIXIN').data.user;
-console.log(_wx_userinfo);
+// console.log(_wx_userinfo);
 
 var _l_user;
 var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
 if(_l_data){
     _l_user = _l_data.data;
-    console.log('ppppppppppp');
-    console.log(_l_user);
 
     if(_l_user.error){
         _l_user = false;
@@ -133,8 +131,9 @@ var index = {
         else{
             var addr, address;
             if(_l_user.addr){
-                console.log(_l_user);
-                addr = _l_user.province + _l_user.city + _l_user.county
+                // console.log(_l_user);
+                var tmp_addr = _l_user.addr[0];
+                addr = tmp_addr.province + tmp_addr.city + tmp_addr.county
             }else{
                 address = <div className="layout">
                     <label>地址</label>
@@ -485,9 +484,9 @@ var bindIndex = function(){
 
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(form, _form);
-            console.log(fff);
+            // console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
-                console.log(data);
+                // console.log(data);
                 if(data && data.code===1){
                     payment(data.results[0])
                 }
@@ -496,7 +495,7 @@ var bindIndex = function(){
     })
 
     function payment(charge){
-        console.log(charge);
+        // console.log(charge);
         pingpp.createPayment(charge.charge, function(result, err) {
             if (result=="success") {
                 // payment succeed
