@@ -259,6 +259,7 @@ function abcd(){
     var the = this;
     var the_footer;
     var the_i;
+    $(the).find('.hfoot').addClass('u-table')
     $(the).find('.hbody').click(function(){
         the_i = $(this).find('i');
         the_footer = $(the).find('.hfoot');
