@@ -13,11 +13,9 @@ function router(name){
 
     var tmp = SA.getter(name)
     if(tmp){
-        setTimeout(function(){
-            console.log('==='+name);
-            // window.location.hash = name;
-            SA.setter(name,{})
-        },1000)         
+        console.log('==='+name);
+        // window.location.hash = name;
+        SA.setter(name,{})
     }
 }
 
