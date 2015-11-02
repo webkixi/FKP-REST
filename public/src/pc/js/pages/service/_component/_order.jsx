@@ -133,6 +133,7 @@ var index = {
         else{
             var addr, address;
             if(_l_user.addr){
+                console.log(_l_user);
                 addr = _l_user.province + _l_user.city + _l_user.county
             }else{
                 address = <div className="layout">
