@@ -69,7 +69,7 @@ function getData(ele, param, cb){
       var mobile;
 
       if(_l_user){
-          mobile = { mobile: _l_data.mobile}
+          mobile = { mobile: _l_user.mobile}
       }
 
       if(mobile){
@@ -83,16 +83,13 @@ function getData(ele, param, cb){
                 //     alert('您还没有任何订单')
                 // }
             }else{
-              console.log('11111');
               renderDom( ele, cb)
             }
           })
       }else{
-        console.log('2222222');
           router('reg_log');
       }
   }else{
-    console.log('333333333333');
       router('reg_log')
   }
 
