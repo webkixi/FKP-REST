@@ -33,7 +33,8 @@ if(window.history.pushState){
     libs.addEvent(window, 'popstate', function(e){
         var val = e.state;
         if(val && val.uri && val.uri.hash){
-            router(val.uri.hash);
+            router.goback()
+            // router(val.uri.hash);
         }
     })
 }
