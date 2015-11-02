@@ -54,7 +54,6 @@ function init(ele, param, cb){
 
 function getData(ele, param, cb){
   var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
-  console.log(_l_data);
   if(_l_data){
       _l_user = _l_data.data;
       console.log(_l_user);
@@ -84,13 +83,16 @@ function getData(ele, param, cb){
                 //     alert('您还没有任何订单')
                 // }
             }else{
+              console.log('11111');
               renderDom( ele, cb)
             }
           })
       }else{
+        console.log('2222222');
           router('reg_log');
       }
   }else{
+    console.log('333333333333');
       router('reg_log')
   }
 
