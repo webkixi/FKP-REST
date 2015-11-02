@@ -35,6 +35,7 @@ if(window.history.pushState){
         console.log(val);
         if(val && val.uri && val.uri.hash){
             console.log(val.uri.hash);
+            console.log(SA.getter(val.uri.hash));
             router(val.uri.hash);
         }
     })
