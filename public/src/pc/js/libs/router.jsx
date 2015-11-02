@@ -1,6 +1,6 @@
 var libs = require('./libs')
 
-var router = function(name){
+function router(name){
     if(typeof name!=='string') return;
     var url = libs.urlparse(location.href);
 
@@ -13,6 +13,7 @@ var router = function(name){
 
     var tmp = SA.getter(name)
     if(tmp){
+        console.log(name);
         // window.location.hash = name;
         SA.setter(name,{})
     }
@@ -33,6 +34,7 @@ if(window.history.pushState){
         var val = e.state;
         console.log(val);
         if(val && val.uri && val.uri.hash){
+            console.log(val.uri.hash);
             router(val.uri.hash);
         }
     })
