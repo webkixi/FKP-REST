@@ -80,6 +80,7 @@ var bindIndex = function(){
         var fff = libs.extend(_form);
         console.log(fff);
         api.req('mobilecode',{type: 'insert', data:fff},function(data){
+          console.log(data);
           SA.setter('_LOCAL_USER', {mobile: data.results[0].mobile});
           router.goback()
         })
