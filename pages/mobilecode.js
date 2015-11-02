@@ -59,9 +59,6 @@ function *demoIndexData(oridata){
         // }
         var postdata = {
             "common": {
-              "session": "11111",
-              "uid": 0,
-              "logintype":"0",
               "smscode":"123456"
             },
             "content": [
