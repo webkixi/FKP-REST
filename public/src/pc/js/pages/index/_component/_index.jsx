@@ -55,21 +55,21 @@ var index = {
 }
 
 
-var aaa = function(){
-    var abc = SA.getter('_WEIXIN').data.user;
-    console.log(abc);
-    if(abc)
-        alert('您好：'+abc.nickname)
-}
-
-var test = function(){
-    aaa();
-}
+// var aaa = function(){
+//     var abc = SA.getter('_WEIXIN').data.user;
+//     console.log(abc);
+//     if(abc)
+//         alert('您好：'+abc.nickname)
+// }
+// 
+// var test = function(){
+//     aaa();
+// }
 
 var Index = React.createClass(index)
 
 function renderDom(ele, cb){
-    SA.setter('_WEIXIN',[aaa])
+    // SA.setter('_WEIXIN',[aaa])
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
@@ -81,7 +81,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemDefaultMethod={test} itemMethod={cb}/>,
+        <Index itemMethod={cb}/>,
         element
     )
 }
