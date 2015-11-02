@@ -13,9 +13,11 @@ function router(name){
 
     var tmp = SA.getter(name)
     if(tmp){
-        console.log('==='+name);
-        // window.location.hash = name;
-        SA.setter(name,{})
+        setTimeout(function(){
+            console.log('==='+name);
+            // window.location.hash = name;
+            SA.setter(name,{})
+        },1000)         
     }
 }
 
@@ -32,10 +34,7 @@ router.goback = function(){
 if(window.history.pushState){
     libs.addEvent(window, 'popstate', function(e){
         var val = e.state;
-        console.log(val);
         if(val && val.uri && val.uri.hash){
-            console.log(val.uri.hash);
-            console.log(SA.getter(val.uri.hash));
             router(val.uri.hash);
         }
     })
