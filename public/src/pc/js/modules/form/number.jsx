@@ -1,5 +1,5 @@
 var libs = require('libs/libs');
-var Text = require('./_component/_text')()
+var Number = require('./_component/_number')()
 var render = React.render;
 
 libs.addSheet([
@@ -7,7 +7,7 @@ libs.addSheet([
     ,'formform'
 ])
 
-function text(data, ele, cb){
+function number(data, ele, cb){
 
     this.stat = false;
     this.value;
@@ -24,7 +24,7 @@ function text(data, ele, cb){
         _this.ipt = the_text;
         var formValide = libs.formValide({popmsg: false});
 
-        function setTextStat(zt, ipt){
+        function setNumStat(zt, ipt){
             if(!zt){
                 $(the_text).addClass('error')
             }
@@ -37,42 +37,35 @@ function text(data, ele, cb){
             }
         }
 
-        if(data.valide==='username'){
-                $(this).find('input').blur(function(){
-                    var stat = formValide(this.value, 'username','用户名不能包含非法字符')()
-                    setTextStat(stat, this)
-                })
-            }
+        if(data.valide==='mobile'){
+            $(this).find('input').blur(function(){
+                var stat = formValide(this.value, 'mobile','请输入正确的手机号码')()
+                setNumStat(stat, this)
+            })
+        }
         else
-            if(data.valide==='email'){
+            if(data.valide==='verify_m'){
                 $(this).find('input').blur(function(){
-                    var stat = formValide(this.value, 'email','邮箱地址不正确')()
-                    setTextStat(stat, this)
-                })
-            }
-        else
-            if(data.valide==='email'){
-                $(this).find('input').blur(function(){
-                    var stat = formValide(this.value, 'email','邮箱地址不正确')()
-                    setTextStat(stat, this)
+                    var stat = formValide(this.value, 'verify_m','手机验证码不正确')()
+                    setNumStat(stat, this)
                 })
             }
         else{
             $(this).find('input').blur(function(){
-                setTextStat(true, this)
+                setNumStat(true, this)
             })
         }
 
     }
 
     if(data===true)
-        return Text
+        return Number
     else{
         render(
-            <Text name={ele} data={data} itemDefaultMethod={dm} itemMethod={cb}/>,
+            <Number name={ele} data={data} itemDefaultMethod={dm} itemMethod={cb}/>,
             document.getElementById(ele)
         )
     }
 }
 
-module.exports = text
+module.exports = number
