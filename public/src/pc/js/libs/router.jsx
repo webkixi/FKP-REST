@@ -2,11 +2,12 @@ var libs = require('./libs')
 
 var router = function(name){
     if(typeof name!=='string') return;
+    var url = libs.urlparse(location.href);
+
     if(name.indexOf('/')===0 || name.indexOf('http')===0){
         window.location.href = name
         return
     }
-    var url = libs.urlparse(location.href);
     SA.setter('_HISTORY', url);
     historyStat({uri: url}, null, '#'+name)
 
@@ -31,7 +32,7 @@ if(window.history.pushState){
     libs.addEvent(window, 'popstate', function(e){
         var val = e.state;
         console.log(val);
-        if(val && val.hash){
+        if(val && val.uri && val.uri.hash){
             alert(val.hash)
         }
     })
