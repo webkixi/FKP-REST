@@ -74,13 +74,16 @@ function getData(ele, param, cb){
 
       if(mobile){
           api.req('order_list',mobile,function(data){
-            if(data.code && data.code===1){
+            console.log(data);
+            if(data.results){
                 orderlistdata(data.results, ele, cb)
                 // if(data.results && data.results.length)
                 //   orderlistdata(data.results, ele, cb)
                 // else {
                 //     alert('您还没有任何订单')
                 // }
+            }else{
+              renderDom( ele, cb)
             }
           })
       }else{

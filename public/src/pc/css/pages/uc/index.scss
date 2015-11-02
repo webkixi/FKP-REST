@@ -931,6 +931,7 @@ body{
 					&#code{
 						font-size: 0.7rem;
 						display: inline-block;
+				    width: 57.6%;
 						.form{
 							width: 98%;
 							input{
@@ -941,15 +942,23 @@ body{
 					&#verify_btn{
 						display: inline-block;
 						width: 40%;
-						border: 2px solid red;
+						border: 2px solid #CCC9C9;
 						font-size: 0.6rem;
 						text-align: center;
-						height: 1.8rem;
-						line-height: 1.9rem;
+						height: 1.7rem;
+						line-height: 1.7rem;
 						margin-top: 12%;
 						margin-left: 2%;
+						background: #EFEEEE;
 					}
 			}
+	}
+	#now{
+    background: #30A296;
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    padding: 0.4rem 0;
+    margin-top: 2rem;
 	}
 }
 //地址列表
@@ -965,7 +974,7 @@ body{
 				margin-top: 1rem;
 				.inner{
 					border: 0.05rem solid #ddd;
-					overflow: hidden; 
+					overflow: hidden;
 				}
 			}
 			.inner{

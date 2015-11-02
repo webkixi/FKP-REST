@@ -401,7 +401,7 @@ var bindIndex = function(){
 
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(form, _form);
-            // console.log(fff);
+            console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
                 if(data && data.code===1){
