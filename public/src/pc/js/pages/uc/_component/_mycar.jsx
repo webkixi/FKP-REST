@@ -73,8 +73,10 @@ function getData(ele, param, cb){
       }
       if(mobile){
         api.req('mycarlist',mobile,function(data){
-          if(data.code && data.code===1){
+          if(data.results){
               organizeData(data.results, ele, cb)
+          }else{
+            renderDom( ele, cb)
           }
         })
       }else{
