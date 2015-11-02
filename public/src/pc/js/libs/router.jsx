@@ -13,7 +13,7 @@ function router(name){
 
     var tmp = SA.getter(name)
     if(tmp){
-        console.log(name);
+        console.log('==='+name);
         // window.location.hash = name;
         SA.setter(name,{})
     }
