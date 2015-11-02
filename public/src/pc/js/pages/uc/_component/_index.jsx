@@ -17,7 +17,7 @@ var tab_mc_data = [
 
 
 var index = {
-    mixins: [ItemMixin],
+    mixins: [store('Index'),ItemMixin],
     render: function () {
         return(
             <div className={'index'}>
