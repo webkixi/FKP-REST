@@ -69,7 +69,7 @@ function getData(ele, param, cb){
       var mobile;
 
       if(_l_user){
-          mobile = { mobile: _l_user.mobile}
+          mobile = { mobile: _l_data.mobile}
       }
 
       if(mobile){
