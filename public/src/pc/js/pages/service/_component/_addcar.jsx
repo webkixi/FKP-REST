@@ -226,7 +226,7 @@ function checkValue(ele){
           carid : _car.model.value,
           carbrand: _car.brand.value,
           carseries: _car.series.value,
-          cartype: _car.model.value,
+          cartype: _car.model.text,
           carengno: _car.engin.value||'',
           plateno: _car.number.value||'',
           carvin: _car.vin.value||'',

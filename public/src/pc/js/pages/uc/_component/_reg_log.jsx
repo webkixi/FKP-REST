@@ -34,17 +34,17 @@ var index = {
 }
 var _form = {};
 var bindIndex = function(){
-    var Text = require('modules/form/text');
+    var Number = require('modules/form/number');
     var u = {};
 
     //电话
-    u.phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
+    u.phone = new Number({label:'手机号码', valide: 'mobile'}, 'phone',function(){
         $(this).click(function(){
 
         })
     });
     //验证码
-    u.verify = new Text({label:'短信验证码',valide: 'verify_m'}, 'code',function(){
+    u.verify = new Number({label:'短信验证码',valide: 'verify_m'}, 'code',function(){
         $(this).click(function(){
 
         })
