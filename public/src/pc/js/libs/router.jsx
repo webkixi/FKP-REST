@@ -33,16 +33,13 @@ if(window.history.pushState){
         var val = e.state;
         console.log(val);
         if(val && val.uri && val.uri.hash){
-            alert(val.hash)
+            router(val.uri.hash);
         }
     })
 }
 
 function historyStat(args, title, uri){
-    window.history.pushState (args, title, uri)
-	// window.onpopstate=function(event){
-	//     var val = event.state;
-	// };
+    window.history.pushState(args, title, uri)
 }
 
 var route = function(name, handle){
