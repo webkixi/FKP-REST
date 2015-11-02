@@ -131,6 +131,19 @@ var index = {
             </div>
         }
         else{
+            var addr, address;
+            if(_l_user.addr){
+                addr = _l_user.province + _l_user.city + _l_user.county
+            }else{
+                address = <div className="layout">
+                    <label>地址</label>
+                    <div className="box">
+                        <div id="city"></div>
+                        <div id="district"></div>
+                        <div id="address"></div>
+                    </div>
+                </div>
+            }
             return <div className={'service_myorder'}>
                 <ul className={'message_over_order_mycar'}>
                   <li className={'item'}>
@@ -139,13 +152,14 @@ var index = {
                     </div>
                     <div className={'hbody'}>
                       <div className={'hbody_div'}>
-                        <em>林小姐</em>
-                        <span>13839487654</span>
+                        <em>{_l_user.nick}</em>
+                        <span>{_l_user.mobile}</span>
                       </div>
-                      <p>广州市白云区京溪南方医院地铁口2</p>
+                      <p>{addr}</p>
                     </div>
                   </li>
                 </ul>
+                {address}
                 <div className="layout">
                     <label>预约时间</label>
                     <div className="box">
@@ -156,7 +170,7 @@ var index = {
             </div>
         }
 	},
-    render: function () {
+    render: function() {
         var inner = this.willMount();
         return(
             <div className={'wrapper'}>
@@ -237,6 +251,69 @@ var bindIndex = function(){
                 }
         })
 
+        // //城市
+        u.city = new Select({}, 'city',function(){
+            var parents = [];
+            api.req('region', function(data){
+                if(data && data.code===1){
+                    if(data.results.length){
+                        data.results.map(function(item, i){
+                            parents.push({
+                                body:[
+                                    {
+                                        attr: 'select',
+                                        k: item.address_name,
+                                        v: item.region_id
+                                    }
+                                ]
+                            })
+                        })
+                    }
+                }
+            })
+            $(this).click(function(){
+                var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                SA.setter('Pop',{data:{body:xx,display:'block'}} )
+            })
+        });
+        //
+        // 地区
+        u.district = new Select({}, 'district',function(){
+            districts = [];
+            $(this).click(function(){
+                var kkk = $('#city').find('input').val();
+                api.req('region',{parent_id: kkk}, function(data){
+                    if(data && data.code===1){
+                        if(data.results.length){
+                            data.results.map(function(item, i){
+                                districts.push({
+                                    body:[
+                                        {
+                                            attr: 'select',
+                                            k: item.address_name,
+                                            v: item.region_id
+                                        }
+                                    ]
+                                })
+                            })
+                        }
+                        var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                        SA.setter('Pop',{data:{body:yy,display:'block'}} )
+                    }
+                })
+            })
+        });
+
+        //详细地址
+        u.address = new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
+            $(this).click(function(){
+
+            })
+        });
+    }
+
+    //用户存在 但没有地址
+    if(_l_user && !_l_user.addr){
         // //城市
         u.city = new Select({}, 'city',function(){
             var parents = [];
@@ -390,6 +467,12 @@ var bindIndex = function(){
                 _form.code = u.verify.value
             }else{
                 _form = _l_user.addr[0];
+                if(u.city){
+                    _form.province = "广东"
+                    _form.city = u.city.text
+                    _form.county = u.district.text
+                    _form.street = u.address.value
+                }
                 _form.uid = _l_user.uid;
                 _form.mobile = _l_user.mobile;
             }
