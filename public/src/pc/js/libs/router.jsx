@@ -8,9 +8,11 @@ var router = function(name){
     }
     var url = libs.urlparse(location.href);
     SA.setter('_HISTORY', url);
+    historyStat({uri: url}, null, '#'+name)
+
     var tmp = SA.getter(name)
     if(tmp){
-        window.location.hash = name;
+        // window.location.hash = name;
         SA.setter(name,{})
     }
 }
@@ -22,6 +24,23 @@ router.goback = function(){
     }else{
         window.location.href = history.source
     }
+}
+
+//html5
+if(window.history.pushState){
+    libs.addEvent(window, 'onpopstate', function(e){
+        var val = e.state;
+        if(val && val.hash){
+            alert(val.hash)
+        }
+    })
+}
+
+function historyStat(args, title, uri){
+    window.history.pushState (args, title, uri)
+	// window.onpopstate=function(event){
+	//     var val = event.state;
+	// };
 }
 
 var route = function(name, handle){
