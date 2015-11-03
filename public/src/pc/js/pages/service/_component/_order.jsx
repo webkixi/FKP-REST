@@ -254,8 +254,8 @@ var bindIndex = function(){
 
         // //城市
         u.city = new Select({}, 'city',function(){
+            var parents = [];
             api.req('region', function(data){
-                var parents = [];
                 if(data && data.code===1){
                     if(data.results.length){
                         data.results.map(function(item, i){
