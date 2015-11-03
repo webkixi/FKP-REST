@@ -395,7 +395,7 @@ var bindIndex = function(){
         var month = tt.getMonth();
         return {
             year: year,
-            month: month,
+            month: month+1,
             date: date
         }
     }
