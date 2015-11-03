@@ -528,18 +528,22 @@ body{
         &:last-child{
           height: 2.5rem;
           line-height: 2.5rem;
+          padding-bottom: 2.5rem;
         }
         .title_detection_mycar{
           color: #333;
           background: #EEF7F6;
           border-bottom: 2px solid #bababa;
           // display: table-caption;
-          font-size: 0.7rem;
+          font-size: 0.8rem;
           padding-left: 3%;
           height: 2rem;
           width: 100%;
+        //   font-weight: bold;
           span{
+              margin-left: 0.24rem;
             width: 100%;
+            font-size: 0.7rem;
           }
         }
       }
