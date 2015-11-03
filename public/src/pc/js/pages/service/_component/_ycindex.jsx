@@ -233,7 +233,7 @@ var bindIndex = function(){
         }
         orderData.footer.map(function(item, i){
             if(item.o){
-              console.log(item);
+            //   console.log(item);
                 var pno = item.o.partstypeno||'';
                 _form.orderdetail.push({
                     partsno: item.o.partsno,
