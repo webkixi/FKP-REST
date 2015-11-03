@@ -517,14 +517,19 @@ var bindIndex = function(){
 
 function checkValue(ele){
     var items = Object.keys(ele);
+    var stat = true;
     items.map(function(item, i){
         if(!ele[item].stat){
             $(ele[item].ipt).addClass('error')
-            alert('校验出错')
-            return false;
+            // alert('校验出错')
+            stat = false;
         }
     })
-    return true;
+    if(stat === false){
+        alert('验证出错，请检查填写信息!')
+        return false;
+    }else
+        return true;
 
 
     // var uuu = [];
