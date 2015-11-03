@@ -51,6 +51,7 @@ body{
     p{
       font-size: 0.7rem;
       color: #262626;
+      line-height: 100%;
     }
     span{
       color: #ff7800;
@@ -165,6 +166,8 @@ body{
         em, span{
           display: table-cell;
           border-bottom: 1px solid #bababa;
+          font-size: 0.6rem;
+          color: #777;
 
           em, span{
               i{
@@ -207,6 +210,9 @@ body{
         li:first-child{
             background-color: #E8F8F7;
         }
+    }
+    #checkbox{
+        padding-bottom: 2rem;
     }
 }
 /*多选*/
