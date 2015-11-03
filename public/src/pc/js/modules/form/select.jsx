@@ -41,11 +41,14 @@ function select(data, ele, cb){
             var the = this;
             $("#pop-box").undelegate("p", "click")
             input = $(this).find('input')
+
+            //弹窗中p的data-src为select时，会响应点击
             $("#pop-box").delegate("p", "click", function(){
                 if($(this).attr('data-src')==='select'){
                     var val = $(this).attr('data-value')
                     var text = $(this).text();
                     _this.stat = true;
+                    $(_this.ipt).removeClass('error')
                     _this.value = val;
                     _this.text = text;
                     $(input).val(val)
