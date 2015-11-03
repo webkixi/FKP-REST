@@ -41,11 +41,10 @@ function dealWith_Data_Brand(){
     var nav = [];
     var resaults = []
     var rtnDom;
-    _car.series.empty();
-    _car.model.empty();
+
     api.req('queryallbrand',{}, function(data){
         if(data.code && data.code===1){
-          console.log(data);
+        //   console.log(data);
             var tmp = {};
             data.results.map(function(item, i){
               var key = item.carfirstname;
@@ -86,7 +85,7 @@ function dealWith_Data_Series(){
     var results = []
     var rtnDom;
     var nav = [];
-    _car.model.empty();
+    // _car.model.empty();
     pn = { carbrand: $("#brand").find("input").val()}
     api.req('queryseries',pn, function(data){
       if(data.code && data.code===1){
@@ -150,9 +149,16 @@ var bindEsti = function(){
     _car.brand = new Select({label:'品牌', popclose: true}, 'brand',function(){
         $(this).click(function(){
           dealWith_Data_Brand();
-          console.log($(this));
         })
     });
+
+    _car.brand.selected = function(txt,val){
+        if(this.text !== txt){
+            _car.model.empty();
+            _car.series.empty();
+        }
+    }
+
     //车系
     _car.series = new Select({label:'车系', popclose: true}, 'series',function(){
         $(this).click(function(){
@@ -162,6 +168,12 @@ var bindEsti = function(){
             SA.setter('Pop',{data:{body:'请先选择品牌', display:'block'}})
         })
     });
+
+    _car.series.selected = function(txt,val){
+        if(this.text !== txt){
+            _car.model.empty();
+        }
+    }
 
     //型号
     _car.model = new Select({label:'车型', popclose: true}, 'model',function(){

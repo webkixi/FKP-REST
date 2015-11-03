@@ -277,6 +277,11 @@ var bindIndex = function(){
                 SA.setter('Pop',{data:{body:xx,display:'block'}} )
             })
         });
+
+        u.city.selected = function(txt, val){
+            if(this.txt !== txt)
+                u.district.empty()
+        }
         //
         // 地区
         u.district = new Select({}, 'district',function(){

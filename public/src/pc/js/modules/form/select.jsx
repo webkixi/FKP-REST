@@ -14,6 +14,7 @@ function select(data, ele, cb){
     this.value;
     this.text;
     this.ipt;
+    this.selected;
     var _this = this;
 
 
@@ -29,7 +30,7 @@ function select(data, ele, cb){
         _this.value = ''
         _this.text = ''
         _this.stat = false;
-        $(_this.ipt).find('span').text('')
+        $(_this.ipt).find('span').text('请选择')
     }
 
     var close = true;
@@ -47,6 +48,8 @@ function select(data, ele, cb){
                 if($(this).attr('data-src')==='select'){
                     var val = $(this).attr('data-value')
                     var text = $(this).text();
+                    if(_this.selected && typeof _this.selected==='function')
+                        _this.selected.call(_this,text,val)
                     _this.stat = true;
                     $(_this.ipt).removeClass('error')
                     _this.value = val;
