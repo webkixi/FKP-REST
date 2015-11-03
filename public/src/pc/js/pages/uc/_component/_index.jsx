@@ -17,7 +17,7 @@ var tab_mc_data = [
 
 
 var index = {
-    mixins: [store('Index'),ItemMixin],
+    mixins: [ItemMixin],
     render: function () {
         return(
             <div className={'index'}>
@@ -61,19 +61,16 @@ function getData(ele, param, cb){
       if(_l_user.error){
           _l_user = false;
       }
-
       if(!_l_user.uid){
           _l_user = false;
       }
-
       var mobile;
-
+      console.log(_l_user.uid);
       if(_l_user){
-          mobile = { mobile: _l_user.mobile}
+          uid = { uid: _l_user.uid}
       }
-
-      if(mobile){
-          api.req('order_list',mobile,function(data){
+      if(uid){
+          api.req('order_list',uid,function(data){
             console.log(data);
             if(data.results){
                 orderlistdata(data.results, ele, cb)
@@ -100,7 +97,9 @@ var order_data_list_D2 =[];
 var order_data_list_D3 =[];
 function orderlistdata(orderdata,  ele, cb){
   var order_data_list = [];
+  console.log(orderdata);
   orderdata.map(function(item,i){
+    console.log(item);
     //转时间戳
     var a = new Date(parseInt(item.createtime));
     var ordertime = a.getFullYear() +'-'+ a.getDate() +'-'+ a.getMonth();
