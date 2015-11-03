@@ -204,6 +204,7 @@ var _payway=0;
 var bindIndex = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var Number = require('modules/form/number');
     var Radio = require('modules/form/radio');
     var u = {};
 
@@ -217,14 +218,14 @@ var bindIndex = function(){
         })
 
         //电话
-        u.phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
+        u.phone = new Number({label:'手机号码', valide: 'mobile'}, 'phone',function(){
             $(this).click(function(){
 
             })
         });
 
         //验证码
-        u.verify = new Text({valide: 'verify_m'}, 'code',function(){
+        u.verify = new Number({valide: 'verify_m'}, 'code',function(){
             $(this).click(function(){
 
             })
