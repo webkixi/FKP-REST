@@ -13,25 +13,6 @@ var json = {
            "name": "河马",
            "type": "view",
            "url": "http://ch.dabai360.com/about.html"
-        },
-        {
-           "name":"我",
-           "sub_button":[
-            {
-               "type":"view",
-               "name":"我的订单",
-               "url": "http://ch.dabai360.com"
-            },
-            {
-               "type":"view",
-               "name":"我的车辆",
-               "url": "http://ch.dabai360.com"
-            },
-        	{
-               "type":"view",
-               "name":"我的地址",
-               "url": "http://ch.dabai360.com"
-            }]
         }
     ]
 }
