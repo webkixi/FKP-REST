@@ -86,13 +86,21 @@ function *demoIndexData(oridata){
                     postdata.content[0] = body.data;
 
             }
+            postdata.content[0].car.usercarid = parseInt(postdata.content[0].car.carid)
             postdata.content[0].car.carid = parseInt(postdata.content[0].car.carid)
             postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
 
+            console.log('all----------');
             console.log(postdata);
             console.log('userinfo----------');
-            console.log(postdata.content[0].userinfo);
+            console.log(postdata.content[0].user);
+            console.log('订单----------');
             console.log(postdata.content[0].orderdetail);
+            console.log('car----------');
+            console.log(postdata.content[0].car);
+            console.log('addr----------');
+            console.log(postdata.content[0].addr);
+
             var orderdata = yield api.pullApiData('orderins', postdata, 'post');
             console.log(orderdata[1]);
             return orderdata[1]
