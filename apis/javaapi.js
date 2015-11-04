@@ -1,4 +1,4 @@
-// var request = require('needle');
+var needle = require('needle');
 var request = require('request');
 var path = require('path');
 var libs = require('../libs/libs');
@@ -44,6 +44,7 @@ var req = function(api,options){
             }
             // console.log(options);
             // request.post(api, options, rp);
+            console.log(needle);
             request({method:'POST', url:api, json:options}, rp)
 
         }
