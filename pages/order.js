@@ -89,7 +89,7 @@ function *demoIndexData(oridata){
             postdata.content[0].car.usercarid = parseInt(postdata.content[0].car.carid)
             postdata.content[0].addr.id = parseInt(postdata.content[0].addr.id)
             postdata.content[0].car.carid = parseInt(postdata.content[0].car.carid)
-            postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
+            // postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
 
             console.log('all----------');
             console.log(postdata);
