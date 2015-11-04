@@ -7,7 +7,11 @@ var api = require('libs/api');
 var router = require('libs/router').router
 require('../../_common/pingpp')
 
-var _form = {};
+var _form = {
+    user: {},
+    car:  {},
+    addr: {}
+};
 var bodys = [];
 var heji = {
   count: 0,
@@ -461,39 +465,47 @@ var bindIndex = function(){
     });
 
     $('#now').click(function(){
+        console.log('iiiiiiiiii');
         var stat = checkValue(u);
         if(stat){
             if(!_l_user){
-                _form.mobile = u.phone.value;
-                _form.province = "广东"
-                _form.city = u.city.text
-                _form.county = u.district.text
-                _form.street = u.address.value
+                _form.user.name = u.name.value;
+                _form.user.mobile = u.phone.value;
+
+                _form.addr.username = u.name.value;
+                _form.addr.mobile = u.phone.value;
+                _form.addr.province = "广东"
+                _form.addr.city = u.city.text
+                _form.addr.county = u.district.text
+                _form.addr.street = u.address.value
                 _form.zip = '440000'
                 _form.code = u.verify.value
             }else{
-                _form = _l_user.addr[0];
+                _form.addr = _l_user.addr[0];
                 if(u.city){
-                    _form.province = "广东"
-                    _form.city = u.city.text
-                    _form.county = u.district.text
-                    _form.street = u.address.value
+                    _form.addr.province = "广东"
+                    _form.addr.city = u.city.text
+                    _form.addr.county = u.district.text
+                    _form.addr.street = u.address.value
                 }
                 _form.uid = _l_user.uid;
-                _form.mobile = _l_user.mobile;
+                _form.addr.mobile = _l_user.mobile;
+                _form.addr.mobile = _l_user.mobile;
             }
             _form.paych = _payway
             _form.totalprice = heji.totalprice
             _form.subscribetime = u.date.value + u.ampm.text
 
-            _form.userinfo = _wx_userinfo;
+            _form.user.userinfo = _wx_userinfo;
 
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(form, _form);
-            console.log(fff);
+            delete fff.cleanParts
+            // console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
-                // console.log(data);
+                console.log(data);
                 if(data && data.code===1){
+                    console.log(data.results[0]);
                     payment(data.results[0])
                 }
             })
@@ -536,20 +548,6 @@ function checkValue(ele){
     }else
         return true;
 
-
-    // var uuu = [];
-    // $('.service_myorder div').each(function(){
-    //     if(this.id){
-    //         uuu.push({
-    //             idf: this.id,
-    //             ipt: $(this).find('input').val()
-    //         })
-    //     }
-    // });
-    //
-    // if(uuu.length){
-    //     window.location.href="/uc.html"
-    // }
 }
 
 

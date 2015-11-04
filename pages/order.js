@@ -86,33 +86,22 @@ function *demoIndexData(oridata){
                     postdata.content[0] = body.data;
 
             }
+            postdata.content[0].carid = parseInt(postdata.content[0].carid)
+            postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
+
+            console.log(postdata);
+            console.log('userinfo----------');
+            console.log(postdata.content[0].userinfo);
+            console.log(postdata.content[0].orderdetail);
+            var orderdata = yield api.pullApiData('orderins', postdata, 'post');
+            console.log(orderdata[1]);
+            return orderdata[1]
         }
-        postdata.content[0].carid = parseInt(postdata.content[0].carid)
-        postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
-
-        console.log(postdata);
-        console.log('userinfo----------');
-        console.log(postdata.content[0].userinfo);
-        console.log(postdata.content[0].orderdetail);
+        else{
+            return {error: '100', message: "body为空"}
+        }
 
 
-
-
-
-        var orderdata = yield api.pullApiData('orderins', postdata, 'post');
-        console.log(orderdata[1]);
-        return orderdata[1]
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // // serviceData[1].results.push(qd);
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
-        // return oridata;
     }
 
 

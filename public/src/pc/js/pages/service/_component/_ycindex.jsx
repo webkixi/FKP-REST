@@ -251,10 +251,11 @@ var bindIndex = function(){
         carData = _l_user
         ? _l_user.usercar[0]
         : SA.getter('_GLOBAL').data.index.form
-        form = libs.extend(carData, _form)
+        form = libs.extend({}, _form)
+        form.car = carData;
 
         //other form
-        form.openid = "wx766666";
+        // form.openid = "wx766666";
         orderData.form = form;
         SA.setter('_GLOBAL', { index: orderData } )
         router("order")
