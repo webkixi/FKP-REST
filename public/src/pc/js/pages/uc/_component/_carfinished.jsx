@@ -10,12 +10,10 @@ var _form = {};
 
 var order_status = SA.getter('_GLOBAL').data.data.status;
 function getData(ele, param, cb){
-  console.log(SA.getter('_GLOBAL').data);
-  //var order_id = SA.getter('_GLOBAL').data.data.orderids;
-  //var orderid = { orderid : order_id}
-  _form.uid = SA.getter('_GLOBAL').data.data.uid;
-  _form.order_id = SA.getter('_GLOBAL').data.data.orderids;
-  api.req('myorder_info',{data:_form}, function(data){
+  var order_id = SA.getter('_GLOBAL').data.data.orderids;
+  var orderid = { orderid : order_id}
+
+  api.req('myorder_info',orderid, function(data){
     orderInfodata(data.results, ele, cb)
   })
 }
