@@ -212,6 +212,7 @@ function *pullWxData(api, param, method){
         return {token: true};
     }else{
         if(api.indexOf('_web')===-1){
+            console.log('append access token to weixin api');
             param.access_token = this.sess.wx.token;
         }
     }
