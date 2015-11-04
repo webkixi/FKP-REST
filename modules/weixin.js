@@ -17,7 +17,7 @@ function weixin(){
         }
 
 
-          if (message.FromUserName === 'diaosi') {
+         else if (message.FromUserName === 'diaosi') {
             // 回复屌丝(普通回复)
             this.body = 'hehe';
           } else if (message.FromUserName === 'text') {
