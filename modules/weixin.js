@@ -10,6 +10,7 @@ function weixin(){
     return wechat(config.weixin).middleware(function *() {
         var message = this.weixin;
         console.log(message);
+        console.log(message.Content.indexOf('保养')>-1);
 
         if(message.Content.indexOf('保养')>-1){
             this.body = 'hehe'
