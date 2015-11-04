@@ -174,15 +174,21 @@ function *getWxAccessToken(params, apii){
             the.sess.wwx = sess_wx;
     }
 
-
+    var tmp;
     if(params.code){   //web access token
         if(!this.sess.wwx)
             yield getWAT();
+
+        tmp = this.sess.wwx
     }else{   //normal access token
-        if(apii.indexOf('_web')===-1)
-            yield getAT();   //暂时关闭
+        if(apii.indexOf('_web')===-1){
+            if(!this.sess.wx)
+                yield getAT();   //暂时关闭
+
+            tmp = this.sess.wx
+        }
+
     }
-    var tmp = this.sess.wx||this.sess.wwx;
     console.log(tmp);
     if(tmp){
         var now = date.getTime()/1000;
