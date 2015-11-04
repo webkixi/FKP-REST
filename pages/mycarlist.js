@@ -61,20 +61,31 @@ function *demoIndexData(orderdata){
         var postdata = {
             "common": {
               "session": "11111",
-              "uid": 1
+              "uid": '111'
             },
             "content": [
               {
-                "mobile": body.mobile
               }
             ]
         }
 
-        console.log(postdata);
-        var orderdata = yield api.pullApiData('mycarlist', postdata, 'post');
-        console.log(orderdata[1]);
+        if(!this.sess.user){
+          console.log("----------用户不存在-----------");
+          return {error: '101', message: "用户不存在"}
+        }
 
-        return orderdata[1];
+        if(body){
+
+          postdata.common.uid = parseInt(this.sess.user.uid)
+          var orderdata = yield api.pullApiData('mycarlist', postdata, 'post');
+          console.log(orderdata[1]);
+          return orderdata[1];
+        }else{
+          return {error: '102', message: "body没有存在"}
+        }
+
+
+
     }
 
 

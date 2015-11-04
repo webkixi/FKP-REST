@@ -3,7 +3,7 @@ var ItemMixin = require('mixins/item')
 var Pt = require('widgets/itemView/pic_title');
 var List = require('widgets/listView/list');
 var pop = require('modules/pop/index');
-var api = require('pages/_common/api');
+var api = require('libs/api');
 var store = require('mixins/store');
 var router = require('libs/router').router
 

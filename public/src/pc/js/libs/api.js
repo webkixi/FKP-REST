@@ -26,6 +26,7 @@ var apiPath = {
 
         ,order_addr: src+'order_addr'
         ,order_addaddr: src+'order_addaddr'
+        ,order_deladdr: src+'order_deladdr'
 
         ,login: src+'login'   //获取登陆用户信息
     },
@@ -36,7 +37,6 @@ var apiPath = {
 }
 
 function req( api, param, cb ){
-  console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
     var url = apiPath.dirs[api];
     if(url){
         if(libs.getObjType(param)==='Object'){

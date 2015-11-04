@@ -34,8 +34,12 @@ var index = {
     mixins: [store('Index'),ItemMixin],
     render: function () {
         var fdiv;
+        var footer_div;
         if(_ComData.length)
           fdiv = <List data={_ComData} itemClass={'noclass'} itemMethod={abc} itemView={FLi}/>
+        else
+          footer_div = <a id="now" className={'btn-link'}>{'添加新地址'}</a>
+
         return(
             <div className={'index myaddress'}>
                 <header>
@@ -47,7 +51,7 @@ var index = {
                     </div>
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>{'添加新地址'}</a>
+                    {footer_div}
               </footer>
             </div>
         )
@@ -139,7 +143,7 @@ function myaddressDate(myaddrDate,ele, cb){
 
     _ComData.push(myaddress)
   })
-  if(!_ComData.length){
+  if(_ComData.length){
     console.log("xxx");
     $('#now').hide();
   }
