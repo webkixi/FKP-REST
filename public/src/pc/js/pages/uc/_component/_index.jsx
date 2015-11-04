@@ -79,13 +79,16 @@ function getData(ele, param, cb){
                 //     alert('您还没有任何订单')
                 // }
             }else{
+              console.log('111');
               renderDom( ele, cb)
             }
           })
       }else{
+        console.log('2222');
           router('reg_log');
       }
   }else{
+    console.log('3333');
       router('reg_log')
   }
 
@@ -252,4 +255,4 @@ function renderDom(ele, data, cb){
     )
 }
 
-module.exports = getData;
+module.exports = init;
