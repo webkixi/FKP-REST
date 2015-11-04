@@ -68,17 +68,28 @@ console.log("sssssssssssss");
 
             }]
         }
-        var body = yield libs.$parse(this);
-        if(body){
-            if(body.type){
-                if(body.type==='insert')
-                    postdata.content[0] = body.data;
-            }
+
+        if(!this.sess.user){
+          console.log("----------用户不存在-----------");
+          return {error: '101', message: "用户不存在"}
         }
-        postdata.content[0].defflag = parseInt(postdata.content[0].defflag)
-        var orderdata = yield api.pullApiData('order_addaddr', postdata, 'post');
-        console.log(orderdata[1]);
-        return orderdata[1];
+
+        if(body){
+          if(body.type){
+              if(body.type==='insert')
+                  postdata.content[0] = body.data;
+          }
+
+          postdata.common.uid = parseInt(this.sess.user.uid)
+          postdata.content[0].defflag = parseInt(postdata.content[0].defflag)
+          var orderdata = yield api.pullApiData('order_addaddr', postdata, 'post');
+          console.log(orderdata[1]);
+          return orderdata[1];
+        }else{
+          return {error: '102', message: "body没有存在"}
+        }
+
+
     }
 
 

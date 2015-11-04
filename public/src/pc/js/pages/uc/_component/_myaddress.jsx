@@ -86,12 +86,12 @@ function getData(ele, param, cb){
       if(!_l_user.uid){
           _l_user = false;
       }
-
+      var uid;
       if(_l_user){
-          var mobile = { mobile: _l_user.mobile}
+          var uid = { uid: _l_user.uid}
       }
-      if(mobile){
-        api.req('order_addr',mobile,function(data){
+      if(uid){
+        api.req('order_addr',uid,function(data){
           if(data.results){
               myaddressDate(data.results, ele, cb)
           }else{
