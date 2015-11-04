@@ -68,6 +68,7 @@ function *demoIndexData(oridata){
               "orderid": body.orderid
             }]
         }
+        postdata.common.uid = parseInt(postdata.common.uid)
         postdata.content[0].orderid = parseInt(postdata.content[0].orderid)
 
         var orderdata = yield api.pullApiData('myorder_info', postdata, 'post');
