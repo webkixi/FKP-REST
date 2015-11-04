@@ -42,6 +42,9 @@ var req = function(api,options){
                 opts.json = options
             }
             console.log(opts);
+            if(options.body){
+                console.log(options.body);
+            }
             request.post(api, opts, rp);
 
         }
