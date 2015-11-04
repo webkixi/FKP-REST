@@ -97,6 +97,7 @@ function *create(){
     var now_m = yield query.call(this)
     console.log('-------- create menu ----------');
     console.log(now_m);
+    console.log(typeof now_m.errcode);
     if(now_m.errcode>0){
         var nowmenu = yield api.pullWxData.call(this,'createmenu',{ body:json }, 'post' );
         console.log(nowmenu[0].body);
