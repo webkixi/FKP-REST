@@ -1,5 +1,5 @@
-var request = require('needle');
-// var request = require('request');
+// var request = require('needle');
+var request = require('request');
 var path = require('path');
 var libs = require('../libs/libs');
 var qs = require('querystring');
@@ -43,7 +43,8 @@ var req = function(api,options){
                 opts.json = options
             }
             // console.log(options);
-            request.post(api, options, rp);
+            // request.post(api, options, rp);
+            request({method:'POST', url:api, json:options}, rp)
 
         }
         else
