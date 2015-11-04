@@ -496,7 +496,7 @@ var bindIndex = function(){
             _form.totalprice = heji.totalprice
             _form.subscribetime = u.date.value + u.ampm.text
 
-            console.log(_l_user.name);
+            // console.log(_l_user.name);
             _form.user.name = _l_user.name||'河马';
             _form.user.mobile = _l_user.mobile;
             _form.user.userinfo = _wx_userinfo;
@@ -504,11 +504,11 @@ var bindIndex = function(){
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(_form, form);
             delete fff.cleanParts
-            console.log(fff);
+            // console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
-                console.log(data);
+                // console.log(data);
                 if(data && data.code===1){
-                    console.log(data.results[0]);
+                    // console.log(data.results[0]);
                     payment(data.results[0])
                 }
             })
