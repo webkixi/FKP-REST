@@ -67,13 +67,15 @@ function getData(ele, param, cb){
       if(!_l_user.uid){
           _l_user = false;
       }
-
+      var uid;
       if(_l_user){
-          var mobile = { mobile: _l_user.mobile}
+          uid = { uid: _l_user.uid}
       }
-      if(mobile){
-        api.req('mycarlist',mobile,function(data){
+      if(uid){
+        api.req('mycarlist',uid,function(data){
+          console.log(data);
           if(data.results){
+
               organizeData(data.results, ele, cb)
           }else{
             renderDom( ele, cb)

@@ -8,7 +8,9 @@ var apiPath = {
     dirs: {
         service: src+'service',   //小保养
         parts: src+'parts',   //小保养
-        queryallbrand: src+'queryallbrand'   //汽车品牌
+        queryallbrand: src+'queryallbrand',   //汽车品牌
+        queryseries: src+'queryseries',   //汽车品牌
+        querycartype: src+'querycartype'   //汽车品牌
 
 
         ,region: src+'region'   //获取地区信息
@@ -37,6 +39,7 @@ var apiPath = {
 }
 
 function req( api, param, cb ){
+  console.log("sss");
     var url = apiPath.dirs[api];
     if(url){
         if(libs.getObjType(param)==='Object'){

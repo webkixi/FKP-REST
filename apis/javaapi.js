@@ -77,7 +77,7 @@ var apiPath = {
         order_addr: src+'addr/query',
         order_deladdr: src+'addr/delete',
         order_addaddr: src+'addr/insert',
-        mycarlist: src+'usercar/querybymobile',
+        mycarlist: src+'usercar/query',
         mycar_del: src+'usercar/delete',
 
         login: src+'user/login'
