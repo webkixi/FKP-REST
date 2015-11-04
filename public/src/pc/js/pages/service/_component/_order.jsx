@@ -481,12 +481,13 @@ var bindIndex = function(){
                 _form.zip = '440000'
                 _form.code = u.verify.value
             }else{
-                _form.addr = _l_user.addr[0];
                 if(u.city){
                     _form.addr.province = "广东"
                     _form.addr.city = u.city.text
                     _form.addr.county = u.district.text
                     _form.addr.street = u.address.value
+                }else{
+                    _form.addr = _l_user.addr[0];
                 }
                 _form.uid = _l_user.uid;
                 _form.addr.mobile = _l_user.mobile;
@@ -499,9 +500,9 @@ var bindIndex = function(){
             _form.user.userinfo = _wx_userinfo;
 
             var form = SA.getter('_GLOBAL').data.index.form;
-            var fff = libs.extend(form, _form);
+            var fff = libs.extend(_form, form);
             delete fff.cleanParts
-            // console.log(fff);
+            console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
                 if(data && data.code===1){

@@ -256,7 +256,7 @@ function checkValue(ele){
       console.log(local_user);
       if(local_user && local_user.data){
           var local_data = local_user.data;
-          if(!local_data.error){
+          if(local_data && !local_data.error){
               local_data.usercar = [uuu.form]
               SA.setter('_LOCAL_USER', local_data);
           }else{
