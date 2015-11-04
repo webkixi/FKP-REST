@@ -62,7 +62,7 @@ function *demoIndexData(oridata){
         var postdata = {
             "common": {
                 "session": "11111",
-                "uid": 1
+                "uid": body.uid
             },
             "content": [{
               "orderid": 1
