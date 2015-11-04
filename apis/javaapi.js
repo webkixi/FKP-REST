@@ -81,26 +81,13 @@ var apiPath = {
         mycar_del: src+'usercar/delete',
 
         login: src+'user/login'
-        // search: src+'api/search.html',    //搜索
-        // region: src+'api/region/region-list.html', //地区
-        //
-        // //用户中心
-        // loginCheck: src+'api/account/loginCheck.html',  //用户检测
-        // accountDetail: src+'api/account/detail.html',  //通过账号查找用户信息
-        // get_account_info: src+'api/account/account-center.html',  //用户信息
-        // regist: src+'api/account/account-save.html',  //注册
-        // checkMC: src+'api/account/checkLoginPhoneAndCode.html',  //校验验证码
-        // code: src+'api/account/send-sms-code.html',   //拿取手机验证码
-        // //forget: src+'api/checkForgetPassword.html',  //忘记密码
-        // user: src+'checkUserStatus.html',   //检测用户状态
-        // updatePassword: src+'api/account/account-save-password.html',  //更新用户密码false 忘记密码true
-        // updateBaseInfo: src+'api/account/account-save-baseInfo.html',  //更新用户基本信息
-        // uploadPictureAuth: src+'api/account/account-picture-auth.html',  //更新用户认证图片
     },
+
     weixin: {
         //oauth2方式的api会议 '_web' 方式结尾
         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get',
-        querymenu: 'https://api.weixin.qq.com/cgi-bin/menu/get', //?access_token=ACCESS_TOKEN
+        querymenu: 'https://api.weixin.qq.com/cgi-bin/menu/get',        //?access_token=ACCESS_TOKEN
+        createmenu: 'https://api.weixin.qq.com/cgi-bin/menu/create',    //?access_token=ACCESS_TOKEN
 
         userinfo_web: 'https://api.weixin.qq.com/sns/userinfo'  //?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
     }
@@ -158,7 +145,6 @@ function *getWxAccessToken(params, apii){
             token_renew: 7200
         }
         if(tk.access_token){
-            console.log('22222222222');
             the.sess.wx = sess_wx;
         }
     }
@@ -226,7 +212,6 @@ function *pullWxData(api, param, method){
         return {token: true};
     }else{
         if(api.indexOf('_web')===-1){
-            console.log('11111111');
             param.access_token = this.sess.wx.token;
         }
     }

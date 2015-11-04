@@ -55,7 +55,7 @@ function *weixin(){
                 description: '与你的车一次亲密邂逅',
                 picurl: 'http://120.25.147.54/images/by.jpg',
                 // url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
-                url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
+                url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+config.weixin.appid+'&redirect_uri=http%3A%2F%2Fch.dabai360.com&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
               }
             ];
           }
