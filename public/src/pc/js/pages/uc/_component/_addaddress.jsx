@@ -2,7 +2,7 @@ var libs = require('libs/libs');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
-var api = require('libs/api'); 
+var api = require('libs/api');
 var store = require('mixins/store');
 var router = require('libs/router').router
 console.log(api);
@@ -125,17 +125,13 @@ var bindIndex = function(){
             _form.city = u.city.value
             _form.county = u.district.value
             _form.street = u.address.value
-            _form.zip = '440000'
-            _form.defflag = 1
-            _form.remark = 'remark'
+            _form.username = u.name.value
 
             var fff = libs.extend(_form);
             // console.log(fff);
-            console.log(typeof api.req);
             api.req('order_addaddr',{type: 'insert', data:fff}, function(data){
                 console.log(data)
-                router('myaddress')
-                console.log('lllllllk');
+                router('/uc.html#myaddress')
             })
         }
     })

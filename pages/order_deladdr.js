@@ -64,35 +64,37 @@ function *demoIndexData(oridata){
         var postdata = {
             "common": {
                 "session": "222",
-                "uid": 12
+                "uid": '12'
             },
             "content": [{
               "id": body.id
             }]
 
         }
-        if(body){
-            if(body.type){
-                if(body.type==='delete')
-                console.log(postdata);
-                    postdata.content[0] = body.data;
-            }
-        }
-        postdata.content[0].id = parseInt(postdata.content[0].id)
-        var orderdata = yield api.pullApiData('order_deladdr', postdata, 'post');
-        console.log(orderdata[1]);
 
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // // serviceData[1].results.push(qd);
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
-        return orderdata[1];
+        if(!this.sess.user){
+          console.log("----------用户不存在-----------");
+          return {error: '101', message: "用户不存在"}
+        }
+
+        if(body){
+          if(body.type){
+              if(body.type==='delete')
+                  postdata.content[0] = body.data;
+          }
+
+          postdata.common.uid = parseInt(this.sess.user.uid)
+          postdata.content[0].id = parseInt(postdata.content[0].id)
+          var orderdata = yield api.pullApiData('order_deladdr', postdata, 'post');
+          console.log(orderdata[1]);
+
+          return orderdata[1];
+        }else{
+          return {error: '102', message: "body没有存在"}
+        }
+
+
+
     }
 
 
