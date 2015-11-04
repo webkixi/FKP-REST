@@ -36,10 +36,15 @@ function abc(){
     var ymli_data = $(this).attr("data-liid");
     var yma_data = $(this).attr("data-aid");
     console.log(yma_data);
+
     mycarlist_data.splice(yma_data,1)
+
     var usercarid = { usercarid : ymli_data}
+
+    console.log(usercarid);
     api.req('mycar_del',{type: 'delete',data:usercarid},function(data){
-      SA.setter('Index',{data: mycarlist_data} );
+      console.log(data);
+      SA.setter('Index',{data: mycarlist_data});
       //router('mycar')
     })
   })
