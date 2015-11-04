@@ -22,7 +22,7 @@ var index = {
                     {'我的车'}
                 </header>
                 <article id="content">
-                      <List data={mycarlist_data} listClass={'like_app_list'} itemMethod={abc} itemClass={'wid-12'} itemView={Pt}/>
+                      <List data={mycarlist_data} listClass={'like_app_list like_app_list_mycar'} itemMethod={abc} itemClass={'wid-12'} itemView={Pt}/>
                 </article>
                 <footer>
                     <a id="now" className={'btn-link'}>{'添加车辆'}</a>
