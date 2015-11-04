@@ -22,7 +22,7 @@ var index = {
                     {'我的车'}
                 </header>
                 <article id="content">
-                      <List data={mycarlist_data} listClass={'like_app_list'} itemMethod={abc} itemClass={'wid-12'} itemView={Pt}/>
+                      <List data={mycarlist_data} listClass={'like_app_list like_app_list_mycar'} itemMethod={abc} itemClass={'wid-12'} itemView={Pt}/>
                 </article>
                 <footer>
                     <a id="now" className={'btn-link'}>{'添加车辆'}</a>
@@ -37,7 +37,7 @@ function abc(){
     var yma_data = $(this).attr("data-aid");
     console.log(yma_data);
     mycarlist_data.splice(yma_data,1)
-    var usercarid = { usercarid : ymli_data}
+    var usercarid = { id : ymli_data}
     api.req('mycar_del',{type: 'delete',data:usercarid},function(data){
       SA.setter('Index',{data: mycarlist_data} );
       //router('mycar')

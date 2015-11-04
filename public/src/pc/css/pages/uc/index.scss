@@ -110,6 +110,24 @@ body{
 			}
 		}
 	}
+	&.like_app_list_mycar{
+		.item{
+			.hbody{
+				p{
+					em{
+						display: inline-block;
+					}
+					span{
+						width: auto;
+						display: inline-block;
+				    border: none;
+				    color: #000;
+				    font-size: 0.7rem;
+					}
+				}
+			}
+		}
+	}
 }
 
 .order_details{
