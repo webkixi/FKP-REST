@@ -318,11 +318,11 @@ function *returnJson(stat,route,data){
         if(data)
             this.body = JSON.stringify(data);
         else {
-            this.body = '{"error": -1}'
+            this.body = '{"error": -1, "message":"route/返回data不合法"}'
         }
     }
     else
-        this.body = '{"error": -1}';
+        this.body = '{"error": -1, "message": "route/stat状态为false"}';
 }
 
 
