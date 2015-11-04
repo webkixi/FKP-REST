@@ -4,7 +4,7 @@ var api = require('../apis/javaapi');
 var rct = require('../modules/parseReact');
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/order_deladdr')
+    libs.wlog('pages/mycar_del')
     var dataSet = {};
     var infoCat =[];
     var mtd = this.method;
@@ -77,7 +77,7 @@ function *demoIndexData(oridata){
           }
           postdata.common.uid = parseInt(postdata.common.uid)
           postdata.content[0].usercarid = parseInt(postdata.content[0].usercarid)
-          var orderdata = yield api.pullApiData('order_deladdr', postdata, 'post');
+          var orderdata = yield api.pullApiData('mycar_del', postdata, 'post');
           console.log(orderdata[1]);
           return orderdata[1];
         }else{
