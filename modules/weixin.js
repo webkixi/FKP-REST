@@ -9,6 +9,12 @@ var wechat = require('co-wechat')
 function weixin(){
     return wechat(config.weixin).middleware(function *() {
         var message = this.weixin;
+
+        if(message.Content.indexOf('保养')){
+            this.body = 'hehe'
+        }
+
+
           if (message.FromUserName === 'diaosi') {
             // 回复屌丝(普通回复)
             this.body = 'hehe';
