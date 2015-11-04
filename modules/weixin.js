@@ -13,7 +13,7 @@ function weixin(){
         console.log(message.Content.indexOf('保养')>-1);
 
         if(message.Content.indexOf('保养')>-1){
-            this.body = 'hehe'
+            this.body = '河马汽车'
         }
 
 
