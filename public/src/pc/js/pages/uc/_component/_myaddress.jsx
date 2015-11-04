@@ -88,6 +88,7 @@ function getData(ele, param, cb){
       }
       var uid;
       if(_l_user){
+        
           uid = { uid: _l_user.uid}
       }
       if(uid){
