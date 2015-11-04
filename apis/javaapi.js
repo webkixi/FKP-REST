@@ -43,9 +43,9 @@ var req = function(api,options){
                 opts.json = options
             }
             // console.log(options);
-            // request.post(api, options, rp);
-            console.log(needle);
-            request({method:'POST', url:api, json:options}, rp)
+            needle.post(api, options, rp);
+            // console.log(needle);
+            // request({method:'POST', url:api, json:options}, rp)
 
         }
         else
