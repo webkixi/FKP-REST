@@ -157,8 +157,10 @@ function *getWxAccessToken(params, apii){
             token_expire: now + tk.expires_in,
             token_renew: 7200
         }
-        if(tk.access_token)
+        if(tk.access_token){
+            console.log('22222222222');
             the.sess.wx = sess_wx;
+        }
     }
 
     //web access token
@@ -224,6 +226,7 @@ function *pullWxData(api, param, method){
         return {token: true};
     }else{
         if(api.indexOf('_web')===-1){
+            console.log('11111111');
             param.access_token = this.sess.wx.token;
         }
     }
