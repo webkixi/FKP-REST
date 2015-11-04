@@ -11,7 +11,7 @@ function weixin(){
         var message = this.weixin;
         console.log(message);
 
-        if(message.Content.indexOf('保养')){
+        if(message.Content.indexOf('保养')>-1){
             this.body = 'hehe'
         }
 
