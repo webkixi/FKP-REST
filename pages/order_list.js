@@ -74,7 +74,7 @@ function *demoIndexData(oridata){
           return {error: '101', message: "用户不存在"}
         }
 
-        if(body && body.uid){
+        if(body){
           postdata.common.uid = parseInt(this.sess.user.uid)
           postdata.content[0].orderid  = parseInt(postdata.content[0].orderid)
 
