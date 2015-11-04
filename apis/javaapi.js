@@ -100,7 +100,7 @@ var apiPath = {
     weixin: {
         //oauth2方式的api会议 '_web' 方式结尾
         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get',
-        querymenu: 'https://api.weixin.qq.com/cgi-bin/menu/get' //?access_token=ACCESS_TOKEN
+        querymenu: 'https://api.weixin.qq.com/cgi-bin/menu/get', //?access_token=ACCESS_TOKEN
 
         userinfo_web: 'https://api.weixin.qq.com/sns/userinfo'  //?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
     }

@@ -7,4 +7,4 @@ function query(){
     console.log(nowmenu);
 }
 
-module.exports = query
+module.exports = query()
