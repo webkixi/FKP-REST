@@ -4,9 +4,9 @@
 var libs = require('../libs/libs')
 var config = require('../config');
 var wechat = require('co-wechat')
-var menu = require('./wx/menu')
+// var menu = require('./wx/menu')
 
-function *weixin(){
+function weixin(){
 
     // yield menu.call(this)
 
