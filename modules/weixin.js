@@ -9,6 +9,7 @@ var wechat = require('co-wechat')
 function weixin(){
     return wechat(config.weixin).middleware(function *() {
         var message = this.weixin;
+        console.log(message);
 
         if(message.Content.indexOf('保养')){
             this.body = 'hehe'
