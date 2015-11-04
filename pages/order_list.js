@@ -59,6 +59,8 @@ function *demoIndexData(oridata){
         //   ]
         // }
         var body = yield libs.$parse(this);
+        console.log('ppppppppppppp');
+        console.log(body);
         var postdata = {
             "common": {
                 "session": "11111",
