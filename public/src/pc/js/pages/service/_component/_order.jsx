@@ -465,7 +465,6 @@ var bindIndex = function(){
     });
 
     $('#now').click(function(){
-        console.log('iiiiiiiiii');
         var stat = checkValue(u);
         if(stat){
             if(!_l_user){
@@ -497,13 +496,14 @@ var bindIndex = function(){
             _form.totalprice = heji.totalprice
             _form.subscribetime = u.date.value + u.ampm.text
 
+            console.log(_l_user.name);
+            _form.user.name = _l_user.name||'河马';
+            _form.user.mobile = _l_user.mobile;
             _form.user.userinfo = _wx_userinfo;
 
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(_form, form);
             delete fff.cleanParts
-            form.user.name = _l_user.name||'河马';
-            form.user.mobile = _l_user.mobile;
             console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
