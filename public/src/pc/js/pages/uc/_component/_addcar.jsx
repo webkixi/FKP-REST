@@ -236,7 +236,7 @@ function checkValue(ele){
       console.log(fff);
       api.req('useraddcar',{type: 'insert', data:fff},function(data){
         console.log(data)
-        router.goback()
+        router('/uc.html#mycar')
       })
     }
     else {

@@ -54,13 +54,14 @@ function init(ele, param, cb){
 
 function getData(ele, param, cb){
   var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+  console.log(_l_data);
   if(_l_data){
       _l_user = _l_data.data;
       console.log(_l_user);
 
       if(_l_user.error){
           _l_user = false;
-      }
+       }
       if(!_l_user.uid){
           _l_user = false;
       }
@@ -68,6 +69,7 @@ function getData(ele, param, cb){
       if(_l_user){
           uid = {uid: _l_user.uid};
       }
+      console.log(uid);
       if(uid){
           api.req('order_list',uid,function(data){
             console.log(data);

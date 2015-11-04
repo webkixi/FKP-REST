@@ -78,9 +78,12 @@ var bindIndex = function(){
         _form.userinfo = _wx_userinfo;
         var fff = libs.extend(_form);
         api.req('mobilecode',{type: 'insert', data:fff},function(data){
-          router.goback()
-          //router('/uc.html');
-          console.log(data);
+          //router.goback()
+          if(SA.getter('_HISTORY').data.hash)
+            router('/uc.html#'+SA.getter('_HISTORY').data.hash)
+          else
+            router('/uc.html')
+          //console.log(data);
         })
       }
     })

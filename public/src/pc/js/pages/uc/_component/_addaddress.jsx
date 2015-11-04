@@ -118,7 +118,7 @@ var bindIndex = function(){
 
     $('#now').click(function(){
         var stat = checkValue(u);
-        console.log(u.phone.value);
+        console.log(stat);
         if(stat){
             _form.mobile = u.phone.value;
             _form.province = "广东"
@@ -130,9 +130,11 @@ var bindIndex = function(){
             _form.remark = 'remark'
 
             var fff = libs.extend(_form);
+            console.log(fff);
             api.req('order_addaddr',{type: 'insert', data:fff}, function(data){
                 console.log(data)
                 router('myaddress')
+                console.log('lllllllk');
             })
         }
     })
