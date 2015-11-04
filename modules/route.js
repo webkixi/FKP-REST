@@ -194,7 +194,7 @@ function *uploader(){
 
 function *weixin(app){
     libs.clog('微信')
-    yield require('./weixin')('agzgz')
+    yield require('./weixin').call(this);
 }
 
 //上传数据

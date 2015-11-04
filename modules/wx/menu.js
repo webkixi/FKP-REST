@@ -3,7 +3,7 @@ var config = require('../../config');
 var api = require('../../apis/javaapi')
 
 function *query(){
-    var nowmenu = yield api.pullWxData('querymenu',{});
+    var nowmenu = yield api.pullWxData.call(this,'querymenu',{});
     console.log(nowmenu);
 }
 

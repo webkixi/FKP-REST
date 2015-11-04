@@ -220,7 +220,7 @@ function *pullWxData(api, param, method){
             message: 'param must be a json object'
         };
 
-    yield getWxAccessToken.call(this, param, api);
+    yield getWxAccessToken( param, api);
 
     if(api == 'wx_web_token'){
         return {token: true};

@@ -8,7 +8,7 @@ var menu = require('./wx/menu')
 
 function *weixin(){
 
-    yield menu()
+    yield menu.call(this)
 
 
     return wechat(config.weixin).middleware(function *() {
