@@ -75,6 +75,12 @@ server(){
 	nodemon --harmony index dev
 }
 
+build(){
+    cd public
+    gulp build
+    pm2 restart all
+}
+
 case $1 in
   install)
       install
@@ -96,5 +102,8 @@ case $1 in
       ;;
   bbdemo)
       bbdemo
+      ;;
+  build)
+      build
       ;;
 esac
