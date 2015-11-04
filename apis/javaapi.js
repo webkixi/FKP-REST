@@ -43,7 +43,7 @@ var req = function(api,options){
                 opts.json = options
             }
             console.log(options);
-            needle.post(api, options, rp);
+            request.post(api, opts, rp);
             // console.log(needle);
             // request({method:'POST', url:api, json:options}, rp)
 
