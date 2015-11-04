@@ -67,7 +67,7 @@ function *demoIndexData(oridata){
                 "uid": '12'
             },
             "content": [{
-              "id": body.id
+              "usercarid": body.id
             }]
 
         }
@@ -85,7 +85,7 @@ function *demoIndexData(oridata){
                   postdata.content[0] = body.data;
           }
           postdata.common.uid = parseInt(this.sess.user.uid)
-          postdata.content[0].id = parseInt(postdata.content[0].id)
+          postdata.content[0].usercarid = parseInt(postdata.content[0].usercarid)
           var orderdata = yield api.pullApiData('order_deladdr', postdata, 'post');
           console.log(orderdata[1]);
           return orderdata[1];
