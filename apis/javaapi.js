@@ -41,6 +41,7 @@ var req = function(api,options){
             else{
                 opts.json = options
             }
+            console.log(opts.json.access_token);
             // console.log(options);
             request.post(api, opts, rp);
 
