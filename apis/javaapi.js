@@ -45,7 +45,7 @@ var req = function(api,options){
             if(options.body){
                 console.log(options.body);
             }
-            request.post(api, opts, rp);
+            request.post(api, options, rp);
 
         }
         else
