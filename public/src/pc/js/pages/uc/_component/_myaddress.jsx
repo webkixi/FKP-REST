@@ -2,7 +2,7 @@ var libs = require('libs/libs');
 var ItemMixin = require('mixins/item');
 var FLi = require('widgets/itemView/f_li');
 var List = require('widgets/listView/list');
-var api = require('pages/_common/api');
+var api = require('libs/api');
 var store = require('mixins/store');
 var router = require('libs/router').router
 
@@ -88,7 +88,7 @@ function getData(ele, param, cb){
       }
       var uid;
       if(_l_user){
-        
+
           uid = { uid: _l_user.uid}
       }
       if(uid){

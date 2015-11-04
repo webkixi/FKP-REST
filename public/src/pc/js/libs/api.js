@@ -2,6 +2,7 @@ var libs = require('libs/libs')
 var qs = require('querystring');
 var src = "/";
 var demoSrc = "http://mock.agzgz.com/";
+
 var apiPath = {
     base: src,
     dirs: {
@@ -23,6 +24,9 @@ var apiPath = {
         ,mycarlist: src+'mycarlist'     //我的车列表
         ,mycar_del: src+'mycar_del'     //删除车辆
 
+        ,order_addr: src+'order_addr'
+        ,order_addaddr: src+'order_addaddr'
+
         ,login: src+'login'   //获取登陆用户信息
     },
     weixin: {
@@ -32,6 +36,7 @@ var apiPath = {
 }
 
 function req( api, param, cb ){
+  console.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
     var url = apiPath.dirs[api];
     if(url){
         if(libs.getObjType(param)==='Object'){
@@ -53,6 +58,8 @@ function req( api, param, cb ){
                 if( status === 'success' ) cb( body ) ;
             }, "json")
         }
+    }else{
+      console.log("api没有定义");
     }
 }
 
