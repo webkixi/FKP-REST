@@ -86,7 +86,7 @@ function *demoIndexData(oridata){
                     postdata.content[0] = body.data;
 
             }
-            postdata.content[0].carid = parseInt(postdata.content[0].carid)
+            postdata.content[0].car.carid = parseInt(postdata.content[0].car.carid)
             postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
 
             console.log(postdata);
