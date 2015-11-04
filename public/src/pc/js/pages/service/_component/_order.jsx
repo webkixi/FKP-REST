@@ -490,7 +490,9 @@ var bindIndex = function(){
                     _form.addr = _l_user.addr[0];
                 }
                 _form.uid = _l_user.uid;
-                _form.addr.mobile = _l_user.mobile;
+
+                _form.user.name = _l_user.name||'河马';
+                _form.user.mobile = _l_user.mobile;
                 _form.addr.mobile = _l_user.mobile;
             }
             _form.paych = _payway
