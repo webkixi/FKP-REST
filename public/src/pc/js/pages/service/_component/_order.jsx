@@ -491,8 +491,6 @@ var bindIndex = function(){
                 }
                 _form.uid = _l_user.uid;
 
-                _form.user.name = _l_user.name||'河马';
-                _form.user.mobile = _l_user.mobile;
                 _form.addr.mobile = _l_user.mobile;
             }
             _form.paych = _payway
@@ -504,6 +502,8 @@ var bindIndex = function(){
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(_form, form);
             delete fff.cleanParts
+            form.user.name = _l_user.name||'河马';
+            form.user.mobile = _l_user.mobile;
             console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);

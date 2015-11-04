@@ -238,7 +238,7 @@ var bindIndex = function(){
                 _form.orderdetail.push({
                     partsno: item.o.partsno,
                     no: pno,
-                    price: item.o.userprice,
+                    userprice: item.o.userprice,
                     name: item.k,
                     count: 1
                 })
