@@ -7,7 +7,7 @@ var json = {
         {
             "name": "服务",
             "type": "view",
-            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+config.weixin.appid+"&redirect_uri=http%3A%2F%2Fch.dabai360.com&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+            "url": "http://ch.dabai360.com"
         }
     ]
 }
