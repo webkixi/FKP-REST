@@ -76,7 +76,7 @@ function *demoIndexData(oridata){
 
         if(body && body.uid){
           postdata.common.uid = parseInt(this.sess.user.uid)
-          postdata.content[0].orderid  = parseInt(body.orderid)
+          postdata.content[0].orderid  = parseInt(postdata.content[0].orderid)
 
           var orderdata = yield api.pullApiData('order_list', postdata, 'post');
           console.log(orderdata[1]);
