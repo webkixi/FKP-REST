@@ -41,11 +41,7 @@ var req = function(api,options){
             else{
                 opts.json = options
             }
-            console.log(opts);
-            if(options.body){
-                console.log(options.body);
-            }
-            opts = JSON.stringify(options)
+            // console.log(options);
             request.post(api, opts, rp);
 
         }
