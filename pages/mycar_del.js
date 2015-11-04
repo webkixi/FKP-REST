@@ -62,7 +62,7 @@ function *demoIndexData(oridata){
         var postdata = {
             "common": {
                 "session": "222",
-                "uid": '12'
+                "uid": 12
             },
             "content": [{
               "usercarid": body.usercarid
@@ -70,18 +70,12 @@ function *demoIndexData(oridata){
 
         }
 
-
-        if(!this.sess.user){
-          console.log("----------用户不存在-----------");
-          return {error: '101', message: "用户不存在"}
-        }
-
         if(body){
           if(body.type){
               if(body.type==='delete')
                   postdata.content[0] = body.data;
           }
-          postdata.common.uid = parseInt(this.sess.user.uid)
+          postdata.common.uid = parseInt(postdata.common.uid)
           postdata.content[0].usercarid = parseInt(postdata.content[0].usercarid)
           var orderdata = yield api.pullApiData('order_deladdr', postdata, 'post');
           console.log(orderdata[1]);
