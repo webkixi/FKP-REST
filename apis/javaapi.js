@@ -135,7 +135,7 @@ function *pullApiData(api, param, method){
 
 // 获取微信的token，并session
 // 微信token分为两种，一种是服务端的token, 一种是通过oauth2方式获取的token
-function *getWxAccessToken(params){
+function *getWxAccessToken(params, apii){
     console.log(this.sess);
 
     var the = this;
@@ -191,7 +191,7 @@ function *getWxAccessToken(params){
         if(!this.sess.wwx)
             yield getWAT();
     }else{   //normal access token
-        if(!this.sess.wx && !this.sess.wwx)
+        if(apii.indexOf('_web')===-1)
             yield getAT();   //暂时关闭
     }
     var tmp = this.sess.wx||this.sess.wwx;
@@ -218,7 +218,7 @@ function *pullWxData(api, param, method){
             message: 'param must be a json object'
         };
 
-    yield getWxAccessToken.call(this, param);
+    yield getWxAccessToken.call(this, param, api);
 
     if(api == 'wx_web_token'){
         return {token: true};
