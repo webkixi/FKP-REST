@@ -62,14 +62,14 @@ function *demoIndexData(oridata){
         var postdata = {
             "common": {
                 "session": "11111",
-                "uid": body.uid
+                "uid": 1
             },
             "content": [{
-              "orderid": 1,
+              "orderid": 1
             }]
         }
+        postdata.common.uid = parseInt(postdata.common.uid)
         postdata.content[0].orderid = parseInt(postdata.content[0].orderid)
-        postdata.common[0].uid = parseInt(postdata.common[0].uid)
 
         console.log(postdata);
 

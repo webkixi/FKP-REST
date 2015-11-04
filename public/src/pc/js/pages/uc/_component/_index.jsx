@@ -64,10 +64,9 @@ function getData(ele, param, cb){
       if(!_l_user.uid){
           _l_user = false;
       }
-      var mobile;
-      console.log(_l_user.uid);
+      var uid;
       if(_l_user){
-          uid = { uid: _l_user.uid}
+          uid = {uid: _l_user.uid};
       }
       if(uid){
           api.req('order_list',uid,function(data){
