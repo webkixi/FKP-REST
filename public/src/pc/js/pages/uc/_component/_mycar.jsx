@@ -37,7 +37,7 @@ function abc(){
     var yma_data = $(this).attr("data-aid");
     console.log(yma_data);
     mycarlist_data.splice(yma_data,1)
-    var usercarid = { id : ymli_data}
+    var usercarid = { usercarid : ymli_data}
     api.req('mycar_del',{type: 'delete',data:usercarid},function(data){
       SA.setter('Index',{data: mycarlist_data} );
       //router('mycar')
