@@ -39,7 +39,6 @@ var apiPath = {
 }
 
 function req( api, param, cb ){
-  console.log("sss");
     var url = apiPath.dirs[api];
     if(url){
         if(libs.getObjType(param)==='Object'){
