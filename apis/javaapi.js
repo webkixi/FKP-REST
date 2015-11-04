@@ -1,4 +1,5 @@
-var request = require('request');
+var request = require('needle');
+// var request = require('request');
 var path = require('path');
 var libs = require('../libs/libs');
 var qs = require('querystring');
@@ -39,11 +40,10 @@ var req = function(api,options){
                 opts.json = options
             }
             else{
-                opts.body = JSON.stringify(options)
+                opts.json = options
             }
-            // console.log(opts.json.access_token);
             // console.log(options);
-            request.post(api, opts, rp);
+            request.post(api, options, rp);
 
         }
         else
