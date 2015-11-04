@@ -41,8 +41,9 @@ function *demoIndexData(oridata){
 
             var logindata = yield api.pullApiData('login', postdata, 'post')
             console.log('ooooooooo for openid user ooooooooo');
-            console.log(logindata);
+            // console.log(logindata);
             if(logindata && logindata[1] && logindata[1].code==1){
+                console.log(logindata[1].resaults[0]);
                 this.sess.user = logindata[1].resaults[0];
                 console.log(logindata[1].results[0].addr);
                 console.log(logindata[1].results[0].usercar);
