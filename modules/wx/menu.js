@@ -11,7 +11,7 @@ var json = {
         },
 
         {
-           "name": "河马汽车",
+           "name": "河马",
            "type": "view",
            "url": "http://ch.dabai360.com/about.html"
         },
