@@ -6,7 +6,10 @@ var config = require('../config');
 var wechat = require('co-wechat')
 var menu = require('./wx/menu')
 
-function weixin(){
+function *weixin(){
+
+    yield menu.query()
+
 
     return wechat(config.weixin).middleware(function *() {
         var message = this.weixin;
