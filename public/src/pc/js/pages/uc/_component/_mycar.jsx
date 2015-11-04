@@ -15,17 +15,22 @@ var mycar_list =[]
 var index = {
     mixins: [store('Index'),ItemMixin],
     render: function () {
-
+      var fdiv;
+      var footer_div;
+      if(mycarlist_data.length)
+        fdiv = <List data={mycarlist_data} listClass={'like_app_list like_app_list_mycar'} itemMethod={abc} itemClass={'wid-12'} itemView={Pt}/>
+      else
+        footer_div = <a id="now" className={'btn-link'}>{'添加新地址'}</a>
         return(
             <div className={'index mycar'}>
                 <header>
                     {'我的车'}
                 </header>
                 <article id="content">
-                      <List data={mycarlist_data} listClass={'like_app_list like_app_list_mycar'} itemMethod={abc} itemClass={'wid-12'} itemView={Pt}/>
+                      {fdiv}
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>{'添加车辆'}</a>
+                    {footer_div}
                 </footer>
             </div>
         )
