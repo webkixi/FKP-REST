@@ -3,10 +3,11 @@
  */
 var libs = require('../libs/libs')
 var config = require('../config');
-
 var wechat = require('co-wechat')
+var menu = require('./wx/menu')
 
 function weixin(){
+
     return wechat(config.weixin).middleware(function *() {
         var message = this.weixin;
         console.log(message);

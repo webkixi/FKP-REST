@@ -100,6 +100,8 @@ var apiPath = {
     weixin: {
         //oauth2方式的api会议 '_web' 方式结尾
         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get',
+        querymenu: 'https://api.weixin.qq.com/cgi-bin/menu/get' //?access_token=ACCESS_TOKEN
+
         userinfo_web: 'https://api.weixin.qq.com/sns/userinfo'  //?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
     }
 }
@@ -189,8 +191,8 @@ function *getWxAccessToken(params){
         if(!this.sess.wwx)
             yield getWAT();
     }else{   //normal access token
-        // if(!this.sess.wx && !this.sess.wwx)
-            // yield getAT();   暂时关闭
+        if(!this.sess.wx && !this.sess.wwx)
+            yield getAT();   //暂时关闭
     }
     var tmp = this.sess.wx||this.sess.wwx;
     console.log(tmp);
