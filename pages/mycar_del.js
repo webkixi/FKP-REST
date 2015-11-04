@@ -59,8 +59,6 @@ function *demoIndexData(oridata){
         //   ]
         // }
         var body = yield libs.$parse(this);
-        console.log(body.usercarid);
-        console.log("bbbbbbbbbbbbbbbb");
         var postdata = {
             "common": {
                 "session": "222",
@@ -81,7 +79,6 @@ function *demoIndexData(oridata){
         if(body){
           if(body.type){
               if(body.type==='delete')
-              console.log(postdata);
                   postdata.content[0] = body.data;
           }
           postdata.common.uid = parseInt(this.sess.user.uid)
