@@ -8,7 +8,7 @@ var wechat = require('co-wechat')
 
 function weixin(){
 
-    // yield menu.call(this)
+    yield menu.call(this)
 
 
     return wechat(config.weixin).middleware(function *() {
