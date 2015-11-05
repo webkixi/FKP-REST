@@ -232,17 +232,6 @@ function carcheckData(carcheck_data, ele, cb){
   z.map(function(item, i){
     ggg = ggg.concat(tmp[item])
 
-    // carcheck_Title
-    // console.log(tmp[item][i]);
-    // carcheck_Title.footer.push(
-    //     {
-    //       text: <em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{item}</em>
-    //     },
-    //     {
-    //       k: tmp[item][i].kk,
-    //       v: tmp[item][i]
-    //     }
-    // )
   })
 
   carcheck_Title.footer = ggg

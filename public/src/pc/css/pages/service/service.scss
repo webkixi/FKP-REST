@@ -10,6 +10,9 @@ body{
 #container-box{
     height: 100%;
 }
+.disN{
+  display: none!important;
+}
 .container{
   width: 94%;
   margin: 0 auto;
@@ -134,6 +137,9 @@ body{
       em, span{
         display: table-cell;
         padding: 0 0.4rem;
+        span{
+          padding: 0;
+        }
         i{
             margin: 0;
             margin-left: 0.3rem;
@@ -141,6 +147,14 @@ body{
         em, span{
             display: inline;
             border:none;
+        }
+      }
+      span{
+        em{
+          span{
+            color: #999;
+            text-decoration: line-through;
+          }
         }
       }
     }
@@ -168,7 +182,6 @@ body{
           border-bottom: 1px solid #bababa;
           font-size: 0.6rem;
           color: #777;
-
           em, span{
               i{
                   margin: 0;
@@ -183,7 +196,7 @@ body{
           padding-left: 0.4rem;
         }
         span{
-            padding-right: 0.4rem;
+            
             text-align: right;
         }
         p:last-child{
@@ -604,6 +617,7 @@ body{
       font-style: normal;
       color: #daf5f2;
       font-size: 1rem;
+      text-decoration: line-through;
     }
     &.foot_money{
       font-size:1rem;
