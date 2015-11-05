@@ -261,25 +261,26 @@ var bindIndex = function(){
 
         // //城市
         u.city = new Select({}, 'city',function(){
-            var parents = [];
-            api.req('region', function(data){
-                if(data && data.code===1){
-                    if(data.results.length){
-                        data.results.map(function(item, i){
-                            parents.push({
-                                body:[
-                                    {
-                                        attr: 'select',
-                                        k: item.address_name,
-                                        v: item.region_id
-                                    }
-                                ]
-                            })
-                        })
-                    }
-                }
-            })
+
             $(this).click(function(){
+                var parents = [];
+                api.req('region', function(data){
+                    if(data && data.code===1){
+                        if(data.results.length){
+                            data.results.map(function(item, i){
+                                parents.push({
+                                    body:[
+                                        {
+                                            attr: 'select',
+                                            k: item.address_name,
+                                            v: item.region_id
+                                        }
+                                    ]
+                                })
+                            })
+                        }
+                    }
+                })
                 var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
                 SA.setter('Pop',{data:{body:xx,display:'block'}} )
             })
@@ -293,27 +294,32 @@ var bindIndex = function(){
         // 地区
         u.district = new Select({}, 'district',function(){
             $(this).click(function(){
-                districts = [];
-                var kkk = $('#city').find('input').val();
-                api.req('region',{parent_id: kkk}, function(data){
-                    if(data && data.code===1){
-                        if(data.results.length){
-                            data.results.map(function(item, i){
-                                districts.push({
-                                    body:[
-                                        {
-                                            attr: 'select',
-                                            k: item.address_name,
-                                            v: item.region_id
-                                        }
-                                    ]
+                console.log(u.city);
+                if(!u.city.stat){
+                    SA.setter('Pop',{data:{body:'请先选择城市', display:'block'}})
+                }else{
+                    districts = [];
+                    var kkk = $('#city').find('input').val();
+                    api.req('region',{parent_id: kkk}, function(data){
+                        if(data && data.code===1){
+                            if(data.results.length){
+                                data.results.map(function(item, i){
+                                    districts.push({
+                                        body:[
+                                            {
+                                                attr: 'select',
+                                                k: item.address_name,
+                                                v: item.region_id
+                                            }
+                                        ]
+                                    })
                                 })
-                            })
+                            }
+                            var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                            SA.setter('Pop',{data:{body:yy,display:'block'}} )
                         }
-                        var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                        SA.setter('Pop',{data:{body:yy,display:'block'}} )
-                    }
-                })
+                    })
+                }
             })
         });
 
