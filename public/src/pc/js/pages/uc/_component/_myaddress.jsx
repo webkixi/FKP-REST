@@ -74,10 +74,11 @@ function abc(){
 }
 
 function init(ele, param, cb){
-    SA.setter('_LOCAL_USER', [getData] [[ele, param, cb]]);
+    SA.setter('_LOCAL_USER', [getData], [[ele, param, cb]]);
 }
 
 function getData(ele, param, cb){
+    console.log('aaaaaaa');
   var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
   if(_l_data){
       _l_user = _l_data.data;

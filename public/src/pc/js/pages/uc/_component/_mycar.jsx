@@ -8,6 +8,7 @@ var store = require('mixins/store');
 var router = require('libs/router').router
 
 var mycarlist_data = [];
+var ori_data_results = [];
 var xx =[];
 var mycar_list =[]
 
@@ -42,14 +43,17 @@ function abc(){
     var yma_data = $(this).attr("data-aid");
     console.log(yma_data);
 
-    mycarlist_data.splice(yma_data,1)
+    ori_data_results.splice( yma_data,1 )
+    organizeData( ori_data_results )
+      SA.setter('Index',{data: mycarlist_data});
+
+    // mycarlist_data.splice(yma_data,1)
 
     var usercarid = { usercarid : ymli_data}
 
     console.log(usercarid);
     api.req('mycar_del',{type: 'delete',data:usercarid},function(data){
       console.log(data);
-      SA.setter('Index',{data: mycarlist_data});
       //router('mycar')
     })
   })
@@ -86,8 +90,9 @@ function getData(ele, param, cb){
         api.req('mycarlist',uid,function(data){
           console.log(data);
           if(data.results){
-
+              ori_data_results = data.results;
               organizeData(data.results, ele, cb)
+              renderDom( ele, cb)
           }else{
             renderDom( ele, cb)
           }
@@ -98,38 +103,27 @@ function getData(ele, param, cb){
   }else{
       router('reg_log')
   }
-
-  // var mobile = { mobile: '18002278121'}
-  // api.req('mycarlist',mobile,function(data){
-  //   console.log(data);
-  //   if(data.code && data.code===1){
-  //     organizeData(data.results, ele, cb)
-  //   }
-  // })
 }
 
-function organizeData(oridata, ele, cb){
+function organizeData(oridata){
+    console.log('yyyyyy');
+    mycarlist_data = [];
   oridata.map(function(item,i){
-    mycar_list =
-      {
-          //title: item.usercarid,
-          attr: item.usercarid,
-          img: "/images/demo/aclass/b2.jpg",
-          body:[
-              item.carseries + item.cartype,
-              {
-                  k: "车牌号：",
-                  v: item.plateno
-              }
-          ],
-          dot: <div><a data-liid={item.usercarid} data-aid={i} className="ifont icon-deletefill"></a></div>
-      }
-    mycarlist_data.push(
-        mycar_list
-    )
-    //mycarlist_data[0].dot = [ <div><a className="ifont icon-next"></a><a className="ifont icon-deletefill"></a></div> ];
+    mycar_list = {
+      //title: item.usercarid,
+      attr: item.usercarid,
+      img: "/images/demo/aclass/b2.jpg",
+      body:[
+          item.carseries + item.cartype,
+          {
+              k: "车牌号：",
+              v: item.plateno
+          }
+      ],
+      dot: <div><a data-liid={item.usercarid} data-aid={i} className="ifont icon-deletefill"></a></div>
+    }
+    mycarlist_data.push( mycar_list )
   })
-    renderDom( ele, cb)
 }
 
 //dot: <div><a className="ifont icon-next"></a><a data-liid={item.usercarid} data-aid={i} className="ifont icon-deletefill"></a></div>
