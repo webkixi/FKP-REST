@@ -30,7 +30,7 @@ var index = {
                     <div id="phone"></div>
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>{'添加新地址'}</a>
+                    <a id="now" className={'btn-link'}>{'保存新地址'}</a>
                 </footer>
             </div>
         )

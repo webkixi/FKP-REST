@@ -31,13 +31,13 @@ var wash_service_mycar = [
         body:[
             {
                   k: '外观清洗',
-                v: <span>￥{'5'}<i className="ifont icon-next"></i></span>
+                v: <span>￥{'0'}<i className="ifont icon-next"></i></span>
             }
         ],
         footer: [
             {
                 k: '洗车工时费',
-                v: <span>￥{'5'}</span>
+                v: <span>￥{'30'}</span>
             }
         ]
     }
@@ -96,8 +96,8 @@ var index = {
                 <div className={'container'}>
                   <ul>
                     <li className={'wid-8'}>
-                      <span className={'foot_money'}>{'总价'}<i>{'￥35'}</i></span>
-                      <span>{'￥5'}</span>
+                      <span className={'foot_money'}>{'总价'}<i>{'￥50'}</i></span>
+                      <span>{'￥30'}</span>
                     </li>
                     <li className={'wid-4'}>
                       <a  className={'btn-link'}>{'下一步'}</a>

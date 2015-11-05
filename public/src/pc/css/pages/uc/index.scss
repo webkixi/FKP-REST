@@ -29,7 +29,7 @@ body{
 
 @mixin fd {
 	display: table-cell;
-	background-color: #efefef;
+	// background-color: #efefef;
 	vertical-align: middle;
 }
 
@@ -171,7 +171,7 @@ body{
 		}
 		article{
 			@include bd;
-			height: 90%;
+			height: 73%;
 		}
 
 		footer{
@@ -187,12 +187,12 @@ body{
 		}
 		&.mycar{
 			article{
-				height: 11rem;
+				height: 21rem;
 			}
 		}
 		&.addcar{
 			article{
-				height: 11rem;
+				height: 21rem;
 				#vin, #engin{
 					.body{
 						width: 54%;
