@@ -55,13 +55,13 @@ function abc(){
   })
 }
 var bindIndex = function(){
-  $("#now").click(function(){
-    router('addcar')
-  })
+    $('body').delegate('#now','click',function(){
+        router('addcar')
+    })
 }
 
 function init(ele, param, cb){
-    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+    SA.setter('_LOCAL_USER', [getData], [[ele, param, cb]]);
 }
 
 function getData(ele, param, cb){

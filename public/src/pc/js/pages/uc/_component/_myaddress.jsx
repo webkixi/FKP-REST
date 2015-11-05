@@ -74,7 +74,7 @@ function abc(){
 }
 
 function init(ele, param, cb){
-    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+    SA.setter('_LOCAL_USER', ［getData］, ［[ele, param, cb]］);
 }
 
 function getData(ele, param, cb){
@@ -153,8 +153,8 @@ function myaddressDate(myaddrDate,ele, cb){
 
 
 var bindIndex = function(){
-  $("#now").click(function(){
-    router('addaddress')
+  $('body').delegate('#now','click',function(){
+      router('addaddress')
   })
 }
 

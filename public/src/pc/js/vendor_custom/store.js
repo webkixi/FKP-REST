@@ -85,6 +85,15 @@
                                 isFuns = false;
                         })
                         if( isFuns ){
+                            if(getObjType(fun) === 'Array' ){
+                                dataOrAct.map(function(item, i){
+                                    if(getObjType(fun[i])==='Array')
+                                        item.args = fun[i];
+                                    else {
+                                        item.args = [fun[i]]
+                                    }
+                                })
+                            }
                             save[name].sact = dataOrAct;
                         }
                     }
