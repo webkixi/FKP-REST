@@ -1,34 +1,32 @@
 @import "./form_base";
 .radioInput{
-  .radio_input{
+   .radio_input {
     display: inline-block;
     width: 0.7rem;
     height: 0.7rem;
-    line-height:0.4rem;
+    line-height: 0.4rem;
     margin-right: 0.2rem;
     outline: double;
     vertical-align: middle;
     -webkit-appearance: none;
-    color:#fff;
+    color: #fff;
     border-radius: 50%;
     border-color: #2EC1AE;
     background-color: #fff;
-    border:0.1rem solid #2EC1AE;
-  }
-  input[type=radio]:after {
-      content: "";
-      width: 0.6rem;
-    height: 0.6rem;
-    font-size:0.6rem;
-    line-height:0.6rem;
-      background-color: #fff;
-  }
-  input[type=radio]:checked:after {
-      content: "ss";
-      color: #2EC1AE;
-      border-color: #fff;
-      background-color: #2EC1AE;
+    border: 0.1rem solid #2EC1AE; }
 
-  }
+   input[type=radio]:after {
+    content: "";
+    width: 0.7rem;
+    height: 0.7rem;
+    font-size: 0.5rem;
+    line-height: 0.4rem;
+    background-color: #fff; }
+
+   input[type=radio]:checked:after {
+    content: "ss";
+    color: #2EC1AE;
+    border-color: #fff;
+    background-color: #2EC1AE; }
 
 }

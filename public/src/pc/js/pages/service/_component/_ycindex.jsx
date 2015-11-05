@@ -304,6 +304,8 @@ function getData(ele, param, cb){
     }else{
         var query = param||{type: 'xby'};
         api.req('service', query, function(data){
+          console.log(data);
+          console.log("llllllll");
             if(data.code && data.code===1){
                 organizeData(data.results[0], ele, cb)
             }
@@ -312,6 +314,7 @@ function getData(ele, param, cb){
 }
 
 function organizeData(oridata, ele, cb){
+  console.log(oridata);
     var _body,
         _footer=[],
 
