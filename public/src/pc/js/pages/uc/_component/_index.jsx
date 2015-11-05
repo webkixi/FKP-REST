@@ -105,7 +105,7 @@ function orderlistdata(orderdata,  ele, cb){
     //转时间戳
     var a = new Date(parseInt(item.createtime));
     var month = parseInt(a.getMonth())+1
-    var ordertime = a.getFullYear() +'-'+ a.getDate() +'-'+ month;
+    var ordertime = a.getFullYear() +'-'+ month +'-'+ a.getDate();
     //截取订单号
     var orderno = 'Y'+item.orderno.substring(3,16);
     //状态赋值
