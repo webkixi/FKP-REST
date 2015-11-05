@@ -366,6 +366,7 @@ function cleanData(ddd){
     var lD = tmp.footer.pop();
     tmp.footer.map(function(item,i){
       item.v = 0;
+      item.s = 0;
     })
     tmp.footer.push(
       lD
@@ -386,9 +387,10 @@ function mixDataAndDom( dt){
         item.v = <span>￥{item.v}<em className="disN">{item.s}</em><i className="ifont icon-next"></i></span>
     })
 
-    _discountprice = Math.round(_discountprice);
-    _PAGE.totalprice = _totalprice;
-    _PAGE.discountprice = _discountprice;
+    _discountprice = _discountprice.toString().split('.')[0]
+    _totalprice = _totalprice.toString().split('.')[0]
+    _PAGE.totalprice = _totalprice
+    _PAGE.discountprice = _discountprice
 
     _body[0].v = <span><em>￥{_totalprice}</em>￥{_discountprice}<i className="ifont icon-xla"></i></span>
 

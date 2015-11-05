@@ -65,6 +65,7 @@ if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
     })
   })
 }
+heji.totalprice = Math.round(heji.totalprice)
 
 var mycar_service_order = bodys;
 
@@ -507,7 +508,7 @@ var bindIndex = function(){
             delete fff.cleanParts
             // console.log(fff);
             api.req('order',{type: 'insert', data:fff}, function(data){
-                // console.log(data);
+                console.log(data);
                 if(data && data.code===1){
                     // console.log(data.results[0]);
                     payment(data.results[0])
