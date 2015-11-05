@@ -38,19 +38,19 @@ var footer = SA.getter('_GLOBAL').data.index.footer;
 if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
   var a = footer.pop();
   heji.count==1;
-  heji.totalprice+=a.v;
+  heji.totalprice+=a.s;
   bodys.push({
     body:[
       a.k,
       1,
-      '￥'+a.v
+      '￥'+a.s
     ]
   })
 }else{
   footer.map(function(item, i){
     // heji.count+=item.o.count;
     heji.count++;
-    heji.totalprice+=item.v;
+    heji.totalprice+=item.s;
     bodys.push({
       // body:[
       //   item.k,
@@ -60,7 +60,7 @@ if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
       body:[
         item.k,
         1,
-        '￥'+item.v
+        '￥'+item.s
       ]
     })
   })
@@ -138,7 +138,7 @@ var index = {
                 // console.log(_l_user);
                 var tmp_addr = _l_user.addr[0];
                 console.log(tmp_addr);
-                addr = tmp_addr.province + tmp_addr.city + tmp_addr.county
+                addr = tmp_addr.province + tmp_addr.city + tmp_addr.county + tmp_addr.address
             }else{
                 address = <div className="layout">
                     <label>地址</label>

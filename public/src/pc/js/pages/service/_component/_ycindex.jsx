@@ -16,7 +16,8 @@ var _parts = [];
 var footer_item;   //data-reactid  parts列表的P的唯一标示
 var service_resault_data;
 var _PAGE={
-    totalprice: 0
+    totalprice: 0,
+    discountprice: 0
 };
 
 var _l_user;  //定义本地用户信息，非微信用户
@@ -34,10 +35,11 @@ function popItemMethod(){
         var wanner = libs.extend(true, {}, _parts[idf].body[0]);
         service_ori_data.footer[item_p].v=wanner.v;
         service_ori_data.footer[item_p].o=wanner.o;
+        service_ori_data.footer[item_p].s=wanner.s;
 
         var dataDom = mixDataAndDom(service_ori_data)
         SA.setter('Pop',{data:{display:'none'}})
-        SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
+        SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice, discountprice: _PAGE.discountprice} })
     })
 }
 
@@ -88,7 +90,6 @@ function abcd(){
 
           //获取配件列表数据
           api.req('parts', pn, function(data){
-            console.log(data);
               if(data.code && data.code===1){
                   _parts = [];
                   data.results.map(function(item, i){
@@ -97,6 +98,7 @@ function abcd(){
                               {
                                   k: item.partsname,
                                   v: item.userprice,
+                                  s: item.discountprice,
                                   o: item
                               }
                           ]
@@ -126,7 +128,8 @@ var index = {
             this.setState({
                 data: {
                     servicedata: pdata.servicedata,
-                    totalprice: pdata.totalprice
+                    totalprice: pdata.totalprice,
+                    discountprice: pdata.discountprice
                 }
             })
         }
@@ -159,6 +162,7 @@ var index = {
         var data = this.state.data;
         s_data = data.servicedata;
         totalprice = data.totalprice;
+        discountprice = data.discountprice;
         return(
           <div className={'body'}>
             <div className={'wrapper'}>
@@ -184,7 +188,7 @@ var index = {
                   <ul>
                     <li className={'wid-8'}>
                       <span className={'foot_money'}>{'总价'}<i>{totalprice}</i></span>
-                      <span>{'￥480'}</span>
+                      <span>{discountprice}</span>
                     </li>
                     <li className={'wid-4'}>
                       <a id='now' className={'btn-link'}>{'下一步'}</a>
@@ -210,12 +214,12 @@ var bindIndex = function(){
             if(chk_val==1){
                 var dataDom = mixDataAndDom(service_ori_zero_data)
                 //_form.cleanParts = 1
-                SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
+                SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice, discountprice: _PAGE.discountprice} })
             }
             if(chk_val==0){
                 var dataDom = mixDataAndDom(service_ori_data)
                 //_form.cleanParts = 0
-                SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice} })
+                SA.setter('Index',{data:{servicedata: [dataDom], totalprice: _PAGE.totalprice, discountprice: _PAGE.discountprice} })
             }
         }
     });
@@ -234,12 +238,11 @@ var bindIndex = function(){
         }
         orderData.footer.map(function(item, i){
             if(item.o){
-            //   console.log(item);
                 var pno = item.o.partstypeno||'';
                 _form.orderdetail.push({
                     partsno: item.o.partsno,
                     no: pno,
-                    userprice: item.o.userprice,
+                    userprice: item.o.discountprice,
                     name: item.k,
                     count: 1
                 })
@@ -254,8 +257,6 @@ var bindIndex = function(){
         : SA.getter('_GLOBAL').data.index.form
         form = libs.extend({}, _form)
         form.car = carData;
-        console.log(form);
-
         //other form
         // form.openid = "wx766666";
         orderData.form = form;
@@ -264,21 +265,17 @@ var bindIndex = function(){
     })
 }
 
-
 var Index = React.createClass(index)
-
 
 function init(ele, param, cb){
     SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
 }
 
 function getData(ele, param, cb){
-
     var index = SA.getter('_GLOBAL').data.index;
     var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
     if(_l_data){
         _l_user = _l_data.data;
-        console.log(_l_user);
 
         if(_l_user.error){
             _l_user = false;
@@ -304,8 +301,7 @@ function getData(ele, param, cb){
     }else{
         var query = param||{type: 'xby'};
         api.req('service', query, function(data){
-          console.log(data);
-          console.log("llllllll");
+
             if(data.code && data.code===1){
                 organizeData(data.results[0], ele, cb)
             }
@@ -314,7 +310,6 @@ function getData(ele, param, cb){
 }
 
 function organizeData(oridata, ele, cb){
-  console.log(oridata);
     var _body,
         _footer=[],
 
@@ -329,6 +324,7 @@ function organizeData(oridata, ele, cb){
             attr: item.partstypeno,
             k: item.partstypename,
             v: item.userprice,
+            s: item.discountprice,
             o: item
         })
     })
@@ -336,7 +332,8 @@ function organizeData(oridata, ele, cb){
     _footer.push({
        attr: 'fixed',
        k: '工时费',
-       v: serviceTimeMoney
+       v: serviceTimeMoney,
+       s: serviceTimeMoney
     })
 
     _body = [
@@ -381,16 +378,18 @@ function mixDataAndDom( dt){
         _body = data.body,
         _footer = data.footer,
         _totalprice=0,
-        _discountprice=0;
+        _discountprice=0
 
     _footer.map(function(item, i){
         _totalprice += item.v;
-        item.v = <span>￥{item.v}<i className="ifont icon-next"></i></span>
+        _discountprice += item.s;
+        item.v = <span>￥{item.v}<em className="disN">{item.s}</em><i className="ifont icon-next"></i></span>
     })
 
     _PAGE.totalprice = _totalprice;
+    _PAGE.discountprice = _discountprice;
 
-    _body[0].v = <span>￥{_totalprice}<i className="ifont icon-xla"></i></span>
+    _body[0].v = <span><em>￥{_totalprice}</em>￥{_discountprice}<i className="ifont icon-xla"></i></span>
 
     return data;
 
@@ -409,7 +408,8 @@ function renderDom(ele, cb){
 
     var dt = {
         servicedata: service_data,
-        totalprice: _PAGE.totalprice
+        totalprice: _PAGE.totalprice,
+        discountprice: _PAGE.discountprice
     }
 
     //SA.setter('_GLOBAL',{index: service_ori_data})
