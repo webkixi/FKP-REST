@@ -74,7 +74,7 @@ function abc(){
 }
 
 function init(ele, param, cb){
-    SA.setter('_LOCAL_USER', ［getData］, ［[ele, param, cb]］);
+    SA.setter('_LOCAL_USER', [getData] [[ele, param, cb]]);
 }
 
 function getData(ele, param, cb){
