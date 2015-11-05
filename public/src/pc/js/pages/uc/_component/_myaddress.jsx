@@ -9,6 +9,7 @@ var router = require('libs/router').router
 
 var myaddress;
 var _ComData = [];
+var _ori_results_data = []
 // var json = require('./_myaddress.json');
 // myaddress = {
 //     body:[
@@ -63,7 +64,8 @@ function abc(){
     var myaddressId = $(this).attr("data-id");
     var myaddressIdf = $(this).parents('li').attr("data-idf");
 
-    _ComData.splice(myaddressIdf,1)
+    _ori_results_data.splice( myaddressIdf, 1 )
+    myaddressDate( _ori_results_data )
 
     var id = { id : myaddressId}
 
@@ -99,7 +101,9 @@ function getData(ele, param, cb){
       if(uid){
         api.req('order_addr',uid,function(data){
           if(data.results){
-              myaddressDate(data.results, ele, cb)
+              _ori_results_data = data.results;
+              myaddressDate(data.results)
+              renderDom( ele, cb )
           }else{
             renderDom( ele, cb)
           }
@@ -121,27 +125,25 @@ function getData(ele, param, cb){
   // })
 }
 
-function myaddressDate(myaddrDate,ele, cb){
-  myaddrDate.map(function(itme, i){
-    myaddress =
-      {
-        body:[
-            {
-              k:itme.username,
-              v:itme.mobile
-            }
-        ],
-        footer: [
-          {
-              k: itme.province + itme.county + itme.city + itme.street,
-              v: <a className="ifont icon-next"></a>
-          }
-        ],
-        dot: [
-            <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.7rem"}} data-id={itme.id} data-aid={i}></a>,
-        ]
+function myaddressDate(myaddrDate){
+    myaddrDate.map(function(itme, i){
+    myaddress = {
+            body:[
+                {
+                  k:itme.username,
+                  v:itme.mobile
+                }
+            ],
+            footer: [
+              {
+                  k: itme.province + itme.county + itme.city + itme.street,
+                  v: <a className="ifont icon-next"></a>
+              }
+            ],
+            dot: [
+                <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.7rem"}} data-id={itme.id} data-aid={i}></a>,
+            ]
     }
-
     _ComData.push(myaddress)
   })
   if(_ComData.length){
@@ -149,7 +151,7 @@ function myaddressDate(myaddrDate,ele, cb){
     $('#now').hide();
   }
   console.log(_ComData);
-  renderDom( ele, cb)
+
 }
 
 
