@@ -217,26 +217,26 @@ var bindIndex = function(){
     function userAddress(){
         // //城市
         u.city = new Select({}, 'city',function(){
-
-            $(this).click(function(){
-                var parents = [];
-                api.req('region', function(data){
-                    if(data && data.code===1){
-                        if(data.results.length){
-                            data.results.map(function(item, i){
-                                parents.push({
-                                    body:[
-                                        {
-                                            attr: 'select',
-                                            k: item.address_name,
-                                            v: item.region_id
-                                        }
-                                    ]
-                                })
+            var parents = [];
+            api.req('region', function(data){
+                if(data && data.code===1){
+                    if(data.results.length){
+                        data.results.map(function(item, i){
+                            parents.push({
+                                body:[
+                                    {
+                                        attr: 'select',
+                                        k: item.address_name,
+                                        v: item.region_id
+                                    }
+                                ]
                             })
-                        }
+                        })
                     }
-                })
+                }
+            })
+            $(this).click(function(){
+                console.log('hhhhhhggggg');           
                 var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
                 SA.setter('Pop',{data:{body:xx,display:'block'}} )
             })
