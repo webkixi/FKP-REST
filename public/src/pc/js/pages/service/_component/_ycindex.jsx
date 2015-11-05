@@ -88,13 +88,14 @@ function abcd(){
 
           //获取配件列表数据
           api.req('parts', pn, function(data){
+            console.log(data);
               if(data.code && data.code===1){
                   _parts = [];
                   data.results.map(function(item, i){
                       _parts.push({
                           body:[
                               {
-                                  k: item.name,
+                                  k: item.partsname,
                                   v: item.userprice,
                                   o: item
                               }

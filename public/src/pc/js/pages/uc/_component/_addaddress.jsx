@@ -122,8 +122,8 @@ var bindIndex = function(){
         if(stat){
             _form.mobile = u.phone.value;
             _form.province = "广东"
-            _form.city = u.city.value
-            _form.county = u.district.value
+            _form.city = u.city.text
+            _form.county = u.district.text
             _form.street = u.address.value
             _form.username = u.name.value
 
