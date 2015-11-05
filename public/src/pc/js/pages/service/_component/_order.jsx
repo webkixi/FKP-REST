@@ -214,6 +214,80 @@ var bindIndex = function(){
     var Radio = require('modules/form/radio');
     var u = {};
 
+    function userAddress(){
+        // //城市
+        u.city = new Select({}, 'city',function(){
+
+            $(this).click(function(){
+                var parents = [];
+                api.req('region', function(data){
+                    if(data && data.code===1){
+                        if(data.results.length){
+                            data.results.map(function(item, i){
+                                parents.push({
+                                    body:[
+                                        {
+                                            attr: 'select',
+                                            k: item.address_name,
+                                            v: item.region_id
+                                        }
+                                    ]
+                                })
+                            })
+                        }
+                    }
+                })
+                var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                SA.setter('Pop',{data:{body:xx,display:'block'}} )
+            })
+        });
+
+        u.city.selected = function(txt, val){
+            if(this.txt !== txt)
+                u.district.empty()
+        }
+        //
+        // 地区
+        u.district = new Select({}, 'district',function(){
+            $(this).click(function(){
+                if(!u.city.stat){
+                    SA.setter('Pop',{data:{body:'请先选择城市', display:'block'}})
+                }else{
+                    districts = [];
+                    var kkk = $('#city').find('input').val();
+                    api.req('region',{parent_id: kkk}, function(data){
+                        if(data && data.code===1){
+                            if(data.results.length){
+                                data.results.map(function(item, i){
+                                    districts.push({
+                                        body:[
+                                            {
+                                                attr: 'select',
+                                                k: item.address_name,
+                                                v: item.region_id
+                                            }
+                                        ]
+                                    })
+                                })
+                            }
+                            var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                            SA.setter('Pop',{data:{body:yy,display:'block'}} )
+                        }
+                    })
+                }
+            })
+        });
+
+        //详细地址
+        u.address = new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
+            $(this).click(function(){
+
+            })
+        });
+    }
+
+
+
     if(!_l_user){
 
         //电话
@@ -259,139 +333,16 @@ var bindIndex = function(){
                 // }
         })
 
-        // //城市
-        u.city = new Select({}, 'city',function(){
+        userAddress()
 
-            $(this).click(function(){
-                var parents = [];
-                api.req('region', function(data){
-                    if(data && data.code===1){
-                        if(data.results.length){
-                            data.results.map(function(item, i){
-                                parents.push({
-                                    body:[
-                                        {
-                                            attr: 'select',
-                                            k: item.address_name,
-                                            v: item.region_id
-                                        }
-                                    ]
-                                })
-                            })
-                        }
-                    }
-                })
-                var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                SA.setter('Pop',{data:{body:xx,display:'block'}} )
-            })
-        });
 
-        u.city.selected = function(txt, val){
-            if(this.txt !== txt)
-                u.district.empty()
-        }
-        //
-        // 地区
-        u.district = new Select({}, 'district',function(){
-            $(this).click(function(){
-                console.log(u.city);
-                if(!u.city.stat){
-                    SA.setter('Pop',{data:{body:'请先选择城市', display:'block'}})
-                }else{
-                    districts = [];
-                    var kkk = $('#city').find('input').val();
-                    api.req('region',{parent_id: kkk}, function(data){
-                        if(data && data.code===1){
-                            if(data.results.length){
-                                data.results.map(function(item, i){
-                                    districts.push({
-                                        body:[
-                                            {
-                                                attr: 'select',
-                                                k: item.address_name,
-                                                v: item.region_id
-                                            }
-                                        ]
-                                    })
-                                })
-                            }
-                            var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                            SA.setter('Pop',{data:{body:yy,display:'block'}} )
-                        }
-                    })
-                }
-            })
-        });
-
-        //详细地址
-        u.address = new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
-            $(this).click(function(){
-
-            })
-        });
     }
 
     //用户存在 但没有地址
     if(_l_user && !_l_user.addr){
-        // //城市
-        u.city = new Select({}, 'city',function(){
-            var parents = [];
-            api.req('region', function(data){
-                if(data && data.code===1){
-                    if(data.results.length){
-                        data.results.map(function(item, i){
-                            parents.push({
-                                body:[
-                                    {
-                                        attr: 'select',
-                                        k: item.address_name,
-                                        v: item.region_id
-                                    }
-                                ]
-                            })
-                        })
-                    }
-                }
-            })
-            $(this).click(function(){
-                var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                SA.setter('Pop',{data:{body:xx,display:'block'}} )
-            })
-        });
-        //
-        // 地区
-        u.district = new Select({}, 'district',function(){
-            districts = [];
-            $(this).click(function(){
-                var kkk = $('#city').find('input').val();
-                api.req('region',{parent_id: kkk}, function(data){
-                    if(data && data.code===1){
-                        if(data.results.length){
-                            data.results.map(function(item, i){
-                                districts.push({
-                                    body:[
-                                        {
-                                            attr: 'select',
-                                            k: item.address_name,
-                                            v: item.region_id
-                                        }
-                                    ]
-                                })
-                            })
-                        }
-                        var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                        SA.setter('Pop',{data:{body:yy,display:'block'}} )
-                    }
-                })
-            })
-        });
 
-        //详细地址
-        u.address = new Text({placeholder:'请输入您的详细地址', valide: 'username'}, 'address',function(){
-            $(this).click(function(){
+        userAddress()
 
-            })
-        });
     }
 
     new Radio({label:'微信',value:'wx_pub',name: 'payment'},'wechat',function(){
