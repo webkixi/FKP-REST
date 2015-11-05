@@ -45,12 +45,12 @@ var json = {
             {
                "type":"view",
                "name":"我的车辆",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com%2Fuc.html%23mycar&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com%2Fuc.html%3Fhash%3Dmycar&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
             },
         	  {
                "type":"view",
                "name":"我的地址",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com%2Fuc.html%23myaddress&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com%2Fuc.html%3Fhash%3Dmyaddress&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
             }]
         }
     ]
