@@ -64,6 +64,7 @@ function abc(){
     var myaddressId = $(this).attr("data-id");
     var myaddressIdf = $(this).parents('li').attr("data-idf");
 
+    console.log(myaddressIdf);
     _ori_results_data.splice( myaddressIdf, 1 )
     myaddressDate( _ori_results_data )
 
@@ -126,31 +127,34 @@ function getData(ele, param, cb){
 }
 
 function myaddressDate(myaddrDate){
-    myaddrDate.map(function(itme, i){
-    myaddress = {
-            body:[
-                {
-                  k:itme.username,
-                  v:itme.mobile
-                }
-            ],
-            footer: [
-              {
-                  k: itme.province + itme.county + itme.city + itme.street,
-                  v: <a className="ifont icon-next"></a>
-              }
-            ],
-            dot: [
-                <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.7rem"}} data-id={itme.id} data-aid={i}></a>,
-            ]
-    }
-    _ComData.push(myaddress)
-  })
-  if(_ComData.length){
-    console.log("xxx");
-    $('#now').hide();
-  }
-  console.log(_ComData);
+    console.log('hhhhhhh');
+    console.log(myaddrDate);
+        _ComData=[]
+        myaddrDate.map(function(itme, i){
+        myaddress = {
+                body:[
+                    {
+                      k:itme.username,
+                      v:itme.mobile
+                    }
+                ],
+                footer: [
+                  {
+                      k: itme.province + itme.county + itme.city + itme.street,
+                      v: <a className="ifont icon-next"></a>
+                  }
+                ],
+                dot: [
+                    <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.7rem"}} data-id={itme.id} data-aid={i}></a>,
+                ]
+        }
+        _ComData.push(myaddress)
+      })
+      if(_ComData.length){
+        console.log("xxx");
+        $('#now').hide();
+      }
+      console.log(_ComData);
 
 }
 
