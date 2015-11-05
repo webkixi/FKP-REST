@@ -84,8 +84,8 @@ var bindIndex = function(){
     //
     // 地区
     u.district = new Select({}, 'district',function(){
-        districts = [];
         $(this).click(function(){
+            districts = [];
             var kkk = $('#city').find('input').val();
             api.req('region',{parent_id: kkk}, function(data){
                 if(data && data.code===1){
