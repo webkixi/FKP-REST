@@ -28,7 +28,7 @@ var esti2 = {
                     <div id="engin"></div>
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>添加车辆</a>
+                    <a id="now" className={'btn-link'}>保存车辆</a>
                 </footer>
             </div>
         )
@@ -236,7 +236,7 @@ function checkValue(ele){
           carid : _car.model.value,
           carbrand: _car.brand.value,
           carseries: _car.series.value,
-          cartype: _car.model.value,
+          cartype: _car.model.text,
           carengno: _car.engin.value||'',
           plateno: _car.number.value||'',
           carvin: _car.vin.value||'',

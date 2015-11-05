@@ -121,7 +121,7 @@ function organizeData(oridata, ele, cb){
                   v: item.plateno
               }
           ],
-          dot: <div><a className="ifont icon-next"></a><a data-liid={item.usercarid} data-aid={i} className="ifont icon-deletefill"></a></div>
+          dot: <div><a data-liid={item.usercarid} data-aid={i} className="ifont icon-deletefill"></a></div>
       }
     mycarlist_data.push(
         mycar_list
@@ -130,6 +130,11 @@ function organizeData(oridata, ele, cb){
   })
     renderDom( ele, cb)
 }
+
+//dot: <div><a className="ifont icon-next"></a><a data-liid={item.usercarid} data-aid={i} className="ifont icon-deletefill"></a></div>
+
+
+
 
 var Index = React.createClass(index);
 function renderDom(ele, data, cb){

@@ -22,7 +22,7 @@ var index = {
         return(
             <div className={'index'}>
                 <header>
-                    {'用户中心'}
+                    {'我的订单'}
                 </header>
                 <article id="content"></article>
             </div>
