@@ -31,7 +31,7 @@ var wash_service_mycar = [
         body:[
             {
                   k: '外观清洗',
-                v: <span>￥{'0'}<i className="ifont icon-next"></i></span>
+                v: <span>￥{'30'}<i className="ifont icon-next"></i></span>
             }
         ],
         footer: [

@@ -386,6 +386,7 @@ function mixDataAndDom( dt){
         item.v = <span>￥{item.v}<em className="disN">{item.s}</em><i className="ifont icon-next"></i></span>
     })
 
+    _discountprice = Math.round(_discountprice);
     _PAGE.totalprice = _totalprice;
     _PAGE.discountprice = _discountprice;
 

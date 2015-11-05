@@ -11,11 +11,11 @@ var json = {
         },
 
         {
-           "name": "河马汽车",
+           "name": "河马云汽",
           "sub_button":[
            {
               "type":"view",
-              "name":"关于车叮咚",
+              "name":"关于河马云汽",
               "url":"http://ch.dabai360.com/about.html#about"
            },
            {

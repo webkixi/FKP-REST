@@ -16,7 +16,7 @@ var index = {
                 <div className={'about'}>
                   <h2>{'服务项目'}</h2>
                   <div className={'about_zw service_about'}>
-                    <h3>{'车叮咚，养车就上车叮咚'}</h3>
+                    <h3>{'河马云汽，养车就上河马云汽'}</h3>
                     <img src="/images/about_service.jpg"/>
                     <div className={'ser_abot'}>
                       <h4>{'提供服务项目'}</h4>

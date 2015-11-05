@@ -68,7 +68,7 @@ var index = {
             <div className={'wrapper'}>
               <div className={'row'}>
                 <div className={'about'}>
-                  <h2>{'关于车叮咚'}</h2>
+                  <h2>{'关于河马云汽'}</h2>
                   <div className={'about_zw com_about'}>
                     <div className={'ser_abot'}>
                       <ul className={'hlist'}>
