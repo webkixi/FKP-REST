@@ -66,6 +66,12 @@ function dby(){
         // })
     });
 }
+//全车检测
+function detection(){
+    require('./_component/_detection')('container-box',function(){
+        // bindIndex();
+    });
+}
 //洗车订单
 function order_over(){
     require('./_component/_order_over')('container-box',function(){
@@ -98,9 +104,9 @@ function wash(){
         // bindIndex();
     });
 }
-//全车检测
-function detection(){
-    require('./_component/_detection')('container-box',function(){
-        // bindIndex();
-    });
-}
+// //全车检测
+// function detection(){
+//     require('./_component/_detection')('container-box',function(){
+//         // bindIndex();
+//     });
+// }

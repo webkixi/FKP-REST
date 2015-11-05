@@ -3,6 +3,7 @@ var libs = require('../libs/libs')
 var api = require('../apis/javaapi');
 var rct = require('../modules/parseReact');
 
+
 function *demoIndexData(oridata){
     libs.wlog('pages/service')
     var dataSet = {};
@@ -59,6 +60,7 @@ function *demoIndexData(oridata){
         //   ]
         // }
 
+
         var postdata = {
           "common": {},
           "content": [
@@ -67,21 +69,28 @@ function *demoIndexData(oridata){
             }
           ]
         }
+        var url = 'service'
         var body = yield libs.$parse(this);
         if(body){
             if(body.type){
                 if(body.type==='dby')
                     postdata.content[0].ServiceTypeNo = 'FW0002';
+                if(body.type==='detec'){
+                    postdata.content[0].ServiceTypeNo = 'FW0003';
+                    url = 'carchecking'
+                }
             }
         }
 
-        var qcjc = libs.$extend(true, {}, postdata);
-        qcjc.content[0].ServiceTypeNo = 'FW0003';
 
-        var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        var qd = qcjcdata[1].results[0];
-        var serviceData = yield api.pullApiData('service', postdata, 'post')
-        // serviceData[1].results.push(qd);
+        // var qcjc = libs.$extend(true, {}, postdata);
+        // qcjc.content[0].ServiceTypeNo = 'FW0003';
+        //
+        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
+        // var qd = qcjcdata[1].results[0];
+
+
+        var serviceData = yield api.pullApiData( url, postdata, 'post')
         console.log(serviceData[1]);
 
 

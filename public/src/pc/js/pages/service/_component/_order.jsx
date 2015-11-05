@@ -253,9 +253,10 @@ var bindIndex = function(){
                             }
                         })
                     }
-                }else{
-                    SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
                 }
+                // else{
+                //     SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
+                // }
         })
 
         // //城市
