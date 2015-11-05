@@ -20,7 +20,7 @@ var index = {
       if(mycarlist_data.length)
         fdiv = <List data={mycarlist_data} listClass={'like_app_list like_app_list_mycar'} itemMethod={abc} itemClass={'wid-12'} itemView={Pt}/>
       else
-        footer_div = <a id="now" className={'btn-link'}>{'添加新地址'}</a>
+        footer_div = <a id="now" className={'btn-link'}>{'添加新车辆'}</a>
         return(
             <div className={'index mycar'}>
                 <header>
