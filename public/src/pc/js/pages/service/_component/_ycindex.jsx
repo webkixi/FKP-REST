@@ -280,32 +280,25 @@ function getData(ele, param, cb){
         if(_l_user.error){
             _l_user = false;
         }
-
-        if(!_l_user.usercar && !index){
-            _l_user = false;
-        }
-
-        if(!_l_user.addr && !index){
-            _l_user = false;
-        }
-
     }
     if(!_l_user && !index){
-        // setTimeout(
-        //     function(){
-        //         router('addcar');
-        //     }
-        //     ,1000
-        // )
         router('addcar');
     }else{
-        var query = param||{type: 'xby'};
-        api.req('service', query, function(data){
+        if(!_l_user.usercar && !index){
+            router('addcar');
+        }
+        // else if(!_l_user.addr && !index){
+        //     _l_user = {error: '-4'};
+        // }
+        else{
+            var query = param||{type: 'xby'};
+            api.req('service', query, function(data){
 
-            if(data.code && data.code===1){
-                organizeData(data.results[0], ele, cb)
-            }
-        })
+                if(data.code && data.code===1){
+                    organizeData(data.results[0], ele, cb)
+                }
+            })
+        }
     }
 }
 
@@ -384,7 +377,10 @@ function mixDataAndDom( dt){
     _footer.map(function(item, i){
         _totalprice += item.v;
         _discountprice += item.s;
-        item.v = <span>￥{item.v}<em className="disN">{item.s}</em><i className="ifont icon-next"></i></span>
+        if(item.attr && item.attr==='fixed')
+            item.v = <span>￥{item.v}<em className="disN">{item.s}</em></span>
+        else
+            item.v = <span>￥{item.v}<em className="disN">{item.s}</em><i className="ifont icon-next"></i></span>
     })
 
     _discountprice = _discountprice.toString().split('.')[0]

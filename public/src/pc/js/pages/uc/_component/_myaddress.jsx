@@ -160,9 +160,12 @@ function myaddressDate(myaddrDate){
 
 
 var bindIndex = function(){
-  $('body').delegate('#now','click',function(){
-      router('addaddress')
-  })
+    $('#now').one('click', function(){
+        router('addaddress')
+    })
+  // $('body').delegate('#now','click',function(){
+  //     router('addaddress')
+  // })
 }
 
 var Index = React.createClass(index);

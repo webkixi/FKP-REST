@@ -116,7 +116,7 @@ var bindIndex = function(){
         })
     });
 
-    $('#now').click(function(){
+    $('#now').one('click', function(){
         var stat = checkValue(u);
         console.log(stat);
         if(stat){

@@ -101,9 +101,11 @@ function orderlistdata(orderdata,  ele, cb){
   console.log(orderdata);
   orderdata.map(function(item,i){
     console.log(item);
+    item.createtime = item.createtime*1000;
     //转时间戳
     var a = new Date(parseInt(item.createtime));
-    var ordertime = a.getFullYear() +'-'+ a.getDate() +'-'+ a.getMonth();
+    var month = parseInt(a.getMonth())+1
+    var ordertime = a.getFullYear() +'-'+ a.getDate() +'-'+ month;
     //截取订单号
     var orderno = 'Y'+item.orderno.substring(3,16);
     //状态赋值

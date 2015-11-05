@@ -139,7 +139,7 @@ var index = {
                 // console.log(_l_user);
                 var tmp_addr = _l_user.addr[0];
                 console.log(tmp_addr);
-                addr = tmp_addr.province + tmp_addr.city + tmp_addr.county + tmp_addr.address||''
+                addr = tmp_addr.province + tmp_addr.city + tmp_addr.county + tmp_addr.street||''
             }else{
                 address = <div className="layout">
                     <label>地址</label>
