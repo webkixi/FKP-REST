@@ -3,7 +3,6 @@ var libs = require('./libs')
 function router(name){
     if(typeof name!=='string') return;
     var url = libs.urlparse(location.href);
-    console.log(url);
 
     if(name.indexOf('/')===0 || name.indexOf('http')===0){
         console.log('-------router jump ------');

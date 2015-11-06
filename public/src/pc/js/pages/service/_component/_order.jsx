@@ -514,6 +514,7 @@ function checkValue(ele){
         if(!ele[item].stat){
             $(ele[item].ipt).addClass('error')
             // alert('校验出错')
+            console.log(ele[item].ipt);
             stat = false;
         }
     })
