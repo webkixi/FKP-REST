@@ -481,6 +481,7 @@ var bindIndex = function(){
     })
 
     function payment(charge){
+        console.log(charge.charge);
         // console.log(charge);
         ping_pp.createPayment(charge.charge, function(result, err) {
             // console.log(result);

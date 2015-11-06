@@ -8,7 +8,27 @@ var myabout = [];
 
 var index = {
     mixins: [ItemMixin],
+    checkWx: function(){
+        var wx = SA.getter('_WEIXIN').data;
+        if(wx.user)
+            return ture;
+        else {
+            return false;
+        }
+    },
     render: function () {
+        var wx = this.checkWx();
+        var more = <div className={'hbody'}>
+          <i className={'ifont icon-car_more'}></i>
+          <em><a>{'更多'}</a></em>
+        </div>
+        if(!wx){
+            more = <div className={'hbody'}>
+              <i className={'ifont icon-car_more'}></i>
+              <em><a>{'更多.'}</a></em>
+            </div>
+        }
+
         return(
             <div className={'com_index'}>
               <ul className={'hlist'}>
@@ -43,10 +63,7 @@ var index = {
                   </div>
                 </li>
                 <li className={'item'} data-check={'index.html'}>
-                  <div className={'hbody'}>
-                    <i className={'ifont icon-car_more'}></i>
-                    <em><a>{'更多'}</a></em>
-                  </div>
+                  {more}
                 </li>
               </ul>
             </div>
@@ -61,12 +78,16 @@ var index = {
 //     if(abc)
 //         alert('您好：'+abc.nickname)
 // }
-// 
+//
 // var test = function(){
 //     aaa();
 // }
 
 var Index = React.createClass(index)
+
+function  init( ele, cb ){
+    SA.setter('_WEIXIN', renderDom, [ele, cb])
+}
 
 function renderDom(ele, cb){
     // SA.setter('_WEIXIN',[aaa])
