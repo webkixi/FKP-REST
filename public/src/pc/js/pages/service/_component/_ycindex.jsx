@@ -268,7 +268,12 @@ var bindIndex = function(){
 var Index = React.createClass(index)
 
 function init(ele, param, cb){
-    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+    var luser = SA.getter('_LOCAL_USER')
+    if(luser.data.error==="-1")
+        SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+    else{
+        getData(ele, param, cb)
+    }
 }
 
 function getData(ele, param, cb){
@@ -303,11 +308,13 @@ function getData(ele, param, cb){
 }
 
 function organizeData(oridata, ele, cb){
-    var _body,
+    var _body=[],
         _footer=[],
 
         _totalprice=0,
         _discountprice=0;
+
+        service_data = []
 
     _form.servicetypeno = oridata.servicetypeno;
     _form.servicetypename = oridata.servicetypename;

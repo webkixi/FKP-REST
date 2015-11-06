@@ -112,7 +112,7 @@ function getwx(cb){
                 callback()
         }
         else
-            SA.setter("_LOCAL_USER",{error: "-1"});
+            SA.setter("_LOCAL_USER",{error: "-3"});
     }
 }
 

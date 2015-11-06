@@ -120,14 +120,14 @@
         };
     }
 
-    var stock = {}
+    window._stock = {}
 
     //like flux
     var storeAct = {
         append: function(name, dataOrAct, fun){
             if(!name||name=='') return false;
 
-            var save = stock;
+            var save = _stock;
 
             if(!save[name]){
                 return false
@@ -140,10 +140,9 @@
         },
 
         setter: function(name, dataOrAct, fun){
-
             if(!name||name=='') return false;
 
-            var save = stock;
+            var save = _stock;
 
             if(!save[name]){
                 var thisStore = new store();
@@ -202,7 +201,7 @@
             if(!name||name=='')
                 return;
 
-            var save = stock;
+            var save = _stock;
             if(save[name]){
                 return {
                     run: save[name].dataer,
@@ -218,14 +217,14 @@
             if(!name||name=='')
                 return;
 
-            var save = stock;
+            var save = _stock;
             if(save[name]){
                 delete save[name];
             }
         },
 
         lister: function(){
-            return Object.keys( stock );
+            return Object.keys( _stock );
         }
     }
 

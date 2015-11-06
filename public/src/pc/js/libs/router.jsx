@@ -34,7 +34,7 @@ function router(name){
             historyStat({uri: _uri}, null, _uri)
         }else{
             SA.setter('_HISTORY', url);
-            _uri = '#'+name;
+            _uri = name;
             historyStat({uri: _uri}, null, '#'+name)
         }
 
@@ -57,15 +57,15 @@ router.goback = function(){
 }
 
 //html5
-if(window.history.pushState){
-    libs.addEvent(window, 'popstate', function(e){
-        var val = e.state;
-        if(val && val.uri ){
-            // router.goback()
-            router(val.uri);
-        }
-    })
-}
+// if(window.history.pushState){
+//     libs.addEvent(window, 'popstate', function(e){
+//         var val = e.state;
+//         if(val && val.uri ){
+//             // router.goback()
+//             router(val.uri);
+//         }
+//     })
+// }
 
 function historyStat(args, title, uri){
     window.history.pushState(args, title, uri)

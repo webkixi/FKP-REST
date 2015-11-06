@@ -89,7 +89,12 @@ var index = {
 var Index = React.createClass(index)
 
 function  init( ele, cb ){
-    SA.setter('_WEIXIN', renderDom, [ele, cb])
+    var wx = SA.getter('_WEIXIN')
+    if(!wx.data.user)
+        SA.setter('_WEIXIN', renderDom, [ele, cb]);
+    else{
+        renderDom(ele, cb)
+    }
 }
 
 function renderDom(ele, cb){
