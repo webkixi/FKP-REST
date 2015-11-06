@@ -30,6 +30,8 @@ var apiPath = {
         ,order_addaddr: src+'order_addaddr'
         ,order_deladdr: src+'order_deladdr'
 
+        ,washcar: src+'washcar'
+
         ,login: src+'login'   //获取登陆用户信息
         ,carchecking: src+'carchecking'   //订单列表
     },
