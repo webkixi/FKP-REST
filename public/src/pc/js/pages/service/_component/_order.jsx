@@ -225,7 +225,11 @@ var bindIndex = function(){
 
     function userAddress(){
         //电话
-        u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){})
+        u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
+            $(this).click(function(){
+
+            })
+        })
         // //城市
         u.city = new Select({}, 'city',function(){
             var parents = [];
@@ -300,9 +304,6 @@ var bindIndex = function(){
 
 
     if(!_l_user){
-
-        //电话
-        u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){})
 
         //电话
         u.phone = new Number({label:'手机号码', valide: 'mobile'}, 'phone',function(){
@@ -514,7 +515,7 @@ function checkValue(ele){
         if(!ele[item].stat){
             $(ele[item].ipt).addClass('error')
             // alert('校验出错')
-            console.log(ele[item].ipt);
+            console.log(item+'校验出错');
             stat = false;
         }
     })
