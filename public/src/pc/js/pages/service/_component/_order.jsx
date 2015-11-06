@@ -214,7 +214,7 @@ var index = {
         )
     }
 }
-var _payway=0;
+var _payway = false;
 var bindIndex = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
@@ -512,17 +512,22 @@ function checkValue(ele){
     var items = Object.keys(ele);
     var stat = true;
     items.map(function(item, i){
-        if(!ele[item].stat){
+        if ( !ele[item].stat ){
             $(ele[item].ipt).addClass('error')
             // alert('校验出错')
             console.log(item+'校验出错');
             stat = false;
         }
     })
-    if(stat === false){
+    if ( !_payway ){
+        stat = false;
+        alert('请填写支付!')
+    }
+    else if(stat === false){
         alert('验证出错，请检查填写信息!')
         return false;
-    }else
+    }
+    else
         return true;
 
 }
