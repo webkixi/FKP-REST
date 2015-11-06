@@ -148,46 +148,7 @@ function init(ele, param, cb){
 
 function getData(ele, param, cb){
 
-    // var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
-    // if(_l_data){
-    //     _l_user = _l_data.data;
-    //
-    //     if(_l_user.error){
-    //         _l_user = false;
-    //     }
-    //
-    //     if(!_l_user.usercar){
-    //         _l_user = false;
-    //     }
-    //
-    //     if(!_l_user.addr){
-    //         _l_user = false;
-    //     }
-    //     if(!_l_user){
-    //         router('addcar');
-    //     }else{
-    //         var uid;
-    //         if(_l_user){
-    //             uid = { uid: _l_user.uid}
-    //         }
-    //         if(uid){
-    //             var mycar = SA.getter('_GLOBAL').data.index.form;
-    //             carid = { carid: caridData.carid}
-    //             if(carid){
-    //               api.req('washcar',carid,function(data){
-    //                   carcheckData(data.results, ele, cb)
-    //               })
-    //             }else{
-    //                 router('reg_log')
-    //             }
-    //         }else{
-    //             router('addcar')
-    //         }
-    //     }
-    // }else{
-    //     router('addcar')
-    // }
-    var mycar = SA.getter('_GLOBAL').data.index;
+    var index = SA.getter('_GLOBAL').data.index;
     var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
     if(_l_data){
         _l_user = _l_data.data;
@@ -195,26 +156,26 @@ function getData(ele, param, cb){
         if(_l_user.error){
             _l_user = false;
         }
-
-        if(!_l_user.usercar && !index){
-            _l_user = false;
-        }
-
-        if(!_l_user.addr && !index){
-            _l_user = false;
-        }
-
     }
-    if(!_l_user && !mycar){
+    if(!_l_user && !index){
         router('addcar');
     }else{
-        console.log(SA.getter('_GLOBAL').data);
-        var caridData = mycar.form;
-        var carid = { carid: caridData.carid}
-        api.req('washcar',carid,function(data){
-            console.log(data);
-          organizeData(data.results, ele, cb)
-        })
+        if(!_l_user.usercar && !index){
+            router('addcar');
+        }
+        else{
+            console.log('-----======');
+            console.log(_l_user);
+            console.log(index);
+            var caridData = _l_user.usercar[0] || index.form;
+            var carid = { carid: caridData.carid}
+            api.req('service', carid, function(data){
+                console.log(data);
+                if(data.code && data.code===1){
+                    organizeData(data.results[0], ele, cb)
+                }
+            })
+        }
     }
 
 }
