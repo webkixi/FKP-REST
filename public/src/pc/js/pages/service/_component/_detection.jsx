@@ -3,13 +3,14 @@ var Uls = require('modules/tabs/_component/uls')('Fours');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
-var api = require('pages/_common/api');
+var api = require('libs/api');
 var store = require('mixins/store');
 var router = require('libs/router').router
 
 var carcheck_Title;
 var tmp = {}
 var _totolpic;
+var _form = {}
 
 var index = {
     mixins: [ItemMixin],
@@ -80,14 +81,7 @@ var index = {
 var bindIndex = function(){
     $("#now").click(function(){
         console.log(carcheck_Title);
-        var _form=[];
         var detectionDate = carcheck_Title
-        detectionDate.footer.map(function(item, i){
-          _form.push({
-            k: item.k,
-            s: item.v
-          })
-        })
 
         var form = {};
 
@@ -96,10 +90,7 @@ var bindIndex = function(){
         ? _l_user.usercar[0]
         : SA.getter('_GLOBAL').data.index.form
         form = libs.extend({}, _form)
-        console.log(form);
         form.car = carData;
-        //other form
-        // form.openid = "wx766666";
         detectionDate.form = form;
         SA.setter('_GLOBAL', { index: detectionDate })
         router("order")
@@ -142,6 +133,7 @@ function getData(ele, param, cb){
 }
 var ss =[];
 function carcheckData(carcheck_data, ele, cb){
+  _form.servicetypeno = carcheck_data[0].servicetypeno   //服务类型
   _totolpic =carcheck_data[0].workprice;
   carcheck_Title = {
       title:[

@@ -31,6 +31,7 @@ var apiPath = {
         ,order_deladdr: src+'order_deladdr'
 
         ,login: src+'login'   //获取登陆用户信息
+        ,carchecking: src+'carchecking'   //订单列表
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=

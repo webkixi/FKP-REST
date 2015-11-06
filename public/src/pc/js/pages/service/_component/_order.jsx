@@ -469,7 +469,6 @@ var bindIndex = function(){
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
                 if(data && data.code===1){
-                    // console.log(data.results[0]);
                     payment(data.results[0])
                 }
             })
@@ -481,7 +480,6 @@ var bindIndex = function(){
         pingpp.createPayment(charge.charge, function(result, err) {
             if (result=="success") {
                 // payment succeed
-                // alert('ok')
                 router('/uc.html');
             } else {
                 console.log(result+" "+err.msg+" "+err.extra);
