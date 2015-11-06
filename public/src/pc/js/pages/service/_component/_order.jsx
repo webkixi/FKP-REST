@@ -136,12 +136,17 @@ var index = {
         }
         else{
             var addr, address;
+            var user_name, user_phone;
             if(_l_user.addr){
                 // console.log(_l_user);
                 var tmp_addr = _l_user.addr[0];
+                user_name = tmp_addr.username;
+                user_phone = tmp_addr.mobile;
                 console.log(tmp_addr);
                 addr = tmp_addr.province + tmp_addr.city + tmp_addr.county + tmp_addr.street||''
             }else{
+                user_name = _l_user.nick;
+                user_phone = _l_user.mobile;
                 address = <div className="layout">
                     <label>地址</label>
                     <div className="box">
@@ -159,8 +164,8 @@ var index = {
                     </div>
                     <div className={'hbody'}>
                       <div className={'hbody_div'}>
-                        <em>{_l_user.nick}</em>
-                        <span>{_l_user.mobile}</span>
+                        <em>{user_name}</em>
+                        <span>{user_phone}</span>
                       </div>
                       <p>{addr}</p>
                     </div>
