@@ -463,7 +463,7 @@ var bindIndex = function(){
             _form.subscribetime = u.date.value + u.ampm.text
 
             // console.log(_l_user.name);
-            _form.user.name = _l_user.name||'河马';
+            _form.user.name = _l_user.name||_l_user.nick||'河马';
             _form.user.mobile = _l_user.mobile;
             _form.user.userinfo = _wx_userinfo;
 
