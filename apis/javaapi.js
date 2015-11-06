@@ -82,7 +82,7 @@ var apiPath = {
         order_addaddr: src+'addr/insert',
         mycarlist: src+'usercar/query',
         mycar_del: src+'usercar/delete',
-        washcar: src+'/query/washcar',
+        washcar: src+'servicetype/query/washcar',
 
         login: src+'user/login'
     },
