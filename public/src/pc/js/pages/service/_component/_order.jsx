@@ -357,11 +357,11 @@ var bindIndex = function(){
       })
     })
 
-    new Radio({label:'支付宝',value:'alipay',name: 'payment'},'alipay',function(){
-      $(this).click(function(){
-        _payway = "alipay";
-      })
-    })
+    // new Radio({label:'支付宝',value:'alipay',name: 'payment'},'alipay',function(){
+    //   $(this).click(function(){
+    //     _payway = "alipay";
+    //   })
+    // })
 
     function formatDate(timer){
         var tt = new Date(timer);
@@ -519,13 +519,13 @@ function checkValue(ele){
             stat = false;
         }
     })
-    if ( !_payway ){
-        stat = false;
-        alert('请填写支付!')
-    }
-    else if(stat === false){
+    if(stat === false){
         alert('验证出错，请检查填写信息!')
         return false;
+    }
+    else if ( !_payway ){
+        stat = false;
+        alert('请填写支付方式!')
     }
     else
         return true;
