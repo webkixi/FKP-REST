@@ -33,8 +33,9 @@ if(_l_data){
         _l_user = false;
     }
 }
-
+console.log(SA.getter('_GLOBAL').data.index);
 var footer = SA.getter('_GLOBAL').data.index.footer;
+
 if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
   var a = footer.pop();
   heji.count==1;
@@ -236,7 +237,7 @@ var bindIndex = function(){
                 }
             })
             $(this).click(function(){
-                console.log('hhhhhhggggg');           
+                console.log('hhhhhhggggg');
                 var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
                 SA.setter('Pop',{data:{body:xx,display:'block'}} )
             })

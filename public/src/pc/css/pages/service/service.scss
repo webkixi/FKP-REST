@@ -196,7 +196,7 @@ body{
           padding-left: 0.4rem;
         }
         span{
-            
+
             text-align: right;
         }
         p:last-child{
@@ -535,6 +535,37 @@ body{
 .service_mycar{
   margin-bottom: 0.6rem;
   .detection_mycar{
+    .hheader{
+      font-size: 0.7rem;
+      width: 100%;
+      border-bottom: 1px solid #bababa;
+      padding: 0.7rem 0;
+      line-height: 1rem;
+      a{
+        width: 96%;
+        display: block;
+        color: #000;
+        margin: auto;
+      }
+      span,p{
+        display: inline-block;
+      }
+      span{
+        text-align: left;
+        width: 60%;
+      }
+      p{
+        color: #ff7800;
+        text-align: right;
+        width: 39%;
+        span{
+          width: auto;
+        }
+      }
+    }
+    .hbody{
+      color: #666;
+    }
     .hfoot{
       p{
         color: #666666;

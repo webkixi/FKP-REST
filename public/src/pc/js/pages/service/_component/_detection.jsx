@@ -7,97 +7,13 @@ var api = require('pages/_common/api');
 var store = require('mixins/store');
 var router = require('libs/router').router
 
-// var mycar = [
-//   {
-//     title : '宝马7系（进口）760 Li 6.0T 2009-2014',
-//     img : '/images/service/bmw_icon.png'
-//   }
-// ]
-// var mycar_data = []
-// mycar.map(function(item,i){
-//   mycar_data.push(
-//     <li key={'mycar'+i}>
-//       <div className={'hhead'}>
-//         <img src={mycar[i].img} />
-//       </div>
-//       <div className={'hbody'}>
-//         <p>{mycar[i].title}</p>
-//         <div className={'dot'}><i className={'ifont icon-next'}></i></div>
-//       </div>
-//     </li>
-//   )
-// })
-
-
-// var mycar_service_b = [
-//     {
-//         body:[
-//             {
-//                 k: '全车检测',
-//                 v: <span>￥{'800'}<i className="ifont icon-next"></i></span>
-//             }
-//         ],
-//         footer: [
-//             {
-//                 text: <em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{'电气设备'}</em>
-//             },
-//             {
-//                 k: '检查车内外照明及信号装置工况',
-//                 v: '1'
-//             },
-//             {
-//                 k: '检查车内外后视镜工况',
-//                 v: '1'
-//             },
-//             {
-//                 k: '检查雨刮工况',
-//                 v: '1'
-//             },
-//             {
-//                 k: '检查喇叭',
-//                 v: '1'
-//             },
-//             {
-//                 k: '检查仪表',
-//                 v: '1'
-//             },
-//             {
-//                 k: '检查音响',
-//                 v: '1'
-//             },
-//             {
-//                 k: '检查空调',
-//                 v: '1'
-//             },
-//             {
-//                 text: <em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{'发动机'}</em>
-//             },
-//             {
-//                 k: '检查发动机是否有异响',
-//                 v: '1'
-//             },
-//             {
-//               k:'工时费',
-//               v:'￥100'
-//             }
-//         ]
-//     }
-// ]
-
 var carcheck_Title;
 var tmp = {}
+var _totolpic;
 
 var index = {
     mixins: [ItemMixin],
     render: function () {
-    //   var mycar_data = []
-    //   mycar1 = SA.getter('_GLOBAL').data.index;
-    //   var mycar = [
-    //     {
-    //       title : mycar1[1].body.k+mycar1[2].body.k,
-    //       img : '/images/service/bmw_icon.png'
-    //     }
-    //   ]
 
       var mycar_data = [];
       // mycar1 = SA.getter('_GLOBAL').data.index;
@@ -146,10 +62,10 @@ var index = {
                   <ul>
                     <li className={'wid-8'}>
                       <span className={'foot_money'}>{'总价'}<i>{'￥790'}</i></span>
-                      <span>{'￥480'}</span>
+                      <span>{_totolpic}</span>
                     </li>
                     <li className={'wid-4'}>
-                      <a  className={'btn-link'}>{'下一步'}</a>
+                      <a id={'now'} className={'btn-link'}>{'下一步'}</a>
                     </li>
                   </ul>
                 </div>
@@ -158,6 +74,36 @@ var index = {
           </div>
         )
     }
+}
+
+//dom写入后，绑定相关的方法
+var bindIndex = function(){
+    $("#now").click(function(){
+        console.log(carcheck_Title);
+        var _form=[];
+        var detectionDate = carcheck_Title
+        detectionDate.footer.map(function(item, i){
+          _form.push({
+            k: item.k,
+            s: item.v
+          })
+        })
+
+        var form = {};
+
+        //car form
+        carData = _l_user
+        ? _l_user.usercar[0]
+        : SA.getter('_GLOBAL').data.index.form
+        form = libs.extend({}, _form)
+        console.log(form);
+        form.car = carData;
+        //other form
+        // form.openid = "wx766666";
+        detectionDate.form = form;
+        SA.setter('_GLOBAL', { index: detectionDate })
+        router("order")
+    })
 }
 
 function init(ele, param, cb){
@@ -170,7 +116,6 @@ function getData(ele, param, cb){
   var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
   if(_l_data){
       _l_user = _l_data.data;
-      console.log(_l_user);
 
       if(_l_user.error){
           _l_user = false;
@@ -189,7 +134,6 @@ function getData(ele, param, cb){
       router('addcar');
   }else{
       api.req('carchecking',{},function(data){
-        console.log(data);
         carcheckData(data.results, ele, cb)
       })
   }
@@ -198,14 +142,15 @@ function getData(ele, param, cb){
 }
 var ss =[];
 function carcheckData(carcheck_data, ele, cb){
-  console.log(carcheck_data);
+  _totolpic =carcheck_data[0].workprice;
   carcheck_Title = {
-      body:[
+      title:[
         {
           k: '全车检测',
-          v: <span>￥{carcheck_data[0].workprice}<i className="ifont icon-next"></i></span>
+          v: <p>￥{_totolpic}<i className="ifont icon-next"></i></p>
         }
       ],
+      body: [],
       footer: []
   }
   carcheck_data[0].carcheckinglist.map(function(item, i){
@@ -234,11 +179,12 @@ function carcheckData(carcheck_data, ele, cb){
 
   })
 
-  carcheck_Title.footer = ggg
+  carcheck_Title.body = ggg
   carcheck_Title.footer.push(
     {
       k: '工时费：',
-      v: carcheck_data[0].workprice
+      v: _totolpic,
+      s: _totolpic
     }
   )
   renderDom( ele, cb)
@@ -248,10 +194,10 @@ function abcd(){
     var the = this;
     var the_footer;
     var the_i;
-    $(the).find('.hfoot').addClass('u-table')
-    $(the).find('.hbody').click(function(){
+    $(the).find('.hbody').addClass('u-table')
+    $(the).find('.hheader').click(function(){
         the_i = $(this).find('i');
-        the_footer = $(the).find('.hfoot');
+        the_footer = $(the).find('.hbody');
         the_footer.toggleClass(function(){
             the_i.toggleClass('icon-next');
             the_i.toggleClass('icon-xla');
@@ -274,7 +220,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemMethod={cb}/>,
+        <Index itemDefaultMethod={bindIndex} itemMethod={cb}/>,
         element
     )
 }
