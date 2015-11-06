@@ -205,7 +205,7 @@
             var save = stock;
             if(save[name]){
                 return {
-                    dataer: save[name].dataer,
+                    run: save[name].dataer,
                     data: save[name].getter( 'data' ),
                     action: save[name].getter( 'action' )
                 }
