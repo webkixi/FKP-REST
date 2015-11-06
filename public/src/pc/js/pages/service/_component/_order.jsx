@@ -145,7 +145,7 @@ var index = {
                 console.log(tmp_addr);
                 addr = tmp_addr.province + tmp_addr.city + tmp_addr.county + tmp_addr.street||''
             }else{
-                user_name = _l_user.nick;
+                user_name = '';
                 user_phone = _l_user.mobile;
                 address = <div>
                     <div id="name"></div>
@@ -448,6 +448,7 @@ var bindIndex = function(){
                 _form.code = u.verify.value
             }else{
                 if(u.city){
+                    _form.addr.username = u.name.value;
                     _form.addr.province = "广东"
                     _form.addr.city = u.city.text
                     _form.addr.county = u.district.text
@@ -455,18 +456,16 @@ var bindIndex = function(){
                 }else{
                     _form.addr = _l_user.addr[0];
                 }
+                _form.user.mobile = _l_user.mobile;
+                _form.user.name = _l_user.name||_l_user.nick||'河马';
                 _form.uid = _l_user.uid;
-
-                _form.addr.mobile = _l_user.mobile;
             }
+
             _form.paych = _payway
             _form.totalprice = heji.totalprice
             _form.subscribetime = u.date.value + u.ampm.text
-
-            // console.log(_l_user.name);
-            _form.user.name = _l_user.name||_l_user.nick||'河马';
-            _form.user.mobile = _l_user.mobile;
             _form.user.userinfo = _wx_userinfo;
+
 
             var form = SA.getter('_GLOBAL').data.index.form;
             var fff = libs.extend(_form, form);
