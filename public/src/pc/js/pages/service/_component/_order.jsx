@@ -147,12 +147,15 @@ var index = {
             }else{
                 user_name = _l_user.nick;
                 user_phone = _l_user.mobile;
-                address = <div className="layout">
-                    <label>地址</label>
-                    <div className="box">
-                        <div id="city"></div>
-                        <div id="district"></div>
-                        <div id="address"></div>
+                address = <div>
+                    <div id="name"></div>
+                    <div className="layout">
+                        <label>地址</label>
+                        <div className="box">
+                            <div id="city"></div>
+                            <div id="district"></div>
+                            <div id="address"></div>
+                        </div>
                     </div>
                 </div>
             }
@@ -221,6 +224,8 @@ var bindIndex = function(){
     var u = {};
 
     function userAddress(){
+        //电话
+        u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){})
         // //城市
         u.city = new Select({}, 'city',function(){
             var parents = [];
@@ -297,11 +302,7 @@ var bindIndex = function(){
     if(!_l_user){
 
         //电话
-        u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
-            $(this).click(function(){
-
-            })
-        })
+        u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){})
 
         //电话
         u.phone = new Number({label:'手机号码', valide: 'mobile'}, 'phone',function(){
@@ -340,7 +341,6 @@ var bindIndex = function(){
         })
 
         userAddress()
-
 
     }
 

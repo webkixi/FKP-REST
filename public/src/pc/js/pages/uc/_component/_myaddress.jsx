@@ -10,6 +10,7 @@ var router = require('libs/router').router
 var myaddress;
 var _ComData = [];
 var _ori_results_data = []
+var _l_data, _l_user;
 // var json = require('./_myaddress.json');
 // myaddress = {
 //     body:[
@@ -81,7 +82,6 @@ function init(ele, param, cb){
 }
 
 function getData(ele, param, cb){
-    console.log('aaaaaaa');
   var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
   if(_l_data){
       _l_user = _l_data.data;
@@ -95,10 +95,9 @@ function getData(ele, param, cb){
           _l_user = false;
       }
       var uid;
-      if(_l_user){
-
+      if(_l_user)
           uid = { uid: _l_user.uid}
-      }
+
       if(uid){
         api.req('order_addr',uid,function(data){
           if(data.results){
@@ -127,7 +126,6 @@ function getData(ele, param, cb){
 }
 
 function myaddressDate(myaddrDate){
-    console.log('hhhhhhh');
     console.log(myaddrDate);
         _ComData=[]
         myaddrDate.map(function(itme, i){
@@ -151,7 +149,6 @@ function myaddressDate(myaddrDate){
         _ComData.push(myaddress)
       })
       if(_ComData.length){
-        console.log("xxx");
         $('#now').hide();
       }
       console.log(_ComData);
