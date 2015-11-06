@@ -458,6 +458,7 @@ var bindIndex = function(){
                     _form.user.name = _l_user.name||_l_user.nick||'河马';
                 }
                 _form.user.mobile = _l_user.mobile;
+                _form.addr.mobile = _l_user.mobile;
                 _form.uid = _l_user.uid;
             }
 
