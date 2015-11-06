@@ -10,8 +10,11 @@ var index = {
     mixins: [ItemMixin],
     checkWx: function(){
         var wx = SA.getter('_WEIXIN').data;
-        if(wx.user)
-            return ture;
+        console.log('微信用户数据');
+        console.log(wx);
+        if(wx.user.openid){
+            return true;
+        }
         else {
             return false;
         }
@@ -107,4 +110,4 @@ function renderDom(ele, cb){
     )
 }
 
-module.exports = renderDom;
+module.exports = init;
