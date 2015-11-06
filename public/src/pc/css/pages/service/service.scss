@@ -557,38 +557,48 @@ body{
       p{
         color: #ff7800;
         text-align: right;
-        width: 39%;
+        width: 39.8%;
         span{
           width: auto;
         }
       }
     }
     .hbody{
-      color: #666;
+      padding: 0;
+      &.u-table{
+          display: table;
+      }
+      p{
+        font-size: 0.6rem;
+        line-height: 1rem;
+        .title_detection_mycar{
+          font-size: 0.8rem;
+          padding-left: 3%;
+          height: 1.5rem;
+          line-height: 1.5rem;
+          width: 100%;
+          span{
+            color: #000;
+            margin-left: 0.24rem;
+            width: 100%;
+            font-size: 0.7rem;
+          }
+        }
+        span{
+          color: #333;
+        }
+      }
     }
     .hfoot{
+      display: block;
       p{
         color: #666666;
         &:last-child{
           height: 2.5rem;
           line-height: 2.5rem;
           padding-bottom: 2.5rem;
-        }
-        .title_detection_mycar{
-          color: #333;
-          background: #EEF7F6;
-          border-bottom: 2px solid #bababa;
-          // display: table-caption;
-          font-size: 0.8rem;
-          padding-left: 3%;
-          height: 2rem;
-          width: 100%;
-        //   font-weight: bold;
-          span{
-              margin-left: 0.24rem;
-            width: 100%;
-            font-size: 0.7rem;
-          }
+          width: 96%;
+          margin: auto;
         }
       }
     }

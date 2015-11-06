@@ -158,17 +158,15 @@ function carcheckData(carcheck_data, ele, cb){
       tmp[item.car_checking_type]= []
       tmp[item.car_checking_type].push(
         {
-          title: <em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{item.car_checking_type}</em>
+          title: <p><em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{item.car_checking_type}</em></p>
         }
       )
       tmp[item.car_checking_type].push({
-          k: item.car_checking_name,
-          v: item.car_checking_status
+          k: item.car_checking_name
       })
     }else{
       tmp[item.car_checking_type].push({
-            k: item.car_checking_name,
-            v: item.car_checking_status
+            k: item.car_checking_name
         })
     }
   })
@@ -182,8 +180,8 @@ function carcheckData(carcheck_data, ele, cb){
   carcheck_Title.body = ggg
   carcheck_Title.footer.push(
     {
-      k: '工时费：',
-      v: _totolpic,
+      k: '工时费',
+      v: <span>￥{_totolpic}</span>,
       s: _totolpic
     }
   )
