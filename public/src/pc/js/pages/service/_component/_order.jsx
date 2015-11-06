@@ -140,9 +140,8 @@ var index = {
             if(_l_user.addr){
                 // console.log(_l_user);
                 var tmp_addr = _l_user.addr[0];
-                user_name = tmp_addr.username;
+                user_name = <em>{tmp_addr.username}</em>;
                 user_phone = tmp_addr.mobile;
-                console.log(tmp_addr);
                 addr = tmp_addr.province + tmp_addr.city + tmp_addr.county + tmp_addr.street||''
             }else{
                 user_name = '';
@@ -167,7 +166,7 @@ var index = {
                     </div>
                     <div className={'hbody'}>
                       <div className={'hbody_div'}>
-                        <em>{user_name}</em>
+                        {user_name}
                         <span>{user_phone}</span>
                       </div>
                       <p>{addr}</p>
@@ -453,11 +452,12 @@ var bindIndex = function(){
                     _form.addr.city = u.city.text
                     _form.addr.county = u.district.text
                     _form.addr.street = u.address.value
+                    _form.user.name = u.name.value
                 }else{
                     _form.addr = _l_user.addr[0];
+                    _form.user.name = _l_user.name||_l_user.nick||'河马';
                 }
                 _form.user.mobile = _l_user.mobile;
-                _form.user.name = _l_user.name||_l_user.nick||'河马';
                 _form.uid = _l_user.uid;
             }
 
