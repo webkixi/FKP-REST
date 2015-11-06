@@ -18,6 +18,7 @@ function router(name){
         }
         top.location = name
     }else{
+        var _uri;
         if(url.params.hash){
             var tmp = 'hash'+'='+url.params.hash;
             var len = Object.keys(url.params)
@@ -29,10 +30,12 @@ function router(name){
             }
             url = libs.urlparse( href );
             SA.setter('_HISTORY', url);
-            historyStat({uri: url}, null, href+'#'+name)
+            _uri = href+'#'+name;
+            historyStat({uri: _uri}, null, _uri)
         }else{
             SA.setter('_HISTORY', url);
-            historyStat({uri: url}, null, '#'+name)
+            _uri = '#'+name;
+            historyStat({uri: _uri}, null, '#'+name)
         }
 
         var temp = SA.getter(name)
@@ -54,15 +57,15 @@ router.goback = function(){
 }
 
 //html5
-// if(window.history.pushState){
-//     libs.addEvent(window, 'popstate', function(e){
-//         var val = e.state;
-//         if(val && val.uri && val.uri.hash){
-//             router.goback()
-//             // router(val.uri.hash);
-//         }
-//     })
-// }
+if(window.history.pushState){
+    libs.addEvent(window, 'popstate', function(e){
+        var val = e.state;
+        if(val && val.uri ){
+            // router.goback()
+            router(val.uri);
+        }
+    })
+}
 
 function historyStat(args, title, uri){
     window.history.pushState(args, title, uri)
