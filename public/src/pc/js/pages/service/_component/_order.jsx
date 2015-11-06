@@ -250,7 +250,6 @@ var bindIndex = function(){
                 }
             })
             $(this).click(function(){
-                console.log('hhhhhhggggg');
                 var xx = <List data={parents} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
                 SA.setter('Pop',{data:{body:xx,display:'block'}} )
             })
@@ -326,7 +325,7 @@ var bindIndex = function(){
                         btn_stat = 1;
                         api.req('getmms', {mobile: u.phone.value}, function(data){
                             if(data.code===1){
-                                SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
+                                // SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
                                 libs.countDown(btn, 61, function(){
                                     btn_stat = 0;
                                     $(btn).html('重新发送')
@@ -336,7 +335,7 @@ var bindIndex = function(){
                     }
                 }
                 // else{
-                //     SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
+                    SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
                 // }
         })
 
@@ -487,6 +486,7 @@ var bindIndex = function(){
             // console.log(result);
             if (result=="success") {
                 // payment succeed
+                alert('成功下订单')
                 console.log('成功下订单');
                 router('/uc.html');
             } else if (result == "fail") {
