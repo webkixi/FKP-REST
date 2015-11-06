@@ -321,4 +321,4 @@ window.pingpp = new PingppSDK();
 // aliases
 window.PINGPP_PAY_SDK = window.PINGPP_WX_PUB = window.pingpp;
 
-module.exports = {}
+module.exports = new PingppSDK();

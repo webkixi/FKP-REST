@@ -5,7 +5,7 @@ var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var api = require('libs/api');
 var router = require('libs/router').router
-require('../../_common/pingpp')
+var ping_pp = require('../../_common/pingpp')
 
 var _form = {
     user: {},
@@ -477,7 +477,7 @@ var bindIndex = function(){
 
     function payment(charge){
         // console.log(charge);
-        pingpp.createPayment(charge.charge, function(result, err) {
+        ping_pp.createPayment(charge.charge, function(result, err) {
             // console.log(result);
             if (result=="success") {
                 // payment succeed
