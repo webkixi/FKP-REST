@@ -490,9 +490,11 @@ var bindIndex = function(){
                 console.log('成功下订单');
                 router('/uc.html');
             } else if (result == "fail") {
+                alert('charge不对')
                 console.log('charge不正确');
                 // charge 不正确或者微信公众账号支付失败时会在此处返回
             } else if (result == "cancel") {
+                alert('取消支付')
                 console.log('微信公众账号支付取消支付');
                 // 微信公众账号支付取消支付
             } else {
