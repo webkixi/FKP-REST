@@ -478,9 +478,17 @@ var bindIndex = function(){
     function payment(charge){
         // console.log(charge);
         pingpp.createPayment(charge.charge, function(result, err) {
+            // console.log(result);
             if (result=="success") {
                 // payment succeed
+                console.log('成功下订单');
                 router('/uc.html');
+            } else if (result == "fail") {
+                console.log('charge不正确');
+                // charge 不正确或者微信公众账号支付失败时会在此处返回
+            } else if (result == "cancel") {
+                console.log('微信公众账号支付取消支付');
+                // 微信公众账号支付取消支付
             } else {
                 console.log(result+" "+err.msg+" "+err.extra);
             }
