@@ -67,6 +67,8 @@ if(window.history.pushState){
         var val = e.state;
         if(val && val.uri ){
             router(val.uri, true);
+        }else{
+            window.history.go(-1)
         }
     })
 }
