@@ -9,16 +9,14 @@ function router(name, back){
         if(name.indexOf('#')>-1){
             var next = name.substring(0,name.indexOf('#'))
             if(url.path==next){
-                var hash = name.substring(name.indexOf('#')+1)
-                router(hash);
-            }else{
-                window.location.href = name
+                if(!url.params.hash)
+                    name = name.replace('#','?hash=')
+                else{
+                    name = url.path+'#'+name;
+                }
             }
-
-        }else{
-            window.location.href = name
         }
-
+        top.location = name
     }else{
         var _uri;
         if(url.params.hash){
@@ -69,8 +67,6 @@ if(window.history.pushState){
         var val = e.state;
         if(val && val.uri ){
             router(val.uri, true);
-        }else{
-            window.history.go(-1)
         }
     })
 }
