@@ -11,11 +11,15 @@ function router(name, back){
             if(url.path==next){
                 var hash = name.substring(name.indexOf('#')+1)
                 router(hash);
-            }else
+            }else{
+                alert(name)
                 top.location = name
+            }
 
-        }else
+        }else{
+            alert(name)
             top.location = name
+        }
 
     }else{
         var _uri;
