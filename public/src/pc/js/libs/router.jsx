@@ -12,13 +12,11 @@ function router(name, back){
                 var hash = name.substring(name.indexOf('#')+1)
                 router(hash);
             }else{
-                alert('111111')
-                top.location = name
+                window.location.href = name
             }
 
         }else{
-            alert('222222')
-            top.location = name
+            window.location.href = name
         }
 
     }else{
