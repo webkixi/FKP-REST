@@ -1,6 +1,6 @@
 var libs = require('./libs')
 
-function router(name){
+function router(name, back){
     if(typeof name!=='string') return;
     var url = libs.urlparse(location.href);
 
@@ -9,14 +9,14 @@ function router(name){
         if(name.indexOf('#')>-1){
             var next = name.substring(0,name.indexOf('#'))
             if(url.path==next){
-                if(!url.params.hash)
-                    name = name.replace('#','?hash=')
-                else{
-                    name = url.path+'#'+name;
-                }
-            }
-        }
-        top.location = name
+                var hash = name.substring(name.indexOf('#')+1)
+                router(hash);
+            }else
+                top.location = name
+
+        }else
+            top.location = name
+
     }else{
         var _uri;
         if(url.params.hash){
@@ -29,13 +29,18 @@ function router(name){
                 href = url.source.replace(tmp,'')
             }
             url = libs.urlparse( href );
-            SA.setter('_HISTORY', url);
-            _uri = href+'#'+name;
-            historyStat({uri: _uri}, null, _uri)
+
+            if(!back){
+                SA.setter('_HISTORY', url);
+                _uri = href+'#'+name;
+                historyStat({uri: _uri}, null, _uri)
+            }
         }else{
-            SA.setter('_HISTORY', url);
-            _uri = name;
-            historyStat({uri: _uri}, null, '#'+name)
+            if(!back){
+                SA.setter('_HISTORY', url);
+                _uri = name;
+                historyStat({uri: _uri}, null, '#'+name)
+            }
         }
 
         var temp = SA.getter(name)
@@ -57,15 +62,16 @@ router.goback = function(){
 }
 
 //html5
-// if(window.history.pushState){
-//     libs.addEvent(window, 'popstate', function(e){
-//         var val = e.state;
-//         if(val && val.uri ){
-//             // router.goback()
-//             router(val.uri);
-//         }
-//     })
-// }
+if(window.history.pushState){
+    libs.addEvent(window, 'popstate', function(e){
+        var val = e.state;
+        if(val && val.uri ){
+            router(val.uri, true);
+        }else{
+            window.history.go(-1)
+        }
+    })
+}
 
 function historyStat(args, title, uri){
     window.history.pushState(args, title, uri)
