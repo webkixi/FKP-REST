@@ -117,11 +117,11 @@ function getData(ele, param, cb){
           _l_user = false;
       }
 
-      if(!_l_user.usercar && !index){
+      if(!_l_user.usercar && !mycar){
           _l_user = false;
       }
 
-      if(!_l_user.addr && !index){
+      if(!_l_user.addr && !mycar){
           _l_user = false;
       }
 
