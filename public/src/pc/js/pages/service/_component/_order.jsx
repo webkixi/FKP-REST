@@ -429,7 +429,8 @@ var bindIndex = function(){
         })
     });
 
-    $('#now').click(function(){
+    $('#now').one('click',function(){
+    // $('#now').click(function(){
         var stat = checkValue(u);
         if(stat){
             if(!_l_user){
@@ -487,13 +488,11 @@ var bindIndex = function(){
             // console.log(result);
             if (result=="success") {
                 // payment succeed
-                alert('成功下订单')
-                console.log('成功下订单');
+                SA.setter('Pop',{data:{body:'已成功下订单',display:'block'}} )
                 router('/uc.html');
             } else if (result == "fail") {
                 // alert('charge不对')
-                alert(result.toString())
-                console.log('charge不正确');
+                SA.setter('Pop',{data:{body:result.toString(),display:'block'}} )
                 // charge 不正确或者微信公众账号支付失败时会在此处返回
             } else if (result == "cancel") {
                 alert('取消支付')

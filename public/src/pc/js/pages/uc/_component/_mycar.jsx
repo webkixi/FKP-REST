@@ -65,7 +65,13 @@ var bindIndex = function(){
 }
 
 function init(ele, param, cb){
-    SA.setter('_LOCAL_USER', [getData], [[ele, param, cb]]);
+    // SA.setter('_LOCAL_USER', [getData], [[ele, param, cb]]);
+    var luser = SA.getter('_LOCAL_USER')
+    if(luser.data.error==="-1")
+        SA.setter('_LOCAL_USER', [getData], [[ele, param, cb]]);
+    else{
+        getData(ele, param, cb)
+    }
 }
 
 function getData(ele, param, cb){

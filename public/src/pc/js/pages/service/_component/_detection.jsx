@@ -144,7 +144,7 @@ function carcheckData(carcheck_data, ele, cb){
       title:[
         {
           k: '全车检测',
-          v: <p>￥{_totolpic}<i className="ifont icon-next"></i></p>
+          v: <p>￥{_totolpic}<i className="ifont icon-xla"></i></p>
         }
       ],
       body: [],

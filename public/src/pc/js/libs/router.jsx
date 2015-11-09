@@ -11,13 +11,10 @@ function router(name, back){
             if(url.path==next){
                 var hash = name.substring(name.indexOf('#')+1)
                 router(hash);
-            }else{
+            }else
                 window.location.href = name
-            }
-
-        }else{
-            window.location.href = name
-        }
+        }else
+            window.location.href = name         
     }else{
         var _uri;
         if(url.params.hash){

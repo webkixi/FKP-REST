@@ -120,7 +120,7 @@
         background: #d4e8cd;
         border-bottom: 1px solid #cfcfcf;
         p{
-          text-align: left;
+          text-align: right;
         }
       }
       .hfoot{
@@ -130,6 +130,7 @@
           line-height: 1.5rem;
           width: 90%;
           margin: auto;
+          text-align: left;
           span{
             display: block;
             color: #666;

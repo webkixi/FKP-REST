@@ -2,6 +2,7 @@
 .radioInput{
    .radio_input {
     display: inline-block;
+    position: relative;
     width: 0.7rem;
     height: 0.7rem;
     line-height: 0.4rem;
@@ -13,21 +14,16 @@
     border-radius: 50%;
     border-color: #2EC1AE;
     background-color: #fff;
-    border: 0.1rem solid #2EC1AE; }
+    border: 0.05rem solid #2EC1AE; }
 
-   input[type=radio]:after {
-    content: "";
-    width: 0.7rem;
-    height: 0.7rem;
-    font-size: 0.6rem;
-    line-height: 0.4rem;
-    border-radius:50%;
-    background-color: #fff; }
 
    input[type=radio]:checked:after {
-    content: "ss";
-    color: #2EC1AE;
-    border-color: #fff;
-    background-color: #2EC1AE; }
+        content: "\e625";
+        position: absolute;
+        left: -0.05rem;
+        top: 0.08rem;
+        font-size: 0.75rem;
+        color: #2EC1AE;
+    }
 
 }
