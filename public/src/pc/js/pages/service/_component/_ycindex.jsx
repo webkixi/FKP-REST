@@ -400,7 +400,7 @@ function mixDataAndDom( dt){
     _PAGE.totalprice = _totalprice
     _PAGE.discountprice = _discountprice
 
-    _body[0].v = <span><em>￥{_totalprice}</em>￥{_discountprice}<i className="ifont icon-xla"></i></span>
+    _body[0].v = <span><em>¥{_totalprice}</em>¥{_discountprice}<i className="ifont icon-xla"></i></span>
 
     return data;
 
