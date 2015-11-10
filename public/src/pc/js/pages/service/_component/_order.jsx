@@ -12,92 +12,86 @@ var _form = {
     car:  {},
     addr: {}
 };
+var _l_user, _l_data;
+var mycar_service_order;
+var footer;
 var bodys = [];
 var heji = {
   count: 0,
   totalprice: 0
 };
-var _wx_userinfo = SA.getter('_WEIXIN').data.user;
-// console.log(_wx_userinfo);
+var _wx_userinfo;
 
-var _l_user;
-var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
-if(_l_data){
-    _l_user = _l_data.data;
+function init(ele, cb){
+    bodys = [];
+    mycar_service_order = [];
+    heji = {
+      count: 0,
+      totalprice: 0
+    };
 
-    if(_l_user.error){
-        _l_user = false;
+    _wx_userinfo = SA.getter('_WEIXIN').data.user;
+    _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+    if(_l_data){
+        _l_user = _l_data.data;
+
+        if(_l_user.error){
+            _l_user = false;
+        }
+
+        if(!_l_user.uid){
+            _l_user = false;
+        }
     }
-
-    if(!_l_user.uid){
-        _l_user = false;
+    footer = SA.getter('_GLOBAL').data.index.footer;
+    if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
+      var a = footer.pop();
+      heji.count==1;
+      heji.totalprice+=a.s;
+      bodys.push({
+        body:[
+          a.k,
+          1,
+          '￥'+a.s
+        ]
+      })
+    }else{
+      footer.map(function(item, i){
+        heji.count++;
+        heji.totalprice+=item.s;
+        bodys.push({
+          body:[
+            item.k,
+            1,
+            '￥'+item.s
+          ]
+        })
+      })
     }
+    heji.totalprice = Math.round(heji.totalprice)
+
+    mycar_service_order = bodys;
+    mycar_service_order.unshift(
+      {
+        body:[
+            '保养项目',
+            '单位',
+            '价格'
+        ]
+      }
+    )
+
+    mycar_service_order.push(
+      {
+        body:[
+            '合计',
+            heji.count===0?'':heji.count,
+            '￥'+heji.totalprice
+        ]
+      }
+    )
+    renderDom(ele, cb)
 }
-console.log(SA.getter('_GLOBAL').data.index);
-var footer = SA.getter('_GLOBAL').data.index.footer;
-
-if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
-  var a = footer.pop();
-  heji.count==1;
-  heji.totalprice+=a.s;
-  bodys.push({
-    body:[
-      a.k,
-      1,
-      '￥'+a.s
-    ]
-  })
-}else{
-  footer.map(function(item, i){
-    // heji.count+=item.o.count;
-    heji.count++;
-    heji.totalprice+=item.s;
-    bodys.push({
-      // body:[
-      //   item.k,
-      //   item.o.count,
-      //   '￥'+item.v
-      // ]
-      body:[
-        item.k,
-        1,
-        '￥'+item.s
-      ]
-    })
-  })
-}
-heji.totalprice = Math.round(heji.totalprice)
-
-var mycar_service_order = bodys;
-
-// var mycar_service_order = [
-//     {
-//         body:[
-//             '机油',
-//             '1',
-//             '￥380'
-//         ]
-//     }
-// ]
-mycar_service_order.unshift(
-  {
-    body:[
-        '保养项目',
-        '单位',
-        '价格'
-    ]
-  }
-)
-
-mycar_service_order.push(
-  {
-    body:[
-        '合计',
-        heji.count,
-        '￥'+heji.totalprice
-    ]
-  }
-)
 
 var index = {
     mixins: [ItemMixin],
@@ -563,4 +557,4 @@ function renderDom(ele, cb){
     )
 }
 
-module.exports = renderDom;
+module.exports = init;
