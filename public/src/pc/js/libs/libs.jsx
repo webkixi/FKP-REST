@@ -236,10 +236,11 @@ function addSheet() {
 
 var node = {
     remove: function(el){
-        if(el.removeNode)
-            el.removeNode(true);
-        else
-            el.remove();
+        if(el && el.nodeType)
+            if(el.removeNode)
+                el.removeNode(true);
+            else
+                el.remove();
     },
     /*
     * 新建DOM元素
@@ -262,6 +263,11 @@ var node = {
         if(opts)
             if(getObjType(opts)==='Object'){
                 for(var attr in opts){
+                    if(attr==='id'){
+                        var tmp = document.getElementById(opts[attr])
+                        if(tmp)
+                            return false;
+                    }
                     node[attr] = opts[attr]
                 }
             }

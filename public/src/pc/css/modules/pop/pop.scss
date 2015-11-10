@@ -57,6 +57,13 @@
     animation-name: anim-close;
     font-size: 0.6rem;
     overflow: hidden;
+    .loading{
+        position: absolute;
+        left: 0;
+        top: 40%;
+        right: 0;
+        bottom: 50%;
+    }
     .list-wrap{
       overflow: auto;
       height: 100%;

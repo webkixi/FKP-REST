@@ -34,6 +34,7 @@ var index = {
 }
 var _form = {};
 var bindIndex = function(){
+    router.clear()
     var Number = require('modules/form/number');
     var u = {};
 

@@ -213,6 +213,7 @@ var index = {
 }
 var _payway = false;
 var bindIndex = function(){
+    router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
     var Number = require('modules/form/number');

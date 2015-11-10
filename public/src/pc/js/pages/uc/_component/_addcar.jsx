@@ -142,6 +142,7 @@ function dealWith_Data_Type(){
 
 var _car = {};
 var bindEsti = function(){
+    router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
 

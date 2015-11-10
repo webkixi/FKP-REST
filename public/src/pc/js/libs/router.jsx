@@ -14,7 +14,7 @@ function router(name, back){
             }else
                 window.location.href = name
         }else
-            window.location.href = name         
+            window.location.href = name
     }else{
         var _uri;
         if(url.params.hash){
@@ -41,6 +41,11 @@ function router(name, back){
             }
         }
 
+        libs.addSheet(['#pageloading{width:2rem;height:2rem;\n\
+            position:absolute;\n\
+            top:0;left:0;right:0;bottom:0;margin:auto;}','loadingcss' ])
+        libs.node.append('body','img',{id: 'pageloading',src: '/images/loading1.gif'})
+
         var temp = SA.getter(name)
         if(temp){
             console.log('==='+name);
@@ -57,6 +62,12 @@ router.goback = function(){
     }else{
         window.location.href = history.source
     }
+}
+
+router.clear = function(){
+    $('#pageloading').remove()
+    // var load = document.getElementById('loading')
+    // libs.node.remove(load)
 }
 
 //html5

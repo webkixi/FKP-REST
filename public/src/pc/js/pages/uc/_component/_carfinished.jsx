@@ -88,6 +88,7 @@ var estimate = {
 }
 
 function defaultMethod(){
+    router.clear()
     $('.profile .carlog .hbody p').each(function(i, item){
         if(i%2===0){
             $(item).css({

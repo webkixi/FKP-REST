@@ -42,6 +42,7 @@ function dealWith_Data_Brand(){
     var resaults = []
     var rtnDom;
 
+    SA.setter('Pop',{data:{display:'block'}})
     api.req('queryallbrand',{}, function(data){
       console.log(data);
         if(data.code && data.code===1){
@@ -88,6 +89,7 @@ function dealWith_Data_Series(){
     var nav = [];
     // _car.model.empty();
     pn = { carbrand: $("#brand").find("input").val()}
+    SA.setter('Pop',{data:{display:'block'}})
     api.req('queryseries',pn, function(data){
       if(data.code && data.code===1){
         var tmp = [];
@@ -122,6 +124,7 @@ function dealWith_Data_Type(){
     var rtnDom;
     var nav = [];
     cs = { carTypes: $("#series").find("input").val()}
+    SA.setter('Pop',{data:{display:'block'}})
     api.req('querycartype',cs, function(data){
       if(data.code && data.code===1){
         data.results.map(function(item,i){
@@ -143,6 +146,7 @@ function dealWith_Data_Type(){
 
 var _car = {};
 var bindEsti = function(){
+    router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
 

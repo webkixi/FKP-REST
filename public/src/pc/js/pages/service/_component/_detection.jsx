@@ -82,6 +82,7 @@ var index = {
 
 //dom写入后，绑定相关的方法
 var bindIndex = function(){
+    router.clear()
     $("#now").click(function(){
         console.log(carcheck_Title);
         var detectionDate = carcheck_Title

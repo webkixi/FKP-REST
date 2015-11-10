@@ -46,6 +46,7 @@ function popItemMethod(){
 
 //配件列表dom完成后执行abcd方法
 function abcd(){
+    router.clear();
     pop({});
     var the = this;
     var the_footer;

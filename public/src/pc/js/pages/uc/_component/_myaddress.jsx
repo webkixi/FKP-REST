@@ -163,9 +163,7 @@ function myaddressDate(myaddrDate){
 
 
 var bindIndex = function(){
-    // $('#now').one('click', function(){
-    //     router('addaddress')
-    // })
+    router.clear()     
   $('body').delegate('#now','click',function(){
       router('addaddress')
   })
