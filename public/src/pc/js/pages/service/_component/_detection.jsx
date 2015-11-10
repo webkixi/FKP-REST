@@ -151,7 +151,7 @@ function carcheckData(carcheck_data, ele, cb){
       title:[
         {
           k: '全车检测',
-          v: <p>￥{_totolpic}<i className="ifont icon-xla"></i></p>
+          v: <p>¥{_totolpic}<i className="ifont icon-xla"></i></p>
         }
       ],
       body: [],
@@ -185,7 +185,7 @@ function carcheckData(carcheck_data, ele, cb){
   carcheck_Title.footer.push(
     {
       k: '工时费',
-      v: <span>￥{_totolpic}</span>,
+      v: <span>¥{_totolpic}</span>,
       s: _totolpic
     }
   )
