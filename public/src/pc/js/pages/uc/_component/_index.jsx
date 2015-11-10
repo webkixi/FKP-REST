@@ -40,6 +40,7 @@ function bcd(){
 }
 
 function insertContent(){
+    router.clear()
     //仿幕课网
     // Mooc( '导航数据', '分类详细数据', '热点数据', '页面容器id' )
     Mooc( tab_mc_data, _coupons, "content", {
