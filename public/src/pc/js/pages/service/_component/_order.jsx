@@ -52,7 +52,7 @@ function init(ele, cb){
         body:[
           a.k,
           1,
-          '￥'+a.s
+          '￥'+a.s.toString().split('.')[0]
         ]
       })
     }else{
@@ -63,12 +63,12 @@ function init(ele, cb){
           body:[
             item.k,
             1,
-            '￥'+item.s
+            '￥'+item.s.toString().split('.')[0]
           ]
         })
       })
     }
-    heji.totalprice = Math.round(heji.totalprice)
+    heji.totalprice = heji.totalprice.toString().split('.')[0]
 
     mycar_service_order = bodys;
     mycar_service_order.unshift(
