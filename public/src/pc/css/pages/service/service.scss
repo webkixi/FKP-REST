@@ -615,14 +615,17 @@ body{
     }
     .hfoot{
       display: block;
+      border: none;
       p{
         color: #666666;
         &:last-child{
+            background-color: #f3f5f7;
           height: 2.5rem;
           line-height: 2.5rem;
           padding-bottom: 2.5rem;
           width: 96%;
           margin: auto;
+          border: none;
         }
       }
     }
