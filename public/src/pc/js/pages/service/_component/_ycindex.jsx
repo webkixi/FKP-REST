@@ -97,7 +97,7 @@ function abcd(){
                           body:[
                               {
                                   k: item.partsname,
-                                  v: item.userprice,
+                                  v: '¥'+item.userprice,
                                   s: item.discountprice,
                                   o: item
                               }
@@ -168,7 +168,9 @@ var index = {
             <div className={'wrapper'}>
               <div className={'row'}>
                 <div className={'service_mycar'}>
-                  <h2>{'我的车辆'}</h2>
+                  <h2>
+                      <i id="back" className={'ifont icon-pre'}></i>我的车辆
+                  </h2>
                   <div className={'s_m_list hlist'}>
                     <ul className={'item'}>
                       {mycar_data}
@@ -206,6 +208,9 @@ var index = {
 var bindIndex = function(){
     var Checkbox = require('modules/form/checkbox');
     var checkNum = {};
+    $('#back').click(function(){
+        router('/');
+    })
 
     //选择是否需要提供配件
     checkNum.checkbox = new Checkbox({label:'已有配件只需上门服务'}, 'checkbox',function(self){

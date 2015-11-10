@@ -17,16 +17,16 @@ var esti2 = {
         return(
             <div className={'index addcar'}>
                 <header>
-                    {'添加车辆'}
+                    添加车辆
                 </header>
                 <article>
-                    <div id="brand"></div>
-                    <div id="series"></div>
-                    <div id="model"></div>
-                    <div id="license"></div>
-                    <div id="number"></div>
-                    <div id="vin"></div>
-                    <div id="engin"></div>
+                    <div id="brand" className={'carform'}></div>
+                    <div id="series" className={'carform'}></div>
+                    <div id="model" className={'carform'}></div>
+                    <div id="license" className={'carform'}></div>
+                    <div id="number" className={'carform'}></div>
+                    <div id="vin" className={'carform'}></div>
+                    <div id="engin" className={'carform'}></div>
                 </article>
                 <footer>
                     <a id="now" className={'btn-link'}>添加车辆</a>

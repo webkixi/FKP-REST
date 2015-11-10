@@ -24,12 +24,16 @@ body{
 .service_mycar{
   // margin-bottom: 0.6rem;
   border-top: 1px solid #e6e1e1;
+
   h2{
     background: #fff;
     font-size: 0.8rem;
     padding: 0.4rem;
     color: #888;
-    // border-bottom: 1px solid #bababa;
+    border-bottom: 1px solid #636363;
+    i:before{
+        vertical-align: top;
+    }
   }
 }
 .s_m_list{
@@ -204,6 +208,9 @@ body{
             em, span{
                 border: none;
             }
+            span{
+                text-align: center;
+            }
         }
     }
     .dot{
@@ -252,7 +259,7 @@ body{
         top: 0.45rem;
         width: 0.6rem;
         height: 0.6rem;
-        border: 2px solid red;
+        border: 2px solid #999;
         margin-right: 0.4rem;
         margin-left: 0.6rem;
         &.active{
@@ -303,6 +310,15 @@ body{
             }
             .body{
                 width: 100%;
+            }
+            #city, #district{
+                .select{
+                    .body{
+                        span{
+                            width: 3.5rem;
+                        }
+                    }
+                }
             }
             >div{
                 float: left;
@@ -488,6 +504,7 @@ body{
 .pay_mycar{
   background: #fff;
   padding-bottom: 1rem;
+  margin-top: 0.5rem;
   .title_pay_mycar{
     display: table;
     width: 100%;
@@ -504,6 +521,9 @@ body{
     width: 50%;
     display: table-cell;
     font-size: 0
+  }
+  #now{
+      margin-top: 0.6rem;
   }
   .btn-link{
     background: #2ec1ae;
@@ -722,7 +742,10 @@ body{
 	}
 	&.addcar{
 		article{
-			height: 60%;
+			height: 70%;
+            .carform{
+                margin-bottom: 0.2rem;
+            }
 			#vin, #engin{
 				.body{
 					// width: 54%;
@@ -743,6 +766,7 @@ body{
 				}
 			}
 		}
+
 	}
 }
 

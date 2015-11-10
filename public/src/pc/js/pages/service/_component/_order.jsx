@@ -190,7 +190,10 @@ var index = {
             <div className={'wrapper'}>
               <div className={'row'}>
                 <div className={'service_mycar'}>
-                  <h2>{'个人信息'}</h2>
+                  <h2>
+                      <i id="back" className={'ifont icon-pre'}></i>
+                      个人信息
+                  </h2>
                 </div>
                 {inner}
                 <div className={'service_mycar srvice_myservice'}>
@@ -221,6 +224,10 @@ var bindIndex = function(){
     var Number = require('modules/form/number');
     var Radio = require('modules/form/radio');
     var u = {};
+
+    $('#back').click(function(){
+        router.goback();
+    })
 
     function userAddress(){
         //电话

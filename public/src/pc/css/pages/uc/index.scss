@@ -67,6 +67,7 @@ body{
 		}
 		.hbody{
 			width: 9.5rem;
+			line-height: 1.1;
 			p{
 				margin-top: 0.7rem;
 				em, span{
@@ -1014,7 +1015,11 @@ body{
 							font-weight: normal;
 						}
 						em{
-							width: 50%;
+							width: 40%;
+							white-space: nowrap;
+							overflow: hidden;
+							line-height: 1;
+							margin-right: 5%;
 						}
 					}
 				}

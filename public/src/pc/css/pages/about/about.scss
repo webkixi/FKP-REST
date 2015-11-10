@@ -9,7 +9,7 @@
     padding: 0.5rem 0.4rem;
   }
   .about_zw{
-    padding: 0 0.4rem;
+    // padding: 0 0.8rem;
     img{
       width: 100%;
       height: auto;
@@ -24,6 +24,9 @@
     }
   }
   .about_zw{
+      .about_p{
+          padding: 0 0.8rem;
+      }
     p{
       margin-bottom: 1rem;
     }
@@ -157,6 +160,10 @@
 }
 .about_ul{
   margin-top: 1rem;
-  font-size: 0.5rem;
+  padding: 0.8rem 0.8rem;
+  background-color: #f4f5f7;
+  border-top: 1px solid #333;
+  font-size: 0.25rem;
+  line-height: 350%;
   color: #666;
 }

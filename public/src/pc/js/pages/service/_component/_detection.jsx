@@ -44,7 +44,10 @@ var index = {
             <div className={'wrapper'}>
               <div className={'row'}>
                 <div className={'service_mycar'}>
-                  <h2>{'我的车辆'}</h2>
+                  <h2>
+                      <i id="back" className={'ifont icon-pre'}></i>
+                      我的车辆
+                  </h2>
                   <div className={'s_m_list hlist'}>
                     <ul className={'item'}>
                       {mycar_data}
@@ -94,6 +97,10 @@ var bindIndex = function(){
         detectionDate.form = form;
         SA.setter('_GLOBAL', { index: detectionDate })
         router("order")
+    })
+
+    $('#back').click(function(){
+        router('/');
     })
 }
 

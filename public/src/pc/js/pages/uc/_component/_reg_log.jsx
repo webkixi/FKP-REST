@@ -77,13 +77,14 @@ var bindIndex = function(){
         _form.code = u.verify.value;
         _form.userinfo = _wx_userinfo;
         var fff = libs.extend(_form);
-        api.req('mobilecode',{type: 'insert', data:fff},function(data){
-          //router.goback()
-          if(SA.getter('_HISTORY').data.hash)
-            router('/uc.html#'+SA.getter('_HISTORY').data.hash)
-          else
-            router('/uc.html')
-          //console.log(data);
+        api.req('mobilecode',{type: 'insert', data:fff},function(record){
+            if(record.code === 1){
+                var local_user_info = record.results[0];
+                SA.setter("_LOCAL_USER", local_user_info);
+            }else{
+                SA.setter("_LOCAL_USER", {error: "-2"});
+            }
+            router.goback()
         })
       }
     })
