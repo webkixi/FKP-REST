@@ -33,7 +33,7 @@ function popItemMethod(){
         var item_li = _PAGE.theli
 
         var wanner = libs.extend(true, {}, _parts[idf].body[0]);
-        service_ori_data.footer[item_p].v=wanner.v;
+        service_ori_data.footer[item_p].v=wanner.o.userprice;
         service_ori_data.footer[item_p].o=wanner.o;
         service_ori_data.footer[item_p].s=wanner.s;
 
