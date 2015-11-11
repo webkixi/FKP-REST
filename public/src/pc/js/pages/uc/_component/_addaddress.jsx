@@ -46,6 +46,8 @@ var bindIndex = function(){
     var Text = require('modules/form/text');
     var u = {};
 
+    var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
+
     //联系人
     u.name = new Text({label:'联系人',valide: 'username'}, 'name',function(){
         $(this).click(function(){
@@ -54,15 +56,13 @@ var bindIndex = function(){
     });
 
     //电话
-    u.phone = new Text({label:'手机号', valide: 'mobile'}, 'phone',function(){
+    u.phone = new Text({label:'手机号', valide: 'mobile', star: sss}, 'phone',function(){
         $(this).click(function(){
 
         })
     });
 
     // //城市
-    var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
-
     u.city = new Select({}, 'city',function(){
         // api.req('region', {parent_id: 430000}, function(data){
         var parents = [];

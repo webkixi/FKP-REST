@@ -93,13 +93,13 @@ body{
 		}
 		.dot{
 			display: block;
-			height: 100%;
+			height: auto;
 			top: 0.75rem;
 			right: 0.3rem;
-			font-size: 0.7rem;
+			font-size: 0.9rem;
 			a{
 				display: block;
-				margin-bottom: 1.35rem;
+				// margin-bottom: 1.35rem;
 			}
 		}
 		&.item1{
@@ -1042,10 +1042,11 @@ body{
 					height: 100%;
 					top: 0.75rem;
 					right: 0.3rem;
-					font-size: 0.7rem;
+					font-size: 0.9rem;
+					height: auto;
 					a{
 						display: block;
-						margin-bottom: 1.35rem;
+						// margin-bottom: 1.35rem;
 					}
 				}
 				&.item1{
