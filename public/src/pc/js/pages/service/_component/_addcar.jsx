@@ -151,7 +151,8 @@ var bindEsti = function(){
     var Text = require('modules/form/text');
 
     //品牌
-    _car.brand = new Select({label:'品牌', popclose: true}, 'brand',function(){
+    var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
+    _car.brand = new Select({label:'品牌', popclose: true, star: sss}, 'brand',function(){
         $(this).click(function(){
           dealWith_Data_Brand();
         })
@@ -165,7 +166,7 @@ var bindEsti = function(){
     }
 
     //车系
-    _car.series = new Select({label:'车系', popclose: true}, 'series',function(){
+    _car.series = new Select({label:'车系', popclose: true, star: sss}, 'series',function(){
         $(this).click(function(){
           if($("#brand").find("input").val())
             dealWith_Data_Series();
@@ -181,7 +182,7 @@ var bindEsti = function(){
     }
 
     //型号
-    _car.model = new Select({label:'车型', popclose: true}, 'model',function(){
+    _car.model = new Select({label:'车型', popclose: true, star: sss}, 'model',function(){
         $(this).click(function(){
           if($("#series").find("input").val())
             dealWith_Data_Type();

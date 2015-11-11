@@ -19,7 +19,10 @@ var index = {
                 </header>
                 <article>
                     <div className="layout">
-                        <label>地址</label>
+                        <label>
+                            <em style={{color:'red',marginRight:'0.3rem'}}>*</em>
+                            地址
+                        </label>
                         <div className="box">
                             <div id="city"></div>
                             <div id="district"></div>
@@ -37,6 +40,7 @@ var index = {
     }
 }
 var bindIndex = function(){
+    router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
     var u = {};
@@ -56,6 +60,8 @@ var bindIndex = function(){
     });
 
     // //城市
+    var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
+
     u.city = new Select({}, 'city',function(){
         // api.req('region', {parent_id: 430000}, function(data){
         var parents = [];
@@ -81,36 +87,45 @@ var bindIndex = function(){
             SA.setter('Pop',{data:{body:xx,display:'block'}} )
         })
     });
+
+    u.city.selected = function(txt, val){
+        if(this.txt !== txt)
+            u.district.empty()
+    }
     //
     // 地区
     u.district = new Select({}, 'district',function(){
         $(this).click(function(){
-            districts = [];
-            var kkk = $('#city').find('input').val();
-            api.req('region',{parent_id: kkk}, function(data){
-                if(data && data.code===1){
-                    if(data.results.length){
-                        data.results.map(function(item, i){
-                            districts.push({
-                                body:[
-                                    {
-                                        attr: 'select',
-                                        k: item.address_name,
-                                        v: item.region_id
-                                    }
-                                ]
+            if(!u.city.stat)
+                SA.setter('Pop',{data:{body:'请先选择城市', display:'block'}})
+            else{
+                var kkk = $('#city').find('input').val();
+                api.req('region',{parent_id: kkk}, function(data){
+                    districts = [];
+                    if(data && data.code===1){
+                        if(data.results.length){
+                            data.results.map(function(item, i){
+                                districts.push({
+                                    body:[
+                                        {
+                                            attr: 'select',
+                                            k: item.address_name,
+                                            v: item.region_id
+                                        }
+                                    ]
+                                })
                             })
-                        })
+                        }
+                        var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                        SA.setter('Pop',{data:{body:yy,display:'block'}} )
                     }
-                    var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                    SA.setter('Pop',{data:{body:yy,display:'block'}} )
-                }
-            })
+                })
+            }
         })
     });
 
     //详细地址
-    u.address = new Text({label: '详细地址', valide: 'username'}, 'address',function(){
+    u.address = new Text({label: '详细地址', valide: 'username', star: sss}, 'address',function(){
         $(this).click(function(){
 
         })

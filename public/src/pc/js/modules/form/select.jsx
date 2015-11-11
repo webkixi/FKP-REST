@@ -30,7 +30,7 @@ function select(data, ele, cb){
         _this.value = ''
         _this.text = ''
         _this.stat = false;
-        $(_this.ipt).find('span').text('请选择')
+        $(_this.ipt).find('.body span').text('请选择')
     }
 
     var close = true;
@@ -55,7 +55,7 @@ function select(data, ele, cb){
                     _this.value = val;
                     _this.text = text;
                     $(input).val(val)
-                    $(the).find('span').addClass("active").text(text)
+                    $(the).find('.body span').addClass("active").text(text)
                     if(close)
                         SA.setter('Pop',{data:{display:'none'}})
                 }
