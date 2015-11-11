@@ -69,7 +69,7 @@ body{
 			width: 9.5rem;
 			line-height: 1.1;
 			p{
-				margin-top: 0.7rem;
+				margin-top: 0.4rem;
 				em, span{
 					display: block;
 					font-size: 0.7rem;
@@ -88,6 +88,7 @@ body{
 			p:first-child{
 				font-size: 0.7rem;
 				margin: 0;
+				line-height: 1.2;
 			}
 		}
 		.dot{
