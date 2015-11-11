@@ -431,7 +431,7 @@ var bindIndex = function(){
         })
     });
 
-    var submit_stat = false;
+    var submit_stat = false;   //是否允许提交
     function submit(fff){
         if(!submit_stat){
             submit_stat = true;
@@ -505,11 +505,13 @@ var bindIndex = function(){
                 // charge 不正确或者微信公众账号支付失败时会在此处返回
             } else if (result == "cancel") {
                 alert('取消支付')
+                submit_stat = false;
                 console.log('微信公众账号支付取消支付');
                 // 微信公众账号支付取消支付
             } else {
                 console.log(result+" "+err.msg+" "+err.extra);
             }
+
         });
 
         //node的方式
