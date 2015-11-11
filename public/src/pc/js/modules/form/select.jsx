@@ -30,6 +30,7 @@ function select(data, ele, cb){
         _this.value = ''
         _this.text = ''
         _this.stat = false;
+        $(_this.ipt).find('.body span').removeClass('active')
         $(_this.ipt).find('.body span').text('请选择')
     }
 

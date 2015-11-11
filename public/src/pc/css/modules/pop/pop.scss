@@ -91,17 +91,19 @@
         display: table;
         -webkit-animation-name: anim-close;
         animation-name: anim-close;
-      }
-      em{
-        font-size: 0.7rem;
-        color: #262626;
-        text-align: left;
-        display: table-cell;
-      }
-      span{
-        font-size: 0.7rem;
-        color: #ff7800;
-        display: table-cell;
+        em{
+          font-size: 0.7rem;
+          color: #262626;
+          text-align: left;
+          display: table-cell;
+          width: 85%;
+        }
+        span{
+          font-size: 0.7rem;
+          color: #ff7800;
+          display: table-cell;
+          text-align: left;
+        }
       }
     }
   }

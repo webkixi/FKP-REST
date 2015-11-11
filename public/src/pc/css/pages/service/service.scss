@@ -209,7 +209,8 @@ body{
                 border: none;
             }
             span{
-                text-align: center;
+                text-align: right;
+                padding-right: 0.55rem;
             }
         }
     }
@@ -342,7 +343,8 @@ body{
                     margin-top: 0.12rem;
                     margin-left: 2%;
                     width: 46%;
-                    border: 2px solid red;
+                    background-color: #f0f0f0;
+                    border: 2px solid #acacac;
                     font-size: 0.6rem;
                     text-align: center;
                     height: 1.8rem;

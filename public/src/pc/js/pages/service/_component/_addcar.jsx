@@ -14,6 +14,7 @@ var vs;
 var esti2 = {
     mixins: [ItemMixin],
     render: function () {
+        router.clear()
         return(
             <div className={'index addcar'}>
                 <header>
@@ -146,7 +147,6 @@ function dealWith_Data_Type(){
 
 var _car = {};
 var bindEsti = function(){
-    router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
 

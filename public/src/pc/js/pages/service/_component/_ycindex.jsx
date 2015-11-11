@@ -391,9 +391,9 @@ function mixDataAndDom( dt){
         _totalprice += item.v;
         _discountprice += item.s;
         if(item.attr && item.attr==='fixed')
-            item.v = <span>¥{item.v}<em className="disN">{item.s}</em></span>
+            item.v = <span>{'¥'+item.v}<em className="disN">{item.s}</em></span>
         else
-            item.v = <span>¥{item.v}<em className="disN">{item.s}</em><i className="ifont icon-next"></i></span>
+            item.v = <span>{'¥'+item.v}<em className="disN">{item.s}</em><i className="ifont icon-next"></i></span>
     })
 
     _discountprice = _discountprice.toString().split('.')[0]
