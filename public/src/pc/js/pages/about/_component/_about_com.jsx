@@ -3,6 +3,7 @@ var Uls = require('modules/tabs/_component/uls')('Fours');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
+var router = require('libs/router').router
 
 var myabout = [
     {
@@ -86,6 +87,10 @@ var index = {
 
 var Index = React.createClass(index)
 
+function bindIndex(){
+    router.clear()
+}
+
 function renderDom(ele, cb){
     var element;
     if(typeof ele==='string')
@@ -98,7 +103,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemMethod={cb}/>,
+        <Index itemDefaultMethod={bindIndex} itemMethod={cb}/>,
         element
     )
 }
