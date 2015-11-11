@@ -33,7 +33,7 @@ var index = {
                     <div id="phone"></div>
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>{'保存新地址'}</a>
+                    <a id="nownow" className={'btn-link'}>{'保存新地址'}</a>
                 </footer>
             </div>
         )
@@ -41,7 +41,7 @@ var index = {
 }
 var bindIndex = function(){
     router.clear()
-    
+
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
     var u = {};
@@ -132,36 +132,52 @@ var bindIndex = function(){
         })
     });
 
-    $('#now').one('click', function(){
-        var stat = checkValue(u);
-        console.log(stat);
-        if(stat){
-            _form.mobile = u.phone.value;
-            _form.province = "广东"
-            _form.city = u.city.text
-            _form.county = u.district.text
-            _form.street = u.address.value
-            _form.username = u.name.value
-
-            var fff = libs.extend(_form);
-            // console.log(fff);
+    var submit_stat = false;
+    function submit(fff){
+        if(!submit_stat){
+            submit_stat = true;
             api.req('order_addaddr',{type: 'insert', data:fff}, function(data){
                 console.log(data)
                 router('/uc.html#myaddress')
             })
         }
+    }
+
+    $('#nownow').click(function(){
+        var stat = checkValue(u);
+        console.log(stat);
+        if(stat){
+            _form.mobile = u.phone.value||'';
+            _form.province = "广东"
+            _form.city = u.city.text
+            _form.county = u.district.text
+            _form.street = u.address.value
+            _form.username = u.name.value||''
+
+            var fff = libs.extend(_form);
+            submit(fff)
+        }
     })
 }
 
 function checkValue(ele){
+    var stat = true;
     var items = Object.keys(ele);
     items.map(function(item, i){
-        if(!ele[item].stat){
-            $(ele[item].ipt).addClass('error')
-            return false;
+        console.log(item);
+        if(item=='name'){
+            stat = true;
+        }else{
+            if(!ele[item].stat){
+                $(ele[item].ipt).addClass('error')
+                stat = false;
+            }
         }
     })
-    return true;
+    if ( stat === false )
+        alert ( '请正确填写信息！' )
+
+    return stat;
 }
 
 var Index = React.createClass(index);

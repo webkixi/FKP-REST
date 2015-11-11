@@ -431,8 +431,20 @@ var bindIndex = function(){
         })
     });
 
-    $('#now').one('click',function(){
-    // $('#now').click(function(){
+    var submit_stat = false;
+    function submit(fff){
+        if(!submit_stat){
+            submit_stat = true;
+            api.req('order',{type: 'insert', data:fff}, function(data){
+                console.log(data);
+                if(data && data.code===1){
+                    payment(data.results[0])
+                }
+            })
+        }
+    }
+
+    $('#now').click(function(){
         var stat = checkValue(u);
         if(stat){
             if(!_l_user){
@@ -474,12 +486,7 @@ var bindIndex = function(){
             var fff = libs.extend(_form, form);
             delete fff.cleanParts
             // console.log(fff);
-            api.req('order',{type: 'insert', data:fff}, function(data){
-                console.log(data);
-                if(data && data.code===1){
-                    payment(data.results[0])
-                }
-            })
+            submit( fff )
         }
     })
 

@@ -29,7 +29,7 @@ var esti2 = {
                     <div id="engin" className={'carform'}></div>
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>添加车辆</a>
+                    <a id="now_addcar" className={'btn-link'}>添加车辆</a>
                 </footer>
             </div>
         )
@@ -211,7 +211,7 @@ var bindEsti = function(){
 
     });
 
-    $('#now').click(function(){
+    $('#now_addcar').click(function(){
         checkValue()
     })
 }

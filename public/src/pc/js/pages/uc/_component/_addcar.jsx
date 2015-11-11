@@ -248,7 +248,7 @@ function checkValue(ele){
           mobile: "18002278121"
       }
 
-      //SA.setter('_GLOBAL',{index: uuu})
+    //   SA.setter('_GLOBAL',{index: uuu})
       var fff = libs.extend(uuu.form)
       console.log(fff);
       api.req('useraddcar',{type: 'insert', data:fff},function(data){

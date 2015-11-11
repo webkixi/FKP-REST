@@ -283,22 +283,19 @@ body{
 				.box{
 					width: 74%;
 				}
-				#city{
+				#city, #district{
 					width: 50%;
 					.body{
 						width: 100%;
-					}
-				}
-				#district{
-					width: 50%;
-					.body{
-						width: 100%;
+						span{
+							width: 3.5rem;
+						}
 					}
 				}
 				#address{
-					height: 4rem;
+					// height: 4rem;
 					.body{
-						height: 3rem;
+						// height: 3rem;
 					}
 				}
 				label{

@@ -77,8 +77,9 @@ function *demoIndexData(oridata){
                     postdata.common.smscode = code;
             }
         }
-        console.log(postdata);
         var orderdata = yield api.pullApiData('mobilecode', postdata, 'post');
+        console.log(orderdata[1]);
+        this.sess.user = orderdata[1].results[0];
         console.log(orderdata[1]);
 
         // var qcjc = libs.$extend(true, {}, postdata);
