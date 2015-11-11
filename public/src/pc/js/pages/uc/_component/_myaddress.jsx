@@ -145,11 +145,11 @@ function myaddressDate(myaddrDate){
                 footer: [
                   {
                       k: itme.province + itme.county + itme.city + itme.street,
-                      v: <a className="ifont icon-next"></a>
+                      v: <a className=""></a>
                   }
                 ],
                 dot: [
-                    <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.7rem"}} data-id={itme.id} data-aid={i}></a>,
+                    <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.9rem"}} data-id={itme.id} data-aid={i}></a>,
                 ]
         }
         _ComData.push(myaddress)
@@ -163,7 +163,7 @@ function myaddressDate(myaddrDate){
 
 
 var bindIndex = function(){
-    router.clear()     
+    router.clear()
   $('body').delegate('#now','click',function(){
       router('addaddress')
   })
