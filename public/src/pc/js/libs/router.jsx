@@ -18,7 +18,7 @@ function router(name, back){
     }else{
         var _uri;
         if(url.params.hash){
-            var tmp = 'hash'+'='+url.params.hash;
+            var tmp = 'hash='+url.params.hash;
             var len = Object.keys(url.params)
             var href='';
             if(len.length===1){
@@ -65,7 +65,10 @@ router.goback = function(){
 }
 
 router.clear = function(){
-    $('#pageloading').remove()
+
+    setTimeout(function(){
+        $('#pageloading').remove()
+    },1000)
     // var load = document.getElementById('loading')
     // libs.node.remove(load)
 }
