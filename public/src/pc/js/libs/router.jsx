@@ -4,17 +4,24 @@ function router(name, back){
     if(typeof name!=='string') return;
     var url = libs.urlparse(location.href);
 
-    if(name.indexOf('/')===0 || name.indexOf('http')===0){
-        console.log('-------router jump ------');
-        if(name.indexOf('#')>-1){
-            var next = name.substring(0,name.indexOf('#'))
-            if(url.path==next){
-                var hash = name.substring(name.indexOf('#')+1)
-                router(hash);
-            }else
+    if(back){
+        if(typeof router.cb === 'function'){
+            router.cb.call(this, name)
+        }
+    }else
+        if(name.indexOf('/')===0 || name.indexOf('http')===0){
+            console.log('-------router jump ------');
+            if(name.indexOf('#')>-1){
+                var next = name.substring(0,name.indexOf('#'))
+                if(url.path==next){
+                    var hash = name.substring(name.indexOf('#')+1)
+                    router(hash);
+                }else{
+                    window.location.href = name
+                }
+            }else{
                 window.location.href = name
-        }else
-            window.location.href = name
+            }
     }else{
         var _uri;
         if(url.params.hash){

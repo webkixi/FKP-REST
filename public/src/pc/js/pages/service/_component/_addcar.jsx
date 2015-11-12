@@ -272,7 +272,14 @@ function checkValue(ele){
     }
 }
 var Esti = React.createClass(esti2)
+function router2index(){
+    router.cb = function(name){
+        console.log('hhhhhhhhhhh');
+    }
+}
+
 function renderDom(ele, cb){
+    router2index()
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
@@ -283,7 +290,6 @@ function renderDom(ele, cb){
     else
         return;
 
-// console.log(addCarData);
     React.render(
         <Esti itemDefaultMethod={bindEsti} itemMethod={cb}/>,
         element

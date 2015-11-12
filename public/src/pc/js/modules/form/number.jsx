@@ -27,14 +27,15 @@ function number(data, ele, cb){
         function setNumStat(zt, ipt){
             if(!zt){
                 $(the_text).addClass('error')
+                _this.stat = false;
             }
             else {
                 _this.stat = true;
-                _this.value = ipt.value;
-                _this.name = ipt.name;
-                _this.ipt = ipt;
                 $(the_text).removeClass('error')
             }
+            _this.value = ipt.value;
+            _this.name = ipt.name;
+            _this.ipt = ipt;
         }
 
         if(data.valide==='mobile'){

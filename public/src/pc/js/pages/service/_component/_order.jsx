@@ -336,9 +336,9 @@ var bindIndex = function(){
                         })
                     }
                 }
-                // else{
-                    SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
-                // }
+                else{
+                    SA.setter('Pop',{data:{body:'请输入正确手机号码',display:'block'}} );
+                }
         })
 
         userAddress()
@@ -435,12 +435,15 @@ var bindIndex = function(){
     function submit(fff){
         if(!submit_stat){
             submit_stat = true;
-            api.req('order',{type: 'insert', data:fff}, function(data){
-                console.log(data);
-                if(data && data.code===1){
-                    payment(data.results[0])
-                }
-            })
+            console.log('hhhhhhhhh');
+            console.log('hhhhhhhhh');
+            console.log('hhhhhhhhh');
+            // api.req('order',{type: 'insert', data:fff}, function(data){
+            //     console.log(data);
+            //     if(data && data.code===1){
+            //         payment(data.results[0])
+            //     }
+            // })
         }
     }
 
@@ -533,6 +536,9 @@ function checkValue(ele){
             stat = false;
         }
     })
+    console.log('kkkkkkkk');
+    console.log(stat);
+    console.log(ele);
     if(stat === false){
         alert('验证出错，请检查填写信息!')
         return false;

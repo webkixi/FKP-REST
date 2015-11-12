@@ -34,7 +34,7 @@ var index = {
             </div>
             <div className={'hbody'}>
               <p>{mycar[i].title}</p>
-              <div className={'dot'}><i className={'ifont icon-next'}></i></div>
+              <div className={'dot'}></div>
             </div>
           </li>
         )
