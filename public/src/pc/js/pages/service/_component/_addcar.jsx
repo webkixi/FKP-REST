@@ -145,8 +145,16 @@ function dealWith_Data_Type(){
     return rtnDom;
 }
 
+function router2index(){
+    router.cb = function(name){
+        router('/')
+        // console.log('hhhhhhhhhhh');
+    }
+}
+
 var _car = {};
 var bindEsti = function(){
+    router2index()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
 
@@ -272,14 +280,8 @@ function checkValue(ele){
     }
 }
 var Esti = React.createClass(esti2)
-function router2index(){
-    router.cb = function(name){
-        console.log('hhhhhhhhhhh');
-    }
-}
 
 function renderDom(ele, cb){
-    router2index()
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
