@@ -434,16 +434,13 @@ var bindIndex = function(){
     var submit_stat = false;   //是否允许提交
     function submit(fff){
         if(!submit_stat){
-            submit_stat = true;
-            console.log('hhhhhhhhh');
-            console.log('hhhhhhhhh');
-            console.log('hhhhhhhhh');
-            // api.req('order',{type: 'insert', data:fff}, function(data){
-            //     console.log(data);
-            //     if(data && data.code===1){
-            //         payment(data.results[0])
-            //     }
-            // })
+            submit_stat = true;             
+            api.req('order',{type: 'insert', data:fff}, function(data){
+                console.log(data);
+                if(data && data.code===1){
+                    payment(data.results[0])
+                }
+            })
         }
     }
 
