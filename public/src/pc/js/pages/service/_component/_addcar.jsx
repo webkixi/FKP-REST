@@ -147,8 +147,8 @@ function dealWith_Data_Type(){
 
 function router2index(){
     router.cb = function(name){
-        router('/')
-        // console.log('hhhhhhhhhhh');
+        if(name)
+            router('/')
     }
 }
 

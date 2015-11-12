@@ -1,7 +1,7 @@
 var libs = require('./libs')
 
 function router(name, back){
-    if(typeof name!=='string') return;
+    // if(typeof name!=='string') return;
     var url = libs.urlparse(location.href);
 
     if(back){
@@ -86,6 +86,8 @@ if(window.history.pushState){
         var val = e.state;
         if(val && val.uri ){
             router(val.uri, true);
+        }else{
+            router(val, true)
         }
     })
 }

@@ -89,7 +89,15 @@ var index = {
 
 var Index = React.createClass(index)
 
+function router2back(){
+    router.cb = function(name){
+        if(!name)
+            WeixinJSBridge.call('closeWindow')
+    }
+}
+
 function bindIndex(){
+    router2back()
     router.clear()
 }
 
@@ -103,7 +111,6 @@ function  init( ele, cb ){
 }
 
 function renderDom(ele, cb){
-    // SA.setter('_WEIXIN',[aaa])
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
