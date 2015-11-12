@@ -105,6 +105,10 @@ var order_data_list_D2 =[];
 var order_data_list_D3 =[];
 function orderlistdata(orderdata,  ele, cb){
   var order_data_list = [];
+  order_data_list_D0 =[];
+  order_data_list_D1 =[];
+  order_data_list_D2 =[];
+  order_data_list_D3 =[];
   console.log(orderdata);
   orderdata.map(function(item,i){
     console.log(item);
