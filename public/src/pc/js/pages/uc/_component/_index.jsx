@@ -122,13 +122,28 @@ function orderlistdata(orderdata,  ele, cb){
     //截取订单号
     var orderno = 'Y'+item.orderno.substring(3,16);
     //状态赋值
+    var i_cls = 'ifont icon-car_oil'
+    switch (item.servicetypeno) {
+        case 'FW0002':
+            i_cls = i_cls+' dby'
+            break;
+        case 'FW0001':
+            i_cls = i_cls+' xby'
+            break;
+        case 'FW0003':
+            i_cls = i_cls+' qc'
+            break;
+        default:
+
+    }
+    var title = <i className={i_cls}></i>
     var stateVal = item.status;
     if(stateVal == '0'){
       stateVal = '未完成';
       order_data_list =
       [
         {
-            title: <i className={'ifont icon-car_oil'}></i>,
+            title: title,
             body:[
                 {
                   k: item.servicetypename,
@@ -159,7 +174,8 @@ function orderlistdata(orderdata,  ele, cb){
       order_data_list =
       [
         {
-            title: item.orderid,
+            // title: item.orderid,
+            title: title,
             body:[
                 {
                   k: item.servicetypename,
@@ -189,7 +205,7 @@ function orderlistdata(orderdata,  ele, cb){
       order_data_list =
       [
         {
-            title: item.orderid,
+            title: title,
             body:[
                 {
                   k: item.servicetypename,
@@ -219,7 +235,7 @@ function orderlistdata(orderdata,  ele, cb){
       order_data_list =
       [
         {
-            title: item.orderid,
+            title: title,
             body:[
                 {
                   k: item.servicetypename,

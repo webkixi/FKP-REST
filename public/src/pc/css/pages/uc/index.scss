@@ -682,36 +682,6 @@ body{
             height: 3rem;
             background-size: 100%;
 			border-radius: 50%;
-			&.xby{
-				&:before{
-					font-family:"iconfont" !important;
-					font-style:normal;
-					content: "\e641";
-					font-size: 1.75rem;
-					line-height: 2.8rem;
-					color: #000;
-				}
-			}
-			&.dby{
-				&:before{
-					font-family:"iconfont" !important;
-					font-style:normal;
-					content: "\e642";
-					font-size: 1.75rem;
-					line-height: 2.8rem;
-					color: #000;
-				}
-			}
-			&.qc{
-				&:before{
-					font-family:"iconfont" !important;
-					font-style:normal;
-					content: "\e643";
-					font-size: 1.75rem;
-					line-height: 2.8rem;
-					color: #000;
-				}
-			}
             a{
                 font-size: 0.85rem;
                 font-style: normal;
@@ -719,16 +689,46 @@ body{
                 display: none;
                 text-align: center;
                 line-height: normal;
-                i{
-                    font-style: normal;
-					font-size: 1.75rem;
-					line-height: 2.8rem;
-					color: #000;
-					font-style:normal;
-					&:before{
-					}
-                }
             }
+			i{
+				&.xby{
+					&:before{
+						font-family:"iconfont" !important;
+						font-style:normal;
+						content: "\e641";
+						font-size: 1.75rem;
+						line-height: 2.8rem;
+						color: #000;
+					}
+				}
+				&.dby{
+					&:before{
+						font-family:"iconfont" !important;
+						font-style:normal;
+						content: "\e642";
+						font-size: 1.75rem;
+						line-height: 2.8rem;
+						color: #000;
+					}
+				}
+				&.qc{
+					&:before{
+						font-family:"iconfont" !important;
+						font-style:normal;
+						content: "\e643";
+						font-size: 1.75rem;
+						line-height: 2.8rem;
+						color: #000;
+					}
+				}
+				// &:before{
+				// 	font-style: normal;
+				// 	font-size: 1.75rem;
+				// 	line-height: 2.8rem;
+				// 	color: #000;
+				// 	font-style:normal;
+				// }
+			}
         }
         .hbody{
 			p:first-child{
