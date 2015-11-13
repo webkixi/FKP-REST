@@ -544,16 +544,25 @@ body{
 							border-radius: 0.4rem;
 						}
 					}
+					.hheader{
+						vertical-align: top;
+					    margin-top: 1rem;
+					    margin-left: 0.2rem;
+					}
 					.hbody{
-						width: auto;
+						vertical-align: top;
+					    width: 70%;
+					    margin-top: 0.5rem;
+					    margin-left: 0.8rem;
 						p{
 							font-size: 0.6rem;
 							span{
-								margin-left: 4rem;
+								margin-left: 2rem;
 							}
 						}
 						p:first-child{
 							margin-top: 0.5rem;
+							margin-bottom: 0.5rem;
 						}
 					}
 					.hfoot{
