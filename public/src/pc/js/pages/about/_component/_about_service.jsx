@@ -40,24 +40,14 @@ var index = {
                             <em><a>{'全车检测'}</a></em>
                           </div>
                         </li>
-                        <li className={'item wid-4'}>
-                          <div className={'hbody'}>
-                            <i className={'ifont icon-car_wash'}></i>
-                            <em><a>{'洗车'}</a></em>
-                          </div>
-                        </li>
+
                         <li className={'item wid-4'}>
                           <div className={'hbody'}>
                             <i className={'ifont icon-05iconaichegujia'}></i>
                             <em><a>{'爱车估价'}</a></em>
                           </div>
                         </li>
-                        <li className={'item wid-4'}>
-                          <div className={'hbody'}>
-                            <i className={'ifont icon-car_more'}></i>
-                            <em><a>{'更多'}</a></em>
-                          </div>
-                        </li>
+
                       </ul>
                     </div>
                   </div>
@@ -68,6 +58,20 @@ var index = {
         )
     }
 }
+
+// <li className={'item wid-4'}>
+//   <div className={'hbody'}>
+//     <i className={'ifont icon-car_wash'}></i>
+//     <em><a>{'洗车'}</a></em>
+//   </div>
+// </li>
+
+// <li className={'item wid-4'}>
+//   <div className={'hbody'}>
+//     <i className={'ifont icon-car_more'}></i>
+//     <em><a>{'更多'}</a></em>
+//   </div>
+// </li>
 
 var Index = React.createClass(index)
 
