@@ -180,9 +180,7 @@ function *getWxAccessToken(params, apii){
 
     var tmp;
     if(params.code){   //web access token
-        if(!this.sess.wwx)
-            yield getWAT();
-
+        yield getWAT();
         tmp = this.sess.wwx
     }else{   //normal access token
         if(apii.indexOf('_web')===-1){
@@ -190,6 +188,10 @@ function *getWxAccessToken(params, apii){
                 yield getAT();   //暂时关闭
 
             tmp = this.sess.wx
+        }else{
+            if(!this.sess.wwx)
+                yield getWAT();   //暂时关闭
+            tmp = this.sess.wwx
         }
 
     }
