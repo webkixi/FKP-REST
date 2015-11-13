@@ -6,9 +6,9 @@ var config = require('../config');
 var wechat = require('co-wechat')
 var menu = require('./wx/menu')
 
-function weixin(){
+function *weixin(){
 
-    menu.call(this)
+    yield menu.call(this)
 
 
     return wechat(config.weixin).middleware(function *() {
