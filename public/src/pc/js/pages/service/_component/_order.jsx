@@ -352,7 +352,8 @@ var bindIndex = function(){
 
     }
 
-    new Radio({label:'微信',value:'wx_pub',name: 'payment'},'wechat',function(){
+    new Radio({label:'微信',value:'wx_pub',name: 'payment', default: true},'wechat',function(){
+        _payway = "wx_pub";
       $(this).click(function(){
         _payway = "wx_pub";
       })
@@ -434,7 +435,7 @@ var bindIndex = function(){
     var submit_stat = false;   //是否允许提交
     function submit(fff){
         if(!submit_stat){
-            submit_stat = true;             
+            submit_stat = true;
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
                 if(data && data.code===1){
@@ -533,9 +534,6 @@ function checkValue(ele){
             stat = false;
         }
     })
-    console.log('kkkkkkkk');
-    console.log(stat);
-    console.log(ele);
     if(stat === false){
         alert('验证出错，请检查填写信息!')
         return false;

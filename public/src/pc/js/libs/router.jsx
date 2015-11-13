@@ -55,8 +55,8 @@ function router(name, back){
 
         var temp = SA.getter(name)
         if(temp){
+            router.cb = false;
             console.log('==='+name);
-            // window.location.hash = name;
             SA.setter(name,{})
         }
     }
