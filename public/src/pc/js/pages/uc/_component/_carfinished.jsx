@@ -36,7 +36,7 @@ function orderInfodata(orderInfo, ele, cb){
    order_data =
   {
      title: "headerpic",
-     img: "/images/demo/aclass/b2.jpg",
+     img: "/images/getheadimg.jpeg",
      body:[
          {
              k: orderInfo[0].username,
