@@ -15,7 +15,7 @@ var json = {
           "sub_button":[
            {
               "type":"view",
-              "name":"关于河马云汽",
+              "name":"关于我们",
               "url":"http://ch.dabai360.com/about.html#about"
            },
            {
