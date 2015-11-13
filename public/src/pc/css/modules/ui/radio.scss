@@ -16,11 +16,15 @@
     background-color: #fff;
     border: 0.05rem solid #2EC1AE; }
 
+    input[type=radio]:checked{
+        border: none;
+    }
+
 
    input[type=radio]:checked:after {
         content: "\e625";
         position: absolute;
-        left: -0.05rem;
+        left: -0.058rem;
         top: 0.08rem;
         font-size: 0.75rem;
         color: #2EC1AE;

@@ -48,7 +48,7 @@ var index = {
                         </li>
                         <li className={'item wid-4'}>
                           <div className={'hbody'}>
-                            <i className={'ifont icon-car_fixed'}></i>
+                            <i className={'ifont icon-05iconaichegujia'}></i>
                             <em><a>{'爱车估价'}</a></em>
                           </div>
                         </li>

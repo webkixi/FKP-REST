@@ -8,7 +8,6 @@ function *demoIndexData(oridata){
     var dataSet = {};
     var infoCat =[];
     var mtd = this.method;
-    console.log('aaaaaaaaaaaaaa');
     if(mtd==='GET'){
 
         //请求信息数据
@@ -72,16 +71,6 @@ function *demoIndexData(oridata){
         var orderdata = yield api.pullApiData('carchecking', postdata, 'post');
         console.log(orderdata[1]);
 
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // // serviceData[1].results.push(qd);
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
         return orderdata[1];
     }
 

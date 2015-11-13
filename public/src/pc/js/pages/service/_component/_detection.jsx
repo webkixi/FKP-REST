@@ -147,6 +147,7 @@ function getData(ele, param, cb){
 var ss =[];
 function carcheckData(carcheck_data, ele, cb){
   _form.servicetypeno = carcheck_data[0].servicetypeno   //服务类型
+  _form.servicetypename = carcheck_data[0].servicetypename   //服务类型
   _totolpic =carcheck_data[0].workprice;
   carcheck_Title = {
       title:[

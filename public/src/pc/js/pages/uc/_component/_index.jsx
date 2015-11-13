@@ -81,6 +81,8 @@ function getData(ele, param, cb){
           api.req('order_list',uid,function(data){
             console.log(data);
             if(data.results){
+                console.log('ooooooorrrrrrr');
+                console.log(orderlistdata);
                 orderlistdata(data.results, ele, cb)
                 // if(data.results && data.results.length)
                 //   orderlistdata(data.results, ele, cb)
@@ -126,7 +128,7 @@ function orderlistdata(orderdata,  ele, cb){
       order_data_list =
       [
         {
-            title: item.orderid,
+            title: <i className={'ifont icon-car_oil'}></i>,
             body:[
                 {
                   k: item.servicetypename,
@@ -150,7 +152,7 @@ function orderlistdata(orderdata,  ele, cb){
         }
       ]
       order_data_list_D0.push(order_data_list)
-      console.log(order_data_list_D0);
+    //   console.log(order_data_list_D0);
     }
     else if(stateVal == 1){
       stateVal = '已完成';
