@@ -683,14 +683,6 @@ body{
             background-size: 100%;
 			border-radius: 50%;
             a{
-                font-size: 0.85rem;
-                font-style: normal;
-                color: #fff;
-                display: none;
-                text-align: center;
-                line-height: normal;
-            }
-			i{
 				&.xby{
 					&:before{
 						font-family:"iconfont" !important;
@@ -728,7 +720,8 @@ body{
 				// 	color: #000;
 				// 	font-style:normal;
 				// }
-			}
+            }
+
         }
         .hbody{
 			p:first-child{
