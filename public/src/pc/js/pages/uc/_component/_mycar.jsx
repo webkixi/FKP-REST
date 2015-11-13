@@ -119,7 +119,7 @@ function organizeData(oridata){
     mycar_list = {
       //title: item.usercarid,
       attr: item.usercarid,
-      img: "/images/demo/aclass/b2.jpg",
+      img: "/images/getheadimg.jpeg",
       body:[
           item.carseries + item.cartype,
           {
