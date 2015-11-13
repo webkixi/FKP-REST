@@ -22,14 +22,14 @@ var index = {
     },
     render: function () {
         var wx = this.checkWx();
-        var more = <div className={'hbody'}>
-          <i className={'ifont icon-car_more'}></i>
-          <em><a>{'更多'}</a></em>
+        var gujia = <div className={'hbody'}>
+          <i className={'ifont icon-05iconaichegujia'}></i>
+          <em><a>{'爱车估价'}</a></em>
         </div>
         if(!wx){
-            more = <div className={'hbody'}>
-              <i className={'ifont icon-car_more'}></i>
-              <em><a>{'更多.'}</a></em>
+            gujia = <div className={'hbody'}>
+              <i className={'ifont icon-05iconaichegujia'}></i>
+              <em><a>{'爱车估价.'}</a></em>
             </div>
         }
 
@@ -56,10 +56,7 @@ var index = {
                 </li>
 
                 <li className={'item'} data-check={'car_fixed'}>
-                  <div className={'hbody'}>
-                    <i className={'ifont icon-05iconaichegujia'}></i>
-                    <em><a>{'爱车估价'}</a></em>
-                  </div>
+                  {gujia}
                 </li>
               </ul>
             </div>
