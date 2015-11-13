@@ -136,7 +136,7 @@ function orderlistdata(orderdata,  ele, cb){
         default:
 
     }
-    var title = <i className={i_cls}></i>
+    var title = <a><i className={i_cls}></i>{item.orderid}</a>
     var stateVal = item.status;
     if(stateVal == '0'){
       stateVal = '未完成';
