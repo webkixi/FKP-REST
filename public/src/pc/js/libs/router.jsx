@@ -77,7 +77,7 @@ router.clear = function(){
 
     setTimeout(function(){
         $('#pageloading').remove()
-    },1000)
+    },500)
     // var load = document.getElementById('loading')
     // libs.node.remove(load)
 }
