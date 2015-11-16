@@ -7,8 +7,6 @@
     z-index: 1;
     background: rgba(55, 58, 71, 0.9);
     opacity: 0;
-    -webkit-transition: opacity 0.3s;
-    transition: opacity 0.3s;
     -webkit-backface-visibility: hidden;
 }
 .pop{
@@ -37,26 +35,28 @@
   z-index: 2;
   .pop_bg{
     @include bg;
+    //padding-left: calc(100vw - 100%);
   }
   .pop_content{
     // position: relative;
     margin: auto;
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     width: 84%;
     min-width: 290px;
     min-height: 5rem;
-    height: 50%;
+    height: 1000px;
     background: #fff;
     text-align: center;
     z-index: 5;
     opacity: 0;
     border-radius: 0.2rem;
-
-    -webkit-animation-name: anim-close;
-    animation-name: anim-close;
     font-size: 0.6rem;
-    overflow: hidden;
+    overflow:hidden;
+    overflow-y:scroll;
     .loading{
         position: absolute;
         left: 0;
@@ -65,14 +65,21 @@
         bottom: 50%;
     }
     .list-wrap{
-      overflow: auto;
-      height: 100%;
+        position: absolute;
+        overflow-y: auto;
+        -webkit-overflow-scrolling:touch;
+        height: 100%;
+        width: 100%;
+        z-index: 2;
     }
     ul.hlist{
+
       font-size: 0.6rem;
       padding: 0.2rem;
-
+      position: relative;
+      z-index: 10;
       li{
+
         border-top: 1px solid #d9d9d9;
         &:first-child{
           border-top: none;
@@ -120,7 +127,23 @@
       animation-duration: 0.5s;
       -webkit-animation-fill-mode: forwards;
       animation-fill-mode: forwards;
+      -webkit-animation-iteration-count: 1;
+      animation-iteration-count: 1;
     }
+    // .lgh{
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     bottom: 0;
+    //     right: 0;
+    //     width: 84%;
+    //     min-width: 290px;
+    //     min-height: 5rem;
+    //     height: 100%;
+    //         z-index: 10;
+    //         overflow:hidden;
+    //         overflow-y:scroll;
+    // }
   }
 
   .car_linkage{
@@ -162,6 +185,8 @@
     }
   }
 }
+
+
 @-webkit-keyframes anim-open {
 	0% { opacity: 0; -webkit-transform: scale3d(1.3, 1.3, 1); }
     30%{ opacity: 1; -webkit-transform: scale3d(1, 1, 1);}
@@ -179,12 +204,16 @@
 }
 
 @-webkit-keyframes anim-close {
-	0% { opacity: 1; }
+    0% { opacity: 1; }
+    30% { opacity: 1; }
+	80% { opacity: 1; }
 	100% { opacity: 0; -webkit-transform: scale3d(0.5, 0.5, 1); }
 }
 
 @keyframes anim-close {
 	0% { opacity: 1; }
+    30% { opacity: 1; }
+	80% { opacity: 1; }
 	100% { opacity: 0; -webkit-transform: scale3d(0.5, 0.5, 1); transform: scale3d(0.5, 0.5, 1); }
 }
 
