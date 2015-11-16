@@ -44,6 +44,7 @@ var bindIndex = function(){
 
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var Number = require('modules/form/number');
     var u = {};
 
     var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
@@ -56,7 +57,7 @@ var bindIndex = function(){
     });
 
     //电话
-    u.phone = new Text({label:'手机号', valide: 'mobile', star: sss}, 'phone',function(){
+    u.phone = new Number({label:'手机号', valide: 'mobile', star: sss}, 'phone',function(){
         $(this).click(function(){
 
         })
