@@ -149,7 +149,7 @@ var bindIndex = function(){
         console.log(stat);
         if(stat){
             _form.mobile = u.phone.value||'';
-            _form.province = "广东"
+            _form.province = "广东省"
             _form.city = u.city.text
             _form.county = u.district.text
             _form.street = u.address.value
