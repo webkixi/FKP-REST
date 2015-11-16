@@ -22,7 +22,7 @@ var index = {
       var mycar = [
         {
           title : carcar.carbrand+' '+carcar.carseries+' '+carcar.cartype,
-          img : '/images/service/bmw_icon.png'
+          img : '/images/logo/'+carcar.carimage
         }
       ]
 
