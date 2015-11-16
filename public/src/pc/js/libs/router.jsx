@@ -50,7 +50,7 @@ function router(name, back){
             }
         }
 
-        libs.addSheet(['#pageloading{width:2rem;height:2rem;\n\
+        libs.addSheet(['#pageloading{width:1rem;\n\
             position:absolute;\n\
             top:0;left:0;right:0;bottom:0;margin:auto;}','loadingcss' ])
         libs.node.append('body','img',{id: 'pageloading',src: '/images/loading1.gif'})

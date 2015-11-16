@@ -454,7 +454,7 @@ var bindIndex = function(){
 
                 _form.addr.username = u.name.value;
                 _form.addr.mobile = u.phone.value;
-                _form.addr.province = "广东"
+                _form.addr.province = "广东省"
                 _form.addr.city = u.city.text
                 _form.addr.county = u.district.text
                 _form.addr.street = u.address.value
@@ -463,7 +463,7 @@ var bindIndex = function(){
             }else{
                 if(u.city){
                     _form.addr.username = u.name.value;
-                    _form.addr.province = "广东"
+                    _form.addr.province = "广东省"
                     _form.addr.city = u.city.text
                     _form.addr.county = u.district.text
                     _form.addr.street = u.address.value
