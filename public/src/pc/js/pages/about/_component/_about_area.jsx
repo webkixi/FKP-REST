@@ -110,7 +110,14 @@ function bindIndex(){
     router.clear()
 }
 
+function router2back(){
+    router.cb = function(name){
+        WeixinJSBridge.call('closeWindow')
+    }
+}
+
 function renderDom(ele, cb){
+    router2back()
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
