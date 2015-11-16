@@ -164,8 +164,13 @@
           margin: auto;
           text-align: left;
           span{
-            display: block;
+            display: inline-block;
             color: #666;
+            .img{
+                width: 1.5rem;
+                border: 0;
+                margin-right: 1rem;
+            }
           }
           &.active{
             color: #000;

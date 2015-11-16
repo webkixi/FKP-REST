@@ -45,7 +45,7 @@ function dealWith_Data_Brand(){
 
     SA.setter('Pop',{data:{display:'block'}})
     api.req('queryallbrand',{}, function(data){
-      console.log(data);
+        console.log(data);
         if(data.code && data.code===1){
         //   console.log(data);
             var tmp = {};
@@ -55,9 +55,10 @@ function dealWith_Data_Brand(){
                 tmp[key]=[];
 
               tmp[key].push(
-                item.carbrand
+                [item.carbrand, item.carimage]
               )
             })
+            console.log(tmp);
             nav = Object.keys(tmp);
             if(nav.length){
                 nav.map(function(item, i){
@@ -65,8 +66,8 @@ function dealWith_Data_Brand(){
                    tmp[item].map(function(unit, j){
                      tmp_foot.push({
                        attr: 'select',
-                       k: unit,
-                       v: unit
+                       k: <span><span><img src={'/images/logo/'+unit[1]} className={'img'}/></span>{unit[0]}</span>,
+                       v: unit[0]
                      })
                    })
                     resaults.push(
