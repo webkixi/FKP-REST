@@ -124,22 +124,21 @@ function getData(ele, param, cb){
       if(_l_user.error){
           _l_user = false;
       }
-
-      if(!_l_user.usercar && !mycar){
-          _l_user = false;
-      }
-
-      if(!_l_user.addr && !mycar){
-          _l_user = false;
-      }
-
   }
   if(!_l_user && !mycar){
       router('addcar');
   }else{
-      api.req('carchecking',{},function(data){
-        carcheckData(data.results, ele, cb)
-      })
+      if(!_l_user.usercar && !mycar){
+          router('addcar');
+      }else{
+          api.req('carchecking',{},function(data){
+              if(data.code && data.code===1){
+                  carcheckData(data.results, ele, cb)
+              }else{
+                  console.log('获取数据出错');
+              }
+          })
+      }
   }
 
 
