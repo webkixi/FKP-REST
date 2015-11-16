@@ -268,7 +268,13 @@ function orderlistdata(orderdata,  ele, cb){
 
 
 var Index = React.createClass(index);
+function router2back(){
+    router.cb = function(name){
+        WeixinJSBridge.call('closeWindow')
+    }
+}
 function renderDom(ele, data, cb){
+    router2back();
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
