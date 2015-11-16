@@ -144,7 +144,7 @@ function myaddressDate(myaddrDate){
                 ],
                 footer: [
                   {
-                      k: itme.province + itme.county + itme.city + itme.street,
+                      k: itme.province + itme.city + itme.county + itme.street,
                       v: <a className=""></a>
                   }
                 ],
