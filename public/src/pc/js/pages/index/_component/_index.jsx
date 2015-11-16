@@ -89,19 +89,18 @@ var index = {
 
 var Index = React.createClass(index)
 
-function router2back(){
-    router.cb = function(name){
-        if(!name)
-            WeixinJSBridge.call('closeWindow')
-    }
-}
-
 function bindIndex(){
-    router2back()
     router.clear()
 }
 
+function router2back(){
+    router.cb = function(name){
+        WeixinJSBridge.call('closeWindow')
+    }
+}
+
 function  init( ele, cb ){
+    router2back()
     var wx = SA.getter('_WEIXIN')
     if(!wx.data.user)
         SA.setter('_WEIXIN', renderDom, [ele, cb]);
