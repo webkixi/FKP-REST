@@ -164,12 +164,11 @@ function getData(ele, param, cb){
             router('addcar');
         }
         else{
-            console.log('-----======');
-            console.log(_l_user);
-            console.log(index);
             var caridData = _l_user.usercar[0] || index.form;
             var carid = { carid: caridData.carid}
-            api.req('service', carid, function(data){
+            console.log('SSSSSSX');
+            console.log(carid);
+            api.req('washcar', carid, function(data){
                 console.log(data);
                 if(data.code && data.code===1){
                     organizeData(data.results[0], ele, cb)
