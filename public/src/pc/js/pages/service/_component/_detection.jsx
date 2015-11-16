@@ -65,7 +65,7 @@ var index = {
                 <div className={'container'}>
                   <ul>
                     <li className={'wid-8'}>
-                      <span className={'foot_money'}>{'总价'}<i>{'￥790'}</i></span>
+                      <span className={'foot_money'}>{'总价'}<s>{'￥790'}</s></span>
                       <span>{'¥'+_totolpic}</span>
                     </li>
                     <li className={'wid-4'}>
