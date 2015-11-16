@@ -121,7 +121,7 @@ function organizeData(oridata){
       attr: item.usercarid,
       img: "/images/getheadimg.jpeg",
       body:[
-          item.carseries + item.cartype,
+          item.carbrand + item.carseries + item.cartype,
           {
               k: "车牌号：",
               v: item.plateno

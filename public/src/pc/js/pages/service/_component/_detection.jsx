@@ -66,7 +66,7 @@ var index = {
                   <ul>
                     <li className={'wid-8'}>
                       <span className={'foot_money'}>{'总价'}<i>{'￥790'}</i></span>
-                      <span>{_totolpic}</span>
+                      <span>{'¥'+_totolpic}</span>
                     </li>
                     <li className={'wid-4'}>
                       <a id={'now'} className={'btn-link'}>{'下一步'}</a>
@@ -153,7 +153,7 @@ function carcheckData(carcheck_data, ele, cb){
       title:[
         {
           k: '全车检测',
-          v: <p>¥{_totolpic}<i className="ifont icon-xla"></i></p>
+          v: <p>{'¥'+_totolpic}<i className="ifont icon-xla"></i></p>
         }
       ],
       body: [],
@@ -187,7 +187,7 @@ function carcheckData(carcheck_data, ele, cb){
   carcheck_Title.footer.push(
     {
       k: '工时费',
-      v: <span>¥{_totolpic}</span>,
+      v: <span>{'¥'+_totolpic}</span>,
       s: _totolpic
     }
   )
