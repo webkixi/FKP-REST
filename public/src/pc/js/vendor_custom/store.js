@@ -1,5 +1,9 @@
 ;(function(){
 
+    function getObjType(object){
+        return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
+    }
+
     function extend() {
     	var options, name, src, copy, copyIsArray, clone,
     		target = arguments[0] || {},
@@ -34,15 +38,15 @@
     					continue;
     				}
     				// 如果我们拷贝的对象是一个对象或者数组的话
-    				if ( deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) {
+    				if ( deep && copy && ( getObjType(copy)==='Object' || (copyIsArray = Array.isArray(copy)) ) ) {
     					if ( copyIsArray ) {
     						copyIsArray = false;
-    						clone = src && jQuery.isArray(src) ? src : [];
+    						clone = src && Array.isArray(src) ? src : [];
     					} else {
-    						clone = src && jQuery.isPlainObject(src) ? src : {};
+    						clone = src && getObjType(copy)==='Object' ? src : {};
     					}
     					//不删除目标对象，将目标对象和原对象重新拷贝一份出来。
-    					target[ name ] = jQuery.extend( deep, clone, copy );
+    					target[ name ] = extend( deep, clone, copy );
     				// 如果options[name]的不为空，那么将拷贝到目标对象上去。
     				} else if ( copy !== undefined ) {
     					target[ name ] = copy;
@@ -53,12 +57,6 @@
     	// 返回修改的目标对象
     	return target;
     };
-
-    function getObjType(object){
-        return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
-    }
-
-
 
     var store = function( data, act ){
         this.sdata = null;
