@@ -190,8 +190,8 @@ var index = {
                 <div className={'container'}>
                   <ul>
                     <li className={'wid-8'}>
-                      <span className={'foot_money'}>{'总价'}<i>{totalprice}</i></span>
-                      <span>{discountprice}</span>
+                      <span className={'foot_money'}>{'总价'}<s>{'¥'+totalprice}</s></span>
+                      <span>{'¥'+discountprice}</span>
                     </li>
                     <li className={'wid-4'}>
                       <a id='now' className={'btn-link'}>{'下一步'}</a>

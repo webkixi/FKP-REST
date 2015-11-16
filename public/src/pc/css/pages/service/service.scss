@@ -680,17 +680,18 @@ body{
     }
   }
   span{
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-right: 0.3rem;
-    vertical-align: middle;
-    i{
-      font-style: normal;
+    // vertical-align: middle;
+    s{
       color: #daf5f2;
-      font-size: 1rem;
-      text-decoration: line-through;
+      font-size: 0.8rem;
     }
     &.foot_money{
-      font-size:1rem;
+      font-size:0.8rem;
+      span{
+          font-size: 0.8rem;
+      }
     }
   }
 }
