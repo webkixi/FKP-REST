@@ -137,7 +137,6 @@ function getData(ele, param, cb){
       }else{
          var carid= { carid: _l_user.usercar[0].carid }
           api.req('carchecking',carid,function(data){
-              console.log('uuuuuuuuuuffffffff');
             //   console.log(data);
               if(data.code && data.code===1){
                   carcheckData(data.results, ele, cb)

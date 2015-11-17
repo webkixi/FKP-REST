@@ -61,7 +61,7 @@ function *demoIndexData(oridata){
         var postdata = {
             "common": {
                 "session": "1111",
-                "uid": '0'
+                "uid": 0
             },
             "content": [{
                 "carid": body.carid,
