@@ -136,8 +136,10 @@ function getData(ele, param, cb){
           router('addcar');
       }else{
          var carid= { carid: _l_user.usercar[0].carid }
+         console.log(carid);
           api.req('carchecking',carid,function(data){
             //   console.log(data);
+            console.log(data);
               if(data.code && data.code===1){
                   carcheckData(data.results, ele, cb)
               }else{

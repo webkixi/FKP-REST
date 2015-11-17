@@ -68,13 +68,9 @@ function *demoIndexData(oridata){
                 "servicetypeno": 'FW0003'
             }]
         }
-        if(!this.sess.user){
-          console.log("----------用户不存在-----------");
-          return {error: '101', message: "用户不存在"}
-        }
+
 
         if(body && body.carid){
-          postdata.common.uid = parseInt(this.sess.user.uid)
           postdata.content[0].carid  = parseInt(body.carid)
 
           var orderdata = yield api.pullApiData('carchecking', postdata, 'post');
