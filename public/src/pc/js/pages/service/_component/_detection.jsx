@@ -107,8 +107,8 @@ var bindIndex = function(){
 function init(ele, param, cb){
     var luser = SA.getter('_LOCAL_USER')
     console.log(luser.data.error);
-    if(!luser.data.error==="-1"){
-        console.log('111111')
+    if(!luser.data.error==="-1" || !luser.data.error){
+        console.log('fffff')
         getData(ele, param, cb)
     }
     else{
