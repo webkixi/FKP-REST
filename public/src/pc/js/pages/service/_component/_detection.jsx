@@ -84,7 +84,6 @@ var index = {
 var bindIndex = function(){
     router.clear()
     $("#now").click(function(){
-        console.log(carcheck_Title);
         var detectionDate = carcheck_Title
 
         var form = {};
@@ -107,10 +106,15 @@ var bindIndex = function(){
 
 function init(ele, param, cb){
     var luser = SA.getter('_LOCAL_USER')
-    if(luser.data.error==="-1")
-        SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
-    else{
+    console.log(luser.data.error);
+    if(!luser.data.error==="-1"){
+        console.log('111111')
         getData(ele, param, cb)
+    }
+    else{
+        SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+        console.log('2222222');
+
     }
 }
 
@@ -131,7 +135,10 @@ function getData(ele, param, cb){
       if(!_l_user.usercar && !mycar){
           router('addcar');
       }else{
+         var carid= { carid: _l_user.usercar[0].carid }
           api.req('carchecking',{},function(data){
+              console.log('uuuuuuuuuuffffffff');
+            //   console.log(data);
               if(data.code && data.code===1){
                   carcheckData(data.results, ele, cb)
               }else{
@@ -148,7 +155,7 @@ function carcheckData(carcheck_data, ele, cb){
   _form.servicetypeno = carcheck_data[0].servicetypeno   //服务类型
   _form.servicetypename = carcheck_data[0].servicetypename   //服务类型
   _totolpic =carcheck_data[0].workprice;
-  carcheck_Title = {
+  var tmp_carcheck_Title = {
       title:[
         {
           k: '全车检测',
@@ -160,17 +167,27 @@ function carcheckData(carcheck_data, ele, cb){
   }
   carcheck_data[0].carcheckinglist.map(function(item, i){
     if(!tmp[item.car_checking_type]){
-      tmp[item.car_checking_type]= []
-      tmp[item.car_checking_type].push(
-        {
-          title: <p><em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{item.car_checking_type}</em></p>
+        tmp[item.car_checking_type]= []
+        tmp[item.car_checking_name]= []
+        tmp[item.car_checking_type].push(
+            {
+              title: <p><em className={'title_detection_mycar'}><i className="ifont icon-creative"></i>{item.car_checking_type}</em></p>
+            }
+        )
+        if(tmp[item.car_checking_name] != tmp[item.car_checking_name]){
+            item.car_checking_name
         }
-      )
-      tmp[item.car_checking_type].push({
-          k: item.car_checking_name
-      })
+        tmp[item.car_checking_type].push({
+
+            k: item.car_checking_name
+        })
+
     }else{
-      tmp[item.car_checking_type].push({
+        if(tmp[item.car_checking_name] != tmp[item.car_checking_name]){
+            item.car_checking_name
+        }
+        tmp[item.car_checking_type].push({
+
             k: item.car_checking_name
         })
     }
@@ -178,18 +195,20 @@ function carcheckData(carcheck_data, ele, cb){
   var z = Object.keys(tmp);
   var ggg = []
   z.map(function(item, i){
-    ggg = ggg.concat(tmp[item])
-
+      ggg = ggg.concat(tmp[item])
   })
 
-  carcheck_Title.body = ggg
-  carcheck_Title.footer.push(
+  tmp_carcheck_Title.body = ggg
+  tmp_carcheck_Title.footer.push(
     {
       k: '工时费',
       v: <span>{'¥'+_totolpic}</span>,
       s: _totolpic
     }
   )
+
+  carcheck_Title = tmp_carcheck_Title;
+
   renderDom( ele, cb)
 }
 

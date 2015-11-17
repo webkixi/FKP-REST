@@ -57,21 +57,33 @@ function *demoIndexData(oridata){
         //     }
         //   ]
         // }
-        //var body = yield libs.$parse(this);
+        var body = yield libs.$parse(this);
         var postdata = {
             "common": {
                 "session": "1111",
-                "uid": 0
+                "uid": '0'
             },
             "content": [{
-              "servicetypeno": 'FW0003'
+                "carid": body.carid,
+                "servicetypeno": 'FW0003'
             }]
         }
+        if(!this.sess.user){
+          console.log("----------用户不存在-----------");
+          return {error: '101', message: "用户不存在"}
+        }
 
-        var orderdata = yield api.pullApiData('carchecking', postdata, 'post');
-        console.log(orderdata[1]);
+        if(body && body.orderid){
+          postdata.common.uid = parseInt(this.sess.user.uid)
+          postdata.content[0].carid  = parseInt(body.carid)
 
-        return orderdata[1];
+          var orderdata = yield api.pullApiData('carchecking', postdata, 'post');
+          console.log(orderdata[1]);
+          return orderdata[1];
+
+        }else{
+          return {error: '102', message: "body没有存在"}
+        }
     }
 
 

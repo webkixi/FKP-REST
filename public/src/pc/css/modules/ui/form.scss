@@ -2,3 +2,7 @@
 @import "./textarea";
 @import "./select";
 @import "./radio";
+
+input{
+    -webkit-appearance: none;
+}
