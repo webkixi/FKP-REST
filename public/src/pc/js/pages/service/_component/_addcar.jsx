@@ -264,17 +264,16 @@ function checkValue(ele){
 
       SA.setter('_GLOBAL',{index: uuu})
       var local_user = SA.getter('_LOCAL_USER')
-      console.log(local_user);
+    //   console.log(local_user);
       if(local_user && local_user.data){
           var local_data = local_user.data;
           if(local_data && !local_data.error){
               local_data.usercar = [uuu.form]
-              SA.setter('_LOCAL_USER', local_data);
+              SA.append('_LOCAL_USER', local_data);
           }else{
-              SA.setter('_LOCAL_USER',{usercar: [uuu.form]})
+              delete local_data.error;
+              SA.append('_LOCAL_USER',{usercar: [uuu.form]})
           }
-      }else{
-          SA.setter('_LOCAL_USER',{usercar: [uuu.form]})
       }
       router.goback()
     }

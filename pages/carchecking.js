@@ -64,22 +64,18 @@ function *demoIndexData(oridata){
                 "uid": 0
             },
             "content": [{
-                "carid": body.carid,
+                // "carid": body.carid,
                 "servicetypeno": 'FW0003'
             }]
         }
 
-
         if(body && body.carid){
           postdata.content[0].carid  = parseInt(body.carid)
-
-          var orderdata = yield api.pullApiData('carchecking', postdata, 'post');
-          console.log(orderdata[1]);
-          return orderdata[1];
-
-        }else{
-          return {error: '102', message: "body没有存在"}
         }
+
+        var orderdata = yield api.pullApiData('carchecking', postdata, 'post');
+        console.log(orderdata[1]);
+        return orderdata[1];
     }
 
 
