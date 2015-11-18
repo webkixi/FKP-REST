@@ -8,7 +8,6 @@ var store = require('mixins/store');
 var router = require('libs/router').router
 
 var carcheck_Title;
-var tmp = {}
 var _totolpic;
 var _form = {}
 
@@ -25,6 +24,8 @@ var index = {
           img : '/images/logo/'+carcar.carimage
         }
       ]
+
+      var cc_title = this.props.data;
 
       mycar.map(function(item,i){
         mycar_data.push(
@@ -56,7 +57,7 @@ var index = {
                 </div>
                 <div className={'service_mycar srvice_myservice'}>
                   <h2>我的服务项目</h2>
-                  <List data={carcheck_Title} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1 detection_mycar'} itemClass={'wid-12 '} itemView={Pt}/>
+                  <List data={cc_title} itemDefaultMethod={abcd} listClass={'s_m_list s_m_list_1 detection_mycar'} itemClass={'wid-12 '} itemView={Pt}/>
                 </div>
               </div>
             </div>
@@ -84,7 +85,6 @@ var index = {
 var bindIndex = function(){
     router.clear()
     $("#now").click(function(){
-        console.log(carcheck_Title);
         var detectionDate = carcheck_Title
 
         var form = {};
@@ -149,16 +149,17 @@ function carcheckData(carcheck_data, ele, cb){
   _form.servicetypeno = carcheck_data[0].servicetypeno   //服务类型
   _form.servicetypename = carcheck_data[0].servicetypename   //服务类型
   _totolpic =carcheck_data[0].workprice;
-  carcheck_Title = {
+  var tmp = {};
+  var tmp_carcheck_Title = {
       title:[
         {
           k: '全车检测',
           v: <p>{'¥'+_totolpic}<i className="ifont icon-xla"></i></p>
         }
-      ],
-      body: [],
-      footer: []
+      ]
   }
+  tmp_carcheck_Title.body = []
+  tmp_carcheck_Title.footer = []
   carcheck_data[0].carcheckinglist.map(function(item, i){
     if(!tmp[item.car_checking_type]){
       tmp[item.car_checking_type]= []
@@ -183,14 +184,15 @@ function carcheckData(carcheck_data, ele, cb){
 
   })
 
-  carcheck_Title.body = ggg
-  carcheck_Title.footer.push(
+  tmp_carcheck_Title.body = ggg
+  tmp_carcheck_Title.footer.push(
     {
       k: '工时费',
       v: <span>{'¥'+_totolpic}</span>,
       s: _totolpic
     }
   )
+  carcheck_Title = tmp_carcheck_Title;
   renderDom( ele, cb)
 }
 
@@ -224,7 +226,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemDefaultMethod={bindIndex} itemMethod={cb}/>,
+        <Index data={carcheck_Title} itemDefaultMethod={bindIndex} itemMethod={cb}/>,
         element
     )
 }
