@@ -185,7 +185,6 @@ var index = {
               <div className={'row'}>
                 <div className={'service_mycar'}>
                   <h2>
-                      <i id="back" className={'ifont icon-pre'}></i>
                       个人信息
                   </h2>
                 </div>
@@ -219,10 +218,6 @@ var bindIndex = function(){
     var Number = require('modules/form/number');
     var Radio = require('modules/form/radio');
     var u = {};
-
-    $('#back').click(function(){
-        router.goback();
-    })
 
     function userAddress(){
         //电话
@@ -505,7 +500,7 @@ var bindIndex = function(){
                 SA.setter('Pop',{data:{body:result.toString(),display:'block'}} )
                 // charge 不正确或者微信公众账号支付失败时会在此处返回
             } else if (result == "cancel") {
-                SA.setter('Pop',{data:{body:'取消支付',display:'block'}} )
+                SA.setter('Pop',{data:{body:'支付取消',display:'block'}} )
                 submit_stat = false;
                 console.log('微信公众账号支付取消支付');
                 // 微信公众账号支付取消支付
@@ -535,12 +530,13 @@ function checkValue(ele){
         }
     })
     if(stat === false){
-        alert('验证出错，请检查填写信息!')
+        SA.setter('Pop',{data:{body:'请检查填写信息!',display:'block'}} )
         return false;
     }
     else if ( !_payway ){
         stat = false;
-        alert('请填写支付方式!')
+        SA.setter('Pop',{data:{body:'请填写支付方式!',display:'block'}} )         
+        alert('!')
     }
     else
         return true;

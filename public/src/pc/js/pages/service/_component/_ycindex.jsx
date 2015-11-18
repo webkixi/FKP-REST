@@ -170,7 +170,7 @@ var index = {
               <div className={'row'}>
                 <div className={'service_mycar'}>
                   <h2>
-                      <i id="back" className={'ifont icon-pre'}></i>我的车辆
+                      我的车辆
                   </h2>
                   <div className={'s_m_list hlist'}>
                     <ul className={'item'}>
@@ -208,10 +208,7 @@ var index = {
 //dom写入后，绑定相关的方法
 var bindIndex = function(){
     var Checkbox = require('modules/form/checkbox');
-    var checkNum = {};
-    $('#back').click(function(){
-        router('/');
-    })
+    var checkNum = {};     
 
     //选择是否需要提供配件
     checkNum.checkbox = new Checkbox({label:'已有配件只需上门服务'}, 'checkbox',function(self){

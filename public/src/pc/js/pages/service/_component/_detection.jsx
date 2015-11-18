@@ -46,7 +46,6 @@ var index = {
               <div className={'row'}>
                 <div className={'service_mycar'}>
                   <h2>
-                      <i id="back" className={'ifont icon-pre'}></i>
                       我的车辆
                   </h2>
                   <div className={'s_m_list hlist'}>
@@ -100,9 +99,6 @@ var bindIndex = function(){
         router("order")
     })
 
-    $('#back').click(function(){
-        router('/');
-    })
 }
 
 function init(ele, param, cb){
