@@ -275,13 +275,12 @@ var Index = React.createClass(index)
 
 function router2back(){
     router.cb = function(name){
-        if(!name)
-            window.history.go(-1)
+        router('/')
     }
 }
 
 function init(ele, param, cb){
-    // router2back()
+    router2back()
     var luser = SA.getter('_LOCAL_USER')
     if(luser.data.error==="-1")
         SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
