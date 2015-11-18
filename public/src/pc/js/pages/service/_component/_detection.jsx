@@ -101,7 +101,15 @@ var bindIndex = function(){
 
 }
 
+function router2back(){
+    router.cb = function(name){
+        if( name )
+            router('/')
+    }
+}
+
 function init(ele, param, cb){
+    router2back()
     var luser = SA.getter('_LOCAL_USER')
     if(luser.data.error && luser.data.error==="-1"){
         SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
