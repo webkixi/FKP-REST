@@ -505,7 +505,7 @@ var bindIndex = function(){
                 SA.setter('Pop',{data:{body:result.toString(),display:'block'}} )
                 // charge 不正确或者微信公众账号支付失败时会在此处返回
             } else if (result == "cancel") {
-                alert('取消支付')
+                SA.setter('Pop',{data:{body:'取消支付',display:'block'}} )
                 submit_stat = false;
                 console.log('微信公众账号支付取消支付');
                 // 微信公众账号支付取消支付
