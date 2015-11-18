@@ -541,6 +541,10 @@ body{
     font-size: 0.9rem;
     padding: 0.4rem 0;
     margin: 0.2rem auto 0;
+    &:hover{
+        background: #F3A300;
+        color: #fff;
+    }
   }
 }
 .pay_icon_mycar{
@@ -695,6 +699,10 @@ body{
             color: #FFB113;
             display: inline-block;
             margin-left: 0.8rem;
+            &:hover{
+                background: #F3A300;
+                color: #fff;
+            }
 
         }
     }
@@ -766,6 +774,10 @@ body{
 			font-size: 0.8rem;
 			height: 1.5rem;
             line-height: 1.5rem;
+            &:hover{
+                background: #F3A300;
+                color: #fff;
+            }
 		}
 	}
 	&.addcar{
