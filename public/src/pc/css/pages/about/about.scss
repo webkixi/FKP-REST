@@ -54,14 +54,23 @@
         li{
           font-size: 0.6rem;
           margin-bottom: 0.5rem;
-          height: 4rem;
+          height: 3.4rem;
           text-align: left;
           font-size: 0;
+          &.ser_abot_ifontleft{
+              .ifont{
+                  font-size: 2.8rem;
+                  margin-left: -0.5rem;
 
+              }
+              .ser_abot_wz{
+                  margin-left: -1.5rem;
+              }
+          }
           i.ifont{
                 display: inline-block;
                 font-size: 2.6rem;
-                margin-bottom: 2rem;
+                vertical-align: middle;
                 color: #7D7D7D;
                 &.icon-05iconaichegujia{
                     &:before{
@@ -71,11 +80,10 @@
           }
           .ser_abot_wz{
               display: inline-block;
+              vertical-align: top;
               font-size: 1rem;
               height: 2rem;
-              &.ser_abot_ifontleft{
-                  margin-left: -1.3rem;
-              }
+              margin-top: -0.3rem;
               em{
                   height: 1rem;
                   font-size: 0.8rem;

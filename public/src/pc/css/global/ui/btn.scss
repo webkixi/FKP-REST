@@ -10,7 +10,10 @@
     height: 1.6rem;
     line-height: 1.6rem;
     vertical-align: middle;
-
+    &:hover{
+        background: #F3A300;
+        color: #fff;
+    }
 }
 
 .btn-circle{

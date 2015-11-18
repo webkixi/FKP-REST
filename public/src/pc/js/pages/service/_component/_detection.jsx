@@ -46,7 +46,6 @@ var index = {
               <div className={'row'}>
                 <div className={'service_mycar'}>
                   <h2>
-                      <i id="back" className={'ifont icon-pre'}></i>
                       我的车辆
                   </h2>
                   <div className={'s_m_list hlist'}>
@@ -100,12 +99,17 @@ var bindIndex = function(){
         router("order")
     })
 
-    $('#back').click(function(){
-        router('/');
-    })
+}
+
+function router2back(){
+    router.cb = function(name){
+        if( name )
+            router('/')
+    }
 }
 
 function init(ele, param, cb){
+    router2back()
     var luser = SA.getter('_LOCAL_USER')
     if(luser.data.error && luser.data.error==="-1"){
         SA.setter('_LOCAL_USER', getData, [ele, param, cb]);

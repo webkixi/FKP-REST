@@ -37,14 +37,14 @@ function router(name, back){
             }
             url = libs.urlparse( href );
 
+            SA.setter('_HISTORY', url);
             if(!back){
-                SA.setter('_HISTORY', url);
                 _uri = href+'#'+name;
                 historyStat({uri: _uri}, null, _uri)
             }
         }else{
+            SA.setter('_HISTORY', url);
             if(!back){
-                SA.setter('_HISTORY', url);
                 _uri = name;
                 historyStat({uri: _uri}, null, '#'+name)
             }

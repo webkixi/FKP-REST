@@ -353,6 +353,10 @@ body{
                     height: 1.8rem;
                     line-height: 1.9rem;
                     color: #fff;
+                    &:hover{
+                        background: #F3A300;
+                        color: #fff;
+                    }
                 }
             }
         }
@@ -691,10 +695,7 @@ body{
             color: #FFB113;
             display: inline-block;
             margin-left: 0.8rem;
-            &:hover{
-                background: #F3A300;
-                color: #fff;
-            }
+
         }
     }
   }

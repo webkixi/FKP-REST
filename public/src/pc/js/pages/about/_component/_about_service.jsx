@@ -46,10 +46,10 @@ var index = {
                           </div>
                         </li>
 
-                        <li className={'item'}>
+                        <li className={'item ser_abot_ifontleft'}>
                           <div className={'hbody'}>
                             <i className={'ifont icon-05iconaichegujia'}></i>
-                            <div className={'ser_abot_wz ser_abot_ifontleft'}>
+                            <div className={'ser_abot_wz'}>
                                 <em><i>04\</i><a>{'爱车估价'}</a></em>
                                 <p>在前汽车市场，供线上线下体化的整。</p>
                             </div>
