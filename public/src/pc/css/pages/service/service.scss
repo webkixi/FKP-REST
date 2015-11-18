@@ -171,7 +171,7 @@ body{
         display: none;
         border-bottom: 1px solid #bababa;
         padding: 0;
-        background-color: #F3FCFB;
+        background-color: #fffcf5;
         &.u-table{
             display: table;
         }
@@ -226,13 +226,13 @@ body{
 .srvice_myservice{
     .hlist{
         .item{
-            background-color: #E8F8F7;
+            background-color: #fef9e8;
         }
         li:last-child{
             background-color: #fff;
         }
         li:first-child{
-            background-color: #E8F8F7;
+            background-color: #fef9e8;
         }
     }
     #checkbox{
@@ -346,12 +346,13 @@ body{
                     margin-top: 0.12rem;
                     margin-left: 2%;
                     width: 46%;
-                    background-color: #f0f0f0;
-                    border: 2px solid #acacac;
+                    background-color: #FBC44E;
+                    border: 2px solid #DEBA6D;
                     font-size: 0.6rem;
                     text-align: center;
                     height: 1.8rem;
                     line-height: 1.9rem;
+                    color: #fff;
                 }
             }
         }
@@ -531,7 +532,7 @@ body{
       margin-top: 0.6rem;
   }
   .btn-link{
-    background: #2ec1ae;
+    background: #fbc44e;
     color: #fff;
     font-size: 0.9rem;
     padding: 0.4rem 0;
@@ -593,6 +594,7 @@ body{
     .hbody{
       padding: 0;
       display: none;
+      background: #fffcf5;
       &.u-table{
           display: table;
       }
@@ -666,28 +668,42 @@ body{
   position: fixed;
   bottom:0;
   left: 0;
-  background: #48cfc0;
+  background: #FFB113;
   color: #fff;
   width: 100%;
-  padding: 0.6rem 0;
   ul{
-    display: table;
     width: 100%;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    height: 2.7rem;
   }
   li{
-    display: table-cell;
-    border-left: 1px solid #daf5f2;
+    border-left: 1px solid #f7e4bb;
+    height: 2.7rem;
+    line-height: 2.7rem;
     &:first-child{
       border-left: none;
       margin-left: -1px;
     }
+    &:last-child{
+        a{
+            background: #fff;
+            color: #FFB113;
+            display: inline-block;
+            margin-left: 0.8rem;
+            &:hover{
+                background: #F3A300;
+                color: #fff;
+            }
+        }
+    }
   }
   span{
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-right: 0.3rem;
     // vertical-align: middle;
     s{
-      color: #daf5f2;
+      color: #fff;
       font-size: 0.8rem;
     }
     &.foot_money{
@@ -742,17 +758,18 @@ body{
 	footer{
 		@include fd;
 		a.btn-link{
-			background-color: #2EC1AE;
+			background-color: #fbc44e;
 			color: #fff;
 			margin:0 auto;
 			padding: 0.4rem 0;
-			font-size: 1rem;
+			font-size: 0.8rem;
 			height: 1.5rem;
+            line-height: 1.5rem;
 		}
 	}
 	&.addcar{
 		article{
-			height: 70%;
+			height: 74%;
             .carform{
                 margin-bottom: 0.2rem;
             }

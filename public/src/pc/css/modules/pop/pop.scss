@@ -45,7 +45,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    width: 84%;
+    width: 85%;
     min-width: 290px;
     min-height: 5rem;
     height: 50%;
@@ -54,11 +54,10 @@
     text-align: center;
     z-index: 5;
     opacity: 0;
-    border-radius: 0.2rem;
+    //border-radius: 0.2rem;
     font-size: 0.6rem;
     overflow:hidden;
     -webkit-overflow-scrolling : touch;
-    padding: 2%;
     .loading{
         position: absolute;
         left: 0;
@@ -69,18 +68,16 @@
     .list-wrap{
         position: absolute;
         overflow:scroll;
-        height: 95%;
-        width: 96%;
+        height: 100%;
+        width: 100%;
         z-index: 2;
     }
     ul.hlist{
-
       font-size: 0.6rem;
       position: relative;
       z-index: 10;
       li{
-
-        border-top: 1px solid #d9d9d9;
+        border-top: 1px solid #ececec;
         &:first-child{
           border-top: none;
         }
@@ -89,11 +86,11 @@
         // }
       }
       .hbody{
-        border-radius: 0.2rem;
+        //border-radius: 0.2rem;
       }
       p{
         width: 90%;
-        padding:2% 5%;
+        padding:1% 5%;
         text-align: right;
         display: table;
         -webkit-animation-name: anim-close;
@@ -149,10 +146,12 @@
   .car_linkage{
     &.hlist{
       .hbody{
-        background: #d4e8cd;
-        border-bottom: 1px solid #cfcfcf;
+        background: #fbc44e;
+        padding: 0;
+        //border-bottom: 1px solid #cfcfcf;
         p{
-          text-align: right;
+          text-align: left;
+          padding: 0.4% 5%;
         }
       }
       .hfoot{
@@ -163,6 +162,10 @@
           width: 90%;
           margin: auto;
           text-align: left;
+          border-bottom: 1px solid #ececec;
+          &:last-child{
+              border-bottom: none;
+          }
           span{
             display: inline-block;
             color: #666;
