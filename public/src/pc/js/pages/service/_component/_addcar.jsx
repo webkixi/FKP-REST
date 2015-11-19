@@ -45,7 +45,6 @@ function dealWith_Data_Brand(){
 
     SA.setter('Pop',{data:{display:'block'}})
     api.req('queryallbrand',{}, function(data){
-        console.log(data);
         if(data.code && data.code===1){
         //   console.log(data);
             var tmp = {};
@@ -58,8 +57,7 @@ function dealWith_Data_Brand(){
                 [item.carbrand, item.carimage]
               )
             })
-            console.log(tmp);
-            nav = Object.keys(tmp);
+            nav = Object.keys(tmp).sort();
             if(nav.length){
                 nav.map(function(item, i){
                    var tmp_foot = [];
