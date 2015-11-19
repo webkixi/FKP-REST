@@ -315,6 +315,11 @@ body{
             .body{
                 width: 100%;
             }
+            #date{
+                input{
+                    padding: 0.3rem 0;
+                }
+            }
             #city, #district{
                 .select{
                     .body{

@@ -50,6 +50,14 @@ function date(data, ele, cb){
             })
         }
 
+        if ( data.min ){
+            $(this).find('input').attr('min', data.min)
+        }
+
+        if ( data.max ){
+            $(this).find('input').attr('max', data.max)
+        }
+
     }
 
     if(data===true)

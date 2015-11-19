@@ -215,7 +215,7 @@ var bindIndex = function(){
     router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
-    var Date = require('modules/form/date');
+    var DateForm = require('modules/form/date');
     var Number = require('modules/form/number');
     var Radio = require('modules/form/radio');
     var u = {};
@@ -393,13 +393,11 @@ var bindIndex = function(){
     var tt;
     api.req('getservtime', function(data){
         tt = data;
+        var ttt = formatDate(tt.timer);
+        var $min = ttt.year+'-'+ttt.month+'-'+ttt.date
+        var $max = ttt.year+'-'+ttt.month+'-'+(ttt.date+3)
+        u.date = new DateForm({min: $min, max: $max}, 'date',function(){ });
     })
-    var ttt = organizeDate(tt.timer);
-
-
-    u.date = new Date({}, 'date',function(){
-
-    });
 
     //预约时间 上午下午
     u.ampm = new Select({}, 'ampm',function(){
@@ -433,6 +431,9 @@ var bindIndex = function(){
                 console.log(data);
                 if(data && data.code===1){
                     payment(data.results[0])
+                }
+                if(data && data.code === 536){
+                    SA.setter('Pop',{data:{body:'请正确填写短信验证码',display:'block'}} )
                 }
             })
         }

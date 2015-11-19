@@ -82,7 +82,11 @@ var bindIndex = function(){
             if(record.code === 1){
                 var local_user_info = record.results[0];
                 SA.setter("_LOCAL_USER", local_user_info);
-            }else{
+            }
+            if( record && record === 536){
+                SA.setter('Pop',{data:{body:'请正确填写短信验证码',display:'block'}} );
+            }
+            else{
                 SA.setter("_LOCAL_USER", {error: "-2"});
             }
             router.goback()
