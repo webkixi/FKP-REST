@@ -352,10 +352,10 @@ body{
                     text-align: center;
                     height: 1.8rem;
                     line-height: 1.9rem;
-                    color: #fff;
+                    color: #000;
                     &:hover{
                         background: #F3A300;
-                        color: #fff;
+                        color: #000;
                     }
                 }
             }
@@ -537,13 +537,13 @@ body{
   }
   .btn-link{
     background: #fbc44e;
-    color: #fff;
+    color: #000;
     font-size: 0.9rem;
     padding: 0.4rem 0;
     margin: 0.2rem auto 0;
     &:hover{
         background: #F3A300;
-        color: #fff;
+        color: #000;
     }
   }
 }
@@ -677,7 +677,7 @@ body{
   bottom:0;
   left: 0;
   background: #FFB113;
-  color: #fff;
+  color: #000;
   width: 100%;
   ul{
     width: 100%;
@@ -695,13 +695,13 @@ body{
     }
     &:last-child{
         a{
-            background: #fff;
-            color: #FFB113;
+            background: #fde7b8;
+            color: #574f3d;
             display: inline-block;
             margin-left: 0.8rem;
             &:hover{
-                background: #F3A300;
-                color: #fff;
+                background: #ECD49F;
+                color: #574f3d;
             }
 
         }
@@ -712,7 +712,7 @@ body{
     margin-right: 0.3rem;
     // vertical-align: middle;
     s{
-      color: #fff;
+      color: #000;
       font-size: 0.8rem;
     }
     &.foot_money{
@@ -768,7 +768,7 @@ body{
 		@include fd;
 		a.btn-link{
 			background-color: #fbc44e;
-			color: #fff;
+			color: #000;
 			margin:0 auto;
 			padding: 0.4rem 0;
 			font-size: 0.8rem;
@@ -776,7 +776,7 @@ body{
             line-height: 1.5rem;
             &:hover{
                 background: #F3A300;
-                color: #fff;
+                color: #000;
             }
 		}
 	}

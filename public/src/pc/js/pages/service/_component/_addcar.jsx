@@ -157,6 +157,7 @@ var bindEsti = function(){
     router2index()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var Date = require('modules/form/date');
 
     //品牌
     var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
@@ -200,7 +201,7 @@ var bindEsti = function(){
     });
 
     //上牌时间
-    _car.reg = new Text({label:'上牌时间'}, 'license',function(){
+    _car.reg = new Date({label:'上牌时间'}, 'license',function(){
 
     });
 

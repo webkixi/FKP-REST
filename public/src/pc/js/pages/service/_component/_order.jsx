@@ -215,6 +215,7 @@ var bindIndex = function(){
     router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var Date = require('modules/form/date');
     var Number = require('modules/form/number');
     var Radio = require('modules/form/radio');
     var u = {};
@@ -295,8 +296,6 @@ var bindIndex = function(){
             })
         });
     }
-
-
 
     if(!_l_user){
 
@@ -390,17 +389,16 @@ var bindIndex = function(){
     }
 
     //预约时间 年月日
-    u.date = new Select({}, 'date',function(){
-        var tt;
-        api.req('getservtime', function(data){
-            tt = data;
-        })
-        $(this).click(function(){
-            if(tt){
-                var ttt = organizeDate(tt.timer);
-                SA.setter('Pop',{data:{body:ttt,display:'block'}} )
-            }
-        })
+
+    var tt;
+    api.req('getservtime', function(data){
+        tt = data;
+    })
+    var ttt = organizeDate(tt.timer);
+
+
+    u.date = new Date({}, 'date',function(){
+
     });
 
     //预约时间 上午下午
@@ -535,7 +533,7 @@ function checkValue(ele){
     }
     else if ( !_payway ){
         stat = false;
-        SA.setter('Pop',{data:{body:'请填写支付方式!',display:'block'}} )         
+        SA.setter('Pop',{data:{body:'请填写支付方式!',display:'block'}} )
         alert('!')
     }
     else
