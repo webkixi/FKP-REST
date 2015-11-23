@@ -5,95 +5,93 @@ var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var api = require('libs/api');
 var router = require('libs/router').router
-require('../../_common/pingpp')
+var ping_pp = require('../../_common/pingpp')
 
-var _form = {};
+var _form = {
+    user: {},
+    car:  {},
+    addr: {}
+};
+var _l_user, _l_data;
+var mycar_service_order;
+var footer;
 var bodys = [];
 var heji = {
   count: 0,
   totalprice: 0
 };
-var _wx_userinfo = SA.getter('_WEIXIN').data.user;
-console.log(_wx_userinfo);
+var _wx_userinfo;
 
-var _l_user;
-var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
-if(_l_data){
-    _l_user = _l_data.data;
-    console.log('ppppppppppp');
-    console.log(_l_user);
+function init(ele, cb){
+    bodys = [];
+    mycar_service_order = [];
+    heji = {
+      count: 0,
+      totalprice: 0
+    };
 
-    if(_l_user.error){
-        _l_user = false;
+    _wx_userinfo = SA.getter('_WEIXIN').data.user;
+    _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+    if(_l_data){
+        _l_user = _l_data.data;
+
+        if(_l_user.error){
+            _l_user = false;
+        }
+
+        if(!_l_user.uid){
+            _l_user = false;
+        }
     }
-
-    if(!_l_user.uid){
-        _l_user = false;
+    footer = SA.getter('_GLOBAL').data.index.footer;
+    if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
+      var a = footer.pop();
+      heji.count==1;
+      heji.totalprice+=a.s;
+      bodys.push({
+        body:[
+          a.k,
+          1,
+          '￥'+a.s.toString().split('.')[0]
+        ]
+      })
+    }else{
+      footer.map(function(item, i){
+        heji.count++;
+        heji.totalprice+=item.s;
+        bodys.push({
+          body:[
+            item.k,
+            1,
+            '￥'+item.s.toString().split('.')[0]
+          ]
+        })
+      })
     }
+    heji.totalprice = heji.totalprice.toString().split('.')[0]
+
+    mycar_service_order = bodys;
+    mycar_service_order.unshift(
+      {
+        body:[
+            '保养项目',
+            '单位',
+            '价格'
+        ]
+      }
+    )
+
+    mycar_service_order.push(
+      {
+        body:[
+            '合计',
+            heji.count===0?'':heji.count,
+            '￥'+heji.totalprice
+        ]
+      }
+    )
+    renderDom(ele, cb)
 }
-
-var footer = SA.getter('_GLOBAL').data.index.footer;
-if(SA.getter('_GLOBAL').data.index.form.cleanParts ==1){
-  var a = footer.pop();
-  heji.count==1;
-  heji.totalprice+=a.v;
-  bodys.push({
-    body:[
-      a.k,
-      1,
-      '￥'+a.v
-    ]
-  })
-}else{
-  footer.map(function(item, i){
-    // heji.count+=item.o.count;
-    heji.count++;
-    heji.totalprice+=item.v;
-    bodys.push({
-      // body:[
-      //   item.k,
-      //   item.o.count,
-      //   '￥'+item.v
-      // ]
-      body:[
-        item.k,
-        1,
-        '￥'+item.v
-      ]
-    })
-  })
-}
-
-var mycar_service_order = bodys;
-
-// var mycar_service_order = [
-//     {
-//         body:[
-//             '机油',
-//             '1',
-//             '￥380'
-//         ]
-//     }
-// ]
-mycar_service_order.unshift(
-  {
-    body:[
-        '保养项目',
-        '单位',
-        '价格'
-    ]
-  }
-)
-
-mycar_service_order.push(
-  {
-    body:[
-        '合计',
-        heji.count,
-        '￥'+heji.totalprice
-    ]
-  }
-)
 
 var index = {
     mixins: [ItemMixin],
@@ -131,6 +129,29 @@ var index = {
             </div>
         }
         else{
+            var addr, address;
+            var user_name, user_phone;
+            if(_l_user.addr){
+                // console.log(_l_user);
+                var tmp_addr = _l_user.addr[0];
+                user_name = <em>{tmp_addr.username}</em>;
+                user_phone = tmp_addr.mobile;
+                addr = tmp_addr.province + tmp_addr.city + tmp_addr.county + tmp_addr.street||''
+            }else{
+                user_name = '';
+                user_phone = _l_user.mobile;
+                address = <div>
+                    <div id="name"></div>
+                    <div className="layout">
+                        <label>地址</label>
+                        <div className="box">
+                            <div id="city"></div>
+                            <div id="district"></div>
+                            <div id="address"></div>
+                        </div>
+                    </div>
+                </div>
+            }
             return <div className={'service_myorder'}>
                 <ul className={'message_over_order_mycar'}>
                   <li className={'item'}>
@@ -139,13 +160,14 @@ var index = {
                     </div>
                     <div className={'hbody'}>
                       <div className={'hbody_div'}>
-                        <em>林小姐</em>
-                        <span>13839487654</span>
+                        {user_name}
+                        <span>{user_phone}</span>
                       </div>
-                      <p>广州市白云区京溪南方医院地铁口2</p>
+                      <p>{addr}</p>
                     </div>
                   </li>
                 </ul>
+                {address}
                 <div className="layout">
                     <label>预约时间</label>
                     <div className="box">
@@ -156,13 +178,15 @@ var index = {
             </div>
         }
 	},
-    render: function () {
+    render: function() {
         var inner = this.willMount();
         return(
             <div className={'wrapper'}>
               <div className={'row'}>
                 <div className={'service_mycar'}>
-                  <h2>{'个人信息'}</h2>
+                  <h2>
+                      个人信息
+                  </h2>
                 </div>
                 {inner}
                 <div className={'service_mycar srvice_myservice'}>
@@ -186,57 +210,23 @@ var index = {
         )
     }
 }
-var _payway=0;
+var _payway = false;
 var bindIndex = function(){
+    router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var DateForm = require('modules/form/date');
+    var Number = require('modules/form/number');
     var Radio = require('modules/form/radio');
     var u = {};
 
-    if(!_l_user){
-
+    function userAddress(){
         //电话
         u.name = new Text({label:'姓名',valide: 'username'}, 'name',function(){
             $(this).click(function(){
 
             })
         })
-
-        //电话
-        u.phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
-            $(this).click(function(){
-
-            })
-        });
-
-        //验证码
-        u.verify = new Text({valide: 'verify_m'}, 'code',function(){
-            $(this).click(function(){
-
-            })
-        });
-
-        var btn_stat = 0;
-        $('#verify_btn').click(function(){
-                var btn = this;
-                if(u.phone.stat){
-                    if(btn_stat===0){
-                        btn_stat = 1;
-                        api.req('getmms', {mobile: u.phone.value}, function(data){
-                            if(data.code===1){
-                                SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
-                                libs.countDown(btn, 61, function(){
-                                    btn_stat = 0;
-                                    $(btn).html('重新发送')
-                                })
-                            }
-                        })
-                    }
-                }else{
-                    SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
-                }
-        })
-
         // //城市
         u.city = new Select({}, 'city',function(){
             var parents = [];
@@ -262,31 +252,40 @@ var bindIndex = function(){
                 SA.setter('Pop',{data:{body:xx,display:'block'}} )
             })
         });
+
+        u.city.selected = function(txt, val){
+            if(this.txt !== txt)
+                u.district.empty()
+        }
         //
         // 地区
         u.district = new Select({}, 'district',function(){
-            districts = [];
             $(this).click(function(){
-                var kkk = $('#city').find('input').val();
-                api.req('region',{parent_id: kkk}, function(data){
-                    if(data && data.code===1){
-                        if(data.results.length){
-                            data.results.map(function(item, i){
-                                districts.push({
-                                    body:[
-                                        {
-                                            attr: 'select',
-                                            k: item.address_name,
-                                            v: item.region_id
-                                        }
-                                    ]
+                if(!u.city.stat){
+                    SA.setter('Pop',{data:{body:'请先选择城市', display:'block'}})
+                }else{
+                    districts = [];
+                    var kkk = $('#city').find('input').val();
+                    api.req('region',{parent_id: kkk}, function(data){
+                        if(data && data.code===1){
+                            if(data.results.length){
+                                data.results.map(function(item, i){
+                                    districts.push({
+                                        body:[
+                                            {
+                                                attr: 'select',
+                                                k: item.address_name,
+                                                v: item.region_id
+                                            }
+                                        ]
+                                    })
                                 })
-                            })
+                            }
+                            var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
+                            SA.setter('Pop',{data:{body:yy,display:'block'}} )
                         }
-                        var yy = <List data={districts} listClass={'xxx'} itemClass={'wid-12'} itemView={Pt}/>
-                        SA.setter('Pop',{data:{body:yy,display:'block'}} )
-                    }
-                })
+                    })
+                }
             })
         });
 
@@ -298,17 +297,67 @@ var bindIndex = function(){
         });
     }
 
-    new Radio({label:'微信',value:'wx_pub',name: 'payment'},'wechat',function(){
+    if(!_l_user){
+
+        //电话
+        u.phone = new Number({label:'手机号码', valide: 'mobile'}, 'phone',function(){
+            $(this).click(function(){
+
+            })
+        });
+
+        //验证码
+        u.verify = new Number({valide: 'verify_m'}, 'code',function(){
+            $(this).click(function(){
+
+            })
+        });
+
+        var btn_stat = 0;
+        $('#verify_btn').click(function(){
+                var btn = this;
+                if(u.phone.stat){
+                    if(btn_stat===0){
+                        btn_stat = 1;
+                        api.req('getmms', {mobile: u.phone.value}, function(data){
+                            if(data.code===1){
+                                // SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
+                                libs.countDown(btn, 61, function(){
+                                    btn_stat = 0;
+                                    $(btn).html('重新发送')
+                                })
+                            }
+                        })
+                    }
+                }
+                else{
+                    SA.setter('Pop',{data:{body:'请输入正确手机号码',display:'block'}} );
+                }
+        })
+
+        userAddress()
+
+    }
+
+    //用户存在 但没有地址
+    if(_l_user && !_l_user.addr){
+
+        userAddress()
+
+    }
+
+    new Radio({label:'微信',value:'wx_pub',name: 'payment', default: true},'wechat',function(){
+        _payway = "wx_pub";
       $(this).click(function(){
         _payway = "wx_pub";
       })
     })
 
-    new Radio({label:'支付宝',value:'alipay',name: 'payment'},'alipay',function(){
-      $(this).click(function(){
-        _payway = "alipay";
-      })
-    })
+    // new Radio({label:'支付宝',value:'alipay',name: 'payment'},'alipay',function(){
+    //   $(this).click(function(){
+    //     _payway = "alipay";
+    //   })
+    // })
 
     function formatDate(timer){
         var tt = new Date(timer);
@@ -317,7 +366,7 @@ var bindIndex = function(){
         var month = tt.getMonth();
         return {
             year: year,
-            month: month,
+            month: month+1,
             date: date
         }
     }
@@ -340,18 +389,15 @@ var bindIndex = function(){
     }
 
     //预约时间 年月日
-    u.date = new Select({}, 'date',function(){
-        var tt;
-        api.req('getservtime', function(data){
-            tt = data;
-        })
-        $(this).click(function(){
-            if(tt){
-                var ttt = organizeDate(tt.timer);
-                SA.setter('Pop',{data:{body:ttt,display:'block'}} )
-            }
-        })
-    });
+
+    var tt;
+    api.req('getservtime', function(data){
+        tt = data;
+        var ttt = formatDate(tt.timer);
+        var $min = ttt.year+'-'+ttt.month+'-'+ttt.date
+        var $max = ttt.year+'-'+ttt.month+'-'+(ttt.date+3)
+        u.date = new DateForm({min: $min, max: $max}, 'date',function(){ });
+    })
 
     //预约时间 上午下午
     u.ampm = new Select({}, 'ampm',function(){
@@ -377,50 +423,91 @@ var bindIndex = function(){
         })
     });
 
-    $('#now').click(function(){
-        var stat = checkValue(u);
-        if(stat){
-            if(!_l_user){
-                _form.mobile = u.phone.value;
-                _form.province = "广东"
-                _form.city = u.city.value
-                _form.county = u.district.value
-                _form.street = u.address.value
-                _form.zip = '440000'
-                _form.code = u.verify.value
-            }else{
-                _form = _l_user.addr[0];
-                _form.uid = _l_user.uid;
-                _form.mobile = _l_user.mobile;
-            }
-            _form.paych = _payway
-            _form.totalprice = heji.totalprice
-            _form.subscribetime = u.date.value + u.ampm.text
-
-            _form.userinfo = _wx_userinfo;
-
-            var form = SA.getter('_GLOBAL').data.index.form;
-            var fff = libs.extend(form, _form);
-            // console.log(fff);
+    var submit_stat = false;   //是否允许提交
+    function submit(fff){
+        if(!submit_stat){
+            submit_stat = true;
             api.req('order',{type: 'insert', data:fff}, function(data){
                 console.log(data);
                 if(data && data.code===1){
                     payment(data.results[0])
                 }
+                if(data && data.code === 536){
+                    submit_stat = false;
+                    SA.setter('Pop',{data:{body:'请正确填写短信验证码',display:'block'}} )
+                }
             })
+        }
+    }
+
+    $('#now').click(function(){
+        var stat = checkValue(u);
+        if(stat){
+            if(!_l_user){
+                _form.user.name = u.name.value;
+                _form.user.mobile = u.phone.value;
+
+                _form.addr.username = u.name.value;
+                _form.addr.mobile = u.phone.value;
+                _form.addr.province = "广东省"
+                _form.addr.city = u.city.text
+                _form.addr.county = u.district.text
+                _form.addr.street = u.address.value
+                _form.zip = '440000'
+                _form.code = u.verify.value
+            }else{
+                if(u.city){
+                    _form.addr.username = u.name.value;
+                    _form.addr.province = "广东省"
+                    _form.addr.city = u.city.text
+                    _form.addr.county = u.district.text
+                    _form.addr.street = u.address.value
+                    _form.user.name = u.name.value
+                }else{
+                    _form.addr = _l_user.addr[0];
+                    _form.user.name = _l_user.name||_l_user.nick||'河马';
+                }
+                _form.user.mobile = _l_user.mobile;
+                _form.addr.mobile = _l_user.mobile;
+                _form.uid = _l_user.uid;
+            }
+
+            _form.paych = _payway
+            _form.totalprice = heji.totalprice
+            _form.subscribetime = u.date.value + u.ampm.text
+            _form.user.userinfo = _wx_userinfo;
+
+
+            var form = SA.getter('_GLOBAL').data.index.form;
+            var fff = libs.extend(_form, form);
+            delete fff.cleanParts
+            // console.log(fff);
+            submit( fff )
         }
     })
 
     function payment(charge){
-        console.log(charge);
-        pingpp.createPayment(charge.charge, function(result, err) {
+        console.log(charge.charge);
+        // console.log(charge);
+        ping_pp.createPayment(charge.charge, function(result, err) {
+            // console.log(result);
             if (result=="success") {
                 // payment succeed
-                // alert('ok')
+                SA.setter('Pop',{data:{body:'已成功下订单',display:'block'}} )
                 router('/uc.html');
+            } else if (result == "fail") {
+                // alert('charge不对')
+                SA.setter('Pop',{data:{body:result.toString(),display:'block'}} )
+                // charge 不正确或者微信公众账号支付失败时会在此处返回
+            } else if (result == "cancel") {
+                SA.setter('Pop',{data:{body:'支付取消',display:'block'}} )
+                submit_stat = false;
+                console.log('微信公众账号支付取消支付');
+                // 微信公众账号支付取消支付
             } else {
                 console.log(result+" "+err.msg+" "+err.extra);
             }
+
         });
 
         //node的方式
@@ -433,29 +520,27 @@ var bindIndex = function(){
 
 function checkValue(ele){
     var items = Object.keys(ele);
+    var stat = true;
     items.map(function(item, i){
-        if(!ele[item].stat){
+        if ( !ele[item].stat ){
             $(ele[item].ipt).addClass('error')
-            alert('校验出错')
-            return false;
+            // alert('校验出错')
+            console.log(item+'校验出错');
+            stat = false;
         }
     })
-    return true;
+    if(stat === false){
+        SA.setter('Pop',{data:{body:'请检查填写信息!',display:'block'}} )
+        return false;
+    }
+    else if ( !_payway ){
+        stat = false;
+        SA.setter('Pop',{data:{body:'请填写支付方式!',display:'block'}} )
+        alert('!')
+    }
+    else
+        return true;
 
-
-    // var uuu = [];
-    // $('.service_myorder div').each(function(){
-    //     if(this.id){
-    //         uuu.push({
-    //             idf: this.id,
-    //             ipt: $(this).find('input').val()
-    //         })
-    //     }
-    // });
-    //
-    // if(uuu.length){
-    //     window.location.href="/uc.html"
-    // }
 }
 
 
@@ -479,4 +564,4 @@ function renderDom(ele, cb){
     )
 }
 
-module.exports = renderDom;
+module.exports = init;

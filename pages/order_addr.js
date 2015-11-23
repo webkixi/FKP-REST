@@ -62,15 +62,29 @@ function *demoIndexData(oridata){
         var postdata = {
             "common": {
                 "session": "12121212",
-                "uid": 1
+                "uid": '1111'
             },
             "content": [{
-              "mobile": body.mobile
             }]
         }
+        if(!this.sess.user){
+          console.log("----------用户不存在-----------");
+          return {error: '101', message: "用户不存在"}
+        }
 
-        var orderdata = yield api.pullApiData('order_addr', postdata, 'post');
-        console.log(orderdata[1]);
+        if(body){
+          postdata.common.uid = parseInt(this.sess.user.uid)
+
+          var orderdata = yield api.pullApiData('order_addr', postdata, 'post');
+          console.log(orderdata[1]);
+          return orderdata[1];
+
+        }else{
+          return {error: '102', message: "body没有存在"}
+        }
+
+
+
 
         // var qcjc = libs.$extend(true, {}, postdata);
         // qcjc.content[0].ServiceTypeNo = 'FW0003';

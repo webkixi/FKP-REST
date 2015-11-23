@@ -43,10 +43,9 @@ var selectForm = {
 		var append;
 		var bodyDom;
 		var cls;
+		var star = '';
 		if(this.state.data){
 			var theData = this.state.data;
-			if(theData.label)
-				label = <label>{theData.label}</label>
 
 			if(theData.placeholder)
 				placeholder = theData.placeholder
@@ -58,6 +57,13 @@ var selectForm = {
 			if(theData.class){
 				cls = theData.class;
 			}
+
+			if ( theData.star ){
+				star = theData.star
+			}
+
+			if(theData.label)
+				label = <label>{theData.star}{theData.label}</label>
 
 			//下拉或者弹窗
 			body = theData.body||'没有传入数据'

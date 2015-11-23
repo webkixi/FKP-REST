@@ -40,4 +40,4 @@ module.exports = (gulp,$,slime,env)->
         # gulp.watch config.dirs.src + '/html/**/*.*', ['html:build']
         gulp.watch config.dirs.src + '/html/**/*.*', (file) ->
             console.log file.path
-            slime.build(file.path, {type: 'hbs', 'env': env});
+            slime.build(file.path, {type: 'hbs', 'env': 'pro'});

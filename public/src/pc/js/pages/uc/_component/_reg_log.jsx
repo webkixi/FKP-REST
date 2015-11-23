@@ -3,6 +3,7 @@ var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var api = require('libs/api');
+var pop = require('modules/pop/index');
 var router = require('libs/router').router
 
 var _wx_userinfo = SA.getter('_WEIXIN').data.user;
@@ -34,17 +35,19 @@ var index = {
 }
 var _form = {};
 var bindIndex = function(){
-    var Text = require('modules/form/text');
+    pop({})
+    router.clear()
+    var Number = require('modules/form/number');
     var u = {};
 
     //电话
-    u.phone = new Text({label:'手机号码', valide: 'mobile'}, 'phone',function(){
+    u.phone = new Number({label:'手机号码', valide: 'mobile'}, 'phone',function(){
         $(this).click(function(){
 
         })
     });
     //验证码
-    u.verify = new Text({label:'短信验证码',valide: 'verify_m'}, 'code',function(){
+    u.verify = new Number({label:'短信验证码',valide: 'verify_m'}, 'code',function(){
         $(this).click(function(){
 
         })
@@ -70,35 +73,62 @@ var bindIndex = function(){
                 SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
             }
     })
+
+    var submit_stat = false;
+    function submit(fff){
+        if(!submit_stat){
+            submit_stat = true;
+            api.req('mobilecode',{type: 'insert', data:fff},function(record){
+                if(record.code === 1){
+                    var local_user_info = record.results[0];
+                    SA.setter("_LOCAL_USER", local_user_info);
+                    router.goback()
+                }
+                if( record && record.code === 536){
+                    submit_stat = false;
+                    SA.setter('Pop',{data:{body:'请正确填写短信验证码',display:'block'}} );
+                }
+                else{
+                    SA.setter("_LOCAL_USER", {error: "-2"});
+                }
+
+            })
+        }
+    }
+
     $('#now').click(function(){
       var stat = checkValue(u);
-      console.log(stat);
       if(stat){
         _form.mobile = u.phone.value;
         _form.code = u.verify.value;
         _form.userinfo = _wx_userinfo;
         var fff = libs.extend(_form);
-        console.log(fff);
-        api.req('mobilecode',{type: 'insert', data:fff},function(data){
-          console.log(data);
-          router.goback()
-        })
+            submit(fff);
       }
     })
 }
 function checkValue(ele){
     var items = Object.keys(ele);
+    var chk_stat = true;
     items.map(function(item, i){
         if(!ele[item].stat){
             $(ele[item].ipt).addClass('error')
-            return false;
+            chk_stat = false;
         }
     })
-    return true;
+    return chk_stat;
 }
 
 var Index = React.createClass(index);
+
+function router2back(){
+    router.cb = function(name){
+        WeixinJSBridge.call('closeWindow')
+    }
+}
+
 function renderDom(ele, data, cb){
+    router2back()
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)

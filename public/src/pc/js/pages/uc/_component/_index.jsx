@@ -22,7 +22,7 @@ var index = {
         return(
             <div className={'index'}>
                 <header>
-                    {'用户中心'}
+                    {'我的订单'}
                 </header>
                 <article id="content"></article>
             </div>
@@ -40,6 +40,7 @@ function bcd(){
 }
 
 function insertContent(){
+    router.clear()
     //仿幕课网
     // Mooc( '导航数据', '分类详细数据', '热点数据', '页面容器id' )
     Mooc( tab_mc_data, _coupons, "content", {
@@ -49,38 +50,47 @@ function insertContent(){
 }
 
 function init(ele, param, cb){
-    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+    // SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+    var luser = SA.getter('_LOCAL_USER')
+    if(luser.data.error==="-1")
+        SA.setter('_LOCAL_USER', [getData], [[ele, param, cb]]);
+    else{
+        getData(ele, param, cb)
+    }
 }
 
 function getData(ele, param, cb){
   var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+  console.log(_l_data);
   if(_l_data){
       _l_user = _l_data.data;
       console.log(_l_user);
 
       if(_l_user.error){
           _l_user = false;
-      }
-
+       }
       if(!_l_user.uid){
           _l_user = false;
       }
-
-      var mobile;
-
+      var uid;
       if(_l_user){
-          mobile = { mobile: _l_user.mobile}
+          uid = {uid: _l_user.uid};
       }
-
-      if(mobile){
-          api.req('order_list',mobile,function(data){
-            if(data.code && data.code===1){
+      console.log(uid);
+      if(uid){
+          api.req('order_list',uid,function(data){
+            console.log(data);
+            if(data.results){
+                console.log('ooooooorrrrrrr');
+                console.log(orderlistdata);
                 orderlistdata(data.results, ele, cb)
                 // if(data.results && data.results.length)
                 //   orderlistdata(data.results, ele, cb)
                 // else {
                 //     alert('您还没有任何订单')
                 // }
+            }else{
+              renderDom( ele, cb)
             }
           })
       }else{
@@ -97,20 +107,43 @@ var order_data_list_D2 =[];
 var order_data_list_D3 =[];
 function orderlistdata(orderdata,  ele, cb){
   var order_data_list = [];
+  order_data_list_D0 =[];
+  order_data_list_D1 =[];
+  order_data_list_D2 =[];
+  order_data_list_D3 =[];
+  console.log(orderdata);
   orderdata.map(function(item,i){
+    console.log(item);
+    item.createtime = item.createtime*1000;
     //转时间戳
     var a = new Date(parseInt(item.createtime));
-    var ordertime = a.getFullYear() +'-'+ a.getDate() +'-'+ a.getMonth();
+    var month = parseInt(a.getMonth())+1
+    var ordertime = a.getFullYear() +'-'+ month +'-'+ a.getDate();
     //截取订单号
     var orderno = 'Y'+item.orderno.substring(3,16);
     //状态赋值
+    var i_cls = 'ifont icon-car_oil'
+    switch (item.servicetypeno) {
+        case 'FW0002':
+            i_cls = i_cls+' dby'
+            break;
+        case 'FW0001':
+            i_cls = i_cls+' xby'
+            break;
+        case 'FW0003':
+            i_cls = i_cls+' qc'
+            break;
+        default:
+
+    }
+    var title = <a className={i_cls}>{item.orderid}</a>
     var stateVal = item.status;
     if(stateVal == '0'){
       stateVal = '未完成';
       order_data_list =
       [
         {
-            title: item.orderid,
+            title: title,
             body:[
                 {
                   k: item.servicetypename,
@@ -134,14 +167,15 @@ function orderlistdata(orderdata,  ele, cb){
         }
       ]
       order_data_list_D0.push(order_data_list)
-      console.log(order_data_list_D0);
+    //   console.log(order_data_list_D0);
     }
     else if(stateVal == 1){
       stateVal = '已完成';
       order_data_list =
       [
         {
-            title: item.orderid,
+            // title: item.orderid,
+            title: title,
             body:[
                 {
                   k: item.servicetypename,
@@ -171,7 +205,7 @@ function orderlistdata(orderdata,  ele, cb){
       order_data_list =
       [
         {
-            title: item.orderid,
+            title: title,
             body:[
                 {
                   k: item.servicetypename,
@@ -201,7 +235,7 @@ function orderlistdata(orderdata,  ele, cb){
       order_data_list =
       [
         {
-            title: item.orderid,
+            title: title,
             body:[
                 {
                   k: item.servicetypename,
@@ -234,7 +268,13 @@ function orderlistdata(orderdata,  ele, cb){
 
 
 var Index = React.createClass(index);
+function router2back(){
+    router.cb = function(name){
+        WeixinJSBridge.call('closeWindow')
+    }
+}
 function renderDom(ele, data, cb){
+    router2back();
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)

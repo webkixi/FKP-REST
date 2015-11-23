@@ -56,6 +56,9 @@ var popwin = {
 			var theData = this.state.data;
 			if(theData.body)
 				body = theData.body;
+			else {
+				body = <div className={'loading'}><img style={{width:'1rem'}} src='/images/loading1.gif'/></div>
+			}
 			if(theData.display){
 				display = theData.display;
 				if(display==='block')

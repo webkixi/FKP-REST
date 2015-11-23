@@ -14,22 +14,23 @@ var vs;
 var esti2 = {
     mixins: [ItemMixin],
     render: function () {
+        router.clear()
         return(
             <div className={'index addcar'}>
                 <header>
-                    {'添加车辆'}
+                    添加车辆
                 </header>
                 <article>
-                    <div id="brand"></div>
-                    <div id="series"></div>
-                    <div id="model"></div>
-                    <div id="license"></div>
-                    <div id="number"></div>
-                    <div id="vin"></div>
-                    <div id="engin"></div>
+                    <div id="brand" className={'carform'}></div>
+                    <div id="series" className={'carform'}></div>
+                    <div id="model" className={'carform'}></div>
+                    <div id="license" className={'carform'}></div>
+                    <div id="number" className={'carform'}></div>
+                    <div id="vin" className={'carform'}></div>
+                    <div id="engin" className={'carform'}></div>
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>添加车辆</a>
+                    <a id="now_addcar" className={'btn-link'}>添加车辆</a>
                 </footer>
             </div>
         )
@@ -41,11 +42,11 @@ function dealWith_Data_Brand(){
     var nav = [];
     var resaults = []
     var rtnDom;
-    _car.series.empty();
-    _car.model.empty();
+
+    SA.setter('Pop',{data:{display:'block'}})
     api.req('queryallbrand',{}, function(data){
         if(data.code && data.code===1){
-          console.log(data);
+        //   console.log(data);
             var tmp = {};
             data.results.map(function(item, i){
               var key = item.carfirstname;
@@ -53,18 +54,18 @@ function dealWith_Data_Brand(){
                 tmp[key]=[];
 
               tmp[key].push(
-                item.carbrand
+                [item.carbrand, item.carimage]
               )
             })
-            nav = Object.keys(tmp);
+            nav = Object.keys(tmp).sort();
             if(nav.length){
                 nav.map(function(item, i){
                    var tmp_foot = [];
                    tmp[item].map(function(unit, j){
                      tmp_foot.push({
                        attr: 'select',
-                       k: unit,
-                       v: unit
+                       k: <span><span><img src={'/images/logo/'+unit[1]} className={'img'}/></span>{unit[0]}</span>,
+                       v: unit[1]
                      })
                    })
                     resaults.push(
@@ -86,8 +87,10 @@ function dealWith_Data_Series(){
     var results = []
     var rtnDom;
     var nav = [];
-    _car.model.empty();
-    pn = { carbrand: $("#brand").find("input").val()}
+    // _car.model.empty();
+    // pn = { carbrand: $("#brand").find("input").val()}
+    pn = { carbrand: _car.brand.text}
+    SA.setter('Pop',{data:{display:'block'}})
     api.req('queryseries',pn, function(data){
       if(data.code && data.code===1){
         var tmp = [];
@@ -122,6 +125,7 @@ function dealWith_Data_Type(){
     var rtnDom;
     var nav = [];
     cs = { carTypes: $("#series").find("input").val()}
+    SA.setter('Pop',{data:{display:'block'}})
     api.req('querycartype',cs, function(data){
       if(data.code && data.code===1){
         data.results.map(function(item,i){
@@ -141,20 +145,37 @@ function dealWith_Data_Type(){
     return rtnDom;
 }
 
+function router2index(){
+    router.cb = function(name){
+        if(name)
+            router('/')
+    }
+}
+
 var _car = {};
 var bindEsti = function(){
+    router2index()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var Date = require('modules/form/date');
 
     //品牌
-    _car.brand = new Select({label:'品牌', popclose: true}, 'brand',function(){
+    var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
+    _car.brand = new Select({label:'品牌', popclose: true, star: sss}, 'brand',function(){
         $(this).click(function(){
           dealWith_Data_Brand();
-          console.log($(this));
         })
     });
+
+    _car.brand.selected = function(txt,val){
+        if(this.text !== txt){
+            _car.model.empty();
+            _car.series.empty();
+        }
+    }
+
     //车系
-    _car.series = new Select({label:'车系', popclose: true}, 'series',function(){
+    _car.series = new Select({label:'车系', popclose: true, star: sss}, 'series',function(){
         $(this).click(function(){
           if($("#brand").find("input").val())
             dealWith_Data_Series();
@@ -163,8 +184,14 @@ var bindEsti = function(){
         })
     });
 
+    _car.series.selected = function(txt,val){
+        if(this.text !== txt){
+            _car.model.empty();
+        }
+    }
+
     //型号
-    _car.model = new Select({label:'车型', popclose: true}, 'model',function(){
+    _car.model = new Select({label:'车型', popclose: true, star: sss}, 'model',function(){
         $(this).click(function(){
           if($("#series").find("input").val())
             dealWith_Data_Type();
@@ -174,7 +201,7 @@ var bindEsti = function(){
     });
 
     //上牌时间
-    _car.reg = new Text({label:'上牌时间'}, 'license',function(){
+    _car.reg = new Date({label:'上牌时间'}, 'license',function(){
 
     });
 
@@ -193,7 +220,7 @@ var bindEsti = function(){
 
     });
 
-    $('#now').click(function(){
+    $('#now_addcar').click(function(){
         checkValue()
     })
 }
@@ -224,9 +251,10 @@ function checkValue(ele){
       //form 提交数据
       uuu.form = {
           carid : _car.model.value,
-          carbrand: _car.brand.value,
+          carbrand: _car.brand.text,
+          carimage: _car.brand.value,
           carseries: _car.series.value,
-          cartype: _car.model.value,
+          cartype: _car.model.text,
           carengno: _car.engin.value||'',
           plateno: _car.number.value||'',
           carvin: _car.vin.value||'',
@@ -234,7 +262,18 @@ function checkValue(ele){
       }
 
       SA.setter('_GLOBAL',{index: uuu})
-      SA.setter('_LOCAL_USER',{usercar: [uuu.form]})
+      var local_user = SA.getter('_LOCAL_USER')
+    //   console.log(local_user);
+      if(local_user && local_user.data){
+          var local_data = local_user.data;
+          if(local_data && !local_data.error){
+              local_data.usercar = [uuu.form]
+              SA.append('_LOCAL_USER', local_data);
+          }else{
+              delete local_data.error;
+              SA.append('_LOCAL_USER',{usercar: [uuu.form]})
+          }
+      }
       router.goback()
     }
     else {
@@ -242,6 +281,7 @@ function checkValue(ele){
     }
 }
 var Esti = React.createClass(esti2)
+
 function renderDom(ele, cb){
     var element;
     if(typeof ele==='string')
@@ -253,7 +293,6 @@ function renderDom(ele, cb){
     else
         return;
 
-// console.log(addCarData);
     React.render(
         <Esti itemDefaultMethod={bindEsti} itemMethod={cb}/>,
         element

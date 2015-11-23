@@ -9,15 +9,20 @@ libs.addSheet([
 
 function radio(data, ele, cb){
 
-    this.value;
+    this.value = true;
     this.ipt;
-    this.name;    
+    this.name;
+    var _this = this;
+
+    function dm(){
+
+    }
 
     if(data===true)
         return Radio
     else{
         render(
-            <Radio  data={data} value={data.value} name={data.name}  itemMethod={cb} listClass={'form radio'}/>,
+            <Radio  data={data} value={data.value} name={data.name} itemDefaultMethod={dm}  itemMethod={cb} listClass={'form radio'}/>,
             document.getElementById(ele)
         )
     }

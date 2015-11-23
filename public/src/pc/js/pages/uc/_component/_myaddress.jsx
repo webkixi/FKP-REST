@@ -2,13 +2,15 @@ var libs = require('libs/libs');
 var ItemMixin = require('mixins/item');
 var FLi = require('widgets/itemView/f_li');
 var List = require('widgets/listView/list');
-var api = require('pages/_common/api');
+var api = require('libs/api');
 var store = require('mixins/store');
 var router = require('libs/router').router
 
 
 var myaddress;
 var _ComData = [];
+var _ori_results_data = []
+var _l_data, _l_user;
 // var json = require('./_myaddress.json');
 // myaddress = {
 //     body:[
@@ -34,8 +36,11 @@ var index = {
     mixins: [store('Index'),ItemMixin],
     render: function () {
         var fdiv;
+        var footer_div;
         if(_ComData.length)
           fdiv = <List data={_ComData} itemClass={'noclass'} itemMethod={abc} itemView={FLi}/>
+        else
+          footer_div = <a id="now" className={'btn-link'}>{'添加新地址'}</a>
 
         return(
             <div className={'index myaddress'}>
@@ -48,7 +53,7 @@ var index = {
                     </div>
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>{'添加新地址'}</a>
+                    {footer_div}
               </footer>
             </div>
         )
@@ -60,7 +65,9 @@ function abc(){
     var myaddressId = $(this).attr("data-id");
     var myaddressIdf = $(this).parents('li').attr("data-idf");
 
-    _ComData.splice(myaddressIdf,1)
+    console.log(myaddressIdf);
+    _ori_results_data.splice( myaddressIdf, 1 )
+    myaddressDate( _ori_results_data )
 
     var id = { id : myaddressId}
 
@@ -68,6 +75,16 @@ function abc(){
       SA.setter('Index',{data: _ComData} );
     })
   })
+}
+
+function init(ele, param, cb){
+    // SA.setter('_LOCAL_USER', [getData], [[ele, param, cb]]);
+    var luser = SA.getter('_LOCAL_USER')
+    if(luser.data.error==="-1")
+        SA.setter('_LOCAL_USER', [getData], [[ele, param, cb]]);
+    else{
+        getData(ele, param, cb)
+    }
 }
 
 function getData(ele, param, cb){
@@ -83,14 +100,16 @@ function getData(ele, param, cb){
       if(!_l_user.uid){
           _l_user = false;
       }
+      var uid;
+      if(_l_user)
+          uid = { uid: _l_user.uid}
 
-      if(_l_user){
-          var mobile = { mobile: _l_user.mobile}
-      }
-      if(mobile){
-        api.req('order_addr',mobile,function(data){
+      if(uid){
+        api.req('order_addr',uid,function(data){
           if(data.results){
-              myaddressDate(data.results, ele, cb)
+              _ori_results_data = data.results;
+              myaddressDate(data.results)
+              renderDom( ele, cb )
           }else{
             renderDom( ele, cb)
           }
@@ -112,42 +131,52 @@ function getData(ele, param, cb){
   // })
 }
 
-function myaddressDate(myaddrDate,ele, cb){
-  myaddrDate.map(function(itme, i){
-    myaddress =
-      {
-        body:[
-            {
-              k:itme.username,
-              v:itme.mobile
-            }
-        ],
-        footer: [
-          {
-              k: itme.province + itme.county + itme.city + itme.street,
-              v: <a className="ifont icon-next"></a>
-          }
-        ],
-        dot: [
-            <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.7rem"}} data-id={itme.id} data-aid={i}></a>,
-        ]
-    }
+function myaddressDate(myaddrDate){
+    console.log(myaddrDate);
+        _ComData=[]
+        myaddrDate.map(function(itme, i){
+        myaddress = {
+                body:[
+                    {
+                      k:itme.username,
+                      v:itme.mobile
+                    }
+                ],
+                footer: [
+                  {
+                      k: itme.province + itme.city + itme.county + itme.street,
+                      v: <a className=""></a>
+                  }
+                ],
+                dot: [
+                    <a className="ifont icon-deletefill" style={{right: "0.4rem", top: "0.9rem"}} data-id={itme.id} data-aid={i}></a>,
+                ]
+        }
+        _ComData.push(myaddress)
+      })
+      if(_ComData.length){
+        $('#now').hide();
+      }
+      console.log(_ComData);
 
-    _ComData.push(myaddress)
-  })
-  console.log(_ComData);
-  renderDom( ele, cb)
 }
 
 
 var bindIndex = function(){
-  $("#now").click(function(){
-    router('addaddress')
+    router.clear()
+  $('body').delegate('#now','click',function(){
+      router('addaddress')
   })
 }
 
 var Index = React.createClass(index);
+function router2back(){
+    router.cb = function(name){
+        WeixinJSBridge.call('closeWindow')
+    }
+}
 function renderDom(ele, data, cb){
+    router2back()
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)

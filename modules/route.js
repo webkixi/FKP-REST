@@ -194,7 +194,7 @@ function *uploader(){
 
 function *weixin(app){
     libs.clog('微信')
-    yield require('./weixin')('agzgz')
+    yield require('./weixin').call(this);
 }
 
 //上传数据
@@ -262,7 +262,8 @@ function *distribute(_mapper){
                 }
                 console.log('7777788888');
                 console.log(pageData);
-                if(pageData.errState && typeof pageData.errState!=='undefined' ) yield htmlRender.call(this,false,route);
+                if(pageData && pageData.errState && typeof pageData.errState!=='undefined' )
+                    yield htmlRender.call(this,false,route);
                 else{
 
                     // if(typeof pageData.errStat == 'undefined'){
@@ -314,10 +315,14 @@ function *htmlRender(stat,route,data){
 function *returnJson(stat,route,data){
     libs.clog('route.js/htmlRender/'+route);
     if (stat){
-        this.body = JSON.stringify(data);
+        if(data)
+            this.body = JSON.stringify(data);
+        else {
+            this.body = '{"error": -1, "message":"route/返回data不合法"}'
+        }
     }
     else
-        this.body = '{"stat": 0}';
+        this.body = '{"error": -1, "message": "route/stat状态为false"}';
 }
 
 

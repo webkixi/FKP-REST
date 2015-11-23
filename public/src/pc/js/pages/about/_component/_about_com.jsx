@@ -3,6 +3,7 @@ var Uls = require('modules/tabs/_component/uls')('Fours');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
+var router = require('libs/router').router
 
 var myabout = [
     {
@@ -68,7 +69,7 @@ var index = {
             <div className={'wrapper'}>
               <div className={'row'}>
                 <div className={'about'}>
-                  <h2>{'关于车叮咚'}</h2>
+                  <h2>{'关于河马云汽'}</h2>
                   <div className={'about_zw com_about'}>
                     <div className={'ser_abot'}>
                       <ul className={'hlist'}>
@@ -86,7 +87,18 @@ var index = {
 
 var Index = React.createClass(index)
 
+function bindIndex(){
+    router.clear()
+}
+
+function router2back(){
+    router.cb = function(name){
+        WeixinJSBridge.call('closeWindow')
+    }
+}
+
 function renderDom(ele, cb){
+    router2back()
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
@@ -98,7 +110,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemMethod={cb}/>,
+        <Index itemDefaultMethod={bindIndex} itemMethod={cb}/>,
         element
     )
 }

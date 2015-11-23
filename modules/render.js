@@ -18,6 +18,7 @@ function setRender(stat){
           	map: { html: 'handlebars' }
         });
     }else{
+        console.log('++++++++++++&&&&&&&&&&&&&&');
         return render = views(config.static.html, {
           	map: { html: 'handlebars' }
         });

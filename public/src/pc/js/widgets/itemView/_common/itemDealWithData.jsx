@@ -175,7 +175,10 @@
             }
 
             if(k2&&k2!=''){
-                headerDom = <div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>
+                if(React.isValidElement(k2))
+                    headerDom = <div className={"hheader"}>{k2}</div>
+                else
+                    headerDom = <div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>
             }
 
             if(bodys.length){
@@ -303,7 +306,11 @@
                     }
 
                     if(k2&&k2!=''){
-                        headerDom = <div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div>
+
+                        if(React.isValidElement(k2))
+                            headerDom = <div className={"hheader"}>{k2}</div>
+                        else
+                            headerDom = <div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div>
                     }
 
                     if(bodys.length){

@@ -2,7 +2,7 @@ var libs = require('libs/libs');
 var Pt = require('widgets/itemView/f_li');
 var ItemMixin = require('mixins/item');
 var List = require('widgets/listView/list');
-var api = require('pages/_common/api');
+var api = require('libs/api');
 var pop = require('modules/pop/index');
 var store = require('mixins/store');
 var router = require('libs/router').router
@@ -28,7 +28,7 @@ var esti2 = {
                     <div id="engin"></div>
                 </article>
                 <footer>
-                    <a id="now" className={'btn-link'}>添加车辆</a>
+                    <a id="now" className={'btn-link'}>保存车辆</a>
                 </footer>
             </div>
         )
@@ -40,8 +40,11 @@ function dealWith_Data_Brand(){
     var nav = [];
     var resaults = []
     var rtnDom;
+
     api.req('queryallbrand',{}, function(data){
+      console.log(data);
         if(data.code && data.code===1){
+        //   console.log(data);
             var tmp = {};
             data.results.map(function(item, i){
               var key = item.carfirstname;
@@ -49,7 +52,7 @@ function dealWith_Data_Brand(){
                 tmp[key]=[];
 
               tmp[key].push(
-                item.carbrand
+                [item.carbrand, item.carimage]
               )
             })
             nav = Object.keys(tmp);
@@ -59,8 +62,8 @@ function dealWith_Data_Brand(){
                    tmp[item].map(function(unit, j){
                      tmp_foot.push({
                        attr: 'select',
-                       k: unit,
-                       v: unit
+                       k: <span><span><img src={'/images/logo/'+unit[1]} className={'img'}/></span>{unit[0]}</span>,
+                       v: unit[1]
                      })
                    })
                     resaults.push(
@@ -82,7 +85,9 @@ function dealWith_Data_Series(){
     var results = []
     var rtnDom;
     var nav = [];
-    pn = { carbrand: $("#brand").find("input").val()}
+    // _car.model.empty();
+    // pn = { carbrand: $("#brand").find("input").val()}
+    pn = { carbrand: _car.brand.text}
     api.req('queryseries',pn, function(data){
       if(data.code && data.code===1){
         var tmp = [];
@@ -138,18 +143,26 @@ function dealWith_Data_Type(){
 
 var _car = {};
 var bindEsti = function(){
+    router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
 
     //品牌
-    _car.brand = new Select({label:'品牌', popclose: true}, 'brand',function(){
+    var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
+    _car.brand = new Select({label:'品牌', popclose: true, star: sss}, 'brand',function(){
         $(this).click(function(){
           dealWith_Data_Brand();
         })
     });
+    _car.brand.selected = function(txt,val){
+        if(this.text !== txt){
+            _car.model.empty();
+            _car.series.empty();
+        }
+    }
 
     //车系
-    _car.series = new Select({label:'车系', popclose: true}, 'series',function(){
+    _car.series = new Select({label:'车系', popclose: true, star: sss}, 'series',function(){
         $(this).click(function(){
           if($("#brand").find("input").val())
             dealWith_Data_Series();
@@ -157,9 +170,14 @@ var bindEsti = function(){
             SA.setter('Pop',{data:{body:'请先选择品牌', display:'block'}})
         })
     });
+    _car.series.selected = function(txt,val){
+        if(this.text !== txt){
+            _car.model.empty();
+        }
+    }
 
     //型号
-    _car.model = new Select({label:'车型', popclose: true}, 'model',function(){
+    _car.model = new Select({label:'车型', popclose: true, star: sss}, 'model',function(){
         $(this).click(function(){
           if($("#series").find("input").val())
             dealWith_Data_Type();
@@ -219,9 +237,10 @@ function checkValue(ele){
       //form 提交数据
       uuu.form = {
           carid : _car.model.value,
-          carbrand: _car.brand.value,
+          carbrand: _car.brand.text,
+          carimage: _car.brand.value,
           carseries: _car.series.value,
-          cartype: _car.model.value,
+          cartype: _car.model.text,
           carengno: _car.engin.value||'',
           plateno: _car.number.value||'',
           carvin: _car.vin.value||'',
@@ -231,12 +250,13 @@ function checkValue(ele){
           mobile: "18002278121"
       }
 
-      //SA.setter('_GLOBAL',{index: uuu})
+    //   SA.setter('_GLOBAL',{index: uuu})
       var fff = libs.extend(uuu.form)
       console.log(fff);
+      SA.append('_LOCAL_USER',{usercar:[fff]})
       api.req('useraddcar',{type: 'insert', data:fff},function(data){
         console.log(data)
-        router.goback()
+        router('/uc.html#mycar')
       })
     }
     else {

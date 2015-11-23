@@ -6,11 +6,13 @@ var store = require('mixins/store');
 var router = require('libs/router').router
 
 var _order_Date_act = [];
+var _form = {};
 
 var order_status = SA.getter('_GLOBAL').data.data.status;
 function getData(ele, param, cb){
   var order_id = SA.getter('_GLOBAL').data.data.orderids;
   var orderid = { orderid : order_id}
+
   api.req('myorder_info',orderid, function(data){
     orderInfodata(data.results, ele, cb)
   })
@@ -34,7 +36,7 @@ function orderInfodata(orderInfo, ele, cb){
    order_data =
   {
      title: "headerpic",
-     img: "/images/demo/aclass/b2.jpg",
+     img: "/images/getheadimg.jpeg",
      body:[
          {
              k: orderInfo[0].username,
@@ -86,6 +88,7 @@ var estimate = {
 }
 
 function defaultMethod(){
+    router.clear()
     $('.profile .carlog .hbody p').each(function(i, item){
         if(i%2===0){
             $(item).css({

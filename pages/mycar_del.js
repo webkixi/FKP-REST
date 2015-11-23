@@ -4,7 +4,7 @@ var api = require('../apis/javaapi');
 var rct = require('../modules/parseReact');
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/order_deladdr')
+    libs.wlog('pages/mycar_del')
     var dataSet = {};
     var infoCat =[];
     var mtd = this.method;
@@ -59,40 +59,31 @@ function *demoIndexData(oridata){
         //   ]
         // }
         var body = yield libs.$parse(this);
-        console.log(body.usercarid);
-        console.log("bbbbbbbbbbbbbbbb");
         var postdata = {
             "common": {
                 "session": "222",
                 "uid": 12
             },
             "content": [{
-              "id": body.id
+              "usercarid": body.usercarid
             }]
 
         }
-        if(body){
-            if(body.type){
-                if(body.type==='delete')
-                console.log(postdata);
-                    postdata.content[0] = body.data;
-            }
-        }
-        postdata.content[0].id = parseInt(postdata.content[0].id)
-        var orderdata = yield api.pullApiData('order_deladdr', postdata, 'post');
-        console.log(orderdata[1]);
 
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // // serviceData[1].results.push(qd);
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
-        return orderdata[1];
+        if(body){
+          if(body.type){
+              if(body.type==='delete')
+                  postdata.content[0] = body.data;
+          }
+          postdata.common.uid = parseInt(postdata.common.uid)
+          postdata.content[0].usercarid = parseInt(postdata.content[0].usercarid)
+          var orderdata = yield api.pullApiData('mycar_del', postdata, 'post');
+          console.log(orderdata[1]);
+          return orderdata[1];
+        }else{
+          return {error: '102', message: "body没有存在"}
+        }
+
     }
 
 

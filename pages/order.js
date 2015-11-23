@@ -86,33 +86,32 @@ function *demoIndexData(oridata){
                     postdata.content[0] = body.data;
 
             }
+            if(postdata.content[0].car.usercarid)
+                postdata.content[0].car.usercarid = parseInt(postdata.content[0].car.usercarid)
+            postdata.content[0].addr.id = parseInt(postdata.content[0].addr.id)
+            postdata.content[0].car.carid = parseInt(postdata.content[0].car.carid)
+            // postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
+
+            console.log('all----------');
+            console.log(postdata);
+            console.log('userinfo----------');
+            console.log(postdata.content[0].user);
+            console.log('订单----------');
+            console.log(postdata.content[0].orderdetail);
+            console.log('car----------');
+            console.log(postdata.content[0].car);
+            console.log('addr----------');
+            console.log(postdata.content[0].addr);
+
+            var orderdata = yield api.pullApiData('orderins', postdata, 'post');
+            console.log(orderdata[1]);
+            return orderdata[1]
         }
-        postdata.content[0].carid = parseInt(postdata.content[0].carid)
-        postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
-
-        console.log(postdata);
-        console.log('userinfo----------');
-        console.log(postdata.content[0].userinfo);
-        console.log(postdata.content[0].orderdetail);
+        else{
+            return {error: '100', message: "body为空"}
+        }
 
 
-
-
-
-        var orderdata = yield api.pullApiData('orderins', postdata, 'post');
-        console.log(orderdata[1]);
-        return orderdata[1]
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // // serviceData[1].results.push(qd);
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
-        // return oridata;
     }
 
 

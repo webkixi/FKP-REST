@@ -42,11 +42,9 @@ var textForm = {
 		var body;
 		var append;
 		var cls='body';
+		var star=''
 		if(this.state.data){
 			var theData = this.state.data;
-			if(theData.label)
-				label = <label>{theData.label}</label>
-
 			if(theData.placeholder)
 				placeholder = theData.placeholder
 
@@ -57,6 +55,13 @@ var textForm = {
 			if(theData.class){
 				cls = cls + ' ' +theData.class;
 			}
+
+			if(theData.star){
+				star = theData.star
+			}
+
+			if(theData.label)
+				label = <label>{theData.star}{theData.label}</label>
 
 			body = theData.body||'没有传入数据'
 		}

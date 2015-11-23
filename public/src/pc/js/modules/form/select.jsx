@@ -14,6 +14,7 @@ function select(data, ele, cb){
     this.value;
     this.text;
     this.ipt;
+    this.selected;
     var _this = this;
 
 
@@ -29,7 +30,8 @@ function select(data, ele, cb){
         _this.value = ''
         _this.text = ''
         _this.stat = false;
-        $(_this.ipt).find('span').text('')
+        $(_this.ipt).find('.body span').removeClass('active')
+        $(_this.ipt).find('.body span').text('请选择')
     }
 
     var close = true;
@@ -41,15 +43,20 @@ function select(data, ele, cb){
             var the = this;
             $("#pop-box").undelegate("p", "click")
             input = $(this).find('input')
+
+            //弹窗中p的data-src为select时，会响应点击
             $("#pop-box").delegate("p", "click", function(){
                 if($(this).attr('data-src')==='select'){
                     var val = $(this).attr('data-value')
                     var text = $(this).text();
+                    if(_this.selected && typeof _this.selected==='function')
+                        _this.selected.call(_this,text,val)
                     _this.stat = true;
+                    $(_this.ipt).removeClass('error')
                     _this.value = val;
                     _this.text = text;
                     $(input).val(val)
-                    $(the).find('span').addClass("active").text(text)
+                    $(the).find('.body span').addClass("active").text(text)
                     if(close)
                         SA.setter('Pop',{data:{display:'none'}})
                 }

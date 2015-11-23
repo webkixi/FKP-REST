@@ -1,0 +1,18 @@
+@import "./form_base";
+.form{
+    padding: 2%;
+    &.text{
+        .form_unit;
+        .body{
+            border: 2px solid #ddd;
+            height: 1.08rem;
+            width: 73%;
+            padding: 2% 0.4%;
+        }
+        &.error{
+            .body{
+                border: 2px solid red;
+            }
+        }
+    }
+}

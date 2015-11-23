@@ -64,6 +64,7 @@ var estimate = {
 var Esti = React.createClass(estimate)
 
 function defaultMethod(){
+    router.clear()
     $('.profile .hbody p').each(function(i, item){
         if(i%2===0){
             $(item).css({

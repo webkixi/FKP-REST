@@ -59,9 +59,6 @@ function *demoIndexData(oridata){
         // }
         var postdata = {
             "common": {
-              "session": "11111",
-              "uid": 0,
-              "logintype":"0",
               "smscode":"123456"
             },
             "content": [
@@ -80,21 +77,11 @@ function *demoIndexData(oridata){
                     postdata.common.smscode = code;
             }
         }
-        console.log(postdata);
         var orderdata = yield api.pullApiData('mobilecode', postdata, 'post');
-        console.log(orderdata[1]);
+        if(orderdata[1].results)
+            this.sess.user = orderdata[1].results[0];
 
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // // serviceData[1].results.push(qd);
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
-        return oridata;
+        return orderdata[1];
     }
 
 

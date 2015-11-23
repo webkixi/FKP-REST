@@ -686,13 +686,13 @@ module.exports = {
                 */
                 function parseHbs(){
                   var parseTemplet = true;
-                  if(options.env){
+                  if ( options.env ) {
                       clog('parse hbs:' + options.env)
-                      if(options.env === 'pro')
+                      if ( options.env === 'pro')
                           parseTemplet = false;
                   }
 
-                  gulp. src(tmpValue,{ base: baseHtmlPath })
+                  gulp.src(tmpValue,{ base: baseHtmlPath })
                   .pipe (function(){
                       function testfun(file,enc,cb){
                           var ext_name = path.parse(file.path).ext.replace('.','');

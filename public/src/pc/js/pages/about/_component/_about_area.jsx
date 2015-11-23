@@ -3,6 +3,7 @@ var Uls = require('modules/tabs/_component/uls')('Fours');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
+var router = require('libs/router').router
 
 var myabout = [
     {
@@ -82,9 +83,9 @@ var index = {
                 <div className={'about'}>
                   <h2>{'服务区域'}</h2>
                   <div className={'about_zw area_about'}>
-                    <h3>{'车叮咚服务范围'}<em>{'有您的地方就有车叮咚'}</em></h3>
+                    <h3>{'河马云汽服务范围'}<em>{'有您的地方就有河马云汽'}</em></h3>
                     <div className={'ser_abot'}>
-                      <h4>{'目前车叮咚养车已经覆盖全广州'}</h4>
+                      <h4>{'目前河马云汽养车已经覆盖全广州'}</h4>
                       <ul className={'hlist'}>
                         {myabout_data}
                         <li className={'item wid-4 del-wz'}>
@@ -105,7 +106,18 @@ var index = {
 
 var Index = React.createClass(index)
 
+function bindIndex(){
+    router.clear()
+}
+
+function router2back(){
+    router.cb = function(name){
+        WeixinJSBridge.call('closeWindow')
+    }
+}
+
 function renderDom(ele, cb){
+    router2back()
     var element;
     if(typeof ele==='string')
         element = document.getElementById(ele)
@@ -117,7 +129,7 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemMethod={cb}/>,
+        <Index itemDefaultMethod={bindIndex} itemMethod={cb}/>,
         element
     )
 }

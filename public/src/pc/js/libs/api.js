@@ -2,12 +2,15 @@ var libs = require('libs/libs')
 var qs = require('querystring');
 var src = "/";
 var demoSrc = "http://mock.agzgz.com/";
+
 var apiPath = {
     base: src,
     dirs: {
         service: src+'service',   //小保养
         parts: src+'parts',   //小保养
-        queryallbrand: src+'queryallbrand'   //汽车品牌
+        queryallbrand: src+'queryallbrand',   //汽车品牌
+        queryseries: src+'queryseries',   //汽车品牌
+        querycartype: src+'querycartype'   //汽车品牌
 
 
         ,region: src+'region'   //获取地区信息
@@ -23,7 +26,14 @@ var apiPath = {
         ,mycarlist: src+'mycarlist'     //我的车列表
         ,mycar_del: src+'mycar_del'     //删除车辆
 
+        ,order_addr: src+'order_addr'
+        ,order_addaddr: src+'order_addaddr'
+        ,order_deladdr: src+'order_deladdr'
+
+        ,washcar: src+'washcar'
+
         ,login: src+'login'   //获取登陆用户信息
+        ,carchecking: src+'carchecking'   //订单列表
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=
@@ -53,6 +63,8 @@ function req( api, param, cb ){
                 if( status === 'success' ) cb( body ) ;
             }, "json")
         }
+    }else{
+      console.log("api没有定义");
     }
 }
 

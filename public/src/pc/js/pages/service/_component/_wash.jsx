@@ -3,41 +3,22 @@ var Uls = require('modules/tabs/_component/uls')('Fours');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
-
-var mycar = [
-  {
-    title : '宝马7系（进口）760 Li 6.0T 2009-2014',
-    img : '/images/service/bmw_icon.png'
-  }
-]
-var mycar_data = []
-mycar.map(function(item,i){
-  mycar_data.push(
-    <li key={'mycar'+i}>
-      <div className={'hhead'}>
-        <img src={mycar[i].img} />
-      </div>
-      <div className={'hbody'}>
-        <p>{mycar[i].title}</p>
-        <div className={'dot'}><i className={'ifont icon-next'}></i></div>
-      </div>
-    </li>
-  )
-})
-
+var api = require('libs/api');
+var store = require('mixins/store');
+var router = require('libs/router').router
 
 var wash_service_mycar = [
     {
         body:[
             {
                   k: '外观清洗',
-                v: <span>￥{'5'}<i className="ifont icon-next"></i></span>
+                v: <span>￥{'30'}<i className="ifont icon-next"></i></span>
             }
         ],
         footer: [
             {
                 k: '洗车工时费',
-                v: <span>￥{'5'}</span>
+                v: <span>￥{'30'}</span>
             }
         ]
     }
@@ -48,6 +29,7 @@ function abcd(){
     var the = this;
     var the_footer;
     var the_i;
+    $(the).find('.hfoot').addClass("u-table")
     $(the).find('.hbody').click(function(){
         the_i = $(this).find('i');
         the_footer = $(the).find('.hfoot');
@@ -61,18 +43,31 @@ function abcd(){
 
 var index = {
     mixins: [ItemMixin],
-    chkClick: function(){
-        var chkspan = React.findDOMNode(this.refs.chkspan);
-        $(chkspan).toggleClass('active');
-
-        var chkb = React.findDOMNode(this.refs.chkb);
-        if($(chkspan).hasClass('active'))
-            chkb.value="1"
-        else {
-            chkb.value="0"
-        }
-    },
     render: function () {
+        var mycar_data = [];
+        // mycar1 = SA.getter('_GLOBAL').data.index;
+        var carcar = _l_user.usercar[0];
+        var mycar = [
+          {
+            title : carcar.carbrand+' '+carcar.carseries+' '+carcar.cartype,
+            img : '/images/service/bmw_icon.png'
+          }
+        ]
+
+        mycar.map(function(item,i){
+          mycar_data.push(
+            <li key={'mycar'+i}>
+              <div className={'hhead'}>
+                <img src={mycar[i].img} />
+              </div>
+              <div className={'hbody'}>
+                <p>{mycar[i].title}</p>
+                <div className={'dot'}><i className={'ifont icon-next'}></i></div>
+              </div>
+            </li>
+          )
+        })
+
         return(
           <div className={'body'}>
             <div className={'wrapper'}>
@@ -96,8 +91,8 @@ var index = {
                 <div className={'container'}>
                   <ul>
                     <li className={'wid-8'}>
-                      <span className={'foot_money'}>{'总价'}<i>{'￥35'}</i></span>
-                      <span>{'￥5'}</span>
+                      <span className={'foot_money'}>{'总价'}<i>{'￥50'}</i></span>
+                      <span>{'￥30'}</span>
                     </li>
                     <li className={'wid-4'}>
                       <a  className={'btn-link'}>{'下一步'}</a>
@@ -111,7 +106,108 @@ var index = {
     }
 }
 
+//dom写入后，绑定相关的方法
+var bindIndex = function(){
+
+    $("#now").click(function(){
+        var orderData;
+        orderData.footer.map(function(item, i){
+            if(item.o){
+                var pno = item.o.partstypeno||'';
+                _form.orderdetail.push({
+                    partsno: item.o.partsno,
+                    no: pno,
+                    userprice: item.o.discountprice,
+                    name: item.k,
+                    count: 1
+                })
+            }
+        })
+
+        var form = {};
+
+        //car form
+        carData = _l_user
+        ? _l_user.usercar[0]
+        : SA.getter('_GLOBAL').data.index.form
+        form = libs.extend({}, _form)
+        form.car = carData;
+        //other form
+        // form.openid = "wx766666";
+        orderData.form = form;
+        SA.setter('_GLOBAL', { index: orderData } )
+        router("order")
+    })
+}
+
 var Index = React.createClass(index)
+
+function init(ele, param, cb){
+    SA.setter('_LOCAL_USER', getData, [ele, param, cb]);
+}
+
+function getData(ele, param, cb){
+
+    var index = SA.getter('_GLOBAL').data.index;
+    var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
+    if(_l_data){
+        _l_user = _l_data.data;
+
+        if(_l_user.error){
+            _l_user = false;
+        }
+    }
+    if(!_l_user && !index){
+        router('addcar');
+    }else{
+        if(!_l_user.usercar && !index){
+            router('addcar');
+        }
+        else{
+            var caridData = _l_user.usercar[0] || index.form;
+            var carid = { carid: caridData.carid}
+            console.log('SSSSSSX');
+            console.log(carid);
+            api.req('washcar', carid, function(data){
+                console.log(data);
+                if(data.code && data.code===1){
+                    organizeData(data.results[0], ele, cb)
+                }
+            })
+        }
+    }
+
+}
+
+function organizeData(oridata, ele, cb){
+    // _totolpic =carcheck_data[0].workprice;
+    // carcheck_Title = {
+    //     body:[
+    //       {
+    //         k: '全车检测',
+    //         v: <p>￥{_totolpic}<i className="ifont icon-next"></i></p>
+    //       }
+    //     ],
+    //     footer: []
+    // }
+    // var z = Object.keys(tmp);
+    // var ggg = []
+    // z.map(function(item, i){
+    //   ggg = ggg.concat(tmp[item])
+    //
+    // })
+    //
+    // carcheck_Title.body = ggg
+    // carcheck_Title.footer.push(
+    //   {
+    //     k: '工时费',
+    //     v: <span>￥{_totolpic}</span>,
+    //     s: _totolpic
+    //   }
+    // )
+    renderDom( ele, cb)
+}
+
 
 function renderDom(ele, cb){
     var element;
@@ -125,9 +221,9 @@ function renderDom(ele, cb){
         return;
 
     React.render(
-        <Index itemMethod={cb}/>,
+        <Index itemDefaultMethod={bindIndex} itemMethod={cb}/>,
         element
     )
 }
 
-module.exports = renderDom;
+module.exports = init;

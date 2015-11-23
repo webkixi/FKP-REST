@@ -26,9 +26,11 @@ function index(){
           var check_line = _this.attr("data-check");
             // window.location.href="/" + check_line;
           if(check_line == "car_fixed"){
-            window.location.href="http://www.che300.com/car_front";
+              router('http://www.che300.com/car_front')
+            // window.location.href="http://www.che300.com/car_front";
           }else{
-            window.location.href="/" + check_line;
+              router('/'+check_line)
+            // window.location.href="/" + check_line;
           }
         })
       })

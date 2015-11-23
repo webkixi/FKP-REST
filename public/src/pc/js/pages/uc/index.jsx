@@ -23,7 +23,11 @@ libs.addSheet([
 
 function init(){
     var url = libs.urlparse(location.href)
-    if(!url.hash){
+    if(url.params.hash){
+        var hash = url.params.hash
+        router(hash)
+    }
+    else if(!url.hash){
         router('index')
     }else{
         var hash = url.hash

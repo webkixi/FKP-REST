@@ -60,7 +60,7 @@ function *demoIndexData(orderdata){
         var postdata = {
             "common": {
               "session": "11111",
-              "uid": 1
+              "uid": '111'
             },
             "content": [
               {
@@ -69,19 +69,30 @@ function *demoIndexData(orderdata){
             ]
         }
         var body = yield libs.$parse(this);
-        if(body){
-            if(body.type){
-                if(body.type==='insert')
-                    postdata.content[0] = body.data;
-            }
-        }
-        postdata.content[0].carid = parseInt(postdata.content[0].carid)
-        postdata.content[0].carrunkm = parseInt(postdata.content[0].carrunkm)
-        console.log(postdata);
-        var orderdata = yield api.pullApiData('useraddcar', postdata, 'post');
-        console.log(orderdata[1]);
 
-        return orderdata[1];
+        if(!this.sess.user){
+          console.log("----------用户不存在-----------");
+          return {error: '101', message: "用户不存在"}
+        }
+
+        if(body){
+          if(body.type){
+              if(body.type==='insert')
+                  postdata.content[0] = body.data;
+          }
+          postdata.common.uid = parseInt(this.sess.user.uid)
+          postdata.content[0].carid = parseInt(postdata.content[0].carid)
+          postdata.content[0].carrunkm = parseInt(postdata.content[0].carrunkm)
+          var orderdata = yield api.pullApiData('useraddcar', postdata, 'post');
+          console.log(orderdata[1]);
+          return orderdata[1];
+
+        }else{
+          return {error: '102', message: "body没有存在"}
+        }
+
+
+
     }
 
 
