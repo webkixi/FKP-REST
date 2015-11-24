@@ -1,4 +1,22 @@
 @import "../../global/base/_css3";
+//时间插件
+@import "../datescroll/mobiscroll.animation.css";
+@import "../datescroll/mobiscroll.frame.css";
+@import "../datescroll/mobiscroll.frame.android.css";
+@import "../datescroll/mobiscroll.frame.android-holo.css";
+@import "../datescroll/mobiscroll.frame.ios-classic.css";
+@import "../datescroll/mobiscroll.frame.ios.css";
+@import "../datescroll/mobiscroll.frame.ios-classic.css";
+@import "../datescroll/mobiscroll.frame.wp.css";
+@import "../datescroll/mobiscroll.scroller.css";
+@import "../datescroll/mobiscroll.scroller.android.css";
+@import "../datescroll/mobiscroll.scroller.android-holo.css";
+@import "../datescroll/mobiscroll.scroller.ios-classic.css";
+@import "../datescroll/mobiscroll.scroller.ios.css";
+@import "../datescroll/mobiscroll.scroller.wp.css";
+@import "../datescroll/mobiscroll.android-holo-light.css";
+@import "../datescroll/mobiscroll.wp-light.css";
+
 @mixin form_unit {
     width: 96%;
     line-height: 1.5rem;
