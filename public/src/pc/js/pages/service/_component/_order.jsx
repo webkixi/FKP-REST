@@ -433,6 +433,7 @@ var bindIndex = function(){
                     payment(data.results[0])
                 }
                 if(data && data.code === 536){
+                    submit_stat = false;
                     SA.setter('Pop',{data:{body:'请正确填写短信验证码',display:'block'}} )
                 }
             })

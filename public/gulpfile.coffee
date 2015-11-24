@@ -36,6 +36,7 @@ gulp.task 'ie:dev', getTask('ie')
 
 # common.css
 gulp.task 'commoncss:dev', getTask('css-common')
+gulp.task 'testcss', getTask('css-common')
 
 # page.css  合并雪碧图
 # gulp.task 'pagecss:dev', getTask('css-pages')

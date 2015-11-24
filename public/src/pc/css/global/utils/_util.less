@@ -1,0 +1,180 @@
+// @import "../_settings/_setting_pages";
+@import "../_less/index";
+
+/**
+ * @tofishes 2015年04月14日 增加一些注释
+ *
+ * 前缀u-表示util，工具类前缀
+ */
+// .u-wrap {
+//   @include wrapper(12,true);
+// }
+// .u-wrap_small {
+//   width:1200*$px;
+//   margin:auto;
+// }
+// 清除浮动
+.centerBlock(){
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.u-clearfix {
+  .clearfix();
+  *zoom: 1;
+}
+//
+.u-clearfixs,.cl{
+  position: relative
+}
+
+//删除线
+.u-del{
+  text-decoration:line-through;
+}
+
+.container {
+    &:extend( .centerBlock );
+    padding-left: 15px;
+    padding-right: 15px;
+}
+// @media (min-width: 768px) {
+//   .container {
+//     width: 750px;
+//   }
+// }
+// @media (min-width: 992px) {
+//   .container {
+//     width: 970px;
+//   }
+// }
+// @media (min-width: 1200px) {
+//   .container {
+//     width: 1170px;
+//   }
+// }
+
+
+// class span1-$gridColumns
+// span的class循环输出，通过变量$gridSpanSwitch来控制是否输出
+//-----------------------------------------------------
+
+
+
+.getwidth(@columns, @total-columns) {
+  width: percentage((@columns / @total-columns));
+}
+
+.loop-grid-common(@name, @total-columns, @gutter){
+    .col(@index){
+        @item: ~"@{name}@{index}";
+        .col((@index+1), @item);
+    }
+    .col(@index, @list) when (@index <= @total-columns){
+        @item: ~"@{name}@{index}";
+        .col((@index+1), ~"@{list}, @{item}");
+    }
+    .col(@index, @list) when (@index > @total-columns){
+        @{list}{
+            position: relative;
+            float: left;
+            min-height: 1px;
+            padding-left:  (@gutter / 2);
+            padding-right: (@gutter / 2);
+        }
+    }
+    .col(1);
+}
+
+// Basic looping in LESS
+.loop-grid(@name, @index, @total-columns) when (@index >= 0) {
+    @{name}@{index} {
+        .getwidth( @index, @total-columns );
+    }
+    .loop-grid(@name, (@index - 1), @total-columns);
+}
+
+.make-grid(@name, @total-columns, @gutter){
+    .loop-grid-common(@name, @total-columns, @gutter);
+    .loop-grid(@name, @total-columns, @total-columns);
+}
+
+.make-grid(~".span", 12, 4%);
+.make-grid(~'.span10-', 10, 4%);
+.make-grid(~'.wid10-', 10, 0);
+.make-grid(~'.wid-', 12, 0);
+
+// @if $gridSpanSwitch {
+//   @for $i from 1 through $gridColumns {
+//     .span#{$i} {
+//       @extend %float;
+//       @extend %margin-gutter;
+//       position: relative;
+//
+//       width:getWidth($i);
+//
+//       @if $gridPercentSwitch and $lte7{
+//         *width:getWidth($i) - $gridCorrection;
+//       }
+//     }
+//   }
+// }
+
+
+//lgh 20150813
+// @if $gridSpanSwitch2 {
+//   @for $i from 1 through $gridColumns2 {
+//     .span10-#{$i} {
+//       @extend %float;
+//       @extend %margin-gutter2;
+//       position: relative;
+//
+//       width:getWidth2($i);
+//
+//       @if $gridPercentSwitch2 and $lte7{
+//         *width:getWidth2($i) - $gridCorrection;
+//       }
+//     }
+//   }
+//   .span_ul{
+//      @extend %margin-gutter-2;
+//   }
+// }
+
+
+
+// @if $gridRemSwitch {
+//   .remrow{
+//       @include clearfix;
+//       @extend %clearfix;
+//       width: 100%;
+//       margin-bottom: 0.2rem;
+//   }
+//   $tmp: 1.15rem;
+//   @for $i from 1 through $gridColumns {
+//     .col-#{$i} {
+//         @extend %float;
+//         padding: 0.2rem;
+//         position: relative;
+//
+//         width:getRem($i);
+//     }
+//     .row-#{$i} {
+//         height:getRem($i,false);
+//     }
+//   }
+// }
+
+
+
+// lgh 20150708
+// @if $gridWidSwitch {
+//   @for $i from 1 through $gridColumns {
+//     .wid-#{$i} {
+//       @extend %float;
+//       position: relative;
+//
+//       width:getwidthNomargin($i);
+//     }
+//   }
+// }

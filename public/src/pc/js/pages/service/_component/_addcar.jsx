@@ -2,11 +2,10 @@ var libs = require('libs/libs');
 var Pt = require('widgets/itemView/f_li');
 var ItemMixin = require('mixins/item');
 var List = require('widgets/listView/list');
-var api = require('libs/api');
+var api = require('pages/_common/api');
 var pop = require('modules/pop/index');
 var store = require('mixins/store');
 var router = require('libs/router').router
-
 
 var _addcar =[];
 var pn;
@@ -158,8 +157,8 @@ var bindEsti = function(){
     router2index()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
-    var Datemobile = require('modules/form/dateMobile');
-    console.log(Datemobile);
+    var Date = require('modules/form/date');
+
     //品牌
     var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
     _car.brand = new Select({label:'品牌', popclose: true, star: sss}, 'brand',function(){
@@ -201,42 +200,10 @@ var bindEsti = function(){
         })
     });
 
-    function formatDate(timer){
-        var tt = new Date(timer);
-        console.log(tt);
-        var year = tt.getFullYear();
-        var date = tt.getDate();
-        var month = tt.getMonth();
-        var hours = tt.getHours();
-        var minutes = tt.getMinutes();
-        var seconds = tt.getSeconds();
-        return {
-            year: year,
-            month: month+1,
-            date: date,
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds
-        }
-    }
+    //上牌时间
+    _car.reg = new Date({label:'上牌时间'}, 'license',function(){
 
-    var tt;
-    api.req('getservtime', function(data){
-        tt = data;
-        // var ttt = formatDate(tt.timer);
-        // var $min = ttt.year+'-'+ttt.month+'-'+ttt.date
-        // var $max = ttt.year+'-'+ttt.month+'-'+(ttt.date+3)
-        var ttt = tt.timer;
-        var n_ttt = ttt + 24*60*60*1000*2;
-        _car.license = new Datemobile({label:'上牌时间'}, 'license',function(){
-            console.log(new Date(tt));
-            $(this).mobiscroll().date({
-                minDate: new Date(ttt),
-                maxDate: new Date(n_ttt)
-            });
-        });
-    })
-
+    });
 
     //车牌号
     _car.number = new Text({label:'车牌号'}, 'number',function(){

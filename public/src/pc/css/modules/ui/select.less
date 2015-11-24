@@ -1,0 +1,26 @@
+@import "./form_base";
+.form{
+    padding: 2%;
+    &.select{
+        // .form_unit();
+        .form_unit();
+        .body{
+          span{
+            display: inline-block;
+            width: auto;
+            white-space: nowrap;
+            overflow: hidden;
+            line-height:1;
+            color: #ccc;
+            &.active{
+              color: #333;
+            }
+          }
+        }
+        &.error{
+            .body{
+                border: 2px solid red;
+            }
+        }
+    }
+}

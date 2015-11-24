@@ -17,7 +17,7 @@ function weixin(){
         console.log(message.Content.indexOf('保养')>-1);
 
         if(message.Content.indexOf('保养')>-1){
-            this.body = '河马汽车'
+            this.body = '<a href="http://ch.dabai360.com">河马云汽</a>'
         }
 
 

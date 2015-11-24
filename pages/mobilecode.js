@@ -78,20 +78,9 @@ function *demoIndexData(oridata){
             }
         }
         var orderdata = yield api.pullApiData('mobilecode', postdata, 'post');
-        console.log(orderdata[1]);
-        this.sess.user = orderdata[1].results[0];
-        console.log(orderdata[1]);
+        if(orderdata[1].results)
+            this.sess.user = orderdata[1].results[0];
 
-        // var qcjc = libs.$extend(true, {}, postdata);
-        // qcjc.content[0].ServiceTypeNo = 'FW0003';
-        //
-        // var qcjcdata = yield api.pullApiData('service', qcjc, 'post')
-        // var qd = qcjcdata[1].results[0];
-        // // serviceData[1].results.push(qd);
-        // console.log(serviceData[1]);
-        //
-        //
-        // return serviceData[1];
         return orderdata[1];
     }
 

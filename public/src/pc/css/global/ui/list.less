@@ -1,0 +1,760 @@
+@import "../_base/index";
+// 常用方法
+//==============
+/**
+ * @tofishes 2015年04月14日 增加一些注释
+ *
+ * list，定义一些list列表项
+ */
+
+ @px: 1px;
+
+.list-wrap{
+    position: relative;
+}
+
+//水平列表
+.hlist{
+    list-style: none;
+    font: normal normal normal 14px/150% Arial,Verdana,"微软雅黑";
+    margin: 0;
+    padding: 0;
+    .item{
+        .inner{ }
+        height: auto;
+        position: relative;
+        img{
+            width: 100%;
+            border: 0;
+        }
+        p{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+            border: none;
+            &.caption{
+                font-size: 12*@px;
+                text-align: center;
+            }
+        }
+        em{
+            font-style: normal;
+        }
+        .hheader{
+            padding: 10px;
+        }
+        .hbody{
+            padding: 10px;
+            .caption{
+                text-align: center;
+            }
+        }
+        .hfoot{
+            padding: 10px;
+        }
+        .dot{
+            position: absolute;
+        }
+        .pics{}
+    }
+}
+
+.vlist{
+    .hlist;
+    width: 210px;
+    background-color: #FF6600;
+    height: 400px;
+    margin-bottom: 0;
+    border: 1px solid #ff6600;
+    .item{
+        .inner{ }
+        border-left: none;
+        font-size: 14px;
+        &.active{
+            a{
+                color: #ff6600;
+            }
+        }
+        a{
+            color: #fff;
+            display: inline-block;
+            font-weight: normal;
+        }
+    }
+}
+
+/*无margin的水平列表*/
+.slist{
+    list-style: none;
+    font: normal normal normal 14px/150% Arial,Verdana,"微软雅黑";
+    padding: 0;
+    .item{
+        .inner{ }
+        height: auto;
+        position: relative;
+        img{
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        p{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+            border: none;
+        }
+        .hheader{
+            padding: 10px;
+        }
+        .hbody{
+            padding: 10px;
+        }
+        .hfoot{
+            padding: 10px;
+        }
+        .dot{
+            position: absolute;
+        }
+    }
+}
+.shadows{
+    -webkit-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    &:hover{
+        z-index: 2;
+        -webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        -webkit-transform: translate3d(0, -2px, 0);
+        transform: translate3d(0, -2px, 0);
+    }
+}
+//产品中心的图片列表
+.elephant{
+    small{
+        font-size: 12px;
+        color: #999;
+        display: inline-block;
+        width: 46px;
+    }
+    .item{
+        float: left;
+        padding: 5px;
+        margin: 0;
+        .inner{
+            border: 1px solid #efefef;
+        }
+        .hheader{
+            padding: 0;
+            height: 200px;
+            overflow: hidden;
+        }
+        .hbody{
+            padding-top: 10px;
+            p:first-child{
+                // font-weight: bold;
+            }
+        }
+    }
+}
+//新闻列表
+.news_ul{
+    .item{
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+/*        .hheader{
+            display: inline-block;
+        }
+        .hbody{
+            display: inline-block;
+            vertical-align: top;
+        }*/
+        em{
+            font-style: normal;
+        }
+/*        span{
+            font-size: 12px;
+            color: #999;
+            margin: 5px 0 2px 0;
+            display: block;
+        }
+        p{
+            font-size: 12px;
+            padding: 0;
+            margin: 0;
+            height: 67px;
+            overflow: hidden;
+            cursor: default;
+        }
+        .dot{
+            &.more{
+                  left: auto;
+                  right: 14px;
+                  bottom: 2px;
+                  top: auto;
+                  font-size: 12px;
+            }
+        }*/
+    }
+}
+
+//tabswitch的内容列表栏
+.fox{
+    display: block;
+    border-bottom: 1px solid #efefef;
+    font-size: 12px;
+    padding-right: 50px;
+    padding-left: 180px;
+    position: relative;
+    margin-top:10px;
+    padding-bottom:10px;
+    .item{
+        float: left;
+        padding: 5px 10px;
+        margin: 0;
+        width: auto;
+        .inner{
+            border: 1px solid #efefef;
+        }
+        .hheader{
+            padding: 2px 0;
+            overflow: hidden;
+            a{
+                border: none;
+                width: auto;
+                min-width: 60px;
+            }
+        }
+        .hbody{
+            padding-top: 10px;
+            p:first-child{
+                // font-weight: bold;
+            }
+        }
+    }
+    .active{
+        background-color: #ff6600;
+        a{
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+    li[data-cls="first"]{
+        width: 104px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        a{
+            color:#666;
+            cursor: default;
+        }
+    }
+    li[data-cls="second"]{
+        width: 50px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 110px;
+    }
+}
+.fox-active{
+    background-color: #ff6600;
+}
+
+.fox2{
+    .fox;
+    padding: 0;
+    margin: 0;
+}
+
+//tabswitch 的头部切换栏
+// item  <li class="item">
+// inner <li ..><div class="inner">
+// hheader <li ..><div class="inner"><div class="hheader">
+// hbody <li ..><div class="inner"><div class="hbody">
+.tiger{
+    font-size:16px;
+    font-weight: bold;
+    li:first-child{border-right: none;border-left: none;}
+    li.active:first-child{border-right: 1px solid red; border-left: 1px solid red;}
+    border-bottom: 1px solid #efefef;
+    margin-bottom: 10px;
+    .item{
+        float: left;
+        padding: 0;
+        margin: 0;
+        border-left: 1px solid #efefef;
+        z-index: 1000;
+        .inner{
+            border: 1px solid #efefef;
+        }
+        .hheader{
+            text-align: center;
+            padding: 10px 0;
+            overflow: hidden;
+            a{
+                display: block;
+                border: none;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .hbody{
+            padding-top: 10px;
+            p:first-child{
+                // font-weight: bold;
+            }
+        }
+    }
+    .active{
+        margin-bottom: -1px;
+        background-color: #fff;
+        border: 1px solid red;
+        border-bottom: none;
+    }
+}
+.tiger-active{
+    border-bottom: 1px solid red;
+}
+
+.tiger2{
+    color: #fff;
+    .item{
+        padding: 5px 10px;
+        float: none;
+        a{
+            line-height: 30px;
+            margin-right: 0px;
+        }
+        &.active{
+            background-color: #fff;
+            color: #ff6600;
+            border:none;
+            &:first-child{
+                border-left:none;
+                border-right: none;
+            }
+            a{
+                color: #ff6600;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+        .hheader{
+            padding: 0 15px;
+            height: 42px;
+            line-height: 42px;
+        }
+    }
+    i{
+        font-style: normal;
+        position: absolute;
+        z-index: 1;
+        top: 13px;
+        right: 14px;
+        width: 4px;
+        height: 14px;
+        font: 400 9px/14px consolas;
+    }
+}
+
+//分页列表
+.pagi{
+    display: inline-block;
+    font-size: 12px;
+    .item{
+        cursor: pointer;
+        float: left;
+        padding: 6px 9px;
+        margin: 0 3px 3px;
+        border-radius: 2px;
+        background-color: #f1eff0;
+        .inner{ }
+        .hheader{
+            padding: 0;
+            a{
+                border: none;
+            }
+        }
+        .hbody{ }
+    }
+    .active{
+        background-color: #ff6600;
+        a{
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+}
+.fox-active{
+    background-color: red;
+}
+
+
+/*tabswitch nav部分*/
+.tab-nav{
+    .tiger;
+    font-size:14px;
+    background:#efefef;
+    li:first-child{border-right: none;border-left: none;}
+    li.active:first-child{border-right: none;border-left: none;}
+    margin-bottom: 20px;
+    .item{
+        border-left: none;
+    }
+    .active{
+        border: none;
+        border-top: 3px solid red;
+        margin-top:-1px;
+    }
+}
+
+
+/*图片列表*/
+.pro_ul{
+	.item{
+		color: #666;
+		background: #fff;
+		a{
+			display: block;
+		}
+        .hheader{
+        	padding: 0;
+        	width: 100%;
+        	height: 100%
+        }
+        .hbody{
+        	padding: 30px;
+        	word-break: break-all;
+            .caption{
+                font-weight: bold;
+                font-size: 5.4*@px;
+            }
+			em{
+				font-style: normal;
+				display: block;
+			}
+			span{
+				font-size: 12px;
+				color: red;
+				display: block;
+			}
+			p{
+				line-height: 20px;
+			}
+        }
+	}
+}
+
+// rem or persent for h5
+@gray70: lighten(#000000, 70%);
+
+.gally_caption{
+    position: relative;
+    overflow: hidden;
+    .item{
+        color: #666;
+		background: #fff;
+		a{
+			display: block;
+		}
+        .hheader{
+        	padding: 0;
+        	width: 100%;
+        	height: 100%
+        }
+        .hbody{
+            padding: 0.3rem 0.2rem;
+        	word-break: break-all;
+            .caption{
+                font-weight: bold;
+                font-size: 5.4*@px;
+            }
+            p{
+                line-height: 0.4rem;
+            }
+            p:first-child{
+                color:lighten(#000000,50%);
+                font-size: 0.44rem;
+                font-weight: bold;
+                margin: 0.25rem 0.25rem 0.25rem 0;
+                a{
+                    color:lighten(#000000,50%);
+                }
+            }
+            em{
+                color: @gray70;
+                font-size: 0.5rem;
+				font-style: normal;
+				display: inline;
+                margin: 0.25rem 0.25rem 0.25rem 0;
+			}
+			span{
+				font-size: 0.5rem;
+				color: @gray70;
+				display: inline;
+                margin: 0.25rem 0.25rem 0.25rem 0;
+			}
+        }
+    }
+}
+
+/*
+* REM list
+*/
+
+// rem or persent for h5
+//商品属性
+.gally_shop{
+    .gally_caption;
+    .item{
+        padding-bottom: 0.4rem;
+        padding-top: 0.63rem;
+        border-bottom: 3px dashed #efefef;
+        .hheader{
+            height: 6rem;
+            overflow: hidden;
+        }
+        .hbody{
+            padding-left: 0.1rem;
+            p{
+                margin-bottom: 0.12rem;
+            }
+            p:first-child{
+                margin: 0.15rem 0.25rem 0.45rem 0;
+                a{
+                    font-size: 0.64rem;
+                }
+            }
+        }
+        .dot{
+            font-size: 0.8rem;
+            line-height: 1rem;
+            a{
+                color: red;
+                s{
+                    color: darken(#ffffff, 20%);
+                    margin-left: 0.3rem;
+                    font-size: 0.5rem;
+                }
+            }
+        }
+    }
+}
+// rem or persent for h5
+@wh: 50*@px;
+.em_span() {
+    font-size: 8*@px;
+    color: @gray70;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+}
+
+//类似博客列表的效果
+.blog_normal{
+    .gally_caption;
+    .item{
+        margin-bottom: 0.4rem;
+        padding-top: 0;
+        border-bottom: none;
+        min-height: $wh;
+        .hheader{
+            width: $wh;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .hbody{
+            padding: 0;
+            margin-left: 3.4rem;
+            p{
+                margin-bottom: 0;
+                color: lighten(#000000,70%);
+                line-height: 0.6rem;
+            }
+            p:first-child{
+                margin: 0.15rem 0 0.4rem 0;
+                a{
+                    color: lighten(#000000,45%);
+                    font-size: 0.74rem;
+                }
+            }
+            em{
+                .em_span;
+			}
+			span{
+                .em_span;
+			}
+        }
+        .hfoot{
+            margin-left: 4rem;
+        }
+        .dot{
+            display: none;
+        }
+    }
+}
+
+//鲜果index
+//鲜果联播首页分类
+//可以作为图片gally
+.like_xianguo_index{
+    .gally_caption;
+    .item{
+        img{
+            border-radius:0.2rem;
+        }
+        .inner{
+            position: relative;
+        }
+        .hbody{
+            border-bottom-right-radius: 0.2rem;
+            border-bottom-left-radius: 0.2rem;
+            background-color: rgba(1,0,0,0.6);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 0.15rem 0;
+            p:first-child{
+                color: #ffffff;
+                a{
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}
+//应用宝或者华为app应用的list
+@border: 2px solid lighten(#000000,90%);
+.like_app_list{
+    .blog_normal;
+    .item{
+        width: 97%;
+        padding: 0.4rem 0;
+        border: $border;
+        border-bottom: $border;
+        border-radius:0.2rem;
+        .hheader{
+            img{
+                border-radius: 0.5rem;
+            }
+            left: 0.4rem;
+            top: 0.4rem;
+        }
+        .hbody{
+            margin-top: 4*@px;
+            margin-left: 65*@px;
+        }
+        .rebody{
+            margin-left: 8*@px;
+        }
+        .pics{
+            margin-top: 10*@px;
+            img{
+                width: 76*@px;
+                float: left;
+                margin-left: 5*@px;
+                height: 50*@px;
+            }
+        }
+    }
+}
+
+//仿鲜果联播应用list
+.like_xg_list{
+    .blog_normal;
+    .item{
+        width: 97%;
+        padding: 0.4rem 0;
+        border: $border;
+        border-bottom: $border;
+        border-radius:0.2rem;
+        .hheader{
+            min-width: 4.3rem;
+            height: 3rem;
+            left: auto;
+            right: 0.4rem;
+            top: 0.4rem;
+        }
+        .hbody{
+            margin-left: 8*@px;
+        }
+        .pics{
+            margin-top: 10*@px;
+            img{
+                width: 76*@px;
+                float: left;
+                margin-left: 5*@px;
+                height: 50*@px;
+            }
+        }
+    }
+}
+
+//优惠券列表
+.coupons_list{
+   .item{
+        .hheader{
+            background: url(../images/coupons/1.jpg) no-repeat;
+            width: 19%;
+            height: 100%;
+            background-size: 100%;
+            a{
+                font-size: 0.85rem;
+                font-style: normal;
+                color: #fff;
+                display: block;
+                text-align: center;
+                line-height: normal;
+                i{
+                    font-style: normal;
+                    font-size: 0.6rem;
+                }
+            }
+        }
+        .hbody{
+
+        }
+        .failure{
+                background: url(../images/coupons/coupons_bg.jpg) no-repeat;
+        }
+        .dot{
+            display: block;
+            top: 10px;
+            right: 5%;
+            width: 25%;
+            height: 100%;
+            i{
+                width: 60%;
+                height: 60%;
+                display: block;
+                text-align: center;
+                font-size: 0.8rem;
+                font-style: normal;
+                padding: 0.6rem;
+                border-radius: 50%;
+                border: 1px solid #ececec;
+                line-height: normal;
+            }
+        }
+   }
+}
+.coupons-nav{
+    background-color: #EFEFEF;
+    .item{
+        padding: 0.5rem 0;
+        text-align: center;
+        a{
+            font-size: 0.6rem;
+            color: #333;
+        }
+        &.active{
+            background-color: #fff;
+        }
+    }
+}
