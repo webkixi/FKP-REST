@@ -146,6 +146,8 @@ var bindEsti = function(){
     router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
+    var Datemobile = require('modules/form/dateMobile');
+
 
     //品牌
     var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
@@ -187,9 +189,19 @@ var bindEsti = function(){
     });
 
     //上牌时间
-    _car.reg = new Text({label:'上牌时间'}, 'license',function(){
+    var tt;
+    api.req('getservtime', function(data){
+        tt = data;
+        var ttt = tt.timer;
+        var n_ttt = ttt + 24*60*60*1000*2;
+        _car.license = new Datemobile({label:'上牌时间'}, 'license',function(){
+            $(this).find('input').mobiscroll().date({
+                minDate: new Date(ttt),
+                maxDate: new Date(n_ttt)
+            });
+        });
+    })
 
-    });
 
     //车牌号
     _car.number = new Text({label:'车牌号'}, 'number',function(){
