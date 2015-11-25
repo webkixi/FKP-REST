@@ -16,7 +16,6 @@
 
 }
 (function ($) {
-    console.log($);
     ['width', 'height'].forEach(function (dimension) {
         $.fn[dimension] = function (value) {
             var offset,

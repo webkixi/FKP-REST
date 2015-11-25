@@ -75,7 +75,7 @@ var datemobileForm = {
         return(
 			<div className={'form text'}>
 				{label}
-					<input name={this.props.name} className={cls} placeholder={placeholder}></input>
+					<input name={this.props.name} className={cls} placeholder={placeholder} type="text"></input>
 				{append}
 			</div>
         )

@@ -50,15 +50,18 @@ var radioForm = {
 				append = theData.append;
 			}
 
-			if ( theData.default )
+			if ( theData.default ){
 				chked = true;
+				console.log('9999');
+			}
+			console.log(chked);
 
 			body = theData.body||'没有传入数据'
 		}
 
-		var ipt = <input name={this.props.name} value={this.props.value} className={'radio_input'} type="radio" ></input>
+		var ipt = <input name={this.props.name} value={this.props.value} className={'ifont radio_input'} type="radio" ></input>
 		if ( chked ){
-			ipt = <input checked name={this.props.name} value={this.props.value} className={'radio_input'} type="radio" ></input>
+			ipt = <input checked name={this.props.name} value={this.props.value} className={'ifont radio_input'} type="radio" ></input>
 		}
 
         return(

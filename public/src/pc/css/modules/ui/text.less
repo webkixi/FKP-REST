@@ -4,15 +4,28 @@
     &.text{
         .form_unit;
         .body{
-            border: 2px solid #ddd;
+            border: 1px solid #ddd;
             height: 1.08rem;
             width: 73%;
             padding: 2% 0.4%;
         }
         &.error{
             .body{
-                border: 2px solid red;
+                border: 1px solid red;
             }
         }
     }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color:    #ccc;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    #ccc;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    #ccc;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color:    #ccc;
+    }
+
 }

@@ -56,35 +56,39 @@ body{
   .hhead{
     display: inline-block;
     margin-right: 0.3rem;
-    vertical-align: middle;
     img{
+        vertical-align: middle;
         width: 2rem;
     }
   }
-  .hbody{
-    display: inline-block;
-    font-size: 0.8rem;
-    vertical-align: middle;
-    position: relative;
-    width: 81%;
-    p{
-      font-size: 0.7rem;
-      color: #262626;
-      line-height: 100%;
-    }
-    span{
-      color: #ff7800;
-      font-size: 0.8rem;
-      text-align: right;
-      i{
-        font-style: normal;
+  .item{
+      .hbody{
+          padding: 0;
+        display: inline-block;
         font-size: 0.8rem;
-        color: #a0a0a0;
-        // text-decoration: line-through;
-        margin-right: 0.5rem;
+        vertical-align: middle;
+        position: relative;
+        width: 81%;
+        p{
+          font-size: 0.7rem;
+          color: #262626;
+          line-height: 100%;
+        }
+        span{
+          color: #ff7800;
+          font-size: 0.8rem;
+          text-align: right;
+          i{
+            font-style: normal;
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            // text-decoration: line-through;
+            margin-right: 0.5rem;
+          }
+        }
       }
-    }
   }
+
   .s_m_lc_input{
     text-align: left;
     input{
@@ -306,7 +310,7 @@ body{
             display: inline-block;
             width: 20%;
             height: 1rem;
-            padding: 0.3rem 0;
+            padding: 0.66rem 0 0 0;
             padding-right: 2.5%;
             vertical-align: top;
             text-align: right;

@@ -8,9 +8,6 @@ libs.addSheet([
 ])
 
 function date(data, ele, cb){
-    console.log(data);
-    console.log('data');
-
     this.stat = false;
     this.value;
     this.ipt;

@@ -47,7 +47,7 @@ function dealWith_Data_Brand(){
     SA.setter('Pop',{data:{display:'block'}})
     api.req('queryallbrand',{}, function(data){
         if(data.code && data.code===1){
-        //   console.log(data);
+        //   console.(data);
             var tmp = {};
             data.results.map(function(item, i){
               var key = item.carfirstname;
@@ -159,7 +159,7 @@ var bindEsti = function(){
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
     var Datemobile = require('modules/form/dateMobile');
-    console.log(Datemobile);
+
     //品牌
     var sss = <em style={{color:'red',marginRight:'0.3rem'}}>*</em>;
     _car.brand = new Select({label:'品牌', popclose: true, star: sss}, 'brand',function(){
@@ -203,7 +203,6 @@ var bindEsti = function(){
 
     function formatDate(timer){
         var tt = new Date(timer);
-        console.log(tt);
         var year = tt.getFullYear();
         var date = tt.getDate();
         var month = tt.getMonth();
@@ -229,8 +228,7 @@ var bindEsti = function(){
         var ttt = tt.timer;
         var n_ttt = ttt + 24*60*60*1000*2;
         _car.license = new Datemobile({label:'上牌时间'}, 'license',function(){
-            console.log(new Date(tt));
-            $(this).mobiscroll().date({
+            $(this).find('input').mobiscroll().date({
                 minDate: new Date(ttt),
                 maxDate: new Date(n_ttt)
             });
@@ -291,7 +289,7 @@ function checkValue(ele){
           carengno: _car.engin.value||'',
           plateno: _car.number.value||'',
           carvin: _car.vin.value||'',
-          regtime: _car.reg.value||''
+          regtime: _car.license.value||''
       }
 
       SA.setter('_GLOBAL',{index: uuu})

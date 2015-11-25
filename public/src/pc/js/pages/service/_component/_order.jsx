@@ -215,7 +215,7 @@ var bindIndex = function(){
     router.clear()
     var Select = require('modules/form/select');
     var Text = require('modules/form/text');
-    var DateForm = require('modules/form/date');
+    var Datemobile = require('modules/form/dateMobile');
     var Number = require('modules/form/number');
     var Radio = require('modules/form/radio');
     var u = {};
@@ -347,8 +347,10 @@ var bindIndex = function(){
     }
 
     new Radio({label:'微信',value:'wx_pub',name: 'payment', default: true},'wechat',function(){
+        console.log('llll');
         _payway = "wx_pub";
       $(this).click(function(){
+          console.log('22222');
         _payway = "wx_pub";
       })
     })
@@ -390,13 +392,26 @@ var bindIndex = function(){
 
     //预约时间 年月日
 
+    // var tt;
+    // api.req('getservtime', function(data){
+    //     tt = data;
+    //     var ttt = formatDate(tt.timer);
+    //     var $min = ttt.year+'-'+ttt.month+'-'+ttt.date
+    //     var $max = ttt.year+'-'+ttt.month+'-'+(ttt.date+3)
+    //     u.date = new DateForm({min: $min, max: $max}, 'date',function(){ });
+    // })
+
     var tt;
     api.req('getservtime', function(data){
         tt = data;
-        var ttt = formatDate(tt.timer);
-        var $min = ttt.year+'-'+ttt.month+'-'+ttt.date
-        var $max = ttt.year+'-'+ttt.month+'-'+(ttt.date+3)
-        u.date = new DateForm({min: $min, max: $max}, 'date',function(){ });
+        var ttt = tt.timer;
+        var n_ttt = ttt + 24*60*60*1000*2;
+        u.date = new Datemobile({}, 'date',function(){
+            $(this).find('input').mobiscroll().date({
+                minDate: new Date(ttt),
+                maxDate: new Date(n_ttt)
+            });
+        });
     })
 
     //预约时间 上午下午
