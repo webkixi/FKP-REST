@@ -561,9 +561,9 @@
         margin-bottom: 0.4rem;
         padding-top: 0;
         border-bottom: none;
-        min-height: $wh;
+        min-height: @wh;
         .hheader{
-            width: $wh;
+            width: @wh;
             overflow: hidden;
             position: absolute;
             left: 0;
@@ -636,8 +636,8 @@
     .item{
         width: 97%;
         padding: 0.4rem 0;
-        border: $border;
-        border-bottom: $border;
+        border: @border;
+        border-bottom: @border;
         border-radius:0.2rem;
         .hheader{
             img{
@@ -645,11 +645,12 @@
             }
             left: 0.4rem;
             top: 0.4rem;
+            width:2rem;
         }
-        .hbody{
-            margin-top: 4*@px;
-            margin-left: 65*@px;
-        }
+        // .hbody{
+        //     margin-top: 4*@px;
+        //     margin-left: 65*@px;
+        // }
         .rebody{
             margin-left: 8*@px;
         }
@@ -671,8 +672,8 @@
     .item{
         width: 97%;
         padding: 0.4rem 0;
-        border: $border;
-        border-bottom: $border;
+        border: @border;
+        border-bottom: @border;
         border-radius:0.2rem;
         .hheader{
             min-width: 4.3rem;
