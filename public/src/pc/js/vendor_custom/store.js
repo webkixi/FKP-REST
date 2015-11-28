@@ -137,6 +137,41 @@
             }
         },
 
+        set: function(name, dataOrAct, fun){
+            if(!name||name=='') return false;
+
+            var save = _stock;
+
+            if(!save[name]){
+                var thisStore = new store();
+                save[name] = thisStore;
+            }
+            if( dataOrAct && dataOrAct!=="" ){
+                if ( getObjType(dataOrAct) === 'Function' ){
+                    if(getObjType(fun) === 'Array' ){
+                        dataOrAct.args = fun;
+                    }
+                    save[name].acter(dataOrAct);
+                }
+                else{
+                    if( getObjType(dataOrAct) === 'Object' )
+                        save[name].setter(dataOrAct);
+                }
+            }
+        },
+
+        get: function(name){
+            if(!name||name=='')
+                return;
+
+            var save = _stock;
+            if(save[name]){
+                return save[name].getter( 'data' )
+            }else{
+                return false;
+            }
+        },
+
         setter: function(name, dataOrAct, fun){
             if(!name||name=='') return false;
 

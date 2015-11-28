@@ -31,12 +31,17 @@ var index = {
 }
 
 function bcd(){
-  $(this).click(function(){
-    _order_form.orderids = $(this).find(".hheader a").html();
-    _order_form.status = $(this).find(".hbody span").html();
-    SA.setter('_GLOBAL',{data: _order_form} );
-    router('carfinished')
-  })
+
+    if($(this).find('.hheader a').hasClass('hui') == false){
+        $(this).click(function(){
+            $(this).addClass('active').siblings().removeClass('active');
+          _order_form.orderids = $(this).find(".hheader a").html();
+          _order_form.status = $(this).find(".hbody span").html();
+          SA.setter('_GLOBAL',{data: _order_form} );
+          router('carfinished')
+        })
+    }
+
 }
 
 function insertContent(){
@@ -61,10 +66,8 @@ function init(ele, param, cb){
 
 function getData(ele, param, cb){
   var _l_data  = SA.getter('_LOCAL_USER');    //登陆用户获取的信息
-  console.log(_l_data);
   if(_l_data){
       _l_user = _l_data.data;
-      console.log(_l_user);
 
       if(_l_user.error){
           _l_user = false;
@@ -76,22 +79,20 @@ function getData(ele, param, cb){
       if(_l_user){
           uid = {uid: _l_user.uid};
       }
-      console.log(uid);
       if(uid){
           api.req('order_list',uid,function(data){
             console.log(data);
             if(data.results){
-                console.log('ooooooorrrrrrr');
-                console.log(orderlistdata);
                 orderlistdata(data.results, ele, cb)
                 // if(data.results && data.results.length)
                 //   orderlistdata(data.results, ele, cb)
                 // else {
                 //     alert('您还没有任何订单')
                 // }
-            }else{
-              renderDom( ele, cb)
             }
+            // else{
+            //   renderDom( ele, cb)
+            // }
           })
       }else{
           router('reg_log');
@@ -113,12 +114,11 @@ function orderlistdata(orderdata,  ele, cb){
   order_data_list_D3 =[];
   console.log(orderdata);
   orderdata.map(function(item,i){
-    console.log(item);
     item.createtime = item.createtime*1000;
     //转时间戳
     var a = new Date(parseInt(item.createtime));
     var month = parseInt(a.getMonth())+1
-    var ordertime = a.getFullYear() +'-'+ month +'-'+ a.getDate();
+    var ordertime = a.getFullYear() +'-'+ month +'-'+ a.getDate() +' '+ a.getHours() +':'+ a.getMinutes() +':'+ a.getSeconds();
     //截取订单号
     var orderno = 'Y'+item.orderno.substring(3,16);
     //状态赋值
@@ -134,6 +134,7 @@ function orderlistdata(orderdata,  ele, cb){
             i_cls = i_cls+' qc'
             break;
         default:
+            i_cls = i_cls+ ' hui'
 
     }
     var title = <a className={i_cls}>{item.orderid}</a>
@@ -143,6 +144,7 @@ function orderlistdata(orderdata,  ele, cb){
       order_data_list =
       [
         {
+            attr: 'sss',
             title: title,
             body:[
                 {
@@ -178,7 +180,7 @@ function orderlistdata(orderdata,  ele, cb){
             title: title,
             body:[
                 {
-                  k: item.servicetypename,
+                  k: item.servicetypename + ' ¥' + item.amount,
                   v: stateVal
                 }
             ],
@@ -208,7 +210,7 @@ function orderlistdata(orderdata,  ele, cb){
             title: title,
             body:[
                 {
-                  k: item.servicetypename,
+                  k: item.servicetypename + ' ¥' + item.amount,
                   v: stateVal
                 }
             ],
@@ -238,7 +240,7 @@ function orderlistdata(orderdata,  ele, cb){
             title: title,
             body:[
                 {
-                  k: item.servicetypename,
+                  k: item.servicetypename + ' ¥' + item.amount,
                   v: stateVal
                 }
             ],
@@ -263,7 +265,7 @@ function orderlistdata(orderdata,  ele, cb){
   })
   // _coupons = libs.extend(xxx,xxx1,xxx2,xxx3)
   _coupons = [order_data_list_D0, order_data_list_D1, order_data_list_D2, order_data_list_D3]
-  renderDom( ele, cb)
+  renderDom( ele, _coupons, cb)
 }
 
 

@@ -1,6 +1,17 @@
 @import "../../_copy2dist/iconfont";
 // @import "../../global/_settings/_setting_pages";
+body{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+#container-box{
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
 .about{
+    height: 100%;
   font-size: 0.7rem;
   h2{
     border-bottom: 1px solid #dddddd;
@@ -33,13 +44,11 @@
   }
   .service_about{
     padding: 0;
-    img{
-      margin: 0.6rem 0 0 0;
-    }
+    height: 100%;
     .ser_abot{
       color: #000;
       min-height:10rem;
-      margin-top: 1.5rem;
+      height: 75%;
       h4{
         text-align: center;
         font-size: 0.7rem;
@@ -51,12 +60,15 @@
         width: 100%;
         padding: 1rem 0 0 0;
         overflow: hidden;
+        height: 100%;
         li{
-          font-size: 0.6rem;
           margin-bottom: 0.5rem;
           height: 3.4rem;
           text-align: left;
           font-size: 0;
+          .hbody{
+              height: 100%;
+          }
           &.ser_abot_ifontleft{
               .ifont{
                   font-size: 2.8rem;
@@ -65,6 +77,7 @@
               }
               .ser_abot_wz{
                   margin-left: -1.5rem;
+                  display: inline-block;
               }
           }
           i.ifont{
@@ -72,6 +85,7 @@
                 font-size: 2.6rem;
                 vertical-align: middle;
                 color: #7D7D7D;
+                line-height: 1;
                 &.icon-05iconaichegujia{
                     &:before{
                         margin-left: -0.9rem;
@@ -80,13 +94,15 @@
           }
           .ser_abot_wz{
               display: inline-block;
-              vertical-align: top;
+              vertical-align: middle;
               font-size: 1rem;
               height: 2rem;
-              margin-top: -0.3rem;
+              width: 68%;
+              line-height: 1.1;
               em{
                   height: 1rem;
                   font-size: 0.8rem;
+                  margin-bottom: 0.2rem;
                   i{
                       font-size: 1rem;
                       color: #7D7D7D;
@@ -194,7 +210,15 @@
   .del-wz{
     text-indent: -9999rem;
   }
+  .ser_abot_img{
+      height: 25%;
+      img{
+        margin: 0;
+        height: 100%;
+      }
+  }
 }
+
 .about_ul{
   margin-top: 1rem;
   padding: 0.8rem 0.8rem;

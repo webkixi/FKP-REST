@@ -13,7 +13,7 @@
             // recalc();
             docEl.setAttribute("data-dpr", radio);
             meta.setAttribute("name", "viewport")
-            meta.setAttribute("content", "initial-scale=" + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ", user-scalable=no")
+            meta.setAttribute("content", "width=device-width,initial-scale=" + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ", user-scalable=no")
             if(docEl.firstElementChild) docEl.firstElementChild.appendChild(meta);
 
         if  (!doc.addEventListener) return;
@@ -22,6 +22,7 @@
             doc.addEventListener('DOMContentLoaded', recalc, false);
     })(document, window);
 </script>
+<!-- <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"> -->
 <meta charset="utf-8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -30,4 +31,3 @@
 <link rel="stylesheet" href="/css/{{commoncss}}">
 <link rel="stylesheet" href="/css/{{pagecss}}">
 <meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">

@@ -4,7 +4,8 @@
 */
 var libs = require('libs/libs')
 // var Fox = require('../itemView/pic_title');
-var Fox = require('../itemView/ant');
+// var Fox = require('../itemView/ant');
+var Fox = require('../itemView/f_li');
 
 var tmpApp = React.createClass({
 	getDefaultProps: function() {
@@ -116,6 +117,24 @@ var tmpApp = React.createClass({
 		}
 
 		return items;
+	},
+
+	defaultMethod: function(){
+		//lazyload img
+		var that = this.getDOMNode();
+		if(that.querySelectorAll){
+
+			if( that.querySelector('img') ){
+				var tmpimgs = that.querySelectorAll('img')
+				var imgs = libs.arg2arr( tmpimgs )
+				imgs.map(function( pic, i ){
+					if( pic.getAttribute('data-src') ){
+						
+					}
+				})
+			}
+		}
+
 	},
 
 	componentDidMount: function () {

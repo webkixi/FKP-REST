@@ -73,7 +73,7 @@ var numForm = {
         return(
 			<div className={'form text'}>
 				{label}
-					<input name={this.props.name} className={cls} type="tel" placeholder={placeholder}></input>
+					<input name={this.props.name} className={cls} type="number" placeholder={placeholder}></input>
 				{append}
 			</div>
         )

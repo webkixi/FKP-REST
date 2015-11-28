@@ -58,7 +58,7 @@ function *demoIndexData(oridata){
         //     }
         //   ]
         // }
-
+        var v2_data;
         var postdata = {
             "common": {
                 "session": "xx",
@@ -70,7 +70,7 @@ function *demoIndexData(oridata){
         var body = yield libs.$parse(this);
         if(body){
             if(body.type){
-                if(body.type==='insert')
+                if(body.type==='insert'){
                     if(body.data.code){
                         var code = body.data.code;
                         delete body.data.code;
@@ -84,26 +84,42 @@ function *demoIndexData(oridata){
                     }
 
                     postdata.content[0] = body.data;
+                }
 
+                if( body.type === "insert_v2" ){
+                    v2_data = body.params;
+                }
             }
-            if(postdata.content[0].car.usercarid)
-                postdata.content[0].car.usercarid = parseInt(postdata.content[0].car.usercarid)
-            postdata.content[0].addr.id = parseInt(postdata.content[0].addr.id)
-            postdata.content[0].car.carid = parseInt(postdata.content[0].car.carid)
-            // postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
+            if( v2_data ){
+                postdata = v2_data;
+                console.log('v2_all===========');
+                console.log(postdata);
+            }
+            else {
+                if(postdata.content[0].car.usercarid)
+                    postdata.content[0].car.usercarid = parseInt(postdata.content[0].car.usercarid)
+                postdata.content[0].addr.id = parseInt(postdata.content[0].addr.id)
+                postdata.content[0].car.carid = parseInt(postdata.content[0].car.carid)
+                // postdata.content[0].totalprice = parseInt(postdata.content[0].totalprice)
 
-            console.log('all----------');
-            console.log(postdata);
-            console.log('userinfo----------');
-            console.log(postdata.content[0].user);
-            console.log('订单----------');
-            console.log(postdata.content[0].orderdetail);
-            console.log('car----------');
-            console.log(postdata.content[0].car);
-            console.log('addr----------');
-            console.log(postdata.content[0].addr);
+                console.log('all----------');
+                console.log(postdata);
+                console.log('userinfo----------');
+                console.log(postdata.content[0].user);
+                console.log('订单----------');
+                console.log(postdata.content[0].orderdetail);
+                console.log('car----------');
+                console.log(postdata.content[0].car);
+                console.log('addr----------');
+                console.log(postdata.content[0].addr);
+            }
 
-            var orderdata = yield api.pullApiData('orderins', postdata, 'post');
+            var orderdata;
+            if( v2_data )
+                orderdata = yield api.pullApiData('orderins_v2', postdata, 'post');
+            else
+                orderdata = yield api.pullApiData('orderins', postdata, 'post');
+
             console.log(orderdata[1]);
             return orderdata[1]
         }

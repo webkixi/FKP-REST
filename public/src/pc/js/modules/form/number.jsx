@@ -51,6 +51,13 @@ function number(data, ele, cb){
                     setNumStat(stat, this)
                 })
             }
+        else
+            if(data.valide==='money'){
+                $(this).find('input').blur(function(){
+                    var stat = formValide(this.value, 'money','输入金额不正确')()
+                    setNumStat(stat, this)
+                })
+            }
         else{
             $(this).find('input').blur(function(){
                 setNumStat(true, this)

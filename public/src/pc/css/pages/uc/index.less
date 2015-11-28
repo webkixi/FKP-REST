@@ -689,43 +689,70 @@ body{
 		border: none;
 		border-bottom: 2px solid #e6e6e6;
 		overflow: hidden;
+		padding: 0.7rem 0;
+		&:hover,&.active{
+			background: #f8f8f8;
+		}
         .hheader{
             // background: url(../images/coupons/1.jpg) no-repeat;
             background: none;
-			border: 2px solid #dfdfdf;
-            width: 3rem;
-            height: 3rem;
+			border: 2px solid #ffb30f;
+            width: 2.5rem;
+            height: 2.5rem;
             background-size: 100%;
 			border-radius: 50%;
+			top: 0.9rem;
             a{
 				&.xby{
 					&:before{
+						position: absolute;
 						font-family:"iconfont" !important;
 						font-style:normal;
 						content: "\e641";
-						font-size: 1.75rem;
+						font-size: 1.8rem;
 						line-height: 2.8rem;
-						color: #000;
+						color: #ffb30f;
+						top: -0.18rem;
+					    right: -0.34rem;
 					}
 				}
 				&.dby{
 					&:before{
-						font-family:"iconfont" !important;
-						font-style:normal;
+						position: absolute;
+						font-family: "iconfont" !important;
+						font-style: normal;
 						content: "\e642";
-						font-size: 1.75rem;
+						font-size: 1.8rem;
 						line-height: 2.8rem;
-						color: #000;
+						color: #ffb30f;
+						top: -0.18rem;
+					    right: -0.34rem;
 					}
 				}
 				&.qc{
 					&:before{
+						position: absolute;
 						font-family:"iconfont" !important;
 						font-style:normal;
 						content: "\e643";
-						font-size: 1.75rem;
+						font-size: 1.8rem;
 						line-height: 2.8rem;
-						color: #000;
+						color: #ffb30f;
+						top: -0.18rem;
+					    right: -0.34rem;
+					}
+				}
+				&.hui{
+					&:before{
+						position: absolute;
+						font-family:"iconfont" !important;
+						font-style:normal;
+						content: "\e649";
+						font-size: 1.8rem;
+						line-height: 2.8rem;
+						color: #ffb30f;
+						top: -0.13rem;
+					    right: 0.33rem;
 					}
 				}
 				// &:before{
@@ -739,22 +766,49 @@ body{
 
         }
         .hbody{
+			width: auto;
+			// margin-top:-0.6rem;
+			margin-left: 25%;
 			p:first-child{
 				font-size: 0.6rem;
-				margin-top: 0.4rem;
+				// margin-top: 0.4rem;
 				color: #555;
+				em{
+					font-size: 0.65rem;
+					display: inline-block;
+				    vertical-align: middle;
+					margin: 0;
+				}
+				span{
+					display: inline-block;
+				    vertical-align: middle;
+					width: 1.7rem;
+					margin: 0;
+					margin-left: 0.5rem;
+				}
 			}
         }
 		.hfoot{
 			position: absolute;
-			color: #666;
-			top: 0.8rem;
-			right: 1rem;
+			color: #999;
+			top: 1.8rem;
+			right: 5.1rem;
 			margin: 0;
 			padding: 0;
 			font-size: 0.64rem;
 			p{
-				margin-bottom: 0.6rem;
+				&:last-child{
+					margin-bottom: 0;
+				}
+				margin-top: 0.4rem;
+				em{
+					color: #999;
+					font-size: 0.6rem;
+				}
+				span{
+					margin-left: 0.3rem;
+					font-size: 0.6rem;
+				}
 			}
 		}
         .failure{
@@ -785,16 +839,23 @@ body{
    }
 }
 .coupons-nav{
-    background-color: #EFEFEF;
+    background-color: #fff;
+	border-bottom: 1px solid #bfbfbf;
     .item{
         padding: 0.5rem 0;
         text-align: center;
+		border-left: 1px solid #e2e2e2;
+		margin-left: -1px;
         a{
             font-size: 0.6rem;
-            color: #333;
+            color: #888;
         }
         &.active{
-            background-color: #fff;
+			background-color: #fff;
+			border-bottom: 2px solid #ffb30f;
+			a{
+				color: #ffb30f;
+			}
         }
     }
 }
@@ -1106,4 +1167,105 @@ body{
 			}
 		}
 	}
+}
+
+/**优惠买单**/
+.discountOrder{
+    background:#F3F5F7;
+
+    .user-order{
+        position:relative;
+        i{
+           position: absolute;padding-right: 0.4rem;font-size: 1rem;top: -0.07rem;right:0;
+        }
+    }
+    .inpbox{background:#fff; padding:0.2rem 1rem 1rem;}
+
+	.form.text,.form.select{width:100%;padding:0; margin-top:0.8rem; position:relative;}
+	.form.text .body,.form.select .body{width:100%;padding:2% 0;}
+	.form.select .body{padding:0.1rem 0; text-indent:0.6rem;}
+	.form.text .body{text-indent:1.2rem;}
+	.form.text .sign{position:absolute; left:0.4rem; top:0.08rem; font-style: normal; color:#888;}
+	.form.select .pos{position:absolute; left:-15px; top:6px; color:#ff7b06; font-size:0.8rem;}
+	.wxpayBox{
+        border:2px solid #d9d9d9;
+        background:#fff;
+        h2{
+            border-bottom:2px solid #d9d9d9;
+            font-size:0.8rem;
+            text-indent:1rem;
+            background:#F3F5F7;
+        }
+        .wxpay{
+            line-height:2.5rem;
+            text-indent:1rem;
+            position:relative;
+            font-size:1.5rem;
+            color:#04c967;
+            i{
+                position:absolute;
+                right:1rem;
+                font-size:1rem;
+            }
+        }
+	}
+	.btn-link{
+	    margin:1rem;
+	    line-height:2rem;
+	    height:2rem;
+	    width:auto;
+	    background:#fbc44e;
+	    box-sizing: border-box;
+	    color:#545454;
+	}
+	.unSubmit{background:#f0f0f0; border:2px solid #acacac; color:#b6b6b6;}
+	footer{
+	    background-color: #efefef;
+        border-top: 2px solid #d9d9d9;
+	}
+}
+/*优惠买单-支付成功*/
+.pay-ok-box{
+    header{height: 10% !important; font-size: 1rem !important;}
+    .pay-ok{
+        text-align:center;
+        font-size:1rem;
+        .pay-ok-icon{
+            font-size:3rem;
+            color:#04c967;
+            margin:2rem 0 0;
+        }
+        a{font-size:0.7rem; text-decoration: underline; color:#333;}
+    }
+}
+/*优惠买单-我的订单列表*/
+.discountbx{
+    .list-wrap{height:100%;background:#f3f5f7;}
+    .discount_order_list{
+        background:#fff;
+        li{border-bottom:1px solid #d9d9d9;}
+        .inner{
+            display:-webkit-box;
+            -webkit-box-align: center;
+            color:#999;
+            font-size:0.7rem;
+            text-align:left;
+            line-height:1rem;
+            padding:0.4rem 0.2rem;
+            .hheader{
+                width:20%;
+                margin-right:0.2rem;
+            }
+            .hbody{
+                .title{
+                    color:#303030;
+                    & :first-child{margin-right:10px;}
+                }
+                .no{
+                    & :first-child{margin-right:30px;}
+                }
+                .shop{color:#303030;}
+            }
+        }
+    }
 }

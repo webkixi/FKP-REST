@@ -4,7 +4,6 @@
 var fs = require('fs');
 var path = require('path')
 var api = require('../apis/javaapi');
-var header_nav = require('../pages/common/header_nav');
 var router = require('koa-router')();
 var libs = require('../libs/libs')
 var __ = libs.$lodash;
@@ -101,8 +100,10 @@ function init(app,mapper,rend){
     function *forBetter(){
         this.sess = this.session;
         this.config = config;
+        //绑定url地址解析
+        this.local = this.req._parsedUrl;
         var param = this.params;
-        console.log(param);
+        // console.log(param);
         if(param.cat === 'region'){
             yield getRegion.call(this);
         }
@@ -195,6 +196,7 @@ function *uploader(){
 function *weixin(app){
     libs.clog('微信')
     yield require('./weixin').call(this);
+    // app.use(yield require('./weixin'));
 }
 
 //上传数据
@@ -213,9 +215,6 @@ function *captcha(){
 function *distribute(_mapper){
 
     libs.clog('route.js/distribute');
-
-    //绑定url地址解析
-    this.local = this.req._parsedUrl;
 
     var routeJson = path.parse(this.path);
 
@@ -246,44 +245,37 @@ function *distribute(_mapper){
             }
 
             if (route){
-                if (route == 'demoindex')
+                var passData = false;
+                if (route == 'demoindex'){
                     pageData = yield require('../pages/demoindex').getDemoData.call(this,pageData);  //演示页
-
+                }
                 else{
                     if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') )){
                         pageData = yield require('../pages/'+route).getData.call(this,pageData);
                     }
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
-                        // console.log(pageData);
-                        yield htmlRender.call(this,true,route,pageData);
-                        return false;
+                        passData = true;
                     }
                 }
-                console.log('7777788888');
-                console.log(pageData);
-                if(pageData && pageData.errState && typeof pageData.errState!=='undefined' )
-                    yield htmlRender.call(this,false,route);
-                else{
+                yield dealWithPageData.call(this, pageData, route, passData)
 
-                    // if(typeof pageData.errStat == 'undefined'){
-                    //     var header = yield header_nav.call(this);
-                    //     pageData.header_nav = header.navData;
-                    //     pageData.user = header.user;
-                    // }
-
-                    if(this.method==='GET'){
-                        if(typeof pageData.errStat == 'undefined'){
-                            // var header = yield header_nav.call(this);
-                            // pageData.header_nav = header.navData;
-                            // pageData.user = header.user;
+                function *dealWithPageData(data, route, passStat){
+                    if(data && data.errState && typeof data.errState!=='undefined' )
+                        yield htmlRender.call(this,false,route);
+                    else{
+                        if(this.method==='GET'){
+                            yield htmlRender.call(this,true,route,data);
                         }
-                        yield htmlRender.call(this,true,route,pageData);
+                        else if(this.method==='POST'){
+                            if( passStat ){
+                                if( api.apiPath.dirs[route] || api.apiPath.weixin[route] )
+                                    data = yield require('../pages/common/nopage').getData.call(this, data, route);
+                            }
+                            yield returnJson.call(this,true,route,data);
+                        }
+
                     }
-
-                    else if(this.method==='POST')
-                        yield returnJson.call(this,true,route,pageData);
-
                 }
             }
 

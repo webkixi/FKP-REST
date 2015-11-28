@@ -34,6 +34,12 @@ var apiPath = {
 
         ,login: src+'login'   //获取登陆用户信息
         ,carchecking: src+'carchecking'   //订单列表
+
+        ,getshoplist: src+'getshoplist'
+        ,discountlist: src+'discountlist'
+
+        ,myorder_info: src+'myorder_info'  //订单详情
+        ,order_list: src+'order_list'  //订单列表
     },
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=
@@ -42,6 +48,7 @@ var apiPath = {
 }
 
 function req( api, param, cb ){
+
     var url = apiPath.dirs[api];
     if(url){
         if(libs.getObjType(param)==='Object'){

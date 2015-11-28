@@ -26,7 +26,7 @@ function index(){
           var check_line = _this.attr("data-check");
             // window.location.href="/" + check_line;
           if(check_line == "car_fixed"){
-              router('http://www.che300.com/car_front')
+              router('http://www.che300.com/hema')
             // window.location.href="http://www.che300.com/car_front";
           }else{
               router('/'+check_line)

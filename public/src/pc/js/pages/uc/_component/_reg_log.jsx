@@ -61,7 +61,7 @@ var bindIndex = function(){
                     btn_stat = 1;
                     api.req('getmms', {mobile: u.phone.value}, function(data){
                         if(data.code===1){
-                            SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
+                            // SA.setter('Pop',{data:{body:'请输入短信验证码',display:'block'}} );
                             libs.countDown(btn, 61, function(){
                                 btn_stat = 0;
                                 $(btn).html('重新发送')
@@ -70,7 +70,7 @@ var bindIndex = function(){
                     })
                 }
             }else{
-                SA.setter('Pop',{data:{body:'请输入手机号码',display:'block'}} );
+                SA.setter('Pop',{data:{body:'请输入正确的手机号码',display:'block'}} );
             }
     })
 
@@ -79,11 +79,12 @@ var bindIndex = function(){
         if(!submit_stat){
             submit_stat = true;
             api.req('mobilecode',{type: 'insert', data:fff},function(record){
-                if(record.code === 1){
+                if(record && record.code === 1){
                     var local_user_info = record.results[0];
-                    SA.setter("_LOCAL_USER", local_user_info);
+                    SA.set("_LOCAL_USER", local_user_info);
                     router.goback()
                 }
+                else
                 if( record && record.code === 536){
                     submit_stat = false;
                     SA.setter('Pop',{data:{body:'请正确填写短信验证码',display:'block'}} );

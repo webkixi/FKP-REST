@@ -222,7 +222,8 @@
     min-width: 16em;
     background: #f7f7f7;
     color: #454545;
-    font-size: 16px;
+    /*font-size: 16px;*/
+    font-size: 0.6rem;
 }
 
 .mbsc-mobiscroll .dwv {

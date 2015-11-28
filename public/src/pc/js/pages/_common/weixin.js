@@ -102,7 +102,6 @@ function getwx(cb){
                     if(record.code === 1){
                         var local_user_info = record.results[0];
                         SA.setter("_LOCAL_USER", local_user_info);
-                        //{ uid: 18, nick: '天天修改', openid: 'o07NUs250UkhoK8Ks6bZAZK7Hkls', gender: '1', mobile: '13576757688', addr: [Object], usercar: [Object] }
                     }else{
                         SA.setter("_LOCAL_USER", {error: "-2"});
                     }

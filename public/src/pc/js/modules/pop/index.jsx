@@ -25,11 +25,18 @@ function popwin(data, cb){
 
     ele = document.getElementById('pop-box');
 
+    function dm(){
+        var the_pop = this;
+        $(the_pop).click(function(){
+            SA.setter('Pop',{data:{display:'none'}})
+        })
+    }
+
     if(data===true)
         return Pop
     else{
         render(
-            <Pop data={data} itemMethod={cb} />,
+            <Pop data={data} itemMethod={cb} itemDefaultMethod={dm} />,
             ele
         )
     }

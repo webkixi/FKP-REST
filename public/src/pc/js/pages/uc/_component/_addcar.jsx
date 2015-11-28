@@ -193,13 +193,8 @@ var bindEsti = function(){
     api.req('getservtime', function(data){
         tt = data;
         var ttt = tt.timer;
-        var n_ttt = ttt + 24*60*60*1000*2;
-        _car.license = new Datemobile({label:'上牌时间'}, 'license',function(){
-            $(this).find('input').mobiscroll().date({
-                minDate: new Date(ttt),
-                maxDate: new Date(n_ttt)
-            });
-        });
+        var n_ttt = ttt - 24*60*60*1000*2;
+        _car.license = new Datemobile({label:'上牌时间',max: n_ttt}, 'license',function(){});
     })
 
 

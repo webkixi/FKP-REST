@@ -345,6 +345,7 @@ var form_valide = function(opts) {
         qq       : /^[1-9]*[1-9][0-9]*$/, //QQ号码
         idcard   : /^[1-9]([0-9]{14}|[0-9]{17})$/, //身份证
         birthday : /^(\d{4})[\.-](\d{1,2})[\.-](\d{1,2})$/,
+        money    : /^[\d]{1,8}(\.\d{1,2})?$/,
         all      : /[\s\S]/,
         tips     : tips,
         popmsg : true

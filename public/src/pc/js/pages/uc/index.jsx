@@ -13,7 +13,10 @@ route({
     'carlog': carlog,
     'mycaris': mycaris,
     'carfinished': carfinished,
-    'reg_log': reg_log
+    'reg_log': reg_log,
+    'discount_order':discount_order,
+    'payok':payok,
+    'order_list':order_list
 });
 
 libs.addSheet([
@@ -51,6 +54,20 @@ init()
 function index(){
     require('./_component/_index')('container-box',{}, function(){ });
 }
+
+//优惠买单
+function discount_order(){
+    require('./_component/_discount_order')('container-box',{}, function(){ });
+}
+//优惠买单-支付成功
+function payok(){
+	require('./_component/_payok')('container-box',{}, function(){ });
+}
+//优惠买单-我的订单列表
+function order_list(){
+	require('./_component/_order_list')('container-box',{}, function(){ });
+}
+
 
 //我的车
 function mycar(){

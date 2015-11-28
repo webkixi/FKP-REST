@@ -405,13 +405,8 @@ var bindIndex = function(){
     api.req('getservtime', function(data){
         tt = data;
         var ttt = tt.timer;
-        var n_ttt = ttt + 24*60*60*1000*2;
-        u.date = new Datemobile({}, 'date',function(){
-            $(this).find('input').mobiscroll().date({
-                minDate: new Date(ttt),
-                maxDate: new Date(n_ttt)
-            });
-        });
+        var n_ttt = ttt + 24*60*60*1000*90;
+        u.date = new Datemobile({min: ttt, max: n_ttt}, 'date',function(){});
     })
 
     //预约时间 上午下午

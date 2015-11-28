@@ -7,6 +7,11 @@ libs.addSheet([
     ,'formform'
 ])
 
+var dpi;
+var dview = libs.DocmentView()
+if(window.devicePixelRatio)
+    dpi = window.devicePixelRatio;
+
 function date(data, ele, cb){
     this.stat = false;
     this.value;
@@ -14,11 +19,8 @@ function date(data, ele, cb){
     this.name;
     var _this = this;
 
-    function ntips(msg){
-        console.log(msg);
-    }
-
     function dm(){
+        _this.ipt = this;
         // var the_dateMobile = this;
         // _this.ipt = the_dateMobile;
         // var formValide = libs.formValide({popmsg: false});
@@ -49,13 +51,38 @@ function date(data, ele, cb){
         //     })
         // }
 
-        // if ( data.min ){
-        //     $(this).find('input').attr('min', data.min)
-        // }
-        //
-        // if ( data.max ){
-        //     $(this).find('input').attr('max', data.max)
-        // }
+        var mb_config = {
+            minWidth: (function(){
+                if( dpi )
+                    return 100 * dpi
+                else {
+                    return 100
+                }
+            })(),
+            maxWidth: (function(){
+                return dview.width * 0.9;
+            })(),
+            height: (function(){
+                return 150
+            })(),
+            dateFormat: 'yy-mm-dd',
+            dateOrder: 'yymmdd',
+            setText: '确定',
+            cancelText: '取消',
+
+            onSelect: function(val, inst){
+                _this.stat = true;
+                _this.value = val;
+            }
+        }
+
+        if ( data.min )
+            mb_config.minDate = new Date(data.min);
+
+        if ( data.max )
+            mb_config.maxDate = new Date(data.max);
+
+        $(this).find('input').mobiscroll().date( mb_config );
 
     }
 

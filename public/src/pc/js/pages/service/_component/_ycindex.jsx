@@ -61,9 +61,9 @@ function abcd(){
 
 
     //关闭弹窗
-    $(".pop_bg").click(function(){
-      SA.setter('Pop',{data:{display:'none'}})
-    })
+    // $(".pop_bg").click(function(){
+    //   SA.setter('Pop',{data:{display:'none'}})
+    // })
 
 
     //弹出服务下的配件列表
@@ -208,7 +208,7 @@ var index = {
 //dom写入后，绑定相关的方法
 var bindIndex = function(){
     var Checkbox = require('modules/form/checkbox');
-    var checkNum = {};     
+    var checkNum = {};
 
     //选择是否需要提供配件
     checkNum.checkbox = new Checkbox({label:'已有配件只需上门服务'}, 'checkbox',function(self){

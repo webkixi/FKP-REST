@@ -56,6 +56,7 @@ var req = function(api,options){
 // var src = "http://120.25.241.174:8080/v1/servicetype/";
 //var src = "http://192.168.4.57:8080/v1/";
 var src = "http://120.25.241.174:8080/v1/";
+var src2 = "http://120.25.241.174:8090/v2/";
 
 var apiPath = {
     base: src,
@@ -73,6 +74,7 @@ var apiPath = {
         region: src+'region/query',
         getmms: src+'user/getsmscode',
         orderins: src+'order/insert',
+        orderins_v2: src2+'order/insert',
         order_list: src+'order/query',
         myorder_info: src+'order/info',
         mobilecode: src+'user/login',
@@ -84,7 +86,10 @@ var apiPath = {
         mycar_del: src+'usercar/delete',
         washcar: src+'servicetype/query/washcar',
 
-        login: src+'user/login'
+        login: src+'user/login',
+        getshoplist: src2+'dealer/query'
+
+        ,discountlist: src2+'order/query'
     },
 
     weixin: {
@@ -102,6 +107,9 @@ function *pullApiData(api, param, method){
     libs.elog('javaapi/'+ api);
 
     var url = apiPath.dirs[api];
+    if( !url ){
+        return false;
+    }
     var query;
 
     if(!method)
@@ -111,7 +119,7 @@ function *pullApiData(api, param, method){
         query = param;
 
     console.log('(((((((((((((((((((((((((((query)))))))))))))))))))))))))))');
-    console.log(query);
+    // console.log(query);
 
     if(libs.getObjType(param)!=='Object')
         return yield {};
@@ -127,7 +135,7 @@ function *pullApiData(api, param, method){
 // 获取微信的token，并session
 // 微信token分为两种，一种是服务端的token, 一种是通过oauth2方式获取的token
 function *getWxAccessToken(params, apii){
-    console.log(this.sess);
+    // console.log(this.sess);
 
     var the = this;
     var date = new Date();
@@ -195,7 +203,7 @@ function *getWxAccessToken(params, apii){
         }
 
     }
-    console.log(tmp);
+    // console.log(tmp);
     if(tmp){
         var now = date.getTime()/1000;
         if(now-tmp.token_expire>6500){
@@ -224,6 +232,9 @@ function *pullWxData(api, param, method){
         return {token: true};
     }else{
         if(api.indexOf('_web')===-1){
+            if(api==='token'){
+                return { token: this.sess.wx.token };
+            }
             console.log('append access token to weixin api');
             param.access_token = this.sess.wx.token;
         }

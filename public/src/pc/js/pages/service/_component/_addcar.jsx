@@ -222,17 +222,9 @@ var bindEsti = function(){
     var tt;
     api.req('getservtime', function(data){
         tt = data;
-        // var ttt = formatDate(tt.timer);
-        // var $min = ttt.year+'-'+ttt.month+'-'+ttt.date
-        // var $max = ttt.year+'-'+ttt.month+'-'+(ttt.date+3)
         var ttt = tt.timer;
-        var n_ttt = ttt + 24*60*60*1000*2;
-        _car.license = new Datemobile({label:'上牌时间'}, 'license',function(){
-            $(this).find('input').mobiscroll().date({
-                minDate: new Date(ttt),
-                maxDate: new Date(n_ttt)
-            });
-        });
+        var n_ttt = ttt - 24*60*60*1000*2;
+        _car.license = new Datemobile({label:'上牌时间', max: n_ttt}, 'license',function(){});
     })
 
 
