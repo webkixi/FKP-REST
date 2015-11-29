@@ -60,7 +60,7 @@ function abc(){
 }
 var bindIndex = function(){
     router.clear()
-    $('body').delegate('#now','click',function(){
+    $('#container-box').delegate('#now','click',function(){
         router('addcar')
     })
 }
