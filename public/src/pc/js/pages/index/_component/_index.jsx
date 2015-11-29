@@ -10,10 +10,8 @@ var myabout = [];
 var index = {
     mixins: [ItemMixin],
     checkWx: function(){
-        var wx = SA.getter('_WEIXIN').data;
-        console.log('微信用户数据');
-        console.log(wx);
-        if(wx.user.openid){
+        var wx = SA.get('_WEIXIN');
+        if(wx.user && wx.user.openid){
             return true;
         }
         else {
@@ -101,9 +99,10 @@ function router2back(){
 
 function  init( ele, cb ){
     router2back()
-    var wx = SA.getter('_WEIXIN')
-    if(!wx.data.user)
-        SA.setter('_WEIXIN', renderDom, [ele, cb]);
+    var wx = SA.get('_WEIXIN')
+    if(!wx.user){
+        SA.setter('_WEIXIN', [renderDom], [[ele, cb]]);
+    }
     else{
         renderDom(ele, cb)
     }

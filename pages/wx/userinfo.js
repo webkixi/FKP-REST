@@ -5,7 +5,7 @@ var config = require('../../config')
 // var rct = require('../../modules/parseReact');
 
 function *demoIndexData(oridata){
-    libs.wlog('pages/weixin/userlist')
+    libs.wlog('pages/weixin/userinfo')
     var dataSet = {};
     var infoCat =[];
     var mtd = this.method;

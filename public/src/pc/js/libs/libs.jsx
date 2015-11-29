@@ -120,7 +120,7 @@ function rmvEvent(elm, evType, fn, useCapture) {
 }
 
 
-function extend(Child, Parent) {
+function $extend(Child, Parent) {
 	var F = function(){};
 	F.prototype = Parent.prototype;
 	Child.prototype = new F();

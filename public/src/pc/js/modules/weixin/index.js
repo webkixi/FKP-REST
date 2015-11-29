@@ -9,7 +9,7 @@ var api = require('libs/api')
 
 // 初始化微信的数据
 function init(cb){
-    SA.setter("_WEIXIN",{})
+    SA.set("_WEIXIN",{error: -1})
     getwx( cb );
 }
 
@@ -20,23 +20,27 @@ function getwx( cb ){
         postdata,
         rtn_data;
 
+    function callback(){
+        if( cb )
+            cb( rtn_data )
+    }
+
     if(url.params.code && url.params.state){
         cd = url.params.code;
         st = url.params.state;
         postdata = {code: cd, state: st};
     }
 
-    if( postdata ){
-        api.wx('userinfo', postdata, function(data){
-            if(typeof data === 'string'){
-                data = JSON.parse(data)
-            }
-            SA.setter("_WEIXIN",{user: data})
-            rtn_data = data;
-            if( cb )
-                cb( rtn_data )
-        })
-    }
+    api.wx('userinfo', postdata, function(data){
+        if(typeof data === 'string')
+            data = JSON.parse(data)
+
+        SA.setter("_WEIXIN",{user: data})
+        rtn_data = data;
+        callback()
+    })
+
+
 }
 
 module.exports = init;
