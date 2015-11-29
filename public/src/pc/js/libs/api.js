@@ -47,57 +47,29 @@ var apiPath = {
     }
 }
 
-function rtnPostData(url, data, cb){
-    if( typeof data === 'function'){
-        cb = data;
-        data = undefined;
-    }
-
-    if( !cb ) return false;
-
-    var _dft = {
-        type: "post",
-        contentType: "application/json",
-        url: url,
-        dataType: "json",
-        success: function (data) {
-            cb( data )
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
-        }
-    }
-
-    if( libs.getObjType( data )==='Object'){
-        _dft.data = JSON.stringify(data);
-    }
-
-    var opts = _dft
-
-    $.ajax( opts );
-}
-
 function req( api, param, cb ){
 
     var url = apiPath.dirs[api];
     if(url){
-        rtnPostData(url, param, cb )
-        // if(libs.getObjType(param)==='Object'){
-        //     var keys = Object.keys(param)
-        //     if(keys.length>0){
-        //         rtnPostData(url, param, cb )
-        //     }else{
-        //         rtnPostData(url, cb )
-        //     }
-        // }else{
-        //     if(libs.getObjType(param)==='Function'){
-        //         cb = param;
-        //         rtnPostData(url, cb )
-        //     }
-        //     else{
-        //         rtnPostData(url, cb )
-        //     }
-        // }
+        if(libs.getObjType(param)==='Object'){
+            var keys = Object.keys(param)
+            if(keys.length>0){
+                $.post( url, param, function( body, status ){
+                    if( status === 'success' ) cb( body ) ;
+                }, "json")
+            }else{
+                $.post( url, {test: '123'}, function( body, status ){
+                    if( status === 'success' ) cb( body ) ;
+                }, "json")
+            }
+        }else{
+            if(libs.getObjType(param)==='Function'){
+                cb = param;
+            }
+            $.post( url, {test: '123'}, function( body, status ){
+                if( status === 'success' ) cb( body ) ;
+            }, "json")
+        }
     }else{
       console.log("api没有定义");
     }
@@ -105,8 +77,14 @@ function req( api, param, cb ){
 
 function wx( api, param, cb ){
     var url = apiPath.weixin[api];
+    if(!param)
+        param = {test: "123"}
     if(url){
-        rtnPostData(url, param, cb )
+        $.post( url, param, function( body, status ){
+            if( status === 'success' ) {
+                cb( body );
+            }
+        }, "json")
     }
 }
 
