@@ -251,7 +251,7 @@ function checkValue(ele){
           carengno: _car.engin.value||'',
           plateno: _car.number.value||'',
           carvin: _car.vin.value||'',
-          regtime: _car.reg.value||'',
+          regtime: _car.license.value||'',
           carrunkm: 50000,
           usercarremark: "just test ,don't call me",
           mobile: "18002278121"
