@@ -81,7 +81,7 @@ function getData(ele, param, cb){
       }
       if(uid){
           api.req('order_list',uid,function(data){
-            console.log(data);
+            // console.log(data);
             if(data.results){
                 orderlistdata(data.results, ele, cb)
                 // if(data.results && data.results.length)
@@ -112,7 +112,7 @@ function orderlistdata(orderdata,  ele, cb){
   order_data_list_D1 =[];
   order_data_list_D2 =[];
   order_data_list_D3 =[];
-  console.log(orderdata);
+  // console.log(orderdata);
   orderdata.map(function(item,i){
     item.createtime = item.createtime*1000;
     //转时间戳

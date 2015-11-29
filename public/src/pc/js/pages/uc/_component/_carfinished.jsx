@@ -8,7 +8,6 @@ var router = require('libs/router').router
 var _order_Date_act = [];
 var _form = {};
 
-var order_status = SA.getter('_GLOBAL').data.data.status;
 function getData(ele, param, cb){
   var order_id = SA.getter('_GLOBAL').data.data.orderids;
   var orderid = { orderid : order_id}
@@ -19,7 +18,8 @@ function getData(ele, param, cb){
 }
 var order_data;
 function orderInfodata(orderInfo, ele, cb){
-  console.log(orderInfo);
+var order_status = SA.getter('_GLOBAL').data.data.status;
+  // console.log(orderInfo);
   var orderInfo_L = [];
   if(orderInfo[0].paytype == 1){
     orderInfo[0].paytype = '在线支付'
@@ -66,20 +66,25 @@ function orderInfodata(orderInfo, ele, cb){
          "订单号：" + orderInfo[0].orderno
      ]
  }
-  renderDom( ele, cb)
+ var data = {
+     statu: order_status,
+     detail: order_data
+ }
+ renderDom( ele, data, cb)
 }
 
 var estimate = {
     mixins: [ItemMixin],
     render: function () {
+        // console.log(this.props.data);
         return(
             <div className={'index carfinished'}>
                 <header>
-                    {order_status}
+                    {this.props.data.statu}
                 </header>
                 <article>
                     <div className="profile order_details">
-                        <FDiv data={order_data} itemClass={'noclass'}/>
+                        <FDiv data={this.props.data.detail} itemClass={'noclass'}/>
                     </div>
                 </article>
             </div>
