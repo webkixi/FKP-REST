@@ -27,6 +27,8 @@ function getwx( cb ){
     }
 
     if( postdata ){
+        console.log('========');
+        console.log(postdata);
         api.wx('userinfo', postdata, function(data){
             if(typeof data === 'string'){
                 data = JSON.parse(data)
