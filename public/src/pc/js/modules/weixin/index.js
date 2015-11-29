@@ -33,7 +33,7 @@ function getwx( cb ){
             if(typeof data === 'string'){
                 data = JSON.parse(data)
             }
-            SA.set("_WEIXIN",{user: data})
+            SA.setter("_WEIXIN",{user: data})
             rtn_data = data;
             if( cb )
                 cb( rtn_data )

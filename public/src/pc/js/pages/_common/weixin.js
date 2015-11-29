@@ -21,7 +21,10 @@ function init_wx(){
 */
 function getLocalUser( data ){
     if(data.openid){
-        api.req('login', {openid: data.openid}, function(record){
+        api.req('login',
+            {openid: data.openid},
+            function(record){
+
             //验证返回数据
             //如果code===1则写入全局，并执行全局方法
             if(record){
@@ -29,8 +32,6 @@ function getLocalUser( data ){
                     record = JSON.parse(record)
 
                 console.log('－－－－－－本地用户数据－－－－－－－');
-                console.log(record);
-                console.log(data);
                 if(record.code === 1){
                     var local_user_info = record.results[0];
                     SA.setter("_LOCAL_USER", local_user_info);
