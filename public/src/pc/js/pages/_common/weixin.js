@@ -11,7 +11,7 @@ var wx = require('modules/weixin/index')
 * 通过微信数据获取本地用户数据
 */
 function init_wx(){
-    SA.set("_LOCAL_USER",{error: "-1"});
+    SA.setter("_LOCAL_USER",{error: "-1"});
     wx( getLocalUser )
 }
 
@@ -37,13 +37,13 @@ function getLocalUser( data ){
                     SA.setter("_LOCAL_USER", local_user_info);
                 }
                 else{
-                    SA.set("_LOCAL_USER", {error: "-2"});
+                    SA.setter("_LOCAL_USER", {error: "-2"});
                 }
             }
         })
     }
     else
-        SA.set("_LOCAL_USER",{error: "-3"});
+        SA.setter("_LOCAL_USER",{error: "-3"});
 }
 
 module.exports = init_wx

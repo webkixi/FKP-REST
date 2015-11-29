@@ -9,7 +9,7 @@ var api = require('libs/api')
 
 // 初始化微信的数据
 function init(cb){
-    SA.set("_WEIXIN",{})
+    SA.setter("_WEIXIN",{})
     getwx( cb );
 }
 
@@ -27,8 +27,6 @@ function getwx( cb ){
     }
 
     if( postdata ){
-        console.log('========');
-        console.log(postdata);
         api.wx('userinfo', postdata, function(data){
             if(typeof data === 'string'){
                 data = JSON.parse(data)
