@@ -61,6 +61,7 @@ function abc(){
 var bindIndex = function(){
     router.clear()
     $('body').delegate('#now','click',function(){
+        alert('kkkk')
         router('addcar')
     })
 }
