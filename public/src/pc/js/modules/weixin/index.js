@@ -33,11 +33,10 @@ function getwx( cb ){
             }
             SA.set("_WEIXIN",{user: data})
             rtn_data = data;
+            if( cb )
+                cb( rtn_data )
         })
     }
-
-    if( cb )
-        cb( rtn_data )
 }
 
 module.exports = init;
