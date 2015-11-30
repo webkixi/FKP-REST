@@ -44,7 +44,7 @@ function dealWith_Data_Brand(){
     var resaults = []
     var rtnDom;
 
-    SA.setter('Pop',{data:{display:'block'}})
+    // SA.setter('Pop',{data:{display:'block'}})
     api.req('queryallbrand',{}, function(data){
         if(data.code && data.code===1){
         //   console.(data);
@@ -91,7 +91,7 @@ function dealWith_Data_Series(){
     // _car.model.empty();
     // pn = { carbrand: $("#brand").find("input").val()}
     pn = { carbrand: _car.brand.text}
-    SA.setter('Pop',{data:{display:'block'}})
+    // SA.setter('Pop',{data:{display:'block'}})
     api.req('queryseries',pn, function(data){
       if(data.code && data.code===1){
         var tmp = [];
@@ -126,7 +126,7 @@ function dealWith_Data_Type(){
     var rtnDom;
     var nav = [];
     cs = { carTypes: $("#series").find("input").val()}
-    SA.setter('Pop',{data:{display:'block'}})
+    // SA.setter('Pop',{data:{display:'block'}})
     api.req('querycartype',cs, function(data){
       if(data.code && data.code===1){
         data.results.map(function(item,i){
