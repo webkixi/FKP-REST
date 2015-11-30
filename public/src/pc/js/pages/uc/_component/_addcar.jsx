@@ -86,8 +86,8 @@ function dealWith_Data_Series(){
     var rtnDom;
     var nav = [];
     // _car.model.empty();
-    pn = { carbrand: $("#brand").find("input").val()}
-    // pn = { carbrand: _car.brand.text}
+    // pn = { carbrand: $("#brand").find("input").val()}
+    pn = { carbrand: _car.brand.text}
     api.req('queryseries',pn, function(data){
       if(data.code && data.code===1){
         var tmp = [];
