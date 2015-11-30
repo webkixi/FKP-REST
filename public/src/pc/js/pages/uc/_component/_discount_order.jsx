@@ -112,7 +112,7 @@ function bindEvent(){
 
 		oInput.on('input',function(){
 			var val = $(this).val();
-			if(/^[\d]{1,8}(\.\d{1,2})?$/.test(val)){
+			if(/^[\d]{1,8}(\.\d{1,2})?$/.test(val) && val>0){
             // if(formData.money.stat)
 				$('#now_addcar').removeClass('unSubmit');
 			}else{
