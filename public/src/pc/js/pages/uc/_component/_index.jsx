@@ -81,7 +81,7 @@ function getData(ele, param, cb){
       }
       if(uid){
           api.req('order_list',uid,function(data){
-            // console.log(data);
+            console.log(data);
             if(data.results){
                 orderlistdata(data.results, ele, cb)
                 // if(data.results && data.results.length)
@@ -107,20 +107,39 @@ var order_data_list_D1 =[];
 var order_data_list_D2 =[];
 var order_data_list_D3 =[];
 function orderlistdata(orderdata,  ele, cb){
-  var order_data_list = [];
-  order_data_list_D0 =[];
-  order_data_list_D1 =[];
-  order_data_list_D2 =[];
-  order_data_list_D3 =[];
-  // console.log(orderdata);
+    var order_data_list = [];
+    order_data_list_D0 =[];
+    order_data_list_D1 =[];
+    order_data_list_D2 =[];
+    order_data_list_D3 =[];
+    function formatTime(tt){
+        function checkTime(i) {
+              if ( i < 10 ){
+                  i = "0" + i;
+              }
+              return i;
+        }
+
+        var a = new Date(parseInt(tt));
+        var month = parseInt(a.getMonth())+1
+
+        var hour = checkTime(a.getHours())
+        var minut = checkTime(a.getMinutes())
+        var second = checkTime(a.getSeconds())
+
+        var ordertime = a.getFullYear() +'-'+ month +'-'+ a.getDate() +' '+ hour +':'+ minut +':'+ second;
+        return ordertime
+    }
+
   orderdata.map(function(item,i){
     item.createtime = item.createtime*1000;
     //转时间戳
-    var a = new Date(parseInt(item.createtime));
-    var month = parseInt(a.getMonth())+1
-    var ordertime = a.getFullYear() +'-'+ month +'-'+ a.getDate() +' '+ a.getHours() +':'+ a.getMinutes() +':'+ a.getSeconds();
+    var ordertime = formatTime(item.createtime);
+
     //截取订单号
     var orderno = 'Y'+item.orderno.substring(3,16);
+
+
     //状态赋值
     var i_cls = 'ifont icon-car_oil'
     switch (item.servicetypeno) {
@@ -139,6 +158,41 @@ function orderlistdata(orderdata,  ele, cb){
     }
     var title = <a className={i_cls}>{item.orderid}</a>
     var stateVal = item.status;
+
+    function mk_foot(){
+
+        //获取商户名称
+        if(item.dealer){
+            var orderName = item.dealer.name;
+            var kkk = [
+                {
+                    k: '单号:',
+                    v: orderno
+                },
+                {
+                    k: '商户:',
+                    v: orderName
+                },
+                {
+                    k: '时间:',
+                    v: ordertime
+                }
+            ]
+        }else{
+            var kkk = [
+                {
+                    k: '单号:',
+                    v: orderno
+                },
+                {
+                    k: '时间:',
+                    v: ordertime
+                }
+            ]
+        }
+        return kkk;
+    }
+
     if(stateVal == '0'){
       stateVal = '未完成';
       order_data_list =
@@ -152,17 +206,9 @@ function orderlistdata(orderdata,  ele, cb){
                   v: stateVal
                 }
             ],
-            footer:[
-
-                {
-                    k: '单号:',
-                    v: orderno
-                },
-                {
-                    k: '时间:',
-                    v: ordertime
-                }
-            ]
+            footer: (function(){
+                return mk_foot()
+            })()
             // dot:[
             //     <i>{'马上使用'}</i>
             // ]
@@ -184,17 +230,9 @@ function orderlistdata(orderdata,  ele, cb){
                   v: stateVal
                 }
             ],
-            footer:[
-
-                {
-                    k: '单号:',
-                    v: orderno
-                },
-                {
-                    k: '时间:',
-                    v: ordertime
-                }
-            ]
+            footer: (function(){
+                return mk_foot()
+            })()
             // dot:[
             //     <i>{'马上使用'}</i>
             // ]
@@ -214,17 +252,9 @@ function orderlistdata(orderdata,  ele, cb){
                   v: stateVal
                 }
             ],
-            footer:[
-
-                {
-                    k: '单号:',
-                    v: orderno
-                },
-                {
-                    k: '时间:',
-                    v: ordertime
-                }
-            ]
+            footer: (function(){
+                return mk_foot()
+            })()
             // dot:[
             //     <i>{'马上使用'}</i>
             // ]
@@ -244,17 +274,9 @@ function orderlistdata(orderdata,  ele, cb){
                   v: stateVal
                 }
             ],
-            footer:[
-
-                {
-                    k: '单号:',
-                    v: orderno
-                },
-                {
-                    k: '时间:',
-                    v: ordertime
-                }
-            ]
+            footer: (function(){
+                return mk_foot()
+            })()
             // dot:[
             //     <i>{'马上使用'}</i>
             // ]
