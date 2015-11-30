@@ -18,23 +18,23 @@ function getData(ele, param, cb){
 }
 var order_data;
 function orderInfodata(orderInfo, ele, cb){
-var order_status = SA.getter('_GLOBAL').data.data.status;
-  // console.log(orderInfo);
-  var orderInfo_L = [];
-  if(orderInfo[0].paytype == 1){
+    var order_status = SA.getter('_GLOBAL').data.data.status;
+    // console.log(orderInfo);
+    var orderInfo_L = [];
+    if(orderInfo[0].paytype == 1){
     orderInfo[0].paytype = '在线支付'
-  }
-  else if(orderInfo[0].paytype == 0){
+    }
+    else if(orderInfo[0].paytype == 0){
     orderInfo[0].paytype = '线下支付'
-  }
-  if(orderInfo[0].servicemode == 1){
+    }
+    if(orderInfo[0].servicemode == 1){
     orderInfo[0].servicemode = '上门保养'
-  }
-  else if(orderInfo[0].servicemode == 0){
+    }
+    else if(orderInfo[0].servicemode == 0){
     orderInfo[0].servicemode = '到店保养'
-  }
-   order_data =
-  {
+    }
+    order_data =
+    {
      title: "headerpic",
      img: "/images/getheadimg.jpeg",
      body:[
@@ -65,7 +65,7 @@ var order_status = SA.getter('_GLOBAL').data.data.status;
      dot:[
          "订单号：" + orderInfo[0].orderno
      ]
- }
+    }
  var data = {
      statu: order_status,
      detail: order_data

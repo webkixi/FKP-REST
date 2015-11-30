@@ -1,9 +1,9 @@
 @import "../../_copy2dist/iconfont";
 // @import "../../global/_settings/_setting_pages";
-body{
+html,body{
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    // overflow: hidden;
 }
 #container-box{
     height: 100%;
@@ -45,6 +45,7 @@ body{
   .service_about{
     padding: 0;
     height: 100%;
+    min-height: 100%;
     .ser_abot{
       color: #000;
       min-height:10rem;
@@ -58,7 +59,7 @@ body{
       ul{
         font-size: 0;
         width: 100%;
-        padding: 1rem 0 0 0;
+        padding: 1.2rem 0 0 0;
         overflow: hidden;
         height: 100%;
         li{
@@ -138,7 +139,7 @@ body{
       text-align: left;
       margin: 1rem 0 1.7rem 0;
       em{
-        line-height: 0;
+        line-height: 2;
         display: block;
         font-size: 0.7rem;
         font-style: normal;
@@ -215,6 +216,7 @@ body{
       img{
         margin: 0;
         height: 100%;
+        vertical-align: bottom;
       }
   }
 }
