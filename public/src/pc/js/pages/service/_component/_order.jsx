@@ -262,7 +262,7 @@ var bindIndex = function(){
         u.district = new Select({}, 'district',function(){
             $(this).click(function(){
                 if(!u.city.stat){
-                    SA.setter('Pop',{data:{body:'请先选择城市', display:'block'}})
+                    SA.setter('Pop',{data:{alert:{body:'请先选择城市'}, display:'block'}})
                 }else{
                     districts = [];
                     var kkk = $('#city').find('input').val();
@@ -331,7 +331,7 @@ var bindIndex = function(){
                     }
                 }
                 else{
-                    SA.setter('Pop',{data:{body:'请输入正确手机号码',display:'block'}} );
+                    SA.setter('Pop',{data:{alert:{body:'请输入正确手机号码'},display:'block'}} );
                 }
         })
 
@@ -444,7 +444,7 @@ var bindIndex = function(){
                 }
                 if(data && data.code === 536){
                     submit_stat = false;
-                    SA.setter('Pop',{data:{body:'请正确填写短信验证码',display:'block'}} )
+                    SA.setter('Pop',{data:{alert:{body:'请正确填写短信验证码'},display:'block'}} )
                 }
             })
         }
@@ -503,14 +503,14 @@ var bindIndex = function(){
             // console.log(result);
             if (result=="success") {
                 // payment succeed
-                SA.setter('Pop',{data:{body:'已成功下订单',display:'block'}} )
+                SA.setter('Pop',{data:{alert:{body:'已成功下订单'},display:'block'}} )
                 router('/uc.html');
             } else if (result == "fail") {
                 // alert('charge不对')
                 SA.setter('Pop',{data:{body:result.toString(),display:'block'}} )
                 // charge 不正确或者微信公众账号支付失败时会在此处返回
             } else if (result == "cancel") {
-                SA.setter('Pop',{data:{body:'支付取消',display:'block'}} )
+                SA.setter('Pop',{data:{alert:{body:'支付取消'},display:'block'}} )
                 submit_stat = false;
                 console.log('微信公众账号支付取消支付');
                 // 微信公众账号支付取消支付
@@ -540,12 +540,12 @@ function checkValue(ele){
         }
     })
     if(stat === false){
-        SA.setter('Pop',{data:{body:'请检查填写信息!',display:'block'}} )
+        SA.setter('Pop',{data:{alert:{body:'请检查填写信息!'},display:'block'}} )
         return false;
     }
     else if ( !_payway ){
         stat = false;
-        SA.setter('Pop',{data:{body:'请填写支付方式!',display:'block'}} )
+        SA.setter('Pop',{data:{alert:{body:'请填写支付方式!'},display:'block'}} )
         alert('!')
     }
     else

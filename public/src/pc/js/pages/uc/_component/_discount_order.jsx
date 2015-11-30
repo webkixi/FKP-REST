@@ -105,14 +105,14 @@ function bindEvent(){
 			var isChooseShop = $('#shop').find('input').val(); //获取选中的4S店
 			if(!isChooseShop){
 				oInput.blur();
-				SA.setter('Pop',{data:{body:'请选择商户', display:'block'}});
+				SA.setter('Pop',{data:{alert:{body:'请选择商户'}, display:'block'}});
 			}
 			return false;
 		});
 
 		oInput.on('input',function(){
 			var val = $(this).val();
-			if(/^[\d]{1,8}(\.\d{1,2})?$/.test(val)){
+			if(/^[\d]{1,8}(\.\d{1,2})?$/.test(val) && val>0){
             // if(formData.money.stat)
 				$('#now_addcar').removeClass('unSubmit');
 			}else{
@@ -189,16 +189,16 @@ function checkValue(){
             // console.log(result);
             if (result=="success") {
                 // payment succeed
-                SA.setter('Pop',{data:{body:'已成功下订单',display:'block'}} )
+                SA.setter('Pop',{data:{alert:{body:'已成功下订单'},display:'block'}} )
                 router('index');
                 //router('order_list');
                 // router('payok');
             } else if (result == "fail") {
                 // alert('charge不对')
-                SA.setter('Pop',{data:{body:result.toString(),display:'block'}} )
+                SA.setter('Pop',{data:{alert:{body:result.toString()},display:'block'}} )
                 // charge 不正确或者微信公众账号支付失败时会在此处返回
             } else if (result == "cancel") {
-                SA.setter('Pop',{data:{body:'支付取消',display:'block'}} )
+                SA.setter('Pop',{data:{alert:{body:'支付取消'},display:'block'}} )
                 submit_stat = false;
                 console.log('微信公众账号支付取消支付');
                 // 微信公众账号支付取消支付

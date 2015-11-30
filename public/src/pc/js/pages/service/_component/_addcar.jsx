@@ -181,7 +181,7 @@ var bindEsti = function(){
           if($("#brand").find("input").val())
             dealWith_Data_Series();
           else
-            SA.setter('Pop',{data:{body:'请先选择品牌', display:'block'}})
+            SA.setter('Pop',{data:{alert:{body:'请先选择品牌'}, display:'block'}})
         })
     });
 
@@ -197,7 +197,7 @@ var bindEsti = function(){
           if($("#series").find("input").val())
             dealWith_Data_Type();
           else
-            SA.setter('Pop',{data:{body:'请先选择车系', display:'block'}})
+            SA.setter('Pop',{data:{alert:{body:'请先选择车系'}, display:'block'}})
         })
     });
 
@@ -300,7 +300,7 @@ function checkValue(ele){
       router.goback()
     }
     else {
-      SA.setter('Pop',{data:{body:'品牌、车系、车型为必选项目，请选择！', display:'block'}})
+      SA.setter('Pop',{data:{alert:{body:'品牌、车系、车型为必选项目，请选择！'}, display:'block'}})
     }
 }
 var Esti = React.createClass(esti2)

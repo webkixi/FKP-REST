@@ -99,7 +99,7 @@ var bindIndex = function(){
     u.district = new Select({}, 'district',function(){
         $(this).click(function(){
             if(!u.city.stat)
-                SA.setter('Pop',{data:{body:'请先选择城市', display:'block'}})
+                SA.setter('Pop',{data:{alert:{body:'请先选择城市'}, display:'block'}})
             else{
                 var kkk = $('#city').find('input').val();
                 api.req('region',{parent_id: kkk}, function(data){
@@ -176,7 +176,8 @@ function checkValue(ele){
         }
     })
     if ( stat === false )
-        alert ( '请正确填写信息！' )
+        //alert ( '请正确填写信息！' )
+        SA.setter('Pop',{data:{alert:{body:'请正确填写信息!'}, display:'block'}})
 
     return stat;
 }

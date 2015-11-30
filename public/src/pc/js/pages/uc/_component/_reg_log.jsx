@@ -70,7 +70,7 @@ var bindIndex = function(){
                     })
                 }
             }else{
-                SA.setter('Pop',{data:{body:'请输入正确的手机号码',display:'block'}} );
+                SA.setter('Pop',{data:{alert:{body:'请输入正确的手机号码'},display:'block'}} );
             }
     })
 
@@ -87,7 +87,7 @@ var bindIndex = function(){
                 else
                 if( record && record.code === 536){
                     submit_stat = false;
-                    SA.setter('Pop',{data:{body:'请正确填写短信验证码',display:'block'}} );
+                    SA.setter('Pop',{data:{alert:{body:'请正确填写短信验证码'},display:'block'}} );
                 }
                 else{
                     SA.setter("_LOCAL_USER", {error: "-2"});
