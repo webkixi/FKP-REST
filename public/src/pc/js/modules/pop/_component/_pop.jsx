@@ -68,7 +68,7 @@ var popwin = {
 			}
 			if(theData.alert){
 				cls +=' alert';
-				body = <div><div className={'alertTit'}><i className={'ifont icon-warn'}></i>{theData.alert.title?theData.alert.title:'温馨提示'}</div><div className={'alertCon'}>{theData.alert.body?theData.alert.body:theData.body}</div><div className={'alertBtn'}>我知道了</div></div>
+				body = <div><div className={'alertTit'}><i className={'ifont icon-infofill'}></i>{theData.alert.title?theData.alert.title:'温馨提示'}</div><div className={'alertCon'}>{theData.alert.body?theData.alert.body:theData.body}</div><div className={'alertBtn'}>我知道了</div></div>
 			}
 		}
         return(
