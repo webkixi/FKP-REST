@@ -32,7 +32,7 @@ var createDom = {
                     </div>
                     <div className={'wxpayBox'}>
                         <h2>支付方式</h2>
-                        <div className={'wxpay ifont icon-weixin1'}><i className={'ifont icon-roundcheckfill'}></i></div>
+                        <div className={'wxpay ifont icon-weixin1'}><span>微信支付</span><i className={'ifont icon-roundcheckfill'}></i></div>
                     </div>
                     <a id="now_addcar" className={'btn-link unSubmit'}>确认支付</a>
                 </article>
