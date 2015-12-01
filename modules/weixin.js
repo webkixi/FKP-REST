@@ -36,9 +36,9 @@ function *weixin(){
     else
     if( route.title === 'userinfo' ){
         console.log('hhhhhhhhhh   weixin  9999999999');
-        var info = require('./wx/userinfo')
+        var info = yield require('./wx/userinfo').getData.call(this)
         console.log(info);
-        // yield returnJson( info )
+        yield returnJson( info )
     }
     else{
         yield wechat(config.weixin).middleware(function *() {

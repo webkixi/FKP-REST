@@ -6,8 +6,6 @@ var config = require('../../config')
 
 function *demoIndexData(oridata){
     libs.wlog('pages/weixin/userinfo')
-    var dataSet = {};
-    var infoCat =[];
     var mtd = this.method;
     var _this_sess = this.sess;
     if(mtd==='GET'){
