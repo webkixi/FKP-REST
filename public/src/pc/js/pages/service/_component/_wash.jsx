@@ -3,7 +3,7 @@ var Uls = require('modules/tabs/_component/uls')('Fours');
 var Pt = require('widgets/itemView/pic_title');
 var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
-var api = require('libs/api');
+var api = libs.api
 var store = require('mixins/store');
 var router = require('libs/router').router
 

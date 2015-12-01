@@ -1,13 +1,15 @@
-var libs = require('libs/libs')
+// var libs = require('libs/libs')
 var qs = require('querystring');
 var src = "/";
 var demoSrc = "http://mock.agzgz.com/";
 
+function getObjType(object){
+    return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
+};
+
 var apiPath = {
     base: src,
-    dirs: {
-        
-    },
+    dirs: {},
     weixin: {
         userlist: src+'wx/userlist',   //?access_token=_cqch&next_openid=
         userinfo: src+'wx/userinfo'
@@ -15,26 +17,23 @@ var apiPath = {
 }
 
 function req( api, param, cb ){
-
     var url = apiPath.dirs[api];
-    if(!url)
+    if( !url )
         url = api;
 
-    if(libs.getObjType(param)==='Object'){
+    if( getObjType(param)==='Object' ) {
         var keys = Object.keys(param)
-        if(keys.length>0){
+        if( keys.length>0 )
             $.post( url, param, function( body, status ){
                 if( status === 'success' ) cb( body ) ;
             }, "json")
-        }
-        else{
+        else
             $.post( url, {test: '123'}, function( body, status ){
                 if( status === 'success' ) cb( body ) ;
             }, "json")
-        }
     }
     else{
-        if(libs.getObjType(param)==='Function'){
+        if( getObjType(param)==='Function' ){
             cb = param;
         }
         $.post( url, {test: '123'}, function( body, status ){
@@ -45,7 +44,7 @@ function req( api, param, cb ){
 
 function wx( api, param, cb ){
     var url = apiPath.weixin[api];
-    if(!param)
+    if( !param )
         param = {test: "123"}
     if(url){
         $.post( url, param, function( body, status ){

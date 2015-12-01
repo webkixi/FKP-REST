@@ -2,7 +2,7 @@ var libs = require('libs/libs');
 var ItemMixin = require('mixins/item');
 var FLi = require('widgets/itemView/f_li');
 var List = require('widgets/listView/list');
-var api = require('libs/api');
+var api = libs.api
 var store = require('mixins/store');
 var router = require('libs/router').router
 

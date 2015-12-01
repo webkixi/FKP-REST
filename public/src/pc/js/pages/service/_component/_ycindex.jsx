@@ -4,7 +4,7 @@ var ItemMixin = require('mixins/item')
 var List = require('widgets/listView/list')
 var Uls = require('modules/tabs/_component/uls')('Xby');
 var pop = require('modules/pop/index')
-var api = require('libs/api');
+var api = libs.api
 var store = require('mixins/store');
 var router = require('libs/router').router
 //全局数据

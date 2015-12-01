@@ -8,7 +8,7 @@ var libs = require('libs/libs');
 var Pt = require('widgets/itemView/f_li');
 var ItemMixin = require('mixins/item');
 var List = require('widgets/listView/list');
-var api = require('libs/api');
+var api = libs.api
 // var pop = require('modules/pop/index');
 // var store = require('mixins/store');
  var router = require('libs/router').router
@@ -38,7 +38,7 @@ var PayOk = React.createClass(createDom);
 
 function bindEvent(){
 
-    
+
     $('#now_addcar').click(function(){
     		if($(this).hasClass('unSubmit'))return;
     		checkValue();

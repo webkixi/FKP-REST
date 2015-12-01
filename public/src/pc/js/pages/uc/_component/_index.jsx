@@ -1,7 +1,7 @@
 var libs = require('libs/libs');
 var ItemMixin = require('mixins/item')
 var Mooc = require('modules/tabs/coupons');
-var api = require('libs/api');
+var api = libs.api
 var store = require('mixins/store');
 var router = require('libs/router').router
 

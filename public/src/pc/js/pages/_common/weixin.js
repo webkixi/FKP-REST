@@ -124,7 +124,7 @@
 
 
 var libs = require('libs/libs');
-var api = require('libs/api')
+var api = libs.api
 var router = require('libs/router').router
 var route = require('libs/router').route
 var wx = require('modules/weixin/index')
