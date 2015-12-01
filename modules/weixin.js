@@ -26,6 +26,7 @@ function *weixin(){
     console.log(route);
 
     if(route.title === 'userlist'){
+        console.log('hh888888');
         var postdata = {
           "next_openid": ''
         }
