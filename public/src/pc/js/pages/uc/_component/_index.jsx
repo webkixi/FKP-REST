@@ -40,6 +40,8 @@ function bcd(){
           SA.setter('_GLOBAL',{data: _order_form} );
           router('carfinished')
         })
+    }else{
+        $(this).addClass("dealer")
     }
 
 }
