@@ -50,7 +50,7 @@ var apiPath = {
 function req( api, param, cb ){
 
     var url = apiPath.dirs[api];
-    if(url){
+    // if(url){
         if(libs.getObjType(param)==='Object'){
             var keys = Object.keys(param)
             if(keys.length>0){
@@ -70,9 +70,9 @@ function req( api, param, cb ){
                 if( status === 'success' ) cb( body ) ;
             }, "json")
         }
-    }else{
-      console.log("api没有定义");
-    }
+    // }else{
+    //   console.log("api没有定义");
+    // }
 }
 
 function wx( api, param, cb ){
