@@ -23,6 +23,7 @@ function *weixin(){
     // console.log(this.local);
     // console.log(this.params);
     var route = this.params;
+    console.log(route);
 
     if(route.title === 'userlist'){
         var postdata = {
