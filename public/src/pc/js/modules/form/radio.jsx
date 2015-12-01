@@ -12,6 +12,7 @@ function radio(data, ele, cb){
     this.value = true;
     this.ipt;
     this.name;
+    this.class;
     var _this = this;
 
     function dm(){
@@ -22,7 +23,7 @@ function radio(data, ele, cb){
         return Radio
     else{
         render(
-            <Radio  data={data} value={data.value} name={data.name} itemDefaultMethod={dm}  itemMethod={cb} listClass={'form radio'}/>,
+            <Radio  data={data} value={data.value} name={data.name} class={data.class} itemDefaultMethod={dm}  itemMethod={cb} listClass={'form radio'}/>,
             document.getElementById(ele)
         )
     }

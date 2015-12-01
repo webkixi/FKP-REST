@@ -56,9 +56,9 @@ var radioForm = {
 			body = theData.body||'没有传入数据'
 		}
 
-		var ipt = <input name={this.props.name} value={this.props.value} className={'radio_input'} type="radio" ></input>
+		var ipt = <input name={this.props.name} value={this.props.value} className={this.props.class} type="radio" ></input>
 		if ( chked ){
-			ipt = <input checked name={this.props.name} value={this.props.value} className={'radio_input'} type="radio" ></input>
+			ipt = <input checked name={this.props.name} value={this.props.value} className={this.props.class} type="radio" ></input>
 		}
 
         return(

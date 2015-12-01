@@ -346,11 +346,9 @@ var bindIndex = function(){
 
     }
 
-    new Radio({label:'微信',value:'wx_pub',name: 'payment', default: true},'wechat',function(){
-        console.log('llll');
+    new Radio({label:'微信',value:'wx_pub',name: 'payment', default: true, class:'radio_input ifont icon-roundcheckfill'},'wechat',function(){
         _payway = "wx_pub";
       $(this).click(function(){
-          console.log('22222');
         _payway = "wx_pub";
       })
     })
