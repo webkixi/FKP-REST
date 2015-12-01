@@ -1,7 +1,7 @@
 var libs = require('libs/libs');
 var ItemMixin = require('mixins/item')
 var FDiv = require('widgets/itemView/f_div');
-var api = require('pages/_common/api');
+var api = require('libs/api');
 var store = require('mixins/store');
 var router = require('libs/router').router
 
