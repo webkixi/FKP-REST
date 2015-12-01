@@ -23,7 +23,6 @@ function *weixin(){
     // console.log(this.local);
     // console.log(this.params);
     var route = this.params;
-    this.method = 'POST'
 
     if(route.title === 'userlist'){
         console.log('hh888888');
@@ -37,9 +36,9 @@ function *weixin(){
     else
     if( route.title === 'userinfo' ){
         console.log('hhhhhhhhhh   weixin  9999999999');
-        var info = require('./wx/userinfo').getData.call(this)
+        var info = require('./wx/userinfo')
         console.log(info);
-        yield returnJson( info )
+        // yield returnJson( info )
     }
     else{
         yield wechat(config.weixin).middleware(function *() {
