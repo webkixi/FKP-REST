@@ -19,7 +19,7 @@ var apiPath = {
 function req( api, param, cb ){
     var url = apiPath.dirs[api];
     if( !url )
-        url = api;
+        url = '/'+api;
 
     if( getObjType(param)==='Object' ) {
         var keys = Object.keys(param)

@@ -18,14 +18,10 @@ function *returnJson( data ){
 
 function *weixin(){
     libs.clog('weixin')
-    // yield menu.call(this)
 
-    // console.log(this.local);
-    // console.log(this.params);
     var route = this.params;
 
     if(route.title === 'userlist'){
-        console.log('hh888888');
         var postdata = {
           "next_openid": ''
         }
@@ -35,9 +31,7 @@ function *weixin(){
     }
     else
     if( route.title === 'userinfo' ){
-        console.log('hhhhhhhhhh   weixin  9999999999');
         var info = yield require('./wx/userinfo').getData.call(this)
-        console.log(info);
         yield returnJson.call( this, info )
     }
     else{
