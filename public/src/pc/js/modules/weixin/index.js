@@ -31,7 +31,7 @@ function getwx( cb ){
         postdata = {code: cd, state: st};
     }
 
-    api.wx('userinfo', postdata, function(data){
+    api.req('/weixin/userinfo', postdata, function(data){
         if(typeof data === 'string')
             data = JSON.parse(data)
 

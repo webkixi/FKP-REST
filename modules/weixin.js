@@ -9,21 +9,35 @@ var api = require('../apis/javaapi');
 
 var menu = require('./wx/menu')
 
+function *returnJson( data ){
+    if(data)
+        this.body = JSON.stringify(data);
+    else
+        this.body = '{"error": -1, "message":"route/返回data不合法"}'
+}
+
 function *weixin(){
     libs.clog('weixin')
     // yield menu.call(this)
 
     // console.log(this.local);
-    console.log(this.params);
+    // console.log(this.params);
+    var route = this.params;
 
-    if(this.params.title === 'list'){
+    if(route.title === 'userlist'){
         var postdata = {
           "next_openid": ''
         }
         var qcjcdata = yield api.pullWxData.call(this, 'userlist', postdata)
         console.log(JSON.parse(qcjcdata[0].body));
-    }else{
-
+        yield returnJson( qcjcdata )
+    }
+    else
+    if( route.title === 'userinfo' ){
+        var info = require('./wx/userinfo').getData.call(this)
+        yield returnJson( info )
+    }
+    else{
         yield wechat(config.weixin).middleware(function *() {
             var message = this.weixin;
             console.log(message);
