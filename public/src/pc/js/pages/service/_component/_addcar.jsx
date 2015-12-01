@@ -45,7 +45,7 @@ function dealWith_Data_Brand(){
     var rtnDom;
 
     // SA.setter('Pop',{data:{display:'block'}})
-    api.req('queryallbrand',{}, function(data){
+    api.req('queryallbrand', function(data){
         if(data.code && data.code===1){
         //   console.(data);
             var tmp = {};
