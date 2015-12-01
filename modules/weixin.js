@@ -38,7 +38,7 @@ function *weixin(){
         console.log('hhhhhhhhhh   weixin  9999999999');
         var info = yield require('./wx/userinfo').getData.call(this)
         console.log(info);
-        yield returnJson( info )
+        yield returnJson.call( this, info )
     }
     else{
         yield wechat(config.weixin).middleware(function *() {
