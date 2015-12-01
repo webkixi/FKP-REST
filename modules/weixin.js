@@ -23,7 +23,7 @@ function *weixin(){
     // console.log(this.local);
     // console.log(this.params);
     var route = this.params;
-    console.log(route);
+    this.method = 'POST'
 
     if(route.title === 'userlist'){
         console.log('hh888888');
