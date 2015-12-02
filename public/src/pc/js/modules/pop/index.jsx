@@ -28,7 +28,8 @@ function popwin(data, cb){
     function dm(){
         var the_pop = this;
         $(the_pop).click(function(){
-            SA.setter('Pop',{data:{display:'none'}})
+            SA.setter('Pop',{data:{display:'none'}});
+          	$(this).addClass('autoPop');
         })
     }
 
