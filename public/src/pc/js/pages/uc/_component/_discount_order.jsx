@@ -28,7 +28,15 @@ var createDom = {
                 <article>
                 		<div className={'inpbox'}>
                     		<div id="shop" className={'carform'}></div>
-                    		<div id="money" className={'carform'}></div>
+                    		<div id="money">
+                    			<div className={'money-box'}>
+								消费金额
+								<div className={'inp'}>
+									<span>￥</span>
+									<span className={'money'} contentEditable="true"></span>
+								</div>
+							</div>
+                    		</div>
                     </div>
                     <div className={'wxpayBox'}>
                         <h2>支付方式</h2>
@@ -54,18 +62,18 @@ function router2back(){
 function init(ele, cb){
     router2back()
     var luser = SA.getter('_LOCAL_USER')
-    if(luser.data.error==="-1")
-        SA.setter('_LOCAL_USER', [preRender], [[ele, cb]]);
-    else{
+//  if(luser.data.error==="-1")
+//      SA.setter('_LOCAL_USER', [preRender], [[ele, cb]]);
+//  else{
         preRender(ele, cb)
-    }
+    //}
 }
 
 function preRender(ele, cb){
   var luser = SA.getter('_LOCAL_USER')
-    if(luser.data.error)
-        router('reg_log');
-    else
+//  if(luser.data.error)
+//      router('reg_log');
+//  else
         renderDom(ele, cb);
 }
 
@@ -78,16 +86,16 @@ function bindEvent(){
 
 	//选择4S店
     formData.shop = new Select({label:'', popclose: true, placeholder:'请选择商户'}, 'shop',function(){
-    		$(this).find('input').before('<i class="ifont icon-location pos"></i>');
+    		$(this).find('input').before('<i class="ifont icon-dingwei pos"></i>');
         $(this).click(function(){
             var postdata = {
                 "comn": {
                     "type": "2"
                 },
                 "locat": {
-                	"lat": "0",
-                	"lng": "0",
-                	"region": "0"
+                	"lat": "23.125094",
+                	"lng": "113.264773",
+                	"region": "10"
                 }
             }
             api.req('getshoplist',postdata,function(data){
@@ -98,28 +106,60 @@ function bindEvent(){
     });
 
 	//输入金额
-    formData.money = new Number({placeholder:'请输入付款金额'},'money',function(){
-    		var oInput = $(this).find('input');
-    		$(this).find('input').before('<i class="sign">￥</i>');
-		oInput.click(function(){
-			var isChooseShop = $('#shop').find('input').val(); //获取选中的4S店
-			if(!isChooseShop){
-				oInput.blur();
-				SA.setter('Pop',{data:{alert:{body:'请选择商户'}, display:'block'}});
-			}
-			return false;
-		});
-
-		oInput.on('input',function(){
-			var val = $(this).val();
-			if(/^[\d]{1,8}(\.\d{1,2})?$/.test(val) && val>0){
-            // if(formData.money.stat)
-				$('#now_addcar').removeClass('unSubmit');
-			}else{
-				$('#now_addcar').addClass('unSubmit');
-			}
-		});
-    });
+//  formData.money = new Number({placeholder:'请输入付款金额'},'money',function(){
+//  		var oInput = $(this).find('input');
+//  		$(this).find('input').before('<i class="sign">￥</i>');
+//		oInput.click(function(){
+//			var isChooseShop = $('#shop').find('input').val(); //获取选中的4S店
+//			if(!isChooseShop){
+//				oInput.blur();
+//				SA.setter('Pop',{data:{alert:{body:'请选择商户'}, display:'block'}});
+//			}
+//			return false;
+//		});
+//
+//		oInput.on('input',function(){
+//			var val = $(this).val();
+//			if(/^[\d]{1,8}(\.\d{1,2})?$/.test(val) && val>0){
+//          // if(formData.money.stat)
+//				$('#now_addcar').removeClass('unSubmit');
+//			}else{
+//				$('#now_addcar').addClass('unSubmit');
+//			}
+//		});
+//  });
+	$('#money').click(function(){
+		var isChooseShop = $('#shop').find('input').val(); //获取选中的4S店
+		if(!isChooseShop){
+			$(this).find('.money').blur();
+			SA.setter('Pop',{data:{alert:{body:'请选择商户'}, display:'block'}});
+		}else{
+			$(this).find('.money').focus();
+		}
+		return false;
+		
+	});
+	var oldVal = '';
+	$('.money').on('input',function(){
+		var val = $(this).text();
+		var len = val.length;
+		if(len>0){
+			$(this).addClass('money-focus');
+		}else{
+			$(this).removeClass('money-focus');
+		}
+		if(len>12){
+			$(this).text(oldVal);
+		}else{
+			oldVal = val;
+		}
+		if(/^[\d]{1,8}(\.\d{1,2})?$/.test(val) && val>0){
+        // if(formData.money.stat)
+			$('#now_addcar').removeClass('unSubmit');
+		}else{
+			$('#now_addcar').addClass('unSubmit');
+		}
+	});
 
 	//跳转至我的订单
 	$('.icon-people').click(function(){
@@ -159,7 +199,7 @@ function checkValue(){
         goods: {
             type: "1",
             no: "0",
-            amount: formData.money.value,
+            amount: $('.money').text(),
             currency: "cny"
         },
         paych: "wx_pub"

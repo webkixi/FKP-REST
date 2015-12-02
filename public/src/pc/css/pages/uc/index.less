@@ -1195,10 +1195,11 @@ body{
 
 	.form.text,.form.select{width:100%;padding:0; margin-top:0.8rem; position:relative;}
 	.form.text .body,.form.select .body{width:100%;padding:2% 0;}
-	.form.select .body{padding:0.1rem 0; text-indent:0.6rem;}
+	.form.select .body{padding:0.1rem 0; text-indent:1.2rem;}
 	.form.text .body{padding-left:8%; width:92%; text-indent:0;}
 	.form.text .sign{position:absolute; left:0.4rem; top:0.08rem; font-style: normal; color:#888;}
-	.form.select .pos{position:absolute; left:-15px; top:6px; color:#ff7b06; font-size:0.8rem;}
+	.form.select .pos{position:absolute; left:-0.9rem; top:0.15rem; color:#ff7b06; font-size:0.8rem;}
+	.form.select span{position:relative; top:0.2rem;}
 	.wxpayBox{
         border:2px solid #d9d9d9;
         background:#fff;
@@ -1232,7 +1233,7 @@ body{
                 position:absolute;
                 right:1rem;
                 font-size:1rem;
-				color: #FBC44E;
+				color: #04c967;
             }
         }
 	}
@@ -1249,6 +1250,19 @@ body{
 	footer{
 	    background-color: #efefef;
         border-top: 2px solid #d9d9d9;
+	}
+	/*输入金额-自定义输入框*/
+	.money-box{
+	    border:0.017rem solid #000; 
+	    margin-top:0.8rem; color:#545454; 
+	    font-size:0.6rem; padding-left:10px; 
+	    text-indent:0.4rem; width:100%; padding:4% 0; position:relative;
+	    .inp{
+	       position:absolute;right:0; top:0.52rem; height:100%; color:#888;
+	       :first-child{position:relative; top:-0.35rem;}
+	       .money{padding-right:0.4rem; outline:none; font-size:1rem; color:#303030; position:relative; top:-0.2rem; line-height: normal; display:inline-block;}
+	       .money-focus{margin-left:-0.4rem;}
+	    }
 	}
 }
 /*优惠买单-支付成功*/
