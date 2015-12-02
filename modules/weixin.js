@@ -27,7 +27,7 @@ function *weixin(){
         }
         var qcjcdata = yield api.pullWxData.call(this, 'userlist', postdata)
         console.log(JSON.parse(qcjcdata[0].body));
-        yield returnJson( qcjcdata )
+        yield returnJson.call( this, qcjcdata )
     }
     else
     if( route.title === 'userinfo' ){
