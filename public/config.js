@@ -23,6 +23,7 @@ module.exports = {
         stores: src_dir + "/js/stores",
         mixins: src_dir + "/js/mixins",
         libs: src_dir + "/js/libs",
+        image: src_dir + "images"
 
         css_common: src_dir + "css/modules/base"
     },

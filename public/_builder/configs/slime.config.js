@@ -462,7 +462,8 @@ module.exports = {
                               .pipe ($.plumber())
                               .pipe ($.cssSpritesmith({
                                   // sprite背景图源文件夹，只有匹配此路径才会处理，默认 images/slice/
-                                  imagepath: configs.imagesDevPath + 'slice/',
+                                //   imagepath: configs.imagesDevPath + 'slice/',
+                                  imagepath: config.image + 'slice/',
                                   // 映射CSS中背景路径，支持函数和数组，默认为 null
                                   imagepath_map: null,
                                   // 雪碧图输出目录，注意，会覆盖之前文件！默认 images/
