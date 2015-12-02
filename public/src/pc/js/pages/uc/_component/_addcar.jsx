@@ -60,9 +60,13 @@ function dealWith_Data_Brand(){
                 nav.map(function(item, i){
                    var tmp_foot = [];
                    tmp[item].map(function(unit, j){
+                       var imgname = unit[1];
+                       if(imgname.indexOf('.jpg')===-1){
+                           imgname = 'Audi.jpg'
+                       }
                      tmp_foot.push({
                        attr: 'select',
-                       k: <span><span><img src={'/images/logo/'+unit[1]} className={'img'}/></span>{unit[0]}</span>,
+                       k: <span><span><img src={'/images/logo/'+imgname} className={'img'}/></span>{unit[0]}</span>,
                        v: unit[1]
                      })
                    })
