@@ -104,7 +104,7 @@ makeHtmlListData = (pa, capt) ->
                     content = fs.readFileSync(firstPath,'utf8')
                     list[ _caption ].readme = content
 
-                if ( ext == '.hbs' || ext == '.html')
+                if ( ext == '.hbs' || ext == '.html' )
                     content = fs.readFileSync(firstPath,'utf8')
                     title = content.match(/<title>([\s\S]*?)<\/title>/ig)
                     _url = if caption then depthFile else ( (caption || '') + '/' + filename.replace(ext,'.html') )
@@ -138,7 +138,8 @@ makeHtmlListData = (pa, capt) ->
                 if ext == '.md'
                     if !tmp[filename]
                         content = fs.readFileSync(firstPath,'utf8')
-                        title = _subString(content,20,true)
+                        tmp = _subString(content, 100, true)
+                        title = content.match(/#([\s\S]*?)\n/)
                         _filenameMd = filename.replace(ext, '_md.html')
                         _url = if caption then depthFile.replace('.html','_md.html') else ( (caption || '') + '/' + _filenameMd )
                         _url = _url.replace('public/src/pc/html/','')
