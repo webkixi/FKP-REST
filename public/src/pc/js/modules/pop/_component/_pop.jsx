@@ -20,7 +20,16 @@ var popwin = {
 	componentDidMount: function () {
 
 	},
-
+	componentDidUpdate:function(){
+		$(this.refs.popbox.getDOMNode()).addClass('autoPop');
+		var oPop = $(this.refs.popbox.getDOMNode()).find('.pop_content');
+		var popH = oPop.height();
+		var winH = $(window).height();
+		if(popH>=winH/2){
+			//oPop.height('50%');
+			$(this.refs.popbox.getDOMNode()).removeClass('autoPop');
+		}
+	},
     addSheet: function(){
         //添加css到头部
 		libs.addSheet([
@@ -44,7 +53,9 @@ var popwin = {
 		// var self = this.getDOMNode();  //React.findDOMNode(this)
 		this.setState({
 			data: {display:'none'}
-		})
+		});
+		$(this.refs.popbox.getDOMNode()).addClass('autoPop');
+
 	},
 
     render: function () {
