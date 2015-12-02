@@ -62,18 +62,18 @@ function router2back(){
 function init(ele, cb){
     router2back()
     var luser = SA.getter('_LOCAL_USER')
-//  if(luser.data.error==="-1")
-//      SA.setter('_LOCAL_USER', [preRender], [[ele, cb]]);
-//  else{
+    if(luser.data.error==="-1")
+        SA.setter('_LOCAL_USER', [preRender], [[ele, cb]]);
+    else{
         preRender(ele, cb)
-    //}
+    }
 }
 
 function preRender(ele, cb){
   var luser = SA.getter('_LOCAL_USER')
-//  if(luser.data.error)
-//      router('reg_log');
-//  else
+    if(luser.data.error)
+        router('reg_log');
+    else
         renderDom(ele, cb);
 }
 
