@@ -16,6 +16,7 @@
     "co-wechat": "^0.0.4",
     "extend": "^3.0.0",
     "handlebars": "^4.0.2",
+    "jssha": "^1.5.0",
     "jsx-require-extension": "^0.2.0",
     "koa": "^1.0.0",
     "koa-generic-session": "^1.9.2",

@@ -1,7 +1,7 @@
 browserSync = require 'browser-sync'
 config = require '../configs/config.coffee'
 
-module.exports = (gulp,$,slime,env)->
+module.exports = (gulp,$,slime,env,port)->
     buildCommon = 'buildCommon:dev'
     if env == 'ng'
         buildCommon = 'buildCommon:dev:ng'
@@ -9,8 +9,14 @@ module.exports = (gulp,$,slime,env)->
         buildCommon = 'buildCommon:dev:bb'
 
     return () ->
+        pt = 8070
+        if port
+            pt = port
+        pxy = 'http://127.0.0.1:'+pt
+        console.log '444444444 rrrrrrrr wwwwwwww'
+        console.log pxy
         browserSync(
-            proxy: "http://127.0.0.1:8070"
+            proxy: pxy
             files: [ config.htmlDevPath + '/**/*.html', config.staticPath+ '/dev/**']
             logFileChanges: false
         )

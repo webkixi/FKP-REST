@@ -8,7 +8,9 @@ config = require '../configs/config.coffee'
 module.exports = (gulp,$)->
     return ()->
         gulp.src config.dirs.src + '/images/**/*.*'
-            .pipe $.newer(config.imagesDevPath)
+            # .pipe $.newer(config.imagesDevPath)
+            # .pipe($.plumber())
+            # .pipe $.rimraf()
             .pipe $.size()
             .pipe $.copyExt()
             .pipe gulp.dest(config.imagesDevPath)

@@ -21,7 +21,6 @@ var app = koa();
 //静态资源 js css
 app.use(statics(args[0]));
 
-
 //session
 app.keys = ['keys','gzgzmixcookie'];
 app.use(session({
@@ -38,8 +37,11 @@ app.on('error', function(err){
     console.log(err);
 });
 
+var port = 8070;
+if(args[1])
+	port = args[1]
 
-app.listen(8070);
+app.listen(port);
 
 
 // var exec = require('child_process').execSync;

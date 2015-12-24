@@ -1,5 +1,5 @@
 var List = require('./_component/_loadlist')()
-var ITEM = require('widgets/itemView/pic_title');
+var ITEM = require('widgets/itemView/f_li');
 var render = React.render;
 
 

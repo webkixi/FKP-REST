@@ -1,4 +1,4 @@
-$('.fnode').hide()
+// $('.fnode').hide()
 $('.dnode').click(function(){
     $(this).siblings(".fnode").toggle()
 })

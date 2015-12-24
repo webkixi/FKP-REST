@@ -48,17 +48,38 @@
 
                 v3 = data.value||'';
 
+
+                function lazyimg(img, idf){
+                    if (img.indexOf('$$$')>-1){
+                        var tmp = img.split('$$$')
+                        if (tmp.length===2){
+                            if (idf)
+                                return <img data-iid={idf} key={'img'+idf} data-src={tmp[1]} src={tmp[0]} alt={k2}/>
+                            else
+                                return <img data-src={tmp[1]} src={tmp[0]} alt={k2}/>
+                        }
+                    }
+                    else{
+                        if (idf)
+                            return <img data-iid={idf} key={'img'+idf} src={img} alt={k2}/>
+                        else
+                            return <img src={img} alt={k2}/>
+                    }
+                }
+
                 if(data.img){
                     if(Array.isArray(data.img)){
                         var tmp_k2 = [];
                         data.img.map(function(pic,j){
-                            tmp_k2.push(<img data-iid={i} key={'img'+j} src={pic} alt={k2}/>)
+                            // tmp_k2.push(<img data-iid={j} key={'img'+j} src={pic} alt={k2}/>)
+                            tmp_k2.push(lazyimg(pic, j))
                         })
                         // k2 = <div className={'pics'}>{tmp_k2}</div>;
                         k2 = tmp_k2;
                     }
-                    else
-                        k2 = <img src={data.img} alt={k2}/>
+                    else{
+                        k2 = lazyimg(data.img)
+                    }
                 }
 
             if(data.body){
@@ -80,11 +101,42 @@
                                 }else
                                     bodys.push(<p data-pid={i} key={'body'+i} className={cls}>{title}</p>)
                             }else{
+                                //attr定义一些特殊的状态
                                 var ppp = !item.attr
-                                ? <p data-pid={i} key={'body'+i}><em>{item.k}</em>{item.v}</p>
-                                : item.attr === 'select'
-                                    ? <p data-pid={i} data-src={item.attr} data-value={item.v} key={'body'+i}>{item.k}</p>
-                                    : <p data-pid={i} data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</p>
+
+                                //没有attr
+                                ? (function(){
+                                    if (item.k)  //k v结构
+                                        return <p data-pid={i} key={'body'+i}><em>{item.k}</em>{item.v}</p>
+
+                                    if (item.li){  //li结构
+                                        var lis = []
+                                        item.li.map(function(li_item, li_i){
+                                            lis.push(<li>{li_item}</li>)
+                                        })
+                                        return <ul>{lis}</ul>
+                                    }
+                                })()
+
+                                //已定义attr
+                                : (function(){
+                                    if (item.attr === 'select'){
+                                        if (item.k)
+                                            return <p data-pid={i} data-src={item.attr} data-value={item.v} key={'body'+i}>{item.k}</p>
+                                        else
+                                        if (item.li){
+                                            var lis = []
+                                            item.li.map(function(li_item, li_i){
+                                                lis.push(<li>{li_item}</li>)
+                                            })
+                                            return <ul data-src={item.attr}>{lis}</ul>
+                                        }
+                                    }
+                                    else {
+                                        return <p data-pid={i} data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</p>
+                                    }
+                                })()
+
                                 bodys.push(ppp)
                             }
                         }else{
@@ -113,11 +165,43 @@
                                 }else
                                     footers.push(<p data-pid={i} key={'footer'+i} className={cls}>{title}</p>)
                             }else{
+                                //attr定义一些特殊的状态
                                 var ppp = !item.attr
-                                ? <p data-pid={i} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
-                                : item.attr === 'select'
-                                    ? <p data-pid={i} data-src={item.attr} data-value={item.v} key={'footer'+i}>{item.k}</p>
-                                    : <p data-pid={i} data-src={item.attr} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
+
+                                //没有attr
+                                ? (function(){
+                                    if (item.k)  //k v结构
+                                        return <p data-pid={i} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
+
+                                    if (item.li){  //li结构
+                                        var lis = []
+                                        item.li.map(function(li_item, li_i){
+                                            lis.push(<li>{li_item}</li>)
+                                        })
+                                        return <ul>{lis}</ul>
+                                    }
+                                })()
+
+                                //已定义attr
+                                : (function(){
+                                    if (item.attr === 'select'){
+                                        if (item.k){
+                                            return <p data-pid={i} data-src={item.attr} data-value={item.v} key={'footer'+i}>{item.k}</p>
+                                        }
+                                        else
+                                        if (item.li){
+                                            var lis = []
+                                            item.li.map(function(li_item, li_i){
+                                                lis.push(<li>{li_item}</li>)
+                                            })
+                                            return <ul data-src={item.attr}>{lis}</ul>
+                                        }
+                                    }
+                                    else {
+                                        return <p data-pid={i} data-src={item.attr} key={'footer'+i}><em>{item.k}</em>{item.v}</p>
+                                    }
+                                })()
+
                                 footers.push(ppp)
                             }
                         }else{
@@ -224,17 +308,36 @@
                     // if(item.img)
                     // 	k2 = <img src={item.img} alt={k2}/>
 
+                    function lazyimg(img, idf){
+                        if (img.indexOf('$$$')>-1){
+                            var tmp = img.split('$$$')
+                            if (tmp.length===2){
+                                if (idf)
+                                    return <img data-iid={idf} key={'img'+idf} data-src={tmp[1]} src={tmp[0]} alt={k2}/>
+                                else
+                                    return <img data-src={tmp[1]} src={tmp[0]} alt={k2}/>
+                            }
+                        }
+                        else{
+                            if (idf)
+                                return <img data-iid={idf} key={'img'+idf} src={img} alt={k2}/>
+                            else
+                                return <img src={img} alt={k2}/>
+                        }
+                    }
+
                     if(item.img){
                         if(Array.isArray(item.img)){
                             var tmp_k2 = [];
                             item.img.map(function(pic,j){
-                                tmp_k2.push(<img data-iid={j} key={'img'+j} src={pic} alt={k2}/>)
+                                // tmp_k2.push(<img data-iid={j} key={'img'+j} src={pic} alt={k2}/>)
+                                tmp_k2.push(lazyimg(pic, j))
                             })
                             // k2 = <div className={'pics'}>{tmp_k2}</div>;
                             k2 = tmp_k2;
                         }
                         else
-                            k2 = <img src={item.img} alt={k2}/>
+                            k2 = lazyimg(item.img)
                     }
 
 
@@ -258,11 +361,43 @@
                                         }else
                                             bodys.push(<p data-pid={i} key={'body'+i} className={cls}>{title}</p>)
                                     }else{
+
+                                        //attr定义一些特殊的状态
                                         var ppp = !_item.attr
-                                        ? <p data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
-                                        : _item.attr === 'select'
-                                            ? <p data-pid={i} data-src={_item.attr} data-value={_item.v} key={'body'+i}>{_item.k}</p>
-                                            : <p data-pid={i} data-src={_item.attr} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+
+                                        //没有attr
+                                        ? (function(){
+                                            if (_item.k)  //k v结构
+                                                return <p data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+
+                                            if (_item.li){  //li结构
+                                                var lis = []
+                                                _item.li.map(function(li_item, li_i){
+                                                    lis.push(<li>{li_item}</li>)
+                                                })
+                                                return <ul>{lis}</ul>
+                                            }
+                                        })()
+
+                                        //已定义attr
+                                        : (function(){
+                                            if (_item.attr === 'select'){
+                                                if (_item.k)
+                                                    return <p data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+                                                else
+                                                if (_item.li){
+                                                    var lis = []
+                                                    _item.li.map(function(li_item, li_i){
+                                                        lis.push(<li>{li_item}</li>)
+                                                    })
+                                                    return <ul data-src={_item.attr}>{lis}</ul>
+                                                }
+                                            }
+                                            else {
+                                                return <p data-pid={i} data-src={_item.attr} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
+                                            }
+                                        })()
+
                                         bodys.push(ppp)
                                     }
                                 }else{
@@ -291,11 +426,43 @@
                                         }else
                                             footers.push(<p data-pid={i} key={'footers'+i} className={cls}>{title}</p>)
                                     }else{
+
+                                        //attr定义一些特殊的状态
                                         var ppp = !_item.attr
-                                        ? <p data-pid={i} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
-                                        : _item.attr === 'select'
-                                            ? <p data-pid={i} data-src={_item.attr} data-value={_item.v} key={'footers'+i}>{_item.k}</p>
-                                            : <p data-pid={i} data-src={_item.attr} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
+
+                                        //没有attr
+                                        ? (function(){
+                                            if (_item.k)  //k v结构
+                                                return <p data-pid={i} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
+
+                                            if (_item.li){  //li结构
+                                                var lis = []
+                                                _item.li.map(function(li_item, li_i){
+                                                    lis.push(<li>{li_item}</li>)
+                                                })
+                                                return <ul>{lis}</ul>
+                                            }
+                                        })()
+
+                                        //已定义attr
+                                        : (function(){
+                                            if (_item.attr === 'select'){
+                                                if (_item.k)
+                                                    return <p data-pid={i} data-src={_item.attr} data-value={_item.v} key={'footers'+i}>{_item.k}</p>
+                                                else
+                                                if (_item.li){
+                                                    var lis = []
+                                                    _item.li.map(function(li_item, li_i){
+                                                        lis.push(<li>{li_item}</li>)
+                                                    })
+                                                    return <ul data-src={_item.attr}>{lis}</ul>
+                                                }
+                                            }
+                                            else {
+                                                return <p data-pid={i} data-src={_item.attr} key={'footers'+i}><em>{_item.k}</em>{_item.v}</p>
+                                            }
+                                        })()
+
                                         footers.push(ppp)
                                     }
                                 }else{

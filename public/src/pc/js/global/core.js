@@ -1,5 +1,5 @@
 ;(function(){
 
-    var core = {};
+    var core = {}
 
 })();

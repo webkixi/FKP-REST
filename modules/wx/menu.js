@@ -1,37 +1,43 @@
+//生成微信菜单
+
+
 var libs = require('../../libs/libs')
 var config = require('../../config');
 var api = require('../../apis/javaapi')
 
-var json = {
+var domain = config.domain;
+var appid = config.weixin.appid
+
+var menu = {
      "button":[
         {
             "name": "服务",
             "type": "view",
-            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri=http%3A%2F%2F"+domain+"&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
         },
 
         {
-           "name": "河马云汽",
+           "name": "河马车管家",
           "sub_button":[
            {
               "type":"view",
               "name":"关于我们",
-              "url":"http://ch.dabai360.com/about.html#about"
+              "url":"http://"+domain+"/about.html#about"
            },
            {
               "type":"view",
               "name":"服务项目",
-              "url":"http://ch.dabai360.com/about.html#about_service"
+              "url":"http://"+domain+"/about.html#about_service"
            },
            {
               "type":"view",
               "name":"服务区域",
-              "url":"http://ch.dabai360.com/about.html#about_area"
+              "url":"http://"+domain+"/about.html#about_area"
            },
            {
               "type":"view",
               "name":"服务流程",
-              "url":"http://ch.dabai360.com/about.html#about_com"
+              "url":"http://"+domain+"/about.html#about_com"
            }]
         },
         {
@@ -40,27 +46,26 @@ var json = {
             {
               "type":"view",
               "name":"优惠买单",
-              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com%2Fuc.html%3Fhash%3Ddiscount_order&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri=http%3A%2F%2F"+domain+"%2Fuc.html%3Fhash%3Ddiscount_order&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
             },
             {
                "type":"view",
                "name":"我的订单",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com%2Fuc.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri=http%3A%2F%2F"+domain+"%2Fuc.html&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
             },
             {
                "type":"view",
                "name":"我的车辆",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com%2Fuc.html%3Fhash%3Dmycar&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri=http%3A%2F%2F"+domain+"%2Fuc.html%3Fhash%3Dmycar&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
             },
         	  {
                "type":"view",
                "name":"我的地址",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com%2Fuc.html%3Fhash%3Dmyaddress&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri=http%3A%2F%2F"+domain+"%2Fuc.html%3Fhash%3Dmyaddress&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect"
             }]
         }
     ]
 }
-
 
 function *query(){
     var nowmenu = yield api.pullWxData.call(this,'querymenu',{});
@@ -68,19 +73,13 @@ function *query(){
 }
 
 function *create(){
-    // var now_m = yield query.call(this)
-    // now_m = JSON.parse(now_m)
-    // console.log('-------- create menu ----------');
-    // console.log(now_m);
-    // if(now_m.errcode>0){
-    //     var nowmenu = yield api.pullWxData.call(this,'createmenu',json, 'post' );
-    //     console.log(nowmenu[0].body);
-    // }
-
-    var nowmenu = yield api.pullWxData.call(this,'createmenu', {body: json}, 'post' );
-    console.log(nowmenu[0].body);
-    // if(nowmenu.errcode == 0)
-    //     return {message: '成功创建菜单'}
+    var nowmenu = yield api.pullWxData.call(this,'createmenu', menu, 'post' );
+    console.log('[[[[[[[[[[[[[   create menu   ]]]]]]]]]]]]]');
+    var rtn = nowmenu[0].body;
+    console.log(rtn);
+    return rtn
 }
 
-module.exports = create
+module.exports = {
+    getData: create
+}

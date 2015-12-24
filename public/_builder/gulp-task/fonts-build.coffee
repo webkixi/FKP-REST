@@ -8,6 +8,9 @@ config = require '../configs/config.coffee'
 module.exports = (gulp,$)->
     return ()->
         gulp.src config.dirs.src + '/fonts/**/*.*'
+            # .pipe $.newer(config.fontsBuildPath)
+            # .pipe($.plumber())
+            # .pipe $.rimraf()
             .pipe $.size()
             .pipe $.copyExt()
             .pipe gulp.dest(config.fontsBuildPath)

@@ -21,6 +21,21 @@ function req( api, param, cb ){
     if( !url )
         url = api;
 
+    if (url.indexOf('http://')===0 || url.indexOf('https://')===0){
+        if (getObjType(param) === 'Object'){
+            param._redirect = url;
+        }
+        else
+        if (getObjType(param) === 'Function'){
+            cb = param;
+            param = {_redirect: url}
+        }
+        else{
+            param = {_redirect: url}
+        }
+        url = '/redirect'
+    }
+
     if( getObjType(param)==='Object' ) {
         var keys = Object.keys(param)
         if( keys.length>0 )

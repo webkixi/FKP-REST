@@ -120,15 +120,6 @@ function rmvEvent(elm, evType, fn, useCapture) {
     }
 }
 
-
-function $extend(Child, Parent) {
-	var F = function(){};
-	F.prototype = Parent.prototype;
-	Child.prototype = new F();
-	Child.prototype.constructor = Child;
-	Child.uber = Parent.prototype;
-}
-
 /*
 判断obj是什么类型的变量
 Numeric
@@ -310,6 +301,16 @@ var tips = function(msg){
     alert(msg);
 }
 
+//创建一个类，自动执行init的方法
+var Class = {
+    create: function() {
+        return function() {
+            if (this.init){
+                this.init.apply(this, arguments);
+            }
+        }}
+    }
+
 /**
 * form表单校验
 * @opts  json对象，对象元素允许函数，用于替换默认block校验正则
@@ -339,7 +340,7 @@ var form_valide = function(opts) {
         verify_m : /^[\d]{6}$/,
         pwd      : /^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$/,//密码
         guhua    : /^(\d{3,4})?[-]?\d{7,8}$/,//电话号码的格式
-        mobile   : /^(13[0-9]{9}|15[012356789][0-9]{8}|18[0256789][0-9]{8}|147[0-9]{8})$/, //手机
+        mobile   : /^(13[0-9]{9}|15[012356789][0-9]{8}|18[01256789][0-9]{8}|147[0-9]{8})$/, //手机
         url      : /^http[s]?:\/\/([\w-]+\.)+[\w-]+([\w-.\/?%&=]*)?$/, //url
         ip4      : /^(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)$/, //ip地址
         notempty : /^\S+$/, //非空
@@ -471,6 +472,56 @@ function removeClass(element, className) {
     }
 }
 
+/*
+ * 根据元素clsssName得到元素集合
+ * @param fatherId 父元素的ID，默认为document
+ * @tagName 子元素的标签名
+ * @className 用空格分开的className字符串
+ */
+ // demo getElementsByClassName(document,"div","aaa ccc")
+function getElementsByClassName(fatherId,tagName,className){
+	node = fatherId&&document.getElementById(fatherId) || document;
+	tagName = tagName || "*";
+	className = className.split(" ");
+	var classNameLength = className.length;
+	for(var i = 0,j=classNameLength;i< j;i++){
+		//创建匹配类名的正则
+		className[i]= new RegExp("(^|\\s)" + className[i].replace(/\-/g, "\\-") + "(\\s|$)");
+	}
+	var elements = node.getElementsByTagName(tagName);
+	var result = [];
+	for(var i=0, j=elements.length, k=0;i< j; i++){//缓存length属性
+		var element = elements[i];
+		while(className[k++].test(element.className)){//优化循环
+			if(k === classNameLength){
+				result[result.length] = element;
+				break;
+			}
+		}
+		k = 0;
+	}
+	return result;
+}
+
+//浏览器是否支持fixed
+function isSupportFixed() {
+    var userAgent = window.navigator.userAgent,
+        ios = userAgent.match(/(iPad|iPhone|iPod)\s+OS\s([\d_\.]+)/),
+        ios5below = ios && ios[2] && (parseInt(ios[2].replace(/_/g, '.'), 10) < 5),
+        operaMini = /Opera Mini/i.test(userAgent),
+        body = document.body,
+        div, isFixed;
+
+    div = document.createElement('div');
+    div.style.cssText = 'display:none;position:fixed;z-index:100;';
+    body.appendChild(div);
+    isFixed = window.getComputedStyle(div).position != 'fixed';
+    body.removeChild(div);
+    div = null;
+
+    return !!(isFixed || ios5below || operaMini);
+}
+
 //间隔多久可以点击
 // param1 {element}  dom element not jq element
 // param2 {number}   countdown second
@@ -487,6 +538,7 @@ function countDown(ele, countdown, cb){
 
     // countdown 60 seconds
     var count = 61;
+    $(that).addClass('block')
 
     if( getObjType(countdown)==='Function'){
         cb = countdown;
@@ -500,6 +552,7 @@ function countDown(ele, countdown, cb){
         that.innerHTML = --count+'秒';
 
         if(count === 0){
+            $(that).removeClass('block')
             clearInterval(ttt);
             that.innerHTML = '重新发送'
             cb()
@@ -614,5 +667,11 @@ module.exports = {
 
     countDown:      countDown,      //倒计时
 
-    api:            api             //封装jquery的ajax的post
+    api:            api,            //封装jquery的ajax的post
+
+    getElementsByClassName: getElementsByClassName,
+
+    isSupportFixed: isSupportFixed,
+
+    Class:          Class
 }

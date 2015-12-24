@@ -6,11 +6,19 @@ dev(){
     gulp dev
 
     cd ..
-    nodemon --harmony index.js dev &
+    if [ $1 ]; then
+        nodemon --harmony index.js dev $1 &
+    else
+        nodemon --harmony index.js dev &
+    fi
     sleep 2
 
     cd public
-    gulp watch
+    if [ $1 ]; then
+        gulp watch --port $1
+    else
+        gulp watch
+    fi
 }
 
 bbdev(){
@@ -59,16 +67,18 @@ bbdemo(){
 }
 
 install(){
-    npm install gulp -g
-    npm install nodemon -g
-    npm install node-gyp -g
     npm install
 
     cd public
     npm install
-    npm install node-sass
 
     cd ..
+}
+
+install2(){
+    npm install gulp -g
+    npm install nodemon -g
+    npm install node-gyp -g
 }
 
 server(){
@@ -85,11 +95,14 @@ case $1 in
   install)
       install
       ;;
+  install2)
+      install2
+      ;;
   server)
       server
       ;;
   dev)
-      dev
+      dev $2
       ;;
   pro)
       pro

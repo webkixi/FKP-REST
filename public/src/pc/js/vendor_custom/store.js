@@ -76,7 +76,7 @@
                     acts.map(function( fun ){
                         if(getObjType(fun.args) === 'Array'){
                             fun.args.push( data )
-                            fun.apply(null, fun.args)
+                            fun.apply(fun.args[0], fun.args)
                         }else
                             fun( data );
 
@@ -87,7 +87,7 @@
                     var acts = this.sact;
                     acts.map(function( fun ){
                         if(getObjType(fun.args) === 'Array'){
-                            fun.apply(null, fun.args)
+                            fun.apply(fun.args[0], fun.args)
                         }else
                             fun();
 
@@ -130,10 +130,48 @@
             if(!save[name]){
                 return false
             }else{
+                var target;
                 if( getObjType(dataOrAct) === 'Object' ){
-                    var target = extend(true, save[name].sdata, dataOrAct)
-                    save[name].setter( target );
+                    if (getObjType(save[name].sdata) === 'Object'){
+                        target = extend(true, save[name].sdata, dataOrAct)
+                        save[name].setter( target );
+                    }
+
+                    if (getObjType(save[name].sdata) === 'Array'){
+                        var tmp = save[name].sdata;
+                        tmp.push(dataOrAct)
+                        target = tmp
+                        save[name].setter( target );
+                    }
                 }
+                else {
+                    if (getObjType(save[name].sdata) === 'Array'){
+                        var tmp = save[name].sdata;
+                        tmp.push(dataOrAct)
+                        target = tmp;
+                        save[name].setter( target );
+                    }
+                }
+            }
+        },
+
+        pop: function(name){
+            if(!name||name=='')
+                return false;
+
+            var save = _stock;
+            if (save[name]){
+                var tmp = save[name].getter( 'data' )
+                if (getObjType(tmp) === 'Array'){
+                    var popdata = tmp.pop();
+                    save[name].setter(tmp)
+                    return [tmp, popdata]
+                }
+                else {
+                    return false;
+                }
+            }else{
+                return false;
             }
         },
 
@@ -154,8 +192,53 @@
                     save[name].acter(dataOrAct);
                 }
                 else{
-                    if( getObjType(dataOrAct) === 'Object' )
-                        save[name].setter(dataOrAct);
+                    if (getObjType(dataOrAct) === 'Object' ||    // 存储 json对象
+                        getObjType(dataOrAct)==='String' ||     // 存储 string
+                        getObjType(dataOrAct)==='Boolean'){      // 存储 boolean对象
+                            save[name].setter(dataOrAct);
+                        }
+                    else
+                    if ( getObjType(dataOrAct) === 'Array' ) {
+                        var isFuns = true;
+                        if (!dataOrAct.length){
+                            save[name].setter(dataOrAct);
+                        }
+                        else {
+                            dataOrAct.map(function(item, i){
+                                if( getObjType(item) !== 'Function' )
+                                isFuns = false;
+                            })
+                            if( isFuns ){
+                                if(getObjType(fun) === 'Array' ){
+                                    dataOrAct.map(function(item, i){
+                                        if(getObjType(fun[i])==='Array')
+                                        item.args = fun[i];
+                                        else {
+                                            item.args = [fun[i]]
+                                        }
+                                    })
+                                }
+                                save[name].sact = dataOrAct;
+                            }
+                            else {
+                                save[name].setter(dataOrAct);    //存储array数据
+                            }
+                        }
+                    }
+                }
+            }
+
+            if ( getObjType(fun)==='Function' )
+                save[name].acter(fun);
+
+            if ( getObjType(fun) === 'Array' ) {
+                var isFuns = true;
+                fun.map(function(item, i){
+                    if( getObjType(item) !== 'Function' )
+                        isFuns = false;
+                })
+                if( isFuns ){
+                    save[name].sact = fun;
                 }
             }
         },
@@ -190,8 +273,12 @@
                     save[name].acter(dataOrAct);
                 }
                 else{
-                    if( getObjType(dataOrAct) === 'Object' )
-                        save[name].dataer(dataOrAct);
+                    if (getObjType(dataOrAct) === 'Object' ||    // 存储 json对象
+                        getObjType(dataOrAct)==='String' ||     // 存储 string
+                        getObjType(dataOrAct)==='Boolean'){      // 存储 boolean对象
+                            save[name].dataer(dataOrAct);
+                        }
+                    else
                     if( getObjType(dataOrAct) === 'Array' ) {
                         var isFuns = true;
                         dataOrAct.map(function(item, i){
@@ -210,6 +297,9 @@
                             }
                             save[name].sact = dataOrAct;
                         }
+                        else {
+                            save[name].dataer(dataOrAct);    //存储array数据
+                        }
                     }
                     // save[name].dataer(libs.clone(dataOrAct));
                 }
@@ -225,7 +315,7 @@
                         isFuns = false;
                 })
                 if( isFuns ){
-                    save[name].sact = dataOrAct;
+                    save[name].sact = fun;
                 }
             }
         },
@@ -236,8 +326,12 @@
 
             var save = _stock;
             if(save[name]){
+                var that = save[name]
+                function runner(data){
+                    that.dataer(data)
+                }
                 return {
-                    run: save[name].dataer,
+                    run: runner,
                     data: save[name].getter( 'data' ),
                     action: save[name].getter( 'action' )
                 }

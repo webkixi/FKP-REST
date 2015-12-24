@@ -10,7 +10,15 @@ var api = require('libs/api')
 // 初始化微信的数据
 function init(cb){
     SA.set("_WEIXIN",{error: -1})
-    getwx( cb );
+    getwx( cb);
+    // if(typeof moni==='object'){
+    //     setTimeout(function(){
+    //         SA.setter("_WEIXIN",{user: moni})
+    //         cb (moni)
+    //     },1000)
+    // }else
+    //     getwx( cb );
+
 }
 
 

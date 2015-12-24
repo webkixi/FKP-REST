@@ -28,6 +28,9 @@ function popwin(data, cb){
     function dm(){
         var the_pop = this;
         $(the_pop).click(function(){
+            if($(this).hasClass('autoTip')){
+                return;
+            }
             SA.setter('Pop',{data:{display:'none'}});
           	$(this).addClass('autoPop');
         })

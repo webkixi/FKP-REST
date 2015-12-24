@@ -16,6 +16,13 @@ var clone = function(target){
     return t === 'Object' ? extend(true, {}, target) : t === 'Array' ? extend(true, [], target) : target;
 }
 
+function getClientIp(req) {
+    return req.headers['x-forwarded-for'] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress;
+};
+
 var clog = function(msg){
     console.log('-----------------------');
     console.log('-----------------------');
@@ -58,5 +65,6 @@ module.exports = {
     $path: path,
     $domain: domain,
     $parse: parse,
-    $lodash: lodash
+    $lodash: lodash,
+    getClientIp: getClientIp
 }

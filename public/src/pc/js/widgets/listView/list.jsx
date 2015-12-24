@@ -75,19 +75,19 @@ var tmpApp = React.createClass({
 		var itemCollection = [];
 		function organizeData(record){
 			var items = [];
-			record.map(function(item,i){
+			record.map(function(item,list_i){
 				if (Array.isArray(item)){
 
 					//inline 将数组元素放置在一个li中
 					if(that.props.inline){
-						var it = that._dealWithItemView({i: i, item: item})
+						var it = that._dealWithItemView({i: list_i, item: item})
 						items.push(it);
 					}
 					else
 						itemCollection.push(organizeData(item));
 				}
 				else {
-					var it = that._dealWithItemView({i: i, item: item})
+					var it = that._dealWithItemView({i: list_i, item: item})
 					items.push(it);
 				}
 			});
@@ -127,9 +127,9 @@ var tmpApp = React.createClass({
 			if( that.querySelector('img') ){
 				var tmpimgs = that.querySelectorAll('img')
 				var imgs = libs.arg2arr( tmpimgs )
-				imgs.map(function( pic, i ){
+				imgs.map(function( pic, list_i ){
 					if( pic.getAttribute('data-src') ){
-						
+
 					}
 				})
 			}

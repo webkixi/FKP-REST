@@ -481,12 +481,28 @@ if ( window.jQuery || window.Zepto ) {
 }
 
 
+// (function (root, factory) {
+//     if (typeof define === 'function' && define.amd) {
+//         define(function(){
+//             return factory;
+//         });
+//     } else {
+//         return factory;
+//     }
+// }(this, Swipe));
+
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(function(){
-            return factory;
-        });
-    } else {
-        return factory;
-    }
-}(this, Swipe));
+   "use strict";
+   if (typeof module !== 'undefined' && typeof exports === 'object') {
+       module.exports = factory;
+   }
+   else if (typeof define === 'function' && define.amd) {
+       // using AMD; register as anon module
+       define(function(){
+           return factory;
+       });
+   } else {
+       // no AMD; invoke directly
+       return factory;
+   }
+}(this, Swipe))

@@ -4,10 +4,11 @@
 */
 var libs = require('libs/libs')
 var List = require('widgets/listView/list')
-var scrollMixins = require('mixins/PageScrollStartEndMixin');
+var scrollMixins = require('mixins/scrollLoadAndLazy');
+var itemMixins = require('mixins/item')
 
 var tmpApp = {
-	mixins:[ scrollMixins ],
+	mixins:[ scrollMixins, itemMixins ],
 	getDefaultProps: function() {
 		return {
 

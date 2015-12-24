@@ -1,7 +1,7 @@
 // var src = "http://120.25.241.174:8080/v1/servicetype/";
 //var src = "http://192.168.4.57:8080/v1/";
 var src = "http://120.25.241.174:8080/v1/";
-var src2 = "http://120.25.241.174:8090/v2/";
+var src2 = "http://120.25.241.174:8080/v2/";
 
 var apiPath = {
     base: src,
@@ -10,7 +10,8 @@ var apiPath = {
         wx_web_token: 'https://api.weixin.qq.com/sns/oauth2/access_token',
 
         service: src+'servicetype/query',
-        parts: src+'parts/query',
+        parts: src+'parts/query', 
+        partsbyid: src+'parts/querybycarid',
         queryallbrand: src+'car/queryallbrand',
         queryseries: src+'car/queryseries',
         querycartype: src+'car/querycartype',
@@ -41,7 +42,8 @@ var apiPath = {
         //oauth2方式的api会议 '_web' 方式结尾
         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get',
         querymenu: 'https://api.weixin.qq.com/cgi-bin/menu/get',        //?access_token=ACCESS_TOKEN
-        createmenu: 'https://api.weixin.qq.com/cgi-bin/menu/create',    //?access_token=ACCESS_TOKEN
+        createmenu: 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN',    //?access_token=ACCESS_TOKEN
+        getticket: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket',            //?access_token=ACCESS_TOKEN&type=jsapi
 
         userinfo_web: 'https://api.weixin.qq.com/sns/userinfo'  //?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
     }

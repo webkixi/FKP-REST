@@ -137,6 +137,7 @@ var plugins = function(dirname, isPack, options){
 
     var venders,
         common_trunk_config = {
+            name: '_common',
             filename: '_common.js',
             // minChunks: 2,
             minChunks: 3,
@@ -146,7 +147,7 @@ var plugins = function(dirname, isPack, options){
         }
 
     if(options && options.type){
-        if(options.type.toString().indexOf('ss')>-1 || options.type === 'stylus'){
+        if(options.type.toString().indexOf('ss')>-1 || options.type === 'stylus' || options.type === 'styl'){
             dirname = 'noCommon';
         }
     }
@@ -225,11 +226,13 @@ var custom_modules = function(){
       },  {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract("css-loader")
-      }, {
-          test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('style-loader',"raw!sass")
-          // loader: "style!css!sass"
-      }, {
+      },
+      //   {
+      //       test: /\.scss$/,
+      //       loader: ExtractTextPlugin.extract('style-loader',"raw!sass")
+      //       // loader: "style!css!sass"
+      //   },
+      {
           test: /\.less$/,
           loader: ExtractTextPlugin.extract('style-loader',"raw!less")
       }, {
@@ -243,11 +246,11 @@ var custom_modules = function(){
           loader: "json-loader"
       },
 
-        //   { // Only apply on tinymce/tinymce
-        //       include: require.resolve('tinymce/tinymce'),    //检测到路径包含tinymce/tinymce
-        //       // Export window.tinymce
-        //       loader: 'exports?window.tinymce',             //输出全局变量tinymce
-        //   },
+      //   { // Only apply on tinymce/tinymce
+      //       include: require.resolve('tinymce/tinymce'),    //检测到路径包含tinymce/tinymce
+      //       // Export window.tinymce
+      //       loader: 'exports?window.tinymce',             //输出全局变量tinymce
+      //   },
 
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'} // inline base64 URLs for <=8k images, direct URLs for the rest
       // , {
@@ -347,7 +350,8 @@ module.exports = {
             entry: entry,
             output: {
                 path: path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/js/'),
-                publicPath: '../../' + configs.version + '/dev/js/',
+                // publicPath: '../../' + configs.version + '/dev/js/',
+                publicPath: '/js/',
                 filename: configs.hash ? '[name]_[hash].js' : '[name].js',
             },
             externals: idf_externals,
@@ -437,18 +441,36 @@ module.exports = {
 
               //parse sass scss less css stylus
               function doStyle(){
+                  var cssstyle = $.less||$.empty;
+                  switch (type) {
+                      case 'sass':
+                          cssstyle = $.sass||$.empty;
+                          break;
+                      case 'scss':
+                          cssstyle = $.sass||$.empty;
+                          break;
+                      case 'styl':
+                          cssstyle = $.stylus||$.empty;
+                          break;
+                      case 'stylus':
+                          cssstyle = $.stylus||$.empty;
+                          break;
+                      default:
+
+                  }
                   for(var file in entrys){
                       if(entrys[file].length){
                           (function(item){
                               gulp.src(entrys[item])
-                              .pipe($.newer(path.join(__dirname,'../../',configs.cssDevPath, item+'.css') ))
+                            //   .pipe($.newer(path.join(__dirname,'../../',configs.cssDevPath, item+'.css') ))
                               .pipe($.plumber())
-                              // .pipe $.rimraf()
-                              .pipe ($.if('*.sass', $.sass() ))
-                              .pipe ($.if('*.scss', $.sass() ))
-                              .pipe ($.if('*.less', $.less() ))
-                              .pipe ($.if('*.styl', $.stylus() ))
-                              .pipe ($.if('*.stylus', $.stylus() ))
+                            //   .pipe ($.rimraf())
+                              .pipe (cssstyle())
+                              //   .pipe ($.if('*.sass', $.sass() ))
+                              //   .pipe ($.if('*.scss', $.sass() ))
+                              //   .pipe ($.if('*.less', $.less() ))
+                              //   .pipe ($.if('*.styl', $.stylus() ))
+                              //   .pipe ($.if('*.stylus', $.stylus() ))
                               .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
                               .pipe($.size())
                               // .pipe($.sass())

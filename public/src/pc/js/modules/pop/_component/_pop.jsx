@@ -81,8 +81,20 @@ var popwin = {
 				cls +=' alert';
 				body = <div><div className={'alertTit'}><i className={'ifont icon-infofill'}></i>{theData.alert.title?theData.alert.title:'温馨提示'}</div><div className={'alertCon'}>{theData.alert.body?theData.alert.body:theData.body}</div><div className={'alertBtn'}>我知道了</div></div>
 			}
+
+			if(theData.type){
+				var _this = this;
+				setTimeout(function(){
+					_this.setState({
+						data: {display:'none'}
+					});
+				},2000);
+			}
 		}
         return(
+    		theData.type ?
+    		<div className={'autoTip'} ref='popbox'><div>{body}</div></div>
+    		:
 			<div className={cls} ref='popbox'>
 				<div className="pop_content">{body}</div>
 				<div className="pop_bg" onClick={this.handleClick}></div>

@@ -43,8 +43,10 @@ var req = function(api,options){
             else{
                 opts.json = options
             }
+            console.log('((((((((((((((((  javaapi req  ))))))))))))))))');
             console.log(options);
             request.post(api, opts, rp);
+            // request({method:'POST', url:api, json:options},rp)
             // console.log(needle);
             // request({method:'POST', url:api, json:options}, rp)
 
@@ -107,10 +109,25 @@ var req = function(api,options){
 function *pullApiData(api, param, method){
     libs.elog('javaapi/'+ api);
 
-    var url = apiPath.dirs[api];
-    if( !url ){
-        return false;
+    if (api.indexOf('redirect')===0){
+        url = param._redirect;
+        delete param._redirect
+        if (param.ajaxtype){
+            method = param.ajaxtype
+            delete param.ajaxtype
+        }
+        var len = Object.keys(param)
+        if (len.length===0)
+            param = {test: '123'}
+
     }
+    else {
+        var url = apiPath.dirs[api];
+        if( !url ){
+            return false;
+        }
+    }
+
     var query;
 
     if(!method)
@@ -123,7 +140,7 @@ function *pullApiData(api, param, method){
     // console.log(query);
 
     if(libs.getObjType(param)!=='Object')
-        return yield {};
+        return yield {message: 'pullApiData === 请指定正确的参数'};
 
     if(!method)
         return yield req(url+'?'+query);
@@ -190,17 +207,17 @@ function *getWxAccessToken(params, apii){
     var tmp;
     if(params.code){   //web access token
         yield getWAT();
-        tmp = this.sess.wwx
+        tmp = the.sess.wwx
     }else{   //normal access token
         if(apii.indexOf('_web')===-1){
-            if(!this.sess.wx)
+            if(!the.sess.wx)
                 yield getAT();   //暂时关闭
 
-            tmp = this.sess.wx
+            tmp = the.sess.wx
         }else{
-            if(!this.sess.wwx)
+            if(!the.sess.wwx)
                 yield getWAT();   //暂时关闭
-            tmp = this.sess.wwx
+            tmp = the.sess.wwx
         }
 
     }
@@ -208,9 +225,9 @@ function *getWxAccessToken(params, apii){
     if(tmp){
         var now = date.getTime()/1000;
         if(now-tmp.token_expire>6500){
-            if( this.sess.wx)
+            if( the.sess.wx)
                 yield getAT()
-            if( this.sess.wwx )
+            if( the.sess.wwx )
                 yield getWAT();
         }else{
             tmp.token_renew = now-tmp.token_expire;
@@ -243,6 +260,10 @@ function *pullWxData(api, param, method){
     // console.log('weixin token after '+Math.ceil(-this.sess.wx.token_renew)+' second will renew');
 
     var url = apiPath.weixin[api];
+    if (url.indexOf('ACCESS_TOKEN')>-1){
+        url = url.replace(/ACCESS_TOKEN/, this.sess.wx.token)
+        delete param.access_token
+    }
     var query;
 
     if(!method)

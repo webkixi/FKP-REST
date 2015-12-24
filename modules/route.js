@@ -74,12 +74,12 @@ function *createTempPath2(pms,rjson){
     else if(cat){
         cat = cat.replace(rjson.ext,'');
         route = gtpy(cat)==='Number'
-        ? 'index'
+        ? config.root||'index'
         : cat;
     }
 
     else{
-        route = 'index'
+        route = config.root||'index'
     }
     route = route.replace(rjson.ext,'')
     return route;
