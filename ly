@@ -66,19 +66,23 @@ bbdemo(){
     gulp bb
 }
 
+install2(){
+    npm install nrm -g
+    nrm use cnpm
+    sleep 5
+    npm install gulp -g
+    npm install nodemon -g
+    npm install node-gyp -g
+}
+
 install(){
+    install2
     npm install
 
     cd public
     npm install
 
     cd ..
-}
-
-install2(){
-    npm install gulp -g
-    npm install nodemon -g
-    npm install node-gyp -g
 }
 
 server(){

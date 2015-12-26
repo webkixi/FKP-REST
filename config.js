@@ -4,17 +4,10 @@ var ifaces = os.networkInterfaces();
 
 //微信公众号配置文件
 var hema = {
-    token: '_cqch',
-    appid: 'wxbbaa9329fb93ab87',
-    appsecret: '62546240267b5a81f8d51f3ae73e6a10',
-    encodingAESKey: '4sRcy6NRoQsPCV7SuJSNrOd2UxPXeYC3CKVHxYMU0QH'
-}
-
-var cqch = {
-    token: '_cqch',
-    appid: 'wx1545988792d90a08',
-    appsecret: '574d8b683303755fa49ff5971416eb7b',
-    encodingAESKey: 'EiFRyp7yt4Ayw8EBIFojuDsn8S4JLYsDeBRtVkPRkW9'
+    token: 'xxxxx',
+    appid: 'xxxxxxx',
+    appsecret: 'xxxxxxx',
+    encodingAESKey: 'xxxxxxx'
 }
 
 var wxConfig = hema;
@@ -22,8 +15,8 @@ var wxConfig = hema;
 var static_dir = './public'
 var version = '1.0.0'
 var config = {
-    domain: 'ch.dabai360.com',
-    root: 'index',    //dev 或者 pro默认首页
+    domain: 'www.163.com',
+    root: 'demoindex',    //dev 或者 pro默认首页
 
     // 静态资源映射文件
   	mapJson:   path.join(static_dir,'/dist/1.0.0/map.json'),
