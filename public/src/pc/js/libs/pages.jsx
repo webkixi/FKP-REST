@@ -36,6 +36,7 @@ function pages(opts){
     })
 
     function run(){
+        var _this = this;
         funs.map(function(item, i){
             if (typeof dft[item] === 'function'){
                 if (_.indexOf(_dft, item)>-1)
@@ -47,10 +48,10 @@ function pages(opts){
     if (_.indexOf(funs, 'boot')>-1){
         var stat = dft['boot'].call(_this, _this)
         if (stat)
-            run();
+            run.call(_this);
     }
     else
-        run();
+        run.call(_this);
 
     return this;
 }
