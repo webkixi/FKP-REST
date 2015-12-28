@@ -31,7 +31,7 @@ mac
 5. `cd public && npm install`
 
 
-## sass安装  
+## 如需sass  
 ##### 需要额外安装以下npm包  
 `npm install gulp-sass`  
 `npm install sass-loader`  
