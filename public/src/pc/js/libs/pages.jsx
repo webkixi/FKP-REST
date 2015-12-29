@@ -45,6 +45,19 @@ function pages(opts){
         })
     }
 
+    _this.next = function(stat,data){
+        if (stat){
+            if (!_this.innerData){
+                _this.innerData = data;
+            }
+            else{
+                var tmp = libs.extend({}, _this.innerData, data)
+                _this.innerData = tmp;
+            }
+            run.call(_this)
+        }
+    }
+
     if (_.indexOf(funs, 'boot')>-1){
         var stat = dft['boot'].call(_this, _this)
         if (stat)
