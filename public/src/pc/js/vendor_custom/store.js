@@ -68,30 +68,97 @@
         if( act )
             this.sact = act;
 
-        this.dataer = function( data ){
+        this.dataer = function( data, key ){
             if( data ){
                 this.sdata = data;
-                if( this.sact.length ){
+                if( getObjType(this.sact) === 'Array' ){
                     var acts = this.sact;
                     acts.map(function( fun ){
                         if(getObjType(fun.args) === 'Array'){
                             fun.args.push( data )
-                            fun.apply(fun.args[0], fun.args)
-                        }else
-                            fun( data );
+                            if (typeof fun === 'function')
+                                fun.apply(fun.args[0], fun.args)
+                        }else{
+                            if (typeof fun === 'function')
+                                fun( data );
+                        }
 
                     })
                 }
+                if (getObjType(this.sact) === 'Object'){
+                    var sacts = this.sact
+                    if (key) {
+                        if (sacts[key]) {
+                            var fun = sacts[key]
+                            if(getObjType(fun.args) === 'Array'){
+                                fun.args.push( data )
+                                if (typeof fun === 'function')
+                                    fun.apply(fun.args[0], fun.args)
+                            }else{
+                                if (typeof fun === 'function')
+                                    fun( data );
+                            }
+                        }
+                    }
+                    else {
+                        for (var item in sacts){
+                            if (typeof sacts[item] === 'function'){
+                                var fun = sacts[item]
+                                if(getObjType(fun.args) === 'Array'){
+                                    fun.args.push( data )
+                                    if (typeof fun === 'function')
+                                        fun.apply(fun.args[0], fun.args)
+                                }else{
+                                    if (typeof fun === 'function')
+                                        fun( data );
+                                }
+                            }
+                        }
+                    }
+                }
             }else{
-                if( this.sact.length ){
+                if( getObjType(this.sact) === 'Array' ){
                     var acts = this.sact;
                     acts.map(function( fun ){
                         if(getObjType(fun.args) === 'Array'){
-                            fun.apply(fun.args[0], fun.args)
-                        }else
-                            fun();
+                            if (typeof fun === 'function')
+                                fun.apply(fun.args[0], fun.args)
+                        }else{
+                            if (typeof fun === 'function')
+                                fun();
+                        }
 
                     })
+                }
+                if (getObjType(this.sact) === 'Object'){
+                    var sacts = this.sact
+                    if (key) {
+                        if (sacts[key]) {
+                            var fun = sacts[key]
+                            if(getObjType(fun.args) === 'Array'){
+                                fun.args.push( data )
+                                if (typeof fun === 'function')
+                                    fun.apply(fun.args[0], fun.args)
+                            }else{
+                                if (typeof fun === 'function')
+                                    fun( data );
+                            }
+                        }
+                    }
+                    else {
+                        for (var item in sacts){
+                            if (typeof sacts[item] === 'function'){
+                                var fun = sacts[item]
+                                if(getObjType(fun.args) === 'Array'){
+                                    if (typeof fun === 'function')
+                                        fun.apply(fun.args[0], fun.args)
+                                }else{
+                                    if (typeof fun === 'function')
+                                        fun();
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -241,6 +308,27 @@
                     save[name].sact = fun;
                 }
             }
+
+            if ( getObjType(fun) === 'Object' ) {
+                if (save[name].sact) {
+                    var sact = save[name].sact
+                    if (getObjType(sact) === 'Array'){
+                        if (!sact.length)
+                            sact = {}
+                        else{
+                            console.log('SA set error, fun is array ');
+                            return false;
+                        }
+                    }
+                    if (getObjType(sact) === 'Object'){
+                        var target = extend(sact, fun)
+                        save[name].sact = target;
+                    }
+                }
+                else {
+                    save[name].sact = fun;
+                }
+            }
         },
 
         get: function(name){
@@ -318,6 +406,27 @@
                     save[name].sact = fun;
                 }
             }
+
+            if ( getObjType(fun) === 'Object' ) {
+                if (save[name].sact) {
+                    var sact = save[name].sact
+                    if (getObjType(sact) === 'Array'){
+                        if (!sact.length)
+                            sact = {}
+                        else{
+                            console.log('SA set error, fun is array ');
+                            return false;
+                        }
+                    }
+                    if (getObjType(sact) === 'Object'){
+                        var target = extend(sact, fun)
+                        save[name].sact = target;
+                    }
+                }
+                else {
+                    save[name].sact = fun;
+                }
+            }
         },
 
         getter: function(name){
@@ -327,8 +436,8 @@
             var save = _stock;
             if(save[name]){
                 var that = save[name]
-                function runner(data){
-                    that.dataer(data)
+                function runner(data, key){
+                    that.dataer(data, key)
                 }
                 return {
                     run: runner,
