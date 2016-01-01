@@ -3,7 +3,7 @@ var core = require('./_component/core')
 
 function pages(opts){
 
-    page = SA.get('_CURENT_PAGE')
+    var page = SA.get('_CURENT_PAGE')
     if (page){
         var intent = SA.get(page)
         this.intent = intent;
@@ -20,8 +20,8 @@ function pages(opts){
         init: function(){},
         goback: function(){},
         ready: function(){},
-        main: function(){},
-        end: function(){}
+        main: function(){}
+        // end: function(){}
     }
     _dft = Object.keys(defaults)
 

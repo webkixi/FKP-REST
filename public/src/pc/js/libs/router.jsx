@@ -130,6 +130,12 @@ var rt = libs.Class.create();
             var temp = SA.getter(name)
             var data = {};
             if (temp){
+                var prev_page = SA.getter('_CURENT_PAGE')
+                if (prev_page) {
+                    var prev_name = prev_page.data
+                    prev_page.run(intent, prev_name)
+                }
+                SA.set('_CURENT_PAGE', name)
                 router.cb = false;
                 console.log('======='+name);
                 if (intent)
@@ -140,7 +146,6 @@ var rt = libs.Class.create();
                 else
                     SA.setter(name, data)
 
-                SA.set('_CURENT_PAGE', name)
             }
         },
 
@@ -327,12 +332,20 @@ route.init = function(name, handle){
             route[item] = name[item];
             var page_instence = name[item](item)
 
-            if (page_instence.goback || page_instence.trigger){
+            if (page_instence.goback || page_instence.trigger || page_instence.end){
                 if (page_instence.goback && libs.getObjType(page_instence.goback)==='Function')
                     SA.set(item, page_instence.goback, [page_instence])
 
-                if (page_instence.trigger && libs.getObjType(page_instence.goback)==='Function')
+                if (page_instence.trigger && libs.getObjType(page_instence.trigger)==='Function')
                     SA.set(item, page_instence.trigger, [page_instence])
+
+                if (page_instence.end && libs.getObjType(page_instence.end)==='Function'){
+                    page_instence.end.args = [page_instence]
+                    var tmp = {}
+                    tmp[item] = page_instence.end
+                    SA.set('_CURENT_PAGE', 'none', tmp)
+                    // SA.set(item, page_instence.end, [page_instence])
+                }
             }
             else
                 SA.set(item, name[item])
