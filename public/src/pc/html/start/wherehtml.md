@@ -91,8 +91,5 @@ css和js分别分为common和page两个部分
 - __第三方js库__  
 commonjs的组成比较灵活，FKP-REST现在使用的时 React + Zepto，因为现在的项目需求，但FKP-REST可以结合backbone, avalon, angular(模板标记冲突)，jQuery等
 
-- __同名markdown__  
-如果模板文件为`xxx.hbs`，同时markdown的文件命名为'xxx.md'，即为同名markdown文件  
-
-- __非同名markdown__  
-非同名markdown文件会作为`demoindex.html`列表中的一个子项，如果你的博客非常简单，那么可以使用markdown文件来完成，就像本站一样， [__本站__](http://www.agzgz.com)  
+- __第三方css库__  
+引入了全套bootstrap的mixins，可根据需要自行开发less的部分组件  
