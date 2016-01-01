@@ -32,4 +32,5 @@ h={};g()}};typeof define==="function"&&define.amd&&define("google-code-prettify"
 
 
 $("pre").addClass("prettyprint");
+$('body').append('<div class="markdown-footer"></div>')
 prettyPrint();
