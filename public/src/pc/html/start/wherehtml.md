@@ -32,6 +32,9 @@ FKP-REST的html模板目录与js和css是分离的，由编译将三者整合输
 ![Alt wherehtml](/images/doc/wherehtml5.png)  
 
 ##### _注：_  
+- __与文件夹同名的文件__  
+编译规则会自动匹配文件夹同名文件，一般不建议使用这样的同名文件，具体原因请查看这篇文章，[特殊的文件名](/start/duplicate_md.html)
+
 - __markdown__  
 markdown为流行的文档语法，可以快速高效产出说明文档  
 
