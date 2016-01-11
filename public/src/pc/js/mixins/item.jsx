@@ -31,14 +31,14 @@ function itemMixin(){
             if(this.props.itemDefaultMethod){
     			var dMtd = this.props.itemDefaultMethod;
     			if(typeof dMtd==='function'){
-    				dMtd.call(that);
+    				dMtd.call(that,this);
     			}
     		}
 
     		if(this.props.itemMethod){
     			var mtd = this.props.itemMethod;
     			if(typeof mtd==='function'){
-    				mtd.call(this.getDOMNode());
+    				mtd.call(this.getDOMNode(),this);
     			}
     		}
 

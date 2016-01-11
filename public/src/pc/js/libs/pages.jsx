@@ -18,7 +18,7 @@ function pages(opts){
     var _dft = [];
     var defaults = {
         init: function(){},
-        goback: function(){},
+        // goback: function(){},
         ready: function(){},
         main: function(){}
         // end: function(){}

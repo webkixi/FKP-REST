@@ -2,6 +2,19 @@
 * 用于获取微信的相关数据
 */
 
+var moni = {
+    "openid": "o07NUs250UkhoK8Ks6bZAZK7Hkls",
+    "nickname": "天天修改",
+    "sex": 1,
+    "language": "zh_CN",
+    "city": "广州",
+    "province": "广东",
+    "country": "中国",
+    "headimgurl": "http://wx.qlogo.cn/mmopen/Lhlz6ia774dNwUgAucLtKIs94BWFSX1hPbdvibZT79y69oI7FusBz7I5qbech1olibVxribJ9vFErEoDrJFPpDa0my6yXkhmouoj/0",
+    "privilege": []
+}
+moni = ''
+
 
 var libs = require('libs/libs');
 var api = require('libs/api')
@@ -10,14 +23,16 @@ var api = require('libs/api')
 // 初始化微信的数据
 function init(cb){
     SA.set("_WEIXIN",{error: -1})
-    getwx( cb);
-    // if(typeof moni==='object'){
-    //     setTimeout(function(){
-    //         SA.setter("_WEIXIN",{user: moni})
-    //         cb (moni)
-    //     },1000)
-    // }else
-    //     getwx( cb );
+    // getwx( cb);
+    if(typeof moni==='object'){
+        setTimeout(function(){
+            console.log('======= weixin moni');
+            SA.setter("_WEIXIN",{user: moni})
+            cb (moni)
+        },1000)
+    }
+    else
+        getwx( cb );
 
 }
 
@@ -67,7 +82,7 @@ module.exports = init;
 //     "privilege": []
 // }
 //
-// var test_wx_data1 = {
+// var moni = {
 //     "openid": "o07NUs250UkhoK8Ks6bZAZK7Hkls",
 //     "nickname": "天天修改",
 //     "sex": 1,

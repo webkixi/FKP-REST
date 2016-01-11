@@ -8,8 +8,9 @@ var api = require('../../../libs/api');
 (function(){
 	
 	var turl = SA.get('_TRUE_URL');
+
     var postdata = {
-         url: turl.split('#')[0]
+         url: turl ? turl.split('#')[0] : location.href.split('#')[0]
     };
     
     api.req('/weixin/getsign', postdata, function(data){

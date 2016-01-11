@@ -34,6 +34,16 @@ function select(data, ele, cb){
         $(_this.ipt).find('.body span').text('请选择')
     }
 
+    this.setter = function(text, value){
+        var input = $(_this.ipt).find('input')
+        input[0].value = value||text;
+        _this.value = value||text
+        _this.text = text
+        _this.stat = true;
+        $(_this.ipt).find('.body span').removeClass('active').addClass('active')
+        $(_this.ipt).find('.body span').text(text)
+    }
+
     var close = true;
     if(data.popclose===false) close = data.popclose;
     function dm(){

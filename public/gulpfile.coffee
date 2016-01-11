@@ -2,12 +2,16 @@ fs = require('fs')
 path = require('path')
 gulp = require('gulp')
 gutil = require('gulp-util')
+minimist = require('minimist')
 configs = require './config'
 slime = require('./_builder/configs/slime.config.js')
 
 browserSync = require 'browser-sync'
 reload = browserSync.reload
 env = 'dev'
+
+args = process.argv.splice(2);
+options = minimist(args)
 
 # Load plugins
 $ = require('gulp-load-plugins')()
@@ -19,11 +23,10 @@ if !fs.existsSync('./dist')
    if  !fs.existsSync(tmpDir)
        fs.mkdirSync(tmpDir);
 
-getTask = (task,env)->
+getTask = (task,env,port)->
     if !env
         env = 'dev'
-
-    require('./_builder/gulp-task/'+task)(gulp, $, slime, env)
+    require('./_builder/gulp-task/'+task)(gulp, $, slime, env, port)
 
 # 清理dist/目录
 gulp.task 'clean:build', getTask('clean-build')
@@ -96,7 +99,14 @@ gulp.task 'concat', getTask('concat-common-js')
 
 gulp.task 'ser', getTask('server')
 
-gulp.task 'watch', getTask('watch')
+gulp.task 'watch:dev', getTask('watch')
+gulp.task 'watch:dev:port', getTask('watch', undefined, options.port)
 gulp.task 'watch:pro', getTask('watch','pro')
 gulp.task 'watch:bb', getTask('watch','bb')
 gulp.task 'watch:ng', getTask('watch','ng')
+
+gulp.task 'watch', ()->
+    if options.port
+        gulp.start 'watch:dev:port'
+    else
+        gulp.start 'watch:dev'

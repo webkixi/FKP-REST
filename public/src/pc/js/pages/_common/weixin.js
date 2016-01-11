@@ -129,6 +129,17 @@ var router = require('libs/router').router
 var route = require('libs/router').route
 var wx = require('modules/weixin/index')
 
+// var test_wx_data = {
+//     "openid": "oHSkUwle-4RdQspVz2SGwrtfuw-g",
+//     "nickname": "更改名字",
+//     "sex": 1,
+//     "language": "zh_CN",
+//     "city": "长沙",
+//     "province": "湖南",
+//     "country": "中国",
+//     "headimgurl": "http://wx.qlogo.cn/mmopen/I5UfkKM8220xvsXQ6ibFHzn5Pkf6MR8MyWiapTqdtziaLCIUmIMfQathLt2Mj1eT2WAhXUWSRI0L9jypCGPhBK2kQKR4A8uBbt1/0",
+//     "privilege": []
+// }
 
 /*
 * 初始化本地全局用户数据
@@ -137,6 +148,7 @@ var wx = require('modules/weixin/index')
 */
 function init_wx(){
     SA.set("_LOCAL_USER",{error: "-1"});
+    // wx( getLocalUser )
     wx( getLocalUser )
 }
 
@@ -146,10 +158,18 @@ function init_wx(){
 */
 function getLocalUser( data ){
     if(data && data.openid){
+        var params = {
+                "content": {
+                    "user": {
+                        "userinfo":{
+                            "openid": data.openid
+                        }
+                    }
+                }
+            };
         api.req('login',
-            {openid: data.openid},
+            params,
             function(record){
-
             //验证返回数据
             //如果code===1则写入全局，并执行全局方法
             if(record){
@@ -157,8 +177,9 @@ function getLocalUser( data ){
                     record = JSON.parse(record)
 
                 console.log('－－－－－－本地用户数据－－－－－－－');
-                if(record.code === 1){
-                    var local_user_info = record.results[0];
+                if(record.code == 1){
+                    var local_user_info = record.results.user;
+                    local_user_info.uid = local_user_info.user_id;  //旧接口为 uid，新接口为user_id，为了兼容添加多 uid
                     SA.setter("_LOCAL_USER", local_user_info);
                 }
                 else{

@@ -5,7 +5,7 @@
 
 var getWXConfig = require('./_component/_getWXConfig');
 
-function getLocation(sucFn){
+function getLocation(sucFn,errFn){
 	//获取配置
 	getWXConfig(function(){
 		//var _position = SA.getter('signInfo');
@@ -19,6 +19,9 @@ function getLocation(sucFn){
 		        var speed = res.speed; // 速度，以米/每秒计
 		        var accuracy = res.accuracy; // 位置精度
 		        sucFn && sucFn(latitude,longitude,res);
+		    },
+		    fail:function(res){
+		    	errFn && errFn(res);
 		    }
 		});
 		

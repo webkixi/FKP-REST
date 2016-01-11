@@ -614,6 +614,18 @@ var urlparse = function (url) {
     }
 }
 
+//主要解决ios下无法修改title的问题
+function changeTitle(title){
+    var $body = $('body')
+    document.title = title
+    // hack在微信等webview中无法修改document.title的情况
+    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+      setTimeout(function() {
+        $iframe.off('load').remove()
+      }, 0)
+    }).appendTo($body)
+}
+
 
 var _IE = (function(){
     var v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
@@ -673,5 +685,7 @@ module.exports = {
 
     isSupportFixed: isSupportFixed,
 
-    Class:          Class
+    Class:          Class,
+
+    changeTitle:    changeTitle     //ios特有bug解决方法，改变title
 }
