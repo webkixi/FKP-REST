@@ -27,6 +27,12 @@ app.use(session({
 	key: 'cqch'
 }));
 
+app.use(function *(next){
+	if (args[0] === 'test') {
+		this.session.argv = 'test'
+	}
+	yield next
+});
 
 //router
 // app.use(router(app)); //开启路由
