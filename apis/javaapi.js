@@ -4,7 +4,7 @@ var path = require('path');
 var libs = require('../libs/libs');
 var qs = require('querystring');
 var config = require('../config');
-var apiPath = require('../pages/common/apilist')
+var getapi = require('../pages/common/apilist')
 
 var tmp_token_session = {}
 
@@ -108,6 +108,9 @@ var req = function(api,options){
 
 function *pullApiData(api, param, method){
     libs.elog('javaapi/'+ api);
+    var apiPath = yield getapi.call(this)
+    // console.log('============ javaapi apiPath');
+    // console.log(apiPath);
 
     if (api.indexOf('redirect')===0){
         url = param._redirect;
@@ -158,13 +161,21 @@ function *getWxAccessToken(params, apii){
     var the = this;
     var date = new Date();
 
+    var _WX = config.weixin
+    if (this.sess.argv) {
+        if (this.sess.argv === 'test') {
+            console.log('========== test环境 menu');
+            _WX = config.weixintest
+        }
+    }
+
     //normal access token
     function *getAT(){
         console.log('uuuuuuuuuu get normal access token uuuuuuu');
         var tmp = yield pullApiData('wx_token',{
             grant_type: 'client_credential',
-            appid: config.weixin.appid,
-            secret: config.weixin.appsecret
+            appid: _WX.appid,
+            secret: _WX.appsecret
         })
         var tk = JSON.parse(tmp[0].body);
         console.log(tk);
@@ -183,8 +194,8 @@ function *getWxAccessToken(params, apii){
     function *getWAT(){
         console.log('uuuuuuuuuu get web access token uuuuuuu');
         var tmp = yield pullApiData('wx_web_token',{
-            appid: config.weixin.appid,
-            secret: config.weixin.appsecret,
+            appid: _WX.appid,
+            secret: _WX.appsecret,
             code: params.code,
             grant_type: 'authorization_code'
         })
@@ -237,6 +248,8 @@ function *getWxAccessToken(params, apii){
 
 function *pullWxData(api, param, method){
     libs.elog('javaapi/'+ api);
+    console.log('========== javaapi pullWxData');
+    var apiPath = yield getapi.call(this)
 
     if(libs.getObjType(param)!=='Object')
         return yield {
@@ -284,7 +297,7 @@ function *pullWxData(api, param, method){
 }
 
 module.exports = {
-    apiPath:apiPath,
+    apiPath: getapi(),
     pullApiData: pullApiData,
     pullWxData: pullWxData
 }
