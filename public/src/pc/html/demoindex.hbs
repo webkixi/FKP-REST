@@ -2,94 +2,188 @@
 <html lang="en">
 
 <head>
-    <title>FKP-前端编译系统</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/{{commoncss}}">
-    <link rel="stylesheet" href="/css/{{pagecss}}">
-    <script type="text/javascript" src="/js/t/qrcode.js"></script>
-    <!--[if lt IE 9]>
-        <script src="/js/ie.js"></script>
-    <![endif]-->
-    <style media="screen">
-        html {
-            background: #fff;
-            font-family: BrixSansRegular,BrixSansMedium,"Helvetica Neue",Helvetica,sans-serif;
-            color: #5c80b3;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-            -moz-osx-font-smoothing: grayscale;
-            letter-spacing: -.1px;
-        }
-        .qrcode{
-            cursor: pointer;
-        }
-        .dplay{
-            display: block;
-        }
-    </style>
+    {{#if mdcontent}}
+    <!-- demoindex markdown -->
+        <title>MARKDOWN文档模板</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <link rel="stylesheet" href="/css/{{commoncss}}">
+        <link rel="stylesheet" href="/css/{{pagecss}}">
+        <link rel="stylesheet" href="/css/t/markdown.css">
+        <!--[if lt IE 9]>
+            <script src="/js/t/ie.js"></script>
+        <![endif]-->
+        <style>
+            .container{
+                width: 1000px;
+            }
+            .side{
+                position: relative;
+            }
+            .side-menu{
+                position: fixed;top: 10px;
+            }
+        </style>
+
+    {{else}}
+    <!-- demoindex列表 -->
+        <title>FKP-前端编译系统</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="stylesheet" href="/css/{{commoncss}}">
+        <link rel="stylesheet" href="/css/{{pagecss}}">
+        <script type="text/javascript" src="/js/t/qrcode.js"></script>
+        <!--[if lt IE 9]>
+            <script src="/js/ie.js"></script>
+        <![endif]-->
+        <style media="screen">
+            html {
+                background: #fff;
+                font-family: BrixSansRegular,BrixSansMedium,"Helvetica Neue",Helvetica,sans-serif;
+                color: #5c80b3;
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
+                -moz-osx-font-smoothing: grayscale;
+                letter-spacing: -.1px;
+            }
+            .qrcode{
+                cursor: pointer;
+            }
+            .dplay{
+                display: block;
+            }
+        </style>
+    {{/if}}
 </head>
 
 <body>
-    <div class="page" data-module="">
-        <!--header-->
-        <div class="header">
-            <div class="header__wrap">
-                <h1 class="hero__heading"><b>FKP-REST</b>，前后端分离框架</h1>
-            <a href="https://github.com/webkixi/FKP-REST" target="_blank" class="button button--large">
-                GITHUB
-            </a>
-                <div class="header-logo">
-                    <a href="index.html">
-                        <img src="/images/slime.png" alt="" />
-                    </a>
+    {{#if mdcontent}}
+    <!-- demoindex markdown -->
+        <div class="markdown-body">
+            <div class="container u-ma" style="">
+                <div class="span9" style="">
+                    <p><a href="https://github.com/webkixi/FKP-REST"><strong>FKP-REST</strong></a> 是一套完全由前端技术构建的高性能框架，后端由koajs，前端由webpack/gulp构建而成  </p>
+                        {{{mdcontent.cnt}}}
+                </div>
+
+                <div class="span3 side">
+                    <div id="side-menu" class="side-menu">
+                        <h4>文章目录</h4>
+                        <ul>
+                            {{{mdcontent.mdmenu}}}
+                        </ul>
+                    </div>
+                    <div id="good" style="position: relative;"></div>
                 </div>
             </div>
         </div>
-        <!--/header end-->
 
-        <div id="page-ui-kits">
-            {{#each demoindex}}
-            <table class="table table-col-th u-mb_20">
-                <tbody>
-                    <tr class='dnode'>
-                        {{#if subtree}}
-                        <td class="table-col-head" colspan="2" style="background:rgb(225, 251, 252);">
-                        {{else}}
-                        <td class="table-col-head" colspan="2">
-                        {{/if}}
-                            <h4 class="u-f24">
-                                <i class="ifont icon-file"></i>
-                                <span class="catalog">{{group}}</span>
-                            </h4>
-                            {{#if readme}}
-                            <small class="u-f12 u-color_gray">{{readme}}</small>
-                            {{/if}}
-                        </td>
-                    </tr>
-                    {{#each list}}
-                    <tr class='fnode'>
-                        <th style="width:1px;"></th>
-                        <td>
-                            <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
-                            <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>
-                            {{#if des}}
-                                <div class="profile u-mt_5">
-                                    <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
-                                </div>
-                            {{/if}}
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            {{/each}}
 
+    {{else}}
+    <!-- demoindex index -->
+
+        <div class="page" data-module="">
+            <!--header-->
+            <div class="header">
+                <div class="header__wrap">
+                    <h1 class="hero__heading"><b>FKP-REST</b>，前后端分离框架</h1>
+                <a href="https://github.com/webkixi/FKP-REST" target="_blank" class="button button--large">
+                    GITHUB
+                </a>
+                    <div class="header-logo">
+                        <a href="index.html">
+                            <img src="/images/slime.png" alt="" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--/header end-->
+
+            <div class="page-ui-kits">
+                {{#each demoindex}}
+                <table class="table table-col-th u-mb_20">
+                    <tbody>
+                        <tr class='dnode'>
+                            {{#if subtree}}
+                            <td class="table-col-head" colspan="2" style="background:rgb(225, 251, 252);">
+                            {{else}}
+                            <td class="table-col-head" colspan="2">
+                            {{/if}}
+                                <h4 class="u-f24">
+                                    <i class="ifont icon-file"></i>
+                                    <span class="catalog">{{group}}</span>
+                                </h4>
+                                {{#if readme}}
+                                <small class="u-f12 u-color_gray">{{readme}}</small>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{#each list}}
+                        <tr class='fnode'>
+                            <th style="width:1px;"></th>
+                            <td>
+                                <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
+                                <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>
+                                {{#if des}}
+                                    <div class="profile u-mt_5">
+                                        <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
+                                    </div>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{/each}}
+
+            </div>
+
+            <div class="page-ui-kits">
+                {{#each docs}}
+                <table class="table table-col-th u-mb_20">
+                    <tbody>
+                        <tr class='dnode'>
+                            {{#if subtree}}
+                            <td class="table-col-head" colspan="2" style="background:rgb(225, 251, 252);">
+                            {{else}}
+                            <td class="table-col-head" colspan="2">
+                            {{/if}}
+                                <h4 class="u-f24">
+                                    <i class="ifont icon-file"></i>
+                                    <span class="catalog">{{group}}</span>
+                                </h4>
+                                {{#if readme}}
+                                <small class="u-f12 u-color_gray">{{readme}}</small>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{#each list}}
+                        <tr class='fnode'>
+                            <th style="width:1px;"></th>
+                            <td>
+                                <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
+                                <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>
+                                {{#if des}}
+                                    <div class="profile u-mt_5">
+                                        <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
+                                    </div>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{/each}}
+
+            </div>
         </div>
-    </div>
+    {{/if}}
+
+
     <div id="footer">
         <div class="footer-content">
             <p>献给一直孜孜不倦想干掉PHP层的前端开发者们，FUCK PHP 前端自动化工具:FKP</p>
@@ -99,7 +193,12 @@
         </div>
     </div>
 
-    @@include('./_common/footer/foot.html')
+    {{#if mdcontent}}
+        <script type="text/javascript" src='/js/{{commonjs}}'></script>
+        <script type="text/javascript" src='http://www.agzgz.com/js/t/prettfy.js'></script>
+    {{else}}
+        @@include('./_common/footer/foot.html')
+    {{/if}}
 </body>
 
 </html>

@@ -18,7 +18,7 @@ function *demoIndexData(oridata, route){
 		if(body){
 
 			if( api.apiPath.dirs[route])
-				passdata = yield api.pullApiData( route, body, 'post');
+				passdata = yield api.pullApiData.call(this, route, body, 'post');
 
             if ( passdata && passdata[1] )
                 return passdata[1];

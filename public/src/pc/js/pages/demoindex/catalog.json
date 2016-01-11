@@ -1,5 +1,5 @@
 {
     "root": "FKP-REST",
-    "wx": "微信",
-    "start": "开始使用"
+    "fkpdoc/wx": "微信",
+    "fkpdoc/start": "开始使用"
 }

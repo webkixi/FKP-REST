@@ -38,7 +38,3 @@ $('.catalog').each(function(i, item){
         $(item).html(cl_json[title])
     }
 })
-
-
-var marked = require('marked')
-window.marked = marked
