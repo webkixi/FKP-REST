@@ -4,20 +4,24 @@ var ifaces = os.networkInterfaces();
 
 //微信公众号配置文件
 var hema = {
-    token: 'xxxxx',
-    appid: 'xxxxxxx',
-    appsecret: 'xxxxxxx',
-    encodingAESKey: 'xxxxxxx'
+    token: '_cqch',
+    appid: 'xxxxxxxxxxx',
+    appsecret: 'xxxxxxxxxxx',
+    encodingAESKey: 'xxxxxxxxxxx'
 }
 
-var wxConfig = hema;
+var cqch = {
+    token: '_cqch',
+    appid: 'yyyyyyyyyyyyyyy',
+    appsecret: 'yyyyyyyyyyyyyyy',
+    encodingAESKey: 'yyyyyyyyyyyyyyy'
+}
+
+// var wxConfig = hema;
 
 var static_dir = './public'
 var version = '1.0.0'
 var config = {
-    domain: 'www.163.com',
-    root: 'demoindex',    //dev 或者 pro默认首页
-
     // 静态资源映射文件
   	mapJson:   path.join(static_dir,'/dist/1.0.0/map.json'),
   	mapDevJson:   path.join(static_dir,'/dist/1.0.0/dev/map.json'),
@@ -48,8 +52,14 @@ var config = {
     //本地上传路径
     upload_root: path.join(static_dir,'/dist/upload'),
 
+    root: 'demoindex',    //dev 或者 pro默认首页
+
     //微信
-    weixin: wxConfig
+    weixin: hema,
+    weixintest: cqch,
+
+    domain: 'agzgz.com',
+    domaintest: 'test.agzgz.com'
 }
 
 module.exports = config
