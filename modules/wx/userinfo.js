@@ -27,12 +27,12 @@ function *demoIndexData(oridata){
             console.log(postdata);
             var web_userinfo = yield api.pullWxData.call(_this, 'userinfo_web', postdata)
             web_userinfo = web_userinfo[0].body
-            libs.clog('从微信拉取用户信息')
+            libs.clog('============  从微信拉取用户信息')
             console.log(web_userinfo);
             return web_userinfo;
         }
         else{
-            return {code: 1, message: '微信号没有绑定'}
+            return {error: 1, message: '从微信号拿去数据出错'}
         }
     }
     //

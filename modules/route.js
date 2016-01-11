@@ -121,6 +121,7 @@ function init(app,mapper,rend){
                 yield captcha.call(this);
         else
             if(param.cat === 'weixin'){
+                console.log('weixin =========');
                 yield weixin.call(this,app);
             }
         else

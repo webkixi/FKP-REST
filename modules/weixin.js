@@ -27,6 +27,18 @@ function *returnJson( data ){
 function *weixin(){
     libs.clog('weixin')
 
+    var _WX = config.weixin;
+    var _WX_domain = config.domain
+
+    if (this.sess.argv) {
+        if (this.sess.argv === 'test') {
+            console.log('========== test环境');
+            _WX = config.weixintest
+            _WX_domain = config.domaintest
+            console.log(_WX);
+        }
+    }
+
     var route = this.params;
 
     if( route.title && route.title!== '' ){
@@ -38,8 +50,8 @@ function *weixin(){
     }
 
     else{
-        // return wechat(config.weixin).middleware(function *() {
-        yield wechat(config.weixin).middleware(function *() {
+        // return wechat(_WX).middleware(function *() {
+        yield wechat(_WX).middleware(function *() {
             var message = this.weixin;
             console.log(message);
             if (message.Event==='LOCATION'){
@@ -82,7 +94,7 @@ function *weixin(){
                     description: '与你的车一次亲密邂逅',
                     picurl: 'http://120.25.147.54/images/by.jpg',
                     // url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1545988792d90a08&redirect_uri=http%3A%2F%2Fch.dabai360.com&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
-                    url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+config.weixin.appid+'&redirect_uri=http%3A%2F%2Fch.dabai360.com&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
+                    url: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+_WX.appid+'&redirect_uri=http%3A%2F%2F'+_WX_domain+'%2Fuc%3Fhash%3Ddiscount_order&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'
                   }
                 ];
             }

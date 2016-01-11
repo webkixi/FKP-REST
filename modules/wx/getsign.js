@@ -15,6 +15,15 @@ function *demoIndexData(url){
     libs.wlog('pages/weixin/signature')
     var mtd = this.method;
     var _this = this;
+    var _WX = config.weixin
+
+    if (this.sess.argv) {
+        if (this.sess.argv === 'test') {
+            console.log('========== test环境 getsign');
+            _WX = config.weixintest
+
+        }
+    }
 
     var body = yield libs.$parse(this)
     if(!body.url)
@@ -26,7 +35,7 @@ function *demoIndexData(url){
     function *getSignature(tckt){
         var signature = yield sign(tckt, url)
         libs.clog('微信签名')
-        signature.appId = config.weixin.appid
+        signature.appId = _WX.appid
         // signature.jsApiList = []
 
         console.log( signature );
