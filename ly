@@ -56,6 +56,13 @@ ngdemo(){
     gulp ng
 }
 
+ngdev(){
+    cd public
+    gulp ngdev
+    cd ..
+    nodemon --harmony index.js ngdev &
+}
+
 bbdemo(){
     cd public
     gulp bb
@@ -116,6 +123,9 @@ case $1 in
       ;;
   ngdemo)
       ngdemo
+      ;;
+  ngdev)
+      ngdev
       ;;
   bbdemo)
       bbdemo
