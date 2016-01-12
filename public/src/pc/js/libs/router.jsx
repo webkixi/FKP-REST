@@ -63,7 +63,7 @@ var rt = libs.Class.create();
 
             if (router.cb && (typeof router.cb === 'function')){
                 if (this.back === true){
-                    alert('2222222')
+                    // alert('2222222')
                     router.cb.call(this, this.name)
                     // router.cb.call(this, this.name)
                     return false;
@@ -101,21 +101,27 @@ var rt = libs.Class.create();
                     //     href = url.source.replace(tmp,'').replace('?&','?')
                     // }
                     // SA.set('_HISTORY', url);
-                    SA.append('_HISTORY', url);
                     if (!this.isBack){
                         if (hash !== name){
                             _uri = href+'#'+name;
                             historyStat({uri: _uri}, '1null', _uri)
+                            tmp_url = libs.urlparse(location.href);
+                            this.url = tmp_url;
+                            url = tmp_url
                         }
                     }
+                    SA.append('_HISTORY', url);
                 }
                 else{
                     // SA.set('_HISTORY', url);
-                    SA.append('_HISTORY', url);
                     if (!this.isBack){
                         _uri = name;
                         historyStat({uri: _uri}, '2null', '#'+name)
+                        tmp_url = libs.urlparse(location.href);
+                        this.url = tmp_url;
+                        url = tmp_url
                     }
+                    SA.append('_HISTORY', url);
                 }
                 return true;
             }
@@ -285,22 +291,38 @@ router.goback = function(name, data){
         if (typeof name === 'string') {
             router(name)
         }
-
-        // var history = SA.getter('_HISTORY').data;
-        var pop = SA.pop('_HISTORY')
-        var history = pop[1]
-        var pophistory = pop[0]
-        if (!pophistory.length){
-            console.log('======== pophistory');
-            window.history.go(-2)
-        }
         else{
-            if(history.hash){
-                router(history.hash, data)
-            }else{
-                window.location.href = history.source
+            // var history = SA.getter('_HISTORY').data;
+            var _history = SA.get('_HISTORY')
+            if (_history.length === 1){
+                console.log('======== pophistory');
+                window.history.go(-2)
             }
-        }
+            else{
+                var pop = SA.pop('_HISTORY')
+                pop = SA.pop('_HISTORY')
+                var history = pop[1]
+                var pophistory = pop[0]
+                if(history.hash){
+                    router(history.hash, data)
+                }else{
+                    window.location.href = history.source
+                }
+
+                // if (!pophistory.length){
+                //     console.log('======== pophistory');
+                //     window.history.go(-2)
+                // }
+                // else{
+                //     if(history.hash){
+                //         router(history.hash, data)
+                //     }else{
+                //         window.location.href = history.source
+                //     }
+                // }
+            }
+         }
+
     }
 }
 
