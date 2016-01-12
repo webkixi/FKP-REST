@@ -13,15 +13,27 @@ var config = require('../config')
 
 function setRender(stat){
     if(stat && stat==='dev'){
-        console.log('++++++++++++&&&&&&&&&&&&&&');
+        console.log('++++++++++++&&&&&&&&&&&&&&  render.js');
         return render = views(config.static.test.html, {
           	map: { html: 'handlebars' }
         });
     }else{
-        console.log('++++++++++++&&&&&&&&&&&&&&');
-        return render = views(config.static.html, {
-          	map: { html: 'handlebars' }
-        });
+        console.log('++++++++++++&&&&&&&&&&&&&&  render.js');
+        if (stat
+            &&
+           (stat === 'ngdev'
+            || stat === 'ngpro'
+            || stat === 'avdev'
+            || stat === 'avpro')
+        ){
+            return render = views(config.static.html, {
+              	map: { html: 'swig' }
+            });
+        }
+        else
+            return render = views(config.static.html, {
+              	map: { html: 'handlebars' }
+            });
     }
 }
 
