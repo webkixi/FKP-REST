@@ -101,7 +101,7 @@ module.exports = (gulp,$,slime,env)->
         if env.indexOf('pro') > -1
             gulp.start 'rebuild:html'
         else
-            if env == 'ng'
+            if env.indexOf('ng') > -1
                 gulp.start 'rebuild:html'
             else
                 doSync( env, cb )
