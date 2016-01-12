@@ -5,7 +5,7 @@ gutil = require 'gulp-util'
 config = require '../configs/config.coffee'
 through = require 'through2'
 
-module.exports = (gulp,$)->
+module.exports = (gulp, $, slime, env, port)->
 
     mapJson =
         version: config.version
