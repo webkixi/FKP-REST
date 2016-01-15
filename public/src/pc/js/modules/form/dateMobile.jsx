@@ -7,10 +7,10 @@ libs.addSheet([
     ,'formform'
 ])
 
-var dpi; //viewport 0.5
-var dview = libs.DocmentView()
-if(window.devicePixelRatio)
-    dpi = window.devicePixelRatio;
+// var dpi; //viewport 0.5
+// var dview = libs.DocmentView()
+// if(window.devicePixelRatio)
+//     dpi = window.devicePixelRatio;
 
 function date(data, ele, cb){
     this.stat = false;
@@ -75,19 +75,19 @@ function date(data, ele, cb){
         //     }
         // }
         var mb_config = {
-            minWidth: (function(){
-                if( dpi )
-                    return 100 * dpi
-                else {
-                    return 100
-                }
-            })(),
-            maxWidth: (function(){
-                return dview.width * 0.9;
-            })(),
-            height: (function(){
-                return 150
-            })(),
+            // minWidth: (function(){
+            //     if( dpi )
+            //         return 100 * dpi
+            //     else {
+            //         return 100
+            //     }
+            // })(),
+            // maxWidth: (function(){
+            //     return dview.width * 0.9;
+            // })(),
+            // height: (function(){
+            //     return 150
+            // })(),
             dateFormat: 'yy-mm-dd',
             dateOrder: 'yymmdd',
             setText: '确定',

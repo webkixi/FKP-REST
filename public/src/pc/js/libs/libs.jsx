@@ -626,7 +626,7 @@ function changeTitle(title){
     // }).appendTo($body)
 
     // 防止出现404
-    var $iframe = $('<iframe style="display:none;"></iframe>').on('load', function() {
+    var $iframe = $('<iframe src="/favicon.ico" style="display:none;"></iframe>').on('load', function() {
       setTimeout(function() {
         $iframe.off('load').remove()
       }, 0)
