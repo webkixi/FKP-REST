@@ -59,7 +59,7 @@ function likeImooc( navData,listData, ele, opts ){
     render(
         <div>
             <Tabswitch data={navData} listClass={a_listClass} itemClass={a_itemClass} itemDefaultMethod={tabItemDefaultMethod}>
-                <Uls data={ss} listClass={'coupons_list like_app_list'} itemMethod={opts.listcb}  itemView={Pt}/>
+                <Uls data={ss} nodata={'还没有订单数据'} listClass={'coupons_list like_app_list'} itemMethod={opts.listcb}  itemView={Pt}/>
             </Tabswitch>
         </div>
         ,document.getElementById(ele)

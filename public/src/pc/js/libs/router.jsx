@@ -29,14 +29,15 @@ var rt = libs.Class.create();
             this.back = back;
             this.url = libs.urlparse(location.href);
             router.cb = undefined;
+            unbindPushState()
 
             var _back = this._parseBack()
             // if (_back){
                 var rtstat = this._parseRoute()
                 if (rtstat){
                     this._injectionCss();
-                    this._multiDom();
                     this._deal();
+                    this._multiDom();
                 }
             // }
         },
@@ -44,6 +45,8 @@ var rt = libs.Class.create();
         _parseBack: function(){
             var back = this.back;
             if (!back) back = false;
+            bindPushState()
+
             if (libs.getObjType(back)==='Boolean'){
                 this.isBack = back;
             }
@@ -60,6 +63,7 @@ var rt = libs.Class.create();
         _parseRoute: function(){
             var name = this.name
             var url = this.url;
+
 
             if (router.cb && (typeof router.cb === 'function')){
                 if (this.back === true){
@@ -296,7 +300,10 @@ router.goback = function(name, data){
             var _history = SA.get('_HISTORY')
             if (_history.length === 1){
                 console.log('======== pophistory');
-                window.history.go(-2)
+                if (WeixinJSBridge)
+                    WeixinJSBridge.call('closeWindow')
+                else
+                    window.history.go(-2)
             }
             else{
                 var pop = SA.pop('_HISTORY')
@@ -334,30 +341,75 @@ router.clear = function(){
     },500)
 }
 
-//html5
-if(window.history.pushState){
-    //解决方案  http://stackoverflow.com/questions/6421769/popstate-on-pages-load-in-chrome
-    //android 和 iphone上页面刷新就会直接执行popstate，这是一个浏览器的bug
-    //有两个解决方案，setTimeout是简单的一种
-    //另外一种比较麻烦
-    setTimeout(function(){
-        libs.addEvent(window, 'popstate', function(e){
-            if (router.cb && (typeof router.cb === 'function')) {
-                router.cb()
+//
+function bindFn(e){
+    var url = libs.urlparse(location.href);
+    if (url.params.goback) {
+        if (url.params.goback.indexOf('_')>-1) {
+            var tmp = url.params.goback.split('_')
+            var uri = tmp[0]
+            var hash = tmp[1]
+            var _url = '/'+uri+'#'+hash
+            router(_url)
+        }
+        else {
+            router(url.params.goback)
+        }
+    }
+    else
+    if (router.cb && (typeof router.cb === 'function')) {
+        router.cb()
+    }
+    else{
+        // var history = SA.getter('_HISTORY').data;
+        var _history = SA.get('_HISTORY')
+        if (_history.length === 1){
+            console.log('======== pophistory');
+            if (WeixinJSBridge)
+                WeixinJSBridge.call('closeWindow')
+            else
+                window.history.go(-2)
+        }
+        else{
+            var pop = SA.pop('_HISTORY')
+            pop = SA.pop('_HISTORY')
+            var history = pop[1]
+            var pophistory = pop[0]
+            if(history.hash){
+                router(history.hash, data)
+            }else{
+                window.location.href = history.source
             }
-            else{
-                var val = e.state;
-                if(val && val.uri ){
-                    router(val.uri, true);
-                }
-                else{
-                    window.history.go(-1)
-                    // router(val, true)
-                }
-            }
-        })
-    },1500)
+
+            // var val = e.state;
+            // if(val && val.uri ){
+            //     router(val.uri, true);
+            // }
+            // else{
+            //     window.history.go(-2)
+            //     // router(val, true)
+            // }
+        }
+    }
 }
+
+function unbindPushState(){
+    libs.rmvEvent(window, 'popstate', bindFn)
+}
+
+function bindPushState(){
+    //html5
+    if(window.history.pushState){
+        //解决方案  http://stackoverflow.com/questions/6421769/popstate-on-pages-load-in-chrome
+        //android 和 iphone上页面刷新就会直接执行popstate，这是一个浏览器的bug
+        //有两个解决方案，setTimeout是简单的一种
+        //另外一种比较麻烦
+        setTimeout(function(){
+        libs.addEvent(window, 'popstate', bindFn)
+    },1000)
+    }
+}
+// bindPushState()
 
 function historyStat(args, title, uri){
     console.log('========= pushState history');

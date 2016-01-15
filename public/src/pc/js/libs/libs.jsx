@@ -619,7 +619,14 @@ function changeTitle(title){
     var $body = $('body')
     document.title = title
     // hack在微信等webview中无法修改document.title的情况
-    var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+    // var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function() {
+    //   setTimeout(function() {
+    //     $iframe.off('load').remove()
+    //   }, 0)
+    // }).appendTo($body)
+
+    // 防止出现404
+    var $iframe = $('<iframe style="display:none;"></iframe>').on('load', function() {
       setTimeout(function() {
         $iframe.off('load').remove()
       }, 0)
@@ -636,6 +643,17 @@ var _IE = (function(){
     return v > 4 ? v : false ;
 }());
 
+//url处理,将URL参数转换为json对象
+//?code=1&title='aaa'  =>   {'code':1,'title':aa}
+function queryString(){
+    var arr = location.search.substring(1).split('&');
+    var query = {};
+    for(var i=0;i<arr.length;i++){
+        var inner = arr[i].split('=');
+        query[inner[0]] = inner[1];
+    }
+    return query;
+}
 
 module.exports = {
 
@@ -687,5 +705,7 @@ module.exports = {
 
     Class:          Class,
 
-    changeTitle:    changeTitle     //ios特有bug解决方法，改变title
+    changeTitle:    changeTitle,     //ios特有bug解决方法，改变title
+
+    queryString:    queryString
 }

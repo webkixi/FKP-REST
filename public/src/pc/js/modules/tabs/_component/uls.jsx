@@ -7,9 +7,11 @@ var Store = require('mixins/store');
 
 
 var uls = {
-
+    initdata: false,
     getInitialState: function() {
-        return {}
+        return {
+            nodata: '没有数据'
+        }
     },
 
     componentWillMount: function(){
@@ -19,12 +21,23 @@ var uls = {
                 alert('Uls must be set array!')
                 return false;
             }else{
+                if (!pdata.length){
+                    this.initdata = true;
+                }
+                else
                 if(!Array.isArray(pdata[0])){
                     pdata = [ pdata ];
+                    this.initdata = false;                     
                 }
             }
             this.setState({
                 data: pdata
+            })
+        }
+
+        if (this.props.nodata){
+            this.setState({
+                nodata: this.props.nodata
             })
         }
     },
@@ -37,17 +50,25 @@ var uls = {
                 alert('Uls must be set array!')
                 return false;
             }else{
+                if (!pdata.length) {
+                    this.initdata = true;
+                }
+                else
                 if(!Array.isArray(pdata[0])){
+                    this.initdata = false;
                     pdata = [ pdata ];
                 }
             }
-            pdata.map(function(it,i){
-                items.push(
-                    <List key={'list'+i} {...this.props} data={it} cat={i} />
-                )
-            }.bind(this))
+
+            if (!this.initdata) {
+                pdata.map(function(it,i){
+                    items.push(
+                        <List key={'list'+i} {...this.props} data={it} cat={i} />
+                    )
+                }.bind(this))
+            }
         }
-        console.log(items);
+        // console.log(items);
         return items;
     },
 
@@ -58,7 +79,12 @@ var uls = {
                 alert('Uls must be set array!')
                 return false;
             }else{
+                if (!pdata.length) {
+                    this.initdata = true;
+                }
+                else
                 if(!Array.isArray(pdata[0])){
+                    this.initdata = false;
                     pdata = [ pdata ];
                 }
             }
@@ -70,9 +96,16 @@ var uls = {
 
     render: function () {
         var fill = this.loopRender();
+        var fillcontent = fill.length
+        ? fill
+        : <div className={'u-tips'}>
+            <i style={{display: 'block'}} className="ifont icon-infofill"></i>
+            {this.state.nodata}
+        </div>
+
         return(
             <div className={'tab-uls u-clearfix'} style={this.props.style}>
-                {fill}
+                {fillcontent}
             </div>
         )
     }

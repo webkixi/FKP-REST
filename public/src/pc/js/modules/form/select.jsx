@@ -63,9 +63,9 @@ function select(data, ele, cb){
                         _this.selected.call(_this,text,val)
                     _this.stat = true;
                     $(_this.ipt).removeClass('error')
-                    _this.value = val;
+                    _this.value = val||text;
                     _this.text = text;
-                    $(input).val(val)
+                    $(input).val(val||text)
                     $(the).find('.body span').addClass("active").text(text)
                     if(close)
                         SA.setter('Pop',{data:{display:'none'}})

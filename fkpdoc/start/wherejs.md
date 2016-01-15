@@ -3,26 +3,33 @@
 
 ## 特性  
 
-##### 默认支持JS原生、coffeejs  
-&#160; &#160;  FKP-REST支持原生JS及coffeejs的语法，你可以根据自己的喜好来写  
+##### 模块化开发    
+  &#160; &#160;  支持AMD，CMD的语法，可以无缝的切换到之前基于requirejs的项目中去。  
+&#160; &#160;  node的出现，使得前端的开发不再像之前那么碎片化了，我们可以重新组织代码，抽离公用部分，像后端那样用模块的方式来引入加载  
 
-##### 通过扩展可支持backbone，react, avalone,
-&#160; &#160; 理论上可以直接支持STYLUS，但却没有测试过，sass默认是不支持的，必须安装相关的第三方库，为什么不预先装好sass，原因就在于sass的环境要求比较苛刻，具体请查看安装篇 [安装](/install_md.html)  
+##### 支持backbone，react, avalone, angular...
+&#160; &#160; 默认支持 react与jquery/zepto  
+&#160; &#160; 拿，前端不止要和后端、产品PK，前端与前端也有着非常激烈的火拼，当然合理的选择与搭配很重要。  
+&#160; &#160; FKP-REST通过配置理论上可以支持任何一款前端库，当然这些前端库会和node端存在兼容的问题，比如通用的 **{{}}**，因为FKP-REST现在前后端都是用**handlebars**模板解析库，和angular及avalone就冲突了，现在这个问题还没有完美解决，后续会更新
+
+##### 编译模块化
+&#160; &#160; FKP-REST的编译也可以支持配置生成  
+&#160; &#160; 通过核心编译文件及相应的打包规则，配置以适当的参数，我们可以对不同的文件，目录，对象进行前端编译打包。包括图片等  
 
 ##### 更多特性  
-* 支持原生JS及coffeejs的语法
-* 集成bootstrap的全部mixins  
-
+* 支持原生JS及coffeejs的语法  
+* 微信开发支持  
+* 各种组件持续开发中
 
 
 ## JAVASCRIPT写在这里  
 
-FKP-REST的css目录与html和js是分离的，由编译将三者整合输出。首先，我们找到css目录，如下  
+FKP-REST的js目录与html和css是分离的，由编译将三者整合输出。首先，我们找到js目录，如下  
 
-![Alt wherecss](/images/doc/wherecss.png)  
+![Alt wherecss](/images/doc/wherejs.png)  
 
-##### _less_    
-&#160; &#160; css文件的后缀名为`.less`  
+##### _js/jsx/cjsx/coffee/_    
+&#160; &#160; 以上几个都为js文件的扩展名，即FKP-REST可以支持 **js/jsx** 及这两个的coffee变种 **coffee/cjsx**
 
 ## JAVASCRIPT的目录结构
 
