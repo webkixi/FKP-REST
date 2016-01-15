@@ -148,7 +148,10 @@ makeHtmlListData = (pa, capt) ->
                         if (firstPath.indexOf('fkpdoc')>-1)
                             if _url.indexOf('/')==0
                                 _url = _url.substring(1)
-                            _url = '/demoindex?md='+_url.replace '_md.html', '.md'
+                            # _url = '/demoindex?md='+_url.replace '_md.html', '.md'
+                            _append_url = _url.replace '_md.html', ''
+                            _append_url = _append_url.replace(/\//g,'_').replace('fkpdoc_','')
+                            _url = '/demoindex?md='+_append_url
                             _ipurl = 'http://'+ tip + ipport + _url
                         else
                             filename = filename.replace(ext,'_md.html')

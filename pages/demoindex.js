@@ -13,7 +13,8 @@ function *demoIndexData(oridata){
     if (params && params.md){
         var mdcnt = {mdcontent:{}}
         var url = params.md
-        url = url.replace('fkpdoc/','')
+        url = url.replace('fkpdoc_','').replace(/_/g,"/")
+        url = url + ".md"
         var md_raw = fs.readFileSync(path.join(__dirname, '../fkpdoc', url), 'utf8')
         if (!md_raw)
             this.redirect('/demoindex')
