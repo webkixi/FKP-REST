@@ -3,7 +3,7 @@ var libs = require('../libs/libs')
 var fs = require('fs')
 var path = require('path')
 var os = require('os')
-var marked = require('marked')
+var markdown = require('../modules/markdown')
 require("coffee-script/register")
 var publicConfig = require('../public/config')
 
@@ -22,38 +22,40 @@ function *demoIndexData(oridata){
         if (!md_raw.length)
             this.redirect('/demoindex')
         else{
-            marked.setOptions({
-                renderer: new marked.Renderer(),
-                gfm: true,
-                tables: true,
-                breaks: false,
-                pedantic: false,
-                sanitize: true,
-                smartLists: true,
-                smartypants: false
-            });
-            var tmp = yield marked(md_raw, function (err, data) {
-                if (err) {
-                    cb(new gutil.PluginError('gulp-markdown', err, {fileName: file.path}));
-                    return;
-                }
-                // mdtemp = mdtemp.replace('~~md~~',data);
-                mdcnt.mdcontent.cnt = data
+            // marked.setOptions({
+            //     renderer: render,
+            //     gfm: true,
+            //     tables: true,
+            //     breaks: false,
+            //     pedantic: false,
+            //     sanitize: true,
+            //     smartLists: true,
+            //     smartypants: false
+            // });
+            // var tmp = yield marked(md_raw, function (err, data) {
+            //     if (err) {
+            //         cb(new gutil.PluginError('gulp-markdown', err, {fileName: file.path}));
+            //         return;
+            //     }
+            //     // mdtemp = mdtemp.replace('~~md~~',data);
+            //     mdcnt.mdcontent.cnt = data
+            //
+            //     var re = /<h2[^>]?.*>(.*)<\/h2>/ig;
+            //     var mdMenu='', mdMenuList = data.match(re);
+            //     if(mdMenuList&&mdMenuList.length){
+            //         mdMenuList.map(function(item){
+            //             mdMenu += '<li>'+ re.exec(item)[1]+'</li>\n\r';
+            //             re.lastIndex = 0;
+            //         })
+            //     }
+            //     // data = mdtemp.replace('~~md-menu~~',mdMenu);
+            //     mdcnt.mdcontent.mdmenu = mdMenu
+            //
+            //     return mdcnt
+            //
+            // });
 
-                var re = /<h2[^>]?.*>(.*)<\/h2>/ig;
-                var mdMenu='', mdMenuList = data.match(re);
-                if(mdMenuList&&mdMenuList.length){
-                    mdMenuList.map(function(item){
-                        mdMenu += '<li>'+ re.exec(item)[1]+'</li>\n\r';
-                        re.lastIndex = 0;
-                    })
-                }
-                // data = mdtemp.replace('~~md-menu~~',mdMenu);
-                mdcnt.mdcontent.mdmenu = mdMenu
-
-                return mdcnt
-
-            });
+            var tmp = yield markdown(md_raw, mdcnt)
             // console.log('======== mdcnt');
             // console.log(tmp);
             staticData = libs.$extend(true, oridata, tmp);

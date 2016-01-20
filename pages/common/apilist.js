@@ -4,17 +4,19 @@
 function getApiPath() {
 
     var ipsrc = "http://120.25.241.174"
+    var port = ":8080/v1/"
     if (this.sess && this.sess.argv) {
         if (this.sess.argv === 'test') {
             console.log('========== test环境 apilist');
             ipsrc = "http://120.25.210.214";
+            port = ":8088/v1/"
         }
     }
-    // ipsrc = "http://192.168.0.152";
-    // ipsrc = "http://120.25.210.214";
-    var src = ipsrc + ":8088/v1/";
-    var src2 = ipsrc + ":8088/v1/";
-    var src3 = ipsrc + ":8088/v1/";
+    //ipsrc = "http://192.168.4.104";
+    //ipsrc = "http://120.25.210.214";
+    var src = ipsrc + port;
+    var src2 = ipsrc + port;
+    var src3 = ipsrc + port;
     return {
         base: src,
         dirs: {

@@ -141,7 +141,7 @@ makeHtmlListData = (pa, capt) ->
                         tmp = _subString(content, 100, true)
                         title = content.match(/#([\s\S]*?)\n/)
                         if title
-                            title = title[1]
+                            title = title[1].replace(/ \{(.*)\}/g, '')  # 清除自定义属性，如{"id":"xxx"}
                         _filenameMd = filename.replace(ext, '_md.html')
                         _url = if caption then depthFile.replace('.html','_md.html') else ( (caption || '') + '/' + _filenameMd )
                         _url = _url.replace('public/src/pc/html/','')

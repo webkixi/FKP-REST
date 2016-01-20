@@ -1,5 +1,5 @@
 
-[install]: /install_md.html "安装"
+[install]: /demoindex?md=install "安装"
 # 1、启动模式  
 &#160; &#160; &#160; &#160;经过上篇“[安装篇][install]”，我们开始使用FKP-REST了
 

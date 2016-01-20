@@ -1,26 +1,32 @@
-# 4、JAVASCRIPT写在哪里  
+# 4、JAVASCRIPT写在哪里 {"id":"wherejs", "class":"wherejs"}  
 优秀的结构产出，包括html，css，可以使JAVASCRIPT应用起来更加效率。虽然JAVASCRIPT已经越来越复杂。
 
 ## 特性  
 
-##### 模块化开发    
+### 模块化开发    
   &#160; &#160;  支持AMD，CMD的语法，可以无缝的切换到之前基于requirejs的项目中去。  
 &#160; &#160;  node的出现，使得前端的开发不再像之前那么碎片化了，我们可以重新组织代码，抽离公用部分，像后端那样用模块的方式来引入加载  
 
-##### 支持backbone，react, avalone, angular...
+### 支持backbone，react, avalone, angular...
 &#160; &#160; 默认支持 react与jquery/zepto  
 &#160; &#160; 拿，前端不止要和后端、产品PK，前端与前端也有着非常激烈的火拼，当然合理的选择与搭配很重要。  
 &#160; &#160; FKP-REST通过配置理论上可以支持任何一款前端库，当然这些前端库会和node端存在兼容的问题，比如通用的 **{{}}**，因为FKP-REST现在前后端都是用**handlebars**模板解析库，和angular及avalone就冲突了，现在这个问题还没有完美解决，后续会更新
 
-##### 编译模块化
+### 编译模块化
 &#160; &#160; FKP-REST的编译也可以支持配置生成  
 &#160; &#160; 通过核心编译文件及相应的打包规则，配置以适当的参数，我们可以对不同的文件，目录，对象进行前端编译打包。包括图片等  
 
-##### 更多特性  
-* 支持原生JS及coffeejs的语法  
+### 更多特性  
+* {"id":"test","class":"good"}
+* 支持原生JS及coffeejs的语法 {"class":"tttt"}  
 * 微信开发支持  
-* 各种组件持续开发中
+* 各种组件持续开发中  
+* ![Alt wherecss](/images/doc/wherecss4.png)  
 
+
+<div style="width:100px;height:100px;background-color:red;">
+123
+</div>
 
 ## JAVASCRIPT写在这里  
 
@@ -34,87 +40,133 @@ FKP-REST的js目录与html和css是分离的，由编译将三者整合输出。
 ## JAVASCRIPT的目录结构
 
 
-#### _1. pages_
-&#160; &#160; FKP-REST下的所有 __pages__ 目录都与业务相关，node/css/js都是如此， 在这里，与业务相关的css我们都存放在 __css/pages__ 目录下，拿`demoindex`来说，`demoindex`的css就是写在`pages`目录下。    
+### _1. pages_
+&#160; &#160; FKP-REST下的所有 __pages__ 目录都与业务相关，node/js/js都是如此， 在这里，与业务相关的js我们都存放在 __js/pages__ 目录下，拿`demoindex`来说，`demoindex`的js就是写在`pages`目录下。    
 
-___html模板___  
+#### _html模板_  
 
 ![Alt wherecss](/images/doc/wherecss5.png) &#160;_这里的demoindex是文件_  
 
-___css___  
+#### _js_  
 
 ![Alt wherecss](/images/doc/wherecss4.png) &#160;_这里的demoindex是目录_    
 
-css的 `demoindex` 目录下的所有`.less`文件会合并打包生成 `demoindex.css`，有时候我们的css需要分段写，这有利于后期的维护。有两种方式
+js的 `demoindex` 目录下的所有文件会合并打包生成 `demoindex.js`，有时候我们的js需要分段写，这有利于后期的维护。有两种方式
 - 无序  
-css的 `demoindex` 目录下的文件随意命名  
+js的 `demoindex` 目录下的文件随意命名  
 
 - 有序  
-css的 `demoindex` 目录建立与目录同名的`demoindex.less`，其他的文件用`@import`有序加载    
+js的 `demoindex` 目录建立与目录同名的`demoindex.js/jsx/cjsx/coffee`，其他的文件用`require`有序加载    
 
-###### _生成的`demoindex.css`，我们可以通过`/css/demoindex.css`来访问，来看一下生成后的结构图示_  
+###### _生成的`demoindex.js`，不能独立运行(依赖common.js)，但我们可以通过`/js/demoindex.js`来访问，来看一下生成后的结构图示_  
 
 ![Alt wherecss](/images/doc/wherecss6.png)  
 
 ##### _注：_  
 - __与文件夹同名的文件__  
-编译规则会自动匹配文件夹同名文件，有顺序需求时，我们可以使用这种命名方式，具体原因请查看这篇文章，[特殊的文件名](/start/duplicate_md.html)
+编译规则会自动匹配文件夹同名文件，有顺序需求时，我们可以使用这种命名方式，具体原因请查看这篇文章，[特殊的文件名](/start/duplicate_md.html ' {"class":"eee"}')    
 
 - __下划线目录名__  
-像这样 __ _xxx/__， 这种目录在编译时会被自动忽略，不会输出 __ _xxx.css__，单目录中的文件可以通过__@import__来调用，适用于文件存档，或者小的组件文件存放  
+像这样 __ _xxx/__， 这种目录在编译时会被自动忽略，不会输出 __ _xxx.js__，单目录中的文件可以通过__@import__来调用，适用于文件存档，或者小的组件文件存放  
 
-- __引入`@import "../_less/index"`__  
-注意你自己的目录结构，less文件引入这个文件后，你就可以使用整个 bootstrap的mixins库了  
+
+
 
 
 &#160; &#160;  
 &#160; &#160;
 
+
+
+
 #### 2. _ _copy2dist_
-&#160; &#160; __ _copy2dist__ 其实算是一个特殊目录，有时候我们引用第三方的css，而又不便于融入到我们现有的css结构当中(不折腾，直接用)，直接将这样的css放置到这个目录当中  
+&#160; &#160; __ _copy2dist__ 其实算是一个特殊目录，有时候我们引用第三方的js，而又不便于融入到我们现有的js结构当中(不折腾，直接用)，直接将这样的js放置到这个目录当中  
 
 ![Alt wherecss](/images/doc/wherecss1.png)  
 
-__ _copy2dist__ 中的文件，会原封不动的输出到 `public/dist/css/t` 目录下，我们对比一下`markdown`这个文件，如下图所示  
+__ _copy2dist__ 中的文件，会原封不动的输出到 `public/dist/js/t` 目录下，我们对比一下`ueditor`这个文件夹，如下图所示  
 
 ![Alt wherecss](/images/doc/wherecss7.png)  
 
-###### _生成的 `markdown.css` ，我们可以通过 `/css/t/markdown.css` 来访问_  
+###### _`ueditor`会完整的输出到`public/dist/t/`目录下 ，因为百度编辑器的文件非常多，且会依赖自身的css文件，很难将其拆分并融合到现有的项目中，因此放置到`_copy2dist`目录中，我们只需要在html模板文件中通过`<script>`标签将其引入进来就可以直接使用了_  
+
+
+
 
 &#160; &#160;  
 &#160; &#160;  
+
+
+
 
 #### _3. global_
-&#160;&#160; global目录存放了第三方的css库，`LESS` 和 `SASS`，默认 `LESS`，`LESS`使用了`bootstrap`的mixins库，`SASS`则使用的是国内开源的sass库`sassCore 3.0`  
+&#160;&#160; global目录暂时没有使用，留待后用   
 
-&#160;&#160; 默认使用 `LESS`或者`SASS` 可以在 `_base/index.less` 中定义，打开该文件，可以看到  
-```
-    @import "../_less/index";
-    # 如果使用sass，请将'_base/index.less'改写为'_base/index.scss'
-    # 如果使用sass，请引入 ../_sass/_settings/_setting_pages
-    # 注意使用sass，需要额外安装sass库，具体请参考 [安装](/install_md.html)
-```
-我们先看看global目录结构，如下图所示  
 
-![Alt wherecss](/images/doc/wherecss2.png)  
 
-__global目录产出`common.css(dist/css/common.css)`__，内容很简单，来自global目录下的如下几个文件  
+&#160; &#160;  
+&#160; &#160;
 
-    - less/normalize.less   ＃ html样式重置
-    - ui/*                  ＃ 两个ui类，btn和list  
-    - utils/*               ＃ 一些助手类  
 
-    # 具体内容，请直接打开文件查看  
-    # ui/list.less，我们后面会详细描述  
+
+#### _4. libs目录_
+&#160;&#160;
+libs目录存放了FKP-REST的几个重要库文件 **libs.jsx**，**router.jsx**，**api.js**，**pages.jsx**   
+&#160;&#160;
+`.jsx`文件为react的特有文件格式，因为FKP-REST使用webpack来预编译文件，所以默认支持可以使用`jsx`文件，具体`jsx`文件的详细，请查阅度娘  
+
+##### **api.js**   
+api的库文件是对于jq/zepto的ajax的二次封装，默认只支持`post`方式，
+
+    # 引用方式  
+    # 在pages/xxx.js 中
+    require('libs/api')
+    api.req('interface', function(data){
+        //......
+    })
+
+
+
 
 
 &#160; &#160;  
 &#160; &#160;  
 
 
-#### _4. modules_
-&#160; &#160; __modules存放组件相关的css__，一般配合 js 的 `modules` 目录下的组件 js 使用，产出的文件会输出到 `dist/css/t/` 这个目录下，不直接用于业务中   
 
-&#160; &#160; __modules__ 下的文件的打包规则类似于 __ _copy2dist__ 目录，请参考上面的部分    
+
+#### _5. mixins_
+&#160;&#160; global目录暂时没有使用，留待后用    
+
+&#160; &#160;  
+&#160; &#160;
+
+#### _6. modules_
+&#160; &#160; __modules存放组件相关的js__，一般配合 js 的 `modules` 目录下的组件 js 使用，产出的文件会输出到 `dist/js/t/` 这个目录下，不直接用于业务中   
+
+&#160; &#160;  
+&#160; &#160;
+
+#### _7. modules_
+&#160; &#160; __modules存放组件相关的js__，一般配合 js 的 `modules` 目录下的组件 js 使用，产出的文件会输出到 `dist/js/t/` 这个目录下，不直接用于业务中   
+
+&#160; &#160;  
+&#160; &#160;
+
+#### _8. vendor_
+&#160; &#160; __modules存放组件相关的js__，一般配合 js 的 `modules` 目录下的组件 js 使用，产出的文件会输出到 `dist/js/t/` 这个目录下，不直接用于业务中   
+
+&#160; &#160;  
+&#160; &#160;
+
+#### 9. vendor_custom
+&#160; &#160; __modules存放组件相关的js__，一般配合 js 的 `modules` 目录下的组件 js 使用，产出的文件会输出到 `dist/js/t/` 这个目录下，不直接用于业务中   
+
+&#160; &#160;  
+&#160; &#160;
+
+#### _10. widgets_
+&#160; &#160; __modules存放组件相关的js__，一般配合 js 的 `modules` 目录下的组件 js 使用，产出的文件会输出到 `dist/js/t/` 这个目录下，不直接用于业务中   
+
 
 ![Alt wherecss](/images/doc/wherecss3.png)  
