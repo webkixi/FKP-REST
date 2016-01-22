@@ -63,7 +63,7 @@ function *demoIndexData(url){
     //     return signature
     // }
     // else{
-        var ticket = yield getticket.call(this)
+        var ticket = yield getticket.call(this)         
         if (ticket){
             return yield getSignature(ticket)
         }

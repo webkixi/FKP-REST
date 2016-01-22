@@ -146,10 +146,22 @@ var wx = require('modules/weixin/index')
 * 获取微信数据
 * 通过微信数据获取本地用户数据
 */
+
 function init_wx(){
     SA.set("_LOCAL_USER",{error: "-1"});
     // wx( getLocalUser )
-    wx( getLocalUser )
+    var _weixin = sessionStorage.getItem('_WEIXIN');
+    if(_weixin){
+        wx( getLocalUser )
+    }else{
+        var user_info = sessionStorage.getItem("_LOCAL_USER");
+        if(user_info){
+            SA.setter("_LOCAL_USER", JSON.parse(user_info));
+            wx()
+        }else{
+            wx( getLocalUser )
+        }
+    }
 }
 
 /*
@@ -159,14 +171,14 @@ function init_wx(){
 function getLocalUser( data ){
     if(data && data.openid){
         var params = {
-                "content": {
-                    "user": {
-                        "userinfo":{
-                            "openid": data.openid
-                        }
+            "content": {
+                "user": {
+                    "userinfo":{
+                        "openid": data.openid
                     }
                 }
-            };
+            }
+        };
         api.req('login',
             params,
             function(record){

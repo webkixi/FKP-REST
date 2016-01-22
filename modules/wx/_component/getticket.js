@@ -24,7 +24,6 @@ function *demoIndexData(oridata){
     }
     else{
         var tk = yield api.pullWxData.call( this, 'getticket', postdata )
-        console.log(tk[0].body);
         tk = JSON.parse(tk[0].body)
         if (tk.errcode == 0 ){
             var ticket = tk.ticket;

@@ -24,7 +24,7 @@ function *demoIndexData(oridata){
                 openid: _this_sess.wwx.openid,
                 lang: 'zh_CN'
             }
-            console.log(postdata);
+            // console.log(postdata);
             var web_userinfo = yield api.pullWxData.call(_this, 'userinfo_web', postdata)
             web_userinfo = web_userinfo[0].body
             libs.clog('============  从微信拉取用户信息')
@@ -39,12 +39,13 @@ function *demoIndexData(oridata){
     var body = yield libs.$parse(this);
     if( body && body.code ){
         postdata = body;
-        console.log('pages/wx/userinfo');
-        console.log(postdata);
         var web_token = yield api.pullWxData.call(this, 'wx_web_token', postdata)
-        console.log(web_token);
+        console.log('=============  有code的session =============');
+        console.log(this.sess);
         return yield dealWith()
     }else{
+        console.log('============  没有code的session  ===========');
+        console.log(this.sess);
         return yield dealWith();
     }
 
