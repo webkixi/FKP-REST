@@ -36,7 +36,9 @@ FKP-REST的js目录与html和css是分离的，由编译将三者整合输出。
 如下图  
 ![Alt wherecss](/images/doc/wherejs.png)
 
-### _1. pages_
+
+## 1. pages
+[](/# ' {"id":"xxx"}')
 &#160; &#160; FKP-REST下的所有 __pages__ 目录都与业务相关，node/js/css都是如此， 在这里，与业务相关的js我们都存放在 __js/pages__ 目录下，拿`demoindex`来说，`demoindex`的js就是写在`pages`目录下。    
 
 #### _html模板_  
@@ -75,7 +77,7 @@ js的 `demoindex` 目录建立与目录同名的`demoindex.js/jsx/cjsx/coffee`�
 
 
 
-#### 2. _ _copy2dist_
+## 2. _copy2dist
 &#160; &#160; __ _copy2dist__ 其实算是一个特殊目录，有时候我们引用第三方的js，而又不便于融入到我们现有的js结构当中(不折腾，直接用)，直接将这样的js放置到这个目录当中  
 
 &#160; &#160; __ _copy2dist__ 中的文件，会原封不动的输出到 `public/dist/js/t` 目录下，我们对比一下`ueditor`这个文件夹，如下图所示  
@@ -95,7 +97,7 @@ js的 `demoindex` 目录建立与目录同名的`demoindex.js/jsx/cjsx/coffee`�
 
 
 
-#### _3. global_
+## 3. global
 &#160;&#160; global目录暂时没有使用，留待后用   
 
 
@@ -105,7 +107,7 @@ js的 `demoindex` 目录建立与目录同名的`demoindex.js/jsx/cjsx/coffee`�
 
 
 
-#### _4. libs目录_
+## 4. libs目录
 &#160;&#160;
 libs目录存放了FKP-REST的几个重要库文件 **libs.jsx**，**router.jsx**，**api.js**，**pages.jsx**   
 
@@ -158,7 +160,7 @@ libs的库，是对于常用方法的一个封装
 
 
 
-#### _5. mixins_
+## 5. mixins
 &#160;&#160; mixins和下面的widgets目录为react的专用目录，存放react的mixins和底层组件，mixins目录下的文件一般会用在组件或者模块中，FKP-REST中常用的mixins有，**item.js**(组件默认方法)，**store.js**(轻量flux)   
 
 ![mixins](/images/doc/wherejs7.png ' {"class":"titleimg"}')
@@ -166,7 +168,7 @@ libs的库，是对于常用方法的一个封装
 &#160; &#160;  
 &#160; &#160;
 
-#### _6. modules_
+## 6. modules
 &#160; &#160; __modules存放组件相关的js__，FKP-REST的组件基本上都是基于react构建的。现有模块，如微信模块，上传模块，H5表单模块等等，更多模块见下图  
 ![fff](/images/doc/wherejs1.png 'modules {"class":"titleimg1"}')
 
@@ -175,7 +177,7 @@ libs的库，是对于常用方法的一个封装
 
 
 
-#### _7. vendor_
+## 7. vendor
 &#160; &#160; __vender目录放置第三方js库__，这是一个重要的目录，该目录下的第三方库会被打包成 **common.js**，比如jQuery或者zepto，还有FKP-REST依赖的reactjs，该目录下的第三方库是通过bower安装后copy过来的源码，该目录下包含了一下第三方库，如图     
 ![wherejs](/images/doc/wherejs2.png "vendors {"class":"titleimg1"}'")
 
@@ -187,12 +189,12 @@ libs的库，是对于常用方法的一个封装
 &#160; &#160;  
 
 
-#### 8. vendor_custom
+## 8. vendor_custom
 &#160; &#160; __vender_custom目录放置自定义的全局js文件__，这是一个重要的目录，该目录下的文件会被打包到 **common.js**，该目录下有一个重要的FKP-REST的全局库，**store.js**，后面会详细阐述该库的使用方式，实际上FKP-REST的路由库，各个模块都依赖于 **store.js**库   
 
 &#160; &#160;  
 &#160; &#160;
 
-#### _9. widgets_
+## 9. widgets
 &#160; &#160; __widgets目录存放react最颗粒化得组件__，如list的item，FKP-REST的颗粒化组件就只有这一个，该组件会依据传入的数据输出相应的HTML结构，能把它叫万能组件吗？ ^_^   
 

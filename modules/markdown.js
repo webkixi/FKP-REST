@@ -26,6 +26,8 @@ function *mkmd(md_raw, templet){
         var mdMenu='', mdMenuList = data.match(re);
         if(mdMenuList&&mdMenuList.length){
             mdMenuList.map(function(item){
+                console.log('66666666666');
+                console.log(item)
                 mdMenu += '<li>'+ re.exec(item)[1]+'</li>\n\r';
                 re.lastIndex = 0;
             })
