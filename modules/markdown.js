@@ -22,13 +22,21 @@ function *mkmd(md_raw, templet){
         }
         mdcnt.mdcontent.cnt = data
 
-        var re = /<h2[^>]?.*>(.*)<\/h2>/ig;
+        // var re = /<h2[^>]?.*>(.*)<\/h2>/ig;
+        var re = /<h2 [^>]*>(.*?)<\/h2>/ig;
+        var re2 = /id="(.*?)">/i;
         var mdMenu='', mdMenuList = data.match(re);
         if(mdMenuList&&mdMenuList.length){
             mdMenuList.map(function(item){
-                console.log('66666666666');
-                console.log(item)
-                mdMenu += '<li>'+ re.exec(item)[1]+'</li>\n\r';
+                // console.log('66666666666');
+                // console.log(item);
+                var kkk = item.match(re2);
+                var href = kkk[1]
+                if (href!='-')
+                    mdMenu += '<li><a href="#'+href+'">'+ re.exec(item)[1]+'</a></li>\n\r';
+                else
+                    mdMenu += '<li>'+ re.exec(item)[1]+'</li>\n\r';
+
                 re.lastIndex = 0;
             })
         }
