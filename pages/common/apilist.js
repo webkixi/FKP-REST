@@ -3,17 +3,15 @@
 
 function getApiPath() {
 
-    var ipsrc = "http://120.25.241.174"
+    var ipsrc = "http://120.25.xxx.xxx"
     var port = ":8080/v1/"
     if (this.sess && this.sess.argv) {
         if (this.sess.argv === 'test') {
             console.log('========== test环境 apilist');
-            ipsrc = "http://120.25.210.214";
+            ipsrc = "http://120.25.xxx.xxx";
             port = ":8088/v1/"
         }
     }
-    //ipsrc = "http://192.168.4.104";
-    //ipsrc = "http://120.25.210.214";
     var src = ipsrc + port;
     var src2 = ipsrc + port;
     var src3 = ipsrc + port;
@@ -23,7 +21,7 @@ function getApiPath() {
             wx_token: 'https://api.weixin.qq.com/cgi-bin/token',
             wx_web_token: 'https://api.weixin.qq.com/sns/oauth2/access_token',
 
-            service: src+'servicetype/query'             
+            service: src+'servicetype/query'
         },
 
         weixin: {
