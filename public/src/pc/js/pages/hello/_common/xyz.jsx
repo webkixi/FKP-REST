@@ -1,0 +1,3 @@
+alert('xyz')
+
+module.exports = {}
