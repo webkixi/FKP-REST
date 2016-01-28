@@ -46,8 +46,9 @@ function likeImooc( navData,listData, ele, opts ){
             if($(this).attr('data-cls')=="first") {
                 SA.setter('pc_uls', { data: ss })
             }
-            else
+            else{
                 SA.setter('pc_uls', { data: listData[idf-1] })
+            }
         })
     }
 
@@ -59,7 +60,7 @@ function likeImooc( navData,listData, ele, opts ){
     render(
         <div>
             <Tabswitch data={navData} listClass={a_listClass} itemClass={a_itemClass} itemDefaultMethod={tabItemDefaultMethod}>
-                <Uls data={ss} nodata={'还没有订单数据'} listClass={'coupons_list like_app_list'} itemMethod={opts.listcb}  itemView={Pt}/>
+                <Uls data={ss} nodata={'您目前还没有订单'} listClass={'coupons_list like_app_list'} itemMethod={opts.listcb}  itemView={Pt}/>
             </Tabswitch>
         </div>
         ,document.getElementById(ele)

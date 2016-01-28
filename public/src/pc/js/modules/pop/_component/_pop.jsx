@@ -68,7 +68,9 @@ var popwin = {
 			if(theData.body)
 				body = theData.body;
 			else {
-				body = <div className={'loading'}><img style={{width:'1rem'}} src='/images/loading1.gif'/></div>
+				//暂时去掉 加载中... 图片
+				//body = <div className={'loading'}><img style={{width:'1rem'}} src='/images/loading1.gif'/></div>
+				body = '';
 			}
 			if(theData.display){
 				display = theData.display;

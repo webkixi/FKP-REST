@@ -27,7 +27,7 @@ var uls = {
                 else
                 if(!Array.isArray(pdata[0])){
                     pdata = [ pdata ];
-                    this.initdata = false;                     
+                    this.initdata = false;
                 }
             }
             this.setState({
@@ -45,6 +45,7 @@ var uls = {
     loopRender: function(){
         var items=[];
         if(this.state.data){
+            this.initdata = false;
             var pdata = this.state.data;
             if(!Array.isArray(pdata)){
                 alert('Uls must be set array!')
@@ -59,7 +60,6 @@ var uls = {
                     pdata = [ pdata ];
                 }
             }
-
             if (!this.initdata) {
                 pdata.map(function(it,i){
                     items.push(
