@@ -39,6 +39,7 @@
             var bodyDom;
             var footerDom;
             var dotDom;
+            var liDom;
 
             var k1 = data.id||'',
                 v1 = data.url||'javascript:void();',
@@ -46,6 +47,7 @@
                 k2 = data.title||data.caption||data.catName||data.model||data.quality||data.vender||(typeof data==='string'||typeof data==='number'?data:'')||'',
                 v2 = data.attr||'',
 
+                k3,
                 v3 = data.value||'';
 
 
@@ -64,6 +66,22 @@
                             return <img data-iid={idf} key={'img'+idf} src={img} alt={k2}/>
                         else
                             return <img src={img} alt={k2}/>
+                    }
+                }
+
+                if(data.li){
+                    var lis = []
+                    if(Array.isArray(data.li)){
+                        lis = []
+                        data.li.map(function(li_item, li_i){
+                            lis.push(<li key={'li-'+li_i} data-id={'li-'+li_i}>{li_item}</li>)
+                        })
+                        k3 = <ul>{lis}</ul>
+                    }
+                    else{
+                        lis = []
+                        lis.push(<li>{data.li}</li>)
+                        k3 = <ul>{lis}</ul>
                     }
                 }
 
@@ -120,7 +138,7 @@
 
                                 //已定义attr
                                 : (function(){
-                                    if (item.attr === 'select'){
+                                    if (item.attr === 'select'){   //h5 自定义下拉菜单
                                         if (item.k)
                                             return <p data-pid={i} data-src={item.attr} data-value={item.v} key={'body'+i}>{item.k}</p>
                                         else
@@ -184,7 +202,7 @@
 
                                 //已定义attr
                                 : (function(){
-                                    if (item.attr === 'select'){
+                                    if (item.attr === 'select'){  //h5 自定义下拉菜单
                                         if (item.k){
                                             return <p data-pid={i} data-src={item.attr} data-value={item.v} key={'footer'+i}>{item.k}</p>
                                         }
@@ -265,6 +283,10 @@
                     headerDom = <div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>
             }
 
+            if (k3) {
+                liDom = k3
+            }
+
             if(bodys.length){
                 if(data.img && k2.length){
                     bodyDom = <div className={'hbody rebody'}>{bodys}</div>
@@ -296,6 +318,8 @@
                 var headerDom;
                 var bodyDom;
                 var footerDom;
+                var dotDom;
+                var liDom;
 
                 var k1 = item.id || '',
                     v1 = item.url||'javascript:;',
@@ -303,6 +327,7 @@
                     k2 = item.title||item.caption||item.catName||item.model||item.quality||item.vender||(typeof item==='string'|| typeof item==='number'?item:'')||'',
                     v2 = item.attr||'',
 
+                    k3,
                     v3 = item.value||'';
 
                     // if(item.img)
@@ -323,6 +348,22 @@
                                 return <img data-iid={idf} key={'img'+idf} src={img} alt={k2}/>
                             else
                                 return <img src={img} alt={k2}/>
+                        }
+                    }
+
+                    if(item.li){
+                        var lis = []
+                        if(Array.isArray(item.li)){
+                            lis = []
+                            item.li.map(function(li_item, li_i){
+                                lis.push(<li key={'li-'+li_i} data-id={'li-'+li_i}>{li_item}</li>)
+                            })
+                            k3 = <ul>{lis}</ul>
+                        }
+                        else{
+                            lis = []
+                            lis.push(<li>{data.li}</li>)
+                            k3 = <ul>{lis}</ul>
                         }
                     }
 
@@ -381,7 +422,7 @@
 
                                         //已定义attr
                                         : (function(){
-                                            if (_item.attr === 'select'){
+                                            if (_item.attr === 'select'){   //h5 自定义下拉菜单
                                                 if (_item.k)
                                                     return <p data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</p>
                                                 else
@@ -446,7 +487,7 @@
 
                                         //已定义attr
                                         : (function(){
-                                            if (_item.attr === 'select'){
+                                            if (_item.attr === 'select'){   //h5 自定义下拉菜单
                                                 if (_item.k)
                                                     return <p data-pid={i} data-src={_item.attr} data-value={_item.v} key={'footers'+i}>{_item.k}</p>
                                                 else
@@ -480,6 +521,10 @@
                             headerDom = <div className={"hheader"}><a href={v1} key={'a'+i} target={'_blank'}>{k2}</a></div>
                     }
 
+                    if (k3) {
+                        liDom = k3
+                    }
+
                     if(bodys.length){
                         // bodyDom = <div className={'hbody'}>{bodys}</div>
                         if(item.img && k2.length){
@@ -495,10 +540,13 @@
                     items.push(
                         (
                             item.img && k2.length
-                            ? <div key={'items'+iii} className={'inner'}>{bodyDom}{footerDom}<div className={'pics'}>{k2}</div></div>
+                            ? <div key={'items'+iii} className={'inner'}>{headerDom}{bodyDom}{liDom}{footerDom}{dotDom}<div className={'pics'}>{k2}</div></div>
                             : bodyDom || footerDom
-                                ? <div key={'items'+iii} className={'inner'}>{headerDom}{bodyDom}{footerDom}</div>
-                                : <a key={'items'+iii} href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
+                                ? <div key={'items'+iii} className={'inner'}>{headerDom}{bodyDom}{liDom}{footerDom}{dotDom}</div>
+                                : liDom
+                                    ? k2 ? k2+liDom : liDom
+                                    : k2
+                                    // : <a key={'items'+iii} href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
                         )
                     );
                     if(i < (data.length-1))
@@ -513,10 +561,13 @@
     : (
         (
             data.img && k2.length
-            ? <div className={'inner'}>{bodyDom}{footerDom}{dotDom}<div className={'pics'}>{k2}</div></div>
+            ? <div className={'inner'}>{headerDom}{bodyDom}{liDom}{footerDom}{dotDom}<div className={'pics'}>{k2}</div></div>
             : bodyDom || footerDom
-                ? <div className={"inner"}>{headerDom}{bodyDom}{footerDom}{dotDom}</div>
-                : <a href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
+                ? <div className={"inner"}>{headerDom}{bodyDom}{liDom}{footerDom}{dotDom}</div>
+                : liDom
+                    ? k2 ? k2+liDom : liDom
+                    : k2
+                    // : <a href={v1} className={data.caption?'caption':''} target={'_blank'}>{k2}</a>
         )
     )
 
