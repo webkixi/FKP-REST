@@ -74,12 +74,13 @@ bbdemo(){
 }
 
 install2(){
-    npm install nrm -g
+    read -s -p "请输入sudo密码: " psd
+    echo $psd | sudo npm install nrm -g
     nrm use cnpm
-    sleep 5
-    npm install gulp -g
-    npm install nodemon -g
-    npm install node-gyp -g
+    sleep 3
+    echo $psd | sudo npm install gulp -g
+    echo $psd | sudo npm install nodemon -g
+    echo $psd | sudo npm install node-gyp -g
 }
 
 install(){
