@@ -42,7 +42,7 @@ function *weixin(){
     var route = this.params;
 
     if( route.title && route.title!== '' ){
-        var page = route.title
+        var page = route.title         
         if( fs.existsSync( path.join(__dirname,'./wx/' + page + '.js' ) ) ){
             var pageData = yield require( './wx/' + page ).getData.call( this );
             yield returnJson.call( this, pageData )

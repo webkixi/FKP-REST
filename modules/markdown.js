@@ -22,6 +22,12 @@ function *mkmd(md_raw, templet){
         }
         mdcnt.mdcontent.cnt = data
 
+        title = md_raw.match(/#([\s\S]*?)\n/)
+        if (title) {
+            title = title[1].replace(/ \{(.*)\}/g, '')  // 清除自定义属性，如{"id":"xxx"}
+            mdcnt.mdcontent.title = title
+        }
+
         // var re = /<h2[^>]?.*>(.*)<\/h2>/ig;
         var re = /<h2 [^>]*>(.*?)<\/h2>/ig;
         var re2 = /id="(.*?)">/i;
