@@ -126,8 +126,13 @@
                         <tr class='fnode'>
                             <th style="width:1px;"></th>
                             <td>
-                                <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
-                                <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>
+                                <span class="qrcode" value="{{ipurl}}">二维码</span>
+                                <div class="fnode_title">
+                                    <a href="{{url}}" class="fnode_h4">{{title}}</a>
+                                    <a target="_blank" href="{{url}}">{{url}}</a>
+                                </div>
+                               
+                                
                                 {{#if des}}
                                     <div class="profile u-mt_5">
                                         <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
@@ -165,8 +170,13 @@
                         <tr class='fnode'>
                             <th style="width:1px;"></th>
                             <td>
-                                <a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
-                                <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>
+                                <!--<a href="{{url}}" style="color: #7791bf"><h4 class="u-f18">{{title}}</h4></a>
+                                <a target="_blank" href="{{url}}">{{url}}</a> <span class="qrcode" value="{{ipurl}}">二维码</span>-->
+                                <span class="qrcode" value="{{ipurl}}">二维码</span>
+                                <div class="fnode_title">
+                                    <a href="{{url}}" class="fnode_h4">{{title}}</a>
+                                    <a target="_blank" href="{{url}}">{{url}}</a>
+                                </div>
                                 {{#if des}}
                                     <div class="profile u-mt_5">
                                         <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
