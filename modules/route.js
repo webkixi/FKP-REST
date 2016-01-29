@@ -270,7 +270,7 @@ function *distribute(_mapper){
                         }
                         else if(this.method==='POST'){
                             if( passStat ){
-                                if( api.apiPath.dirs[route] || api.apiPath.weixin[route] )
+                                if( api.apiPath.dirs[route] || api.apiPath.weixin[route] || route === 'redirect' )
                                     data = yield require('../pages/common/nopage').getData.call(this, data, route);
                             }
                             yield returnJson.call(this,true,route,data);

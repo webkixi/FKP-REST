@@ -17,7 +17,7 @@ function *demoIndexData(oridata, route){
 
 		if(body){
 
-			if( api.apiPath.dirs[route])
+			if( api.apiPath.dirs[route] || route === 'redirect')
 				passdata = yield api.pullApiData.call(this, route, body, 'post');
 
             if ( passdata && passdata[1] )

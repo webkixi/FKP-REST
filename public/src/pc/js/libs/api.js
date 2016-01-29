@@ -57,22 +57,8 @@ function req( api, param, cb ){
     }
 }
 
-//
-// function wx( api, param, cb ){
-//     var url = apiPath.weixin[api];
-//     if( !param )
-//         param = {test: "123"}
-//     if(url){
-//         $.post( url, param, function( body, status ){
-//             if( status === 'success' ) {
-//                 cb( body );
-//             }
-//         }, "json")
-//     }
-// }
 
 module.exports = {
 	apiPath: apiPath,
 	req: req
-    // wx: wx
 }

@@ -21,11 +21,11 @@ request({method:'POST', url:url, body:paramStr, json:true}, function(err,respons
 
 // request for koa
 var req = function(api,options){
-    function rp(err, rep, body){   //deal with response result
+    function rp(error, rep, body){   //deal with response result
         if(error)
             throw new Error("async search: no respons data");
 
-        if (!error && response.statusCode == 200)
+        if (!error && rep.statusCode == 200)
             return body;
     }
 
@@ -51,107 +51,11 @@ var req = function(api,options){
             // request({method:'POST', url:api, json:options}, rp)
 
         }
-        else
+        else{
             request(api,rp);
-    }
-}
-//
-// // var src = "http://120.25.241.174:8080/v1/servicetype/";
-// //var src = "http://192.168.4.57:8080/v1/";
-// var src = "http://120.25.241.174:8080/v1/";
-// var src2 = "http://120.25.241.174:8090/v2/";
-//
-// var apiPath = {
-//     base: src,
-//     dirs: {
-//         wx_token: 'https://api.weixin.qq.com/cgi-bin/token',
-//         wx_web_token: 'https://api.weixin.qq.com/sns/oauth2/access_token',
-//
-//         service: src+'servicetype/query',
-//         parts: src+'parts/query',
-//         queryallbrand: src+'car/queryallbrand',
-//         queryseries: src+'car/queryseries',
-//         querycartype: src+'car/querycartype',
-//
-//         carchecking: src+'servicetype/query/carchecking',
-//         region: src+'region/query',
-//         getmms: src+'user/getsmscode',
-//         orderins: src+'order/insert',
-//         orderins_v2: src2+'order/insert',
-//         order_list: src+'order/query',
-//         myorder_info: src+'order/info',
-//         mobilecode: src+'user/login',
-//         useraddcar: src+'usercar/insert',
-//         order_addr: src+'addr/query',
-//         order_deladdr: src+'addr/delete',
-//         order_addaddr: src+'addr/insert',
-//         mycarlist: src+'usercar/query',
-//         mycar_del: src+'usercar/delete',
-//         washcar: src+'servicetype/query/washcar',
-//
-//         login: src+'user/login',
-//         getshoplist: src2+'dealer/query'
-//
-//         ,discountlist: src2+'order/query'
-//     },
-//
-//     weixin: {
-//         //oauth2方式的api会议 '_web' 方式结尾
-//         userlist: 'https://api.weixin.qq.com/cgi-bin/user/get',
-//         querymenu: 'https://api.weixin.qq.com/cgi-bin/menu/get',        //?access_token=ACCESS_TOKEN
-//         createmenu: 'https://api.weixin.qq.com/cgi-bin/menu/create',    //?access_token=ACCESS_TOKEN
-//
-//         userinfo_web: 'https://api.weixin.qq.com/sns/userinfo'  //?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
-//     }
-// }
-
-
-function *pullApiData(api, param, method){
-    libs.elog('javaapi/'+ api);
-    var apiPath = yield getapi.call(this)
-    // console.log('============ javaapi apiPath');
-    // console.log(apiPath);
-
-    if (api.indexOf('redirect')===0){
-        url = param._redirect;
-        delete param._redirect
-        if (param.ajaxtype){
-            method = param.ajaxtype
-            delete param.ajaxtype
-        }
-        var len = Object.keys(param)
-        if (len.length===0)
-            param = {test: '123'}
-
-    }
-    else {
-        var url = apiPath.dirs[api];
-        if( !url ){
-            return false;
         }
     }
-
-    var query;
-
-    if(!method)
-        query = qs.stringify(param);
-
-    if(method==='post'||method==='POST')
-        query = param;
-
-    console.log('(((((((((((((((((((((((((((query)))))))))))))))))))))))))))');
-    // console.log(query);
-
-    if(libs.getObjType(param)!=='Object')
-        return yield {message: 'pullApiData === 请指定正确的参数'};
-
-    if(!method)
-        return yield req(url+'?'+query);
-    else
-        return yield req(url, query);
-
 }
-
 
 // 获取微信的token，并session
 // 微信token分为两种，一种是服务端的token, 一种是通过oauth2方式获取的token
@@ -257,7 +161,7 @@ function *pullWxData(api, param, method){
             message: 'param must be a json object'
         };
 
-    yield getWxAccessToken.call(this, param, api);     
+    yield getWxAccessToken.call(this, param, api);
 
     if(api == 'wx_web_token'){
         return {token: true};
@@ -279,7 +183,7 @@ function *pullWxData(api, param, method){
     }
     var query;
 
-    if(!method)
+    if(!method||method==='get'||method==='GET')
         query = qs.stringify(param);
 
     if(method==='post'||method==='POST')
@@ -289,8 +193,58 @@ function *pullWxData(api, param, method){
     // console.log(query);
 
 
-    if(!method)
+    if(!method||method==='get'||method==='GET')
         return yield req(url+'?'+query);
+    else
+        return yield req(url, query);
+
+}
+
+function *pullApiData(api, param, method){
+    libs.elog('javaapi/'+ api);
+    var apiPath = yield getapi.call(this)
+    // console.log('============ javaapi apiPath');
+    // console.log(apiPath);
+    if (api.indexOf('redirect')===0){
+        url = param._redirect;
+        delete param._redirect
+        if (param.ajaxtype){
+            method = param.ajaxtype
+            delete param.ajaxtype
+        }
+        var len = Object.keys(param)
+        if (len.length===0)
+            param = {test: '123'}
+
+    }
+    else {
+        var url = apiPath.dirs[api];
+        if( !url ){
+            return false;
+        }
+    }
+
+    var query;
+
+    if(!method||method==='get'||method==='GET')
+        query = qs.stringify(param);
+
+    if(method==='post'||method==='POST')
+        query = param;
+
+    console.log('(((((((((((((((((((((((((((query)))))))))))))))))))))))))))');
+    // console.log(query);
+
+    if(libs.getObjType(param)!=='Object')
+        return yield {message: 'pullApiData === 请指定正确的参数'};
+
+    if(!method || method==='get'||method==='GET'){
+        if (query)
+            return yield req(url+'?'+query);
+        else {
+            return yield req(url)
+        }
+    }
     else
         return yield req(url, query);
 
