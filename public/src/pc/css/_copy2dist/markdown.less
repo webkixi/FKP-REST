@@ -331,7 +331,7 @@
 }
 
 .markdown-body h5 {
-  font-size: 1rem;
+  font-size: 1.04em;
 }
 
 .markdown-body h5 .anchor {
@@ -460,7 +460,7 @@
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
   margin: 0;
-  font-size: 85%;
+  font-size: 1em;
   background-color: rgba(0,0,0,0.04);
   border-radius: 3px;
 }
@@ -474,7 +474,7 @@
 .markdown-body pre>code {
   padding: 0;
   margin: 0;
-  font-size: 100%;
+  font-size: 1.4em;
   word-break: normal;
   white-space: pre;
   background: transparent;
@@ -703,9 +703,19 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 }
 @media screen and (max-width: 1024px) {
     .markdown-body{
-        font-size: 0.99rem;
+        font-size: 1.6em;
         .span9{
             width: 100%;
+        }
+    }
+    .markdown-body img {
+      width: 100%;
+    }
+    .markdown-body ul,
+    .markdown-body ol {
+        font-size: 1.7em;
+        li{
+            font-size: 0.6em;
         }
     }
     .side-menu{
