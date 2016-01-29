@@ -11,7 +11,7 @@ $('.dnode').click(function(){
 function mkQrCode(elem,content){
     if(!elem) return;
     if(!content) return;
-    // console.log(content);
+    console.log(content);
     var qrcode = new QRCode(elem, {
        width : 80,//设置宽高
        height : 80
