@@ -54,14 +54,39 @@ function getwx( cb ){
         postdata = {code: cd, state: st};
     }
 
-    api.req('/weixin/userinfo', postdata, function(data){
-        if(typeof data === 'string')
-            data = JSON.parse(data)
+    var iii = 0
+    function getWXinfo(){
+        iii++;
+        var _weixin = sessionStorage.getItem('_WEIXIN')
+        if (_weixin){
+            SA.setter("_WEIXIN",{user: JSON.parse(_weixin)})
+            rtn_data = JSON.parse(_weixin);
+            callback()
+        }
+        else
+            api.req('/weixin/userinfo', postdata, function(data){
+                if(typeof data === 'string')
+                    data = JSON.parse(data)
 
-        SA.setter("_WEIXIN",{user: data})
-        rtn_data = data;
-        callback()
-    })
+                if (data && !data.openid){
+                    if (iii<3)
+                        getWXinfo()
+                    else
+                        callback()
+                }
+                else{
+                    iii = 0;
+                    sessionStorage.setItem('_WEIXIN',JSON.stringify(data));
+                    SA.setter("_WEIXIN",{user: data})
+                    rtn_data = data;
+                    callback()
+                }
+                // SA.setter("_WEIXIN",{user: data})
+                // rtn_data = data;
+                // callback()
+            })
+    }
+    getWXinfo()
 
 
 }
