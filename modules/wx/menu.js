@@ -95,8 +95,10 @@ function *create(){
     if (this.sess.argv) {
         if (this.sess.argv === 'test') {
             console.log('========== test环境 menu');
-            _WX = config.weixintest
-            domain = config.domaintest
+            // _WX = config.weixintest
+            // domain = config.domaintest
+            _WX = config.test.weixin
+            _WX_domain = config.test.domain
         }
     }
     var appid = _WX.appid

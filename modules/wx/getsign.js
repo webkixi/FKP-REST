@@ -20,7 +20,9 @@ function *demoIndexData(url){
     if (this.sess.argv) {
         if (this.sess.argv === 'test') {
             console.log('========== test环境 getsign');
-            _WX = config.weixintest
+            // _WX = config.weixintest
+            _WX = config.test.weixin
+            // _WX_domain = config.test.domain
 
         }
     }
@@ -63,7 +65,7 @@ function *demoIndexData(url){
     //     return signature
     // }
     // else{
-        var ticket = yield getticket.call(this)         
+        var ticket = yield getticket.call(this)
         if (ticket){
             return yield getSignature(ticket)
         }

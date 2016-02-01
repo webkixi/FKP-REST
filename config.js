@@ -29,37 +29,55 @@ var config = {
     // 演示文件列表，ly demo/dev/pro启动http服务后，在浏览器端后缀demoindex
     demoindex: path.join(static_dir,'/dist/1.0.0/html/demoindex.html'),
 
+    //本地上传路径
+    upload_root: path.join(static_dir,'/dist/upload'),
     // 阿里云图片路径
     goods_img: 'http://jh-ljs-goods.oss-cn-shenzhen.aliyuncs.com/',     //商品
     account_img:'http://jh-ljs-account.oss-cn-shenzhen.aliyuncs.com/',  //用户
 
     //静态资源路径
     static: {
-    		dft:  path.join(static_dir,'/dist/1.0.0/'),
-    		html: path.join(static_dir,'/dist/1.0.0/html'),
-    		js:   path.join(static_dir,'/dist/1.0.0/js'),
-    		css:  path.join(static_dir,'/dist/1.0.0/css'),
-    		img:  path.join(static_dir,'/dist/1.0.0/images'),
-            test: {
-                dft:  path.join(static_dir,'/dist/1.0.0/dev'),
-                html: path.join(static_dir,'/dist/1.0.0/dev/html'),
-                js:   path.join(static_dir,'/dist/1.0.0/dev/js'),
-                css:  path.join(static_dir,'/dist/1.0.0/dev/css'),
-                img:  path.join(static_dir,'/dist/1.0.0/dev/images')
-            }
+		dft:  path.join(static_dir,'/dist/1.0.0/'),
+		html: path.join(static_dir,'/dist/1.0.0/html'),
+		js:   path.join(static_dir,'/dist/1.0.0/js'),
+		css:  path.join(static_dir,'/dist/1.0.0/css'),
+		img:  path.join(static_dir,'/dist/1.0.0/images'),
+        test: {
+            dft:  path.join(static_dir,'/dist/1.0.0/dev'),
+            html: path.join(static_dir,'/dist/1.0.0/dev/html'),
+            js:   path.join(static_dir,'/dist/1.0.0/dev/js'),
+            css:  path.join(static_dir,'/dist/1.0.0/dev/css'),
+            img:  path.join(static_dir,'/dist/1.0.0/dev/images')
+        }
   	},
 
-    //本地上传路径
-    upload_root: path.join(static_dir,'/dist/upload'),
-
     root: 'demoindex',    //dev 或者 pro默认首页
+
+    apiip: "http://120.25.xxx.xxx",
+    port: ":8080/v1/",
 
     //微信
     weixin: hema,
     weixintest: cqch,
 
     domain: 'agzgz.com',
-    domaintest: 'test.agzgz.com'
+    domaintest: 'test.agzgz.com',
+
+    mongo: {
+        url: "mongodb://localhost/fkp",
+        port: "27017"
+    },
+
+    test: {
+        weixin: cqch,
+        domain: 'test.agzgz.com',
+        apiip: '192.168.1.100',
+        port: ':8088/v1/',
+        mongo: {
+            url: "mongodb://localhost/fkp",
+            port: '27017'
+        }
+    }
 }
 
 module.exports = config

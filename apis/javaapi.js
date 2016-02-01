@@ -69,7 +69,9 @@ function *getWxAccessToken(params, apii){
     if (this.sess.argv) {
         if (this.sess.argv === 'test') {
             console.log('========== test环境 menu');
-            _WX = config.weixintest
+            // _WX = config.weixintest
+            _WX = config.test.weixin
+            // _WX_domain = config.test.domain
         }
     }
 

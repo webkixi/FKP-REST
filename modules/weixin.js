@@ -33,8 +33,10 @@ function *weixin(){
     if (this.sess.argv) {
         if (this.sess.argv === 'test') {
             console.log('========== test环境');
-            _WX = config.weixintest
-            _WX_domain = config.domaintest
+            // _WX = config.weixintest
+            // _WX_domain = config.domaintest
+            _WX = config.test.weixin
+            _WX_domain = config.test.domain
             console.log(_WX);
         }
     }
@@ -42,7 +44,7 @@ function *weixin(){
     var route = this.params;
 
     if( route.title && route.title!== '' ){
-        var page = route.title         
+        var page = route.title
         if( fs.existsSync( path.join(__dirname,'./wx/' + page + '.js' ) ) ){
             var pageData = yield require( './wx/' + page ).getData.call( this );
             yield returnJson.call( this, pageData )
