@@ -14,6 +14,12 @@ var pay = require('./payment')
 var config = require('../config');
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
+/**
+ * mongodb connect (mongoose)
+ */
+// require('./modules/mongo/index')
+// var user = require('mongoose').model('User')
+
 
 /**
  * 过滤渲染文件
@@ -100,13 +106,20 @@ function init(app,mapper,rend){
     function *forBetter(){
         this.sess = this.session;
         this.config = config;
+        this.htmlRender = htmlRender;
+        this.returnJson = returnJson;
         //绑定url地址解析
         this.local = this.req._parsedUrl;
         var param = this.params;
         // console.log(param);
-        if(param.cat === 'region'){
-            yield getRegion.call(this);
+
+        if (param.cat && param.cat.indexOf('$') === 0) {
+            yield dbcontrol.call(this,param)
         }
+        else
+            if(param.cat === 'region'){
+                yield getRegion.call(this);
+            }
         else
             if(param.cat === 'getmms')
                 yield getMms.call(this);
@@ -143,6 +156,16 @@ function init(app,mapper,rend){
 
     .post('/:cat',forBetter)
     .post('/:cat/:title',forBetter)
+
+}
+
+function *dbcontrol(param){
+    libs.clog('==========  操作数据库 ===========');
+    var db = require('./mongo/index')
+    yield db.init.call(this, param)
+    // db.router.call(this)
+    // var resaults = require('./mongo/index').call(this)
+
 
 }
 
