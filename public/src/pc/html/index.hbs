@@ -1,0 +1,37 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <title>Hello World，第一个示例</title>
+    @@include('./_common/header/head.html')
+  </head>
+  <body>
+      <div class="box">
+        <div id="register" >
+          <ul class="form sign">
+              <li>
+                  <input type="text" name="username" class="username" value="">
+              </li>
+              <li>
+                  <input type="password" name="password" class="password" value="">
+              </li>
+              <li>
+                  <input type="password" name="repassword" class="repassword" value="">
+              </li>
+              <li>
+                  <input type="button" name="login" class="login" value="登录">
+              </li>
+          </ul>
+        </div>
+
+        <div class="addtopic">
+            <textarea name="add_md" id="add_md" rows="28" cols="60"></textarea>
+            <input type="button" name="add_md_btn" id="add_md_btn" value="添加文章">
+        </div>
+
+        <div class="listtopic" id="listtopic">
+
+        </div>
+      </div>
+    @@include('./_common/footer/foot.html')
+  </body>
+</html>
