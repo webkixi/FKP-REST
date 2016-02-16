@@ -9,7 +9,7 @@ function applist(data, ele, opts){
     if( opts && opts.evt)
         evt = opts.evt;
 
-    var scrollEndMethod = (opts && opts.sem) || function(){
+    var scrollEndMethod = function(){
         var td;
         var tmpData = SA.getter('LDL')
         if(!tmpData.data){
@@ -17,18 +17,27 @@ function applist(data, ele, opts){
             SA.setter('LDL', {data:data})
         }else{
             td = tmpData.data.data;
-            td = td.concat(data);
-            // SA.setter('LDL', {data:td})
+            if (opts && opts.sem && typeof opts.sem === 'function') {
+                var _fun = opts.sem;
+                _fun.call(null, td, doneNext)
+                // td = tmpData.data.data;
+                // td = td.concat(data);
+            }
+            else {
+                doneNext(td)
+            }
         }
 
-        if(!evt){
-            $(this).find('li[data-cls="loadbar"]').click(function(){
-                SA.setter('LDL', {data:td});
-            })
-        }
-        else
+        function doneNext(ddd){
+            if(!evt){
+                $(this).find('li[data-cls="loadbar"]').click(function(){
+                    SA.setter('LDL', {data:ddd});
+                })
+            }
+            else
             if(evt === 'auto')
-                SA.setter('LDL', {data:td});
+            SA.setter('LDL', {data:ddd});
+        }
 
     }
 
