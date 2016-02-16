@@ -17,6 +17,7 @@ function *distribute(control){
 
 
 function *init(param){
+    console.log('========= 数据库操作/'+__filename+' =========');
     var cat = param.cat,
         title = param.title;
 

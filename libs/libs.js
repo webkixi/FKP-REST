@@ -6,6 +6,7 @@ var parse = require('co-body');
 var lodash = require('lodash');
 var qs = require('querystring');
 
+
 //libs
 var getObjType = function(object){
     return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
@@ -66,5 +67,6 @@ module.exports = {
     $domain: domain,
     $parse: parse,
     $lodash: lodash,
-    getClientIp: getClientIp
+    getClientIp: getClientIp,
+    errors: require('./errors')
 }

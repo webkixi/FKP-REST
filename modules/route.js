@@ -160,7 +160,6 @@ function init(app,mapper,rend){
 }
 
 function *dbcontrol(param){
-    libs.clog('==========  操作数据库 ===========');
     var db = require('./mongo/index')
     yield db.init.call(this, param)
     // db.router.call(this)

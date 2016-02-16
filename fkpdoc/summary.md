@@ -1,3 +1,13 @@
+@@@  
+author: JP Richardson  
+publish: 2012-03-04  
+fdse222
+tags: war, history  
+fdsfg
+anything: can write anything  
+@@@  
+
+
 # 1、概述  
 &#160; &#160; &#160; &#160;node的出现，正在悄悄的改变着传统的模式，这两年，淘宝/天猫的前端的崛起，我相信会更加深刻的改变现有的开发模式，MVC的'V'(VIEW)的工作也会越来越偏向于前端，彻底的从后端分离出来。  
 

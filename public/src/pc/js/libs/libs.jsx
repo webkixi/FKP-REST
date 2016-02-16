@@ -411,7 +411,7 @@ var form_valide = function(opts) {
 }
 
 //计算字符变量的长度，包含处理中文
-function strLen(str){return str.replace(/[^\x00-\xff]/g,"aaa").length;}
+function strLen(str){ return str.replace(/[^\x00-\xff]/g,"aaa").length;}
 
 
 /* 2007-11-28 XuJian */
