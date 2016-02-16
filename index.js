@@ -6,6 +6,12 @@
 var koa = require('koa');
 var session = require('koa-generic-session');
 var render = require('./modules/render');
+var LRU = require('lru-cache'),
+	options = { max: 500
+		  , length: function (n, key) { return n * 2 + key.length }
+		  , dispose: function (key, n) { n.close() }
+		  , maxAge: 1000 * 60 * 60 },
+	cache = LRU(options)
 
 var args = process.argv.splice(2);
 
@@ -24,9 +30,16 @@ app.use(statics(args[0]));
 //session
 app.keys = ['keys','gzgzmixcookie'];
 app.use(session({
-	key: 'cqch'
+	key: 'agzgz'
 }));
 
+//定义缓存
+app.use(function *(next){
+	this.cache = cache;
+	yield next;
+})
+
+//定义测试环境
 app.use(function *(next){
 	if (args[0] === 'test') {
 		this.session.argv = 'test'
