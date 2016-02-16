@@ -4,22 +4,45 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 // var Promise = mongoose.Promise;
 var co = require("co");
+var libs = require('../../../libs/libs')
+var errors = libs.errors;
 
-var UserSchema = new Schema({
+var BaseUserSchema = new Schema({
   username: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true },
+  nickname: { type: String, default: ''},
+  phone: {type: String, default: ''},
+  create_at: { type: String, default: (new Date().getTime()) },   //Date.now 带格式
+  update_at: { type: String, default: (new Date().getTime()) },
+  accessToken: {type: String}
 }, {
   toJSON: {
     transform: function(doc, ret, options) {
       delete ret.password;
+      delete ret._id;
+      delete ret.__v;
+      delete ret.create_at;
+      delete ret.update_at;
     },
   },
 });
 
 /**
+* Index 索引
+*/
+BaseUserSchema.index({username: 1}, {unique: true});
+BaseUserSchema.index({accessToken: 1});
+
+/**
  * Middlewares
  */
-UserSchema.pre("save", function(done) {
+ var user_profile = require('./catoray/user_profile')
+ BaseUserSchema.plugin(user_profile);
+
+/**
+ * Middlewares
+ */
+BaseUserSchema.pre("save", function(done) {
   // only hash the password if it has been modified (or is new)
   if (!this.isModified("password")) {
     return done();
@@ -40,7 +63,7 @@ UserSchema.pre("save", function(done) {
 /**
  * Methods
  */
-UserSchema.methods.comparePassword = function *(candidatePassword) {
+BaseUserSchema.methods.comparePassword = function *(candidatePassword) {
   return yield bcrypt.compare(candidatePassword, this.password);
 };
 
@@ -48,18 +71,31 @@ UserSchema.methods.comparePassword = function *(candidatePassword) {
  * Statics
  */
 
-UserSchema.statics.passwordMatches = function *(username, password) {
+BaseUserSchema.statics.passwordMatches = function *(username, password) {
   var user = yield this.findOne({ username: username.toLowerCase() }).exec();
   if (!user) {
-    throw new Error("User not found");
+    // throw new Error(errors['10001']);
+    return errors['10001']
   }
 
   if (yield user.comparePassword(password)) {
     return user;
   }
+  else{
+    //   throw new Error(errors['10002']);
+      return errors['10002']
+  }
 
-  throw new Error("Password does not match");
+};
+
+BaseUserSchema.statics.userMatches = function *(username, password) {
+  var user = yield this.findOne({ username: username.toLowerCase() }).exec();
+  if (user) {
+      return errors['10003'];
+  }
+  return true;
+
 };
 
 // Model creation
-mongoose.model("User", UserSchema);
+mongoose.model("User", BaseUserSchema);
