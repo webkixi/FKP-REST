@@ -4,9 +4,9 @@ var config = require('../../config')
 
 function getApiPath() {
 
-    const ipsrc = config.apiip;
+    var ipsrc = config.apiip;
     var port = config.port;
-    if (this.sess && this.sess.argv) {
+    if (this && this.sess && this.sess.argv) {
         if (this.sess.argv === 'test') {
             console.log('========== test环境 apilist');
             ipsrc = config.test.apiip;

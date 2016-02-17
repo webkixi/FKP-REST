@@ -14,7 +14,7 @@ var config = require('../config')
 function setRender(stat){
     if(stat && stat==='dev'){
         console.log('++++++++++++&&&&&&&&&&&&&&  render.js');
-        return render = views(config.static.test.html, {
+        return views(config.static.test.html, {
           	map: { html: 'handlebars' }
         });
     }else{
@@ -26,12 +26,12 @@ function setRender(stat){
             || stat === 'avdev'
             || stat === 'avpro')
         ){
-            return render = views(config.static.html, {
+            return views(config.static.html, {
               	map: { html: 'swig' }
             });
         }
         else
-            return render = views(config.static.html, {
+            return views(config.static.html, {
               	map: { html: 'handlebars' }
             });
     }

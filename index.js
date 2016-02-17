@@ -3,6 +3,10 @@
  * ly nodejs mvc project
  */
 var args = process.argv.splice(2); //取得命令行参数
+
+require('babel-core/register');
+require("babel-polyfill");
+
 var koa = require('koa');
 var session = require('koa-generic-session');
 var render = require('./modules/render');

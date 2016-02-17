@@ -8,6 +8,7 @@ var config = require('../config')
 // 从map.json拿取获取静态资源 hash 名称
 
 var getMapJson = function(stat){
+    var mapJson;
     if(!stat) stat = 'pro';
     console.log('===============');
     console.log('===============');

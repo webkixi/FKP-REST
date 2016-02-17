@@ -253,7 +253,7 @@ function *distribute(_mapper){
             pagedata: {}
         };
 
-        route = isRender
+        var route = isRender
         ? yield createTempPath2.call(this,this.params,routeJson)
         : false
 
