@@ -2,7 +2,7 @@
  * author: ralf
  * ly nodejs mvc project
  */
-
+var args = process.argv.splice(2); //取得命令行参数
 var koa = require('koa');
 var session = require('koa-generic-session');
 var render = require('./modules/render');
@@ -13,16 +13,53 @@ var LRU = require('lru-cache'),
 		  , maxAge: 1000 * 60 * 60 },
 	cache = LRU(options)
 
-var args = process.argv.splice(2);
-
-//自定义部分
+//自定义部分模块
 var statics = require('./modules/static')
 var _mapper = require('./modules/mapper')(args[0])
 var route = require('./modules/route')
+var path = require('path')
 
+
+//配置环境路径
+var base = path.resolve(__dirname);
+var _path = {
+    apis: base,
+    db: base,
+    fkpdoc: base,
+    libs: base,
+    modules: base,
+    public: base,
+    pages: base
+}
+
+//封装require方法
+function include(file){
+    if (!file)
+        throw new Error('没有指定文件名');
+
+    if (typeof file !== 'string')
+        throw new Error('file参数必须为String类型');
+
+    if (file.indexOf('/')>-1){
+        var tmp = file.split('/')
+        var key = tmp[0];
+        if (_path[key]){
+            var merge_path = path.resolve(_path[key], file)
+            return require(merge_path)
+        }
+        else {
+            throw new Error('没有该文件或者路径错误');
+        }
+    }else {
+        return require(file)
+    }
+}
+
+
+
+
+//初始化
 var app = koa();
-
-
 
 //静态资源 js css
 app.use(statics(args[0]));
@@ -35,6 +72,7 @@ app.use(session({
 
 //定义缓存
 app.use(function *(next){
+	this.include = include
 	this.cache = cache;
 	yield next;
 })
