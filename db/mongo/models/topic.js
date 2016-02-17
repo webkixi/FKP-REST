@@ -1,5 +1,4 @@
 // "use strict";
-var bcrypt = require("../../bcrypt"); // version that supports yields
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 // var Promise = mongoose.Promise;

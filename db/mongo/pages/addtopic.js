@@ -23,7 +23,7 @@ function *addtopic(oridata) {
 
         try {
             if (body.cnt) {
-                var marked = require('../../markdown')
+                var marked = require('../../../modules/markdown')
                 var parsedMd = yield marked(body.cnt,{mdcontent:{}})
                 var ntopic = {
                     title: parsedMd.mdcontent.title,
