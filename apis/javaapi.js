@@ -20,7 +20,7 @@ request({method:'POST', url:url, body:paramStr, json:true}, function(err,respons
 */
 
 // request for koa
-var req = function(api,options){
+var requ = function(api,options){
     function rp(error, rep, body){   //deal with response result
         if(error)
             throw new Error("async search: no respons data");
@@ -196,17 +196,22 @@ function *pullWxData(api, param, method){
 
 
     if(!method||method==='get'||method==='GET')
-        return yield req(url+'?'+query);
+        return yield requ(url+'?'+query);
     else
-        return yield req(url, query);
+        return yield requ(url, query);
 
 }
 
 function *pullApiData(api, param, method){
     libs.elog('javaapi/'+ api);
     var apiPath = yield getapi.call(this)
-    // console.log('============ javaapi apiPath');
-    // console.log(apiPath);
+
+    /**
+     前端通过api.requ('http://www.xxx.com/api')获取外部远程数据
+     http://www.xxx.com/api部分会被存在parma._redirect的key值中
+     api会自动转成 'redirect'
+     ajax的方法(post/get)，通过param参数传入，key值名为ajaxtype，这个等同于jq的名字
+    */
     if (api.indexOf('redirect')===0){
         url = param._redirect;
         delete param._redirect
@@ -218,6 +223,39 @@ function *pullApiData(api, param, method){
         if (len.length===0)
             param = {test: '123'}
 
+    }
+
+    /**
+     node端需要调用数据库信息
+     pre前缀为 '$' 符号
+    */
+    else
+    if (api.indexOf('$')===0){
+        var _param = {
+            fromnode: true
+        }
+        if (api.indexOf('/')>-1) {
+            var tmp = api.split('/')
+            if (tmp.length===1){
+                _param.cat = api;
+            }
+            else
+            if (tmp.length===2){
+                _param.cat = tmp[0]
+                _param.title = tmp[1]
+            }
+            else
+            if (tmp.length===3){
+                _param.cat = tmp[0]
+                _param.title = tmp[1]
+                _param.id = tmp[2]
+            }
+        }
+        else {
+            _param.cat = api;
+        }
+        var db = require('../db/mongo/index')
+        return yield db.init.call(this, _param)
     }
     else {
         var url = apiPath.dirs[api];
@@ -242,18 +280,23 @@ function *pullApiData(api, param, method){
 
     if(!method || method==='get'||method==='GET'){
         if (query)
-            return yield req(url+'?'+query);
+            return yield requ(url+'?'+query);
         else {
-            return yield req(url)
+            return yield requ(url)
         }
     }
     else
-        return yield req(url, query);
+        return yield requ(url, query);
 
+}
+
+function *req(ctx, api, param, method){
+    return yield pullApiData.call(ctx, api, param, method)
 }
 
 module.exports = {
     apiPath: getapi(),
     pullApiData: pullApiData,
-    pullWxData: pullWxData
+    pullWxData: pullWxData,
+    req: req
 }

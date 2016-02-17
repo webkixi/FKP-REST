@@ -1,21 +1,28 @@
-var libs = require('../../../libs/libs')
-var errors = libs.errors;
+// var libs = require('../../../libs/libs')
 const mongoose = require("mongoose");
 
-function *addtopic(oridata) {
+function *listtopic(oridata) {
+    var libs = this.include('libs/libs');
+    var errors = libs.errors;
+
     var method = this.method;
-    if (method === 'GET') {}
+    if (method === 'GET') {
+        return yield getList()
+    }
+
     if (method === 'POST') {
         var uname = false;
-
         var body = yield libs.$parse(this);
-
         if (body) {
             if (body.uname) {
                 uname = body.uname;
             }
         }
+        return yield getList()
 
+    }
+
+    function *getList(){
         try {
             var Topic = mongoose.model('Topic')
             var topics = yield Topic.topicList();
@@ -24,10 +31,9 @@ function *addtopic(oridata) {
         } catch (err) {
             return err;
         }
-
     }
 }
 
 module.exports = {
-    getData : addtopic
+    getData : listtopic
 }
