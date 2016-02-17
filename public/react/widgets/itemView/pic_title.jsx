@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+/**  */
 var libs = require('libs/libs');
 var ItemMixin = require('mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')

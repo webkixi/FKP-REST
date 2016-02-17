@@ -1,4 +1,4 @@
-/** @jsx React.DOM
+/**
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
@@ -6,6 +6,7 @@ var libs = require('libs/libs')
 var List = require('widgets/listView/list')
 var scrollMixins = require('mixins/scrollLoadAndLazy');
 var itemMixins = require('mixins/item')
+var Store = require('mixins/store');
 
 var tmpApp = {
 	mixins:[ scrollMixins, itemMixins ],
@@ -55,8 +56,6 @@ var tmpApp = {
 
 // module.exports = tmpApp;
 
-var libs = require('libs/libs')
-var Store = require('mixins/store');
 function actRct( storeName ){
     var _storeName = storeName||'LDL',
         _rct = libs.clone(tmpApp);

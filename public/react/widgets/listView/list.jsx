@@ -1,4 +1,4 @@
-/** @jsx React.DOM
+/** 
 * list 通用组件
 * 返回 div > (ul > li)*n
 */

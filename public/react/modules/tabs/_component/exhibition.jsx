@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+/**  */
 var Store = require('mixins/store');
 var Elephant = require('widgets/itemView/elephant');
 

@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+/**  */
 
 var imagePath = CFG.goods_img;
 

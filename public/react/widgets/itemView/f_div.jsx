@@ -1,5 +1,5 @@
 /**
-@jsx React.DOM
+
 itemView
 放回 div 结构, 一般可以直接调用
 */

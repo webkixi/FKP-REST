@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+/**  */
 var libs = require('libs/libs');
 
 var fox = React.createClass({
