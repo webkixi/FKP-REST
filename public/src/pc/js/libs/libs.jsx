@@ -302,6 +302,13 @@ var tips = function(msg){
 }
 
 //创建一个类，自动执行init的方法
+// var rt = Class.create();
+// rt.prototype = { //
+//     init: function(name, back){
+//         .....
+//     },
+// }
+
 var Class = {
     create: function() {
         return function() {

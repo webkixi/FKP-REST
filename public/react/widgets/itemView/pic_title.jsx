@@ -1,6 +1,5 @@
 /**  */
-var libs = require('libs/libs');
-var ItemMixin = require('mixins/item')
+var ItemMixin = require('../../mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')
 
 var fox = React.createClass({
