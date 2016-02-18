@@ -23,6 +23,8 @@ var _mapper = require('./modules/mapper')(args[0])
 var route = require('./modules/route')
 var path = require('path')
 
+global.React = require('react/addons')
+
 
 //配置环境路径
 var base = path.resolve(__dirname);
@@ -33,7 +35,8 @@ var _path = {
     libs: base,
     modules: base,
     public: base,
-    pages: base
+    pages: base,
+	react: base+'/public/react/widgets'
 }
 
 //封装require方法
@@ -48,7 +51,14 @@ function include(file){
         var tmp = file.split('/')
         var key = tmp[0];
         if (_path[key]){
-            var merge_path = path.resolve(_path[key], file)
+			var merge_path;
+			if (key==='react'){
+				file = file.replace('react/','')
+				merge_path = path.resolve(_path[key], file)
+			}
+			else {
+				merge_path = path.resolve(_path[key], file)
+			}
             return require(merge_path)
         }
         else {
@@ -58,6 +68,9 @@ function include(file){
         return require(file)
     }
 }
+
+global.include = include
+
 
 
 
