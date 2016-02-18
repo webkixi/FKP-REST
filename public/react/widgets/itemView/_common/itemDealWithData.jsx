@@ -44,7 +44,9 @@
             var k1 = data.id||'',
                 v1 = data.url||'javascript:void();',
 
-                k2 = data.title||data.caption||data.catName||data.model||data.quality||data.vender||(typeof data==='string'||typeof data==='number'?data:'')||'',
+                k2 = data.title||data.caption||data.catName
+                    ||data.model||data.quality||data.vender
+                    ||(typeof data==='string'||typeof data==='number'||React.isValidElement(data)?data:'')||'',
                 v2 = data.attr||'',
 
                 k3,
@@ -324,7 +326,10 @@
                 var k1 = item.id || '',
                     v1 = item.url||'javascript:;',
 
-                    k2 = item.title||item.caption||item.catName||item.model||item.quality||item.vender||(typeof item==='string'|| typeof item==='number'?item:'')||'',
+                    // k2 = item.title||item.caption||item.catName||item.model||item.quality||item.vender||(typeof item==='string'|| typeof item==='number'?item:'')||'',
+                    k2 = item.title||item.caption||item.catName
+                        ||item.model||item.quality||item.vender
+                        ||(typeof item==='string'||typeof item==='number'||React.isValidElement(item)?item:'')||'',
                     v2 = item.attr||'',
 
                     k3,
