@@ -4,6 +4,7 @@ var libs = require('../libs/libs')
 var _ = libs.$lodash;
 
 function *mkmd(md_raw, templet){
+    console.log('========= markdown/'+__filename+' ');
     var mdcnt = templet
     var cvariable = {}   //markdown 自定义变量
     marked.setOptions({
@@ -40,7 +41,7 @@ function *mkmd(md_raw, templet){
             return;
         }
 
-        title = md_raw.match(/#([\s\S]*?)\n/)
+        var title = md_raw.match(/#([\s\S]*?)\n/)
         if (title) {
             title = title[1].replace(/ \{(.*)\}/g, '')  // 清除自定义属性，如{"id":"xxx"}
             mdcnt.mdcontent.title = title
