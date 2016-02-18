@@ -13,6 +13,7 @@ module.exports = {
         dev: 8070
     },
     dirs: {
+        react: './react',
         src: src_dir,
         dist: "./dist",
         pages: src_dir + "/js/pages",
