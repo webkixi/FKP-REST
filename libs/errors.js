@@ -6,5 +6,9 @@ module.exports = {
     "10002": {error: "10002", message: "password dose not match"},
     "10003": {error: "10003", message: "该用户名已被注册"},
     "10004": {error: "10004", message: "两次密码不匹配"},
-    "10005": {error: "10005", message: "请登录"}
+    "10005": {error: "10005", message: "请登录"},
+
+    // models/topic
+    "20001": {error: "20001", message: "请指定文章id"},
+    "20002": {error: "20002", message: "没有找到该文章，请确认文章id"},
 }
