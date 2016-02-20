@@ -17,6 +17,9 @@ var LRU = require('lru-cache'),
 		  , maxAge: 1000 * 60 * 60 },
 	cache = LRU(options)
 
+global.Cache = cache
+cache.set('agzgz','yes you can use fkpjs full stack fragment')
+
 //自定义部分模块
 var statics = require('./modules/static')
 var _mapper = require('./modules/mapper')(args[0])
@@ -90,7 +93,6 @@ app.use(session({
 //定义缓存
 app.use(function *(next){
 	this.include = include
-	this.cache = cache;
 	yield next;
 })
 
