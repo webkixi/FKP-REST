@@ -257,6 +257,10 @@ function *pullApiData(api, param, method){
         var db = require('../db/mongo/index')
         return yield db.init.call(this, _param)
     }
+    else
+    if (api.indexOf('http')===0) {
+        method = 'get'
+    }
     else {
         var url = apiPath.dirs[api];
         if( !url ){
