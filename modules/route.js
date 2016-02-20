@@ -12,6 +12,7 @@ var region = require('./region');
 var mms = require('./mms')
 var pay = require('./payment')
 var config = require('../config');
+var url = require('url')
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
 /**
@@ -109,7 +110,8 @@ function init(app,mapper,rend){
         this.htmlRender = htmlRender;
         this.returnJson = returnJson;
         //绑定url地址解析
-        this.local = this.req._parsedUrl;
+        // this.local = this.req._parsedUrl;
+        this.local = url.parse(this.url,true);
         var param = this.params;
         // console.log(param);
 
