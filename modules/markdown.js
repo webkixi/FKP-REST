@@ -65,7 +65,7 @@ function *mkmd(md_raw, templet){
                 re.lastIndex = 0;
             })
         }
-        mdcnt.mdcontent.mdmenu = mdMenu
+        mdcnt.mdcontent.mdmenu = '<ul class="mdmenu">'+mdMenu+'<ul>'
 
         mdcnt.mdcontent.cnt = data
 
