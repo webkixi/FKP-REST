@@ -29,7 +29,7 @@ BaseTopicSchema.plugin(topic_profile);
 BaseTopicSchema.statics.topicList = function *(start, end) {
     if (!start) start = 0;
     if (!end) end = 20;
-    var lists = yield this.find({},null,{skip:start, limit: end, sort: {create_at: -1}}).exec()
+    var lists = yield this.find({},'title _id create_at update_at user',{skip:start, limit: end, sort: {create_at: -1}}).exec()
     return lists;
 }
 
@@ -42,12 +42,12 @@ BaseTopicSchema.statics.userMatches = function *(userid) {
 
 };
 
-BaseTopicSchema.statics.topicMatches = function *(topic_id) {
-  // var user = yield this.findOne({ username: username.toLowerCase() }).exec();
-  // if (user) {
-  //     return errors['10003'];
-  // }
-  // return true;
+BaseTopicSchema.statics.topicMatchesId = function *(topic_id) {
+  var topic = yield this.findOne({ _id: topic_id }).exec();
+  if (!topic) {
+      return errors['10003'];
+  }
+  return topic;
 
 };
 

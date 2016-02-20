@@ -3,9 +3,21 @@
   <head>
     <title>一起来使用mongo</title>
     @@include('./_common/header/head.html')
+    <link rel="stylesheet" href="/css/t/markdown.css">
+    <style>
+        .container{
+            width: 1000px;
+        }
+        .side{
+            position: relative;
+        }
+        .side-menu{
+            position: fixed;top: 10px;
+        }
+    </style>
   </head>
   <body>
-      <div class="box">
+      <div class="box" style="display:none;">
         <div id="register" >
           <ul class="form sign">
               <li>
@@ -27,11 +39,34 @@
             <textarea name="add_md" id="add_md" rows="28" cols="60"></textarea>
             <input type="button" name="add_md_btn" id="add_md_btn" value="添加文章">
         </div>
-
-        <div class="listtopic" id="listtopic">
-            <!-- {{{bloglist}}} -->
-        </div>
       </div>
+      {{# if bloglist.isList}}
+          <div class="listtopic" id="listtopic">
+              {{{bloglist.content}}}
+          </div>
+      {{else}}
+          <div class="markdown-body">
+              <div class="container u-ma" style="">
+                  <div class="span9" style="">
+                      <p><a href="https://github.com/webkixi/FKP-REST"><strong>FKP-REST</strong></a> 是一套完全由前端技术构建的高性能框架，后端由koajs，前端由webpack/gulp构建而成  </p>
+                      <h1>{{bloglist.title}}</h1>
+                      <small>作者：{{bloglist.author}}</small>
+                      {{{bloglist.content}}}
+                  </div>
+
+                  <div class="span3 side">
+                      <div id="side-menu" class="side-menu">
+                          <h4>文章目录</h4>
+                          <ul>
+                              {{{bloglist.mdmenu}}}
+                          </ul>
+                      </div>
+                      <div id="good" style="position: relative;"></div>
+                  </div>
+              </div>
+          </div>
+      {{/if}}
     @@include('./_common/footer/foot.html')
+    <script type="text/javascript" src='http://www.agzgz.com/js/t/prettfy.js'></script>
   </body>
 </html>

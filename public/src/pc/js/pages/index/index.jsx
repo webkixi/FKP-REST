@@ -87,8 +87,12 @@ api.req(
 function listTopic_resaults(data){
     var lists = []
     data.map(function(item, i){
-        lists.push( item.title )
+        console.log(item);
+        lists.push( <a href={"?topic="+item._id}>{item.title}</a> )
     })
-    AppList(lists, 'listtopic', {evt: 'auto'});
 
+    if (!param.topic){
+        $('#listtopic').html('')
+        AppList(lists, 'listtopic', {evt: 'auto'});
+    }
 }

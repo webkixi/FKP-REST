@@ -1,11 +1,11 @@
 // var libs = require('../../../libs/libs')
+var libs = include('libs/libs');
 const mongoose = require("mongoose");
 
 function *listtopic(oridata) {
-    var libs = this.include('libs/libs');
     var errors = libs.errors;
-
     var method = this.method;
+    
     if (method === 'GET') {
         return yield getList()
     }
