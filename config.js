@@ -63,6 +63,16 @@ var config = {
     domain: 'agzgz.com',
     domaintest: 'test.agzgz.com',
 
+    auth: {
+        github:{
+            clientID: 'd65a863ee074f62231c5',
+            clientSecret: '9f4a6a2f93c7c23405378c70bb2ae1c618734985',
+            callbackURL: 'http://localhost:3000/github',
+            userKey: 'githubuser',    //save this key to session
+            headers: {'user-agent': 'love_gz'}
+        }
+    },
+
     mongo: {
         url: "mongodb://localhost/fkp",
         port: "27017"
@@ -73,6 +83,15 @@ var config = {
         domain: 'test.agzgz.com',
         apiip: '192.168.1.100',
         port: ':8088/v1/',
+        auth: {
+            github:{
+                clientID: 'd65a863ee074f62231c5',
+                clientSecret: '9f4a6a2f93c7c23405378c70bb2ae1c618734985',
+                callbackURL: 'http://localhost:3000/github',
+                userKey: 'githubuser',    //save this key to session
+                headers: {'user-agent': 'love_gz'}
+            }
+        },
         mongo: {
             url: "mongodb://localhost/fkp",
             port: '27017'

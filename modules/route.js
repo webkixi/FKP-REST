@@ -140,6 +140,11 @@ function init(app,mapper,rend){
                 yield weixin.call(this,app);
             }
         else
+            if(param.cat === 'github'){
+                console.log('github =========');
+                yield github.call(this,app);
+            }
+        else
             if(param.cat === 'payment')
                 yield payment.call(this)
         else
@@ -221,6 +226,12 @@ function *uploader(){
 function *weixin(app){
     libs.clog('微信')
     yield require('./weixin').call(this);
+    // app.use(yield require('./weixin'));
+}
+
+function *github(app){
+    libs.clog('github登陆')
+    yield require('./github').call(this);
     // app.use(yield require('./weixin'));
 }
 
