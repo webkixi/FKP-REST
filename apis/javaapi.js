@@ -35,6 +35,9 @@ var requ = function(api,options){
         var opts = {headers: {
            'Content-type': 'application/json; charset=utf-8'
         }}
+        if (api.indexOf('api.github.com/user')>-1 ){
+            opts.headers['user-agent'] = 'love_gz'
+        }
         if(options && typeof options==='object'){
             if(options.fttype){
                 delete options.fttype;
@@ -45,6 +48,7 @@ var requ = function(api,options){
             }
             console.log('((((((((((((((((  javaapi req  ))))))))))))))))');
             console.log(options);
+            console.log(api);
             request.post(api, opts, rp);
             // request({method:'POST', url:api, json:options},rp)
             // console.log(needle);
@@ -218,10 +222,12 @@ function *pullApiData(api, param, method){
         if (param.ajaxtype){
             method = param.ajaxtype
             delete param.ajaxtype
+        }else{
+            method = 'get'
         }
         var len = Object.keys(param)
         if (len.length===0)
-            param = {test: '123'}
+            param = {}
 
     }
 
@@ -260,6 +266,11 @@ function *pullApiData(api, param, method){
     else
     if (api.indexOf('http')===0) {
         method = 'get'
+        url = api;
+        if (param && param.method){
+            method = param.method
+            delete param.method
+        }
     }
     else {
         var url = apiPath.dirs[api];
@@ -294,8 +305,8 @@ function *pullApiData(api, param, method){
 
 }
 
-function *req(ctx, api, param, method){
-    return yield pullApiData.call(ctx, api, param, method)
+function *req(ctx, url, param, method){
+    return yield pullApiData.call(ctx, url, param, method)
 }
 
 module.exports = {
