@@ -7,6 +7,7 @@ var path = require('path');
 var configs = require('./config');
 
 module.exports = {
+    'root': path.resolve(path.join(__dirname, '../../../')),
     'pages': path.resolve(path.join(__dirname, '../../', configs.dirs.pages)),
     'vendor': path.resolve(path.join(__dirname, '../../', configs.dirs.vendor)),
     // 'modules': path.resolve(path.join(__dirname, '../../', configs.dirs.modules)),
