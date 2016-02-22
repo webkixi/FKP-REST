@@ -233,7 +233,6 @@ function *pullApiData(api, param, method){
         var len = Object.keys(param)
         if (len.length===0)
             param = {}
-
     }
 
     /**
@@ -242,6 +241,8 @@ function *pullApiData(api, param, method){
     */
     else
     if (api.indexOf('$')===0){
+        // method = 'post'
+        // url = 'http://localhost:8070/'+api;
         var _param = {
             fromnode: true
         }
@@ -265,8 +266,14 @@ function *pullApiData(api, param, method){
         else {
             _param.cat = api;
         }
+        _param.body = param
         var db = require('../db/mongo/index')
-        return yield db.init.call(this, _param)
+        var tmp_method = this.method
+        this.method = 'NODE'
+        var tmp_data = yield db.init.call(this, _param)
+        this.method = tmp_method;
+        return tmp_data;
+
     }
     else
     if (api.indexOf('http')===0) {
