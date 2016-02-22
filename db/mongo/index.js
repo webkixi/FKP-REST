@@ -3,6 +3,8 @@ var path = require('path')
 const config = require('../../config')
 require('./common/connect')  //载入所有的 mongoose model
 
+var body='123';
+
 function *distribute(control, fromnode){
     var _this = this;
     const controlPath = path.join(__dirname + '/pages/')
@@ -10,7 +12,7 @@ function *distribute(control, fromnode){
 
 
     if (fs.existsSync(file) ){
-        var pageData = yield require(file).getData.call(this,{fromnode: fromnode});
+        var pageData = yield require(file).getData.call(this,{fromnode: fromnode, body: body});
         if (fromnode){
             return pageData;
         }
@@ -31,6 +33,8 @@ function *init(param){
     if (param.fromnode){
         fromnode = param.fromnode
     }
+
+    body = param.body;
 
     if (cat && typeof cat === 'string'){
         cat = cat.replace('$','')
