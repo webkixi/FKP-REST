@@ -5,6 +5,7 @@ var libs = require('../libs/libs');
 var qs = require('querystring');
 var config = require('../config');
 var getapi = require('../pages/common/apilist')
+var _ = libs.$lodash
 
 var tmp_token_session = {}
 
@@ -35,9 +36,13 @@ var requ = function(api,options){
         var opts = {headers: {
            'Content-type': 'application/json; charset=utf-8'
         }}
-        if (api.indexOf('api.github.com/user')>-1 ){
-            opts.headers['user-agent'] = 'love_gz'
+        if (options.headers){
+            var tmp = _.assign(opts.headers, options.headers)
+            opts.headers = tmp
         }
+        // if (api.indexOf('api.github.com/user')>-1 ){
+        //     opts.headers['user-agent'] = 'love_gz'
+        // }
         if(options && typeof options==='object'){
             if(options.fttype){
                 delete options.fttype;
