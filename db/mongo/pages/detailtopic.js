@@ -10,6 +10,12 @@ function *detailTopic(oridata) {
     var location = this.local;
 
     var method = this.method;
+    if (method === 'NODE'){
+        if (location.query.topic){
+            return yield getDtail(location.query.topic)
+        }
+    }
+    
     if (method === 'GET') {
         if (location.query.topic){
             return yield getDtail(location.query.topic)

@@ -5,7 +5,11 @@ const mongoose = require("mongoose");
 function *listtopic(oridata) {
     var errors = libs.errors;
     var method = this.method;
-    
+
+    if (method === 'NODE'){
+        return yield getList()
+    }
+
     if (method === 'GET') {
         return yield getList()
     }

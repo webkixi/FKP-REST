@@ -39,7 +39,8 @@ var _path = {
     modules: base,
     public: base,
     pages: base,
-	react: base+'/public/react/widgets'
+	react: base+'/public/react/widgets',
+	root: base
 }
 
 //封装require方法

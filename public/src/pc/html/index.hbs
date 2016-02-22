@@ -17,9 +17,12 @@
     </style>
   </head>
   <body>
-      <div class="box" style="display:none;">
-        <div id="register" >
-          <ul class="form sign">
+      <div class="topper" style="margin:10em;">
+          {{{topper}}}
+      </div>
+      <div class="box">
+        <div id="register" class='sign'>
+          <ul class="form">
               <li>
                   <input type="text" name="username" class="username" value="">
               </li>
@@ -35,37 +38,15 @@
           </ul>
         </div>
 
-        <div class="addtopic">
+        <div class="addtopic" id="addtopic">
             <textarea name="add_md" id="add_md" rows="28" cols="60"></textarea>
             <input type="button" name="add_md_btn" id="add_md_btn" value="添加文章">
         </div>
       </div>
-      {{# if bloglist.isList}}
-          <div class="listtopic" id="listtopic">
-              {{{bloglist.content}}}
-          </div>
-      {{else}}
-          <div class="markdown-body">
-              <div class="container u-ma" style="">
-                  <div class="span9" style="">
-                      <p><a href="https://github.com/webkixi/FKP-REST"><strong>FKP-REST</strong></a> 是一套完全由前端技术构建的高性能框架，后端由koajs，前端由webpack/gulp构建而成  </p>
-                      <h1>{{bloglist.title}}</h1>
-                      <small>作者：{{bloglist.author}}</small>
-                      {{{bloglist.content}}}
-                  </div>
+      <!-- 文章列表部分 -->
+      @@include('./_index/topic.html')
 
-                  <div class="span3 side">
-                      <div id="side-menu" class="side-menu">
-                          <h4>文章目录</h4>
-                          <ul>
-                              {{{bloglist.mdmenu}}}
-                          </ul>
-                      </div>
-                      <div id="good" style="position: relative;"></div>
-                  </div>
-              </div>
-          </div>
-      {{/if}}
+    <!-- 页面底部模板 -->
     @@include('./_common/footer/foot.html')
     <script type="text/javascript" src='http://www.agzgz.com/js/t/prettfy.js'></script>
   </body>

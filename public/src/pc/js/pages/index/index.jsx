@@ -2,6 +2,7 @@ console.log('index');
 var api = require('libs/api')
 var libs = require('libs/libs')
 var AppList = require('modules/list/load_list');
+var cfg = require('root/config')
 // var loginBox = require('modules/sign/signin')
 
 var param = libs.queryString(),
@@ -11,8 +12,15 @@ if (param && param.type) {
     var type = param.type;
     if (type==='signup') {
         repass = true;
-        $('.repassword').show()
+        $('.box, .sign, .repassword').show()
     }
+}
+else {
+    //初始化获取用户信息
+    api.req(
+        '/$signin',
+        sign_resaults
+    )
 }
 
 function login(){
@@ -36,20 +44,25 @@ function login(){
 }
 //signin返回信息回调
 function sign_resaults(data){
-    if (data.error==="10001"){ //没有该用户
-        window.location.href = '/index?type=signup'
+    if (data.error){ //没有该用户
+        console.log(data);
     }
-    console.log(data);
+    else{
+        SA.set('USER', data)
+        $('#edit').click(function(){
+            $('.box').show()
+            $('.addtopic').show()
+        })
+        console.log(data);
+    }
+    // $('.box').hide()
 }
 
 //点击登录
 $('.login').click(login)
 
-//初始化获取用户信息
-api.req(
-    '/$signin',
-    sign_resaults
-)
+
+
 
 // ==========  添加文章  =========
 
@@ -87,7 +100,7 @@ api.req(
 function listTopic_resaults(data){
     var lists = []
     data.map(function(item, i){
-        console.log(item);
+        // console.log(item);
         lists.push( <a href={"?topic="+item._id}>{item.title}</a> )
     })
 
@@ -96,3 +109,12 @@ function listTopic_resaults(data){
         AppList(lists, 'listtopic', {evt: 'auto'});
     }
 }
+
+// $('#reg').click(function(){
+//     var scope = 'user',
+//         client_id = cfg.auth.github.clientID,
+//         state = 'agzgz',
+//         redirect_uri = cfg.auth.github.callbackURL
+//
+//     window.location.href = "https://github.com/login?return_to=/login/oauth/authorize?client_id="+client_id+"&redirect_uri="+redirect_uri+"&response_type=code"
+// })

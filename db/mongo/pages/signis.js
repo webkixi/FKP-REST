@@ -2,16 +2,24 @@ var libs = require('../../../libs/libs')
 var errors = libs.errors;
 const mongoose = require("mongoose");
 
-function *signin(oridata) {
+function *signis(oridata) {
+    var User = mongoose.model('User')
     var method = this.method;
+    var username = '';
+
+    if (method === 'NODE'){ //‘node’在javascript中定义
+        var body = oridata.body
+        if (oridata.body){
+            username = body.username
+        }
+    }
+
     if (method === 'GET') {}
+
     if (method === 'POST') {
 
         if (this.session.$user) {
             return this.session.$user
-        }
-        else {
-            return errors['10005'];
         }
 
         var body = yield libs.$parse(this);
@@ -23,27 +31,20 @@ function *signin(oridata) {
             if (body.test)
                 return errors['10005'];
         }
-        if (!body.password) {
-            this.throw("Missing password", 400);
+    }
+
+    try {
+        if (username){
+            var user = yield User.hasUserMatches(body.username)
+            this.session.$user = user;
+            return user
         }
 
-        var User = mongoose.model('User')
-
-        try {
-            var user = yield User.passwordMatches(body.username, body.password)
-            console.log('======  $signin user/'+__filename+' ========');
-            if (!user.error) {
-                this.session.$user = user;
-            }
-            return user;
-
-        } catch (err) {
-            return err;
-        }
-
+    } catch (err) {
+        return err;
     }
 }
 
 module.exports = {
-    getData : signin
+    getData : signis
 }

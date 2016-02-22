@@ -67,7 +67,7 @@ var config = {
         github:{
             clientID: 'd65a863ee074f62231c5',
             clientSecret: '9f4a6a2f93c7c23405378c70bb2ae1c618734985',
-            callbackURL: 'http://localhost:3000/github',
+            callbackURL: 'http://localhost:3000/github/callback',
             userKey: 'githubuser',    //save this key to session
             headers: {'user-agent': 'love_gz'}
         }
@@ -87,7 +87,7 @@ var config = {
             github:{
                 clientID: 'd65a863ee074f62231c5',
                 clientSecret: '9f4a6a2f93c7c23405378c70bb2ae1c618734985',
-                callbackURL: 'http://localhost:3000/github',
+                callbackURL: 'http://localhost:3000/github/callback',
                 userKey: 'githubuser',    //save this key to session
                 headers: {'user-agent': 'love_gz'}
             }

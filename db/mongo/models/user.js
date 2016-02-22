@@ -97,5 +97,13 @@ BaseUserSchema.statics.userMatches = function *(username, password) {
 
 };
 
+BaseUserSchema.statics.hasUserMatches = function *(username, password) {
+  var user = yield this.findOne({ username: username.toLowerCase() }).exec();
+  if (user) {
+      return user
+  }
+  return false
+};
+
 // Model creation
 mongoose.model("User", BaseUserSchema);

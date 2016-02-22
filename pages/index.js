@@ -13,6 +13,12 @@ function *index(oridata) {
     var topics;
 
     if (method === 'GET') {
+        if (this.session.$user){
+            oridata.topper = '<a href="javascript:void(0)" id="edit">发布</a>'
+        }
+        else {
+            oridata.topper = '<a href="/github/sign" id="reg">注册/登陆</a>'
+        }
 
         // 处理文章详情数据
         if (location.query.topic){
@@ -22,10 +28,6 @@ function *index(oridata) {
             else{
                 var tmp = yield return_detail()
             }
-            console.log('========== mdmenu');
-            console.log('========== mdmenu');
-            console.log('========== mdmenu');
-            console.log(tmp.mdmenu);
             var rtn = {
                 isList: false,
                 content: tmp.cnt.replace('h1','p'),
@@ -38,7 +40,7 @@ function *index(oridata) {
         }
 
 
-
+        // 默认
         // 处理列表数据
         else {
             var tmp = yield return_list()
