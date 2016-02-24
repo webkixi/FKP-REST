@@ -1,3 +1,6 @@
+@box-width: 500px;
+@box-height: 500px;
+
 .box{
     position: fixed;
     // display: none;
@@ -6,8 +9,8 @@
     right: 0px;
     top: 0px;
     bottom: 0px;
-    height: 60%;
-    width: 80%;
+    width: @box-width;
+    height: @box-height;
     border: 1px solid red;
     text-align: center;
     vertical-align: middle;
@@ -34,7 +37,11 @@
         }
     }
     .addtopic{
-        display: none;
+        // display: none;
+        #epiceditor{
+            width: @box-width - 4 ;
+            height: @box-height - 4 ;
+        }
         #add_md{
             padding: 0.5em;
             width: 96%;
