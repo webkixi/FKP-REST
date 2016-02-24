@@ -152,78 +152,180 @@ function arg2arr(s){
  * 1、 addSheet(['csscode','ele_id'])
  * 2、 addSheet(element, ['csscode','ele_id'])
 */
-function addSheet() {
-    var doc, tmpCssCode, cssCode, id;
+function _inject() {
+    var doc, tmpCssCode, tmpSrcCode, srcCode, cssCode, id;
+    var type;
+    doc = document;
 
     if (arguments.length == 1) {
-        doc = document;
-        tmpCssCode = arguments[0]
+        tmpSrcCode = tmpCssCode = arguments[0]
     } else if (arguments.length == 2) {
-        doc = arguments[0];
-        tmpCssCode = arguments[1];
+        type = arguments[0];
+        tmpSrcCode = tmpCssCode = arguments[1];
     } else {
-        alert("addSheet函数最多接受两个参数!");
-        return;
+        return;   // alert("addSheet函数最多接受两个参数!");
     }
 
     var headElement = doc.getElementsByTagName("head")[0];
 
-    if(getObjType(tmpCssCode)==='Array'){
-        id = tmpCssCode[1];
-        cssCode = tmpCssCode[0];
+    if(getObjType(tmpSrcCode)==='Array'){
+        id = tmpSrcCode[1];
+        srcCode = cssCode = tmpSrcCode[0];
     }
-    if(cssCode.indexOf('http')===0 || cssCode.indexOf('/')===0){
-        if(document.getElementById(id))
+
+    if (!type || type==='css'){
+        if(cssCode.indexOf('http')===0 || cssCode.indexOf('/')===0){
+            if(document.getElementById(id))
             return;
-        var tmpLink = doc.createElement('link');
-        tmpLink.setAttribute("rel", 'stylesheet');
-        tmpLink.setAttribute("href", cssCode);
-        tmpLink.setAttribute("id", id);
-        headElement.appendChild(tmpLink);
-        return;
-    }
-    if (! +"\v1") {//增加自动转换透明度功能，用户只需输入W3C的透明样式，它会自动转换成IE的透明滤镜
-        var t = cssCode.match(/opacity:(\d?\.\d+);/);
-        if (t != null) {
-            cssCode = cssCode.replace(t[0], "filter:alpha(opacity=" + parseFloat(t[1]) * 100 + ")")
+            var tmpLink = doc.createElement('link');
+            tmpLink.setAttribute("rel", 'stylesheet');
+            tmpLink.setAttribute("href", cssCode);
+            tmpLink.setAttribute("id", id);
+            headElement.appendChild(tmpLink);
+            return;
+        }
+        if (! +"\v1") {//增加自动转换透明度功能，用户只需输入W3C的透明样式，它会自动转换成IE的透明滤镜
+            var t = cssCode.match(/opacity:(\d?\.\d+);/);
+            if (t != null) {
+                cssCode = cssCode.replace(t[0], "filter:alpha(opacity=" + parseFloat(t[1]) * 100 + ")")
+            }
+        }
+        cssCode = cssCode + "\n"; //增加末尾的换行符，方便在firebug下的查看。
+        var styleElements = headElement.getElementsByTagName("style");
+
+
+        // if (styleElements.length == 0) {//如果不存在style元素则创建
+        //     if (doc.createStyleSheet) {    //ie
+        //         doc.createStyleSheet();
+        //     } else {
+        //         var tempStyleElement = doc.createElement('style'); //w3c
+        //         tempStyleElement.setAttribute("type", "text/css");
+        //         headElement.appendChild(tempStyleElement);
+        //     }
+        // }
+        // var styleElement = styleElements[0];
+
+        if(document.getElementById(id))
+            return 'id has exist';
+
+        var tempStyleElement = doc.createElement('style'); //w3c
+        tempStyleElement.setAttribute("rel", "stylesheet");
+        tempStyleElement.setAttribute("type", "text/css");
+        tempStyleElement.setAttribute("id", id);
+        headElement.appendChild(tempStyleElement);
+        var styleElement = document.getElementById(id);
+
+        var media = styleElement.getAttribute("media");
+        if (media != null && !/screen/.test(media.toLowerCase())) {
+            styleElement.setAttribute("media", "screen");
+        }
+        if (styleElement.styleSheet) {    //ie
+            styleElement.styleSheet.cssText += cssCode;
+        } else if (doc.getBoxObjectFor) {
+            styleElement.innerHTML += cssCode; //火狐支持直接innerHTML添加样式表字串
+        } else {
+            styleElement.appendChild(doc.createTextNode(cssCode))
         }
     }
-    cssCode = cssCode + "\n"; //增加末尾的换行符，方便在firebug下的查看。
-    var styleElements = headElement.getElementsByTagName("style");
+    else
+    if (type==='js'){
+        function createScript(id, src){
+            if(document.getElementById(id))
+                return 'id has exist -> libs/addSheet';
 
+            var tmpLink = doc.createElement('script');
+            tmpLink.setAttribute("type", 'text/javascript');
+            tmpLink.setAttribute("id", id);
+            if (src.indexOf('http')===0 || src.indexOf('/')===0){
+                tmpLink.setAttribute("src", src);
+                headElement.appendChild(tmpLink);
+                return true;
+            }
+            else{
+                // var scriptElement = document.getElementById(id);
+                tmpLink.appendChild(doc.createTextNode(src))
+                headElement.appendChild(tmpLink);
+            }
+        }
 
-    // if (styleElements.length == 0) {//如果不存在style元素则创建
-    //     if (doc.createStyleSheet) {    //ie
-    //         doc.createStyleSheet();
-    //     } else {
-    //         var tempStyleElement = doc.createElement('style'); //w3c
-    //         tempStyleElement.setAttribute("type", "text/css");
-    //         headElement.appendChild(tempStyleElement);
-    //     }
-    // }
-    // var styleElement = styleElements[0];
+        if(cssCode.indexOf('http')===0 || cssCode.indexOf('/')===0){
+            return createScript(id, srcCode)
+        }
+        else{
+            srcCode = srcCode + "\n"; //增加末尾的换行符，方便在firebug下的查看。
+            return createScript(id, srcCode)
 
-    if(document.getElementById(id))
-        return;
-
-    var tempStyleElement = doc.createElement('style'); //w3c
-    tempStyleElement.setAttribute("rel", "stylesheet");
-    tempStyleElement.setAttribute("type", "text/css");
-    tempStyleElement.setAttribute("id", id);
-    headElement.appendChild(tempStyleElement);
-    var styleElement = document.getElementById(id);
-
-    var media = styleElement.getAttribute("media");
-    if (media != null && !/screen/.test(media.toLowerCase())) {
-        styleElement.setAttribute("media", "screen");
+        }
     }
-    if (styleElement.styleSheet) {    //ie
-        styleElement.styleSheet.cssText += cssCode;
-    } else if (doc.getBoxObjectFor) {
-        styleElement.innerHTML += cssCode; //火狐支持直接innerHTML添加样式表字串
-    } else {
-        styleElement.appendChild(doc.createTextNode(cssCode))
+
+}
+
+
+// 动态注入js或者css
+// window.onload后促发，不影响首屏显示
+function dealInject(){
+    function _initInject(type, src, cb){
+        var args;
+        if (!type || getObjType(type)==='Object'){
+            type = 'css'
+        }
+
+        if (Array.isArray(type)){
+            args = type
+            type = 'css';
+            if (typeof src === 'function'){
+                cb = src
+            }
+        }
+
+        if (Array.isArray(src)) {
+            args = src
+        }
+
+        if (args){
+            var did;
+            //注入页面的id如果存在，且长度小于20
+            if (typeof args[1]==='string' && args[1].length<20){
+                did = args[1]
+                if (cb && typeof cb==='function'){
+                    SA.setter(did,cb)
+                }
+                setTimeout(function(){
+                    if (type){
+                        if (args){
+                            _inject(type, args)
+                        }
+                    }
+                    else{
+                        if (args){
+                            _inject(args)
+                        }
+                    }
+                },17)
+            }
+        }
+        else {
+            return false;
+        }
+
     }
+
+    this.css = function(src, cb){
+        _initInject('css', src, cb)
+        return this
+    }
+    this.js = function(src, cb){
+        _initInject('js', src, cb)
+        return this
+    }
+}
+
+function inject(){
+    return new dealInject()
+}
+
+function addSheet(){
+    return _inject
 }
 
 var node = {
@@ -714,5 +816,6 @@ module.exports = {
 
     changeTitle:    changeTitle,     //ios特有bug解决方法，改变title
 
-    queryString:    queryString
+    queryString:    queryString,
+    inject:         inject          // 注入css和js
 }
