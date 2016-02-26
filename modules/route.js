@@ -168,7 +168,7 @@ function init(app,mapper,rend){
 
 function *dbcontrol(param){
     var db = require('../db/mongo/index')
-    yield db.init.call(this, param)
+    return yield db.init.call(this, param)
     // db.router.call(this)
     // var resaults = require('./mongo/index').call(this)
 
