@@ -68,3 +68,8 @@ only screen and (                min-resolution: 2dppx) {
 .epiceditor-preview-mode #epiceditor-utilbar button.epiceditor-toggle-preview-btn {
   display:none;
 }
+
+.btn{
+    width: 1.4em;
+    height: 1.4em;
+}

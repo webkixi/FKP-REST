@@ -24,11 +24,10 @@ else {
 }
 
 libs.inject()
-.js(['/js/t/epic/js/epiceditor.min.js', 'epic'],markdownEdit)
-
+.js(['/js/t/epic/js/epiceditor.js', 'epic'],initEpicEditor)
 // .css(['/css/t/simplemde.css', 'simplemdecss'])
 
-function markdownEdit(){
+function initEpicEditor(){
     var opts = {
         container: 'epiceditor',
         textarea: null,
@@ -44,7 +43,7 @@ function markdownEdit(){
         },
         theme: {
             base: '/themes/base/epiceditor.css',
-            preview: '/themes/preview/preview-light.css',
+            preview: '/themes/preview/bartik.css',
             editor: '/themes/editor/epic-light.css'
         },
         button: {
@@ -66,7 +65,41 @@ function markdownEdit(){
         autogrow: false
     }
     var editor = new EpicEditor(opts).load();
-    // console.log(editor);
+    var find = function(name){
+         return editor.getElement(name);
+    }
+
+    iframeDoc = find('editor')
+
+    libs.inject(iframeDoc)
+    .js(['/js/t/epic/js/test.js', 'iframeEditor'])
+
+
+    var ed = {
+        editor: editor,
+        find: find
+    }
+
+    dealWithEditor.call(ed)
+}
+
+function dealWithEditor(){
+    var editor = this.editor;
+    var find = this.find
+
+    var utilbar = $(find('epiceditor-utilbar'));  //工具栏
+    $(utilbar).append('<button class="btn" id="add_md_btn">添加</button>')
+
+    // ==========  添加文章  =========
+    $(find('add_md_btn')).click(function(){
+        var kkk = editor.exportFile(null,'json')
+        kkk = JSON.parse(kkk)
+        // console.log(typeof kkk);
+        var ddd = submitContent(kkk.content)
+        console.log(ddd);
+        // var content = $('#add_md').val()
+
+    })
 }
 
 
@@ -110,23 +143,17 @@ function sign_resaults(data){
 $('.login').click(login)
 
 
-
-
-// ==========  添加文章  =========
-
-
-$('#add_md_btn').click(function(){
-    var content = $('#add_md').val()
+//添加文章
+function submitContent(content){
+    console.log(content);    // var content = $('#add_md').val()
     if (content.length){
         if (libs.strLen(content)>15) {
             var postdata = {cnt: content};
-
             api.req(
                 '/$addtopic',
                 postdata,
                 topic_resaults
             )
-
         }
         else {
             alert('文章字数少于15字')
@@ -134,10 +161,9 @@ $('#add_md_btn').click(function(){
     }
 
     function topic_resaults(data){
-        console.log(data);
+        return data
     }
-})
-
+}
 
 //  ===========  列表文章  =========
 api.req(

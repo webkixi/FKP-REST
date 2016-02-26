@@ -38,7 +38,7 @@ function *addtopic(oridata) {
                 var Topic = mongoose.model('Topic')
 
                 var ttt = new Topic(ntopic)
-                return yield addtopic.call(this, ttt)
+                return yield _addtopic.call(this, ttt)
 
             }
 
@@ -46,7 +46,7 @@ function *addtopic(oridata) {
             return err;
         }
 
-        function *addtopic(ttt){
+        function *_addtopic(ttt){
             var topic = yield ttt.save()
             return topic
         }
