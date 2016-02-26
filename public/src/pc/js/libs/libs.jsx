@@ -155,7 +155,13 @@ function arg2arr(s){
 function _inject() {
     var doc, tmpCssCode, tmpSrcCode, srcCode, cssCode, id;
     var type;
-    doc = document;
+
+    doc = this;
+
+    if (!doc.createElement){
+        console.log('不能动态插入静态文件，请指定正确的文档');
+        return false
+    }
 
     if (arguments.length == 1) {
         tmpSrcCode = tmpCssCode = arguments[0]
@@ -263,7 +269,10 @@ function _inject() {
 
 // 动态注入js或者css
 // window.onload后促发，不影响首屏显示
-function dealInject(){
+function dealInject(doc){
+    if (!doc)
+        doc = document
+
     function _initInject(type, src, cb){
         var args;
         if (!type || getObjType(type)==='Object'){
@@ -286,20 +295,27 @@ function dealInject(){
             var did;
             //注入页面的id如果存在，且长度小于20
             if (typeof args[1]==='string' && args[1].length<20){
-                did = args[1]
+                var injectCode = true;
+                did = args[1];
                 if (cb && typeof cb==='function'){
-                    SA.setter(did,cb)
+                    if (typeof args[0]==='string' && (args[0].indexOf('http')===0 || args[0].indexOf('/')===0)){
+                        injectCode = false;
+                        SA.setter(did,cb);
+                    }
                 }
                 setTimeout(function(){
                     if (type){
                         if (args){
-                            _inject(type, args)
+                            _inject.call(doc, type, args)
                         }
                     }
                     else{
                         if (args){
-                            _inject(args)
+                            _inject.call(doc, args)
                         }
+                    }
+                    if (injectCode && typeof cb==='function'){
+                        cb()
                     }
                 },17)
             }
@@ -320,8 +336,8 @@ function dealInject(){
     }
 }
 
-function inject(){
-    return new dealInject()
+function inject(doc){
+    return new dealInject(doc)
 }
 
 function addSheet(){
