@@ -1,0 +1,98 @@
+#!/usr/bin/env node
+var util  = require('util'),
+    shelljs = require('shelljs/global'),
+    spawn = require('child_process').spawn,
+    isWin = /^win/.test(process.platform);
+    // p = require('procstreams'),
+    // argv = require('optimist').argv;
+
+    var argv = process.argv.splice(2)
+    // var cmd =  argv.$0;
+    var cmd =  argv[0];
+    // var args = argv.argv
+    var args = argv[1];
+    // var option = argv.option
+    var option = argv[2];
+
+
+    switch (cmd) {
+        case 'dev':
+            dev(cmd, args, option)
+            break;
+        case 'pro':
+            pro(cmd, args, option)
+            break;
+        case 'install':
+            install(cmd, args, option)
+            break;
+        default:
+
+    }
+
+    function dev(cmd, args, option){
+        console.log('========== dev');
+        console.log('========== dev');
+        console.log('========== dev');
+        var port = args && typeof args==='string' || false;
+        var rundev = './ly dev' + (port = port ? ' '+port:'')
+
+        isWin
+        ? exec(rundev)
+        : exec('sudo '+rundev)
+    }
+
+    function pro(cmd, args, option){
+        console.log('========== pro');
+        console.log('========== pro');
+        console.log('========== pro');
+        var port = args && typeof args==='string' || false;
+        var runpro = './ly pro' + (port = port ? ' '+port:'')
+
+        isWin
+        ? exec(runpro)
+        : exec('sudo '+runpro)
+    }
+
+    function install(cmd, args, option){
+        console.log('========== install');
+        console.log('========== install');
+        console.log('========== install');
+
+        isWin
+        ? exec('./ly install3')
+        : exec('sudo ./ly install')
+    }
+
+
+// spawn('cd', ['./public'])
+// var ls = spawn('pwd')
+
+// p('cat app.log').pipe('wc -l')
+//   .data(function(stdout, stderr) {
+//       console.log(stdout);
+//   });
+
+// p('mkdir foo')
+//        .and('rm file.txt')
+//           .on('exit', function() {
+//                 console.log('done');
+//            });
+
+
+
+// var ls    = spawn(cmd , [args ,option]);
+// ls    = spawn('du', ['-h','/home/'])
+
+// var start = +new Date();
+// ls.stdout.on('data', function (data) {
+//     console.log('stdout: ' + data);
+// });
+//
+// ls.stderr.on('data', function (data) {
+//     console.log('stderr: ' + data);
+// });
+//
+// ls.on('exit', function (code) {
+//     // var end = + new Date();
+//     // console.log(end-start);
+// });
