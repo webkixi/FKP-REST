@@ -7,9 +7,9 @@ dev(){
 
     cd ..
     if [ $1 ]; then
-        nodemon -e js,jsx --harmony index.js dev $1 &
+        nodemon -e js,jsx --ignore public/ --harmony index.js dev $1 &
     else
-        nodemon -e js,jsx --harmony index.js dev &
+        nodemon -e js,jsx --ignore public/ --harmony index.js dev &
     fi
     sleep 2
 
@@ -26,7 +26,7 @@ bbdev(){
     gulp bbdev
 
     cd ..
-    nodemon -e js,jsx --harmony index.js dev &
+    nodemon -e js,jsx --ignore public/ --harmony index.js dev &
     sleep 2
 
     cd public
@@ -39,7 +39,7 @@ pro(){
     gulp build
 
     cd ..
-    nodemon -e js,jsx --harmony index.js &
+    nodemon -e js,jsx --ignore public/ --harmony index.js &
     sleep 2
 
     cd public
@@ -60,7 +60,7 @@ ngdev(){
     cd public
     gulp ngdev
     cd ..
-    nodemon -e js,jsx --harmony index.js ngdev &
+    nodemon -e js,jsx --ignore public/ --harmony index.js ngdev &
 }
 
 bbdemo(){
@@ -116,7 +116,7 @@ install(){
 }
 
 server(){
-	nodemon -e js,jsx --harmony index dev
+	nodemon -e js,jsx --ignore public/ --harmony index dev
 }
 
 build(){
@@ -131,6 +131,9 @@ case $1 in
       ;;
   install2)
       install2
+      ;;
+  install3)
+      install3
       ;;
   server)
       server
