@@ -1,3 +1,20 @@
+## About
+
+This is a starter boilerplate app I've put together using the following technologies:
+
+* ~~Isomorphic~~ [Universal](https://medium.com/@mjackson/universal-javascript-4761051b7ae9) rendering
+* Both client and server make calls to load data from separate API server
+* [React](https://github.com/facebook/react)
+* [fkp Router](#)
+* [KOA](https://github.com/koajs/koa)
+* [Babel](http://babeljs.io) for ES6 and ES7 magic
+* [Webpack](http://webpack.github.io) for bundling
+* [Webpack Dev Middleware](http://webpack.github.io/docs/webpack-dev-middleware.html)
+* [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)
+* [Lite-flux](#)  
+* [lru-memoize](https://github.com/erikras/lru-memoize) to speed up form validation
+* [style-loader](https://github.com/webpack/style-loader),  [less-loader](https://github.com/webpack/less-loader) to allow import of stylesheets in plain css, less
+
 # 1、概述  
 &#160; &#160; &#160; &#160;node的出现，正在悄悄的改变着传统的模式，这两年，淘宝/天猫的前端的崛起，我相信会更加深刻的改变现有的开发模式，MVC的'V'(VIEW)的工作也会越来越偏向于前端，彻底的从后端分离出来。  
 
