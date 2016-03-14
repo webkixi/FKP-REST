@@ -1,94 +1,7 @@
 var libs = require('libs/libs')
 var webUploader = require('./index')
 
-function uploadAction(btn){
-    var state = 'pending';
-    var $btn = $('#'+btn);
-    var uploader = webUploader.create({
-        // swf文件路径
-        swf: '/images/Uploader.swf',
-        // 文件接收服务端。
-        server: '/upload',
-        // 选择文件的按钮。可选。
-        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick: '#picker',
-        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-        resize: false
-    });
-
-    uploader.on('beforeFileQueued', function( file ){
-        file.name = libs.guid('dzhce-')+'.'+file.ext
-    })
-
-    // 当有文件添加进来的时候
-    uploader.on( 'fileQueued', function( file ) {
-        $('#thelist').append( '<div id="' + file.id + '" class="item">' +
-            '<h4 class="info">' + file.name + '</h4>' +
-            '<p class="state">等待上传...</p>' +
-        '</div>' );
-    });
-
-    // 文件上传过程中创建进度条实时显示。
-    uploader.on( 'uploadProgress', function( file, percentage ) {
-        var $li = $( '#'+file.id ),
-            $percent = $li.find('.progress .progress-bar');
-
-        // 避免重复创建
-        if ( !$percent.length ) {
-            $percent = $('<div class="progress progress-striped active">' +
-              '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-              '</div>' +
-            '</div>').appendTo( $li ).find('.progress-bar');
-        }
-
-        $li.find('p.state').text('上传中');
-
-        $percent.css( 'width', percentage * 100 + '%' );
-    });
-
-    uploader.on( 'uploadSuccess', function( file, ret ) {
-        $( '#'+file.id ).find('p.state').text('已上传');
-        if(callback && ret.success)
-            callback.call(file);
-    });
-
-    uploader.on( 'uploadError', function( file ) {
-        $( '#'+file.id ).find('p.state').text('上传出错');
-    });
-
-    uploader.on( 'uploadComplete', function( file ) {
-        $( '#'+file.id ).find('.progress').fadeOut();
-        if(callback)
-            callback.call(file);
-    });
-
-    uploader.on( 'all', function( type ) {
-        if ( type === 'startUpload' ) {
-            state = 'uploading';
-        } else if ( type === 'stopUpload' ) {
-            state = 'paused';
-        } else if ( type === 'uploadFinished' ) {
-            state = 'done';
-        }
-
-        if ( state === 'uploading' ) {
-            $btn.text('暂停上传');
-        } else {
-            $btn.text('开始上传');
-        }
-    });
-
-    $btn.on( 'click', function() {
-        if ( state === 'uploading' ) {
-            uploader.stop();
-        } else {
-            uploader.upload();
-        }
-    });
-}
-
-
-
+var uploader_type;
 
 function uploadAction2(btn,callback,maxNumber){
     // var $list = $('#fileList'),
@@ -103,6 +16,7 @@ function uploadAction2(btn,callback,maxNumber){
         // Web Uploader实例
         uploader;
 
+
     // 初始化Web Uploader
     uploader = webUploader.create({
 
@@ -113,7 +27,7 @@ function uploadAction2(btn,callback,maxNumber){
         swf: '/images/Uploader.swf',
 
         // 文件接收服务端。
-        server: '/upload',
+        server: '/upup',
 
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -127,40 +41,47 @@ function uploadAction2(btn,callback,maxNumber){
         }
     });
 
+    // 上传样式类型
+    function noon(){}
+    var uploader_style = {
+        thumb: function(file){
+            var $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '<div class="info">' + file.name + '</div>' +
+                    '</div>'
+                    ),
+                $img = $li.find('img');
+
+            $list.append( $li );
+
+            // 创建缩略图
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr( 'src', src );
+            }, thumbnailWidth, thumbnailHeight );
+        },
+
+        button: noon
+    }
+
+
     $('#'+btn).mouseenter(function(){
         uploader.refresh();
     })
 
     uploader.on('beforeFileQueued', function( file ){
-        file.name = libs.guid('goods&&&dzhce-')+'.'+file.ext;
+        file.name = libs.guid()+'.'+file.ext;
     })
 
     // 当有文件添加进来的时候
     uploader.on( 'fileQueued', function( file ) {
-    	console.log(file)
-        var $li = $(
-                '<div id="' + file.id + '" class="file-item thumbnail">' +
-                    '<img>' +
-                    '<div class="info" style="overflow:hidden;font-size:10px;">' + file.name.split("&&&")[1] + '</div>' +
-                '</div>'
-                ),
-            $img = $li.find('img');
-
-        //$list.append( $li );
-
-        // 创建缩略图
-        uploader.makeThumb( file, function( error, src ) {
-            if ( error ) {
-                $img.replaceWith('<span>不能预览</span>');
-                return;
-            }
-
-            $img.attr( 'src', src );
-        }, thumbnailWidth, thumbnailHeight );
-
-        //var l = $( '#'+file.id ).offset().left;
-        //var t = $( '#'+file.id ).offset().top;
-        $('#'+btn).children('div').css({'width':'100%','height':'100%'})
+        //为button时，不需要展示缩略图
+        uploader_style[uploader_type].call(this, file)
     });
 
     // 文件上传过程中创建进度条实时显示。
@@ -181,9 +102,9 @@ function uploadAction2(btn,callback,maxNumber){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file, ret ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        console.log(ret);
-        if(callback && ret.success)
-            callback.call(file);
+        if(callback && ret.success){
+            callback(file);
+        }
     });
 
     // 文件上传失败，现实上传出错。
@@ -197,30 +118,27 @@ function uploadAction2(btn,callback,maxNumber){
         }
 
         $error.text('上传失败');
+
+        alert('上传失败')
     });
 
     // 完成上传完了，成功或者失败，先删除进度条。
     uploader.on( 'uploadComplete', function( file ) {
         $( '#'+file.id ).find('.progress').remove();
         file.name = file.name.split("&&&")[1];
-        if(callback)
-            callback.call(file);
     });
 }
 
 var Upl = React.createClass({
     getInitialState: function() {
         return {
-            type: 1
+            type: 2,
+            btn: libs.guid()
         }
     },
 
     componentWillMount: function(){
-        if(this.props.btn){
-            this.setState({
-                btn: this.props.btn
-            })
-        }
+
         if(this.props.type){
             this.setState({
                 type: this.props.type
@@ -232,31 +150,19 @@ var Upl = React.createClass({
             })
         }
 
-        if(this.props.cb)
-            this.setState({
-                cb: this.props.cb
-            })
-
     },
 
     componentDidMount: function() {
-        var callback,maxNumber;
-        if(this.state.cb)
-            callback = this.state.cb;
-        else {
-            callback = function(){};
-        }
 
-        if(this.state.btn){
-            btn = this.state.btn||'';
+        var callback,maxNumber;
+        if(this.props.cb){
+            callback = this.props.cb;
         }
 
         maxNumber = this.state.maxNumber||0;
-        if(this.state.type===1)
-            uploadAction(btn,callback);
-        else
-            if(this.state.type===2)
-                uploadAction2(btn,callback,maxNumber);
+
+        uploadAction2(this.state.btn,callback,maxNumber);
+
     },
 
     componentWillReceiveProps:function(nextProps){
@@ -264,28 +170,47 @@ var Upl = React.createClass({
     },
 
     render: function () {
-        var btn = this.state.btn;
         return(
-                <div>
-                    <div className={"uploader-list"} />
-                    <div id={btn}>{"+"}</div>
-                </div>
+            <div>
+                <div className={"uploader-list"} />
+                <div id={this.state.btn}>上传文件</div>
+            </div>
         )
     }
 });
 
-module.exports = Upl;
 
-// var ForUploader = require('modules/upload/upload');
-// React.render(
-// 	<ForUploader btn={'ctlBtn'}>
-//         <div id={"uploader"} className={"wu-example"}>
-//             <div id={"thelist"} className={"uploader-list"} />
-//             <div className={"btns"}>
-//                 <div id={"picker"}>{"选择文件"}</div>
-//                 <button id={"ctlBtn"} className={"btn btn-default"}>{"开始上传"}</button>
-//             </div>
-//         </div>
-//     </ForUploader>
-// 	,document.getElementById('foruploader')
-// )
+function render_uploader(name, cb){
+    try {
+
+        var exist_id = document.getElementById(name)
+        if (exist_id){
+            React.render(
+                <Upl cb={cb}/>,
+                document.getElementById(name)
+            )
+        }
+        else {
+            throw "插入的容器不存在"
+        }
+    } catch (e) {
+        alert('upload1: '+e)
+    }
+}
+
+function button(name, cb){
+    uploader_type = 'button';
+    render_uploader(name, cb)
+
+}
+
+function thumb(name, cb){
+    uploader_type = 'thumb';
+    render_uploader(name, cb)
+
+}
+
+module.exports = {
+    button: button,
+    thumb: thumb
+};

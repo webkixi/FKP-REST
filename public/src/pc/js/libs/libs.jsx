@@ -84,6 +84,10 @@ var getOffset = function(el){
     }
 }
 
+var getXHR = function () {
+    return new (window.XMLHttpRequest || ActiveXObject)("Microsoft.XMLHTTP") // jshint ignore:line
+}
+
 
 function DocmentView(){
     var doch = window.innerHeight||document.documentElement.offsetHeight||document.body.clientHieght;
@@ -163,13 +167,22 @@ function _inject() {
         return false
     }
 
-    if (arguments.length == 1) {
+    if (arguments.length === 1) {
         tmpSrcCode = tmpCssCode = arguments[0]
-    } else if (arguments.length == 2) {
+    }
+    else
+    if (arguments.length === 2) {
         type = arguments[0];
         tmpSrcCode = tmpCssCode = arguments[1];
-    } else {
-        return;   // alert("addSheet函数最多接受两个参数!");
+    }
+    else
+    if (arguments.length === 3){
+        type = arguments[0];
+        tmpSrcCode = tmpCssCode = arguments[1];
+        cb  = arguments[2]
+    }
+    else {
+        return;  // alert("addSheet函数最多接受3个参数!");
     }
 
     var headElement = doc.getElementsByTagName("head")[0];
@@ -294,15 +307,16 @@ function dealInject(doc){
         if (args){
             var did;
             //注入页面的id如果存在，且长度小于20
-            if (typeof args[1]==='string' && args[1].length<20){
+            if (typeof args[1]==='string' && args[1].length < 20){
                 var injectCode = true;
                 did = args[1];
                 if (cb && typeof cb==='function'){
-                    if (typeof args[0]==='string' && (args[0].indexOf('http')===0 || args[0].indexOf('/')===0)){
+                    if (typeof args[0]==='string'&&( args[0].indexOf('http')===0 || args[0].indexOf('/')===0)){
                         injectCode = false;
                         SA.setter(did,cb);
                     }
                 }
+                // load之后执行
                 setTimeout(function(){
                     if (type){
                         if (args){
@@ -314,7 +328,7 @@ function dealInject(doc){
                             _inject.call(doc, args)
                         }
                     }
-                    if (injectCode && typeof cb==='function'){
+                    if (type === 'css'||(injectCode && typeof cb==='function')){
                         cb()
                     }
                 },17)
@@ -335,6 +349,10 @@ function dealInject(doc){
         return this
     }
 }
+
+// libs.inject()
+// .js(['/js/t/epic/js/epiceditor.js', 'epic'], initEpicEditor)
+// .css(['/css/t/simplemde.css', 'simplemdecss'])
 
 function inject(doc){
     return new dealInject(doc)
@@ -411,7 +429,7 @@ var CurrentStyle = function(element){
 }
 
 function guid(prefix) {
-    prefix = prefix || "web-";
+    prefix = prefix || "fkpjs-";
     return (prefix + Math.random() + Math.random()).replace(/0\./g, "");
 }
 
@@ -563,7 +581,6 @@ function grabString(str, len, hasDot) {
 //json数据转换成query查询
 //如 {x:1,y:2}    转化后 ?x=1&y=2
 var json2url = function(obj){
-
     if(!obj) return;
     if(getObjType(obj)!=='Object') return;
 
@@ -833,5 +850,6 @@ module.exports = {
     changeTitle:    changeTitle,     //ios特有bug解决方法，改变title
 
     queryString:    queryString,
-    inject:         inject          // 注入css和js
+    inject:         inject(),          // 注入css和js
+    getXHR:         getXHR
 }

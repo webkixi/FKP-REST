@@ -1,4 +1,5 @@
-browserSync = require 'browser-sync'
+browserSync = require('browser-sync').create()
+reload  = browserSync.reload
 config = require '../configs/config.coffee'
 
 module.exports = (gulp,$,slime,env,port)->
@@ -8,35 +9,46 @@ module.exports = (gulp,$,slime,env,port)->
     if env == 'bb'
         buildCommon = 'buildCommon:dev:bb'
 
+    pt = 8070
+    if port
+        pt = port
+    pxy = 'http://127.0.0.1:'+pt
+
     return () ->
-        pt = 8070
-        if port
-            pt = port
-        pxy = 'http://127.0.0.1:'+pt
-        console.log '444444444 rrrrrrrr wwwwwwww'
-        console.log pxy
-        browserSync(
-            proxy: pxy
-            files: [ config.htmlDevPath + '/**/*.html', config.staticPath+ '/dev/**']
-            logFileChanges: false
-        )
+
         # 监控css文件
         gulp.watch [config.dirs.src + '/css/?(global|modules|pages)/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['pagecss:dev']
+        # .on 'change', reload
+
+        # 监控js文件
+        gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        .on 'change', reload
+
+        # 监控react目录下的文件
+        gulp.watch config.dirs.react + '/?(modules|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        .on 'change', reload
 
         # 监控第三方直传文件: css
         gulp.watch [config.dirs.src + '/css/_copy2dist/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['copyThirdCssToDist:dev']
 
-
-
-        # 监控js文件
-        gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
-
-        # 监控react目录下的文件
-        gulp.watch config.dirs.react + '/?(modules|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
-
         # 监控第三方直传文件:js
         gulp.watch config.dirs.src + '/js/_copy2dist/**/*.?(coffee|js|jsx|cjsx)', ['copyThirdJsToDist:dev']
 
+        gulp.watch config.dirs.src + '/html/**/*.*', (file) ->
+            console.log file.path
+            slime.build(file.path, {type: 'hbs', 'env': 'pro'});
+
+        browserSync.init null, {
+                proxy: pxy
+                # server:
+                #     baseDir: [ config.htmlDevPath, config.staticPath + '/dev']
+                #     index: "demoindex.html"
+                files: [
+                    config.htmlDevPath + '/**/*.html',
+                    config.staticPath+ '/dev/js/**',
+                    config.staticPath+ '/dev/css/**']
+                logFileChanges: false
+            }
 
 
         # if  !env == 'pro'
@@ -60,6 +72,3 @@ module.exports = (gulp,$,slime,env,port)->
 
         #html
         # gulp.watch config.dirs.src + '/html/**/*.*', ['html:build']
-        gulp.watch config.dirs.src + '/html/**/*.*', (file) ->
-            console.log file.path
-            slime.build(file.path, {type: 'hbs', 'env': 'pro'});

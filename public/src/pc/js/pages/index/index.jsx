@@ -23,7 +23,7 @@ else {
     )
 }
 
-libs.inject()
+libs.inject
 .js(['/js/t/epic/js/epiceditor.js', 'epic'],initEpicEditor)
 // .css(['/css/t/simplemde.css', 'simplemdecss'])
 
@@ -89,6 +89,7 @@ function dealWithEditor(){
 
     var utilbar = $(find('epiceditor-utilbar'));  //工具栏
     $(utilbar).append('<button class="btn" id="add_md_btn">添加</button>')
+    $(utilbar).append('<button class="btn" id="add_pic_btn">插图</button>')
 
     // ==========  添加文章  =========
     $(find('add_md_btn')).click(function(){

@@ -2,13 +2,20 @@
 <html class="no-js" lang="en">
   <head>
     <title>文件上传示例</title>
-    @@include('./_common/header/head.html')
+    @@include('./_common/header/h5_scale_1.html')
   </head>
   <body>
-    <div class="box">
-        <div class="upload" id="testupload">
+    <div class="box" style="padding:1em;">
 
+        <div class="upload" id="upload"> </div>
+
+
+        <input type="file" id="name" value="你好" style="position: absolute; clip: rect(1px 1px 1px 1px)">
+        <div class="" style="position:relative; margin-top: 5em;width: 3em; height: 2em; overflow:hidden">
+            <label id="bbcc" style="position:absolute;left:0;top:0;width:100%;height:100%;background-color:red;">3456</label>
         </div>
+
+
     </div>
     @@include('./_common/footer/foot.html')
   </body>

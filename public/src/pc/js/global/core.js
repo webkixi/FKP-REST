@@ -769,11 +769,18 @@
                     //     var ele = $('[data-fkpid='+item.prop['data-fkpid']+']')
                     //     ele.val(item.value)
                     // })
+                    var input_types =
+                    [
+                        'button'
+                    ]
                     var refresh_srch = []
                     var info_data = this.srch
                     info_data.map(function(item){
                         if (data[item.name]||data[item.name]===''){
                             item.value = data[item.name]
+                            refresh_srch.push(item)
+                        }
+                        if (item.type==='button'){
                             refresh_srch.push(item)
                         }
                         //考虑到可能会有多个域操作同一个id的dom
@@ -822,63 +829,52 @@
                             var _node;
                             item.prop.value=item.value;
 
-                            if (item.templet){
-                                var input_types =
-                                [
-                                    'text','checkbox','radio','button',
-                                    'file','hidden','password','number',
-                                    'reset','submit','tel'
-                                ]
+                            _node = oprateDom.mkFormNode(item.type, item.prop)
+                            var label = item.title
+                            ? '<label class="col-sm-2 control-label">'+item.title+'</label>\n'
+                            : '';
 
-                                _wrap = $(item.templet);
-                                _node = _wrap.find('input')
-                                if (_node.length){
-                                    _node.attr('data-fkpid',item.prop['data-fkpid'])
-                                }else {
-                                    _node = _wrap.find('select')
-                                    if (_node.length){
-                                        _node.attr('data-fkpid',item.prop['data-fkpid'])
-                                    }
-                                }
-                                _wrap = _wrap.prop('outerHTML')
-                            }
-                            else {
-                                //创建元素并缓存异步方法
-                                // var _node = oprateDom.mkFormNode(item.type, item.prop)
-                                _node = oprateDom.mkFormNode(item.type, item.prop)
-                                var label = item.title
-                                ? '<label class="col-sm-2 control-label">'+item.title+'</label>\n'
-                                : '<label class="col-sm-2 control-label">'+item.title+'</label>\n';
+                            // input 模板
+                            _wrap = '\n\
+                            '+label+'\
+                            <div class="col-sm-2 m-search f-pr palcehere">\n\
+                            '+_node.outerHTML+'\n\
+                            </div>\n';
 
-                                // input 模板
-                                _wrap = '\n\
-                                '+label+'\
-                                <div class="col-sm-2 m-search f-pr palcehere">\n\
-                                '+_node.outerHTML+'\n\
-                                </div>\n';
-                            }
 
 
                             //推入数组
                             if (item.group){
-                                if (typeof item.group === 'boolean'){
-                                    _wrap = '<div class="form-group">\n\
-                                    '+_wrap+'\n\
-                                    </div>';
-                                    node_arr.push(_wrap)
-                                }
+                                console.log('============== group');
+                                console.log('============== group');
+                                console.log('============== group');
+                                console.log('============== group');
+                                console.log(item.group);
+
                                 if (typeof item.group === 'object' && !Array.isArray(item.group)){
                                     node_arr['_group_']=true;
+
                                     var gid = item.group.id;
+
+
+                                    //由group函数返回
+                                    if (item.group.single){
+                                        _wrap = '<div class="form-group">\n\
+                                        '+_wrap+'\n\
+                                        </div>';
+                                    }
+
                                     if (item.type==='button'||item.type==='reset'||item.type==='submit'){
                                         _wrap = '&nbsp;&nbsp;&nbsp;'+_node.outerHTML
                                     }
+
                                     if (!node_arr[gid]){
                                         if (item.type==='button'||item.type==='reset'||item.type==='submit'){
-                                            _wrap = '<label class="col-sm-2 control-label f-ml60"></lable>'+_wrap
+                                            _wrap = '<label class="col-sm-2 control-label"></label>'+_wrap
                                         }
                                         node_arr[gid] = {content: _wrap, group: item.group}
                                     }
+
                                     else{
                                         node_arr[gid].content += '\n'+_wrap
                                         node_arr[gid].group = $.extend(node_arr[gid].group, item.group)
@@ -911,14 +907,18 @@
                         //并将打组元素插入到 $id 的parent里面
                         if (node_arr.hasOwnProperty('_group_')){
                             delete node_arr['_group_'];
+
+                            var _tops;
+                            var _bottoms;
                             var groups = Object.keys(node_arr).slice(node_arr.length);
                             groups = groups.sort()
-                            // alert(groups)
 
                             var $parent = $id.parent();
                             if (me.refresh_stat){
                                 $parent.html($id[0].outerHTML)
                             }
+                            $parent.html('')
+                            $parent.append($id)
                             groups.map(function(item){
                                 // node_arr[item].content
                                 // node_arr[item].group.id /group.prop
@@ -930,8 +930,21 @@
                                         gid.attr(key, val);
                                     })
                                 }
-                                gid.html(node_arr[item].content)
+
+                                // 指定了特定的插入id
+                                // 有ly.group方法的第三个参数确定
+                                if (node_arr[item].group.position){
+                                    var idf = node_arr[item].group.position;
+                                    if ($('#'+idf).length)
+                                        $('#'+idf).html(node_arr[item].content)
+                                }
+                                else {
+                                    gid.html(node_arr[item].content)
+                                }
+
                                 delete node_arr[item]
+
+
                                 $parent.prepend(gid)
                                 // node_arr.unshift(gid[0].outerHTML);
                             })
@@ -1375,6 +1388,94 @@
         return new _tabs(name, opts);
     }
 
+
+    // 用于字段打组的预设值
+    // 值越大，越靠前
+    // 使用方式 g[0]， g[1], .... g[9]
+    // @id {Number/String/boolean} 指定分组
+    //      group(1) return g[1]
+    //      group('b', 1) / group('bottom',1) return a[1]
+    //      group('m/middle',1) return x[1]
+    //      group('t/top', 1) return g[1]
+    //      group(true)     return x[5]+特殊属性  独立一行
+    // @pos {Number}  指定group的位置
+    // @idf {String}  指定要插入某个元素中
+    function group(id, pos, idf){
+
+        var class1 = { class: 'form-group m-search f-pr' };
+
+        var g = ['',
+            {id: 'z1', prop: class1},
+            {id: 'z2', prop: class1},
+            {id: 'z3', prop: class1},
+            {id: 'z4', prop: class1},
+            {id: 'z5', prop: class1},
+            {id: 'z6', prop: class1},
+            {id: 'z7', prop: class1},
+            {id: 'z8', prop: class1},
+            {id: 'z9', prop: class1}  //g[9]
+        ]
+
+        var x = ['',
+            {id: 'x1', prop: class1},
+            {id: 'x2', prop: class1},
+            {id: 'x3', prop: class1},
+            {id: 'x4', prop: class1},
+            {id: 'x5', prop: class1},
+            {id: 'x6', prop: class1},
+            {id: 'x7', prop: class1},
+            {id: 'x8', prop: class1},
+            {id: 'x9', prop: class1}  //a[9]
+        ]
+
+        var a = ['',
+            {id: 'a1', prop: class1},
+            {id: 'a2', prop: class1},
+            {id: 'a3', prop: class1},
+            {id: 'a4', prop: class1},
+            {id: 'a5', prop: class1},
+            {id: 'a6', prop: class1},
+            {id: 'a7', prop: class1},
+            {id: 'a8', prop: class1},
+            {id: 'a9', prop: class1}  //a[9]
+        ]
+
+        var rtn = g[id];
+
+        if (typeof id==='boolean'||id==='single'){
+            rtn = {
+                id: 'x5',
+                prop: class1,
+                single: true
+            }
+        }
+        if (id==='middle'||id==='m'){
+            rtn = x[5]
+            if (pos){
+                rtn = x[pos]
+            }
+        }
+
+        if (id==='bottom'||id==='b'){
+            rtn = a[1]
+            if (pos){
+                rtn = a[pos]
+            }
+        }
+
+        if (id==='top'||id==='t'){
+            rtn = g[9]
+            if (pos){
+                rtn = g[pos]
+            }
+        }
+
+        if (idf){
+            rtn.position = idf;
+        }
+        return rtn;
+    }
+
     var _ly =  {
         init: function(struct, apis){
             var area = Area().init(struct, apis);
@@ -1389,6 +1490,7 @@
             refreshTable: libs().refreshTable
         },
         tabs: tabs,
+        group: group
     }
     return _ly
 }))

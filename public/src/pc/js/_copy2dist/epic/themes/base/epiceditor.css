@@ -5,6 +5,7 @@ html, body, iframe, div {
 
 #epiceditor-utilbar {
   position:fixed;
+  width: 96%;
   bottom:10px;
   right:10px;
 }
@@ -54,7 +55,7 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 #epiceditor-utilbar button:last-child {
-  margin-left:15px;
+  /*margin-left:15px;*/
 }
 
 #epiceditor-utilbar button:hover {
