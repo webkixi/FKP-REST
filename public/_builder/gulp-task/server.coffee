@@ -55,7 +55,7 @@ module.exports = (gulp,$,slime,env)->
     gulp.task 'rebuild:html',['html:build']
 
 
-
+    # demo 环境
     doSync = ( stat, cb )->
         buildCommon = 'buildCommon:dev'
         if stat == 'ng'

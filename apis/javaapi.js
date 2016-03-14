@@ -212,7 +212,7 @@ function *pullWxData(api, param, method){
 }
 
 function *pullApiData(api, param, method){
-    libs.elog('javaapi/'+ api);
+    libs.elog('javaapi.pullApiData: javaapi/'+ api);
     var apiPath = yield getapi.call(this)
 
     /**
@@ -267,7 +267,7 @@ function *pullApiData(api, param, method){
             _param.cat = api;
         }
         _param.body = param
-        var db = require('../db/mongo/index')
+        var db = require('../db/mongo/index')         
         var tmp_method = this.method
         this.method = 'NODE'
         var tmp_data = yield db.init.call(this, _param)

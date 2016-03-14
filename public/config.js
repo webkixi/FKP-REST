@@ -37,8 +37,8 @@ module.exports = {
     ],
     //react, zepto/jq2
     vendorList_adv: [
-        // path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
-        path.join(__dirname, src_dir, '/js/vendor/zepto/zepto.js'),
+        path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
+        // path.join(__dirname, src_dir, '/js/vendor/zepto/zepto.js'),
         path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js')
     ],
     //angular

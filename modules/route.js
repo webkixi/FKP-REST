@@ -129,7 +129,7 @@ function init(app,mapper,rend){
             if(param.cat === 'getservtime')
                 yield getServTime.call(this);
         else
-            if(param.cat === 'upload')
+            if(param.cat === 'upup')
                 yield uploader.call(this);
         else
             if(param.cat === 'captcha')
@@ -208,7 +208,7 @@ function *getServTime(){
 function *uploader(){
     libs.clog('上传数据');
     var fileUpLoader = require('./uploader');
-    yield fileUpLoader.ali.call(this,this.config.upload_root);
+    yield fileUpLoader.local.call(this,this.config.upload_root);
     // var saveFileStat = yield fileUpLoader.ali.call(this,this.config.upload_root);
     // console.log('==========================');
     // console.log('==========================');
