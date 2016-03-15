@@ -83,7 +83,7 @@ global.include = include
 var app = koa();
 
 //静态资源 js css
-app.use(statics(args[0]));
+statics(args[0], app)
 
 //session
 app.keys = ['keys','gzgzmixcookie'];

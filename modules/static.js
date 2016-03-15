@@ -7,18 +7,25 @@ var config = require('../config')
 // setup views mapping .html
 // to the handlebars template engine
 
-function setStatic(stat){
+function setStatic(stat, app){
+    console.log('静态资源配置');
+    console.log('==============='+__filename+' setStatic');
+    console.log('-');
+    console.log('-');
+    console.log('-');
+
+    app.use(statics(config.upload))
+
     if(stat && stat==='dev'){
-        console.log('&&&&&&&&&&&&&&++++++++++++');
-        return statics(config.static.test.dft,{
+        app.use(statics(config.static.test.dft,{
             buffer: false,
             gzip: true
-        });
+        }));
     }else{
-        return statics(config.static.dft,{
+        app.use( statics(config.static.dft,{
             buffer: true,
             gzip: true
-        });
+        }));
     }
 }
 

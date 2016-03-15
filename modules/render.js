@@ -12,13 +12,17 @@ var config = require('../config')
 // });
 
 function setRender(stat){
+    console.log('模板渲染')
+    console.log('================='+__filename+' setRender');
+    console.log('-');
+    console.log('-');
+    console.log('-');
     if(stat && stat==='dev'){
-        console.log('++++++++++++&&&&&&&&&&&&&&  render.js');
         return views(config.static.test.html, {
           	map: { html: 'handlebars' }
         });
-    }else{
-        console.log('++++++++++++&&&&&&&&&&&&&&  render.js');
+    }
+    else{
         if (stat
             &&
            (stat === 'ngdev'

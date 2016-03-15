@@ -30,6 +30,7 @@ var config = {
     demoindex: path.join(static_dir,'/dist/1.0.0/html/demoindex.html'),
 
     //本地上传路径
+    upload: path.join(static_dir,'/dist/'),
     upload_root: path.join(static_dir,'/dist/upload'),
     // 阿里云图片路径
     goods_img: 'http://jh-ljs-goods.oss-cn-shenzhen.aliyuncs.com/',     //商品
