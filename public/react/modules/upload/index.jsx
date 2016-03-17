@@ -1,13 +1,22 @@
 var libs = require('libs/libs')
-var webUploader = require('./src/index')
+var webUploader = require('./_src/index')
 
-var uploader_type;
 
-function uploadAction2(btn,callback,maxNumber){
-    // var $list = $('#fileList'),
-    var $list = $('#'+btn).siblings(),
+function uploadAction2(btn, title, callback, type){
+    if (typeof title === 'function'){
+        callback = title;
+        title = false
+    }
+
+    this.uploader_type = type
+    var me = this
+
+    if (typeof btn === 'string'){
+        // var $list = $('#fileList'),
+        var $list = $('#'+btn).siblings()
+    }
         // 优化retina, 在retina下这个值是2
-        ratio = window.devicePixelRatio || 1,
+    var ratio = window.devicePixelRatio || 1,
 
         // 缩略图大小
         thumbnailWidth = 100 * ratio,
@@ -29,10 +38,6 @@ function uploadAction2(btn,callback,maxNumber){
         // 文件接收服务端。
         server: '/upup',
 
-        // 选择文件的按钮。可选。
-        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick: '#'+btn,
-
         // 只允许选择文件，可选。
         accept: {
             title: 'Images',
@@ -41,8 +46,10 @@ function uploadAction2(btn,callback,maxNumber){
         }
     });
 
+
     // 上传样式类型
-    function noon(){}
+    function noon(){};
+
     var uploader_style = {
         thumb: function(file){
             var $li = $(
@@ -70,18 +77,13 @@ function uploadAction2(btn,callback,maxNumber){
     }
 
 
-    $('#'+btn).mouseenter(function(){
-        uploader.refresh();
-    })
-
     uploader.on('beforeFileQueued', function( file ){
-        file.name = libs.guid()+'.'+file.ext;
+        // file.name = libs.guid()+'.'+file.ext;
     })
 
     // 当有文件添加进来的时候
     uploader.on( 'fileQueued', function( file ) {
-        //为button时，不需要展示缩略图
-        uploader_style[uploader_type].call(this, file)
+        uploader_style[me.uploader_type].call(uploader, file)
     });
 
     // 文件上传过程中创建进度条实时显示。
@@ -103,7 +105,7 @@ function uploadAction2(btn,callback,maxNumber){
     uploader.on( 'uploadSuccess', function( file, ret ) {
         $( '#'+file.id ).addClass('upload-state-done');
         if(callback && ret.success){
-            callback(file);
+            callback(file, ret);
         }
     });
 
@@ -127,90 +129,88 @@ function uploadAction2(btn,callback,maxNumber){
         $( '#'+file.id ).find('.progress').remove();
         file.name = file.name.split("&&&")[1];
     });
+
+
+    if (typeof btn === 'string'){
+        $('#'+btn).mouseenter(function(){
+            uploader.refresh();
+        })
+
+        uploader.addButton({
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            id:  '#'+btn,
+            innerHTML: title||'选择文件'
+        })
+    }
+    else
+    if (typeof btn === 'function'){
+        //自定义上传样式
+        //1、先插入一个 file 控件
+        var _file = $('<input style="position:absolute;clip:rect(1px 1px 1px 1px);left:0;top:0 " type="file"></input>')
+        $('body').append(_file)
+
+        //h5页面可用
+        _file.change(function(){
+            // var fileobj = this.files[0]
+            uploader.addFile(this.files)
+        })
+
+        uploader.on('upfile', function(cb){
+            if (cb && typeof cb === 'function'){
+                callback = cb
+            }
+            _file.click();
+        })
+
+        btn.call(uploader)
+    }
 }
 
-var Upl = React.createClass({
-    getInitialState: function() {
-        return {
-            type: 2,
-            btn: libs.guid()
-        }
-    },
 
-    componentWillMount: function(){
-
-        if(this.props.type){
-            this.setState({
-                type: this.props.type
-            })
-        }
-        if(this.props.maxNumber){
-            this.setState({
-                maxNumber: this.props.maxNumber
-            })
-        }
-
-    },
-
-    componentDidMount: function() {
-
-        var callback,maxNumber;
-        if(this.props.cb){
-            callback = this.props.cb;
-        }
-
-        maxNumber = this.state.maxNumber||0;
-
-        uploadAction2(this.state.btn,callback,maxNumber);
-
-    },
-
-    componentWillReceiveProps:function(nextProps){
-
-    },
-
-    render: function () {
-        return(
-            <div>
-                <div className={"uploader-list"} />
-                <div id={this.state.btn}>上传文件</div>
-            </div>
-        )
+function render_uploader(name, title, cb, type){
+    if (typeof title === 'function'){
+        cb = title;
+        title = false;
     }
-});
-
-
-function render_uploader(name, cb){
     try {
-
         var exist_id = document.getElementById(name)
         if (exist_id){
-            React.render(
-                <Upl cb={cb}/>,
-                document.getElementById(name)
-            )
+
+            var _id = libs.guid('uploader')
+            if (type==='thumb'){
+                $(exist_id).append(' <div class="uploader-list"></div><div id="'+_id+'">上传文件</div> ')
+            }
+            else{
+                $(exist_id).append(' <div id="'+_id+'">上传文件</div> ')
+            }
+
+            new uploadAction2(_id, title, cb, type);
         }
         else {
             throw "插入的容器不存在"
         }
-    } catch (e) {
+    }
+    catch (e) {
         alert('upload1: '+e)
     }
 }
 
-function button(name, cb){
-    uploader_type = 'button';
-    render_uploader(name, cb)
+function button(name, title, cb){
+    render_uploader(name, title, cb, 'button')
 
 }
 
-function thumb(name, cb){
-    uploader_type = 'thumb';
-    render_uploader(name, cb)
+function thumb(name, title, cb){
+    render_uploader(name, title, cb, 'thumb')
+}
 
+function custom(name, cb){
+    new uploadAction2(name, false, cb, 'button')
 }
 
 module.exports = {
     button: button,
-    thumb: thumb
+    thumb: thumb,
+    custom: custom
 };

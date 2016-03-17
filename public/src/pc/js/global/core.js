@@ -845,11 +845,6 @@
 
                             //推入数组
                             if (item.group){
-                                console.log('============== group');
-                                console.log('============== group');
-                                console.log('============== group');
-                                console.log('============== group');
-                                console.log(item.group);
 
                                 if (typeof item.group === 'object' && !Array.isArray(item.group)){
                                     node_arr['_group_']=true;
@@ -865,12 +860,14 @@
                                     }
 
                                     if (item.type==='button'||item.type==='reset'||item.type==='submit'){
-                                        _wrap = '&nbsp;&nbsp;&nbsp;'+_node.outerHTML
+                                        _wrap = '&nbsp;&nbsp;&nbsp;&nbsp;'+_node.outerHTML
                                     }
 
                                     if (!node_arr[gid]){
                                         if (item.type==='button'||item.type==='reset'||item.type==='submit'){
-                                            _wrap = '<label class="col-sm-2 control-label"></label>'+_wrap
+                                            if (!item.title==='none'){
+                                                _wrap = '<label class="col-sm-2 control-label"></label>'+_wrap
+                                            }
                                         }
                                         node_arr[gid] = {content: _wrap, group: item.group}
                                     }
@@ -1045,9 +1042,16 @@
                     if (_apis[name].postdata){
                         var pd = _apis[name].postdata;
                         $.each(pd, function(k, v){
-                            if (typeof v==='string' && v.indexOf('.')>0){
-                                var _key = v.split('.')
-                                _apis[name]['postdata'][k] = base.cache.get('Area.'+v)||''
+                            if (typeof v==='string'){
+                                if (v.indexOf('- ')===0){
+                                    v = v.replace('- ', '')
+                                    _apis[name]['postdata'][k] = v;
+                                }
+                                else
+                                if (v.indexOf('.')>-1){
+                                    var _key = v.split('.')
+                                    _apis[name]['postdata'][k] = base.cache.get('Area.'+v)||''
+                                }
                             }
                         })
                     }

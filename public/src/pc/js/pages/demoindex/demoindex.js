@@ -1,7 +1,7 @@
 // $('.fnode').hide()
 
 var libs = require('libs/libs')
-var _ = libs.lodash
+var __ = require('lodash')
 
 
 $('.dnode').click(function(){
@@ -40,7 +40,7 @@ var cl_json = require('./catalog.json')  //目录英文名，中文名映射json
 var tmp = Object.keys(cl_json)
 $('.catalog').each(function(i, item){
     var title = $(item).html()
-    if (_.indexOf(tmp, title)>-1){
+    if (__.indexOf(tmp, title)>-1){
         $(item).html(cl_json[title])
     }
 })

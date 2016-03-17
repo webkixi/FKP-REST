@@ -20,30 +20,12 @@
       <div class="topper" style="margin:10em;">
           {{{topper}}}
       </div>
-      <div class="box">
-        <div id="register" class='sign'>
-          <ul class="form">
-              <li>
-                  <input type="text" name="username" class="username" value="">
-              </li>
-              <li>
-                  <input type="password" name="password" class="password" value="">
-              </li>
-              <li>
-                  <input type="password" name="repassword" class="repassword" value="">
-              </li>
-              <li>
-                  <input type="button" name="login" class="login" value="登录">
-              </li>
-          </ul>
-        </div>
-
-        <div class="addtopic" id="addtopic">
-            <!-- <textarea name="add_md" id="add_md" rows="28" cols="60"></textarea> -->
-            <!-- <input type="button" name="add_md_btn" id="add_md_btn" value="添加文章"> -->
+      <div class="box" style="display:none">
+        <div class="addtopic" id="addtopic" >
             <div id="epiceditor"></div>
         </div>
       </div>
+
       <!-- 文章列表部分 -->
       @@include('./_index/topic.html')
 

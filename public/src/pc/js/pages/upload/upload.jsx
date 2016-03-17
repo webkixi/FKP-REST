@@ -1,9 +1,17 @@
 var libs = require('libs/libs')
-var Uploader = require('modules/upload/_upload')
-var inject = libs.inject
+
+//支持uploader.button
+//支持uploader.thumb
+//支持uploader.custom
+var Uploader = require('modules/upload/index')
+
+// 支持inject.css
+// 支持inject.js
+var inject = libs.inject()
 
 
-//插入上传的button按钮样式
+
+//注入上传的button按钮样式
 inject.css(
     ['/css/t/upload/button.css', 'upload_button']
     , render_upload_button
@@ -11,25 +19,24 @@ inject.css(
 
 
 function render_upload_button(){
-    Uploader.button('upload', function(){
-        console.log(this);
-        var me = this;
-        //上传成功会调用这里
-        // alert('上传成功')
+    Uploader.custom(
+        function(){
+            var me = this;
+            $('#bbcc').click(function(){
+                me.trigger('upfile')
+            })
+        },
+        //上传成功后的回调
+        function(){
+            libs.msgtips('不错啊')
+        }
+    )
 
-        $('#name').change(function(){
-            console.log(this.files[0]);
-            var fileobj = this.files[0]
-            me.addFile(fileobj)
-            // me.upload()
-        })
-        $('#bbcc').click(function(){
-            $('#name').click()
-        })
+    Uploader.button('upload', function(){
+        libs.msgtips('上传成功')
     })
 
-    // Uploader.thumb('thumb', function(){
-    //     //上传成功会调用这里
-    //     alert('上传成功')
-    // })
+    Uploader.thumb('thumb', '带缩略图', function(){
+        libs.msgtips('上传成功')
+    })
 }

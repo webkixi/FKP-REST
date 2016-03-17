@@ -8,6 +8,70 @@ var parse = require('co-busboy');
 var path = require('path');
 var _ = require('lodash');
 var assert = require('assert');
+var errors = include('libs/errors')
+
+
+var filterPicture = ['.jpg','.jpeg','.png','.gif']
+
+//上传到本地，支持ie8，支持多图上传
+function *upLoaderService(path2save){
+    console.log('================ 上传文件')
+    console.log('================ upload file')
+    console.log('================ '+__filename+': upload local');
+    
+    if(!path2save){
+       var err = new Error('请输入写入文件路径')
+       return err;
+    }
+
+    if (!this.request.is('multipart/*')) return yield next
+
+    var part;
+    var filename;
+    var o_filename;
+
+    var parts = parse(this, {
+        // only allow upload `.jpg` files
+        checkFile: function (fieldname, file, filename) {
+            // console.log('+++++++++++++++++++++');
+            // console.log(file);
+            if(_.indexOf(filterPicture,path.extname(filename))===-1){
+                var err = new Error('invalid jpg image')
+                err.status = 400
+                return err;
+            }
+        }
+    })
+
+
+
+    while (part = yield parts) {
+        if (part.length) {
+            // arrays are busboy fields
+            console.log('key: ' + part[0])
+            console.log('value: ' + part[1])
+            if(part[0]==='name'){
+                filename = part[1];
+            }
+        }
+        else {
+            if(filename){
+                var ext = path.extname(filename);
+                filename = lib.guid()+ext
+                o_filename = filename;
+                filename = path.join(path2save,filename);
+            }
+            else{
+                return false;
+            }
+            // otherwise, it's a stream
+            part.pipe(fs.createWriteStream(filename))
+        }
+    }
+    this.body = {success: true, message: o_filename}
+}
+
+
 
 
 // var oss = require('ali-oss');
@@ -19,9 +83,7 @@ var assert = require('assert');
 //     bucket : 'jh-ljs-account'
 // })
 
-
 var ALY = require('aliyun-sdk');
-
 var oss = new ALY.OSS({
   "accessKeyId": "e9lpoiqUPkmNrupH",
   "secretAccessKey": "II8SFBfkQXzWheLyB3GQulzgYYzd7d",
@@ -44,62 +106,13 @@ var oss = new ALY.OSS({
 
 
 
-
-
-
-var filterPicture = ['.jpg','.jpeg','.png','.gif']
-
-//上传到本地，支持ie8，支持多图上传
-function *upLoaderService(path2save){
-    if(!path2save){
-       var err = new Error('请输入写入文件路径')
-       return err;
-    }
-
-    if (!this.request.is('multipart/*')) return yield next
-
-    var parts = parse(this, {
-        // only allow upload `.jpg` files
-        checkFile: function (fieldname, file, filename) {
-            console.log('+++++++++++++++++++++');
-            console.log(file);
-            if(_.indexOf(filterPicture,path.extname(filename))===-1){
-                var err = new Error('invalid jpg image')
-                err.status = 400
-                return err;
-            }
-        }
-    })
-    var part;
-    var filename;
-    while (part = yield parts) {
-        if (part.length) {
-            // arrays are busboy fields
-            console.log('key: ' + part[0])
-            console.log('value: ' + part[1])
-            if(part[0]==='name'){
-                filename = part[1];
-            }
-        } else {
-            if(filename){
-                var ext = path.extname(filename);
-                filename = lib.guid()+ext
-                filename = path.join(path2save,filename);
-            }else{
-                return false;
-            }
-            // otherwise, it's a stream
-            part.pipe(fs.createWriteStream(filename))
-        }
-    }
-    console.log('and we are done parsing the form!')
-    this.body = {success: true}
-}
-
 var buffer = null;
 var ctype = 'text/plain';
 var csize = 0;
 function *aliService(path2save){
+    console.log('================ 上传文件')
+    console.log('================ upload file')
+    console.log('================ '+__filename+': upload to ali oss');
 
     if (!this.request.is('multipart/*')) return yield next
 
