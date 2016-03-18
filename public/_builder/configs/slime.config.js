@@ -870,11 +870,20 @@ module.exports = {
                           tmpDir = config.dist + '/_tmp',
                           tmpFile = config.dist + '/_tmp/'+tmpFile+'.'+ext;
 
+                          gulp.task('cleantmp', function(){
+                              gulp.src(tmpDir+'/*.*', { read: false })
+                              .pipe($.rimraf())
+                          })
+
                       if (!fs.existsSync(tmpDir)) {
                           fs.mkdirSync(tmpDir);
+                          fs.writeFileSync( tmpFile , requireCssList) ;
+                      }
+                      else{
+                          gulp.start('cleantmp')
+                          fs.writeFileSync( tmpFile , requireCssList) ;
                       }
 
-                      fs.writeFileSync( tmpFile , requireCssList) ;
 
                       entry = {};
                       entry[package_name] = [tmpFile];
