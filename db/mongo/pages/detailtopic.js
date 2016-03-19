@@ -4,7 +4,8 @@ var libs = include('libs/libs');
 const mongoose = require("mongoose");
 
 function *detailTopic(oridata) {
-    console.log('========= detailTopic/'+__filename+' ==========\n\n');
+    libs.clog('文章详情/'+__filename)
+
 
     var errors = libs.errors;
     var location = this.local;
@@ -15,7 +16,7 @@ function *detailTopic(oridata) {
             return yield getDtail(location.query.topic)
         }
     }
-    
+
     if (method === 'GET') {
         if (location.query.topic){
             return yield getDtail(location.query.topic)

@@ -3,6 +3,7 @@ var errors = libs.errors;
 const mongoose = require("mongoose");
 
 function *signup(oridata) {
+    libs.clog('注册登陆/'+__filename)
     var method = this.method;
     var User = mongoose.model('User')
 

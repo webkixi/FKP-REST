@@ -1,3 +1,4 @@
+var libs = include('libs/libs')
 const fs = require('fs')
 var path = require('path')
 const config = require('../../config')
@@ -24,7 +25,8 @@ function *distribute(control, fromnode){
 
 
 function *init(param){
-    console.log('========= 数据库操作/'+__filename+' =========');
+    libs.clog('数据库操作/'+__filename)
+
     var fromnode = false;
     var cat = param.cat,
         title = param.title,

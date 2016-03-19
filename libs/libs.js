@@ -25,10 +25,10 @@ function getClientIp(req) {
 };
 
 var clog = function(msg){
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log('-----------------------');
-    console.log(msg);
+    console.log('====================='+msg);
+    console.log('-');
+    console.log('-');
+    console.log('-');
 }
 
 var elog = function(msg){

@@ -3,6 +3,7 @@ var errors = libs.errors;
 const mongoose = require("mongoose");
 
 function *signis(oridata) {
+    libs.clog('是否登陆/'+__filename)
     var User = mongoose.model('User')
     var method = this.method;
     var username = '';

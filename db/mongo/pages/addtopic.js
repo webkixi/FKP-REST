@@ -3,6 +3,7 @@ var errors = libs.errors;
 const mongoose = require("mongoose");
 
 function *addtopic(oridata) {
+    libs.clog('添加文章/'+__filename)
     var method = this.method;
     if (method === 'GET') {}
     if (method === 'POST') {

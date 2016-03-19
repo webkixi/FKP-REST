@@ -3,6 +3,7 @@ var errors = libs.errors;
 const mongoose = require("mongoose");
 
 function *signin(oridata) {
+    libs.clog('注册登陆/'+__filename)
     var method = this.method;
     if (method === 'GET') {}
     if (method === 'POST') {

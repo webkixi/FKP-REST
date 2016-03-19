@@ -3,6 +3,8 @@ var libs = include('libs/libs');
 const mongoose = require("mongoose");
 
 function *listtopic(oridata) {
+    libs.clog('文章列表/'+__filename)
+
     var errors = libs.errors;
     var method = this.method;
 
