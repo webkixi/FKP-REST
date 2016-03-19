@@ -11,6 +11,7 @@ module.exports = (gulp,$)->
             # .pipe $.newer(config.jsDevPath+'/t/')
             # .pipe($.plumber())
             # .pipe $.rimraf()
+            .pipe $.uglify()             
             .pipe $.size()
             .pipe $.copyExt()
             .pipe gulp.dest(config.jsDevPath+'/t/')

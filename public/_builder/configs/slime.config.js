@@ -345,7 +345,8 @@ module.exports = {
         return {
             //cache: true,
             debug: true,
-            devtool: "source-map",
+            // devtool: "source-map",
+            devtool: "cheap-module-eval-source-map",
             recursive: true,
             entry: entry,
             output: {
@@ -511,22 +512,22 @@ module.exports = {
                       }
                   }
                   /* webpack的方式处理静态css */
-                  // if(type && (type==='sass' || type==='scss')){
-                  //     //gulp deal with style
-                  //     //something on up
-                  // }
-                  // else{
-                  //     //if webpack sass-loader has fixed , then can use this module,
-                  //     //node: edit fllow some code;
-                  //     _webpackDevCompiler = webpack(_webpackDevConfig);
-                  //     _webpackDevCompiler.run(function(err, stats){
-                  //         if(err){
-                  //             throw new gutil.PluginError('[webpack]', err) ;
-                  //         }
-                  //         gutil.log('[webpack]', stats.toString({ colors: true } )) ;
-                  //         if(cb) cb();
-                  //     });
-                  // }
+                //   if(type && (type==='sass' || type==='scss')){
+                //       //gulp deal with style
+                //       //something on up
+                //   }
+                //   else{
+                //       //if webpack sass-loader has fixed , then can use this module,
+                //       //node: edit fllow some code;
+                //       _webpackDevCompiler = webpack(_webpackDevConfig);
+                //       _webpackDevCompiler.run(function(err, stats){
+                //           if(err){
+                //               throw new gutil.PluginError('[webpack]', err) ;
+                //           }
+                //           gutil.log('[webpack]', stats.toString({ colors: true } )) ;
+                //           if(cb) cb();
+                //       });
+                //   }
               }
 
             //parse js jsx cjsx coffee ...
@@ -860,6 +861,7 @@ module.exports = {
 
                   if  (staticType==='style'|| staticType==='script'){
                       for (var i=0; i<ultimates.length; i++){
+                          ultimates[i] = ultimates[i].replace('//', '/')
                           //放弃webpack打包
                           staticType === 'style'
                           ? requireCssList += '@import "'+ultimates[i]+'";\n'
