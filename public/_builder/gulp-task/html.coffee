@@ -44,14 +44,16 @@ _getAddress = () ->
                 console.log(ifname + ':' + alias, iface.address);
                 address[ifname] = iface.address
             else
-                if(iface.address.indexOf('192.168')>-1 ||
-                	iface.address.indexOf('172.16')>-1 ||
-                	iface.address.indexOf('10.0')>-1)
+                if(iface.address.indexOf('192.168') > -1 ||
+                	iface.address.indexOf('172.16') > -1 ||
+                	iface.address.indexOf('10.') == 0)
                     if(!ipGlobal)
+                        console.log '私网'
                         # this interface has only one ipv4 adress
                         console.log(ifname, iface.address);
                         address[ifname] = iface.address
                 else
+                    console.log '公网'
                     console.log(ifname, iface.address);
                     address = []
                     ipGlobal = true
