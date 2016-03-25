@@ -1,3 +1,7 @@
+/**
+ * markdown的扩展
+ * 支持 link，img等等
+*/
 var marked = require('marked')
 var render = new marked.Renderer();
 var libs = require('../../libs/libs')

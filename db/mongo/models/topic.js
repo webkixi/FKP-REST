@@ -9,6 +9,7 @@ var errors = libs.errors;
 var BaseTopicSchema = new Schema({
     title: { type: String },
     content: { type: String },
+    img: { type: String },
     user: {
         author_id: Schema.Types.ObjectId,
         username: { type: String },

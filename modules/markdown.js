@@ -4,6 +4,7 @@ var libs = require('../libs/libs')
 var _ = libs.$lodash;
 
 function *mkmd(md_raw, templet){
+    console.log('markdown解析');
     console.log('========= markdown/'+__filename+' ');
     var mdcnt = templet
     var cvariable = {}   //markdown 自定义变量
@@ -41,12 +42,22 @@ function *mkmd(md_raw, templet){
             return;
         }
 
+        //标题
         var title = md_raw.match(/#([\s\S]*?)\n/)
         if (title) {
             title = title[1].replace(/ \{(.*)\}/g, '')  // 清除自定义属性，如{"id":"xxx"}
             mdcnt.mdcontent.title = title
         }
 
+        //图片部分
+        // var re_img = /<img.*src\s*=\s*[\"|\']?\s*([^>\"\'\s]*)/i
+        var re_img = /!\[.*\]\((.*)\)/i
+        var img_first = md_raw.match(re_img);
+        if (img_first){
+            mdcnt.mdcontent.img = img_first[1]
+        }
+
+        //菜单部分
         // var re = /<h2[^>]?.*>(.*)<\/h2>/ig;
         var re = /<h2 [^>]*>(.*?)<\/h2>/ig;
         var re2 = /id="(.*?)">/i;
@@ -67,6 +78,7 @@ function *mkmd(md_raw, templet){
         }
         mdcnt.mdcontent.mdmenu = '<ul class="mdmenu">'+mdMenu+'<ul>'
 
+        //内容部分
         mdcnt.mdcontent.cnt = data
 
         var tmp_len = Object.keys(cvariable)

@@ -24,18 +24,19 @@ function *addtopic(oridata) {
 
         try {
             if (body.cnt) {
-                var marked = require('../../../modules/markdown')
+                var marked = include('modules/markdown')
                 var parsedMd = yield marked(body.cnt,{mdcontent:{}})
                 var ntopic = {
                     title: parsedMd.mdcontent.title,
                     content: body.cnt,
+                    img: parsedMd.mdcontent.img,
                     user: {
                         author_id: _user._id,
                         username: _user.username,
                         nickname: _user.nickname
                     }
                 }
-
+                
                 var Topic = mongoose.model('Topic')
 
                 var ttt = new Topic(ntopic)
