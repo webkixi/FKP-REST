@@ -330,7 +330,7 @@ function *distribute(_mapper){
  * return rende pages
 **/
 function *htmlRender(stat,route,data){
-    libs.clog('route.js/htmlRender/'+route);
+    libs.clog('route.js/htmlRender '+route);
     try {
         if (stat){
             this.body = yield render(route,data);

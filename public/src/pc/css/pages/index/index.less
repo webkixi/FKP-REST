@@ -1,5 +1,31 @@
 @import "../../global/_base/index";
 
+
+
+@media screen{
+    .index-container{
+        width: 98%;
+        margin: 0 auto;
+    }
+
+    #listtopic .like_lagou .item{
+        height: 6em;
+    }
+   @media (min-width: 1023px){
+       .index-container{
+           width: 68%;
+           margin: 0 auto;
+       }
+       #listtopic .like_lagou .item{
+           height: 5em;
+       }
+   }
+}
+
+#listtopic{
+    margin-left: -2000px;
+}
+
 @box-width: 500px;
 @box-height: 500px;
 
@@ -19,6 +45,7 @@
     padding-top: 1%;
     z-index: 10000;
     background-color: #fff;
+    padding: 0;
     .sign {
         display: none;
         margin: 0;
@@ -53,4 +80,50 @@
 .button{
     width: 1.5em;
     height: 1.5em;
+}
+.lg_item{
+    .dragstat{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 3.8em;
+        text-align: center;
+        font-size: 20px;
+        border-radius: 0.2em;
+        // z-index: -1;
+        &:after{
+            display:inline-block;
+        	width:0;
+        	height:100%;
+        	vertical-align:middle;
+        	content:'';
+            *display:inline;
+        	*zoom:1;
+        }
+        &.del{
+            left: auto;
+            right: -5.5em;
+            background-color: #af0202;
+            color: #fff;
+        }
+        &.edit{
+            left: -5.5em;
+            background-color: #fbd927;
+        }
+    }
+    // .dragstat{
+    //     display: inline-block;
+    //     width: 4em;
+    //     *display:inline;
+    // 	*zoom:1;
+    //     text-align: center;
+    //     vertical-align: middle;
+    //     font-size: 20px;
+    //     &.del{
+    //         float: right;
+    //     }
+    // }
+
 }

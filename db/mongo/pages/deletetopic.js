@@ -4,31 +4,30 @@ var libs = include('libs/libs');
 const mongoose = require("mongoose");
 var errors = libs.errors;
 
-function *detailTopic(oridata) {
-    libs.clog('文章详情/'+__filename)
-    var location = this.local;
+function *deleteTopic(oridata) {
+    libs.clog('删除文章/'+__filename)
+    var me = this,
+        location = this.local,
+        _user = false;
 
+    if (this.session.$user) {
+        _user = this.session.$user;
+    }
+
+    if (!_user) {
+        return errors['10005'];
+    }
 
     var method = this.method;
     if (method === 'NODE'){
-
-        //处理get数据
         if (location.query.topic){
-            return yield getDtail.call(this, location.query.topic)
-        }
-
-        //处理post数据
-        else{
-            var body = yield libs.$parse(this);
-            if (body && body.topic){
-                return yield getDtail.call(this, body.topic)
-            }
+            return yield delDtail(location.query.topic)
         }
     }
 
     if (method === 'GET') {
         if (location.query.topic){
-            return yield getDtail.call(this, location.query.topic)
+            return yield delDtail(location.query.topic)
         }
     }
 
@@ -40,21 +39,21 @@ function *detailTopic(oridata) {
                 ttt = body.topic;
             }
         }
-        return yield getDtail(ttt)
+        return yield delDtail(ttt)
     }
 
-    function *getDtail(ttt){
+    function *delDtail(ttt){
         if (!ttt){
             return errors['20001']
         }
         try {
             var Topic = mongoose.model('Topic')
-            var topics = yield Topic.topicMatchesId(ttt);
+            var topics = yield Topic.deletTopicMatchesId(ttt);
             if (topics.error){
-                this.redirect = '/404'
+                me.redirect = '/404'
             }
             else{
-                return [topics];
+                return true;
             }
 
         } catch (err) {
@@ -64,5 +63,5 @@ function *detailTopic(oridata) {
 }
 
 module.exports = {
-    getData : detailTopic
+    getData : deleteTopic
 }

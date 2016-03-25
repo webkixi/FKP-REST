@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
   <head>
     <title>一起来使用mongo</title>
-    @@include('./_common/header/head.html')
+    @@include('./_common/header/h5_scale_1.html')
     <link rel="stylesheet" href="/css/t/markdown.css">
     <style>
         .container{
@@ -17,20 +17,23 @@
     </style>
   </head>
   <body>
-      <div class="topper" style="margin:10em;">
-          {{{topper}}}
-      </div>
-      <div class="box" style="display:none">
-        <div class="addtopic" id="addtopic" >
-            <div id="epiceditor"></div>
+        <div class="index-container">
+            <div class="topper" style="margin:10em;">
+                <!-- 登录 -->
+                {{{topper}}}
+            </div>
+            <div class="box" style="display:none">
+            <div class="addtopic" id="addtopic" >
+                <div id="epiceditor"></div>
+            </div>
+            </div>
+
+            <!-- 文章列表部分 -->
+            @@include('./_index/topic.html')
+
+            <!-- 页面底部模板 -->
+            @@include('./_common/footer/foot.html')
         </div>
-      </div>
-
-      <!-- 文章列表部分 -->
-      @@include('./_index/topic.html')
-
-    <!-- 页面底部模板 -->
-    @@include('./_common/footer/foot.html')
     <script type="text/javascript" src='http://www.agzgz.com/js/t/prettfy.js'></script>
   </body>
 </html>

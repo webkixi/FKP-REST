@@ -1,9 +1,7 @@
-// var libs = require('libs/libs')
-var qs = require('querystring');
 var src = "/";
 var demoSrc = "http://mock.agzgz.com/";
 
-function getObjType(object){
+function type(object){
     return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
 };
 
@@ -15,45 +13,50 @@ var apiPath = {
         userinfo: src+'wx/userinfo'
     }
 }
-
 function req( api, param, cb ){
     var url = apiPath.dirs[api];
-    if( !url )
+    if( !url ){
         url = api;
+    }
 
-    if (url.indexOf('http://')===0 || url.indexOf('https://')===0){
-        if (getObjType(param) === 'Object'){
-            param._redirect = url;
+    try {
+        if (url.indexOf('http://')===0 || url.indexOf('https://')===0){
+            if (type(param) === 'Object'){
+                param._redirect = url;
+            }
+            else
+            if (typeof param === 'function'){
+                cb = param;
+                param = {_redirect: url}
+            }
+            else{
+                param = {_redirect: url}
+            }
+            url = '/redirect'
         }
-        else
-        if (getObjType(param) === 'Function'){
-            cb = param;
-            param = {_redirect: url}
+        if( type(param)==='Object' ) {
+            var keys = Object.keys(param)
+            if( keys.length>0 )
+                $.post( url, param, function( body, status ){
+                    if( status === 'success' ) cb( body ) ;
+                }, "json")
+            else
+                $.post( url, {test: '123'}, function( body, status ){
+                    if( status === 'success' ) cb( body ) ;
+                }, "json")
         }
         else{
-            param = {_redirect: url}
-        }
-        url = '/redirect'
-    }
-
-    if( getObjType(param)==='Object' ) {
-        var keys = Object.keys(param)
-        if( keys.length>0 )
-            $.post( url, param, function( body, status ){
-                if( status === 'success' ) cb( body ) ;
-            }, "json")
-        else
+            if( type(param)==='Function' ){
+                cb = param;
+            }
             $.post( url, {test: '123'}, function( body, status ){
-                if( status === 'success' ) cb( body ) ;
+                if( status === 'success' ){
+                    cb( body ) ;
+                }
             }, "json")
-    }
-    else{
-        if( getObjType(param)==='Function' ){
-            cb = param;
         }
-        $.post( url, {test: '123'}, function( body, status ){
-            if( status === 'success' ) cb( body ) ;
-        }, "json")
+    } catch (e) {
+        alert(e)
     }
 }
 

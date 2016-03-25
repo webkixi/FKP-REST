@@ -6,7 +6,7 @@
  var libs = require('../../libs/libs');
 
  function dealWithData(){
-    var clsName = "item wid-3";
+    var clsName = "item";
     var itemStyle = '';
     var sty = {};
     var wid = '';

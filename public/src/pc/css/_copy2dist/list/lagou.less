@@ -1,0 +1,44 @@
+@import "../../global/index.less";
+
+@px: 1px;
+@gray70: lighten(#000000, 70%);
+@wh: 50*@px;
+
+.em_span() {
+    font-size: 8*@px;
+    color: @gray70;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+}
+
+@border: 1px solid lighten(#000000,90%);
+
+.like_lagou{
+    .hlist;
+    position: relative;
+    overflow: hidden;
+
+    //li
+    .item{
+        color: #666;
+		background: #fff;
+        border: @border;
+        border-bottom: @border;
+        width: 93%;
+        height: 5em;
+        padding: 1% 1%;
+        margin: 1.5% auto;
+        border-radius:0.4em;
+        a{
+            width: auto;
+            color: #04b48b;
+            font-size: 18px;
+			display: inline-block;
+            &:visited{
+                color: #04b48b;
+            }
+            &:hover{
+                color: red;
+            }
+		}
+    }
+}

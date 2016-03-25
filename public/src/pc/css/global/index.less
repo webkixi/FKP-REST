@@ -1,0 +1,70 @@
+@import "./_less/index";
+
+@px: 1px;
+
+.list-wrap{
+   position: relative;
+}
+
+//水平列表
+.hlist(){
+   list-style: none;
+   font: normal normal normal 14px/150% Arial,Verdana,"微软雅黑";
+   margin: 0;
+   padding: 0;
+   .item{
+       .inner{ }
+       height: auto;
+       position: relative;
+       img{
+           width: 100%;
+           border: 0;
+       }
+       p{
+           padding: 0;
+           margin: 0;
+       }
+       a{
+           text-decoration: none;
+           border: none;
+           &.caption{
+               font-size: 12*@px;
+               text-align: center;
+           }
+       }
+       em{
+           font-style: normal;
+       }
+       ul{
+           li {}
+       }
+       .hheader{
+           padding: 10px;
+           ul{
+               li{}
+           };
+       }
+       .hbody{
+           padding: 10px;
+           .caption{
+               text-align: center;
+           }
+           ul{
+               li{}
+           }
+       }
+       .hfoot{
+           padding: 10px;
+           ul{
+               li{ }
+           }
+       }
+       .dot{
+           position: absolute;
+           ul{
+               li{ }
+           }
+       }
+       .pics{}
+   }
+}

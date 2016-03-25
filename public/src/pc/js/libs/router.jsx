@@ -404,7 +404,7 @@ route.init = function(name, handle){
         if(typeof handle === 'function'){
             SA.setter(name, handle)
             var tmp = SA.getter(name)
-            tmp.run(item)
+            tmp.run(item)    //?
         }
     }
 }

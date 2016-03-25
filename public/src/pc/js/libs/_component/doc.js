@@ -458,8 +458,9 @@ function dealInject(doc){
                             _inject.call(doc, args)
                         }
                     }
-                    if (type === 'css'||(injectCode && typeof cb==='function')){
-                        cb()
+                    if (type === 'css' || injectCode){
+                        if (typeof cb==='function')
+                            cb()
                     }
                 },17)
             }

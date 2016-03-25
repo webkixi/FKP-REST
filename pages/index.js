@@ -7,10 +7,10 @@ var querystring = require('querystring')
 function *index(oridata) {
     console.log('========= 列表页/'+__filename+' =========\n\n');
 
-    var _this = this;
-    var method = this.method;
-    var location = this.local;
-    var topics;
+    var _this = this,
+        method = this.method,
+        location = this.local,
+        topics;
 
     if (method === 'GET') {
         if (this.session.$user){
@@ -55,8 +55,20 @@ function *index(oridata) {
         return oridata;
     }
 
+    // =============== post ===================
+
     if (method === 'POST') {
-        return oridata;
+        if (this.session.$user) {
+            _user = this.session.$user;
+        }
+
+        if (!_user) {
+            return errors['10005'];
+        }
+
+        var topic = yield api.req(_this, '$listtopic')
+
+        return topic;
     }
 
 
