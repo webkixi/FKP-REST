@@ -14,7 +14,9 @@ function setStatic(stat, app){
     console.log('-');
     console.log('-');
 
-    app.use(statics(config.upload))
+    app.use(statics(config.upload, {
+        dynamic: true
+    }))
 
     if(stat && stat==='dev'){
         app.use(statics(config.static.test.dft,{
