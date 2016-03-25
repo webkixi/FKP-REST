@@ -31,7 +31,7 @@ var config = {
 
     //本地上传路径
     upload: path.join(static_dir,'/dist/'),
-    upload_root: path.join(static_dir,'/dist/upload'),
+    upload_root: path.join(static_dir,'/dist/uploader'),
     // 阿里云图片路径
     goods_img: 'http://jh-ljs-goods.oss-cn-shenzhen.aliyuncs.com/',     //商品
     account_img:'http://jh-ljs-account.oss-cn-shenzhen.aliyuncs.com/',  //用户
