@@ -17,24 +17,26 @@ module.exports = (gulp,$,slime,env,port)->
     return () ->
 
         # 监控css文件
-        gulp.watch [config.dirs.src + '/css/?(global|modules|pages)/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['pagecss:dev']
+        gulp.watch [config.dirs.watch_src + '/css/?(global|modules|pages)/**/*.?(less|scss|css)',config.dirs.watch_src + '/images/slice/*.png'], ['pagecss:dev']
         # .on 'change', reload
 
         # 监控js文件
-        gulp.watch config.dirs.src + '/js/?(modules|pages|widgets|mixins|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        # gulp.watch config.dirs.src + '/js/**/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        gulp.watch config.dirs.watch_src + '/js/?(modules|pages|widgets|mixins|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
         .on 'change', reload
 
         # 监控react目录下的文件
-        gulp.watch config.dirs.react + '/?(modules|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        # gulp.watch config.dirs.react + '/**/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        gulp.watch config.dirs.watch_react + '/?(modules|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
         .on 'change', reload
 
         # 监控第三方直传文件: css
-        gulp.watch [config.dirs.src + '/css/_copy2dist/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['copyThirdCssToDist:dev']
+        gulp.watch [config.dirs.watch_src + '/css/_copy2dist/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['copyThirdCssToDist:dev']
 
         # 监控第三方直传文件:js
-        gulp.watch config.dirs.src + '/js/_copy2dist/**/*.?(coffee|js|jsx|cjsx)', ['copyThirdJsToDist:dev']
+        gulp.watch config.dirs.watch_src + '/js/_copy2dist/**/*.?(coffee|js|jsx|cjsx)', ['copyThirdJsToDist:dev']
 
-        gulp.watch config.dirs.src + '/html/**/*.*', (file) ->
+        gulp.watch config.dirs.watch_src + '/html/**/*.*', (file) ->
             console.log file.path
             slime.build(file.path, {type: 'hbs', 'env': 'pro'});
 

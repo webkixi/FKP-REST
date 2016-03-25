@@ -25,8 +25,10 @@ module.exports = {
         mixins: src_dir + "/js/mixins",
         libs: src_dir + "/js/libs",
         image: src_dir + "images",
+        css_common: src_dir + "css/modules/base",
 
-        css_common: src_dir + "css/modules/base"
+        watch_src: 'src/pc',
+        watch_react: 'react',
     },
     hash: false,
     //react, jq1.11
