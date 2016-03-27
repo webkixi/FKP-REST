@@ -269,9 +269,11 @@ function *pullApiData(api, param, method){
         _param.body = param
         var db = require('../db/mongo/index')         
         var tmp_method = this.method
+        this.omethod = this.method
         this.method = 'NODE'
         var tmp_data = yield db.init.call(this, _param)
         this.method = tmp_method;
+        this.omethod = false;
         return tmp_data;
 
     }
