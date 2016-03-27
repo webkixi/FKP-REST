@@ -21,8 +21,8 @@
         sty = this.props.itemStyle;
     }
 
-    var icon = this.state.icon;
-    var iconPre = this.state.iconPre;
+    // var icon = this.state.icon;
+    // var iconPre = this.state.iconPre;
 
 
     if(data){
@@ -305,6 +305,7 @@
             }
 
         }
+        //数组
         else{
             var seprete = '、';
             if (typeof this.props.inline === 'string')

@@ -46,15 +46,22 @@ var tmpApp = React.createClass({
 
 	_dealWithItemView: function(opts){
 		var that = this;
+		var props = libs.clone(that.props);
+		props.idf = opts.i;
+		props.key = 'view'+opts.i;
+		props.data = opts.item;
+
+		//删除多余的属性
+		delete props.listClass;
+		delete props.listMethod;
+		delete props.itemView;
+		delete props.onscrollend;
+
 		if(that.props.itemView){
 			var view = that.props.itemView;
-			var props = libs.clone(that.props);
-			props.idf = opts.i;
-			props.key = 'view'+opts.i;
-			props.data = opts.item;
 			return React.createElement(view, props, that.props.children);
 		}else{
-			return <Fox idf={opts.i} key={'fox'+opts.i} {...that.props} data={opts.item} />;
+			return <Fox idf={opts.i} key={'fox'+opts.i} {...props} data={opts.item} />;
 		}
 	},
 

@@ -3,7 +3,7 @@
 itemView
 放回 div 结构, 一般可以直接调用
 */
-
+var _ = require('lodash/core')
 var ItemMixin = require('../../mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')
 
@@ -23,21 +23,47 @@ var fox = React.createClass({
 		sty = resault.sty,
 		fill = resault.fill;
 
+		var data_attr = {}
+		_.mapKeys(this.props.data, function(value, key) {
+		  if (key.indexOf('data-')>-1) {
+				data_attr[key] = value;
+			}
+		});
+
+		function getClass(){
+			if (v2&&v2==='second'){
+				return clsName+' active'
+			}
+			else{
+				return clsName
+			}
+		}
+
+		var _props = {
+			"data-idf": 	this.props.idf,
+			"data-id": 		k1,
+			"data-cls": 	v2,
+			"style":			sty,
+			"className": 	getClass()
+		}
+		_props = _.assign(_props, data_attr)
+		return React.createElement('div', _props, fill)
+
+
 		//idf ： 每一个元素的index
-		return (
-            <div data-idf={this.props.idf} data-id={k1}  data-cls={v2} className=
-				{
-					(function(){
-							if(v2&&v2==='second'){
-								return clsName+' active'
-							}else{
-								return clsName
-							}
-					})()
-				} style={sty}>
-				{fill}
-            </div>
-	) }
+		// return (
+    //         <div data-idf={this.props.idf} data-id={k1}  data-cls={v2} className=
+		// 						{ (function(){
+		// 									if(v2&&v2==='second'){
+		// 										return clsName+' active'
+		// 									}else{
+		// 										return clsName
+		// 									}
+		// 							})() } style={sty}>
+		// 						{fill}
+    //         </div>
+		// 		)
+	}
 
 });
 
