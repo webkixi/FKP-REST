@@ -39,8 +39,8 @@ var _path = {
     modules: base,
     public: base,
     pages: base,
-	react: base+'/public/react/widgets',
-	root: base
+		react: base+'/public/react/widgets',
+		root: base
 }
 
 //封装require方法
@@ -61,6 +61,9 @@ function include(file){
 				merge_path = path.resolve(_path[key], file)
 			}
 			else {
+				if (file.indexOf('root')>-1){
+				    file = tmp[1]
+				}
 				merge_path = path.resolve(_path[key], file)
 			}
             return require(merge_path)
