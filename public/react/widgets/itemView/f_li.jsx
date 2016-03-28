@@ -3,7 +3,7 @@
 itemView
 放回 li 结构, 用于modules/list 调用，作为ul/li部分
 */
-var _ = require('lodash/core')
+var _ = require('lodash')
 var ItemMixin = require('../../mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')
 

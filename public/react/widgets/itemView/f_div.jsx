@@ -3,7 +3,7 @@
 itemView
 放回 div 结构, 一般可以直接调用
 */
-var _ = require('lodash/core')
+var _ = require('lodash')
 var ItemMixin = require('../../mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')
 

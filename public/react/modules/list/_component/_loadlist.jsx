@@ -26,7 +26,6 @@ var tmpApp = {
 	componentWillMount:function(){
 		if(this.props.data){
 			var tmpPropsData = libs.clone(this.props.data);
-			tmpPropsData.push({caption: '加载更多内容',attr: 'loadbar'})
 			this.setState({
 				data: tmpPropsData
 			})
@@ -38,7 +37,7 @@ var tmpApp = {
 
 	loopRender: function(){
 		var tData = libs.clone(this.state.data);
-		tData.push({caption: '加载更多内容',attr: 'loadbar'});
+		tData.push({caption: '加载更多内容',attr: 'loadbar', 'data-class': 'loadbar'});
 		return <List {...this.props} data={tData}/>
 	},
 

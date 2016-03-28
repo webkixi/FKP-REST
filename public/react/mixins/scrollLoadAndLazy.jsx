@@ -43,7 +43,7 @@ PageScrollStartEndMixin = {
 			nScrollTop = libs.getOffset().top;
 
             var that = this.getDOMNode()
-			if( (nScrollTop + nDivHight) >= (nScrollHight-500)){
+			if( (nScrollTop + nDivHight) > (nScrollHight-100)){
 	        	if (typeof this.props.onscrollend === 'function') {
 	        		this.props.onscrollend.call(that, scrollTop);
 	        	}

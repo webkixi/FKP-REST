@@ -76,7 +76,8 @@ var config = {
 
     mongo: {
         url: "mongodb://localhost/fkp",
-        port: "27017"
+        port: "27017",
+        pageSize: 20
     },
 
     test: {
@@ -95,7 +96,8 @@ var config = {
         },
         mongo: {
             url: "mongodb://localhost/fkp",
-            port: '27017'
+            port: '27017',
+            pageSize: 20
         }
     }
 }

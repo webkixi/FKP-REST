@@ -11,14 +11,15 @@ var cfg = require('root/config')
 require.ensure(['./_common/epic'], function(require){
     // alert(2)
     var param = libs.queryString(),
-        repass = false;
+        repass = false,
+        cur_page = param.page ? param.page : 1;
+
 
 
     if (param && param.type) {
         var type = param.type;
         if (type==='signup') {
             repass = true;
-            // $('.box, .sign, .repassword').show()
         }
     }
     else {
@@ -111,12 +112,33 @@ require.ensure(['./_common/epic'], function(require){
     //  ===========  列表文章  =========
     api.req(
         '/$listtopic',
+        {page: cur_page},
         listTopic_resaults
     )
 
     //处理每一个item为左右拖动
     function dealwith_drag(){
         require('./_common/dragandedit')()
+    }
+
+    //加载下一页数据
+    function loadMore(e, next){
+        var next_page = cur_page + 1;
+        api.req(
+            '/$listtopic',
+            {page: next_page},
+            function(data){
+                console.log('=============== data')
+                console.log(data)
+                cur_page = next_page;
+                var lists = []
+                data.map(function(item, i){
+                    // console.log(item);
+                    lists.push( <a href={"?topic="+item._id}>{item.title}</a> )
+                })
+                next(e, lists)
+            }
+        )
     }
 
     function listTopic_resaults(data){
@@ -127,11 +149,20 @@ require.ensure(['./_common/epic'], function(require){
         })
 
         if (!param.topic){
-            console.log('列表页展示');
+            //列表页展示
             $('#listtopic').html('')
             setTimeout(function(){
                 $('#listtopic').css({'margin-left':0})
-                AppList(lists, 'listtopic', {evt: 'auto', callback: dealwith_drag});
+                var AppList_opts = {
+                    evt: 'auto',
+                    callback: dealwith_drag,
+                    sem: loadMore
+                }
+                AppList(
+                    lists,          //列表数据
+                    'listtopic',    //绑定dom
+                    AppList_opts
+                );
             }, 100)
         }
     }

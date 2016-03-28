@@ -5,6 +5,8 @@ var Schema = mongoose.Schema;
 var co = require("co");
 var libs = require('../../../libs/libs')
 var errors = libs.errors;
+const config = include('root/config')
+
 
 var BaseTopicSchema = new Schema({
     title: { type: String },
@@ -28,8 +30,9 @@ BaseTopicSchema.plugin(topic_profile);
 
 
 BaseTopicSchema.statics.topicList = function *(start, end) {
+    let pageSize = config.mongo.pageSize;
     if (!start) start = 0;
-    if (!end) end = 20;
+    if (!end) end = pageSize;
     var lists = yield this.find({},'title _id create_at update_at user',{skip:start, limit: end, sort: {create_at: -1}}).exec()
     return lists;
 }
