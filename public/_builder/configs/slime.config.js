@@ -346,7 +346,8 @@ module.exports = {
             //cache: true,
             debug: true,
             // devtool: "source-map",
-            devtool: "cheap-module-eval-source-map",
+            // devtool: "cheap-module-eval-source-map",
+            devtool: "cheap-source-map",
             recursive: true,
             entry: entry,
             output: {
