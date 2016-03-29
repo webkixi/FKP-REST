@@ -11,6 +11,7 @@ var api = require('../apis/javaapi');
 function *github(){
     libs.clog('github')
     var github = config.auth.github;
+    var jump_url = 'dbdemo'
 
     if (this.sess.argv) {
         if (this.sess.argv === 'test') {
@@ -38,7 +39,7 @@ function *github(){
     else {
         var query = this.local.query
         if (this.session.$user){
-            this.redirect('/index')
+            this.redirect(jump_url)
         }
 
         if (query.code){
@@ -77,11 +78,11 @@ function *github(){
                 console.log('============ session user');
                 console.log('============ session user');
                 console.log(this.session.$user);
-                this.redirect('/index')
+                this.redirect(jump_url)
             }
             else{
                 var signupUser = yield api.req(this, '$signup', {github: g_user})
-                this.redirect('/index')
+                this.redirect(jump_url)
             }
         }
     }
