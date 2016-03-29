@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var util  = require('util'),
-    shelljs = require('shelljs/global'),
+    // shelljs = require('shelljs/global'),
     spawn = require('child_process').spawn,
     isWin = /^win/.test(process.platform);
     // p = require('procstreams'),

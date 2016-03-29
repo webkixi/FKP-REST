@@ -5,6 +5,14 @@ gutil = require 'gulp-util'
 config = require '../configs/config.coffee'
 through = require 'through2'
 
+# 检查文件是否为3.3、4.4的异步调用模块状态，临时解决
+fileProfile = (file) ->
+  _file = path.parse(file.path)
+  stat = /[\d]*\.[\d]*/.test(_file.name)
+  return stat
+
+  # return through.obj(fileProfile)
+
 module.exports = (gulp, $, slime, env, port)->
 
     mapJson =
@@ -23,10 +31,10 @@ module.exports = (gulp, $, slime, env, port)->
     gulp.task 'buildMap:js',['buildCommon:dev','html:build','ie:dev'], ->
         dealWithJs = () ->
             gulp.src [config.jsDevPath + '/**/*.js','!'+config.jsDevPath+'/_common.js']
-                .pipe $.md5({
-                    size: 10,
-                    separator: '.'
-                } )
+                .pipe $.if(fileProfile, $.empty(), $.md5({
+                        size: 10,
+                        separator: '.'
+                    }))
                 .pipe $.uglify()
                 .pipe $.size()
                 .pipe gulp.dest(config.jsBuildPath)
