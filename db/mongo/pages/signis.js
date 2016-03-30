@@ -6,6 +6,7 @@ function *signis(oridata) {
     libs.clog('是否登陆/'+__filename)
     var User = mongoose.model('User')
     var method = this.method;
+    var omethod = this.omethod;
     var username = '';
 
     if (method === 'NODE'){ //‘node’在javascript中定义
@@ -32,11 +33,14 @@ function *signis(oridata) {
             if (body.test)
                 return errors['10005'];
         }
+        else{
+            username = body.username
+        }
     }
 
     try {
         if (username){
-            var user = yield User.hasUserMatches(body.username)
+            var user = yield User.hasUserMatches(username)
             this.session.$user = user;
             return user
         }

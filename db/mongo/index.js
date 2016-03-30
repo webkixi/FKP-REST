@@ -4,7 +4,7 @@ var path = require('path')
 const config = require('../../config')
 require('./common/connect')  //载入所有的 mongoose model
 
-var body='123';
+var body=false;
 
 function *distribute(control, fromnode){
     var _this = this;

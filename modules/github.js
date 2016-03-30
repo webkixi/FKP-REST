@@ -9,7 +9,7 @@ var api = require('../apis/javaapi');
 
 
 function *github(){
-    libs.clog('github')
+    libs.clog('github第三方登陆： '+__filename)
     var github = config.auth.github;
     var jump_url = config.auth.github.successUrl
     var query = this.local.query
@@ -66,24 +66,25 @@ function *github(){
             var github_user = yield api.req(this, 'https://api.github.com/user', userpost)
             // var github_user = yield api.req(this, 'https://api.github.com/user?access_token='+github_token, userpost)
             var g_user = JSON.parse(github_user[1])
-            console.log('============ g_user');
-            console.log('============ g_user');
-            console.log('============ g_user');
-            console.log('============ g_user');
+            libs.elog('github user info')
             console.log(typeof g_user);
             console.log(g_user);
 
             var hasUser = yield api.req(this, '$signis', {username: g_user.login})
             if (hasUser){
                 // this.session[sesskey] = hasUser
-                console.log('============ session user');
-                console.log('============ session user');
-                console.log('============ session user');
+                libs.elog('session user info')
                 console.log(this.session.$user);
                 this.redirect(jump_url)
             }
             else{
+              libs.elog('write user info into db')
                 var signupUser = yield api.req(this, '$signup', {github: g_user})
+                console.log('========== signupUser');
+                console.log('========== signupUser');
+                console.log('========== signupUser');
+                console.log(signupUser);
+                this.session.$user = signupUser;
                 this.redirect(jump_url)
             }
         }

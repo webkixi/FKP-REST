@@ -8,6 +8,7 @@ function *signup(oridata) {
     var User = mongoose.model('User')
 
     if (method === 'NODE'){
+        libs.elog('NODE')
         var body = oridata.body;
         if (body){
             var initPass = '123456'
@@ -35,7 +36,7 @@ function *signup(oridata) {
                     var user = yield User.userMatches(body.login)
 
                     // console.log(user);
-                    if (!user.error) {
+                    if (user === true) {
                         var uuu = new User({
                             username: body.login,
                             password: initPass,
@@ -47,13 +48,17 @@ function *signup(oridata) {
                         return errors['10003']
                     }
                 } catch (err){
-
+                    console.log(err);
                 }
             }
         }
     }
-    if (method === 'GET') {}
+    if (method === 'GET') {
+        libs.elog('GET')
+
+    }
     if (method === 'POST') {
+        libs.elog('POST')
         var body = yield libs.$parse(this);
         if (!body) {
             this.throw("The body is empty", 400);
@@ -93,9 +98,8 @@ function *signup(oridata) {
 
 function *createUser(uuu){
     // save user to database
-    var user = yield uuu.save();
-    this.session.$user = user;
-    return user;
+    uuu.save();
+    return uuu;
     // uuu.save(function(err) {
     //     if (err) throw err;
     // });

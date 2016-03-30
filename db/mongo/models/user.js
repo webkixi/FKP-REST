@@ -1,11 +1,13 @@
 // "use strict";
-var bcrypt = include("modules/bcrypt"); // version that supports yields
+// var bcrypt = include("modules/bcrypt"); // version that supports yields
+var bcrypt = require('bcryptjs');
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 // var Promise = mongoose.Promise;
 var co = require("co");
-var libs = require('../../../libs/libs')
+var libs = include('libs/libs')
 var errors = libs.errors;
+libs.clog('db-model-user.js')
 
 var BaseUserSchema = new Schema({
   username: { type: String, required: true, unique: true, lowercase: true },
@@ -50,8 +52,8 @@ BaseUserSchema.pre("save", function(done) {
 
   co.wrap(function*() {
     try {
-      var salt = yield bcrypt.genSalt();
-      var hash = yield bcrypt.hash(this.password, salt);
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(this.password, salt);
       this.password = hash;
       done();
     } catch (err) {
@@ -64,7 +66,7 @@ BaseUserSchema.pre("save", function(done) {
  * Methods
  */
 BaseUserSchema.methods.comparePassword = function *(candidatePassword) {
-  return yield bcrypt.compare(candidatePassword, this.password);
+  return bcrypt.compareSync(candidatePassword, this.password);
 };
 
 /**
