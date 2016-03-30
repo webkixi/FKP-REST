@@ -21,24 +21,26 @@ request({method:'POST', url:url, body:paramStr, json:true}, function(err,respons
 */
 
 // request for koa
-var requ = function(api,options){
+var requ = function(api,options, method){
     function rp(error, rep, body){   //deal with response result
         if(error)
             throw new Error("async search: no respons data");
 
-        if (!error && rep.statusCode == 200)
-            return body;
+        if (!error && rep.statusCode == 200){
+          console.log('============= javaapi line 30 fun rp');
+          console.log(body);
+          return body;
+        }
     }
 
 
 
     return function(rp){
-        var opts = {headers: {
-           'Content-type': 'application/json; charset=utf-8'
-        }}
-        if (options.headers){
+        var opts = {headers: {}}
+        if (options && options.headers){
             var tmp = _.assign(opts.headers, options.headers)
             opts.headers = tmp
+            delete options.headers
         }
         // if (api.indexOf('api.github.com/user')>-1 ){
         //     opts.headers['user-agent'] = 'love_gz'
@@ -51,17 +53,32 @@ var requ = function(api,options){
             else{
                 opts.json = options
             }
-            console.log('((((((((((((((((  javaapi req  ))))))))))))))))');
-            console.log(options);
+        }
+
+        if (method === 'post'){
+            opts.headers['Content-type'] = 'application/json; charset=utf-8'
+            console.log('((((((((((((((((  javaapi line 61 - post  ))))))))))))))))');
+            console.log('- api: ');
             console.log(api);
+            console.log('- options: ');
+            console.log(opts);
             request.post(api, opts, rp);
             // request({method:'POST', url:api, json:options},rp)
             // console.log(needle);
             // request({method:'POST', url:api, json:options}, rp)
-
         }
-        else{
-            request(api,rp);
+        else {
+            console.log('((((((((((((((((  javaapi line 72 - get  ))))))))))))))))');
+            console.log('- api: ');
+            console.log(api);
+            console.log('- options: ');
+            console.log(opts);
+            if (opts && opts.json){
+                var _q = qs.stringify(opts.json)
+                api = api + '?' + _q;
+                delete opts.json
+            }
+            request.get(api, opts, rp);
         }
     }
 }
@@ -267,7 +284,7 @@ function *pullApiData(api, param, method){
             _param.cat = api;
         }
         _param.body = param
-        var db = require('../db/mongo/index')         
+        var db = require('../db/mongo/index')
         var tmp_method = this.method
         this.omethod = this.method
         this.method = 'NODE'
@@ -295,8 +312,13 @@ function *pullApiData(api, param, method){
 
     var query;
 
-    if(!method||method==='get'||method==='GET')
-        query = qs.stringify(param);
+    // if(!method||method==='get'||method==='GET')
+    //     query = qs.stringify(param);
+
+    if(!method||method==='get'||method==='GET'){
+        query = param;
+        // query.url = url;
+    }
 
     if(method==='post'||method==='POST')
         query = param;
@@ -308,14 +330,16 @@ function *pullApiData(api, param, method){
         return yield {message: 'pullApiData === 请指定正确的参数'};
 
     if(!method || method==='get'||method==='GET'){
+        // if (query)
+        //     return yield requ(url+'?'+query);
         if (query)
-            return yield requ(url+'?'+query);
+            return yield requ(url, query, 'get');
         else {
-            return yield requ(url)
+            return yield requ(url, 'get')
         }
     }
     else
-        return yield requ(url, query);
+        return yield requ(url, query, 'post');
 
 }
 
