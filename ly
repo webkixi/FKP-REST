@@ -14,10 +14,14 @@ dev(){
     sleep 2
 
     cd public
-    if [ $1 ]; then
-        gulp watch --port $1
-    else
+    if [ $1='test' ]; then
         gulp watch
+    else
+        if [ $1 ]; then
+            gulp watch --port $1
+        else
+            gulp watch
+        fi
     fi
 }
 

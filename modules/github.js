@@ -11,12 +11,13 @@ var api = require('../apis/javaapi');
 function *github(){
     libs.clog('github')
     var github = config.auth.github;
-    var jump_url = 'dbdemo'
+    var jump_url = config.auth.github.successUrl
+    var query = this.local.query
 
     if (this.sess.argv) {
         if (this.sess.argv === 'test') {
-            console.log('========== github auth test环境');
             github = config.test.auth.github
+            jump_url = github.successUrl
         }
     }
 
@@ -37,7 +38,7 @@ function *github(){
         this.redirect("https://github.com/login?return_to=/login/oauth/authorize?client_id="+client_id+"&redirect_uri="+cb_url+"&response_type=code")
     }
     else {
-        var query = this.local.query
+
         if (this.session.$user){
             this.redirect(jump_url)
         }
@@ -58,18 +59,19 @@ function *github(){
             //   token_type: 'bearer',
             //   scope: '' }
             var userpost = {
-                method: 'post',
-                headers: {
-                    "user-agent": 'love_gz'
-                }
+                method: 'get',
+                headers: github.headers,
+                "access_token": github_token
             }
-            var github_user = yield api.req(this, 'https://api.github.com/user?access_token='+github_token, userpost)
-            var g_user = github_user[1]
-            // console.log('============ g_user');
-            // console.log('============ g_user');
-            // console.log('============ g_user');
-            // console.log('============ g_user');
-            // console.log(g_user);
+            var github_user = yield api.req(this, 'https://api.github.com/user', userpost)
+            // var github_user = yield api.req(this, 'https://api.github.com/user?access_token='+github_token, userpost)
+            var g_user = JSON.parse(github_user[1])
+            console.log('============ g_user');
+            console.log('============ g_user');
+            console.log('============ g_user');
+            console.log('============ g_user');
+            console.log(typeof g_user);
+            console.log(g_user);
 
             var hasUser = yield api.req(this, '$signis', {username: g_user.login})
             if (hasUser){

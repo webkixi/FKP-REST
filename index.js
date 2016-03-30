@@ -100,9 +100,17 @@ app.use(function *(next){
 	yield next;
 })
 
+
 //定义测试环境
 app.use(function *(next){
+	if (args[0] === 'dev' || args[0] === 'pro'){
+			if (args[1] === 'test') {
+				console.log('=========== 进入测试环境');
+				this.session.argv = 'test'
+			}
+	}
 	if (args[0] === 'test') {
+		console.log('=========== 进入测试环境');
 		this.session.argv = 'test'
 	}
 	yield next
@@ -118,8 +126,11 @@ app.on('error', function(err){
 });
 
 var port = 8070;
-if(args[1])
-	port = args[1]
+if(args[1]){
+	if (/[\d]+/.test(args[1])){
+		port = args[1]
+	}
+}
 
 app.listen(port);
 

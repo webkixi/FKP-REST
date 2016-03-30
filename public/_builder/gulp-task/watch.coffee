@@ -10,8 +10,9 @@ module.exports = (gulp,$,slime,env,port)->
         buildCommon = 'buildCommon:dev:bb'
 
     pt = 8070
-    if port
+    if port && /[\d]+/.test(port)
         pt = port
+
     pxy = 'http://127.0.0.1:'+pt
 
     return () ->
