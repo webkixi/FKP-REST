@@ -32,9 +32,7 @@ var clog = function(msg){
 }
 
 var elog = function(msg){
-    console.log('============');
-    console.log('============');
-    console.log(msg);
+    console.log('============'+msg);
 }
 
 var wlog = function(msg){
