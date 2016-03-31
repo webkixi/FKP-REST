@@ -15,60 +15,66 @@ var filterPicture = ['.jpg','.jpeg','.png','.gif']
 
 //上传到本地，支持ie8，支持多图上传
 function *upLoaderService(path2save){
-    console.log('================ 上传文件')
-    console.log('================ upload file')
-    console.log('================ '+__filename+': upload local');
-    
-    if(!path2save){
-       var err = new Error('请输入写入文件路径')
-       return err;
+    lib.clog('upload local '+__filename)
+
+    try {
+        if(!path2save){
+           var err = new Error('请输入写入文件路径')
+           throw err;
+        }
+
+        if (!fs.existsSync(path2save)) {
+            fs.mkdirSync(path2save);
+        }
+
+        if (!this.request.is('multipart/*')) return yield next
+
+        var part;
+        var filename;
+        var o_filename;
+
+        var parts = parse(this, {
+            // only allow upload `.jpg` files
+            checkFile: function (fieldname, file, filename) {
+                // console.log('+++++++++++++++++++++');
+                // console.log(file);
+                if(_.indexOf(filterPicture,path.extname(filename))===-1){
+                    var err = new Error('invalid jpg image')
+                    err.status = 400
+                    return err;
+                }
+            }
+        })
+
+
+
+        while (part = yield parts) {
+            if (part.length) {
+                // arrays are busboy fields
+                console.log('key: ' + part[0])
+                console.log('value: ' + part[1])
+                if(part[0]==='name'){
+                    filename = part[1];
+                }
+            }
+            else {
+                if(filename){
+                    var ext = path.extname(filename);
+                    filename = lib.guid()+ext
+                    o_filename = filename;
+                    filename = path.join(path2save,filename);
+                }
+                else{
+                    return false;
+                }
+                // otherwise, it's a stream
+                part.pipe(fs.createWriteStream(filename))
+            }
+        }
+        this.body = {success: true, message: o_filename}
+    } catch (e) {
+        console.log('upload file to local: '+ e);
     }
-
-    if (!this.request.is('multipart/*')) return yield next
-
-    var part;
-    var filename;
-    var o_filename;
-
-    var parts = parse(this, {
-        // only allow upload `.jpg` files
-        checkFile: function (fieldname, file, filename) {
-            // console.log('+++++++++++++++++++++');
-            // console.log(file);
-            if(_.indexOf(filterPicture,path.extname(filename))===-1){
-                var err = new Error('invalid jpg image')
-                err.status = 400
-                return err;
-            }
-        }
-    })
-
-
-
-    while (part = yield parts) {
-        if (part.length) {
-            // arrays are busboy fields
-            console.log('key: ' + part[0])
-            console.log('value: ' + part[1])
-            if(part[0]==='name'){
-                filename = part[1];
-            }
-        }
-        else {
-            if(filename){
-                var ext = path.extname(filename);
-                filename = lib.guid()+ext
-                o_filename = filename;
-                filename = path.join(path2save,filename);
-            }
-            else{
-                return false;
-            }
-            // otherwise, it's a stream
-            part.pipe(fs.createWriteStream(filename))
-        }
-    }
-    this.body = {success: true, message: o_filename}
 }
 
 
