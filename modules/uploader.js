@@ -25,7 +25,7 @@ function *upLoaderService(path2save){
 
         if (!fs.existsSync(path2save)) {
             fs.mkdirSync(path2save);
-            fs.chmodSync(path2save, 0777)
+            fs.chmodSync(path2save, '0777')
         }
 
         if (!this.request.is('multipart/*')) return yield next
