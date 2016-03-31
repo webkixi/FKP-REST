@@ -110,7 +110,7 @@ function uploadAction2(btn, title, callback, type){
     });
 
     // 文件上传失败，现实上传出错。
-    uploader.on( 'uploadError', function( file ) {
+    uploader.on( 'uploadError', function( file, reason ) {
         var $li = $( '#'+file.id ),
             $error = $li.find('div.error');
 
@@ -120,6 +120,9 @@ function uploadAction2(btn, title, callback, type){
         }
 
         $error.text('上传失败');
+
+        console.log(file);
+        console.log(reason);
 
         alert('上传失败')
     });
