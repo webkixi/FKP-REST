@@ -9,6 +9,7 @@ module.exports = {
     "10005": {error: "10005", message: "请登录"},
 
     // models/topic
+    "20000": {error: "20000", message: "修改文章参数不正确"},
     "20001": {error: "20001", message: "请指定文章id"},
     "20002": {error: "20002", message: "没有找到该文章，请确认文章id"},
 }

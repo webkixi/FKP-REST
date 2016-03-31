@@ -10,8 +10,8 @@ function lm(){
     if (_is_login){
         _lm()
     }
-    _lm()
 
+    //拖动事件检测，拖动事件
     function _lm(){
         var pointerdown = false;
         if(is_touch) {
@@ -33,16 +33,13 @@ function lm(){
         }
         else {
             pointerdown = true
-            //this
-            // $('.lg_item').click(function(){
-            //     $(this)
-            // })
             start('.lg_item')
         }
 
         var has_draggabilly,
             $draggabilly
 
+        //开始绑定拖动事件
         function start(ele, stat){
             if (pointerdown){
                 var wait = 17;
@@ -120,7 +117,7 @@ function lm(){
                             libs.msgtips('请先使用github登陆')
                         }
                         else {
-                            $(this).remove()
+                            $(_item).remove()
                         }
                     })
                 }
@@ -134,16 +131,18 @@ function lm(){
                     $(this).css({'background-color': '#f5faf4'})
                 }
                 else {
+                    $(this).css({left: 0})
+                    $(this).find('.edit').css({left: '-5.5em'})
+                    $(this).css({'background-color': '#f5faf4'})
                     req('/$detailtopic', {topic: topic_id}, function(data){
                         if (data.error){
-                            $(this).css({left: 0})
-                            $(this).find('.edit').css({left: '-5.5em'})
-                            $(this).css({'background-color': '#f5faf4'})
+
                             libs.msgtips('请先使用github登陆')
                         }
                         else{
                             //在index.js中定义
-                            $('body').trigger('openEditor', {tid: topic_id})
+                            // console.log(data);
+                            $('body').trigger('openEditor', data[0])
                         }
                     })
                 }
@@ -155,4 +154,4 @@ function lm(){
 }
 
 
-module.exports = lm
+module.exports = lm //listmethod

@@ -66,5 +66,17 @@ BaseTopicSchema.statics.deletTopicMatchesId = function *(topic_id) {
   }
 };
 
+BaseTopicSchema.statics.updateTopicMatchesId = function *(topic_id, body) {
+  var topic = yield this.findOne({ _id: topic_id }).exec();
+  if (!topic) {
+      return errors['10003'];
+  }
+  else {
+      yield this.update({ _id: topic_id }, body, {}).exec()
+      // yield this.remove({ _id: topic_id }).exec();
+      return true;
+  }
+};
+
 // Model creation
 mongoose.model("Topic", BaseTopicSchema);
