@@ -341,13 +341,24 @@ module.exports = {
             }
 
         // console.log(entry);
+        // function whichSourceMap(){
+        //     if (options && options.env){
+        //         var env = options.env;
+        //         if (env === 'dev'){
+        //             return 'cheap-module-eval-source-map'
+        //         }
+        //         else {
+        //             return 'cheap-source-map'
+        //         }
+        //     }
+        // }
 
         return {
             //cache: true,
             debug: true,
             // devtool: "source-map",
             // devtool: "cheap-module-eval-source-map",
-            devtool: "cheap-source-map",
+            // devtool: "cheap-source-map",
             recursive: true,
             entry: entry,
             output: {
@@ -399,6 +410,14 @@ module.exports = {
             staticType = chkType(type),
             _webpackDevCompiler,
             _webpackDevConfig = staticType !== 'templet' ? this.create(dirname,isPack,options) : this.create(dirname,true,options);
+            _webpackDevConfig.devtool = 'cheap-module-eval-source-map'
+            if (options && options.env){
+                var env = options.env;
+                if (env === 'pro'){
+                    delete _webpackDevConfig.devtool
+                    // _webpackDevConfig.devtool = 'cheap-source-map'
+                }
+            }
 
             entry = _webpackDevConfig.entry;
             entrys = clone(entry);   //clone entry
