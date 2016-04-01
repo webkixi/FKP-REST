@@ -114,7 +114,7 @@ function lm(){
                             $(_item).css({left: 0})
                             $(_item).css({'background-color': '#f5faf4'})
                             $(_item).find('.del').css({right: '-5.5em', left: 'auto'})
-                            libs.msgtips('请先使用github登陆')
+                            libs.msgtips(data.message)
                         }
                         else {
                             $(_item).remove()
@@ -134,10 +134,9 @@ function lm(){
                     $(this).css({left: 0})
                     $(this).find('.edit').css({left: '-5.5em'})
                     $(this).css({'background-color': '#f5faf4'})
-                    req('/$detailtopic', {topic: topic_id}, function(data){
+                    req('/$detailtopic', {topic: topic_id, auth: true}, function(data){
                         if (data.error){
-
-                            libs.msgtips('请先使用github登陆')
+                            libs.msgtips(data.message)
                         }
                         else{
                             //在index.js中定义

@@ -114,17 +114,6 @@ function epiceditor(options){
               editor.open('clear')
             })
 
-            // ========== 添加文章
-            //自定义按钮方法
-            $(find('add_md_btn')).click(function(){
-              var cnt = JSON.parse(editor.exportFile(null,'json'))
-              // var ddd = submitContent(cnt.content, editor)
-              if (stat_editor === 'add')
-              $('body').trigger('addTopic', {cnt: cnt.content, editor: editor})
-              if (stat_editor === 'edit')
-              $('body').trigger('addTopic', {cnt: cnt.content, editor: editor, upid: options._id})
-            })
-
             // ========== 上传组件
             //使用自定义的样式上传
             uploader.custom(
@@ -153,6 +142,17 @@ function epiceditor(options){
               $(find('add_md_btn')).text('修改')
             }
           }
+
+          // ========== 添加文章
+          //自定义按钮方法
+          $(find('add_md_btn')).off('click').click(function(){
+            var cnt = JSON.parse(editor.exportFile(null,'json'))
+            // var ddd = submitContent(cnt.content, editor)
+            if (stat_editor === 'add')
+              $('body').trigger('addTopic', {cnt: cnt.content, editor: editor})
+            if (stat_editor === 'edit')
+              $('body').trigger('addTopic', {cnt: cnt.content, editor: editor, upid: options._id})
+          })
       }
 }
 

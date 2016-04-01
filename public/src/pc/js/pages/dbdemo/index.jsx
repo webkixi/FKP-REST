@@ -110,11 +110,16 @@ require.ensure(['./_common/epic'], function(require){
         function topic_resaults(data){
             editor.importFile('')
             $('.box').hide()
-            if (!data.error && upid){
-                libs.msgtips('更新成功')
+            if (data.error){
+                libs.msgtips(data.message)
             }
-            else {
-                libs.msgtips('发布成功')
+            else{
+              if (upid){
+                  libs.msgtips('更新成功')
+              }
+              else {
+                  libs.msgtips('发布成功')
+              }
             }
             return data
         }

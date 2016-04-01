@@ -28,6 +28,21 @@ var BaseTopicSchema = new Schema({
 var topic_profile = require('./catoray/topic_profile')
 BaseTopicSchema.plugin(topic_profile);
 
+BaseTopicSchema.methods.userMatches = function *(user) {
+  var this_user = this.user.author_id.toString();
+  var that_user = user._id.toString()
+  if (this_user === that_user)
+    return true
+  else {
+    return false
+  }
+  // var topic = yield this.findOne({ _id: topic_id }).exec();
+  // if (!topic) {
+  //     return errors['10003'];
+  // }
+  // return topic;
+
+};
 
 BaseTopicSchema.statics.topicList = function *(start, end) {
     let pageSize = config.mongo.pageSize;
@@ -37,14 +52,6 @@ BaseTopicSchema.statics.topicList = function *(start, end) {
     return lists;
 }
 
-BaseTopicSchema.statics.userMatches = function *(userid) {
-  // var user = yield this.findOne({ username: username.toLowerCase() }).exec();
-  // if (user) {
-  //     return errors['10003'];
-  // }
-  // return true;
-
-};
 
 BaseTopicSchema.statics.topicMatchesId = function *(topic_id) {
   var topic = yield this.findOne({ _id: topic_id }).exec();
@@ -55,26 +62,45 @@ BaseTopicSchema.statics.topicMatchesId = function *(topic_id) {
 
 };
 
-BaseTopicSchema.statics.deletTopicMatchesId = function *(topic_id) {
-  var topic = yield this.findOne({ _id: topic_id }).exec();
-  if (!topic) {
-      return errors['10003'];
-  }
-  else {
-      yield this.remove({ _id: topic_id }).exec();
-      return true;
+BaseTopicSchema.statics.deletTopicMatchesId = function *(topic_id, user) {
+  try {
+      var topic = yield this.findOne({ _id: topic_id }).exec();
+      if (!topic) {
+          return errors['10003'];
+      }
+      else {
+          if (yield topic.userMatches(user)) {
+            yield this.remove({ _id: topic_id }).exec();
+            return true;
+          }
+          else {
+            return errors['20003'];
+          }
+      }
+  } catch (e) {
+    console.log('============ delete');
+    console.log(e);
   }
 };
 
-BaseTopicSchema.statics.updateTopicMatchesId = function *(topic_id, body) {
-  var topic = yield this.findOne({ _id: topic_id }).exec();
-  if (!topic) {
-      return errors['10003'];
-  }
-  else {
-      yield this.update({ _id: topic_id }, body, {}).exec()
-      // yield this.remove({ _id: topic_id }).exec();
-      return true;
+BaseTopicSchema.statics.updateTopicMatchesId = function *(topic_id, body, user) {
+  try {
+      var topic = yield this.findOne({ _id: topic_id }).exec();
+      if (!topic) {
+          return errors['10003'];
+      }
+      else {
+          if (yield topic.userMatches(user)) {
+              yield this.update({ _id: topic_id }, body, {}).exec()
+              return true;
+          }
+          else {
+              return errors['20003'];
+          }
+      }
+  } catch (e) {
+    console.log('============ update');
+    console.log(e);
   }
 };
 

@@ -28,11 +28,6 @@ function *addtopic(oridata) {
 
         try {
             if (body.topic) {
-                console.log('============ $user');
-                console.log('============ $user');
-                console.log('============ $user');
-                console.log('============ $user');
-                console.log(_user);
                 var marked = include('modules/markdown')
                 var parsedMd = yield marked(body.cnt,{mdcontent:{}})
                 var utopic = {
@@ -42,8 +37,18 @@ function *addtopic(oridata) {
                 }
 
                 var Topic = mongoose.model('Topic')
-                var upstat = yield Topic.updateTopicMatchesId(body.topic, {$set: utopic})
-                return upstat
+                var upstat = yield Topic.updateTopicMatchesId(body.topic, {$set: utopic}, _user)
+                console.log('============upstat');
+                console.log('============upstat');
+                console.log('============upstat');
+                console.log('============upstat');
+                console.log(upstat);
+                if (upstat.error){
+                    return upstat
+                }
+                else{
+                    return errors['10000'];
+                }
 
                 // var ttt = new Topic(ntopic)
                 // return yield _addtopic.call(this, ttt)

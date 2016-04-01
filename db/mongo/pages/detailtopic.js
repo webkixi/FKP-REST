@@ -7,6 +7,7 @@ var errors = libs.errors;
 function *detailTopic(oridata) {
     libs.clog('文章详情/'+__filename)
     var location = this.local;
+    var _user = this.session.$user;
 
 
     var method = this.method;
@@ -39,24 +40,44 @@ function *detailTopic(oridata) {
             if (body.topic) {
                 ttt = body.topic;
             }
+            //编辑该文章
+            if (body.auth){
+                if (!_user){
+                    return errors['10005'];
+                }
+                var auth_topic = yield getDtail(ttt, _user)
+                var _auth = auth_topic[0],
+                    _topic = auth_topic[1];
+
+                if (!_auth)
+                    return errors['20003']
+
+                if (_topic.error)
+                    return _topic
+                else
+                    return [_topic];
+            }
         }
         return yield getDtail(ttt)
     }
 
-    function *getDtail(ttt){
+    function *getDtail(ttt, user){
         if (!ttt){
             return errors['20001']
         }
         try {
             var Topic = mongoose.model('Topic')
             var topics = yield Topic.topicMatchesId(ttt);
+            if (user){
+                var stat = yield topics.userMatches(user)
+                return [stat, topics]
+            }
             if (topics.error){
-                this.redirect = '/404'
+                return topics
             }
             else{
                 return [topics];
             }
-
         } catch (err) {
             return err;
         }

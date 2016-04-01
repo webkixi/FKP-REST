@@ -48,12 +48,12 @@ function *deleteTopic(oridata) {
         }
         try {
             var Topic = mongoose.model('Topic')
-            var topics = yield Topic.deletTopicMatchesId(ttt);
+            var topics = yield Topic.deletTopicMatchesId(ttt, _user);
             if (topics.error){
-                me.redirect = '/404'
+                return topics
             }
             else{
-                return true;
+                return errors['10000'];
             }
 
         } catch (err) {
