@@ -415,7 +415,7 @@ module.exports = {
                 var env = options.env;
                 if (env === 'pro'){
                     delete _webpackDevConfig.devtool
-                    // _webpackDevConfig.devtool = 'cheap-source-map'
+                    _webpackDevConfig.devtool = 'cheap-source-map'
                     console.log('=============== pro');
                     console.log('=============== pro');
                     console.log('=============== pro');
