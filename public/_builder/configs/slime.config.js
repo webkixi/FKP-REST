@@ -416,6 +416,12 @@ module.exports = {
                 if (env === 'pro'){
                     delete _webpackDevConfig.devtool
                     // _webpackDevConfig.devtool = 'cheap-source-map'
+                    console.log('=============== pro');
+                    console.log('=============== pro');
+                    console.log('=============== pro');
+                    console.log('=============== pro');
+                    console.log('=============== pro');
+                    console.log(_webpackDevConfig);
                 }
             }
 
