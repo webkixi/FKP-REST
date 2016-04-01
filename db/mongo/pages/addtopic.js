@@ -33,10 +33,11 @@ function *addtopic(oridata) {
                     user: {
                         author_id: _user._id,
                         username: _user.username,
-                        nickname: _user.nickname
+                        nickname: _user.nickname,
+                        avatar: _user.avatar
                     }
                 }
-                
+
                 var Topic = mongoose.model('Topic')
 
                 var ttt = new Topic(ntopic)

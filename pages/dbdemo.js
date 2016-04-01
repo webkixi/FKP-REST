@@ -3,6 +3,8 @@ var api = include('apis/javaapi')
 var react2html = include('modules/parseReact')
 var markdown = include('modules/markdown')
 var querystring = require('querystring')
+const mongoose = require("mongoose");
+
 
 function *index(oridata) {
     console.log('========= 列表页/'+__filename+' =========\n\n');
@@ -22,21 +24,29 @@ function *index(oridata) {
 
         // 处理文章详情数据
         if (location.query.topic){
-            if (Cache.has(location.query.topic)){
-                var tmp = Cache.peek(location.query.topic)
+            try {
+                yield api.req(_this, '$counttopic')
+
+                if (Cache.has(location.query.topic)){
+                    var tmp = Cache.peek(location.query.topic)
+                }
+                else{
+                    var tmp = yield return_detail()
+                }
+                
+                var rtn = {
+                    isList: false,
+                    content: tmp.cnt.replace('h1','p'),
+                    mdmenu: tmp.mdmenu,
+                    title: tmp.ori.title,
+                    author: tmp.ori.user.username,
+                    create_at: tmp.ori.create_at
+                }
+                oridata.bloglist = rtn
+
+            } catch (e) {
+                console.log('============ counttopic'+e);
             }
-            else{
-                var tmp = yield return_detail()
-            }
-            var rtn = {
-                isList: false,
-                content: tmp.cnt.replace('h1','p'),
-                mdmenu: tmp.mdmenu,
-                title: tmp.ori.title,
-                author: tmp.ori.user.username,
-                create_at: tmp.ori.create_at
-            }
-            oridata.bloglist = rtn
         }
 
 

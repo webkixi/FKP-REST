@@ -35,7 +35,11 @@ function *signup(oridata) {
                     var body = body.github
                     var user = yield User.userMatches(body.login)
 
-                    // console.log(user);
+                    console.log('============ body');
+                    console.log('============ body');
+                    console.log('============ body');
+                    console.log('============ body');
+                    console.log(body);
                     if (user === true) {
                         var uuu = new User({
                             username: body.login,

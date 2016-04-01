@@ -140,7 +140,11 @@ require.ensure(['./_common/epic'], function(require){
     function listTopic_resaults(data){
         var lists = []
         data.map(function(item, i){
-            // console.log(item);
+            console.log('========== item');
+            console.log('========== item');
+            console.log('========== item');
+            console.log('========== item');
+            console.log(item);
             lists.push( <a href={"?topic="+item._id}>{item.title}</a> )
         })
 

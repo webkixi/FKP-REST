@@ -15,7 +15,8 @@ var BaseTopicSchema = new Schema({
     user: {
         author_id: Schema.Types.ObjectId,
         username: { type: String },
-        nickname: { type: String }
+        nickname: { type: String },
+        avatar: { type: String }
     },
     create_at: { type: String, default: (new Date().getTime()) },  //创建时间
     update_at: { type: String, default: (new Date().getTime()) }
@@ -48,17 +49,39 @@ BaseTopicSchema.statics.topicList = function *(start, end) {
     let pageSize = config.mongo.pageSize;
     if (!start) start = 0;
     if (!end) end = pageSize;
-    var lists = yield this.find({},'title _id create_at update_at user',{skip:start, limit: end, sort: {create_at: -1}}).exec()
+    var lists = yield this.find({},'title _id create_at update_at img user',{skip:start, limit: end, sort: {create_at: -1}}).exec()
     return lists;
 }
 
-
+//获取topic
 BaseTopicSchema.statics.topicMatchesId = function *(topic_id) {
   var topic = yield this.findOne({ _id: topic_id }).exec();
   if (!topic) {
       return errors['10003'];
   }
   return topic;
+
+};
+
+//topic的count
+BaseTopicSchema.statics.topicCount = function *(topic_id) {
+    console.log('=========== count');
+    console.log('=========== count');
+    console.log('=========== count');
+    console.log('=========== count');
+    console.log(topic_id);
+  var topic = yield this.findOne({ _id: topic_id }).exec();
+  if (!topic) {
+      return errors['10003'];
+  }
+  var _count = topic.visit_count;
+  var stat = {
+      $set: {
+          visit_count: _count+1
+      }
+  }
+  yield this.update({ _id: topic_id }, stat, {}).exec()
+  return true;
 
 };
 
