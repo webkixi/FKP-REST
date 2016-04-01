@@ -80,6 +80,7 @@ gulp.task "bb", ['buildCommon:dev:bb','html','ie:dev','fonts:dev','pagecss:dev',
 
 # js/pages编译并生成_common.js
 gulp.task 'wp:dev', getTask('wp')
+gulp.task 'wp:pro', getTask('wp', 'pro')
 
 # 默认启动本地DEMO服务器
 gulp.task 'default',['clean:dev'], ->
@@ -89,6 +90,11 @@ gulp.task 'default',['clean:dev'], ->
 gulp.task 'buildCommon:dev',['wp:dev'], getTask('concat-common-js')
 gulp.task 'buildCommon:dev:ng',['wp:dev'], getTask('concat-common-js','ng')
 gulp.task 'buildCommon:dev:bb',['wp:dev'], getTask('concat-common-js','bb')
+
+# 构建任务，压缩
+gulp.task 'buildCommon:pro',['wp:pro'], getTask('concat-common-js')
+gulp.task 'buildCommon:pro:ng',['wp:pro'], getTask('concat-common-js','ng')
+gulp.task 'buildCommon:pro:bb',['wp:pro'], getTask('concat-common-js','bb')
 
 # 构建任务，生成压缩版与未压缩版
 gulp.task 'build',['clean:dev','clean:build'], getTask('map','pro')

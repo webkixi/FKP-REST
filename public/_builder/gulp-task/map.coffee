@@ -28,7 +28,7 @@ module.exports = (gulp, $, slime, env, port)->
             js: {}
         }
 
-    gulp.task 'buildMap:js',['buildCommon:dev','html:build','ie:dev'], ->
+    gulp.task 'buildMap:js',['buildCommon:pro','html:build','ie:dev'], ->
         dealWithJs = () ->
             gulp.src [config.jsDevPath + '/**/*.js','!'+config.jsDevPath+'/_common.js']
                 .pipe $.if(fileProfile, $.empty(), $.md5({
