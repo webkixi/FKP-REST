@@ -76,7 +76,7 @@ var config = {
     },
 
     mongo: {
-        url: "mongodb://localhost/fkp",
+        url: "mongodb://fkpdoc:git@agzgz.com@localhost/fkp",
         port: "27017",
         pageSize: 20
     },
@@ -97,7 +97,7 @@ var config = {
             }
         },
         mongo: {
-            url: "mongodb://localhost/fkp",
+            url: "mongodb://fkpdoc:git@agzgz.com@localhost/fkp",
             port: '27017',
             pageSize: 20
         }
