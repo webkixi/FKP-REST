@@ -5,9 +5,11 @@ This is a starter boilerplate app I've put together using the following technolo
 * Both client and server make calls to load data from separate API server
 * [KOA](https://github.com/koajs/koa)
 * [React](https://github.com/facebook/react)
-* [FKP Router](#)
-* [FKP Cache](#)
-* [FKP Flux](#)
+* [Mongo](https://github.com/mongodb/mongo)
+* [Mongoose](https://github.com/Automattic/mongoose)
+* [FKP Cache](#) fkp cache
+* [FKP Router](#) base fkp cache
+* [FKP Flux](#) for react, base fkp cache, it's a React mixins
 * [Babel](http://babeljs.io) for ES6 and ES7 magic
 * [Webpack](http://webpack.github.io) for bundling
 * [GULP](https://github.com/gulpjs/gulp)
@@ -42,8 +44,8 @@ This is a starter boilerplate app I've put together using the following technolo
 * 支持markdown说明文档  
 * 编译配置模块化  
 
-## half-全栈  
-&#160; &#160; &#160; &#160;一般企业，公司开发部门分前／后端，数据库部分一般都由后端负责，所以FKP-REST没有数据库部分
+## 全栈框架  
+&#160; &#160; &#160; &#160;全栈框架，包含压缩，编译，API，KOA(MVC), database(mongo)
 FKP-REST是基于前后端分离的模式开发而来，提供API模块与后端数据API接口对接，其他如渲染、简单逻辑、session，mv部分由前端统一处理.
 当然，FKP-REST也同样支持传统开发模式，将map静态映射文件扔给后端就ok了  
 
@@ -52,6 +54,19 @@ FKP-REST是基于前后端分离的模式开发而来，提供API模块与后端
 
 ## 开发环境  
 三套开发环境，应对静态、数据、生产、源码压缩等不同的环境  
-* demo环境用于开发纯静态模版、js、css，开发环境会自动输出非压缩的静态文件，同时输出xxxjs.map文件，用于快速调试与开发  
-* dev环境用于开发带API数据的环境，通过nodejs解决跨域问题，输出文件与demo环境输出文件相同  
+* demo环境用于开发纯静态模版、js、css，开发环境会自动输出非压缩的静态文件，同时输出xxxjs.map文件，用于快速调试与开发    
+
+    ly demo  
+
+* dev环境用于开发带API数据的环境，通过nodejs解决跨域问题，输出文件与demo环境输出文件相同   
+
+    ly dev  
+
 * pro环境是demo与dev的混合模式，并压缩静态文件，用于上线前检查输出文件是否有问题，所输出的静态文件可用于生产  
+
+    ly pro  
+
+* 测试环境  
+
+    ly dev test 或者
+    ly pro test  
