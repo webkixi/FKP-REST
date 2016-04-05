@@ -2,6 +2,7 @@
 var util  = require('util'),
     // shelljs = require('shelljs/global'),
     spawn = require('child_process').spawn,
+    exec = require('child_process').exec,
     isWin = /^win/.test(process.platform);
     // p = require('procstreams'),
     // argv = require('optimist').argv;
@@ -36,9 +37,22 @@ var util  = require('util'),
         var port = args && typeof args==='string' || false;
         var rundev = './ly dev' + (port = port ? ' '+port:'')
 
-        isWin
-        ? exec(rundev)
-        : exec('sudo '+rundev)
+        var _dev = spawn('./ly'/*command*/, ['dev', port]/*args*/, {}/*options, [optional]*/);
+        _dev.stdout.on('data', function (data) {
+            console.log('stdout: ' + data);
+        });
+
+        _dev.stderr.on('data', function (data) {
+            console.log('stderr: ' + data);
+        });
+
+        _dev.on('exit', function (code) {
+            console.log('child process exited with code ' + code);
+        });
+
+        // isWin
+        // ? exec(rundev)
+        // : exec('sudo '+rundev)
     }
 
     function pro(cmd, args, option){
@@ -48,19 +62,33 @@ var util  = require('util'),
         var port = args && typeof args==='string' || false;
         var runpro = './ly pro' + (port = port ? ' '+port:'')
 
-        isWin
-        ? exec(runpro)
-        : exec('sudo '+runpro)
+        var _pro = spawn('./ly'/*command*/, ['pro', port]/*args*/, {}/*options, [optional]*/);
+        _pro.stdout.on('data', function (data) {
+            console.log('stdout: ' + data);
+        });
+
+        _pro.stderr.on('data', function (data) {
+            console.log('stderr: ' + data);
+        });
+
+        _pro.on('exit', function (code) {
+            console.log('child process exited with code ' + code);
+        });
+
+        // isWin
+        // ? exec(runpro)
+        // : exec('sudo '+runpro)
     }
 
     function install(cmd, args, option){
         console.log('========== install');
         console.log('========== install');
         console.log('========== install');
+        console.log(isWin);
 
         isWin
         ? exec('./ly install3')
-        : exec('sudo ./ly install')
+        : exec('./ly install')
     }
 
 
