@@ -77,7 +77,13 @@ var config = {
 
     mongo: {
         url: "mongodb://58.96.191.90:27017/fkp",
-        port: "27017",
+        options: {
+            db: { native_parser: true },
+            server: { poolSize: 3 },
+            replset: { rs_name: 'myReplicaSetName' },
+            user: 'fkpdoc',
+            pass: 'git@#$agzgz.com'
+        },
         pageSize: 20
     },
 
@@ -98,7 +104,13 @@ var config = {
         },
         mongo: {
             url: "mongodb://58.96.191.90:27017/fkp",
-            port: '27017',
+            options: {
+                db: { native_parser: true },
+                server: { poolSize: 3 },
+                replset: { rs_name: 'myReplicaSetName' },
+                user: 'fkpdoc',
+                pass: 'git@#$agzgz.com'
+            },
             pageSize: 20
         }
     }

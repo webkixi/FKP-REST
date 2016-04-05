@@ -14,11 +14,9 @@ function *github(){
     var jump_url = config.auth.github.successUrl
     var query = this.local.query
 
-    if (this.sess.argv) {
-        if (this.sess.argv === 'test') {
-            github = config.test.auth.github
-            jump_url = github.successUrl
-        }
+    if (process.env.env === 'test') {
+        github = config.test.auth.github
+        jump_url = github.successUrl
     }
 
 

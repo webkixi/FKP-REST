@@ -3,18 +3,15 @@ var path = require('path')
 const config = require('../../../config')
 const mongoose = require("mongoose");
 
-var options = {
-  db: { native_parser: true },
-  server: { poolSize: 5 },
-  replset: { rs_name: 'myReplicaSetName' },
-  user: 'fkpdoc',
-  pass: 'git@#$agzgz.com'
+var mg = config.mongo
+if (process.env.env === 'test'){
+    mg = config.test.mongo
 }
 
 /**
  * Connect to database
  */
-mongoose.connect(config.mongo.url, options);
+mongoose.connect(mg.url, mg.options);
 mongoose.connection.on("error", function(err) {
   console.log(err);
 });

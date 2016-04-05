@@ -92,8 +92,9 @@ function *getWxAccessToken(params, apii){
     var date = new Date();
 
     var _WX = config.weixin
-    if (this.sess.argv) {
-        if (this.sess.argv === 'test') {
+    // if (this.sess.argv) {
+    if (process.env.env) {
+        if (process.env.env === 'test') {
             console.log('========== test环境 menu');
             // _WX = config.weixintest
             _WX = config.test.weixin

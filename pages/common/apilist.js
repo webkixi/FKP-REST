@@ -6,12 +6,10 @@ function getApiPath() {
 
     var ipsrc = config.apiip;
     var port = config.port;
-    if (this && this.sess && this.sess.argv) {
-        if (this.sess.argv === 'test') {
-            console.log('========== test环境 apilist');
-            ipsrc = config.test.apiip;
-            port = config.test.port;
-        }
+    if (process.env.env === 'test') {
+        console.log('========== test环境 apilist');
+        ipsrc = config.test.apiip;
+        port = config.test.port;
     }
     var src = ipsrc + port;
     return {

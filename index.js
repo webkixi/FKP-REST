@@ -106,11 +106,13 @@ app.use(function *(next){
 	if (args[0] === 'dev' || args[0] === 'pro'){
 			if (args[1] === 'test') {
 				console.log('=========== 进入测试环境');
+				process.env.env = 'test'
 				this.session.argv = 'test'
 			}
 	}
 	if (args[0] === 'test') {
 		console.log('=========== 进入测试环境');
+		process.env.env = 'test'
 		this.session.argv = 'test'
 	}
 	yield next

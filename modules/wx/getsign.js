@@ -17,14 +17,11 @@ function *demoIndexData(url){
     var _this = this;
     var _WX = config.weixin
 
-    if (this.sess.argv) {
-        if (this.sess.argv === 'test') {
+    if (process.env.env === 'test') {
             console.log('========== test环境 getsign');
             // _WX = config.weixintest
             _WX = config.test.weixin
             // _WX_domain = config.test.domain
-
-        }
     }
 
     var body = yield libs.$parse(this)

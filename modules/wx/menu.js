@@ -92,14 +92,12 @@ function *query(){
 function *create(){
     var domain = config.domain;
     var _WX = config.weixin
-    if (this.sess.argv) {
-        if (this.sess.argv === 'test') {
-            console.log('========== test环境 menu');
-            // _WX = config.weixintest
-            // domain = config.domaintest
-            _WX = config.test.weixin
-            _WX_domain = config.test.domain
-        }
+    if (process.env.env === 'test') {
+        console.log('========== test环境 menu');
+        // _WX = config.weixintest
+        // domain = config.domaintest
+        _WX = config.test.weixin
+        _WX_domain = config.test.domain
     }
     var appid = _WX.appid
 

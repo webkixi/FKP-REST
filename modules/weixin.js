@@ -30,15 +30,13 @@ function *weixin(){
     var _WX = config.weixin;
     var _WX_domain = config.domain
 
-    if (this.sess.argv) {
-        if (this.sess.argv === 'test') {
-            console.log('========== test环境');
-            // _WX = config.weixintest
-            // _WX_domain = config.domaintest
-            _WX = config.test.weixin
-            _WX_domain = config.test.domain
-            console.log(_WX);
-        }
+    if (process.env.env === 'test') {
+        console.log('========== test环境');
+        // _WX = config.weixintest
+        // _WX_domain = config.domaintest
+        _WX = config.test.weixin
+        _WX_domain = config.test.domain
+        console.log(_WX);
     }
 
     var route = this.params;
