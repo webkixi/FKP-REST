@@ -84,11 +84,31 @@ var util  = require('util'),
         console.log('========== install');
         console.log('========== install');
         console.log('========== install');
-        console.log(isWin);
 
-        isWin
-        ? exec('./ly install3')
-        : exec('./ly install')
+        var _ins
+
+        if (isWin){
+            _ins = spawn('./ly'/*command*/, ['install3']/*args*/, {}/*options, [optional]*/);
+        }
+        else {
+            _ins = spawn('./ly'/*command*/, ['install']/*args*/, {}/*options, [optional]*/);
+        }
+
+        _ins.stdout.on('data', function (data) {
+            console.log('stdout: ' + data);
+        });
+
+        _ins.stderr.on('data', function (data) {
+            console.log('stderr: ' + data);
+        });
+
+        _ins.on('exit', function (code) {
+            console.log('child process exited with code ' + code);
+        });
+
+        // isWin
+        // ? exec('./ly install3')
+        // : exec('./ly install')
     }
 
 
