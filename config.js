@@ -74,15 +74,15 @@ var config = {
             headers: {"user-agent": "love_gz"}
         }
     },
-
+    
     mongo: {
         url: "mongodb://58.96.191.90:27017/fkp",
         options: {
             db: { native_parser: true },
             server: { poolSize: 3 },
             replset: { rs_name: 'myReplicaSetName' },
-            user: 'fkpdoc',
-            pass: 'git@#$agzgz.com'
+            user: 'fkp',
+            pass: 'a123456'
         },
         pageSize: 20
     },
@@ -108,8 +108,8 @@ var config = {
                 db: { native_parser: true },
                 server: { poolSize: 3 },
                 replset: { rs_name: 'myReplicaSetName' },
-                user: 'fkpdoc',
-                pass: 'git@#$agzgz.com'
+                user: 'fkp',
+                pass: 'a123456'
             },
             pageSize: 20
         }
