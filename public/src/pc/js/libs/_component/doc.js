@@ -1,4 +1,5 @@
 //document的相关方法
+var base = require('./base')
 
 
 var currentStyle = function(element){
@@ -128,7 +129,7 @@ var node = {
         }
         var node = document.createElement(type);
         if(opts)
-            if(getObjType(opts)==='Object'){
+            if(base.type(opts)==='Object'){
                 for(var attr in opts){
                     if(attr==='id'){
                         var tmp = document.getElementById(opts[attr])
