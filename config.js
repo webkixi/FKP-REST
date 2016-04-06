@@ -74,7 +74,7 @@ var config = {
             headers: {"user-agent": "love_gz"}
         }
     },
-    
+
     mongo: {
         url: "mongodb://58.96.191.90:27017/fkp",
         options: {
