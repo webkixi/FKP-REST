@@ -146,6 +146,16 @@ require.ensure(['./_common/epic'], function(require){
             console.log('========== item');
             console.log(item);
             lists.push( <a href={"?topic="+item._id}>{item.title}</a> )
+            // lists.push({
+            //     title: item.title,
+            //     url: '?topic='+item._id,
+            //     body: [
+            //         {
+            //             k: "abc ",
+            //             v: "xxxx"
+            //         }
+            //     ]
+            // })
         })
 
         if (!param.topic){
