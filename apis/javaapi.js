@@ -36,6 +36,7 @@ var requ = function(api,options, method){
 
 
     return function(rp){
+
         var opts = {headers: {}}
         if (options && options.headers){
             var tmp = _.assign(opts.headers, options.headers)
@@ -309,10 +310,13 @@ function *pullApiData(api, param, method){
         if( !url ){
             return false;
         }
+        if (param && param.method){
+            method = param.method
+            delete param.method
+        }
     }
 
     var query;
-
     // if(!method||method==='get'||method==='GET')
     //     query = qs.stringify(param);
 
