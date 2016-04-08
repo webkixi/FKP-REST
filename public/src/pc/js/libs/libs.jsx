@@ -7,12 +7,14 @@ var doc = require('./_component/doc')
 var forapp = require('./_component/forapp')
 var lodash = require('lodash')
 
+var tips = require('./_component/tips')
+
 
 /**
 * form表单校验
 * @opts  json对象，对象元素允许函数，用于替换默认block校验正则
-* return self（function） 循环检测
-*   self(val,reg,msg,name)
+* return _valide（function） 循环检测
+*   _valide(val,reg,msg,name)
 *   @val  需要被校验的值，如 var aaa = $('input').val();中的aaa
 *   @reg  block的对象key值
 *   @msg  弹出提示信息，如为空，提示默认信息
@@ -25,15 +27,17 @@ var lodash = require('lodash')
               (code,'verify','验证码不正确')
               ();
 */
-var form_valide = function(opts) {
-    var tips = function(msg){
-        alert(msg);
-    }
+
+
+var form_valide = function(name) {
 
     var ckstat=true;
-    var tmp;
+    var resault;
+    var query = {
+        ckstat: true
+    };
+    var _query = {}
     var old;
-    var popmsg=true;   //允许弹出消息
     var block = {
         email    : /^[\.a-zA-Z0-9_=-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
         username : /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/,
@@ -51,64 +55,165 @@ var form_valide = function(opts) {
         money    : /^[\d]{1,8}(\.\d{1,2})?$/,
         all      : /[\s\S]/,
         tips     : tips,
-        popmsg : true
+        noop     : /[\s\S]/
+        // noop     : function(){return true}
     };
-    if (opts && base.type(opts)=='Object'){
-        old = $.extend({},block);
-        block = $.extend(block,opts);
+
+    SA.set(name, query)
+
+    var errs = {
+        "100": ['必须制定检测类型', block],
+        "110": '指定id的dom对象不存在',
+        "120": {msg: ''},
+        "130": {msg: ''},
+        "140": {msg: ''},
+        "mobile": "手机号码不正确",
+        email: "邮箱地址不正确",
+        verify: "验证码不正确",
+        verify_m: "验证码不正确",
+        pwd: "密码请匹配8位",
+        url: "url地址不正确",
+        ip4: "ip地址不正确",
+        qq: "qq地址不正确",
     }
-    return function self(val,reg,msg,name) {
-        var tips = block.tips;
-        popmsg=block.popmsg;
-        if (!val){
-            if(arguments.length==0){
-                return ckstat;
+
+    old = $.extend({},block);
+    // if (opts && base.type(opts)=='Object'){
+    //     old = $.extend({},block);
+    //     block = $.extend(block,opts);
+    // }
+
+    function _valide(id ,reg, cb, name) {
+        //
+        var tips = block.tips,
+            formobj,
+            value;
+
+        //arguments为空
+        if (!id){
+            if (!arguments.length){
+                return query;
             }
-            else{
-                if(popmsg){
-                    if(msg) tips(msg,'alert');
-                    else if(name) tips(name+'不能为空','alert');
-                    else tips(reg+'不能为空','alert');
+        }
+
+        if (typeof id === 'function'){
+            var _fun = id;
+            _fun(query)
+            return ckstat
+        }
+
+        //reg
+        if (!reg || !block[reg]){
+            return errs['100']
+        }
+
+        //id
+        if (typeof id === 'string' && $('#'+id).length){
+            formobj = $('#'+id)
+            value = formobj.val()
+        }
+        else {
+            return errs['110'];
+        }
+
+        query[id] = value;
+        _query[id] = false;
+
+        //匹配
+        function check(val){
+            var resault;
+            resault = val === ''
+            ? false
+            : typeof block[reg] === 'function'
+                ? block[reg](val)
+                : block[reg].test(val)
+            return resault
+        }
+        ckstat = check(value);
+
+        if (!ckstat){
+            query.ckstat = false;
+            _query[id] = false
+        }
+        else{
+            _query[id] = true;
+        }
+
+        //返回值
+        var _cb_stat;
+
+        if (formobj){
+            // formobj.off('change')
+            formobj.on('change', function(){
+                var res_cb;
+                var res = check(this.value)
+                if (cb && typeof cb === 'function'){
+                    res_cb = cb.call(this, res, old, errs)
                 }
-                ckstat = false;
-                return function(){
-                    if(arguments.length==0) return ckstat;
-                    else{
-                        return arguments.callee;
+                if (res || res_cb){
+                    query[this.id] = this.value
+                    _query[this.id] = true
+                    var _v = true;
+                    $.each(_query, function(k, v){
+                        if (!v){
+                            _v = false;
+                        }
+                    })
+                    if (!_v){
+                        ckstat = false
+                        query.ckstat = false;
                     }
-                };
+                    else {
+                        ckstat = true
+                        query.ckstat = true;
+                    }
+                }
+                else {
+                    // SA.set(name, false)
+                    _query[this.id] = false
+                    query.ckstat = false;
+                    if (!cb){
+                        if (!res && errs[reg])
+                        tips(errs[reg])
+                    }
+                }
+            })
+        }
+
+        if (cb && typeof cb === 'function'){
+            _cb_stat = cb.call(formobj[0], ckstat, old, errs)
+            if (_cb_stat){
+                ckstat = true;
+                if (_cb_stat === 'end'){
+                    return query
+                }
+            }
+            else {
+                ckstat = false
+                query.ckstat = false
             }
         }
-        reg = reg || 'username';
-        if (typeof block[reg] === 'function'){
-            popmsg = false;
-            var fun = block[reg];
-            tmp = val=='' ? false : fun.call(this,val,old);
-            if(!tmp) ckstat = false;
-        }else{
-            tmp = val=='' ? false : block[reg].test(val);
+
+        if (reg === 'noop'){
+            return _valide
         }
-        if(!tmp) {
-            ckstat = false;
-            if(popmsg){
-                if(!msg){
-                    if(name) tips(name+'数据不正确','alert');
-                    else     tips(reg+'数据不正确','alert');
-                }
-                else
-                    tips(msg,'alert');
-            }
-            return function(){
-                if(arguments.length==0) return ckstat;
-                else{
-                    return arguments.callee;
-                }
-            };
-        }else{
-            ckstat = true;
+
+        if (cb==='end'){
+            // SA.set(name, query)
+            return query
         }
-        return self;
-    };
+
+        if (_cb_stat || ckstat){
+            return _valide;
+        }
+        else {
+            // SA.set(name, null)
+            return _valide;
+        }
+
+    }
+
+    return _valide
 }
 
 
@@ -187,7 +292,7 @@ module.exports = {
     changeTitle:    forapp.changeTitle,     //ios特有bug解决方法，改变title
 
 
-    msgtips:        require('./_component/tips'),
+    msgtips:        tips,
     api:            require('./api'),            //封装jquery的ajax的post
     lodash:         lodash,         //引入lodash
     clone:          lodash.clone,          //clone一个对象
