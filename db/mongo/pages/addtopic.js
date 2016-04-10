@@ -30,6 +30,8 @@ function *addtopic(oridata) {
                     title: parsedMd.mdcontent.title,
                     content: body.cnt,
                     img: parsedMd.mdcontent.img,
+                    cats: parsedMd.mdcontent.cats,
+                    tags: parsedMd.mdcontent.tags,
                     user: {
                         author_id: _user._id,
                         username: _user.username,

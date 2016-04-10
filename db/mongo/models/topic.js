@@ -12,6 +12,8 @@ var BaseTopicSchema = new Schema({
     title: { type: String },
     content: { type: String },
     img: { type: String },
+    cats: { type: String, default: '默认'},
+    tags: { type: String, default: '' },
     user: {
         author_id: Schema.Types.ObjectId,
         username: { type: String },
@@ -49,7 +51,7 @@ BaseTopicSchema.statics.topicList = function *(start, end) {
     let pageSize = config.mongo.pageSize;
     if (!start) start = 0;
     if (!end) end = pageSize;
-    var lists = yield this.find({},'title _id create_at update_at img user',{skip:start, limit: end, sort: {create_at: -1}}).exec()
+    var lists = yield this.find({},'title _id tags create_at update_at img user',{skip:start, limit: end, sort: {create_at: -1}}).exec()
     return lists;
 }
 

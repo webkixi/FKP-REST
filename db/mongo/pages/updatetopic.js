@@ -33,7 +33,9 @@ function *addtopic(oridata) {
                 var utopic = {
                     title: parsedMd.mdcontent.title,
                     content: body.cnt,
-                    img: parsedMd.mdcontent.img
+                    img: parsedMd.mdcontent.img,
+                    cats: parsedMd.mdcontent.cats,
+                    tags: parsedMd.mdcontent.tags
                 }
 
                 var Topic = mongoose.model('Topic')

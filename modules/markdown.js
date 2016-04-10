@@ -19,9 +19,12 @@ function *mkmd(md_raw, templet){
         smartypants: false
     });
 
+    var accessVar = ['tags']
+
     if (md_raw.indexOf('@@@')>-1) {
         var rev = /[@]{3,}[ ]*\n?([^@]*)[@]{3,}[ ]*\n?/ig
         var rev2 = /(.*)(?=:[ ]*)[\s]*(.*)(?=\n)/ig
+        var rev3 = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/
 
         var tmp = md_raw.match(rev);
         tmp = tmp.join('\n')
@@ -30,7 +33,10 @@ function *mkmd(md_raw, templet){
             var tmp = item.split(':')
             var k = tmp[0]
             var v = _.trim(tmp[1])
-            cvariable[k] = v
+            if (accessVar.indexOf(k)>-1){
+                if (rev3.test(v))
+                    cvariable[k] = v
+            }
         })
         md_raw = md_raw.replace(rev,'');
     }
