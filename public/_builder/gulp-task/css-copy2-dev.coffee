@@ -8,7 +8,7 @@ module.exports = (gulp,$)->
     return ()->
         gulp.src [config.dirs.src + '/css/_copy2dist/**/*.*', config.dirs.src + '/css/modules/**/*.*']
             # .pipe $.newer(config.cssDevPath+'/t/')
-            # .pipe($.plumber())
+            .pipe($.plumber())
             # .pipe $.rimraf()
             .pipe ($.if('*.sass', (if $.sass then $.sass() else $.empty()) ))
             .pipe ($.if('*.scss', (if $.sass then $.sass() else $.empty()) ))
