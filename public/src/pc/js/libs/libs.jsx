@@ -4,28 +4,40 @@
 
 var base = require('./_component/base')
 var doc = require('./_component/doc')
+var timer = require('./_component/time')
 var forapp = require('./_component/forapp')
-var lodash = require('lodash')
 
 var tips = require('./_component/tips')
 
 
 /**
 * form表单校验
-* @opts  json对象，对象元素允许函数，用于替换默认block校验正则
-* return _valide（function） 循环检测
-*   _valide(val,reg,msg,name)
-*   @val  需要被校验的值，如 var aaa = $('input').val();中的aaa
-*   @reg  block的对象key值
-*   @msg  弹出提示信息，如为空，提示默认信息
-*   @name 弹出信息的名称
+* form_valide be dependent SA, SA is a global function
+  SA like localstorage, but more. SA.set like .setItem, .get like .getItem
+  you must special @name, @name is one of SA's param
+  use SA.get(@name), then you get the data of @name
+  use SA.set(@name, [JSON/String/Array]) will set value of @name in browse memery
+
+* @name  {String}  special SA name for stroe
+
 * SAMPLE
-* var fcker = fck(chkopts)
-              (user,'username',null,'昵称')
-              (telephone,'mobile','')
-              (comment,'notempty',null,'评论')
-              (code,'verify','验证码不正确')
-              ();
+* form_valide(name)
+             @id {String}     dom element's id
+             @type {String}     regular's type
+             @callback  {Function}     custom function to regular your self
+             (id, type, [callback])   -->   it's a function
+             -----------------------------------
+             ('user', 'username', [cb])    -->   it's a function
+             ('telephone', 'mobile', [cb])
+             ('comment', 'notempty', [cb])
+             ('code', 'verify', [cb])
+
+   @stat {Boolean}   //@stat is resault of regular.test(value)
+   @block {Object}
+
+   cb = function(stat, block){
+        //this is form-element of you special id
+   }
 */
 
 
@@ -217,59 +229,17 @@ var form_valide = function(name) {
 }
 
 
-//间隔多久可以点击
-// param1 {element}  dom element not jq element
-// param2 {number}   countdown second
-// param3 {function} when countdown is 0 then run callback
-// example
-/*
-*  countDown(ele, 60, function(){})
-*/
-function countDown(ele, countdown, cb){
-    if(!ele.nodeType)
-        return false;
-
-    var that = ele;
-
-    // countdown 60 seconds
-    var count = 61;
-    $(that).addClass('block')
-
-    if( typeof countdown === 'function'){
-        cb = countdown;
-    }
-
-    if( typeof countdown === 'number'){
-        count = countdown
-    }
-
-    var ttt = setInterval(function(){
-        that.innerHTML = --count+'秒';
-
-        if(count === 0){
-            $(that).removeClass('block')
-            clearInterval(ttt);
-            that.innerHTML = '重新发送'
-            cb()
-        }
-
-        if(count < 1){
-            clearInterval(ttt);
-        }
-    }, 1000);
-}
-
-
-
 module.exports = {
     guid:           base.guid,           //生成随机名字
-    Class:          base.class,
+    Class:          base.class,          //创建类，并执行this.init方法
     strLen:         base.strLen,         //获取字符串长度，包含中文
     json2url:       base.json2url,       //json转成url的query部分
     grabString:     base.grabString,     //截取字符串长度，包含中文
     arg2arr:        base.arg2arr,        //类数组对象转成数组
     getObjType:     base.getObjType,     //获取对象类型
     type:           base.getObjType,     //获取对象类型
+    lodash:         base.lodash,             //引入lodash
+    clone:          base.lodash.clone,       //clone一个对象
 
     getOffset:      doc.getOffset,      //取得元素的绝对位置
     offset:         doc.getOffset,      //取得元素的绝对位置
@@ -280,26 +250,25 @@ module.exports = {
     rmvEvent:       doc.rmvEvent,       //兼容性删除方法
     getElementsByClassName: doc.getElementsByClassName,
 
-    urlparse:       doc.urlparse,       //url地址解析
     inject:         doc.inject,          // 注入css和js
-    addSheet:       doc.addSheet,       //动态注入 CSS
-    _IE:            doc.ie,            //输出IE版本
+    addSheet:       doc.addSheet,        // 动态注入 CSS---兼容旧版语法方法
+    urlparse:       doc.urlparse,        // url地址解析
+    _IE:            doc.ie,              // 输出IE版本
     queryString:    doc.queryString,
-    currentStyle:   doc.currentStyle,   //获取dom属性，兼容写法
-    insertCaret:    doc.insertCaret,
+    currentStyle:   doc.currentStyle,    //获取dom属性，兼容写法
+    insertCaret:    doc.insertCaret,     //一般用在编辑器中的iframe插入数据
 
     isSupportFixed: forapp.isSupportFixed,
     changeTitle:    forapp.changeTitle,     //ios特有bug解决方法，改变title
 
+    countDown:      timer.countDown,    //倒计时
+    timeAgo:        timer.timeAgo,      //时间过去了多久
 
     msgtips:        tips,
-    api:            require('./api'),            //封装jquery的ajax的post
-    lodash:         lodash,         //引入lodash
-    clone:          lodash.clone,          //clone一个对象
+    api:            require('./api'),   //封装jquery的ajax的post
 
-    formValide:     form_valide,    //校验基础方法
-    countDown:      countDown,      //倒计时
+    formValide:     form_valide,        //校验基础方法
 
-    extend:         $.extend         //json转成url的query部分
+    extend:         $.extend        //json转成url的query部分
 
 }

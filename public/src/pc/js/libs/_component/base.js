@@ -1,3 +1,4 @@
+var lodash = require('lodash')
 
 function guid(prefix) {
     prefix = prefix || "fkpjs-";
@@ -121,5 +122,6 @@ module.exports = {
     json2url: json2url,
     getObjType: getObjType,
     type: getObjType,
-    preventDefault: preventDefault
+    preventDefault: preventDefault,
+    lodash: lodash
 }
