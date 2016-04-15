@@ -1,3 +1,4 @@
+var doc = require('./_component/doc');
 var src = "/";
 var demoSrc = "http://mock.agzgz.com/";
 
@@ -13,6 +14,7 @@ var apiPath = {
         userinfo: src+'wx/userinfo'
     }
 }
+
 function req( api, param, cb ){
     var url = apiPath.dirs[api];
     if( !url ){
@@ -34,15 +36,31 @@ function req( api, param, cb ){
             }
             url = '/redirect'
         }
+
+        //有些环境不是根目录，需要添加前缀，前缀根据location来自动添加
+        var kkk = doc.urlparse(location.href);
+        if (!kkk.port){
+            var _src = '/' + kkk.segments.splice(0, (kkk.segments.length-1)).join('/')
+            url = _src+url;
+        }
+
         if( type(param)==='Object' ) {
             var keys = Object.keys(param)
             if( keys.length>0 )
                 $.post( url, param, function( body, status ){
-                    if( status === 'success' ) cb( body ) ;
+                    if( status === 'success' ) {
+                        if (typeof body === 'string')
+                            body = JSON.parse(body)
+                        cb( body ) ;
+                    }
                 }, "json")
             else
                 $.post( url, {test: '123'}, function( body, status ){
-                    if( status === 'success' ) cb( body ) ;
+                    if( status === 'success' ) {
+                        if (typeof body === 'string')
+                            body = JSON.parse(body)
+                        cb( body ) ;
+                    }
                 }, "json")
         }
         else{
@@ -51,6 +69,8 @@ function req( api, param, cb ){
             }
             $.post( url, {test: '123'}, function( body, status ){
                 if( status === 'success' ){
+                    if (typeof body === 'string')
+                        body = JSON.parse(body)
                     cb( body ) ;
                 }
             }, "json")

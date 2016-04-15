@@ -3,9 +3,9 @@
 // var lazyFn = require('./_component/lazy')
 
 //loadlist
-var
-SimplePageScrollMixin = require('./SimplePageScrollMixin'),
-libs = require('libs/libs')
+var SimplePageScrollMixin = require('./SimplePageScrollMixin'),
+    libs = require('libs/libs'),
+    scrollView = libs.scrollView
 
 var
 PageScrollStartEndMixin = {
@@ -19,7 +19,7 @@ PageScrollStartEndMixin = {
         window.clearTimeout(this.ttt);
     },
     _onScroll: function() {
-        var scrollTop =  libs.getOffset().top;
+        var scrollTop =  scrollView(this._scrollContainer).top;
 	    this.scrollTop = scrollTop;
 	    this.isScrolling = true;
 
@@ -32,19 +32,20 @@ PageScrollStartEndMixin = {
 
     },
     _onScrollEnd: function() {
-    	var scrollTop =  libs.getOffset().top;
+    	var scrollTop =  scrollView(this._scrollContainer).top;
         if(scrollTop == this.scrollTop){
-        	window.clearTimeout(this.ttt);
-        	this.isScrolling = false;
-	        var
-	        // scrollbar = document.getElementById('scrollbar'),
-			nDivHight  = libs.DocmentView().height,
-			nScrollHight = document.documentElement.scrollHeight,
-			nScrollTop = libs.getOffset().top;
+            var that = this.getDOMNode(),
+                nDivHight  = libs.getOffset(this._scrollContainer).height,
+    			nScrollHight = scrollView(this._scrollContainer).height,
+    			nScrollTop = scrollView(this._scrollContainer).top;
 
-            var that = this.getDOMNode()
+                window.clearTimeout(this.ttt);
+                this.isScrolling = false;
+
 			if( (nScrollTop + nDivHight) > (nScrollHight-100)){
 	        	if (typeof this.props.onscrollend === 'function') {
+                    var _loadbar = React.findDOMNode(this.refs['loadbar']);
+                    _loadbar.style.display = 'block'
 	        		this.props.onscrollend.call(that, scrollTop);
 	        	}
 			};
@@ -89,7 +90,7 @@ PageScrollStartEndMixin = {
           failure_limit   : 0,
           event           : "scroll",
           effect          : "show",
-          container       : window,
+          container       : this._scrollContainer,
           data_attribute  : "original",
           skip_invisible  : true,
           appear          : null,
@@ -140,9 +141,9 @@ PageScrollStartEndMixin = {
       belowthefold = function(element, settings) {
           var fold;
           if (settings.container === undefined || settings.container === window) {
-              fold = (window.innerHeight ? window.innerHeight : DocmentView().height) + getOffset().top;
+              fold = (window.innerHeight ? window.innerHeight : DocmentView().height) + scrollView().top;
           } else {
-              fold = getOffset(settings.container).top + getOffset(settings.container).height;
+              fold = scrollView(settings.container).top + getOffset(settings.container).height;
           }
           return fold <= getOffset(element).top - settings.threshold;
       };
@@ -151,9 +152,9 @@ PageScrollStartEndMixin = {
           var fold;
 
           if (settings.container === undefined || settings.container === window) {
-              fold = DocmentView().width + getOffset().left;
+              fold = DocmentView().width + scrollView().left;
           } else {
-              fold = getOffset(settings.container).left + getOffset(settings.container).width;
+              fold = scrollView(settings.container).left + getOffset(settings.container).width;
           }
 
           return fold <= getOffset(element).left - settings.threshold;
@@ -163,22 +164,22 @@ PageScrollStartEndMixin = {
           var fold;
 
           if (settings.container === undefined || settings.container === window) {
-              fold = getOffset().top;
+              fold = scrollView().top;
           } else {
-              fold = getOffset(settings.container).top;
+              fold = scrollView(settings.container).top;
           }
 
-          return fold >= getOffset(element).top + settings.threshold  + getOffset(element).height;
+          return fold >= scrollView(element).top + settings.threshold  + getOffset(element).height;
       };
       leftofbegin = function(element, settings) {
           var fold;
 
           if (settings.container === undefined || settings.container === window) {
-              fold = getOffset().left;
+              fold = scrollView().left;
           } else {
-              fold = getOffset(settings.container).left;
+              fold = scrollView(settings.container).left;
           }
-          return fold >= getOffset(element).left + settings.threshold + getOffset(element).width;
+          return fold >= scrollView(element).left + settings.threshold + getOffset(element).width;
       };
       inviewport = function(element, settings) {
           return !rightoffold(element, settings) && !leftofbegin(element, settings) &&

@@ -1,0 +1,55 @@
+@import "../../iconfont.less";
+.radioGroup{
+    font-size: 16px;
+    display:-webkit-box;
+    lable{
+        position: relative;
+        display:-webkit-box;
+        -webkit-box-align:center;
+        margin-right:.625em;
+        span{
+            display: block;
+            &.fkp-lable{
+                margin-left: .3125em;
+                font-size: .875em;
+            }
+            &.fkp-radio-box{
+                font-family: iconfont!important;
+                font-size: 1em;
+                &:after{
+                    content: '\e614';
+                    display:block;
+                    color:#6e6e6e;
+                }
+                &:before{
+                    content: '\e613';
+                    display:block;
+                    color:#ec6c00;
+                    -webkit-transform:scale(0);
+                    -webkit-transition:-webkit-transform .2s;
+                    position:absolute;
+                    left:0;
+                    top:0;
+                }
+            }
+        }
+        input{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            border: 0;
+            margin: 0;
+            &:checked{
+                &+.fkp-radio-box:after{
+                    -webkit-transform:scale(0);
+                }
+                &+.fkp-radio-box:before{
+                    -webkit-transform:scale(1);
+                }
+            }
+        }
+    }
+}

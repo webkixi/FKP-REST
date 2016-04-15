@@ -9,97 +9,119 @@ var currentStyle = function(element){
 
 //获取元素的实际absolute位置
 //上下左右
-var getOffset = function(el){
-    if(!el)el=window;
+function getOffset(el){
+    if (!el) el=window
     if(el===window){
-      var
-      top  = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
-  		left = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
-      height = document.documentElement.scrollHeight || document.body.scrollHeight || 0,
-      width = document.documentElement.scrollWidth || document.body.scrollWidth || 0;
+        return DocmentView()
+    }
+    else{
+        if (el===window||el===document)
+            return;
 
-      return {
-          top: top,
-          left: left,
-          width: height,
-          height: width
-      };
-    }else{
-      var parent,pbox;
-			var box = el.getBoundingClientRect(),
-      doc = el.ownerDocument,
-      body = doc.body,
-      docElem = doc.documentElement,
+        var parent,pbox,
+        	box = el.getBoundingClientRect(),
+            doc = el.ownerDocument,
+            body = doc.body,
+            docElem = doc.documentElement,
 
-      // for ie
-      clientTop = docElem.clientTop || body.clientTop || 0,
-      clientLeft = docElem.clientLeft || body.clientLeft || 0,
+            // for ie
+            clientTop = docElem.clientTop || body.clientTop || 0,
+            clientLeft = docElem.clientLeft || body.clientLeft || 0,
 
-      // In Internet Explorer 7 getBoundingClientRect property is treated as physical,
-      // while others are logical. Make all logical, like in IE8.
+            // In Internet Explorer 7 getBoundingClientRect property is treated as physical,
+            // while others are logical. Make all logical, like in IE8.
+            zoom = 1;
 
-      zoom = 1;
+        if (body.getBoundingClientRect) {
+            var bound = body.getBoundingClientRect();
+            zoom = (bound.right - bound.left)/body.clientWidth;
+        }
+        if (zoom > 1){
+            clientTop = 0;
+            clientLeft = 0;
+        }
 
-      if (body.getBoundingClientRect) {
-          var bound = body.getBoundingClientRect();
-          zoom = (bound.right - bound.left)/body.clientWidth;
-      }
-      if (zoom > 1){
-          clientTop = 0;
-          clientLeft = 0;
-      }
+        var node = el.parentNode;
+        if(node.nodeName.toLowerCase()!=='body'){
+        	while(currentStyle(node).position!=='relative'){
+        			node = node.parentNode;
+                    if(node.nodeName.toLowerCase()!=='body') break;
+        			if(currentStyle(node).position==='relative'){
+        					parent = node;
+        					pbox = parent.getBoundingClientRect();
+        					var ptop = pbox.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
+                                pleft = pbox.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
+        					break;
+        			}
+        	}
+        }
 
-			var node = el.parentNode;
-            if(node.nodeName.toLowerCase()!=='body'){
-    			while(currentStyle(node).position!=='relative'){
-    					node = node.parentNode;
-                        if(node.nodeName.toLowerCase()!=='body') break;
-    					if(currentStyle(node).position==='relative'){
-    							parent = node;
-    							pbox = parent.getBoundingClientRect();
-    							var ptop = pbox.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
-                                    pleft = pbox.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
-    							break;
-    					}
-    			}
-            }
+        var top = box.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
+        left = box.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
 
-      var top = box.top/zoom + (window.pageYOffset || docElem && docElem.scrollTop/zoom || body.scrollTop/zoom) - clientTop,
-      left = box.left/zoom + (window.pageXOffset|| docElem && docElem.scrollLeft/zoom || body.scrollLeft/zoom) - clientLeft;
+        top  = parent ? top-ptop : top;
+        left = parent ? left-pleft : left;
 
+        top  = top - parseInt(currentStyle(el).paddingTop);
+        // left = left - parseInt(currentStyle(el).paddingLeft);
 
+        var diff_height = box.bottom-box.top,
+            diff_width = box.right - box.left,
+            bottom = top + diff_height,
+            right = left + diff_width;
 
-			top  = parent ? top-ptop : top;
-			left = parent ? left-pleft : left;
-
-			top  = top - parseInt(currentStyle(el).paddingTop);
-			// left = left - parseInt(currentStyle(el).paddingLeft);
-
-      var diff_height = box.bottom-box.top,
-      diff_width = box.right - box.left,
-      bottom = top + diff_height,
-      right = left + diff_width;
-
-      return {
-          top: top+'px',
-          bottom: bottom+'px',
-          left: left+'px',
-          right: right+'px',
-          width: diff_width+'px',
-          height: diff_height+'px'
-      };
+        return {
+            top: top,
+            left: left,
+            width: diff_width,
+            height: diff_height,
+            bottom: bottom,
+            right: right
+        };
     }
 }
 
-
+function scrollView(ele){
+    if (!ele) ele = window;
+    if (ele===window){
+        var top  = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
+            left = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+            height = document.documentElement.scrollHeight || document.body.scrollHeight || 0,
+            width = document.documentElement.scrollWidth || document.body.scrollWidth || 0;
+        return {
+            top: top,
+            left: left,
+            width: width,
+            height: height
+        }
+    }
+    else{
+        var _ele = typeof ele==='string'
+            ? document.getElementById(ele)
+            : ele.nodeType
+                ? ele
+                : false
+        if (!_ele){
+            console.log('scrollView 请指定id');
+            return false
+        }
+        return {
+            top: _ele.scrollTop,
+            left: _ele.scrollleft,
+            width: _ele.scrollWidth,
+            height: _ele.scrollHeight
+        }
+    }
+}
 //获取当前窗口的宽高及scrollheight及scrollleft
 //兼容写法
 function DocmentView(){
-    var doch = window.innerHeight||document.documentElement.offsetHeight||document.body.clientHieght;
-    var docw = window.innerWidth||document.documentElement.offsetWidth||document.body.clientWidth;
-    var docST = document.documentElement.scrollTop||document.body.scrollTop;
-    var docSL = document.documentElement.scrollLeft||document.body.scrollLeft;
-    return {width:docw,height:doch,scrollTop:docST,scrollLeft:docSL};
+        var doch = window.innerHeight||document.documentElement.offsetHeight||document.body.clientHieght,
+            docw = window.innerWidth||document.documentElement.offsetWidth||document.body.clientWidth,
+            docST = document.documentElement.scrollTop||document.body.scrollTop,
+            docSL = document.documentElement.scrollLeft||document.body.scrollLeft;
+
+        return {top:docST,left:docSL,width:docw,height:doch,scrollTop:docST,scrollLeft:docSL};
 };
 
 var node = {
@@ -136,13 +158,14 @@ var node = {
                         if(tmp)
                             return false;
                     }
-                    node[attr] = opts[attr]
+                    node.setAttribute(attr, opts[attr]);
+                    // node[attr] = opts[attr]
                 }
             }
         if(typeof container==='string'){
 
             if(container!=='body')
-                box = document.getElementById('container')
+                box = document.getElementById(container)
             else
                 box = document.getElementsByTagName('body')[0]
         }else
@@ -269,6 +292,10 @@ var urlparse = function (url) {
 
 //兼容addEventListener和attachEvent
 function addEvent(elm, evType, fn, useCapture) {
+    if (!elm || typeof elm==='string'){
+        console.log('addEvent elm 参数错误');
+        return false
+    }
     if (elm.addEventListener) {
         elm.addEventListener(evType, fn, useCapture); //DOM2.0
         return true;
@@ -566,6 +593,7 @@ function insertHtmlAtCaret(win,html) {
 
 module.exports = {
     DocmentView: DocmentView,
+    scrollView: scrollView,
     getOffset: getOffset,
     node: node,
     queryString: queryString,

@@ -4,13 +4,12 @@
 */
 var libs = require('libs/libs')
 var List = require('widgets/listView/list')
-var scrollMixins = require('mixins/scrollLoadAndLazy');
 var itemMixins = require('mixins/item')
 var Store = require('mixins/store');
-var _ = libs.lodash;
+var ITEM = require('widgets/itemView/f_li');
 
 var tmpApp = {
-	mixins:[ scrollMixins],
+	mixins:[ itemMixins ],
 	getDefaultProps: function() {
 		return {
 
@@ -31,31 +30,22 @@ var tmpApp = {
 				data: tmpPropsData
 			})
 		}
-		if (this.props.scroll==='self'){
-			this.scrollContainer = 'load-list'
-		}
 	},
 
 	//已加载组件收到新的参数时调用
 	componentWillReceiveProps:function(nextProps){},
 
 	loopRender: function(){
-		var tData = this.state.data;
-		// tData.push({title: '加载更多内容', 'itemClass': 'loadbar', itemStyle:{"display":'none'}});
-		tData.push(<div ref="loadbar" className="loadbar" style={{"display":"none"}}>加载更多内容</div>);
+		var tData = libs.clone(this.state.data);
 		return <List {...this.props} data={tData}/>
 	},
 
 	componentDidMount: function () {},
 
 	render: function () {
-		var fills = this.loopRender(),
-			_sty = {}
-		if (this.props.scroll==='self'){
-			_sty = {height: '100%', overflow: 'auto'}
-		}
+		var fills = this.loopRender();
 		return (
-			<div ref="load-list" className='load-list' style={_sty}>
+			<div className={'load-list'}>
 				{fills}
 			</div>
 		)
@@ -65,8 +55,8 @@ var tmpApp = {
 // module.exports = tmpApp;
 
 function actRct( storeName ){
-    var _storeName = storeName||'LDL',
-        _rct = _.cloneDeep(tmpApp);
+    var _storeName = storeName||'LDL2',
+        _rct = libs.clone(tmpApp);
 
 	if( _rct.mixins && _rct.mixins.length ){
 		_rct.mixins.push( Store( _storeName ))

@@ -4,7 +4,7 @@
 function changeTitle(title){
     var $body = $('body')
     document.title = title
-    var $iframe = $('<iframe src="../images/blank.gif" style="display:none;"></iframe>').on('load', function() {
+    var $iframe = $('<iframe src="/images/blank.gif" style="display:none;"></iframe>').on('load', function() {
       setTimeout(function() {
         $iframe.off('load').remove()
       }, 0)

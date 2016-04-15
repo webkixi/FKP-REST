@@ -39,6 +39,7 @@ function guid(prefix) {
 
 module.exports = {
     getObjType:     getObjType,     //获取对象类型
+    type:           getObjType,
     arg2arr:        arg2arr,        //类数组对象转成数组
     lodash:         lodash,         //引入lodash
     guid:           guid,           //生成随机名字

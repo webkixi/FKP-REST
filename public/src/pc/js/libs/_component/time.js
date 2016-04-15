@@ -103,10 +103,11 @@ function timeAgo(ago){
         }
         else
         if (_minute>=1 && _minute<60){
-            if (_minute>30)
-                return (new Date(ago)).Format("hh:mm")
-            else
-                return _.floor(_minute)+'分钟前';
+            return _.floor(_minute)+'分钟前';
+            // if (_minute>30)
+            //     return (new Date(ago)).Format("hh:mm")
+            // else
+            //     return _.floor(_minute)+'分钟前';
         }
         else
         if (_seconds>=1 && _seconds<60){

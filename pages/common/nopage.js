@@ -23,6 +23,8 @@ function *demoIndexData(oridata, route){
             if ( passdata && passdata[1] )
                 return passdata[1];
 			else {
+                if (passdata && passdata[1]==='')
+                    return { success: 'true'}
 				return { error: "1", message:"后端数据返回出错" }
 			}
 

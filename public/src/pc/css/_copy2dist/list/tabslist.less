@@ -1,0 +1,67 @@
+@import "../../global/index.less";
+
+@px: 1px;
+@gray70: lighten(#000000, 70%);
+@wh: 50*@px;
+
+.em_span() {
+    font-size: 8*@px;
+    color: @gray70;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+}
+
+@border: 1px solid lighten(#000000,90%);
+
+.tabslist{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    left: 0;
+    top: 0;
+    .hlist;
+    //li
+    .item{
+        color: #666;
+		background: #fff;
+        padding: 0;
+        background-color: transparent;
+        a{
+            width: auto;
+            color: #04b48b;
+            font-size: 18px;
+			display: inline-block;
+            &:visited{
+                color: #04b48b;
+            }
+            &:hover{
+                color: red;
+            }
+		}
+    }
+    .tabs-menu{
+        width: 0.91rem;
+        height: 100%;
+        background: #eee;
+        .item{
+            height: .4rem;
+            line-height: .4rem;
+            border: 0;
+            text-align: center;
+
+        }
+    }
+
+    .tabs-list{
+        height: 100%;
+        -webkit-box-flex: 1;
+        .tabs-list-title{
+            padding: .08rem;
+        }
+        .item{
+            height: 1.11rem;
+            border-top: @border;
+            padding: .08rem;
+        }
+    }
+}

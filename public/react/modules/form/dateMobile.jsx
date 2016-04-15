@@ -2,10 +2,13 @@ var libs = require('libs/libs');
 var DateMobile = require('./_component/_dateMobile')()
 var render = React.render;
 
-libs.addSheet([
-    '/css/t/ui/form.css'
-    ,'formform'
-])
+// libs.addSheet([
+//     '/css/t/ui/form.css'
+//     ,'formform'
+// ])
+libs.inject()
+    .css(['/css/t/ui/form.css', 'mobiscroll_id'])
+
 
 // var dpi; //viewport 0.5
 // var dview = libs.DocmentView()
@@ -74,6 +77,7 @@ function date(data, ele, cb){
         //         _this.value = val;
         //     }
         // }
+        var now = new Date();
         var mb_config = {
             // minWidth: (function(){
             //     if( dpi )
@@ -89,7 +93,10 @@ function date(data, ele, cb){
             //     return 150
             // })(),
             dateFormat: 'yy-mm-dd',
+            display: 'bottom', //modal,inline,bottom,top,display
             dateOrder: 'yymmdd',
+            // minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),  // More info about minDate: http://docs.mobiscroll.com/2-17-1/datetime#!opt-minDate
+            // invalid: ['w0', 'w6', '5/1', '12/24', '12/25'],                        // More info about invalid: http://docs.mobiscroll.com/2-17-1/datetime#!opt-invalid
             setText: '确定',
             cancelText: '取消',
 
@@ -105,7 +112,7 @@ function date(data, ele, cb){
         if ( data.max )
             mb_config.maxDate = new Date(data.max);
 
-        $(this).find('input').mobiscroll().date( mb_config );
+        $(this).find('input').mobiscroll().date( mb_config );  //datetime是有具体时间的  date是没有时分秒的
 
     }
 

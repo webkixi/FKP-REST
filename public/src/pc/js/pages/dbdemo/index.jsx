@@ -7,6 +7,7 @@ var cfg = require('root/config')
 // var loginBox = require('modules/sign/signin')
 
 //异步调用js
+//webpack类似seajs的异步请求语法 require.ensure
 //有些文件需要异步调用
 require.ensure(['./_common/epic'], function(require){
     // alert(2)
@@ -38,7 +39,6 @@ require.ensure(['./_common/epic'], function(require){
             }
             else{
                 $('#edit').click(function(){
-
                     //设置按钮显示
                     var txt = this.textContent;
                     if (txt === '发布')
@@ -52,6 +52,28 @@ require.ensure(['./_common/epic'], function(require){
         }
     }
 
+    $(window).scroll(function(){
+        var _top = $(window).scrollTop()
+        var _width = $(window).width()
+        if (_top>140){
+            $('.topper').addClass('nav_top')
+            if (_width>1023){
+                $('.topper').css({'width': '66%'})
+            }
+            else {
+                $('.topper').css({'width': '93.2%'})
+            }
+        }
+        else {
+            $('.topper').removeClass('nav_top')
+            if (_width>1023){
+                $('.topper').css({'width': '97%'})
+            }
+            else {
+                $('.topper').css({'width': '95%'})
+            }
+        }
+    })
 
 
     //弹出编辑框
@@ -60,20 +82,16 @@ require.ensure(['./_common/epic'], function(require){
         $('.box').toggle()
 
         if (opts && opts.content){
-          require('./_common/epic')(opts)
+          require('./_common/epic')(opts)   //类似seajs，按需异步请求
         }
         else{
           //插入编辑器
           //必须后置打开，不然编辑器的宽高不对
-          require('./_common/epic')()
+          require('./_common/epic')()       //类似seajs，按需异步请求
         }
-
-
     })
 
-
-
-
+    //添加/更新文章
     $('body').on('addTopic', function(e, args){
         //添加文章 或者 修改文章
         //ajax
@@ -86,6 +104,8 @@ require.ensure(['./_common/epic'], function(require){
                   upid = args.upid
                 }
                 var postdata = {cnt: content};
+
+                //更新文章
                 if (upid){
                     postdata.topic = upid;
                     libs.api.req(
@@ -94,6 +114,8 @@ require.ensure(['./_common/epic'], function(require){
                         topic_resaults
                     )
                 }
+
+                //添加文章
                 else {
                     libs.api.req(
                         '/$addtopic',
@@ -140,22 +162,28 @@ require.ensure(['./_common/epic'], function(require){
     function listTopic_resaults(data){
         var lists = []
         data.map(function(item, i){
-            console.log('========== item');
-            console.log('========== item');
-            console.log('========== item');
-            console.log('========== item');
-            console.log(item);
-            lists.push( <a href={"?topic="+item._id}>{item.title}</a> )
-            // lists.push({
-            //     title: item.title,
-            //     url: '?topic='+item._id,
-            //     body: [
-            //         {
-            //             k: "abc ",
-            //             v: "xxxx"
-            //         }
-            //     ]
-            // })
+            // console.log('========== item');
+            // console.log('========== item');
+            // console.log('========== item');
+            // console.log('========== item');
+            // console.log(item);
+            var _title = <div className="testheader">
+                <span><img src={item.user.avatar}/></span>
+                <a href={"?topic="+item._id}>{item.title}</a>
+                <abbr>
+                    {libs.timeAgo(item.create_at)}
+                </abbr>
+            </div>
+
+            lists.push({
+                title: _title,
+                body: [
+                    {
+                        k: '作者: ',
+                        v: item.user.nickname
+                    }
+                ]
+            })
         })
 
         if (!param.topic){
@@ -163,7 +191,7 @@ require.ensure(['./_common/epic'], function(require){
             $('#listtopic').html('')
             setTimeout(function(){
                 $('#listtopic').css({'margin-left':0})
-                var AppList_opts = {
+                var AppList_scroll_opts = {
                     evt: 'auto',
                     callback: dealwith_drag,
                     sem: loadMore  //scroll end method
@@ -172,7 +200,7 @@ require.ensure(['./_common/epic'], function(require){
                 AppList(
                     lists,          //列表数据
                     'listtopic',    //绑定dom
-                    AppList_opts
+                    AppList_scroll_opts
                 );
             }, 100)
         }

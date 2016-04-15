@@ -245,6 +245,7 @@ module.exports = {
     offset:         doc.getOffset,      //取得元素的绝对位置
     DocmentView:    doc.DocmentView,    //取得当前浏览区域的宽、高
     view:           doc.DocmentView,    //取得当前浏览区域的宽、高
+    scrollView:     doc.scrollView,    //取得当前浏览区域的宽、高
     node:           doc.node,           //兼容性原生 DOM操作，目前只有删除DOM
     addEvent:       doc.addEvent,       //兼容性绑定方法
     rmvEvent:       doc.rmvEvent,       //兼容性删除方法

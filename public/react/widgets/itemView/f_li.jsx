@@ -42,8 +42,8 @@ var fox = React.createClass({
 		var _props = {
 			"data-idf": 	this.props.idf,
 			"data-id": 		k1,
-			"data-cls": 	v2,
-			"style":			sty,
+			// "data-cls": 	v2,
+			"style":		sty,
 			"className": 	getClass()
 		}
 		_props = _.assign(_props, data_attr)

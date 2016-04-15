@@ -13,14 +13,6 @@
     var data = this.props.data;
     var items = [];
 
-    if(this.props.itemClass){
-        clsName = "item "+this.props.itemClass;
-    }
-    if(this.props.itemStyle){
-        clsName = 'item';
-        sty = this.props.itemStyle;
-    }
-
     // var icon = this.state.icon;
     // var iconPre = this.state.iconPre;
 
@@ -41,6 +33,14 @@
             var dotDom;
             var liDom;
 
+            if(data.itemClass){
+                clsName = "item "+data.itemClass;
+            }
+            if(data.itemStyle){
+                clsName = 'item';
+                sty = data.itemStyle;
+            }
+
             var k1 = data.id||'',
                 v1 = data.url||'javascript:void();',
 
@@ -53,9 +53,9 @@
                 v3 = data.value||'';
 
                 if (data.url){
-                    if (typeof k2 === 'string')
-                        k2 = <a href={v1} target="_blank">{k2}</a>
+                    k2 = <a href={v1} target="_blank">{k2}</a>
                 }
+
 
                 function lazyimg(img, idf){
                     if (img.indexOf('$$$')>-1){
@@ -132,9 +132,7 @@
                                 //没有attr
                                 ? (function(){
                                     if (item.k)  //k v结构
-                                        return <div data-pid={i} key={'body'+i} className={cls}>
-                                                {item.k}{item.v}
-                                            </div>
+                                        return <div data-pid={i} key={'body'+i} className={cls}><em>{item.k}</em>{item.v}</div>
 
                                     if (item.li){  //li结构
                                         var lis = []
@@ -160,7 +158,7 @@
                                         }
                                     }
                                     else {
-                                        return <div className={cls} data-pid={i} data-src={item.attr} key={'body'+i}>{item.k}{item.v}</div>
+                                        return <div className={cls} data-pid={i} data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</div>
                                     }
                                 })()
 
@@ -198,9 +196,7 @@
                                 //没有attr
                                 ? (function(){
                                     if (item.k)  //k v结构
-                                        return <div data-pid={i} key={'footer'+i} className={cls}>
-                                            {item.k}{item.v}
-                                        </div>
+                                        return <div data-pid={i} key={'footer'+i} className={cls}><em>{item.k}</em>{item.v}</div>
 
                                     if (item.li){  //li结构
                                         var lis = []
@@ -227,7 +223,7 @@
                                         }
                                     }
                                     else {
-                                        return <div data-pid={i} data-src={item.attr} className={cls} key={'footer'+i}>{item.k}{item.v}</div>
+                                        return <div data-pid={i} data-src={item.attr} className={cls} key={'footer'+i}><em>{item.k}</em>{item.v}</div>
                                     }
                                 })()
 

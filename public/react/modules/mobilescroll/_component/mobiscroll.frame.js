@@ -4,7 +4,7 @@
         var jQuery = Zepto
     }
     if (typeof module !== 'undefined' && typeof exports === 'object') {
-        module.exports = factory(jQuery, window, document);
+        module.exports = factory($, window, document);
     }
     else if (typeof define === 'function' && define.amd) {
         // using AMD; register as anon module

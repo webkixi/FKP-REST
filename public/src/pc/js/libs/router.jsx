@@ -169,6 +169,9 @@ var rt = libs.Class.create();
                 silbDom.map(function(unit, i){
                     unit.style.display = 'none';
                 })
+                if (name.indexOf('/')>0){
+                    name = name.replace('/', '_')
+                }
                 var nameDom = document.querySelector('#'+name)
                 nameDom.style.display = 'block'
                 router.clear()
@@ -377,8 +380,15 @@ route.init = function(name, handle){
         var keys = Object.keys(name);
         var tmp;
         keys.map(function(item, i){
-            route[item] = name[item];
-            var page_instence = name[item](item)
+            // route[item] = name[item];
+            //插入id到body
+            var _id = item;
+            if (item.indexOf('/')>0){
+                _id = item.replace('/', '_')
+            }
+            libs.node.append('body', 'div', {"class": "container-box router-container", id: _id})
+
+            var page_instence = name[item](_id)
 
             if (page_instence.goback || page_instence.trigger || page_instence.end){
                 if (page_instence.goback && libs.getObjType(page_instence.goback)==='Function'){
