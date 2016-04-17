@@ -61,6 +61,14 @@ module.exports = (gulp,$,slime,env,port)->
         gulp.watch config.dirs.watch_src + '/js/_copy2dist/**/*.?(coffee|js|jsx|cjsx)', ['copyThirdJsToDist:dev'], () ->
             console.log 'copy2js watch'
 
+        # watch图片文件
+        if env == 'pro'
+            gulp.watch config.dirs.watch_src + '/images/**/*.*', ['images:build'], () ->
+                console.log 'images watch'
+        else
+            gulp.watch config.dirs.watch_src + '/images/**/*.*', ['images:dev'], () ->
+                console.log 'images watch'
+
         gulp.watch config.dirs.watch_src + '/html/**/*.*', (file) ->
             console.log file.path
             slime.build(file.path, {type: 'hbs', 'env': 'pro'});

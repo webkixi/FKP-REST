@@ -9,7 +9,7 @@ module.exports = (gulp,$)->
     return ()->
         gulp.src config.dirs.src + '/images/**/*.*'
             # .pipe $.newer(config.imagesDevPath)
-            # .pipe($.plumber())
+            .pipe($.plumber())
             # .pipe $.rimraf()
             .pipe $.size()
             .pipe $.copyExt()
