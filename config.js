@@ -77,7 +77,7 @@ var config = {
         }
     },
     mongo: {
-        url: "mongodb://58.96.191.90:27017/fkp",
+        url: "mongodb://localhost:27017/fkp",
         options: {
             db: { native_parser: true },
             server: { poolSize: 3 },
