@@ -32,6 +32,10 @@ var config = {
     //本地上传路径
     upload: path.join(static_dir,'/dist/'),
     upload_root: path.join(static_dir,'/dist/uploader'),
+
+    avatar: path.join(static_dir,'/dist/'),
+    avatar_root: path.join(static_dir,'/dist/avatar'),
+
     // 阿里云图片路径
     goods_img: 'http://jh-ljs-goods.oss-cn-shenzhen.aliyuncs.com/',     //商品
     account_img:'http://jh-ljs-account.oss-cn-shenzhen.aliyuncs.com/',  //用户
@@ -54,16 +58,14 @@ var config = {
 
     root: 'demoindex',    //dev 或者 pro默认首页
 
-    apiip: "http://120.25.xxx.xxx",
-    port: ":8080/v1/",
 
     //微信
     weixin: hema,
     weixintest: cqch,
-
+    apiip: "http://120.25.xxx.xxx",
+    port: ":8080/v1/",
     domain: 'agzgz.com',
     domaintest: 'test.agzgz.com',
-
     auth: {
         github:{
             clientID: 'd65a863ee074f62231c5',
@@ -74,7 +76,6 @@ var config = {
             headers: {"user-agent": "love_gz"}
         }
     },
-
     mongo: {
         url: "mongodb://58.96.191.90:27017/fkp",
         options: {

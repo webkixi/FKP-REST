@@ -5,9 +5,9 @@ src_dir = src_dir + platform
 var global_dir = './src'+ platform +'/js/global';
 var path = require('path');
 module.exports = {
-    name: "SLAMEPACK",
+    name: "FCK-REST",
     version: "1.0.0",
-    description: "FKP-REST",
+    description: "FKP-REST FRONT-END PART",
     port:{
         demo: 9000,
         dev: 8070

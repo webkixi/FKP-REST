@@ -1,4 +1,5 @@
 @import "../../global/index.less";
+@import "../iconfont.less";
 
 @px: 1px;
 @gray70: lighten(#000000, 70%);
@@ -10,7 +11,7 @@
     margin: 0.25rem 0.25rem 0.25rem 0;
 }
 
-@border: 1px solid lighten(#000000,90%);
+@border: 1px solid lighten(#000000,95%);
 
 .like_lagou{
     .hlist;
@@ -23,15 +24,29 @@
 		background: #fff;
         border: @border;
         border-bottom: @border;
-        width: 93%;
+        width: auto;
         height: 5em;
         padding: 1% 1%;
-        margin: 1.5% auto;
-        border-radius:0.4em;
+        margin-bottom: 1.5%;
+        border-radius: 0.2em;
+        // overflow: hidden;
+        // &:after{
+        //     font-family:"iconfont" !important;
+        //     font-size:16px;
+        //     font-style:normal;
+        //     -webkit-font-smoothing: antialiased;
+        //     -webkit-text-stroke-width: 0.2px;
+        //     -moz-osx-font-smoothing: grayscale; //
+        //     content: "\e60a";
+        //     position: absolute;
+        //     right: 1em;
+        //     top: 2.5em;
+        //     color: #ccc;
+        // }
         a{
             width: auto;
             color: #04b48b;
-            font-size: 18px;
+            font-size: 1.46em;
 			display: inline-block;
             &:visited{
                 color: #04b48b;
@@ -40,5 +55,47 @@
                 color: red;
             }
 		}
+        .hheader{
+            .testheader{
+                line-height: 2em;
+                vertical-align: middle;
+                img{
+                    // width: "2em", display:"inline-block"
+                    width: 2em;
+                    vertical-align: top;
+                    border-radius: 0.1em;
+                }
+                span{
+                    vertical-align:  baseline;;
+                }
+                a{
+                    vertical-align: middle;
+                    margin-left: 0.4em;
+                }
+                abbr{
+                    // marginLeft: '0.3em', color:"#c1c1c1
+                    margin-left: 0.3em;
+                    color: #c1c1c1;
+                    vertical-align: middle;
+                }
+            }
+        }
+        .hbody{
+            padding: 0;
+            padding-left: 1.3em;
+            position: absolute;
+            bottom: 0.6em;
+            left: 0;
+            width: auto;
+            .hb-item{
+                padding: 0.1em 1em 0.2em 1em;
+                border-radius: 0.4em;
+                background-color: #f9f9f9;
+                span{
+                    color: #c1c1c1;
+                    font-size: 0.5em;
+                }
+            }
+        }
     }
 }

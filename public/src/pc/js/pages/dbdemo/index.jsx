@@ -56,21 +56,21 @@ require.ensure(['./_common/epic'], function(require){
         var _top = $(window).scrollTop()
         var _width = $(window).width()
         if (_top>140){
-            $('.topper').addClass('nav_top')
+            $('.topper').addClass('fixed_top')
             if (_width>1023){
-                $('.topper').css({'width': '66%'})
+                $('.topper').css({'width': '66.3%'})
             }
             else {
-                $('.topper').css({'width': '93.2%'})
+                $('.topper').css({'width': '91.9%'})
             }
         }
         else {
-            $('.topper').removeClass('nav_top')
+            $('.topper').removeClass('fixed_top')
             if (_width>1023){
-                $('.topper').css({'width': '97%'})
+                $('.topper').css({'width': '97.5%'})
             }
             else {
-                $('.topper').css({'width': '95%'})
+                $('.topper').css({'width': '94%'})
             }
         }
     })

@@ -1,7 +1,15 @@
 @import "../../global/_base/index";
 
+a.fkp-dest{
+    color: #ccc;
+    font-size: 12px;
+    margin-top: -5px;
+    display: inline-block;
+}
 
+.index-container{
 
+}
 @media screen{
     .index-container{
         width: 98%;
@@ -11,13 +19,35 @@
     #listtopic .like_lagou .item{
         height: 6em;
     }
+   @media (max-width: 1023px){
+       .logo{
+           position: fixed;
+           right: .5em;
+           bottom: .5em;
+           z-index: 9999;
+           img{
+               width: 70px;
+           }
+       }
+   }
    @media (min-width: 1023px){
        .index-container{
            width: 68%;
            margin: 0 auto;
        }
+       .topper{
+           width: 97.5%;
+       }
        #listtopic .like_lagou .item{
-           height: 5em;
+           height: 5.5em;
+       }
+       .logo{
+           height:7rem;
+           text-align:center;
+           img{
+               width:100px;
+               margin-top:0.4rem;
+           }
        }
    }
 }
@@ -28,6 +58,27 @@
 
 @box-width: 500px;
 @box-height: 500px;
+
+
+
+.topper{
+    line-height: 1.2rem;
+    vertical-align: baseline;
+    background-color: #ecf4ff;
+    padding: 0.7rem;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    border-radius: 0.1rem;
+    a{
+        color: #04b48b;
+        text-decoration: none;
+        vertical-align: text-bottom;
+    }
+    small{
+        vertical-align: bottom;
+    }
+}
 
 .box{
     position: fixed;

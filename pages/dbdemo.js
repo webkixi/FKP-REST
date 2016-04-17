@@ -33,7 +33,7 @@ function *index(oridata) {
                 else{
                     var tmp = yield return_detail()
                 }
-                
+
                 var rtn = {
                     isList: false,
                     content: tmp.cnt.replace('h1','p'),
@@ -120,12 +120,9 @@ function *index(oridata) {
         //整理数据，markdown 解析生成html
         var cnt = yield markdown(topics[0]['content'], {mdcontent:{ori: topics[0]}})
 
-        // topics = libs.$lodash.assign(topics, cnt.mdcontent)
-        // var article = yield dealWith_topicsDetailData(topics)
-        // var tmp_html = yield react2html('react/listView/list', {data: article[0]})
-        // tmp_html[0] = tmp_html[0].replace('~~mdcnt~~', article[1])
-
-        Cache.set(cache_id, cnt.mdcontent)
+        //暂时不保存到cache
+        //放开就会将数据放置cache
+        // Cache.set(cache_id, cnt.mdcontent)
 
         // 将html结构代码代入到oridata，用于模板渲染
         return cnt.mdcontent

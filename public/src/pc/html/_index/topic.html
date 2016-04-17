@@ -1,13 +1,35 @@
 <div class="topics">
     {{# if bloglist.isList}}
+        <div class="topper">
+            <!-- 登录 -->
+            {{{topper}}}
+            <small style="color:#bbb">登陆后尝试左右拖动一条博客</small>
+        </div>
+        <div class="box" style="display:none">
+            <div class="addtopic" id="addtopic" >
+                <div id="epiceditor"></div>
+            </div>
+        </div>
         <div class="listtopic" id="listtopic">
             {{{bloglist.content}}}
         </div>
     {{else}}
+        <div class="topper">
+            <!-- 登录 -->
+            {{{topper}}}
+            <small style="color:#bbb">登陆后尝试左右拖动一条博客</small>
+        </div>
+        <a class='fkp-dest' href="https://github.com/webkixi/FKP-REST">
+            FKP-REST是一套完全由前端技术构建的高性能框架，后端由koajs，前端由webpack/gulp构建而成
+        </a>
+        <div class="box" style="display:none">
+            <div class="addtopic" id="addtopic" >
+                <div id="epiceditor"></div>
+            </div>
+        </div>
         <div class="markdown-body">
             <div class="container u-ma" style="">
                 <div class="span9" style="">
-                    <p><a href="https://github.com/webkixi/FKP-REST"><strong>FKP-REST</strong></a> 是一套完全由前端技术构建的高性能框架，后端由koajs，前端由webpack/gulp构建而成  </p>
                     <h1>{{bloglist.title}}</h1>
                     <small>作者：{{bloglist.author}}</small>
                     {{{bloglist.content}}}
