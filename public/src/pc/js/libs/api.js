@@ -39,9 +39,13 @@ function req( api, param, cb ){
 
         //有些环境不是根目录，需要添加前缀，前缀根据location来自动添加
         var kkk = doc.urlparse(location.href);
+        console.log(kkk);
         if (!kkk.port){
+            console.log(url);
             var _src = '/' + kkk.segments.splice(0, (kkk.segments.length-1)).join('/')
             url = _src+url;
+            console.log('========= kkk');
+            console.log(url);
         }
 
         if( type(param)==='Object' ) {
