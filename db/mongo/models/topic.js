@@ -59,8 +59,10 @@ BaseTopicSchema.statics.topicList = function *(start, end) {
 //获取topic
 BaseTopicSchema.statics.topicMatchesId = function *(topic_id) {
   var topic = yield this.findOne({ _id: topic_id }).exec();
+  console.log('匹配文章id-----------');
+  console.log(topic);
   if (!topic) {
-      return errors['10003'];
+      return errors['20004'];
   }
   return topic;
 
@@ -68,14 +70,11 @@ BaseTopicSchema.statics.topicMatchesId = function *(topic_id) {
 
 //topic的count
 BaseTopicSchema.statics.topicCount = function *(topic_id) {
-    console.log('=========== count');
-    console.log('=========== count');
-    console.log('=========== count');
-    console.log('=========== count');
-    console.log(topic_id);
   var topic = yield this.findOne({ _id: topic_id }).exec();
+  console.log('文章统计计数-----------');
+  console.log(topic);
   if (!topic) {
-      return errors['10003'];
+      return errors['20004'];
   }
   var _count = topic.visit_count;
   var stat = {
@@ -91,8 +90,10 @@ BaseTopicSchema.statics.topicCount = function *(topic_id) {
 BaseTopicSchema.statics.deletTopicMatchesId = function *(topic_id, user) {
   try {
       var topic = yield this.findOne({ _id: topic_id }).exec();
+      console.log('删除文章----------');
+      console.log(topic);
       if (!topic) {
-          return errors['10003'];
+          return errors['20004'];
       }
       else {
           if (yield topic.userMatches(user)) {
@@ -112,8 +113,10 @@ BaseTopicSchema.statics.deletTopicMatchesId = function *(topic_id, user) {
 BaseTopicSchema.statics.updateTopicMatchesId = function *(topic_id, body, user) {
   try {
       var topic = yield this.findOne({ _id: topic_id }).exec();
+      console.log('更新文章---------');
+      console.log(topic);
       if (!topic) {
-          return errors['10003'];
+          return errors['20004'];
       }
       else {
           if (yield topic.userMatches(user)) {
