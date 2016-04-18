@@ -33,6 +33,7 @@ function *addtopic(oridata) {
                     cats: parsedMd.mdcontent.cats,
                     tags: parsedMd.mdcontent.tags,
                     user: {
+                        id: _user.id,
                         author_id: _user._id,
                         username: _user.username,
                         nickname: _user.nickname,

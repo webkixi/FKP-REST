@@ -34,8 +34,10 @@ function *signup(oridata) {
                 try{
                     var body = body.github
                     var user = yield User.userMatches(body.login)
+                    //用户不存在
                     if (user === true) {
                         var uuu = new User({
+                            id: body.id
                             username: body.login,
                             password: initPass,
                             nickname: body.name,

@@ -10,6 +10,7 @@ var errors = libs.errors;
 libs.clog('db-model-user.js')
 
 var BaseUserSchema = new Schema({
+    id: { type: String, required: true, unique: true, lowercase: true },
   username: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true },
   nickname: { type: String, default: ''},

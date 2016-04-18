@@ -15,7 +15,8 @@ var BaseTopicSchema = new Schema({
     cats: { type: String, default: '默认'},
     tags: { type: String, default: '' },
     user: {
-        author_id: Schema.Types.ObjectId,
+        id: { type: String },
+        author_id: { type: String },
         username: { type: String },
         nickname: { type: String },
         avatar: { type: String }
@@ -32,11 +33,8 @@ var topic_profile = require('./catoray/topic_profile')
 BaseTopicSchema.plugin(topic_profile);
 
 BaseTopicSchema.methods.userMatches = function *(user) {
-    var this_user = this.user.author_id.toString();
-    var that_user = user._id.toString()
-    console.log('topic.js // -----------');
-    console.log(this_user);
-    console.log(that_user);
+    var this_user = this.user.username.toString();
+    var that_user = user.username.toString()
     if (this_user === that_user)
         return true
     else {
