@@ -16,6 +16,9 @@
     // var icon = this.state.icon;
     // var iconPre = this.state.iconPre;
 
+    if(this.props.itemClass){
+        clsName = "item "+this.props.itemClass;
+    }
 
     if(data){
         if(!Array.isArray(data)){
