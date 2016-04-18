@@ -32,18 +32,21 @@ var topic_profile = require('./catoray/topic_profile')
 BaseTopicSchema.plugin(topic_profile);
 
 BaseTopicSchema.methods.userMatches = function *(user) {
-  var this_user = this.user.author_id.toString();
-  var that_user = user._id.toString()
-  if (this_user === that_user)
-    return true
-  else {
-    return false
-  }
-  // var topic = yield this.findOne({ _id: topic_id }).exec();
-  // if (!topic) {
-  //     return errors['10003'];
-  // }
-  // return topic;
+    var this_user = this.user.author_id.toString();
+    var that_user = user._id.toString()
+    console.log('topic.js // -----------');
+    console.log(this_user);
+    console.log(that_user);
+    if (this_user === that_user)
+        return true
+    else {
+        return false
+    }
+    // var topic = yield this.findOne({ _id: topic_id }).exec();
+    // if (!topic) {
+    //     return errors['10003'];
+    // }
+    // return topic;
 
 };
 
