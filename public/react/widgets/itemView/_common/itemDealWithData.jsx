@@ -135,7 +135,7 @@
                                 //没有attr
                                 ? (function(){
                                     if (item.k)  //k v结构
-                                        return <div data-pid={i} key={'body'+i} className={cls}><em>{item.k}</em>{item.v}</div>
+                                        return <div data-pid={i} key={'body'+i} className={cls}>{item.k}{item.v}</div>
 
                                     if (item.li){  //li结构
                                         var lis = []
@@ -161,7 +161,7 @@
                                         }
                                     }
                                     else {
-                                        return <div className={cls} data-pid={i} data-src={item.attr} key={'body'+i}><em>{item.k}</em>{item.v}</div>
+                                        return <div className={cls} data-pid={i} data-src={item.attr} key={'body'+i}>{item.k}{item.v}</div>
                                     }
                                 })()
 
@@ -199,7 +199,7 @@
                                 //没有attr
                                 ? (function(){
                                     if (item.k)  //k v结构
-                                        return <div data-pid={i} key={'footer'+i} className={cls}><em>{item.k}</em>{item.v}</div>
+                                        return <div data-pid={i} key={'footer'+i} className={cls}>{item.k}{item.v}</div>
 
                                     if (item.li){  //li结构
                                         var lis = []
@@ -226,7 +226,7 @@
                                         }
                                     }
                                     else {
-                                        return <div data-pid={i} data-src={item.attr} className={cls} key={'footer'+i}><em>{item.k}</em>{item.v}</div>
+                                        return <div data-pid={i} data-src={item.attr} className={cls} key={'footer'+i}>{item.k}{item.v}</div>
                                     }
                                 })()
 
@@ -428,7 +428,7 @@
         //                                 //没有attr
         //                                 ? (function(){
         //                                     if (_item.k)  //k v结构
-        //                                         return <div data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</div>
+        //                                         return <div data-pid={i} key={'body'+i}>{_item.k}{_item.v}</div>
         //
         //                                     if (_item.li){  //li结构
         //                                         var lis = []
@@ -443,7 +443,7 @@
         //                                 : (function(){
         //                                     if (_item.attr === 'select'){   //h5 自定义下拉菜单
         //                                         if (_item.k)
-        //                                             return <div data-pid={i} key={'body'+i}><em>{_item.k}</em>{_item.v}</div>
+        //                                             return <div data-pid={i} key={'body'+i}>{_item.k}{_item.v}</div>
         //                                         else
         //                                         if (_item.li){
         //                                             var lis = []
@@ -454,7 +454,7 @@
         //                                         }
         //                                     }
         //                                     else {
-        //                                         return <div data-pid={i} data-src={_item.attr} key={'body'+i}><em>{_item.k}</em>{_item.v}</div>
+        //                                         return <div data-pid={i} data-src={_item.attr} key={'body'+i}>{_item.k}{_item.v}</div>
         //                                     }
         //                                 })()
         //
@@ -493,7 +493,7 @@
         //                                 //没有attr
         //                                 ? (function(){
         //                                     if (_item.k)  //k v结构
-        //                                         return <div data-pid={i} key={'footers'+i}><em>{_item.k}</em>{_item.v}</div>
+        //                                         return <div data-pid={i} key={'footers'+i}>{_item.k}{_item.v}</div>
         //
         //                                     if (_item.li){  //li结构
         //                                         var lis = []
@@ -519,7 +519,7 @@
         //                                         }
         //                                     }
         //                                     else {
-        //                                         return <div data-pid={i} data-src={_item.attr} key={'footers'+i}><em>{_item.k}</em>{_item.v}</div>
+        //                                         return <div data-pid={i} data-src={_item.attr} key={'footers'+i}>{_item.k}{_item.v}</div>
         //                                     }
         //                                 })()
         //
