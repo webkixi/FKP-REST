@@ -117,6 +117,7 @@ function lm(){
                             libs.msgtips(data.message)
                         }
                         else {
+                            libs.msgtips('删除完成')
                             $(_item).remove()
                         }
                     })
