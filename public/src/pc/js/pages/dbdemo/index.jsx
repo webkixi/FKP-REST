@@ -33,6 +33,9 @@ require.ensure(['./_common/epic'], function(require){
         //signin返回信息回调
         function sign_resaults(data){
             SA.set('USER', data)
+            if (data.dbconfig){
+                libs.msgtips(data.dbconfig, 'alert')
+            }
             if (data.error){ //没有该用户
                 console.log(data);
                 SA.set('USER', {error: '-2'})

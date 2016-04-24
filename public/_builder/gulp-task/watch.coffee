@@ -30,7 +30,7 @@ module.exports = (gulp,$,slime,env,port)->
                     config.staticPath+ '/dev/css/**'
                 ]
                 logFileChanges: false
-                notify: true
+                notify: false
                 injectChanges: true
             }
 

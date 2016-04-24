@@ -12,7 +12,9 @@ function *signin(oridata) {
             return this.session.$user
         }
         else {
-            return errors['10005'];
+            var _rtn = errors['10005'];
+            _rtn.dbconfig = process.env.dbconfig
+            return _rtn;
         }
 
         var body = yield libs.$parse(this);
@@ -21,8 +23,11 @@ function *signin(oridata) {
         }
         if (!body.username) {
             // this.throw("Missing username", 400);
-            if (body.test)
-                return errors['10005'];
+            if (body.test){
+                var _rtn = errors['10005'];
+                _rtn.dbconfig = process.env.dbconfig
+                return _rtn;
+            }
         }
         if (!body.password) {
             this.throw("Missing password", 400);

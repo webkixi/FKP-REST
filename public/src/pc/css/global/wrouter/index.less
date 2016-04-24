@@ -1,0 +1,162 @@
+//路由用css
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    background: #fff;
+    // max-width: 760px;
+    // position: relative;
+    // margin: 0 auto;
+    height: 100%;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f7f7;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // overflow:hidden;
+}
+
+#pageloading{
+    background:url(/images/loading1.gif) no-repeat center center;
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;width:100%;height:100%;
+}
+//最外面的层 container-box class或id
+.container-box{ //mB为底部fiex间距
+    //margin-bottom: 0.55rem;
+    // max-width: 760px;
+    // margin: 0 auto;
+    font-size: 0.14rem;
+    color: #333;
+}
+
+.router-container{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    // left:100%;
+    top:0;
+    opacity: 0;
+    overflow: hidden;
+
+
+    -webkit-transition:.4s;
+    transition:.4s;
+    background-color: #fff;
+    // display:none;
+}
+
+.router-container-block{
+    // display:block;
+    z-index: 5;
+    // -webkit-animation-name: anim-routerin;
+    // animation-name: anim-routerin;
+    // -webkit-animation-duration: 0.4s;
+    // animation-duration: 0.4s;
+    // -webkit-animation-fill-mode: forwards;
+    // animation-fill-mode: forwards;
+
+    -webkit-animation: anim-routerin 0.4s forwards;
+    // left: 0;
+    // -webkit-transform: translate3d(0,0,0);
+    // transform: translate3d(0,0,0);
+    // opacity: 1;
+}
+
+.router-container-reblock{
+    // display:block;
+    z-index: 5;
+    // -webkit-animation-name: anim-routerin2;
+    // animation-name: anim-routerin2;
+    // -webkit-animation-duration: 0.4s;
+    // animation-duration: 0.4s;
+    // -webkit-animation-fill-mode: forwards;
+    // animation-fill-mode: forwards;
+
+    // -webkit-animation: anim-routerin2 0.4s forwards;
+    left: 0;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    opacity: 1;
+}
+
+.router-container-hidden{
+    // display:block;
+    z-index: 10;
+    // -webkit-animation-name: anim-routerout;
+    // animation-name: anim-routerout;
+    // -webkit-animation-duration: 0.4s;
+    // animation-duration: 0.4s;
+    // -webkit-animation-fill-mode: forwards;
+    // animation-fill-mode: forwards;
+
+    // -webkit-animation: anim-routerout 0.8s forwards;
+    // box-shadow: 5px 5px 20px #888;
+    left: -100%;
+    -webkit-transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0);
+}
+
+.router-container-rehidden{
+    // display:block;
+    z-index: 10;
+    // -webkit-animation-name: anim-routerout2;
+    // animation-name: anim-routerout2;
+    // -webkit-animation-duration: 0.4s;
+    // animation-duration: 0.4s;
+    // -webkit-animation-fill-mode: forwards;
+    // animation-fill-mode: forwards;
+
+    // -webkit-animation: anim-routerout2 0.8s forwards;
+    // box-shadow: -5px -5px 20px #888;
+    left: 100%;
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0);
+}
+
+@-webkit-keyframes anim-routerin {
+	0% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 5}
+	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
+}
+
+@keyframes anim-routerin {
+	0% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 5 }
+	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
+}
+
+@-webkit-keyframes anim-routerin2 {
+	0% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 5}
+	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
+}
+
+@keyframes anim-routerin2 {
+	0% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 5 }
+	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
+}
+
+@-webkit-keyframes anim-routerout {
+	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
+	// 50% { transform: translate3d(-1000,0,0); opacity: 0 }
+	100% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 10 }
+}
+
+@keyframes anim-routerout {
+	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
+    // 50% { transform: translate3d(-1000,0,0); opacity: 0 }
+	100% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 10 }
+}
+
+@-webkit-keyframes anim-routerout2 {
+	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
+	// 50% { transform: translate3d(-1000,0,0); opacity: 0 }
+	100% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 10 }
+}
+
+@keyframes anim-routerout2 {
+	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
+    // 50% { transform: translate3d(-1000,0,0); opacity: 0 }
+	100% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 10 }
+}

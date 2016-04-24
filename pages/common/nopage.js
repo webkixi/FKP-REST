@@ -20,8 +20,12 @@ function *demoIndexData(oridata, route){
 			if( api.apiPath.dirs[route] || route === 'redirect')
 				passdata = yield api.pullApiData.call(this, route, body, 'post');
 
-            if ( passdata && passdata[1] )
+            if ( passdata && passdata[1] ){
+                if (passdata[0].headers.login){
+                    this.response.set('login', passdata[0].headers.login); //设置response的header
+                }
                 return passdata[1];
+            }
 			else {
                 if (passdata && passdata[1]==='')
                     return { success: 'true'}

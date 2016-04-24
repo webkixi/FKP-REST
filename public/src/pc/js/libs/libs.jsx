@@ -38,6 +38,11 @@ var tips = require('./_component/tips')
    cb = function(stat, block){
         //this is form-element of you special id
    }
+
+   valide('Form_bind')
+         ('mobile', 'noop', function(res, old){ ... })   //res是noop的检测结果, old为默认正则的检测类型
+         ('validatecode', 'verify')
+         ("agreement", 'noop')
 */
 
 
@@ -74,7 +79,7 @@ var form_valide = function(name) {
     SA.set(name, query)
 
     var errs = {
-        "100": ['必须制定检测类型', block],
+        "100": ['必须指定检测类型', block],
         "110": '指定id的dom对象不存在',
         "120": {msg: ''},
         "130": {msg: ''},
@@ -155,8 +160,8 @@ var form_valide = function(name) {
         var _cb_stat;
 
         if (formobj){
-            // formobj.off('change')
-            formobj.on('change', function(){
+            formobj.off('blur')
+            formobj.on('blur', function(){
                 var res_cb;
                 var res = check(this.value)
                 if (cb && typeof cb === 'function'){
@@ -240,6 +245,7 @@ module.exports = {
     type:           base.getObjType,     //获取对象类型
     lodash:         base.lodash,             //引入lodash
     clone:          base.lodash.clone,       //clone一个对象
+    os:             base.os,            //获取手机操作系统类型，如android或者ios
 
     getOffset:      doc.getOffset,      //取得元素的绝对位置
     offset:         doc.getOffset,      //取得元素的绝对位置

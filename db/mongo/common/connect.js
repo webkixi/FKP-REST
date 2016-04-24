@@ -1,6 +1,9 @@
 const fs = require('fs')
 var path = require('path')
-const config = require('../../../config')
+var libs = include('libs/libs')
+libs.clog('//数据库连接//---'+__filename)
+
+const config = include('db/config')
 const mongoose = require("mongoose");
 
 var mg = config.mongo

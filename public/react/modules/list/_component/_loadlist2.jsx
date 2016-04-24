@@ -53,10 +53,9 @@ var tmpApp = {
 };
 
 // module.exports = tmpApp;
-
 function actRct( storeName ){
     var _storeName = storeName||'LDL2',
-        _rct = libs.clone(tmpApp);
+        _rct = _.cloneDeep(tmpApp);
 
 	if( _rct.mixins && _rct.mixins.length ){
 		_rct.mixins.push( Store( _storeName ))

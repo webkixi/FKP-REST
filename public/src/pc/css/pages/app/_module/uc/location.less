@@ -1,0 +1,67 @@
+.location{
+    background: #fbfaf7;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .tabslist{
+        top: 0.72rem;
+        .tabs-menu{
+            width: 1.15rem;
+            background: #fbfaf7;
+            .item{
+                border-bottom: 1px solid #bbb;
+                margin: 0 0.14rem;
+                &.active{
+                    background: #fff;
+                    border-bottom: 1px solid #fff;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                    margin: 0;
+                }
+                &:last-child{
+                    border-bottom: none;
+                }
+            }
+        }
+        .tabs-list{
+            background: #fff;
+            .item{
+                height: 0.4rem;
+                line-height: 0.4rem;
+                padding: 0;
+                padding-left: 0.14rem;
+                margin-left: 0.14rem;
+                border-top: 1px solid #bbb;
+
+                a{
+                    color: #333;
+                    font-size: 0.14rem;
+                }
+            }
+        }
+    }
+}
+.defalut_search{
+    margin: 0.14rem;
+    position: relative;
+    z-index: 9999;
+    .defalut_search_input{
+        background: #fff;
+        height: 0.44rem;
+        line-height: 0.44rem;
+        padding: 0 0.14rem;
+        width: 92%;
+        display: block;
+        border: none
+    }
+    .defalut_search_btn{
+        position: absolute;
+        top: 0.07rem;
+        right: 0.14rem;
+        font-size: 0.24rem;
+        font-family: iconfont!important;
+        &::before{
+            content: '\e615';
+            display: block;
+        }
+    }
+}

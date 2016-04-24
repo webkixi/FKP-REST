@@ -329,7 +329,7 @@ function rmvEvent(elm, evType, fn, useCapture) {
 */
 function _inject() {
     var doc, tmpCssCode, tmpSrcCode, srcCode, cssCode, id;
-    var type;
+    var type, _cb;
 
     doc = this;
 
@@ -350,7 +350,7 @@ function _inject() {
     if (arguments.length === 3){
         type = arguments[0];
         tmpSrcCode = tmpCssCode = arguments[1];
-        cb  = arguments[2]
+        _cb  = arguments[2]
     }
     else {
         return;  // alert("addSheet函数最多接受3个参数!");
@@ -408,8 +408,12 @@ function _inject() {
     else
     if (type==='js'){
         function createScript(id, src){
-            if(document.getElementById(id))
+            if(document.getElementById(id)){
+                if (_cb && typeof _cb==='function'){
+                    _cb()
+                }
                 return 'id has exist -> libs/addSheet';
+            }
 
             var tmpLink = doc.createElement('script');
             tmpLink.setAttribute("type", 'text/javascript');
@@ -478,7 +482,7 @@ function dealInject(doc){
                 setTimeout(function(){
                     if (type){
                         if (args){
-                            _inject.call(doc, type, args)
+                            _inject.call(doc, type, args, cb)
                         }
                     }
                     else{

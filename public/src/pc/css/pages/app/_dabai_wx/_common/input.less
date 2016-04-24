@@ -1,0 +1,129 @@
+//去掉所有元素边框
+*:focus {outline: none;}
+textarea{resize:none}
+//input  placeholder颜色
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color:    #c5c5c5;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+    color:    #c5c5c5;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+    color:    #c5c5c5;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color:    #c5c5c5;
+}
+
+//表单
+.default_form{
+    background: #fff;
+    padding: 0 0.16rem;
+    li{
+        display: -webkit-box;
+        // display: flex;
+        border-bottom: 1px solid #bbbbbb;
+        padding: 0.16rem 0;
+        text-align: left;
+        &:last-child,&.f_li_ck{
+            border-bottom: none;
+        }
+        label{
+            width: 25%;
+            // -webkit-box-flex: 0.5;
+            display: block;
+            color: #7c7c7c;
+            height: 0.25rem;
+            line-height: 0.25rem;
+            font-size: 0.14rem;
+        }
+        input{
+            font-size: 0.14rem;
+            -webkit-box-flex: 3;
+            display: block;
+            border: none;
+            margin: 0;
+            padding: 0;
+            height: 0.25rem;
+            line-height: 0.25rem;
+            &.f_phone_code{
+                -webkit-box-flex: 2.5;
+            }
+        }
+        .default_no_update{
+            color:    #c5c5c5;
+            // height: 0.25rem;
+            line-height: 0.25rem;
+            word-wrap: break-word;
+            word-break: break-all;
+            width: 75%;
+        }
+        .f_code{
+            width: 28%;
+            background: #e96c2c;
+            color: #fff;
+            text-align: center;
+            border-radius: 0.18rem;
+            font-size: 0.12rem;
+            display: block;
+            height: 0.26rem;
+            line-height: 0.26rem;
+            // padding: 0.06rem 0;
+        }
+        a{
+            display: -webkit-box;
+            width: 100%;
+            color: #333;
+        }
+    }
+}
+//checkbox 协议
+.f_ck{
+    padding: 0.14rem 0.16rem 0.6rem 0;
+    .f_checkbox{
+      border: 1px solid #c4c4c4;
+      width: 0.12rem;
+      height: 0.12rem;
+      display: none;
+    }
+    p{
+        text-align: right;
+        font-size: 0.12rem;
+    }
+    i{
+        font-size: 0.12rem;
+        margin-right: 0.08rem;
+    }
+}
+input[type=checkbox],.f-checkbox{
+  -webkit-appearance: none;
+  width: 18px;
+  height: 19px;
+  border: 1px solid #ec6c00;
+  background: #fff;
+  position: relative;
+  &:checked:before{
+    content: '';
+    pointer-events: none;
+    width: 15px;
+    height: 2px;
+    position: absolute;
+    right: -1px;
+    top: 40%;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    box-shadow: inset 0 0 0 32px #ec6c00;
+  }
+  &:checked:after{
+    content: '';
+    pointer-events: none;
+    width: 6px;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    top: 56%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    box-shadow: inset 0 0 0 32px #ec6c00;
+  }
+}

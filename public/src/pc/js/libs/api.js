@@ -42,25 +42,25 @@ function req( api, param, cb ){
         if (!kkk.port){
             var _src = '/' + kkk.segments.splice(0, (kkk.segments.length-1)).join('/')
             url = _src+url;
-            url = url.replace('//','/')             
+            url = url.replace('//', '/')
         }
 
         if( type(param)==='Object' ) {
             var keys = Object.keys(param)
             if( keys.length>0 )
-                $.post( url, param, function( body, status ){
+                $.post( url, param, function( body, status, xhr ){
                     if( status === 'success' ) {
-                        if (typeof body === 'string')
+                        if (body && typeof body === 'string')
                             body = JSON.parse(body)
-                        cb( body ) ;
+                        cb( body, status, xhr ) ;
                     }
                 }, "json")
             else
-                $.post( url, {test: '123'}, function( body, status ){
+                $.post( url, {test: '123'}, function( body, status, xhr ){
                     if( status === 'success' ) {
-                        if (typeof body === 'string')
+                        if (body && typeof body === 'string')
                             body = JSON.parse(body)
-                        cb( body ) ;
+                        cb( body, status, xhr ) ;
                     }
                 }, "json")
         }
@@ -68,11 +68,11 @@ function req( api, param, cb ){
             if( type(param)==='Function' ){
                 cb = param;
             }
-            $.post( url, {test: '123'}, function( body, status ){
+            $.post( url, {test: '123'}, function( body, status, xhr ){
                 if( status === 'success' ){
-                    if (typeof body === 'string')
+                    if (body && typeof body === 'string')
                         body = JSON.parse(body)
-                    cb( body ) ;
+                    cb( body, status, xhr ) ;
                 }
             }, "json")
         }

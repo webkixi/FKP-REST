@@ -20,11 +20,13 @@ function setStatic(stat, app){
 
     if(stat && stat==='dev'){
         app.use(statics(config.static.test.dft,{
+            dynamic: true,
             buffer: false,
             gzip: true
         }));
     }else{
         app.use( statics(config.static.dft,{
+            dynamic: true,
             buffer: true,
             gzip: true
         }));

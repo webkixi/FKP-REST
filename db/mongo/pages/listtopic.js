@@ -1,7 +1,7 @@
 // var libs = require('../../../libs/libs')
 var libs = include('libs/libs');
 const mongoose = require("mongoose");
-const config = include('root/config')
+const config = include('db/config')
 
 function getPages(page){
     let ps = config.mongo.pageSize
@@ -17,11 +17,11 @@ function *listtopic(oridata) {
     var method = this.method;
     var location = this.local;
     var omethod;
-    
+
     omethod = this.omethod;
 
     if (method === 'NODE'){
-        
+
         if (omethod === 'GET'){
             //处理get数据
             if (location.query.page){
@@ -30,7 +30,7 @@ function *listtopic(oridata) {
                 return yield getList(start_end[0], start_end[1])
             }
         }
-        
+
         if (omethod === 'POST'){
             var body = yield libs.$parse(this);
             if (body && body.page){
@@ -39,7 +39,7 @@ function *listtopic(oridata) {
                 return yield getList(start_end[0], start_end[1])
             }
         }
-        
+
         return yield getList()
     }
 

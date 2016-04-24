@@ -1,0 +1,413 @@
+// @import "../_base/index";
+
+// 为了以后规范样式表，后面添加的公共样式也可以另外加个对应的表用@inport""，方便查阅
+@import "_common/btn.less";
+@import "_common/input.less";
+@import "_common/media.less";
+
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    background: #fff;
+    // max-width: 760px;
+    // position: relative;
+    // margin: 0 auto;
+    height: 100%;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f7f7;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow:hidden;
+}
+li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+
+//向右箭头
+i.icon-xiangyou{
+    // -webkit-box-flex: 0.5;
+    font-size: 0.14rem;
+    position: absolute;
+    width: 14px;
+    height: 16px;
+    top: 0;
+    bottom:0;
+    margin: auto;
+    right: 0.16rem;
+}
+.icon-weixinzhifu{
+    color: #53b447;
+}
+.icon-fukuan{
+    color: #ec6c00;
+}
+
+//隐藏样式
+.u-none{
+    display: none;
+}
+//
+.nav{
+  background: #fff;
+  padding-bottom: 15px;
+  .express,.send,.water,.waterCard{
+    float: left;
+    width: 50%;
+    a{
+      display: block;
+      text-decoration: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      .nav-icon{
+        display: -webkit-box;
+        -webkit-box-align: center;
+        -webkit-box-pack: center;
+        img{
+          display: block;
+          width: 80%;
+        }
+      }
+      .nav-text{
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        color: #333;
+        font-size: 0.12rem;
+        span{
+          display: inline-block;
+          padding: 0 18px;
+          line-height: 25px;
+          border-radius: 5px;
+        }
+      }
+    }
+    a.active,a:hover{
+      .nav-text{
+        span{
+          background-color: #f18f43;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.nav:after{
+  content: '';
+  display: table;
+  clear: both;
+}
+.box-shadow{
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+.ab_cover{
+  position: fixed;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 99;
+}
+.m-box{
+  position: fixed;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 75%;
+  background: #fff;
+  height: 175px;
+  border-radius: 6px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  z-index: 100;
+  .ab_x{
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    text-decoration: none;
+    color: #555;
+    font-size: 0.22rem;
+  }
+  .center-box{
+    width: 90%;
+    .bigCon{
+      font-size: 0.22rem;
+      text-align: center;
+      color: #ea6c1f;
+      line-height: 35px;
+      height: 35px;
+    }
+    .smallCon{
+      font-size: 0.14rem;
+      text-align: center;
+      line-height: 30px;
+      height: 30px;
+      color: #ea6c1f;
+    }
+    .ab_btn_wrap{
+      margin: 10px auto 0;
+      font-size: 0.12rem;
+      .ab_btn{
+        display: inline-block;
+        width: -webkit-calc(~"50% - 5px");
+        line-height: 34px;
+        height: 34px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 17px;
+        background: #ea6c1f;
+        color: #fff;
+
+      }
+      .single{
+        display: block;
+        width: 60%;
+        margin: 0 auto;
+        height: 34px;
+        background: #ea6c1f;
+        line-height: 34px;
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 17px;
+      }
+      .ab_btn0{
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+
+//跳过链接
+.default_skip{
+    margin: 0.14rem 0;
+    color: #F17009;
+    display: block;
+    text-align: right;
+    margin-right: 0.2rem;
+}
+
+//默认四周padding,default_pd016
+.default_pd016{
+    background: #fff;
+    padding: 0.14rem;
+    font-size: 0;
+    label{
+        width: 25%;
+        display: inline-block;;
+        color: #7c7c7c;
+        height: 0.25rem;
+        line-height: 0.25rem;
+        font-size: 0.14rem;
+    }
+    p{
+        display: inline-block;
+        color: #c5c5c5;
+        height: 0.25rem;
+        line-height: 0.25rem;
+        font-size: 0.14rem;
+    }
+    span{
+        font-size: 0.14rem;
+        display: block;
+        line-height: 0.25rem;
+    }
+    .default_pd016_a{//默认地址
+        position: relative;
+        display: block;
+        label{
+            display: inline;
+            color: #ec6c00;
+        }
+        input,i{
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: #ec6c00;
+            font-size: 0.14rem;
+        }
+    }
+}
+
+//底部
+.default_foot{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    height: 0.44rem;
+    line-height: 0.44rem;
+    display: -webkit-box;
+    width: 100%;
+    &.pB055{
+        bottom: 0.44rem;
+    }
+    &.default_foot_btn3{
+        background: #b9b9b9;
+        text-align: center;
+        color: #fff;
+        display: block;
+        font-size: 0.18rem;
+        a{
+            color: #fff;
+            display: block;
+        }
+    }
+    &.defalut_color{
+        background: #ef8f4c;
+    }
+    .dF_total{
+        color: #333;
+        width: 60%;
+        p{
+            margin-left: 0.2rem;
+            font-size: 0.14rem;
+        }
+        i{
+            font-size: 0.16rem;
+            color: #f18f43;
+            font-style: normal;
+            margin-left: 0.1rem;
+        }
+    }
+    .dF_check{
+        font-size: 0.12rem;
+        i{
+            color: #2c7bbe;
+            margin-left: 0;
+            &.iconfont{
+                color: #ec6c00;
+                margin-right: 0.05rem;
+            }
+        }
+    }
+    .dF_btn{
+        width: 40%;
+        background: #ef8f4c;
+        text-align: center;
+        a{
+            color: #fff;
+            display: block;
+        }
+    }
+}
+
+
+
+
+//去掉边线
+.u-border-none{
+    border: none;
+}
+//
+.default_form {
+  background: #fff;
+  padding: 0 0.14rem;
+}
+//
+input[type=datetime-local]{
+  -webkit-appearance: none;
+}
+//表单里的预约时间
+.m-form{
+    label{
+        width: 25%;
+        display: inline-block;
+        color: #7c7c7c;
+        height: 0.25rem;
+        line-height: 0.25rem;
+        font-size: 0.14rem;
+    }
+    input{
+        display: inline-block;
+        height: 0.25rem;
+        line-height: 0.25rem;
+        font-size: 0.14rem;
+        border: none;
+    }
+}
+//开通订阅
+.waterSms{
+    background: #fff;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+//订单详情里的服务费
+.default_Courier_money{
+    width: 100%;
+    border-top: 1px solid #bbbbbb;
+    margin-top: 0.17rem;
+    padding-top: 0.17rem;
+    p{
+        text-align: right;
+        display: block;
+        margin-right: 0.14rem;
+        span{
+            display: inline-block;
+        }
+        i{
+            display: inline-block;
+            font-style: normal;
+            color: #f18f43;
+            margin-left: 0.1rem;
+        }
+    }
+}
+
+.flex{
+  display:-webkit-box;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  display:flex;
+}
+.flex-v{
+  -webkit-box-orient:vertical;
+  -webkit-flex-direction:column;
+  -ms-flex-direction:column;
+  flex-direction:column;
+}
+.flex-1{
+  -webkit-box-flex:1;
+  -webkit-flex:1;
+  -ms-flex:1;
+  flex:1;
+}
+.f-oTouch{
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+
+//绝对定位的元素
+.part{
+    position: absolute;
+    padding: 6px;
+    &.part-left, .part-left{
+        left: 0;
+    }
+    &.part-right, .part-right{
+        right: 0;
+    }
+    &.part-top, .part-top{
+        top: 0;
+    }
+    &.part-bottom, .part-bottom{
+        bottom:0;
+    }
+}

@@ -47,7 +47,8 @@ var Radio = React.createClass({
 
                     if (_value
                     && _value!=='novalue'
-                    && parseInt(_value)<0){
+                    && _value.indexOf('-')===0){
+                    // && parseInt(_value)<0){
                         checked = true;
                         _cls = 'fkp-radio-box'
                         _value = _value.replace('-','')
@@ -70,7 +71,7 @@ var Radio = React.createClass({
                                 <span className="fkp-lable">{_title}</span>
                             </lable>
                         )
-                    }                     
+                    }
                     me.fills.push(_input)
                 })
             }

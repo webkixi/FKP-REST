@@ -1,8 +1,31 @@
-var libs = require('./libs')
+// var popped = ('state' in window.history && window.history.state !== null),
+// initialURL = location.href;
 
+(function() {
+    //解决方案  http://stackoverflow.com/questions/6421769/popstate-on-pages-load-in-chrome
+    //android 和 iphone上页面刷新就会直接执行popstate，这是一个浏览器的bug
+    var blockPopstateEvent = document.readyState!="complete";
+    window.addEventListener("load", function() {
+        // The timeout ensures that popstate-events will be unblocked right
+        // after the load event occured, but not in the same event-loop cycle.
+        setTimeout(function(){ blockPopstateEvent = false; }, 0);
+    }, false);
+
+    window.addEventListener("popstate", function(evt) {
+        if (blockPopstateEvent && document.readyState=="complete") {
+            evt.preventDefault();
+            evt.stopImmediatePropagation();
+        }
+        else{
+            bindFn()
+        }
+    }, false);
+}());
+
+
+var libs = require('./libs')
 var multiDom = false;
 var allow_router_cb = false;
-var popped = ('state' in window.history && window.history.state !== null), initialURL = location.href;
 // alert(initialURL)
 
 var rt = libs.Class.create();
@@ -11,19 +34,17 @@ var rt = libs.Class.create();
         init: function(name, back){
             SA.set("_routerInstanc", this)
             SA.set('_HISTORY', []);
+            SA.set('_HISTORY_DATA', []);
             this.multiDom = multiDom;
             this.intent;
             this.isBack = false;
             this.distribute(name, back)
         },
 
+        //router专用css
+        //css在global/index.less中
         _injectionCss: function(){
-            libs.addSheet(['#pageloading{background:url(/images/loading1.gif) no-repeat center center;\n\
-                position:absolute;\n\
-                top:0;left:0;right:0;bottom:0;width:100%;height:100%;\n\
-                .router-container{display:none;}\
-            }','loadingcss' ])
-            libs.node.append('body','div',{id: 'pageloading'})
+            // libs.node.append('body','div',{id: 'pageloading'})
         },
 
         distribute: function(name, back){
@@ -33,23 +54,19 @@ var rt = libs.Class.create();
             this.url = libs.urlparse(location.href);
             router.cb = undefined;
             allow_router_cb = false;
-            // unbindPushState()
 
             var _back = this._parseBack()
-            // if (_back){
             var rtstat = this._parseRoute()
             if (rtstat){
                 this._injectionCss();
                 this._deal();
                 this._multiDom();
             }
-            // }
         },
 
         _parseBack: function(){
             var back = this.back;
             if (!back) back = false;
-            // bindPushState()
 
             if (libs.getObjType(back)==='Boolean'){
                 this.isBack = back;
@@ -119,7 +136,6 @@ var rt = libs.Class.create();
                     SA.append('_HISTORY', url);
                 }
                 else{
-                    // SA.set('_HISTORY', url);
                     if (!this.isBack){
                         _uri = name;
                         historyStat({uri: _uri}, '2null', '#'+name)
@@ -141,6 +157,7 @@ var rt = libs.Class.create();
             var data = {};
             if (temp){
                 var prev_page = SA.getter('_CURENT_PAGE')
+                this.prev_page = prev_page
                 if (prev_page) {
                     var prev_name = prev_page.data
                     prev_page.run(intent, prev_name)
@@ -151,6 +168,8 @@ var rt = libs.Class.create();
                 if (intent)
                     data = intent
 
+                SA.append('_HISTORY_DATA', data)
+
                 if (this.multiDom)
                     SA.setter(name, data)
                 else
@@ -160,23 +179,55 @@ var rt = libs.Class.create();
             }
         },
 
+        //多id dom 容器结构
         _multiDom: function(){
-            //多id dom 容器结构
-            name = this.name
+            var prev_id,
+                prev_dom,
+                name = this.name;
+
+            if (name.indexOf('/')>0){
+                name = name.replace('/', '_')
+            }
+
             if (multiDom){
-                var silbDom = document.querySelectorAll('.router-container')
-                silbDom = libs.arg2arr(silbDom)
-                silbDom.map(function(unit, i){
-                    unit.style.display = 'none';
-                })
-                if (name.indexOf('/')>0){
-                    name = name.replace('/', '_')
+                if (this.prev_page){
+                    if (this.prev_page.data!=='none'){
+                        prev_id = this.prev_page.data
+                        if (prev_id.indexOf('/')>0){
+                            prev_id = prev_id.replace('/', '_')
+                        }
+                        prev_dom = $(document.querySelector('#'+prev_id)).parent()[0]
+                        if ((prev_dom.className.indexOf('router-container-block')>-1 ||
+                             prev_dom.className.indexOf('router-container-reblock')>-1) &&
+                            this.isBack===true
+                        ){
+                            prev_dom.className = 'container-box router-container router-container-rehidden'
+                        }
+                        else
+                            prev_dom.className = 'container-box router-container router-container-hidden'
+                    }
                 }
-                var nameDom = document.querySelector('#'+name)
-                nameDom.style.display = 'block'
+
+                var nameDom = $(document.querySelector('#'+name)).parent()[0]
+                if (nameDom.className.indexOf('router-container-hidden')>-1 &&
+                    this.isBack===true
+                ){
+                    nameDom.className = 'container-box router-container router-container-reblock'
+                }
+                else {
+                    nameDom.className = 'container-box router-container router-container-block'
+                }
+
+                // var silbDom = document.querySelectorAll('.router-container')
+                // silbDom = libs.arg2arr(silbDom)
+                // silbDom.map(function(unit, i){
+                //   unit.style.display = 'none'
+                // })
+                //
+                // var nameDom = document.querySelector('#'+name)
+                // nameDom.style.display = 'block'
+
                 router.clear()
-                // $('#pageloading').remove()
-                // $('#'+name).css({'display':'block'})
             }
         }
     }
@@ -226,7 +277,7 @@ router.goback = function(name, data){
                 if (WeixinJSBridge)
                     WeixinJSBridge.call('closeWindow')
                 else
-                    window.history.go(-2)
+                    window.history.go(-1)
             }
             else{
                 var pop = SA.pop('_HISTORY')
@@ -238,18 +289,6 @@ router.goback = function(name, data){
                 }else{
                     window.location.href = history.source
                 }
-
-                // if (!pophistory.length){
-                //     console.log('======== pophistory');
-                //     window.history.go(-2)
-                // }
-                // else{
-                //     if(history.hash){
-                //         router(history.hash, data)
-                //     }else{
-                //         window.location.href = history.source
-                //     }
-                // }
             }
          }
 
@@ -257,97 +296,91 @@ router.goback = function(name, data){
 }
 
 router.clear = function(){
+    var _history = SA.get('_HISTORY')
     setTimeout(function(){
         $('#pageloading').remove()
         // var load = document.getElementById('pageloading')
         // libs.node.remove(load)
-    },500)
+    },300)
 }
 
 //
 function bindFn(e){
-    var initialPop = !popped && location.href == initialURL
-    popped = true
-    if ( initialPop ) return
-    if (!allow_router_cb) return
+    // var initialPop = !popped && location.href == initialURL
+    // popped = true
+    // if ( initialPop ) return
 
-    var url = libs.urlparse(location.href);
-    if (url.params.goback) {
-        if (url.params.goback.indexOf('_')>-1) {
-            var tmp = url.params.goback.split('_')
-            var uri = tmp[0]
-            var hash = tmp[1]
-            var _url = '/'+uri+'#'+hash
-            router(_url)
+    if (allow_router_cb){
+        var url = libs.urlparse(location.href);
+        if (url.params.goback) {
+            if (url.params.goback.indexOf('_')>-1) {
+                var tmp = url.params.goback.split('_')
+                var uri = tmp[0]
+                var hash = tmp[1]
+                var _url = '/'+uri+'#'+hash
+                router(_url)
+            }
+            else {
+                router(url.params.goback)
+            }
         }
-        else {
-            router(url.params.goback)
-        }
-    }
-    else
-    if (router.cb && (typeof router.cb === 'function')) {
-        router.cb()
-    }
-    else{
-        var _history = SA.get('_HISTORY')
-        if (_history.length === 1){
-            console.log('======== pophistory');
-            if (WeixinJSBridge)
-                WeixinJSBridge.call('closeWindow')
-            else
-                window.history.go(-2)
+        else
+        if (router.cb && (typeof router.cb === 'function')) {
+            router.cb()
         }
         else{
-            var pop = SA.pop('_HISTORY')
-            pop = SA.pop('_HISTORY')
-            var history = pop[1]
-            var pophistory = pop[0]
-            if(history.hash){
-                router(history.hash, data)
-            }else{
-                window.location.href = history.source
+            var _history = SA.get('_HISTORY')
+            var _history_data = SA.get('_HISTORY_DATA')
+            if (_history.length === 1){
+                console.log('======== pophistory');
+                if (WeixinJSBridge)
+                    WeixinJSBridge.call('closeWindow')
+                else{
+                    window.history.go(-1)
+                }
             }
-
-            // var val = e.state;
-            // if(val && val.uri ){
-            //     router(val.uri, true);
-            // }
-            // else{
-            //     window.history.go(-2)
-            //     // router(val, true)
-            // }
+            else{
+                var pop = SA.pop('_HISTORY')
+                pop = SA.pop('_HISTORY')
+                var history = pop[1]
+                var pophistory = pop[0]
+                if(history.hash){
+                    var _data = SA.pop('_HISTORY_DATA')
+                    // router(history.hash, _data[0][(_data[0].length-1)])   //返回的data
+                    router(history.hash, true)
+                }else{
+                    window.location.href = history.source
+                }
+            }
         }
     }
 }
 
-function unbindPushState(){
-    libs.rmvEvent(window, 'popstate', bindFn)
+function historyStatBehavior(){
+    initialURL = location.href;
+    allow_router_cb = true;
+    // bindPushState()
 }
 
-function bindPushState(){
-    //html5
-    if(window.history.pushState){
-        //解决方案  http://stackoverflow.com/questions/6421769/popstate-on-pages-load-in-chrome
-        //android 和 iphone上页面刷新就会直接执行popstate，这是一个浏览器的bug
-        //有两个解决方案，setTimeout是简单的一种
-        //另外一种比较麻烦
-        // setTimeout(function(){
-        // libs.addEvent(window, 'popstate', bindFn)
-        // },2000)
-        libs.addEvent(window, 'popstate', bindFn)
-    }
-}
+// function unbindPushState(){
+//     libs.rmvEvent(window, 'popstate', bindFn)
+// }
+//
+// function bindPushState(){
+//     //html5
+//     if(window.history.pushState){
+//         //解决方案  http://stackoverflow.com/questions/6421769/popstate-on-pages-load-in-chrome
+//         //android 和 iphone上页面刷新就会直接执行popstate，这是一个浏览器的bug
+//         // libs.addEvent(window, 'popstate', bindFn)
+//     }
+// }
 
 function historyStat(args, title, uri){
     console.log('========= pushState history');
     window.history.pushState(args, title, uri)
 }
 
-function historyStatBehavior(){
-    initialURL = location.href;
-    allow_router_cb = true;
-    bindPushState()
-}
+
 
 var route = function(name, handle){
     if(typeof SA!=='object'){
@@ -369,12 +402,15 @@ var route = function(name, handle){
     }
 }
 
+
 route.init = function(name, handle){
     multiDom = true;
     if(typeof SA!=='object'){
         console.log("don't set global SA variable ");
         return;
     }
+    $('body').append('<div id="router-wrap" style="width:100%;position:relative;height:100%;overflow:hidden;"></div>')
+    var _wrap = $('#router-wrap')[0]
 
     if(libs.getObjType(name)==='Object'){
         var keys = Object.keys(name);
@@ -386,7 +422,8 @@ route.init = function(name, handle){
             if (item.indexOf('/')>0){
                 _id = item.replace('/', '_')
             }
-            libs.node.append('body', 'div', {"class": "container-box router-container", id: _id})
+            $(_wrap).append('<div class="container-box router-container"><div id="'+_id+'" style="height:100%;overflow:auto"></div></div>')
+            // libs.node.append('body', 'div', {"class": "container-box router-container", id: _id})
 
             var page_instence = name[item](_id)
 

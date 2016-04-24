@@ -1,0 +1,85 @@
+//按钮
+button,
+html input[type="button"], // 1
+input[type="reset"],
+input[type="submit"] {
+  cursor: auto; // 3
+}
+
+.f_submit{
+    text-align: center;
+    input{
+        line-height: 0;
+    }
+}
+.f_btn{
+    // padding: 0.1rem 0.16rem;
+    height: 0.38rem;
+    line-height: 0.38rem;
+    font-size: 0.18rem;
+    color: #fff;
+    background: #f18f43;
+    border: none;
+    width: 94%;
+    border-radius: 0.25rem;
+    margin: auto;
+    display: block;
+    &:hover,&.active{
+        background: #DE6504;
+    }
+    &:visited{
+        color: #fff;
+    }
+    &:active{
+        color: #cacaca;
+        background-color: #bf4200;
+        border-color: #460505;
+        background-image: none;
+        box-shadow: inset 0 6px 10px rgba(0,0,0,.125);
+    }
+    &.f_btn6{
+        width: 56%;
+        border-radius: 0.03rem;
+        background: #ec6c00;
+    }
+    //评论
+    &.comments_btn{
+        margin:  0 0.14rem;
+        width: 41%;
+    }
+    //弹窗按钮
+    &.pop_btn{
+        height: 0.26rem;
+        line-height: 0.26rem;
+        font-size: 0.12rem;
+        width: 23.4%;
+        // padding: 0.07rem 0.16rem;
+        border-radius: 0.16rem;
+        background: #ec6c00;
+    }
+    //短信订阅
+    &.subscribe_btn{
+        height: 0.31rem;
+        line-height: 0.31rem;
+        padding: 0 0.14rem;
+        border-radius: 0.16rem;
+        width: auto;
+        font-size: 0.12rem;
+        display: -webkit-box;
+        i{
+            font-size: 0.2rem;
+        }
+        span{
+            line-height: 0.31rem;
+            display: inline-block;
+            vertical-align: top;
+        }
+    }
+}
+//新增地址按钮
+.add_btn{
+    color: #ec6c00;
+    &:hover,&.active{
+        color: #DE6504;
+    }
+}

@@ -12,6 +12,11 @@ function applist(data, ele, opts){
         }
         return _List();
     }
+    else
+    if (typeof data === 'string' && data === 'list'){
+        var _L = require('widgets/listView/list')
+        return _L;
+    }
     else{
         List = _List();
     }
