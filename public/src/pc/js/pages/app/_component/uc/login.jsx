@@ -5,6 +5,9 @@ var libs = require('libs/libs');
 var api = libs.api;
 var valide = libs.formValide;
 
+libs.inject()
+.css(['#login .app_login .demo_dest p{margin-top:0.07rem;font-size:0.12rem;}', '_demo_dest'])
+
 
 //当前页公共变量
 var _page = {}
@@ -65,11 +68,38 @@ var Show = React.createClass({
                 </ul>
                 <div className="f_ck">
                     <p>
-                        <input id="agreement" type="checkbox"/>我同意《大白管家条款》
+                        <input id="agreement" type="checkbox"/>我同意《条款》
                     </p>
                 </div>
                 <div className="f_submit">
                     <input type="submit" defaultValue="下一步" className="f_btn login_submit" />
+                </div>
+
+                <div className="demo_dest" style={{marginTop:".2rem", padding: "0.2rem"}}>
+                    <p>本demo是从实际微信项目中抽里出来的demo，所有接口都无效，是一个纯粹的演示。</p>
+                    <p>本demo是大单页结构，所有页面一次加载，common.js压缩后为108K，包含react/JQ/fkp-*; app.js压缩后为20K左右。</p>
+                    <p>该演示在微信端演示效果很好，在浏览器端演示则受到浏览器原本后退(android)效果的干扰，建议在微信端浏览</p>
+                    <p>
+                        1、包含同步/异步require，及"js/css"注入请求方式
+                    </p>
+                    <p>
+                        2、media/rem兼容显示方式，以ip6为基准
+                    </p>
+                    <p>
+                        3、react
+                    </p>
+                    <p>
+                        4、FKP-SA-flux
+                    </p>
+                    <p>
+                        5、FKP-router  完美微信端后退
+                    </p>
+                    <p>
+                        6、FKP-API，由前端的ajax+koajs-api
+                    </p>
+                    <p>
+                        7、等等
+                    </p>
                 </div>
             </div>
         );

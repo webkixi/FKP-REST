@@ -43,5 +43,5 @@ if(url.params.hash){
         router(url.hash)
     }
     else
-        router('uc/index')   //指定默认首页
+        router('login')   //指定默认首页
 }

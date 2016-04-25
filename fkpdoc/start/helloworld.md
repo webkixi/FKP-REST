@@ -1,10 +1,10 @@
 # 6、一个实例，Hello World  
 &#160; &#160; 前面说了那么多，还是要实际操作一下。老规矩，我们还是从`Hello World`开始吧！
 
-## 1、新建HTML模板  {"id":"newhtml"}  
+## 1、新建HTML模板  {id:newhtml}  
 &#160; &#160; 找到 **public/src/pc/html** 目录，新建一个模板，前端都是从模板开始。
 
-![hello1](/images/doc/hello1.png ' {"class":"titleimg"}')  
+![hello1](/images/doc/hello1.png ' {class:titleimg}')  
 (图一)
 
 #### 在模板中输入html的代码  
@@ -55,9 +55,9 @@
 
 
 
-## 2、新建css  {"id":"newcss"}   
+## 2、新建css  {id:newcss}   
 
-![css](/images/doc/hellocss.png ' {"class":"titleimg"}')  
+![css](/images/doc/hellocss.png ' {class:titleimg}')  
 
 #### css代码  
 
@@ -92,9 +92,9 @@
 ![hellocss](/images/doc/hellocss1.png)
 
 
-## 3、新建前端js  {"id":"newjs"}   
+## 3、新建前端js  {id:newjs}   
 
-![hellojs](/images/doc/hellojs.png ' {"class":"titleimg"}')  
+![hellojs](/images/doc/hellojs.png ' {class:titleimg}')  
 
 首先我们来看下`abc.js`的代码  
 
@@ -111,9 +111,9 @@ setTimeout(function(){
 ```  
 &#160; &#160; 代码很简单，`require`引入了`_common`下的文件，还记得`_common`目录的规则吗，不记得看回这里 《[特殊文件名](/demoindex?md=start_duplicate)》，`_common`属于带下划线的文件名的文件夹，在编译的时候会被自动忽略，但这里我们通过`require`可以引入其中的文件，在下面让我们把代码跑起来看看效果就知道了
 
-## 4、新建node端js  {"id":"newnode"}   
+## 4、新建node端js  {id:newnode}   
 
-![hellonode](/images/doc/hellonode.png ' {"class":"titleimg"}')  
+![hellonode](/images/doc/hellonode.png ' {class:titleimg}')  
 
 接下来我们看下node端的`hello.js`文件中的内容  
 
@@ -145,7 +145,7 @@ module.exports = {
 
 &#160; &#160; `POST`：用于对接前端js的ajax调用(xhr)，还记得我们在`abc.js`中的api.req方法吗？让我们接下来跑一次效果吧
 
-## 5、在环境中跑跑看 {"id":"env"}
+## 5、在环境中跑跑看 {id:env}
 
 #### `ly demo`  
 

@@ -1,5 +1,8 @@
 @import "../../_copy2dist/iconfont";
 
+body{
+    background-color: #fff;
+}
 a{
     text-decoration: none;
 }
@@ -117,12 +120,14 @@ a{
 
 .table td,
 .table th {
+    position: relative;
     padding: 0.8em;
     font-family: 'helvetica neue', arial, "PingHei", 'Hiragino Sans GB', stheiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif, iconfont;
     word-break: break-all; word-wrap:break-word;
     h4{
         margin: 0.2em;
     }
+    height: 4em;
 }
 .table th{
 	font-size: 14px;
@@ -143,6 +148,7 @@ a{
         padding-left: 10px;
         padding-top: 8px;
         border-left: 10px solid #deeeef;
+        width: 82%;
     }
     .profile a{
         font-size: 14px;
@@ -190,10 +196,12 @@ a{
             padding: 10px 0;
         }
         .qrcode{
-            display: inline-block;
+            position: absolute;
+            display: block;
+            right: 2em;
+            top: 0;
             font-size: 18px;
             vertical-align: middle;
-            margin-right: 10%;
         }
         .fnode_title{
             width: 80%;

@@ -1,7 +1,7 @@
 # 2、HTML写在哪里  
 越来越觉得html结构很重要，好的结构是一首诗。
 
-## 特性  
+## 特性  {id:profile}  
 
 ##### handlebars模板解析
 &#160; &#160;  FKP-REST的HTML模板支持hbs语法，demo模式在编译时使用gulp的handlebars插件完成解析，dev和pro模式通过node端的handlebars插件完成解析。  
@@ -16,7 +16,7 @@
 * 独立markdown文件自动生成html文档  
 
 
-## HTML结构写在这里  
+## HTML结构写在这里  {id:htmlhere}  
 
 FKP-REST的html模板目录与js和css是分离的，由编译将三者整合输出。这里我们主要讲html模板的构建，会附带说明一下js和css相关的部分，首先，我们找到html目录，如下  
 
@@ -54,7 +54,7 @@ demoindex为演示页面，列表项如下
 
 
 
-## 模板中的CSS和JS
+## 模板中的CSS和JS  {id:cssjs}  
 
 ##### 打开`demoindex.hbs`可以看到  
 
@@ -76,7 +76,7 @@ __url为相对地址，打开url对应的地址__
 
 ![Alt wherehtml](/images/doc/wherehtml2.png)   
 
-## 关于CSS和JS  
+## 关于CSS和JS  {id:morecssjs}   
 css和js分别分为common和page两个部分    
 ###### _CSS部分_  
 * commoncss  

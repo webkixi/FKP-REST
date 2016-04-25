@@ -49,34 +49,41 @@ body{
     // display:none;
 }
 
+// key frame帧动画完整
+// -webkit-animation-name: anim-routerin;
+// animation-name: anim-routerin;
+// -webkit-animation-duration: 0.4s;
+// animation-duration: 0.4s;
+// -webkit-animation-fill-mode: forwards;
+// animation-fill-mode: forwards;
 .router-container-block{
-    // display:block;
     z-index: 5;
-    // -webkit-animation-name: anim-routerin;
-    // animation-name: anim-routerin;
-    // -webkit-animation-duration: 0.4s;
-    // animation-duration: 0.4s;
-    // -webkit-animation-fill-mode: forwards;
-    // animation-fill-mode: forwards;
 
-    -webkit-animation: anim-routerin 0.4s forwards;
-    // left: 0;
-    // -webkit-transform: translate3d(0,0,0);
-    // transform: translate3d(0,0,0);
-    // opacity: 1;
+    // 第一种方法，性能最好
+    // display:block;
+
+    // 第二种方法，性能最差，放开下面的 key frame动画
+    // pc演示效果很好，iphone6s也不错，华为MATE8动画帧数小于30，影响展示效果
+    // -webkit-animation: anim-routerin 0.4s forwards;
+
+    // 第三种方法，性能中等，可以在小米2a环境下正常展示，华为mate8效果较好，moto x+1效果也不错
+    left: 0;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    opacity: 1;
 }
 
 .router-container-reblock{
-    // display:block;
     z-index: 5;
-    // -webkit-animation-name: anim-routerin2;
-    // animation-name: anim-routerin2;
-    // -webkit-animation-duration: 0.4s;
-    // animation-duration: 0.4s;
-    // -webkit-animation-fill-mode: forwards;
-    // animation-fill-mode: forwards;
 
+    // 第一种方法，性能最好
+    // display:block;
+
+
+    // 第二种方法，性能最差，放开下面的 key frame动画
     // -webkit-animation: anim-routerin2 0.4s forwards;
+
+    // 第三种方法，性能中等，可以在小米2a环境下正常展示，华为mate8效果较好，moto x+1效果也不错
     left: 0;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
@@ -84,79 +91,81 @@ body{
 }
 
 .router-container-hidden{
-    // display:block;
     z-index: 10;
-    // -webkit-animation-name: anim-routerout;
-    // animation-name: anim-routerout;
-    // -webkit-animation-duration: 0.4s;
-    // animation-duration: 0.4s;
-    // -webkit-animation-fill-mode: forwards;
-    // animation-fill-mode: forwards;
 
+    // 第一种方法，性能最好
+    // display:none;
+
+
+    // 第二种方法，性能最差，放开下面的 key frame动画
     // -webkit-animation: anim-routerout 0.8s forwards;
     // box-shadow: 5px 5px 20px #888;
+
+    // 第三种方法，性能中等，可以在小米2a环境下正常展示，华为mate8效果较好，moto x+1效果也不错
     left: -100%;
     -webkit-transform: translate3d(-100%,0,0);
     transform: translate3d(-100%,0,0);
 }
 
 .router-container-rehidden{
-    // display:block;
     z-index: 10;
-    // -webkit-animation-name: anim-routerout2;
-    // animation-name: anim-routerout2;
-    // -webkit-animation-duration: 0.4s;
-    // animation-duration: 0.4s;
-    // -webkit-animation-fill-mode: forwards;
-    // animation-fill-mode: forwards;
 
+    // 第一种方法，性能最好
+    // display:none;
+
+
+    // 第二种方法，性能最差，放开下面的 key frame动画
     // -webkit-animation: anim-routerout2 0.8s forwards;
     // box-shadow: -5px -5px 20px #888;
+
+    // 第三种方法，性能中等，可以在小米2a环境下正常展示，华为mate8效果较好，moto x+1效果也不错
     left: 100%;
     -webkit-transform: translate3d(100%,0,0);
     transform: translate3d(100%,0,0);
 }
 
-@-webkit-keyframes anim-routerin {
-	0% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 5}
-	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
-}
 
-@keyframes anim-routerin {
-	0% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 5 }
-	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
-}
-
-@-webkit-keyframes anim-routerin2 {
-	0% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 5}
-	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
-}
-
-@keyframes anim-routerin2 {
-	0% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 5 }
-	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
-}
-
-@-webkit-keyframes anim-routerout {
-	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
-	// 50% { transform: translate3d(-1000,0,0); opacity: 0 }
-	100% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 10 }
-}
-
-@keyframes anim-routerout {
-	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
-    // 50% { transform: translate3d(-1000,0,0); opacity: 0 }
-	100% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 10 }
-}
-
-@-webkit-keyframes anim-routerout2 {
-	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
-	// 50% { transform: translate3d(-1000,0,0); opacity: 0 }
-	100% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 10 }
-}
-
-@keyframes anim-routerout2 {
-	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
-    // 50% { transform: translate3d(-1000,0,0); opacity: 0 }
-	100% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 10 }
-}
+// 使用第二种方式动画，放开下面的代码
+// @-webkit-keyframes anim-routerin {
+// 	0% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 5}
+// 	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
+// }
+//
+// @keyframes anim-routerin {
+// 	0% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 5 }
+// 	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
+// }
+//
+// @-webkit-keyframes anim-routerin2 {
+// 	0% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 5}
+// 	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
+// }
+//
+// @keyframes anim-routerin2 {
+// 	0% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 5 }
+// 	100% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 5 }
+// }
+//
+// @-webkit-keyframes anim-routerout {
+// 	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
+// 	// 50% { transform: translate3d(-1000,0,0); opacity: 0 }
+// 	100% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 10 }
+// }
+//
+// @keyframes anim-routerout {
+// 	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
+//     // 50% { transform: translate3d(-1000,0,0); opacity: 0 }
+// 	100% { -webkit-transform: translate3d(-120%,0,0); opacity: 1; z-index: 10 }
+// }
+//
+// @-webkit-keyframes anim-routerout2 {
+// 	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
+// 	// 50% { transform: translate3d(-1000,0,0); opacity: 0 }
+// 	100% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 10 }
+// }
+//
+// @keyframes anim-routerout2 {
+// 	0% { -webkit-transform: translate3d(0,0,0); opacity: 1; z-index: 10 }
+//     // 50% { transform: translate3d(-1000,0,0); opacity: 0 }
+// 	100% { -webkit-transform: translate3d(120%,0,0); opacity: 1; z-index: 10 }
+// }
