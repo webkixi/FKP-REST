@@ -59,7 +59,7 @@ var config = {
 
     //部署test环境
     // 测试需要的test环境
-    // 开发环境： ./ly dev test 启动本地环境
+    // 开发环境： ./ly dev 启动本地环境
     // 测试环境： pm2 start index.js -- test
     // 生产环境： pm2 start index.js
     test: {
@@ -68,6 +68,7 @@ var config = {
         apiip: '192.168.1.100',
         port: ':8088/v1/',
         auth: {
+            //本地环境使用github登陆，使用 ./ly dev test
             github:{
                 clientID: 'b1ba9181f8928e4cbfa2',
                 clientSecret: 'cb598749e899bc20514a4b9f583974fd13457550',
