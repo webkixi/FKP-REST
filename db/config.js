@@ -7,7 +7,7 @@ process.env.dbconfig = '当前数据库连接至agzgz.com，该账号不能添�
 
 var _config = {
     mongo: {
-        url: "mongodb://localhost:27017/fkp",
+        url: "mongodb://58.96.191.90:27017/fkp",
         options: {
             db: { native_parser: true },
             server: { poolSize: 3 },
@@ -17,9 +17,11 @@ var _config = {
         },
         pageSize: 20
     },
+    // 使用 ./ly dev test 或者 ./ly pro test
+    // 方式运行
     test: {
         mongo: {
-            url: "mongodb://58.96.191.90:27017/fkp",
+            url: "mongodb://localhost:27017/fkp",
             options: {
                 db: { native_parser: true },
                 server: { poolSize: 3 },

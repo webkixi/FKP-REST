@@ -38,6 +38,7 @@ This is a starter boilerplate app I've put together using the following technolo
 * 三套开发环境（demo/dev/pro）
 * 前端代码的 编译／合成 / hash
 * 服务端(基于node/koajs)数据处理及http服务  
+* 服务端同构React
 
 ## 特点
 * RESTFUL模式  
