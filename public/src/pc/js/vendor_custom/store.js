@@ -77,7 +77,7 @@
                         if(getObjType(fun.args) === 'Array'){
                             fun.args.push( data )
                             if (typeof fun === 'function')
-                                fun.apply(fun.args[0], fun.args)
+                                fun.apply(fun.args[0], [fun.args[0],data])
                         }else{
                             if (typeof fun === 'function')
                                 fun( data );

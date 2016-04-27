@@ -53,6 +53,7 @@ var rt = libs.Class.create();
             this.back = back;
             this.url = libs.urlparse(location.href);
             router.cb = undefined;
+            this.isBack = false;
             allow_router_cb = false;
 
             var _back = this._parseBack()
@@ -65,6 +66,7 @@ var rt = libs.Class.create();
         },
 
         _parseBack: function(){
+            this.intent = false;
             var back = this.back;
             if (!back) back = false;
 
@@ -443,7 +445,7 @@ route.init = function(name, handle){
                 }
             }
             else
-                SA.set(item, name[item])
+                SA.set(item, name[item], [_id])
         })
     }
 
