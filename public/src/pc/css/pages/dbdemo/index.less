@@ -1,6 +1,8 @@
 @import "../../global/_base/index";
 
 
+@box-width: 500px;
+@box-height: 500px;
 
 .index-container{
 
@@ -44,15 +46,25 @@
                margin-top:0.4rem;
            }
        }
+       .box{
+           .addtopic{
+               // display: none;
+               #epiceditor{
+                   width: @box-width - 4 ;
+                   height: @box-height - 4 ;
+               }
+               #add_md{
+                   padding: 0.5em;
+                   width: 96%;
+               }
+           }
+       }
    }
 }
 
 #listtopic{
     margin-left: -2000px;
 }
-
-@box-width: 500px;
-@box-height: 500px;
 
 .span9{
     a.fkp-dest{
@@ -116,17 +128,6 @@
             &.repassword{
                 display: none;
             }
-        }
-    }
-    .addtopic{
-        // display: none;
-        #epiceditor{
-            width: @box-width - 4 ;
-            height: @box-height - 4 ;
-        }
-        #add_md{
-            padding: 0.5em;
-            width: 96%;
         }
     }
 }
