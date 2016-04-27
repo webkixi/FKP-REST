@@ -41,8 +41,8 @@ var config = {
     weixin: hema,                      // 微信模块调用参数
 
     //api
-    apiip: "http://120.25.xxx.xxx",    //  根目录/pages/common/apilist.js
-    port: ":8080/v1/",                 //  根目录/pages/common/apilist.js
+    apiip: "http://120.25.xxx.xxx",    //  api src 参考  根目录/pages/common/apilist.js
+    port: ":8080/v1/",                 //  api src port 参考 根目录/pages/common/apilist.js
     domain: 'agzgz.com',
 
     // 第三方登陆
