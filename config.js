@@ -20,7 +20,7 @@ var static_dir = './public'
 var version = '1.0.0'
 var config = {
     // 默认首页
-    root: 'demoindex',    //dev 或者 pro默认首页
+    root: 'dbdemo',    //dev 或者 pro默认首页
 
     //本地上传路径
     upload: path.join(static_dir,'/dist/'),
