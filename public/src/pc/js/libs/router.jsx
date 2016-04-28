@@ -235,6 +235,11 @@ var rt = libs.Class.create();
     }
 
 function router(name, back){
+    var _url = libs.urlparse(location.href);
+    if (_url.params.hash){
+        var _src = _url.source.replace('hash='+_url.params.hash, '').replace('?&', '?')
+        history.replaceState(null,null, _src)
+    }
     var instance = SA.get('_routerInstanc');
     if (instance){
         instance.distribute(name, back)
