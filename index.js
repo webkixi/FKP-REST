@@ -26,7 +26,9 @@ var _mapper = require('./modules/mapper')(args[0])
 var route = require('./modules/route')
 var path = require('path')
 
-global.React = require('react/addons')
+// global.React = require('react/addons')
+global.React = require('react')
+global.ReactDomServer = require('react-dom/server')
 
 
 //配置环境路径

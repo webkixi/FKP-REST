@@ -34,6 +34,7 @@
     "node-jsx": "^0.13.3",
     "pingpp": "^2.0.6",
     "react": "^0.14.8",
+    "react-dom": "^0.14.8",
     "request": "^2.62.0"
   },
   "devDependencies": {

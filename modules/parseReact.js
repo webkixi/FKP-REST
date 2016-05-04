@@ -9,6 +9,6 @@ module.exports = function(reacturl, opt){
 	if (typeof reacturl==='object'){
 		factory = reacturl
 	}
-	var reactHtml = React.renderToString(factory(props));
+	var reactHtml = ReactDomServer.renderToString(factory(props));
 	return [reactHtml];
 }
