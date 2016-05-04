@@ -25,7 +25,7 @@ devDirs =
     tmpPath :  configs.dirs.dist + '/_tmp/'
 
     # 合并common.css
-    modulesCssDir : configs.dirs.src + '/css/global/'
+    globalCssDir : configs.dirs.src + '/css/global/'
     baseCssDir : configs.dirs.src + '/css/modules/base/'
     uiCssDir : configs.dirs.src + '/css/modules/ui/'
     utilCssDir : configs.dirs.src + '/css/modules/utils/'

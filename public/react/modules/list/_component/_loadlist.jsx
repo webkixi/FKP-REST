@@ -26,7 +26,7 @@ var tmpApp = {
 	//插入真实 DOM之前
 	componentWillMount:function(){
 		if(this.props.data){
-			var tmpPropsData = libs.clone(this.props.data);
+			var tmpPropsData = this.props.data;
 			this.setState({
 				data: tmpPropsData
 			})
@@ -41,8 +41,8 @@ var tmpApp = {
 
 	loopRender: function(){
 		var tData = this.state.data;
-		// tData.push({title: '加载更多内容', 'itemClass': 'loadbar', itemStyle:{"display":'none'}});
-		tData.push(<div ref="loadbar" className="loadbar" style={{"display":"none"}}>加载更多内容</div>);
+		tData.push({loadbar: 'loadbar'});
+		// tData.push(<div ref="loadbar" className="loadtype" style={{"display":"none"}}><div className="loader">Loading...</div></div>);
 		return <List {...this.props} data={tData}/>
 	},
 

@@ -24,7 +24,7 @@ PageScrollStartEndMixin = {
 	    this.isScrolling = true;
 
         window.clearTimeout(this.ttt);
-	    this.ttt = window.setTimeout(this._onScrollEnd, 300);
+	    this.ttt = window.setTimeout(this._onScrollEnd, 1000);
 
 	    if (typeof this.props.onscroll === 'function') {
 	    	this.props.onscroll.call(this, scrollTop);
@@ -32,6 +32,7 @@ PageScrollStartEndMixin = {
 
     },
     _onScrollEnd: function() {
+        $('.loadtype').hide()
     	var scrollTop =  scrollView(this._scrollContainer).top;
         if(scrollTop == this.scrollTop){
             var that = this.getDOMNode(),
@@ -43,9 +44,12 @@ PageScrollStartEndMixin = {
                 this.isScrolling = false;
 
 			if( (nScrollTop + nDivHight) > (nScrollHight-100)){
+                $('.loadtype').show()
 	        	if (typeof this.props.onscrollend === 'function') {
-                    var _loadbar = React.findDOMNode(this.refs['loadbar']);
-                    _loadbar.style.display = 'block'
+                    // var _loadbar = React.findDOMNode(this.refs['loadbar']);
+                    // $('.loadtype').parent().css({'height':'auto','margin':0,'padding':0})
+                    // console.log($(_loadbar).parent());
+                    // _loadbar.style.display = 'block'
 	        		this.props.onscrollend.call(that, scrollTop);
 	        	}
 			};
@@ -68,25 +72,30 @@ PageScrollStartEndMixin = {
 
     preLazy: function(){
         var that = this.getDOMNode()
-        if (!this.imgs){
-            var imgs = that.getElementsByTagName('img')
+        // if (!this.imgs){
+            var imgs = libs.arg2arr(libs.getElementsByClassName('lazyimg')||[])
+            var imgs2 = libs.arg2arr(document.getElementsByTagName('img')||[])
+            imgs = imgs.concat(imgs2)
             this.imgs = imgs;
-        }
+        // }
         this.lazyLoad()
     },
 
     lazyLoad: function(elements,datas){
-      if (!elements) elements = this.imgs;
-      var
-      that = this,
-      holder = this.getDOMNode(),
-      visibles = [],
-      getOffset = libs.getOffset,
-      DocmentView = libs.DocmentView,
-      elements = libs.arg2arr(elements);
+      if (!elements)
+        elements = this.imgs;
+      if (!elements.length)
+        return
+
+      var that = this,
+          holder = this.getDOMNode(),
+          visibles = [],
+          getOffset = libs.getOffset,
+          DocmentView = libs.DocmentView,
+          elements = libs.arg2arr(elements);
 
       var settings = {
-          threshold       : 0,
+          threshold       : 2000,
           failure_limit   : 0,
           event           : "scroll",
           effect          : "show",
@@ -103,39 +112,55 @@ PageScrollStartEndMixin = {
       function update() {
           var counter = 0;
           elements.map(function(element,i) {
-              if (abovethetop(element, settings) ||
-                  leftofbegin(element, settings)) {
-                      /* Nothing. */
-              } else if (!belowthefold(element, settings) &&
-                  !rightoffold(element, settings)) {
-                      if(element.getAttribute('data-src')){
-                          var _src = element.getAttribute('data-src')
-                          element.removeAttribute('data-src')
-                          if (element.nodeName === 'IMG'){
-                              element.src = _src;
-                          }
-                          else{
-                              var api = libs.api;
-                              api.req(_src, function(data){
-                                  holder.innerHTML(data)
-                              })
-                          }
+              if (!element)
+                  return;
+              if (inviewport(element, settings)){
+                  if(element.getAttribute('data-src')){
+                      var _src = element.getAttribute('data-src')
+                      if (element.nodeName === 'IMG'){
+                          element.src = _src;
                       }
-                    //   datas[i].src = datas[i].lsrc;
-                      // $this.trigger("appear");
-                      /* if we found an image we'll load, reset the counter */
-                      counter = 0;
-              } else {
-                  if (++counter > settings.failure_limit) {
-                      return false;
+                      else{
+                          var api = libs.api;
+                          api.req(_src, function(data){
+                              holder.innerHTML(data)
+                          })
+                      }
+                  }
+                  if(element.getAttribute('data-imgsrc')){
+                      var _src = element.getAttribute('data-imgsrc')
+                      element.innerHTML = ''
+                      libs.node.append(element, 'img', {
+                          src: _src
+                      })
                   }
               }
+              else {
+                  if (element.getAttribute('data-imgsrc')){
+                      $(element).find('img').remove()
+                  }
+                  if (element.nodeName==='IMG'){
+                      $(element).parent().addClass('lazyimg').attr('data-imgsrc', element.src)
+                      $(element).remove()
+                  }
+              }
+                //   if (abovethetop(element, settings) ||
+                //       leftofbegin(element, settings)) {
+                //           if(element.getAttribute('data-imgsrc')){
+                //               $(element).find('img').remove()
+                //           }
+                //   } else if (!belowthefold(element, settings) &&
+                //       !rightoffold(element, settings)) {
+                //         //   datas[i].src = datas[i].lsrc;
+                //           // $this.trigger("appear");
+                //           /* if we found an image we'll load, reset the counter */
+                //           counter = 0;
+                //   } else {
+                //       if (++counter > settings.failure_limit) {
+                //           return false;
+                //       }
+                //   }
           });
-
-        //   that.setState({
-        //     datas:datas
-        //   });
-
       }
 
       belowthefold = function(element, settings) {
@@ -143,7 +168,8 @@ PageScrollStartEndMixin = {
           if (settings.container === undefined || settings.container === window) {
               fold = (window.innerHeight ? window.innerHeight : DocmentView().height) + scrollView().top;
           } else {
-              fold = scrollView(settings.container).top + getOffset(settings.container).height;
+            //   fold = scrollView(settings.container).top + getOffset(settings.container).height;
+              fold = getOffset(settings.container).bottom;
           }
           return fold <= getOffset(element).top - settings.threshold;
       };
@@ -154,7 +180,7 @@ PageScrollStartEndMixin = {
           if (settings.container === undefined || settings.container === window) {
               fold = DocmentView().width + scrollView().left;
           } else {
-              fold = scrollView(settings.container).left + getOffset(settings.container).width;
+              fold = getOffset(settings.container).left + getOffset(settings.container).width;
           }
 
           return fold <= getOffset(element).left - settings.threshold;
@@ -162,14 +188,14 @@ PageScrollStartEndMixin = {
 
       abovethetop = function(element, settings) {
           var fold;
-
           if (settings.container === undefined || settings.container === window) {
               fold = scrollView().top;
           } else {
-              fold = scrollView(settings.container).top;
+              fold = getOffset(settings.container).top;
+            //   console.log(getOffset(element).top + settings.threshold  + getOffset(element).height);
           }
 
-          return fold >= scrollView(element).top + settings.threshold  + getOffset(element).height;
+          return fold >= getOffset(element).top + settings.threshold  + getOffset(element).height;
       };
       leftofbegin = function(element, settings) {
           var fold;
@@ -177,9 +203,9 @@ PageScrollStartEndMixin = {
           if (settings.container === undefined || settings.container === window) {
               fold = scrollView().left;
           } else {
-              fold = scrollView(settings.container).left;
+              fold = getOffset(settings.container).left;
           }
-          return fold >= scrollView(element).left + settings.threshold + getOffset(element).width;
+          return fold >= getOffset(element).left + settings.threshold + getOffset(element).width;
       };
       inviewport = function(element, settings) {
           return !rightoffold(element, settings) && !leftofbegin(element, settings) &&

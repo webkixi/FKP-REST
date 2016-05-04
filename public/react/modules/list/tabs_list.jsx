@@ -30,7 +30,7 @@ function doneNext(eve){
             }
 
             var _data = SA.get(_name).data
-                _data = _data.concat(ddd)
+            _data = _data.concat(ddd)
 
             if(!eve || eve!=='auto'){
                 $(me).find('li[data-cls="loadbar"]').click(function(){
@@ -74,6 +74,11 @@ function applist(m, l, ele, opts){
                 list: noop
             }
         }
+    if (!_.isArray(m) || !_.isArray(l)){
+        console.log('applist的菜单或者列表项需为数组');
+        return false
+    }
+
 
     if (_.isObject(ele))
         opts = ele;
@@ -85,6 +90,9 @@ function applist(m, l, ele, opts){
         console.log('tabs_list需要指定id');
         return false
     }
+
+    SA.set(dft.globalName.menu, {data: m})
+    SA.set(dft.globalName.list, {data: l})
 
     function xxx(type, sem){
         var _name = dft.globalName[type]

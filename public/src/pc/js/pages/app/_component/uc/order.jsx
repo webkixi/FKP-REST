@@ -50,7 +50,10 @@ var lists = [
     {id: '111', key: "abc", title: "苹果的手机", url: "http://www.163.com"},
     {id: '112', key: "bcd", title: "三星的手机", url: "http://www.163.com"},
     {id: '113', key: "cde", title: "华为的手机", url: "http://www.163.com"},
-    {id: '114', key: "rrr", title: "小米的手机", url: "http://www.163.com"},
+    {id: '114', key: "rrr", title: "小米的手机", url: "http://www.163.com"}
+]
+
+var lists2 = [
     {id: '111', key: "abc", title: "苹果的手机", url: "http://www.163.com"},
     {id: '112', key: "bcd", title: "三星的手机", url: "http://www.163.com"},
     {id: '113', key: "cde", title: "华为的手机", url: "http://www.163.com"},
@@ -68,7 +71,7 @@ var lists = [
 var menu_funs = {
     item: function(){
         $(this).click(function(){
-            alert(123)
+            $(this).addClass('active').siblings().removeClass('active')
         })
     },
     scrollEnd: function(_name, _next){
@@ -83,7 +86,10 @@ var list_funs = {
         })
     },
     scrollEnd: function(_name, _next){
-        alert('666')
+        setTimeout(function(){
+            _next(_name, lists2)
+            lists2=[]
+        }, 1000)
     }
 }
 
@@ -109,6 +115,10 @@ function start(name){
         main: function(self, data){
             VTabs(menus, lists, {
                 container: name,
+                globalName: {
+                    menu: 'ordersMenus',
+                    list: 'ordersLists'
+                },
                 itemMethod: {
                     menu: menu_funs.item,
                     list: list_funs.item
@@ -120,7 +130,7 @@ function start(name){
             })
         },
         end: function(){
-            // React.unmountComponentAtNode(document.getElementById(name))             
+            // React.unmountComponentAtNode(document.getElementById(name))
         }
     })
 }

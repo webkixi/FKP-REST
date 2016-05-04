@@ -14,6 +14,7 @@ var fox = React.createClass({
 	dealWithData: dealWithDataMethod,
 
 	render: function () {
+		var me = this;
 		var resault = this.dealWithData();
 		var k1 = resault.k1,
 		v1 = resault.v1,
@@ -31,22 +32,34 @@ var fox = React.createClass({
 		});
 
 		function getClass(){
-			if (v2&&v2==='second'){
-				return clsName+' active'
-			}
-			else{
+			// if (v2&&v2==='second'){
+			// 	return clsName+' active'
+			// }
+			// else{
+			// 	return clsName
+			// }
+			if (me.props.data.className)
+				return clsName+' '+me.props.data.className;
+			else
 				return clsName
-			}
 		}
 
 		var _props = {
-			"data-idf": 	this.props.idf,
+			"ref":			this.props.data.ref,
+			"data-idf": 	this.props.data.idf,
 			"data-id": 		k1,
 			// "data-cls": 	v2,
 			"style":		sty,
 			"className": 	getClass()
 		}
 		_props = _.assign(_props, data_attr)
+		if (this.props.data.loadbar){
+			var _type = this.props.data.loadbar;
+			if (_type==='loadbar'){
+				_props.className = 'lazyloadbar'
+				fill = <div ref="loadbar" className="loadtype" style={{"display":"none"}}><div className="loader">Loading...</div></div>
+			}
+		}
 		return React.createElement('li', _props, fill)
 
 		//idf ： 每一个元素的index

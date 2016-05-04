@@ -65,16 +65,18 @@ function dealWithData(){
                        var tmp = img.split('$$$')
                        if (tmp.length===2){
                            if (idf)
-                               return <img data-iid={idf} key={'img'+idf} data-src={tmp[1]} src={tmp[0]} alt={k2}/>
+                               return <li className='himg-item lazyimg' data-imgsrc={tmp[1]} data-imgtmp={tmp[0]} />
+                            //    return <li className='himg-item' data-imgsrc={tmp[1]} data-imgtmp={tmp[0]}><img data-iid={idf} key={'img'+idf} data-src={tmp[1]} src={tmp[0]} alt={k2}/></li>
                            else
-                               return <img data-src={tmp[1]} src={tmp[0]} alt={k2}/>
+                               return <div className='himg lazyimg' data-imgsrc={tmp[1]} data-imgtmp={tmp[0]}/>
+                            //    return <div className='himg-item'><img data-src={tmp[1]} src={tmp[0]} alt={k2}/></div>
                        }
                    }
                    else{
                        if (idf)
-                           return <img data-iid={idf} key={'img'+idf} src={img} alt={k2}/>
+                           return <li data-iid={idf} key={'img'+idf} data-imgsrc={img} className="himg-item lazyimg" title={k2}></li>
                        else
-                           return <img src={img} alt={k2}/>
+                           return <div className="himg lazyimg" data-imgsrc={img} title={k2}></div>
                    }
                }
 
@@ -100,13 +102,13 @@ function dealWithData(){
                        data.img.map(function(pic,j){
                            // tmp_k2.push(<img data-iid={j} key={'img'+j} src={pic} alt={k2}/>)
                            var _img = lazyimg(pic, j)
-                           tmp_k2.push(<li className="himg-item">{_img}</li>)
+                           tmp_k2.push(_img)
                        })
                        // k2 = <div className={'pics'}>{tmp_k2}</div>;
                        v3 = k2 = <ul className="himg">{tmp_k2}</ul>;
                    }
                    else{
-                       v3 = k2 = <div className="himg">{lazyimg(data.img)}</div>
+                       v3 = k2 = lazyimg(data.img)
                    }
                }
 

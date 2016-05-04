@@ -9,7 +9,6 @@ var Store = require('mixins/store');
 var ITEM = require('widgets/itemView/f_li');
 
 var tmpApp = {
-	mixins:[ itemMixins ],
 	getDefaultProps: function() {
 		return {
 

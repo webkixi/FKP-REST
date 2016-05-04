@@ -43,6 +43,8 @@
         width: 0.91rem;
         height: 100%;
         background: #eee;
+        position: relative;
+        z-index: 99999;
         .item{
             height: .4rem;
             line-height: .4rem;
@@ -55,7 +57,7 @@
     .tabs-list{
         height: 100%;
         -webkit-box-flex: 1;
-        background: rgb(246, 246, 246);
+        background-color: #efefef;
         .tabs-list-title{
             padding: .08rem;
         }
@@ -63,6 +65,7 @@
             height: 1.11rem;
             border-top: @border;
             padding: .08rem;
+            overflow: hidden;
         }
     }
 }
