@@ -42,8 +42,6 @@ function getOffset(el){
         }
 
         var node = el.parentNode;
-        if (!node)
-            return false;
         if(node.nodeName.toLowerCase()!=='body'){
         	while(currentStyle(node).position!=='relative'){
         			node = node.parentNode;
@@ -217,17 +215,9 @@ function removeClass(element, className) {
  * @className 用空格分开的className字符串
  */
  // demo getElementsByClassName(document,"div","aaa ccc")
-// function getElementsByClassName(fatherId,tagName,className){
-function getElementsByClassName(className){
-    if (document.getElementsByClassName)
-        return document.getElementsByClassName(className)
-
-	// node = fatherId&&document.getElementById(fatherId) || document;
-	// tagName = tagName || "*";
-
-    var node = document,
-        tagName = "*"
-
+function getElementsByClassName(fatherId,tagName,className){
+	node = fatherId&&document.getElementById(fatherId) || document;
+	tagName = tagName || "*";
 	className = className.split(" ");
 	var classNameLength = className.length;
 	for(var i = 0,j=classNameLength;i< j;i++){

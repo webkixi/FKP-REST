@@ -7,7 +7,7 @@ var doc = require('./_component/doc')
 var timer = require('./_component/time')
 var forapp = require('./_component/forapp')
 
-var tips = require('./_component/tips')
+var base_tips = require('./_component/tips')
 
 
 /**
@@ -46,7 +46,7 @@ var tips = require('./_component/tips')
 */
 
 
-var form_valide = function(name) {
+var form_valide = function(id ,reg, cb, name) {
 
     var ckstat=true;
     var resault;
@@ -54,7 +54,10 @@ var form_valide = function(name) {
         ckstat: true
     };
     var _query = {}
+    var element = {}
+    var args = {}
     var old;
+    var _noop = function(){};
     var block = {
         email    : /^[\.a-zA-Z0-9_=-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
         username : /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/,
@@ -71,12 +74,12 @@ var form_valide = function(name) {
         birthday : /^(\d{4})[\.-](\d{1,2})[\.-](\d{1,2})$/,
         money    : /^[\d]{1,8}(\.\d{1,2})?$/,
         all      : /[\s\S]/,
-        tips     : tips,
+        tips     : function(){},
         noop     : /[\s\S]/
         // noop     : function(){return true}
     };
 
-    SA.set(name, query)
+    // SA.set(name, query)
 
     var errs = {
         "100": ['必须指定检测类型', block],
@@ -84,6 +87,7 @@ var form_valide = function(name) {
         "120": {msg: ''},
         "130": {msg: ''},
         "140": {msg: ''},
+        "username": "用户名不正确",
         "mobile": "手机号码不正确",
         email: "邮箱地址不正确",
         verify: "验证码不正确",
@@ -95,10 +99,6 @@ var form_valide = function(name) {
     }
 
     old = $.extend({},block);
-    // if (opts && base.type(opts)=='Object'){
-    //     old = $.extend({},block);
-    //     block = $.extend(block,opts);
-    // }
 
     function _valide(id ,reg, cb, name) {
         //
@@ -109,14 +109,29 @@ var form_valide = function(name) {
         //arguments为空
         if (!id){
             if (!arguments.length){
-                return query;
+                return ckstat;
+                // return element;
+                // return query;
             }
         }
 
         if (typeof id === 'function'){
             var _fun = id;
-            _fun(query)
-            return ckstat
+            var _keys = Object.keys(args)
+            var _errs = {}
+            var _ckstat = true;
+            _keys.map(function(item){
+                var _stat = _valide.apply(null, args[item])()
+                if (!_stat){
+                    _ckstat = false;
+                    _errs[item] = element[item]
+                }
+            })
+            if (_ckstat){
+                query.ckstat = true;
+            }
+            return _fun(query, _errs)
+            // return ckstat
         }
 
         //reg
@@ -135,6 +150,8 @@ var form_valide = function(name) {
 
         query[id] = value;
         _query[id] = false;
+        element[id] = formobj;  //把表单对象塞到sa中
+        args[id] = arguments
 
         //匹配
         function check(val){
@@ -160,12 +177,14 @@ var form_valide = function(name) {
         var _cb_stat;
 
         if (formobj){
+            _old = base.lodash.cloneDeep(block);
+            _old.tips = base_tips;
             formobj.off('blur')
             formobj.on('blur', function(){
                 var res_cb;
                 var res = check(this.value)
                 if (cb && typeof cb === 'function'){
-                    res_cb = cb.call(this, res, old, errs)
+                    res_cb = cb.call(this, res, _old, errs)
                 }
                 if (res || res_cb){
                     query[this.id] = this.value
@@ -191,7 +210,7 @@ var form_valide = function(name) {
                     query.ckstat = false;
                     if (!cb){
                         if (!res && errs[reg])
-                        tips(errs[reg])
+                            tips(errs[reg])
                     }
                 }
             })
@@ -271,7 +290,7 @@ module.exports = {
     countDown:      timer.countDown,    //倒计时
     timeAgo:        timer.timeAgo,      //时间过去了多久
 
-    msgtips:        tips,
+    msgtips:        base_tips,
     api:            require('./api'),   //封装jquery的ajax的post
 
     formValide:     form_valide,        //校验基础方法

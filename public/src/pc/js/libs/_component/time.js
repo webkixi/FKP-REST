@@ -29,44 +29,67 @@ Date.prototype.Format = function(fmt)
 
 //间隔多久可以点击
 // param1 {element}  dom element not jq element
-// param2 {number}   countdown second
+// param2 {number}   cd second
 // param3 {function} when countdown is 0 then run callback
 // example
 /*
 *  countDown(ele, 60, function(){})
 */
-function countDown(ele, countdown, cb){
+/*
+ * sample
+ * countdown(document.getElementById(xxx), 40, function(){})
+*/
+var _countDownElement = {}
+function countDown(ele, cd, cb){
     if(!ele.nodeType)
         return false;
 
     var that = ele;
+    if (!that.guid_cd)
+        that.guid_cd = 'true';
+    else{
+        if (that.guid_cd === 'true'){
+            return false
+        }
+        else {
+            that.guid_cd = 'true'
+        }
+    }
 
-    // countdown 60 seconds
+    // cd 60 seconds
     var count = 61;
-    $(that).addClass('block')
+    // $(that).addClass('block')
+    // console.log($(that).css('background-color'))
+    that.style.cssText = "background-color:#ccc;"
+    that.disabled = "disabled";
 
-    if( typeof countdown === 'function'){
-        cb = countdown;
+    if( typeof cd === 'function'){
+        cb = cd;
     }
 
-    if( typeof countdown === 'number'){
-        count = countdown
+    if( typeof cd === 'number'){
+        count = cd+1
     }
+    if (!ttt){
+        var ttt = setInterval(function(){
+            if(count < 1){
+                clearInterval(ttt);
+            }
+            else {
+                that.innerHTML = --count+'秒';
 
-    var ttt = setInterval(function(){
-        that.innerHTML = --count+'秒';
-
-        if(count === 0){
-            $(that).removeClass('block')
-            clearInterval(ttt);
-            that.innerHTML = '重新发送'
-            cb()
-        }
-
-        if(count < 1){
-            clearInterval(ttt);
-        }
-    }, 1000);
+                if(count === 0){
+                    // $(that).removeClass('block')
+                    that.guid_cd = 'false'
+                    that.style.cssText = " "
+                    clearInterval(ttt);
+                    that.innerHTML = '重新发送'
+                    cb()
+                }
+            }
+        }, 1000);
+        return true;
+    }
 }
 
 function timeAgo(ago){

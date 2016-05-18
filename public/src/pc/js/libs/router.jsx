@@ -250,6 +250,12 @@ function router(name, back){
 }
 // window.router = router
 
+router.pre = function(){
+    var _h = SA.get('_HISTORY');
+    console.log(_h.length);
+    return _h[(_h.length-2)];
+}
+
 router.goback = function(name, data){
     var url = libs.urlparse(location.href);
     if (url.params.goback) {
@@ -281,10 +287,10 @@ router.goback = function(name, data){
             var _history = SA.get('_HISTORY')
             if (_history.length === 1){
                 console.log('======== pophistory');
-                if (WeixinJSBridge)
-                    WeixinJSBridge.call('closeWindow')
+                if (wx)
+                    wx.closeWindow()
                 else
-                    window.history.go(-1)
+                    window.history.go(-2)
             }
             else{
                 var pop = SA.pop('_HISTORY')
@@ -292,6 +298,7 @@ router.goback = function(name, data){
                 var history = pop[1]
                 var pophistory = pop[0]
                 if(history.hash){
+                    // window.history.go(-2)
                     router(history.hash, data)
                 }else{
                     window.location.href = history.source
@@ -340,10 +347,10 @@ function bindFn(e){
             var _history_data = SA.get('_HISTORY_DATA')
             if (_history.length === 1){
                 console.log('======== pophistory');
-                if (WeixinJSBridge)
-                    WeixinJSBridge.call('closeWindow')
+                if (wx)
+                    wx.closeWindow()
                 else{
-                    window.history.go(-1)
+                    window.history.go(-2)
                 }
             }
             else{

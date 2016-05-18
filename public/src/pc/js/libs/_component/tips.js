@@ -106,7 +106,7 @@ var msgtips = function(msg,stat,cb){
             $(item).remove();
             if($('.showmsg').length==0) $(container).remove();
             // do_action('do_tipsbox');
-        }, 4000);
+        }, 3000);
     }
 
     if(cb) msgtip.pop(msg,stat,cb);

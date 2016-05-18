@@ -44,10 +44,9 @@ var Radio = React.createClass({
                         _value = me.values[i] ? me.values[i] : 'novalue',
                         _input = [],
                         _active = ''
-
                     if (_value
-                    && _value!=='novalue'
-                    && _value.indexOf('-')===0){
+                        && _value!=='novalue'
+                        && _value.indexOf('-')===0){
                     // && parseInt(_value)<0){
                         checked = true;
                         _cls = 'fkp-radio-box'
@@ -134,9 +133,10 @@ var Radio = React.createClass({
             if (this.props.title)
                 _title = this.props.title
 
+
             if (_val
             && _val!=='novalue'
-            && parseInt(_val)<0){
+            && _val.indexOf('-')===0){
                 checked = true;
                 _val = _val.replace('-','')
             }
