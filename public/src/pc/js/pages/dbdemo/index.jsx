@@ -14,7 +14,9 @@ require.ensure(['./_common/epic'], function(require){
     // alert(2)
     var param = libs.queryString(),
         repass = false,
-        cur_page = param.page ? param.page : 1;
+        cur_page = param.page ? param.page : 1,
+        p_tag = param.tag ? param.tag : null,
+        p_cat = param.cat ? param.cat : null;
 
     if (param && param.type) {
         var type = param.type;
@@ -158,7 +160,7 @@ require.ensure(['./_common/epic'], function(require){
     //  ===========  列表文章  =========
     api.req(
         '/$listtopic',
-        {page: cur_page},
+        {page: cur_page, tag: p_tag, cat: p_cat},
         listTopic_resaults
     )
 
@@ -188,7 +190,7 @@ require.ensure(['./_common/epic'], function(require){
                     },
                     {
                         k: '标签: ',
-                        v: item.tags
+                        v: <a href={'/?tag='+item.tags}>{item.tags}</a>
                     }
                 ]
             })
@@ -219,7 +221,7 @@ require.ensure(['./_common/epic'], function(require){
         var next_page = cur_page + 1;
         api.req(
             '/$listtopic',
-            {page: next_page},
+            {page: next_page, tag: p_tag, cat: p_cat},
             function(data){
                 console.log('=============== data')
                 console.log(data)

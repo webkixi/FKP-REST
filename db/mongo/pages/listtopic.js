@@ -62,17 +62,32 @@ function *listtopic(oridata) {
             if (body && body.page){
                 let page = body.page;
                 var start_end = getPages(page)
-                return yield getList(start_end[0], start_end[1])
+                return yield getList(start_end[0], start_end[1], body)
             }
         }
         return yield getList()
 
     }
 
-    function *getList(start, end){
+    function *getList(start, end, bd){
         try {
+            let tag = null,
+                cat = null;
+
+            // get的tag
+            // if (location && location.query.tag){
+            if (bd && bd.tag){
+                tag = bd.tag
+            }
+
+            // get的cat
+            // if (location && location.query.cat){
+            if (bd && bd.cat){
+                cat = bd.cat
+            }
+
             var Topic = mongoose.model('Topic')
-            var topics = yield Topic.topicList(start, end);
+            var topics = yield Topic.topicList(start, end, tag, cat);
             return topics;
 
         } catch (err) {

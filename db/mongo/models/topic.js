@@ -52,11 +52,21 @@ BaseTopicSchema.methods.userMatches = function *(user) {
 
 };
 
-BaseTopicSchema.statics.topicList = function *(start, end) {
+BaseTopicSchema.statics.topicList = function *(start, end, tag, cat) {
+    let query = {}
     let pageSize = config.mongo.pageSize;
     if (!start) start = 0;
     if (!end) end = pageSize;
-    var lists = yield this.find({},'title _id tags create_at update_at img user',{skip:start, limit: end, sort: {create_at: -1}}).exec()
+
+    if (tag && typeof tag==='string'){
+        query.tags = decodeURI(tag)
+    }
+
+    if (cat && typeof cat==='string'){
+        query.cats = cat
+    }
+
+    var lists = yield this.find(query,'title _id tags create_at update_at img user',{skip:start, limit: end, sort: {create_at: -1}}).exec()
     return lists;
 }
 
