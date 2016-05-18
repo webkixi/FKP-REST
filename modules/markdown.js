@@ -19,7 +19,7 @@ function *mkmd(md_raw, templet){
         smartypants: false
     });
 
-    var accessVar = ['tags']
+    var accessVar = ['tags', 'tag']
 
     if (md_raw.indexOf('@@@')>-1) {
         var rev = /[@]{3,}[ ]*\n?([^@]*)[@]{3,}[ ]*\n?/ig
