@@ -44,6 +44,7 @@ function *addtopic(oridata) {
                 var Topic = mongoose.model('Topic')
 
                 var ttt = new Topic(ntopic)
+                wspush('article_count', '我是node传来的内容')
                 return yield _addtopic.call(this, ttt)
 
             }

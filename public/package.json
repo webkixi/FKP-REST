@@ -65,7 +65,8 @@
     "webpack": "^1.12.1"
   },
   "devDependencies": {
-    "coffee-script": "^1.10.0"
+    "coffee-script": "^1.10.0",
+    "socket.io-client": "^1.4.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -16,9 +16,9 @@ var LRU = require('lru-cache'),
 		  , dispose: function (key, n) { n.close() }
 		  , maxAge: 1000 * 60 * 60 },
 	cache = LRU(options)
-
 global.Cache = cache
 cache.set('agzgz','yes you can use fkpjs full stack fragment')
+
 
 //自定义部分模块
 var statics = require('./modules/static')
@@ -96,6 +96,26 @@ app.use(session({
 	key: 'agzgz'
 }));
 
+// websocket
+server = require('http').createServer(app.callback()),
+io = require('socket.io')(server);
+// websocket connection
+// io.of('/blog')  破坏了路由
+io.on('connection', function(socket){
+	// socket.broadcast.emit('hi');
+	// io.emit('xxx', { 'data': msg });
+	// socket.on('xxx',function(msg){
+	// });
+	socket.on('disconnect', function(){
+		console.log('user disconnected');
+	});
+});
+// websocket emit something
+function wspush(name,msg){
+	io.emit(name, { 'data': msg });
+}
+global.wspush = wspush
+
 //定义缓存
 app.use(function *(next){
 	this.include = include
@@ -136,7 +156,8 @@ if(args[1]){
 	}
 }
 
-app.listen(port);
+// app.listen(port);
+server.listen(port);
 
 
 // var exec = require('child_process').execSync;

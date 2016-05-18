@@ -241,7 +241,7 @@ require.ensure(['./_common/epic'], function(require){
 
     var ws = require('modules/wsocket/index')
     ws('article_count', function(val){
-        alert(val.data)
+        console.log(val.data);
     })
 
 })
