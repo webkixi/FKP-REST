@@ -239,6 +239,7 @@ require.ensure(['./_common/epic'], function(require){
         require('./_common/dragandedit')()
     }
 
+    // websocket
     var ws = require('modules/wsocket/index')
     ws('article_count', function(val){
         console.log(val.data);
