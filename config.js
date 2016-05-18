@@ -5,7 +5,7 @@ var agzgz = {
     token: '_agzgz',
     appid: 'wxec91673b97ce1463',
     appsecret: '2c2c9312a61cd9aa0eca16e2e8939cfb',
-    encodingAESKey: 'xxxxxxxxxxx'
+    encodingAESKey: ''
 }
 
 //微信公众号配置文件
