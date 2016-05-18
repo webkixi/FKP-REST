@@ -6,6 +6,7 @@ var AppList = require('modules/list/like_lagou');
 var cfg = require('root/config')
 // var loginBox = require('modules/sign/signin')
 
+
 //异步调用js
 //webpack类似seajs的异步请求语法 require.ensure
 //有些文件需要异步调用
@@ -184,6 +185,10 @@ require.ensure(['./_common/epic'], function(require){
                     {
                         k: '作者: ',
                         v: item.user.nickname
+                    },
+                    {
+                        k: '标签: ',
+                        v: item.tags
                     }
                 ]
             })
@@ -233,5 +238,10 @@ require.ensure(['./_common/epic'], function(require){
     function dealwith_drag(){
         require('./_common/dragandedit')()
     }
+
+    var ws = require('modules/wsocket/index')
+    ws('article_count', function(val){
+        alert(val.data)
+    })
 
 })
