@@ -1,10 +1,10 @@
 var path = require('path');
 
 //微信公众号配置文件
-var hema = {
-    token: '_cqch',
-    appid: 'xxxxxxxxxxx',
-    appsecret: 'xxxxxxxxxxx',
+var agzgz = {
+    token: '_agzgz',
+    appid: 'wxec91673b97ce1463',
+    appsecret: '2c2c9312a61cd9aa0eca16e2e8939cfb',
     encodingAESKey: 'xxxxxxxxxxx'
 }
 
@@ -38,7 +38,7 @@ var config = {
     // domaintest: 'test.agzgz.com',
 
     //微信
-    weixin: hema,                      // 微信模块调用参数
+    weixin: agzgz,                      // 微信模块调用参数
 
     //api
     apiip: "http://120.25.xxx.xxx",    //  api src 参考  根目录/pages/common/apilist.js
