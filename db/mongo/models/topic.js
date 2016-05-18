@@ -25,6 +25,10 @@ var BaseTopicSchema = new Schema({
     update_at: { type: String, default: (new Date().getTime()) }
 });
 
+BaseTopicSchema.index({tags: 1});
+BaseTopicSchema.index({title: 1});
+
+
 
 /**
  * Middlewares
