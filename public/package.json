@@ -1,7 +1,7 @@
 {
-  "name": "public",
-  "version": "1.0.0",
-  "description": "",
+  "name": "fkpjs",
+  "version": "2.5",
+  "description": "fkpjs-javascript全栈框架",
   "main": "config.js",
   "dependencies": {
     "babel-core": "^5.8.24",
@@ -71,6 +71,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "天天修改",
   "license": "ISC"
 }

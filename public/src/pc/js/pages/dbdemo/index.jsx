@@ -58,6 +58,7 @@ require.ensure(['./_common/epic'], function(require){
         }
     }
 
+    // responsive
     $(window).scroll(function(){
         var _top = $(window).scrollTop()
         var _width = $(window).width()
@@ -69,8 +70,10 @@ require.ensure(['./_common/epic'], function(require){
             else {
                 $('.topper').css({'width': '91.9%'})
             }
+            $('.side-menu').css({top: '3.5em'})
         }
         else {
+            $('.side-menu').css({top: '10.5em'})
             $('.topper').removeClass('fixed_top')
             if (_width>1023){
                 $('.topper').css({'width': '97.5%'})
@@ -181,6 +184,21 @@ require.ensure(['./_common/epic'], function(require){
                 </abbr>
             </div>
 
+            function mk_tags(tag){
+                if (!tag){
+                    return ''
+                }
+                var _v = [tag];
+                var _tag = []
+                if (tag.indexOf(',')>-1){
+                    _v = tag.split(',')
+                }
+                _v.map(function($v){
+                    _tag.push(<a href={'/?tag='+$v}>{$v}</a>)
+                })
+                return _tag;
+            }
+
             lists.push({
                 title: _title,
                 body: [
@@ -190,7 +208,7 @@ require.ensure(['./_common/epic'], function(require){
                     },
                     {
                         k: '标签: ',
-                        v: <a href={'/?tag='+item.tags}>{item.tags}</a>
+                        v: mk_tags(item.tags)
                     }
                 ]
             })

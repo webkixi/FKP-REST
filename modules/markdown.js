@@ -24,7 +24,7 @@ function *mkmd(md_raw, templet){
     if (md_raw.indexOf('@@@')>-1) {
         var rev = /[@]{3,}[ ]*\n?([^@]*)[@]{3,}[ ]*\n?/ig
         var rev2 = /(.*)(?=:[ ]*)[\s]*(.*)(?=\n)/ig
-        var rev3 = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/
+        var rev3 = /^[a-zA-Z0-9,_\u4e00-\u9fa5]+$/
 
         var tmp = md_raw.match(rev);
         tmp = tmp.join('\n')
