@@ -13,7 +13,8 @@ var BaseTopicSchema = new Schema({
     content: { type: String },
     img: { type: String },
     cats: { type: String, default: '默认'},
-    tags: { type: String, default: '' },
+    // tags: { type: String, default: '' },
+    tags: [String],
     user: {
         id: { type: String },
         author_id: { type: String },

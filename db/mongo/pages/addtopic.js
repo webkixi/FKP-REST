@@ -26,12 +26,19 @@ function *addtopic(oridata) {
             if (body.cnt) {
                 var marked = include('modules/markdown')
                 var parsedMd = yield marked(body.cnt,{mdcontent:{}})
+                var _tags = parsedMd.mdcontent.tags||parsedMd.mdcontent.tag;
+                if (_tags.indexOf(',')>0){
+                    _tags = _tags.split(',')
+                }
+                else {
+                    _tags = [_tags]
+                }
                 var ntopic = {
                     title: parsedMd.mdcontent.title,
                     content: body.cnt,
                     img: parsedMd.mdcontent.img,
                     cats: parsedMd.mdcontent.cats,
-                    tags: parsedMd.mdcontent.tags,
+                    tags: _tags,
                     user: {
                         id: _user.id,
                         author_id: _user._id,

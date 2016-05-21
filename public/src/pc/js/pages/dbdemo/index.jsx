@@ -188,11 +188,8 @@ require.ensure(['./_common/epic'], function(require){
                 if (!tag){
                     return ''
                 }
-                var _v = [tag];
+                var _v = tag;
                 var _tag = []
-                if (tag.indexOf(',')>-1){
-                    _v = tag.split(',')
-                }
                 _v.map(function($v){
                     _tag.push(<a href={'/?tag='+$v}>{$v}</a>)
                 })

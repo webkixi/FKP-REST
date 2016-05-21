@@ -218,7 +218,15 @@ function removeClass(element, className) {
 function getElementsByClassName(fatherId,tagName,className){
 	node = fatherId&&document.getElementById(fatherId) || document;
 	tagName = tagName || "*";
-	className = className.split(" ");
+    if (!className){
+        return false;
+    }
+    if (className.indexOf(' ')>0){
+        className = className.split(" ");
+    }
+    else {
+        className = [className]
+    }
 	var classNameLength = className.length;
 	for(var i = 0,j=classNameLength;i< j;i++){
 		//创建匹配类名的正则

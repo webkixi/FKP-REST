@@ -30,12 +30,19 @@ function *addtopic(oridata) {
             if (body.topic) {
                 var marked = include('modules/markdown')
                 var parsedMd = yield marked(body.cnt,{mdcontent:{}})
+                var _tags = parsedMd.mdcontent.tags||parsedMd.mdcontent.tag;
+                if (_tags.indexOf(',')>0){
+                    _tags = _tags.split(',')
+                }
+                else {
+                    _tags = [_tags]
+                }
                 var utopic = {
                     title: parsedMd.mdcontent.title,
                     content: body.cnt,
                     img: parsedMd.mdcontent.img,
                     cats: parsedMd.mdcontent.cats,
-                    tags: parsedMd.mdcontent.tags
+                    tags: _tags
                 }
 
                 var Topic = mongoose.model('Topic')

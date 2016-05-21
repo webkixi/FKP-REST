@@ -24,4 +24,9 @@ module.exports = function (schema) {
     // schema.index({email: 1}, {unique: true});
     // schema.index({score: -1});
     // schema.index({githubId: 1});
+
+
+    // mixed
+    // var AnySchema = new Schema({any:{}});    // sample person.anything = {x:[3,4,{y:'change'}]}
+    // var AnySchema = new Schema({any:Schema.Types.Mixed});
 };
