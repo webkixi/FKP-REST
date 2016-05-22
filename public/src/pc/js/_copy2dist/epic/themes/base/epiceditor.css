@@ -5,9 +5,14 @@ html, body, iframe, div {
 
 #epiceditor-utilbar {
   position:fixed;
-  width: 96%;
-  bottom:10px;
-  right:10px;
+  /*width: 92.6%;*/
+  width: 100%;
+  bottom:0;
+  left:0;
+  padding: 2%;
+  background-color: #F7F7F7;
+  -moz-box-shadow: 0px -2px 10px #ccc; /* 老的 Firefox */
+  box-shadow: 0px -2px 10px #ccc;
 }
 
 #epiceditor-utilbar button {
