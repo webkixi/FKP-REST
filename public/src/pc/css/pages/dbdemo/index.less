@@ -1,4 +1,6 @@
 @import "../../global/_base/index";
+@import "../../_copy2dist/iconfont";
+
 body{
     height: auto;
 }
@@ -61,6 +63,19 @@ body{
            }
        }
        .box{
+           position: relative;
+           .box_close{
+            //    background-color: red;
+               font-size: 2em;
+               position: absolute;
+               right: 0.4em;
+               top: 0.3em;
+               color: #ccc;
+               transform: rotate(45deg);
+            //    padding: 0.4em;
+            //    border-radius: 1.1em;
+
+           }
            .addtopic{
                // display: none;
                #epiceditor{

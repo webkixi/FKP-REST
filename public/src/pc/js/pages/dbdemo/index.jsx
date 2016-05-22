@@ -1,3 +1,7 @@
+// index.js
+// 数据处理部分
+
+
 SA.set('USER', {error: '-1'})
 
 var api = require('libs/api')
@@ -11,7 +15,8 @@ var cfg = require('root/config')
 //webpack类似seajs的异步请求语法 require.ensure
 //有些文件需要异步调用
 require.ensure(['./_common/epic'], function(require){
-    // alert(2)
+
+    // 页面url变量
     var param = libs.queryString(),
         repass = false,
         cur_page = param.page ? param.page : 1,
@@ -40,7 +45,7 @@ require.ensure(['./_common/epic'], function(require){
                 libs.msgtips(data.dbconfig, 'alert')
             }
             if (data.error){ //没有该用户
-                console.log(data);
+                // console.log(data);
                 SA.set('USER', {error: '-2'})
             }
             else{
@@ -58,47 +63,6 @@ require.ensure(['./_common/epic'], function(require){
         }
     }
 
-    // responsive
-    $(window).scroll(function(){
-        var _top = $(window).scrollTop()
-        var _width = $(window).width()
-        if (_top>140){
-            $('.topper').addClass('fixed_top')
-            if (_width>1023){
-                $('.topper').css({'width': '66.3%'})
-            }
-            else {
-                $('.topper').css({'width': '91.9%'})
-            }
-            $('.side-menu').css({top: '3.5em'})
-        }
-        else {
-            $('.side-menu').css({top: '10.5em'})
-            $('.topper').removeClass('fixed_top')
-            if (_width>1023){
-                $('.topper').css({'width': '97.5%'})
-            }
-            else {
-                $('.topper').css({'width': '94%'})
-            }
-        }
-    })
-
-
-    //弹出编辑框
-    $('body').on('openEditor', function(jqevent, opts){
-        //打开输入框
-        $('.box').toggle()
-
-        if (opts && opts.content){
-          require('./_common/epic')(opts)   //类似seajs，按需异步请求
-        }
-        else{
-          //插入编辑器
-          //必须后置打开，不然编辑器的宽高不对
-          require('./_common/epic')()       //类似seajs，按需异步请求
-        }
-    })
 
     //添加/更新文章
     $('body').on('addTopic', function(e, args){
