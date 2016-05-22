@@ -59,7 +59,7 @@ function epiceditor(options){
             return editor.getElement(name);
         }
 
-        iframeDoc = find('editor')
+        var iframeDoc = find('editor')
 
         libs.inject(iframeDoc)
         .js(['/js/t/epic/js/test.js', 'iframeEditor'])
@@ -153,6 +153,10 @@ function epiceditor(options){
             if (stat_editor === 'edit')
               $('body').trigger('addTopic', {cnt: cnt.content, editor: editor, upid: options._id})
           })
+
+          // 便捷区域的body的paddingBottom为30px；
+          // 空出utilbar空间，以免遮挡
+          ed[0].body.style.paddingBottom = '20px'
       }
 }
 
