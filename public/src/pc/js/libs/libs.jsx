@@ -46,7 +46,7 @@ var base_tips = require('./_component/tips')
 */
 
 
-var form_valide = function(id ,reg, cb, name) {
+function form_valide(id ,reg, cb, name) {
 
     var ckstat=true;
     var resault;
@@ -62,10 +62,11 @@ var form_valide = function(id ,reg, cb, name) {
         email    : /^[\.a-zA-Z0-9_=-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
         username : /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/,
         verify   : /^[a-z\d]{4}$/i,
+        verify_d : /^[\d]{4}$/i,
         verify_m : /^[\d]{6}$/,
         pwd      : /^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$/,//密码
         guhua    : /^(\d{3,4})?[-]?\d{7,8}$/,//电话号码的格式
-        mobile   : /^(13[0-9]{9}|15[012356789][0-9]{8}|18[01256789][0-9]{8}|147[0-9]{8})$/, //手机
+        mobile   : /^(13[0-9]{9}|15[012356789][0-9]{8}|17[012356789][0-9]{8}|18[01256789][0-9]{8}|147[0-9]{8})$/, //手机
         url      : /^http[s]?:\/\/([\w-]+\.)+[\w-]+([\w-.\/?%&=]*)?$/, //url
         ip4      : /^(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|[0-1]\d{2}|[1-9]?\d)$/, //ip地址
         notempty : /^\S+$/, //非空
@@ -98,7 +99,12 @@ var form_valide = function(id ,reg, cb, name) {
         qq: "qq地址不正确",
     }
 
-    old = $.extend({},block);
+    old = base.lodash.cloneDeep(block);
+    // if (base.type(id)==='Object'){
+    //     old = base.lodash.cloneDeep(block, id);
+    //     old = $.extend(block, id);
+    //     id = 'xxx'
+    // }
 
     function _valide(id ,reg, cb, name) {
         //
@@ -179,6 +185,7 @@ var form_valide = function(id ,reg, cb, name) {
         if (formobj){
             _old = base.lodash.cloneDeep(block);
             _old.tips = base_tips;
+            _old.event = 'blur';
             formobj.off('blur')
             formobj.on('blur', function(){
                 var res_cb;

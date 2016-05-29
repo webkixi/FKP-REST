@@ -83,6 +83,9 @@ var msgtips = function(msg,stat,cb){
         if(stat=='alert'){
             bgcolor='background-color:rgb(211, 13, 21);';
         }
+        if(stat=='warning'){
+            bgcolor='background-color:#f0ad4e;';
+        }
         tip.style.cssText = 'display:none;width:100%;text-align:center; margin-top:10px;color:#fff;line-height:40px;font-size:16px;'+bgcolor;
         return tip;
     }
@@ -91,7 +94,7 @@ var msgtips = function(msg,stat,cb){
     msgtip.tipsBox=function(stat){
         msg_left = Math.round((parseInt(clientwidth)-300)/2);
         msg_top = 'top:0;';
-        if(stat=='alert'){
+        if(stat=='alert'||stat=='warning'||stat==='center'){
             msg_top = Math.round((parseInt(clientheight)-150)/2);
             msg_top = 'top:'+msg_top+'px;height:200px;overflow:hidden;';
         }

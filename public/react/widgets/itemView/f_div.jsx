@@ -14,6 +14,7 @@ var fox = React.createClass({
 	dealWithData: dealWithDataMethod,
 
 	render: function () {
+		var me = this;
 		var resault = this.dealWithData();
 		var k1 = resault.k1,
 		v1 = resault.v1,
@@ -31,12 +32,16 @@ var fox = React.createClass({
 		});
 
 		function getClass(){
-			if (v2&&v2==='second'){
-				return clsName+' active'
-			}
-			else{
+			// if (v2&&v2==='second'){
+			// 	return clsName+' active'
+			// }
+			// else{
+			// 	return clsName
+			// }
+			if (me.props.data.className)
+				return me.props.data.className;
+			else
 				return clsName
-			}
 		}
 
 		var _props = {

@@ -252,7 +252,6 @@ function router(name, back){
 
 router.pre = function(){
     var _h = SA.get('_HISTORY');
-    console.log(_h.length);
     return _h[(_h.length-2)];
 }
 
@@ -423,7 +422,8 @@ route.init = function(name, handle){
         console.log("don't set global SA variable ");
         return;
     }
-    $('body').append('<div id="router-wrap" style="width:100%;position:relative;height:100%;overflow:hidden;"></div>')
+    // $('body').append('<div id="router-wrap" style="width:100%;position:relative;height:100%;overflow:hidden;"></div>')
+    $('body').append('<div id="router-wrap" style="width:100%;position:relative;height:100%;"></div>')
     var _wrap = $('#router-wrap')[0]
 
     if(libs.getObjType(name)==='Object'){
@@ -436,7 +436,8 @@ route.init = function(name, handle){
             if (item.indexOf('/')>0){
                 _id = item.replace('/', '_')
             }
-            $(_wrap).append('<div class="container-box router-container"><div id="'+_id+'" style="height:100%;overflow:auto"></div></div>')
+            // $(_wrap).append('<div class="container-box router-container"><div id="'+_id+'" style="height:100%;"></div></div>')
+            $(_wrap).append('<div class="container-box router-container"><div id="'+_id+'" style="height:100%;overflow:auto;"></div></div>')
             // libs.node.append('body', 'div', {"class": "container-box router-container", id: _id})
 
             var page_instence = name[item](_id)

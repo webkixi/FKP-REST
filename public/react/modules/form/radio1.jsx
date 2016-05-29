@@ -4,6 +4,13 @@ var inject = libs.inject().css;
 var Radio = require('../../widgets/ui/radio')
 var render = React.render;
 
+// var radiodata_waterCard = {
+//     name: ['payWay','payWay'],
+//     title: [<span className="pay_icon_bg"><i className="iconfont icon-weixinzhifu"></i>{'微信支付'}</span>,<span className="pay_icon_bg"><i className="iconfont icon-fukuan"></i>{'货到付款'}</span>],
+//     value: ['-WEIXIN_DBGZH_PAY','PAY_ON_DELIVERY']
+// }
+// radio(radiodata_waterCard, 'radiodata_waterCard')
+
 function radio(d, e, c){
     var _css = d.theme ? d.theme :'radio'
     inject([

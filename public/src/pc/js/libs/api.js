@@ -48,33 +48,79 @@ function req( api, param, cb ){
         if( type(param)==='Object' ) {
             var keys = Object.keys(param)
             if( keys.length>0 )
-                $.post( url, param, function( body, status, xhr ){
-                    if( status === 'success' ) {
-                        if (body && typeof body === 'string')
-                            body = JSON.parse(body)
-                        cb( body, status, xhr ) ;
-                    }
-                }, "json")
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: param,
+                    timeout: 1000,
+                    dataType: "json",
+                    success:function(body, status, xhr){
+                        if( status === 'success' ) {
+                            if (body && typeof body === 'string')
+                                body = JSON.parse(body)
+                            cb( body, status, xhr ) ;
+                        }
+                    },
+                    error:function(){}
+                });
+                // $.post( url, param, function( body, status, xhr ){
+                //     if( status === 'success' ) {
+                //         if (body && typeof body === 'string')
+                //             body = JSON.parse(body)
+                //         cb( body, status, xhr ) ;
+                //     }
+                // }, "json")
             else
-                $.post( url, {test: '123'}, function( body, status, xhr ){
-                    if( status === 'success' ) {
-                        if (body && typeof body === 'string')
-                            body = JSON.parse(body)
-                        cb( body, status, xhr ) ;
-                    }
-                }, "json")
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {test: '123'},
+                    timeout: 1000,
+                    dataType: "json",
+                    success:function(body, status, xhr){
+                        if( status === 'success' ) {
+                            if (body && typeof body === 'string')
+                                body = JSON.parse(body)
+                            cb( body, status, xhr ) ;
+                        }
+                    },
+                    error:function(){}
+                });
+
+                // $.post( url, {test: '123'}, function( body, status, xhr ){
+                //     if( status === 'success' ) {
+                //         if (body && typeof body === 'string')
+                //             body = JSON.parse(body)
+                //         cb( body, status, xhr ) ;
+                //     }
+                // }, "json")
         }
         else{
             if( type(param)==='Function' ){
                 cb = param;
             }
-            $.post( url, {test: '123'}, function( body, status, xhr ){
-                if( status === 'success' ){
-                    if (body && typeof body === 'string')
-                        body = JSON.parse(body)
-                    cb( body, status, xhr ) ;
-                }
-            }, "json")
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {test: '123'},
+                timeout: 1000,
+                dataType: "json",
+                success:function(body, status, xhr){
+                    if( status === 'success' ){
+                        if (body && typeof body === 'string')
+                            body = JSON.parse(body)
+                        cb( body, status, xhr ) ;
+                    }
+                },
+                error:function(){}
+            });
+            // $.post( url, {test: '123'}, function( body, status, xhr ){
+            //     if( status === 'success' ){
+            //         if (body && typeof body === 'string')
+            //             body = JSON.parse(body)
+            //         cb( body, status, xhr ) ;
+            //     }
+            // }, "json")
         }
     } catch (e) {
         alert(e)

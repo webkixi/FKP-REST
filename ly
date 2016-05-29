@@ -38,16 +38,37 @@ bbdev(){
 }
 
 pro(){
-
     cd public
     gulp build
 
     cd ..
-    nodemon -e js,jsx,css,html --ignore public/ --harmony index.js &
+    if [ $1 ]; then
+        nodemon -e js,jsx,css,html --ignore public/ --harmony index.js pro $1 &
+    else
+        nodemon -e js,jsx,css,html --ignore public/ --harmony index.js pro &
+    fi
     sleep 2
 
     cd public
-    gulp watch:pro
+    if [ $1='test' ]; then
+        gulp watch:pro
+    else
+        if [ $1 ]; then
+            gulp watch:pro --port $1
+        else
+            gulp watch:pro
+        fi
+    fi
+
+    # cd public
+    # gulp build
+    #
+    # cd ..
+    # nodemon -e js,jsx,css,html --ignore public/ --harmony index.js &
+    # sleep 2
+    #
+    # cd public
+    # gulp watch:pro
 }
 
 demo(){
@@ -146,7 +167,7 @@ case $1 in
       dev $2
       ;;
   pro)
-      pro
+      pro $2
       ;;
   demo)
       demo

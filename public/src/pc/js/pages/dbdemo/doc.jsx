@@ -10,22 +10,23 @@ $(window).scroll(function(){
     if (_top>140){
         $('.topper').addClass('fixed_top')
         if (_width>1023){
-            $('.topper').css({'width': '66.3%'})
+            $('.topper').css({'width': '68%'})
         }
         else {
-            $('.topper').css({'width': '91.9%'})
+            $('.topper').css({'width': '98%'})
         }
         $('.side-menu').css({top: '3.5em'})
     }
     else {
         $('.side-menu').css({top: '10.5em'})
         $('.topper').removeClass('fixed_top')
-        if (_width>1023){
-            $('.topper').css({'width': '97.5%'})
-        }
-        else {
-            $('.topper').css({'width': '94%'})
-        }
+        $('.topper').css({'width': '100%'})
+        // if (_width>1023){
+        //     $('.topper').css({'width': '100%'})
+        // }
+        // else {
+        //     $('.topper').css({'width': '100%'})
+        // }
     }
 })
 

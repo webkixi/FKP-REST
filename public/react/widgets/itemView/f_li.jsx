@@ -39,7 +39,7 @@ var fox = React.createClass({
 			// 	return clsName
 			// }
 			if (me.props.data.className)
-				return clsName+' '+me.props.data.className;
+				return me.props.data.className;
 			else
 				return clsName
 		}

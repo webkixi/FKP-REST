@@ -8,7 +8,19 @@ var api = require('libs/api')
 var libs = require('libs/libs')
 var AppList = require('modules/list/like_lagou');
 var cfg = require('root/config')
+var wsocket = require('modules/wsocket/index')
+var _ = libs.lodash;
+
 // var loginBox = require('modules/sign/signin')
+
+wsocket('imchat', function(data){
+    // libs.msgtips('有人在聊天室聊天哦','warning')
+    // libs.msgtips('去 /chat 看看情况','center')
+    $('.chattip').show().addClass('animated tada')
+    setTimeout(function(){
+        $('.chattip').hide().removeClass('animated tada')
+    },10000)
+})
 
 
 //异步调用js
@@ -152,7 +164,11 @@ require.ensure(['./_common/epic'], function(require){
                 if (!tag){
                     return ''
                 }
-                var _v = tag;
+                if (!_.isArray(tag)){
+                    return ''
+                }
+
+                var _v = _.map(tag, _.trim);;
                 var _tag = []
                 _v.map(function($v){
                     _tag.push(<a href={'/?tag='+$v}>{$v}</a>)
@@ -183,8 +199,9 @@ require.ensure(['./_common/epic'], function(require){
                 var AppList_scroll_opts = {
                     evt: 'auto',
                     callback: dealwith_drag,
-                    sem: loadMore  //scroll end method
+                    sem: loadMore  //scroll end method 滚动到底部触发方法
                 }
+
                 //渲染列表数据
                 AppList(
                     lists,          //列表数据

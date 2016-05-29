@@ -92,7 +92,7 @@ function countDown(ele, cd, cb){
     }
 }
 
-function timeAgo(ago){
+function timeAgo(ago, cb){
     if (typeof ago === 'string'){
         ago = parseFloat(ago)
     }
@@ -100,11 +100,24 @@ function timeAgo(ago){
         now = Date.parse(date),
         diff = now-ago,
         _seconds = _.ceil(diff/1000, 2),
-        _minute = _.ceil(_seconds/60, 2)
+        _minute = _.ceil(_seconds/60, 2),
         _hour = _.ceil(_seconds/3600, 2),
         _day = _.ceil(_seconds/(3600*24), 2),
         _month = _.ceil(_seconds/(3600*24*30), 2),
         _year = _.ceil(_seconds/(3600*24*30*12), 2);
+
+        var _time = {
+            seconds: _seconds,
+            minute: _minute,
+            hour: _hour,
+            day: _day,
+            month: _month,
+            year: _year
+        }
+
+        if (cb && typeof cb==='function'){
+            return cb(_time)
+        }
 
         if (_year>=1){
             return _.floor(_year)+'年前';

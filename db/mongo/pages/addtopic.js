@@ -1,6 +1,7 @@
 var libs = require('../../../libs/libs')
 var errors = libs.errors;
 const mongoose = require("mongoose");
+const _ = libs.$lodash
 
 function *addtopic(oridata) {
     libs.clog('添加文章/'+__filename)
@@ -27,12 +28,15 @@ function *addtopic(oridata) {
                 var marked = include('modules/markdown')
                 var parsedMd = yield marked(body.cnt,{mdcontent:{}})
                 var _tags = parsedMd.mdcontent.tags||parsedMd.mdcontent.tag;
-                if (_tags.indexOf(',')>0){
-                    _tags = _tags.split(',')
+                if (typeof _tags === 'string'){
+                    if (_tags.indexOf(',')>0){
+                        _tags = _tags.split(',')
+                    }
+                    else {
+                        _tags = [_tags]
+                    }
                 }
-                else {
-                    _tags = [_tags]
-                }
+                _tags = _.map(_tags, _.trim);
                 var ntopic = {
                     title: parsedMd.mdcontent.title,
                     content: body.cnt,
@@ -51,7 +55,7 @@ function *addtopic(oridata) {
                 var Topic = mongoose.model('Topic')
 
                 var ttt = new Topic(ntopic)
-                wspush('article_count', '我是node传来的内容')
+                // wspush('article_count', '我是node传来的内容')
                 return yield _addtopic.call(this, ttt)
 
             }
