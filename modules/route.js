@@ -10,7 +10,6 @@ var __ = libs.$lodash;
 var render;
 var region = require('./region');
 var mms = require('./mms')
-var pay = require('./payment')
 var config = require('../config');
 var url = require('url')
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
@@ -145,9 +144,6 @@ function init(app,mapper,rend){
                 yield github.call(this,app);
             }
         else
-            if(param.cat === 'payment')
-                yield payment.call(this)
-        else
             yield distribute.call(this,mapper)
     }
 
@@ -188,13 +184,6 @@ function *getMms(){
     var msg = yield mms.getMms.call(this);
     yield returnJson.call(this,true,'getmms',msg);
 }
-
-function *payment(){
-    libs.clog('支付')
-    var rtn_charge = yield pay.ping.call(this);
-    // yield returnJson.call(this,true,'getmms',msg);
-}
-
 
 //获取服务器时间
 function *getServTime(){
