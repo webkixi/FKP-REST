@@ -104,7 +104,8 @@ function timeAgo(ago, cb){
         _hour = _.ceil(_seconds/3600, 2),
         _day = _.ceil(_seconds/(3600*24), 2),
         _month = _.ceil(_seconds/(3600*24*30), 2),
-        _year = _.ceil(_seconds/(3600*24*30*12), 2);
+        _year = _.ceil(_seconds/(3600*24*30*12), 2),
+        _date = new Date(ago);
 
         var _time = {
             seconds: _seconds,
@@ -124,26 +125,29 @@ function timeAgo(ago, cb){
         }
         else
         if (_month>=1 && _month<12){
-            return (new Date(ago)).Format("MM-dd")
-            // return _.floor(_month)+'月前';
+            return _date.Format("yyyy-MM-dd")
         }
         else
         if (_day>=1 && _day<30){
-            return (new Date(ago)).Format("MM-dd")
-            // return _.floor(_day)+'天前';
+            if (_day>=1&&_day<2){
+                var _time = _date.Format("hh:mm")
+                return '昨天 '+_time
+            }
+            else
+            if (_day>=2&&_day<=3){
+                var _time = _date.Format("hh:mm")
+                return '前天 ' + _time
+            }
+            else
+                return _date.Format("M-d")
         }
         else
         if (_hour>=1 && _hour<24){
-            // return (new Date(ago)).Format("hh:mm")
             return _.floor(_hour)+'小时前';
         }
         else
         if (_minute>=1 && _minute<60){
             return _.floor(_minute)+'分钟前';
-            // if (_minute>30)
-            //     return (new Date(ago)).Format("hh:mm")
-            // else
-            //     return _.floor(_minute)+'分钟前';
         }
         else
         if (_seconds>=1 && _seconds<60){
