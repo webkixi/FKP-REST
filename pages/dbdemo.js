@@ -15,6 +15,8 @@ function *index(oridata) {
         topics;
 
     if (method === 'GET') {
+        oridata.title = 'FKP-MONGO数据库博客，reactjs服务端同构'
+
         if (this.session.$user){
             oridata.topper = '<a href="javascript:void(0)" id="edit">发布</a>'
         }
@@ -33,7 +35,6 @@ function *index(oridata) {
                 else{
                     var tmp = yield return_detail()
                 }
-
                 var rtn = {
                     isList: false,
                     content: tmp.cnt.replace('h1','p'),
@@ -43,6 +44,7 @@ function *index(oridata) {
                     create_at: tmp.ori.create_at
                 }
                 oridata.bloglist = rtn
+                oridata.title = tmp.ori.title
 
             } catch (e) {
                 console.log('============ counttopic'+e);
