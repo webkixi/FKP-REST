@@ -37,7 +37,7 @@ function *signup(oridata) {
                     //用户不存在
                     if (user === true) {
                         var uuu = new User({
-                            id: body.id
+                            id: body.id,
                             username: body.login,
                             password: initPass,
                             nickname: body.name,
