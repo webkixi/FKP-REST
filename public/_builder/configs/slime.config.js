@@ -216,14 +216,11 @@ var custom_modules = function(){
       }, {
           test: /\.hbs$/,
           loader: "handlebars-loader"
-      }, {
-          test: /\.jsx$/,
-          loader: "jsx-loader"
-          // loaders: ['react-hot', 'jsx?harmony']
-      }, {
+      },
+      {
           test: /[\/\\]js[\/\\](vendor|vendor_custom|global)[\/\\]/,   //http://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
           loader: "script-loader"   //不做任何处理
-      },  {
+      }, {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract("css-loader")
       },
@@ -253,12 +250,22 @@ var custom_modules = function(){
       //   },
 
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'} // inline base64 URLs for <=8k images, direct URLs for the rest
-      // , {
-      //     test: /\.js$/,
-      //     exclude: /node_modules/,
-      //     loader: "babel-loader",
-      //     query:{ compact: 'auto' }
-      // }
+      //   {
+      //       test: /\.jsx$/,
+      //       loader: "jsx-loader"
+      //       // loaders: ['react-hot', 'jsx?harmony']
+      //   },
+      ,{
+            test: /\.jsx$/,
+            loader: "babel-loader!jsx-loader"
+            // loaders: ['react-hot', 'jsx?harmony']
+        }
+    //   , {
+    //       test: /\.js$/,
+    //       exclude: /node_modules/,
+    //       loader: "babel-loader",
+    //       query:{ compact: 'auto' }
+    //   }
       ]
   }
 }

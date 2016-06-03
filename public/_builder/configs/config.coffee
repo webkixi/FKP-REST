@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 configs = require '../../config'
 
 devDirs =
