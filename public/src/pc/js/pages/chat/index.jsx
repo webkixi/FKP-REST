@@ -1,10 +1,11 @@
 var api = require('libs/api')
 var libs = require('libs/libs')
 var Input = require('modules/form/text1')
-var wsocket = require('modules/wsocket/index')
+var WS = require('modules/wsocket/index')
 
-wsocket('imchat', function(data){
-    var info = data.data
+WS.emit('imchat', 'hi')
+WS.on('imchat', function(data){
+    var info = data
     $('#saloon').append('<div><span>'+info.user+'：</span><span>'+info.message+'</span></div>')
 })
 
@@ -81,6 +82,7 @@ Input(inputs, 'kick-center', function(){
                 message: _msg,
                 user: _user
             }
+            WS.emit('imchat', _msg)
             api.req('/chat', post_data, function(){
                 $('#message').val('')
             })

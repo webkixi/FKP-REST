@@ -2,29 +2,23 @@
  * author: ralf
  * ly nodejs mvc project
  */
-var args = process.argv.splice(2); //取得命令行参数
 
 require('babel-core/register');
 require("babel-polyfill");
 
-var koa = require('koa');
-var session = require('koa-generic-session');
-var render = require('./modules/render');
-var LRU = require('lru-cache'),
-	options = { max: 500
-		  , length: function (n, key) { return n * 2 + key.length }
-		  , dispose: function (key, n) { n.close() }
-		  , maxAge: 1000 * 60 * 60 },
-	cache = LRU(options)
-global.Cache = cache
-cache.set('agzgz','yes you can use fkpjs full stack fragment')
+var args = process.argv.splice(2); //取得命令行参数
 
+var koa = require('koa'),
+	path = require('path'),
+	session = require('koa-generic-session');
 
 //自定义部分模块
-var statics = require('./modules/static')
-var _mapper = require('./modules/mapper')(args[0])
-var route = require('./modules/route')
-var path = require('path')
+require('./modules/cache')  // lru 缓存模块
+var statics = require('./modules/static'),
+	_mapper = require('./modules/mapper')(args[0]),
+	route = require('./modules/route'),
+	socketio = require('./modules/wsocket'),   //websocket
+	render = require('./modules/render');
 
 // global.React = require('react/addons')
 global.React = require('react')
@@ -41,12 +35,13 @@ var _path = {
     modules: base,
     public: base,
     pages: base,
-		react: base+'/public/react/widgets',
-		root: base
+	react: base+'/public/react/widgets',
+	root: base
 }
 
 //封装require方法
-function include(file){
+//简化require的调用，别名化
+global.include = function(file){
     if (!file)
         throw new Error('没有指定文件名');
 
@@ -78,11 +73,6 @@ function include(file){
     }
 }
 
-global.include = include
-
-
-
-
 
 //初始化
 var app = koa();
@@ -96,55 +86,41 @@ app.use(session({
 	key: 'agzgz'
 }));
 
-// websocket
-server = require('http').createServer(app.callback()),
-io = require('socket.io')(server);
-// websocket connection
-// io.of('/blog')  破坏了路由
-io.on('connection', function(socket){
-	// socket.broadcast.emit('hi');
-	// io.emit('xxx', { 'data': msg });
-	// socket.on('xxx',function(msg){
-	// });
-	socket.on('disconnect', function(){
-		console.log('user disconnected');
-	});
-});
-// websocket emit something
-function wspush(name,msg){
-	io.emit(name, { 'data': msg });
-}
-global.wspush = wspush
-
-//定义缓存
+//定义include
 app.use(function *(next){
 	this.include = include
 	yield next;
 })
 
-
 //定义测试环境
 app.use(function *(next){
 	if (args[0] === 'dev' || args[0] === 'pro'){
-			if (args[1] === 'test') {
-				console.log('=========== 进入测试环境');
-				process.env.env = 'test'
-				this.session.argv = 'test'
-			}
+		if (args[1] === 'test') {
+			console.log('=========== 进入测试环境');
+			process.env.env = 'test'
+			// this.session.argv = 'test'
+		}
 	}
 	if (args[0] === 'test') {
 		console.log('=========== 进入测试环境');
 		process.env.env = 'test'
-		this.session.argv = 'test'
+		// this.session.argv = 'test'
 	}
 	yield next
 });
+
+// websocket 初始化
+var server = socketio.init(app)
 
 //router
 // app.use(router(app)); //开启路由
 route.call(this,app,_mapper,render(args[0]))
 
+//websocket 挂载on
+socketio.run();
 
+
+//打印出错信息
 app.on('error', function(err){
     console.log(err);
 });

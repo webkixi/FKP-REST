@@ -39,8 +39,9 @@ body{
     height: 100%;
     position: absolute;
     // left:100%;
+    left:0;
     top:0;
-    opacity: 0;
+    opacity: 1;
     overflow: hidden;
 
 
@@ -48,6 +49,9 @@ body{
     transition:.4s;
     background-color: #fff;
     // display:none;
+
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0);
 }
 
 // key frame帧动画完整
@@ -68,10 +72,9 @@ body{
     // -webkit-animation: anim-routerin 0.4s forwards;
 
     // 第三种方法，性能中等，可以在小米2a环境下正常展示，华为mate8效果较好，moto x+1效果也不错
-    left: 0;
+    // left: 0;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
-    opacity: 1;
 }
 
 .router-container-reblock{
@@ -85,10 +88,8 @@ body{
     // -webkit-animation: anim-routerin2 0.4s forwards;
 
     // 第三种方法，性能中等，可以在小米2a环境下正常展示，华为mate8效果较好，moto x+1效果也不错
-    left: 0;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
-    opacity: 1;
 }
 
 .router-container-hidden{
@@ -103,7 +104,7 @@ body{
     // box-shadow: 5px 5px 20px #888;
 
     // 第三种方法，性能中等，可以在小米2a环境下正常展示，华为mate8效果较好，moto x+1效果也不错
-    left: -100%;
+    // left: -100%;
     -webkit-transform: translate3d(-100%,0,0);
     transform: translate3d(-100%,0,0);
 }
@@ -120,7 +121,7 @@ body{
     // box-shadow: -5px -5px 20px #888;
 
     // 第三种方法，性能中等，可以在小米2a环境下正常展示，华为mate8效果较好，moto x+1效果也不错
-    left: 100%;
+    // left: 100%;
     -webkit-transform: translate3d(100%,0,0);
     transform: translate3d(100%,0,0);
 }

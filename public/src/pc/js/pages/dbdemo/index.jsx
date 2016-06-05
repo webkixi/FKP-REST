@@ -8,12 +8,12 @@ var api = require('libs/api')
 var libs = require('libs/libs')
 var AppList = require('modules/list/like_lagou');
 var cfg = require('root/config')
-var wsocket = require('modules/wsocket/index')
+var WS = require('modules/wsocket/index')
 var _ = libs.lodash;
 
 // var loginBox = require('modules/sign/signin')
 
-wsocket('imchat', function(data){
+WS.on('imchat', function(data){
     // libs.msgtips('有人在聊天室聊天哦','warning')
     // libs.msgtips('去 /chat 看看情况','center')
     $('.chattip').show().addClass('animated tada')
