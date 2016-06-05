@@ -55,6 +55,7 @@ var requ = function(api,options, method){
                 opts.json = options
             }
         }
+        opts.timeout = 5000;
 
         if (method === 'post'){
             opts.headers['Content-type'] = 'application/json; charset=utf-8'
