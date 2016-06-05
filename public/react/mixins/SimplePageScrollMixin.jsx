@@ -1,6 +1,6 @@
 //simplelist
 
-libs = require('libs/libs');
+var libs = require('libs/libs');
 
 // Here is the simplest possible mixin to get a global scroll event
 var SimplePageScrollMixin = {
