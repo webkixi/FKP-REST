@@ -250,16 +250,16 @@ var custom_modules = function(){
       //   },
 
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'} // inline base64 URLs for <=8k images, direct URLs for the rest
-      //   {
-      //       test: /\.jsx$/,
-      //       loader: "jsx-loader"
-      //       // loaders: ['react-hot', 'jsx?harmony']
-      //   },
       ,{
             test: /\.jsx$/,
-            loader: "babel-loader!jsx-loader"
+            loader: "jsx-loader"
             // loaders: ['react-hot', 'jsx?harmony']
-        }
+      }
+    //   ,{
+    //         test: /\.jsx$/,
+    //         loader: "babel-loader!jsx-loader"
+    //         // loaders: ['react-hot', 'jsx?harmony']
+    //     }
     //   , {
     //       test: /\.js$/,
     //       exclude: /node_modules/,
