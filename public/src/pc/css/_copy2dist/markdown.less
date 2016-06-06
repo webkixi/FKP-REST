@@ -18,6 +18,15 @@
   background-color: transparent;
 }
 
+.markdown-body {
+    p{
+        text-indent: 1em;
+        &:first-child{
+            text-indent: 0;
+        }
+    }
+}
+
 .markdown-body a:active,
 .markdown-body a:hover {
   outline: 0;
