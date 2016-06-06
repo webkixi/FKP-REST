@@ -238,8 +238,8 @@ require.ensure(['./_common/epic'], function(require){
     }
 
     // websocket 模块化调用
-    var ws = require('modules/wsocket/index')
-    ws('article_count', function(val){
+    // var ws = require('modules/wsocket/index')
+    WS.on('article_count', function(val){
         console.log(val.data);
     })
 
