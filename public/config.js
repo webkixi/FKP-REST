@@ -4,9 +4,10 @@ src_dir = src_dir + platform
 
 var global_dir = './src'+ platform +'/js/global';
 var path = require('path');
+var cfg = require('../config')
 module.exports = {
     name: "FCK-REST",
-    version: "1.0.0",
+    version: cfg.version,
     description: "FKP-REST FRONT-END PART",
     port:{
         demo: 9000,

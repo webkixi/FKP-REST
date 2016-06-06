@@ -17,8 +17,9 @@ var cqch = {
 }
 
 var static_dir = './public'
-var version = '1.0.0'
+var version = '2.6.2'
 var config = {
+    version: version,
     // 默认首页
     root: 'dbdemo',    //dev 或者 pro默认首页
 
@@ -82,24 +83,24 @@ var config = {
 
     //静态资源路径
     static: {
-		dft:  path.join(static_dir,'/dist/1.0.0/'),
-		html: path.join(static_dir,'/dist/1.0.0/html'),
-		js:   path.join(static_dir,'/dist/1.0.0/js'),
-		css:  path.join(static_dir,'/dist/1.0.0/css'),
-		img:  path.join(static_dir,'/dist/1.0.0/images'),
+		dft:  path.join(static_dir,'/dist/'+version+'/'),
+		html: path.join(static_dir,'/dist/'+version+'/html'),
+		js:   path.join(static_dir,'/dist/'+version+'/js'),
+		css:  path.join(static_dir,'/dist/'+version+'/css'),
+		img:  path.join(static_dir,'/dist/'+version+'/images'),
         test: {
-            dft:  path.join(static_dir,'/dist/1.0.0/dev'),
-            html: path.join(static_dir,'/dist/1.0.0/dev/html'),
-            js:   path.join(static_dir,'/dist/1.0.0/dev/js'),
-            css:  path.join(static_dir,'/dist/1.0.0/dev/css'),
-            img:  path.join(static_dir,'/dist/1.0.0/dev/images')
+            dft:  path.join(static_dir,'/dist/'+version+'/dev'),
+            html: path.join(static_dir,'/dist/'+version+'/dev/html'),
+            js:   path.join(static_dir,'/dist/'+version+'/dev/js'),
+            css:  path.join(static_dir,'/dist/'+version+'/dev/css'),
+            img:  path.join(static_dir,'/dist/'+version+'/dev/images')
         }
   	},
 
     // 静态资源映射文件
     // 如果后端使用java/php的模板，将map文件交给后端映射路径
-  	mapJson:   path.join(static_dir,'/dist/1.0.0/map.json'),
-  	mapDevJson:   path.join(static_dir,'/dist/1.0.0/dev/map.json'),
+  	mapJson:   path.join(static_dir,'/dist/'+version+'/map.json'),
+  	mapDevJson:   path.join(static_dir,'/dist/'+version+'/dev/map.json'),
 
 }
 
