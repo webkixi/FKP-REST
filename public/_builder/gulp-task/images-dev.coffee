@@ -12,5 +12,4 @@ module.exports = (gulp,$)->
             .pipe($.plumber())
             # .pipe $.rimraf()
             .pipe $.size()
-            .pipe $.copyExt()
             .pipe gulp.dest(config.imagesDevPath)

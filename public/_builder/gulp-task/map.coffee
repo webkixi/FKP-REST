@@ -87,13 +87,13 @@ module.exports = (gulp, $, slime, env, port)->
     gulp.task 'buildMap:writeMap',['buildMap:css','fonts:build'], () ->
         gulp.src config.htmlDevPath + '/**/*.*'
             .pipe $.size()
-            .pipe $.copyExt()
+            # .pipe $.copyExt()
             .pipe gulp.dest(config.htmlBuildPath)
 
         dealWithMapJson = () ->
             fs.writeFileSync( config.staticPath + '/map.json', JSON.stringify(mapJson)) ;
 
-        setTimeout dealWithMapJson 6500
+        setTimeout dealWithMapJson, 6500
 
 
     return ()->

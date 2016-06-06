@@ -745,8 +745,10 @@ module.exports = {
                   var parseTemplet = true;
                   if ( options.env ) {
                       clog('parse hbs:' + options.env)
-                      if ( options.env === 'pro')
+                      //if ( ['pro', 'dev'].indexOf(options.env)>-1)
+                      if ( options.env === 'pro'){
                           parseTemplet = false;
+                      }
                   }
 
                   gulp.src(tmpValue,{ base: baseHtmlPath })
@@ -764,7 +766,7 @@ module.exports = {
                   }())
                   .pipe ($.newer(configs.htmlDevPath))
                   .pipe ($.plumber())
-                  .pipe ($.if('*.md',getMd()))
+                  .pipe ($.if('*.md', getMd()))
                   .pipe ($.fileInclude({
                       prefix: '@@',
                       basepath: '@file',

@@ -54,11 +54,11 @@ module.exports = (gulp,$,slime,env,port)->
             reload()
 
         # 监控第三方直传文件: css
-        gulp.watch [config.dirs.watch_src + '/css/_copy2dist/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['copyThirdCssToDist:dev'], () ->
+        gulp.watch [config.dirs.watch_src + '/css/_copy2dist/**/*.?(less|scss|css)',config.dirs.src + '/images/slice/*.png'], ['copyThirdCssToDist:'+env], () ->
             console.log 'copy2css watch'
 
         # 监控第三方直传文件:js
-        gulp.watch config.dirs.watch_src + '/js/_copy2dist/**/*.?(coffee|js|jsx|cjsx)', ['copyThirdJsToDist:dev'], () ->
+        gulp.watch config.dirs.watch_src + '/js/_copy2dist/**/*.?(coffee|js|jsx|cjsx)', ['copyThirdJsToDist:'+env], () ->
             console.log 'copy2js watch'
 
         # watch图片文件
@@ -68,6 +68,8 @@ module.exports = (gulp,$,slime,env,port)->
         else
             gulp.watch config.dirs.watch_src + '/images/**/*.*', ['images:dev'], () ->
                 console.log 'images watch'
+
+        # gulp.watch config.dirs.src + '/html/**/*.*', ['html']
 
         gulp.watch config.dirs.watch_src + '/html/**/*.*', (file) ->
             console.log file.path
