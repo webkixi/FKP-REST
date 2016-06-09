@@ -269,9 +269,9 @@ module.exports = {
     arg2arr:        base.arg2arr,        //类数组对象转成数组
     getObjType:     base.getObjType,     //获取对象类型
     type:           base.getObjType,     //获取对象类型
-    lodash:         base.lodash,             //引入lodash
-    clone:          base.lodash.clone,       //clone一个对象
-    os:             base.os,            //获取手机操作系统类型，如android或者ios
+    lodash:         base.lodash,         //引入lodash
+    clone:          base.lodash.clone,   //clone一个对象
+    os:             base.os,             //获取手机操作系统类型，如android或者ios
 
     getOffset:      doc.getOffset,      //取得元素的绝对位置
     offset:         doc.getOffset,      //取得元素的绝对位置
@@ -282,6 +282,7 @@ module.exports = {
     addEvent:       doc.addEvent,       //兼容性绑定方法
     rmvEvent:       doc.rmvEvent,       //兼容性删除方法
     getElementsByClassName: doc.getElementsByClassName,
+    replaceState:   doc.replaceState,   // 替换location.href的指定param
 
     inject:         doc.inject,          // 注入css和js
     addSheet:       doc.addSheet,        // 动态注入 CSS---兼容旧版语法方法
@@ -290,6 +291,7 @@ module.exports = {
     queryString:    doc.queryString,
     currentStyle:   doc.currentStyle,    //获取dom属性，兼容写法
     insertCaret:    doc.insertCaret,     //一般用在编辑器中的iframe插入数据
+    portrait:       doc.portrait,         // 强制竖屏
 
     isSupportFixed: forapp.isSupportFixed,
     changeTitle:    forapp.changeTitle,     //ios特有bug解决方法，改变title

@@ -602,6 +602,48 @@ function insertHtmlAtCaret(win,html) {
     }
 }
 
+// 更换location.href，仅仅只是更换
+function replaceState(tag){
+    var url = urlparse(location.href);
+    var params = url.params;
+    if (params[tag]){
+        var _src = url.relative.replace(tag+'='+url.params[tag], '').replace('?&', '?').replace('?#','#').replace('&&', '&').replace('&#', '#')
+        history.replaceState(null,null, _src)
+        setTimeout(function(){ history.replaceState(null,null, _src) }, 0)
+    }
+}
+
+// 强制竖屏，手机
+function portrait(fz, cb){
+    if (!fz){
+        fz = '100px';
+    }
+    window.addEventListener('orientationchange', function(event){
+        var _w = $('html').width(),
+            _h = $('html').height()
+
+        if ( window.orientation == 180 || window.orientation==0 ) {
+            $('html').removeClass('roater90').removeClass('roate90')
+            $('html')[0].cssText = '';
+        }
+        if( window.orientation == 90 || window.orientation == -90 ) {
+
+            $('html').removeClass('roater90').removeClass('roate90')
+            if ( window.orientation == 90){
+                $('html').addClass('roater90')
+            }
+            if (window.orientation == -90){
+                $('html').addClass('roate90')
+            }
+            $('html').css({'width':_h, 'fontSize': fz})
+
+            if (cb && typeof cb === 'function'){
+                cb()
+            }
+        }
+    });
+}
+
 
 module.exports = {
     DocmentView: DocmentView,
@@ -619,5 +661,7 @@ module.exports = {
     getClipboardText: getClipboardText,
     setClipboardText: setClipboardText,
     currentStyle: currentStyle,
-    insertCaret: insertHtmlAtCaret
+    insertCaret: insertHtmlAtCaret,
+    replaceState: replaceState,
+    portrait: portrait
 }

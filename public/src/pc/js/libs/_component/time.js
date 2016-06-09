@@ -96,62 +96,85 @@ function timeAgo(ago, cb){
     if (typeof ago === 'string'){
         ago = parseFloat(ago)
     }
+    day31 = [1,3,5,7,8,10,12]
+    day30 = [4,6,9,11]
+
     var date = new Date(),
-        now = Date.parse(date),
+        agodate = new Date(ago);
+
+    var $day = date.getDate(),
+        $ago = agodate.getDate(),
+        $hour = date.getHours(),
+        $agoHour = agodate.getHours(),
+        $month = date.getMonth(),
+        $agoMonth = agodate.getMonth(),
+        $year = date.getFullYear(),
+        $agoYear = agodate.getFullYear();
+
+
+    var now = Date.parse(date),
         diff = now-ago,
         _seconds = _.ceil(diff/1000, 2),
         _minute = _.ceil(_seconds/60, 2),
         _hour = _.ceil(_seconds/3600, 2),
         _day = _.ceil(_seconds/(3600*24), 2),
         _month = _.ceil(_seconds/(3600*24*30), 2),
-        _year = _.ceil(_seconds/(3600*24*30*12), 2),
-        _date = new Date(ago);
+        _year = _.ceil(_seconds/(3600*24*30*12), 2);
+
+    var t_day = (_hour - $hour)/24
 
         var _time = {
-            seconds: _seconds,
-            minute: _minute,
-            hour: _hour,
-            day: _day,
-            month: _month,
-            year: _year
+            day: t_day,
+            diff:{
+                seconds: _seconds,
+                minute: _minute,
+                hour: _hour,
+                day: _day,
+                month: _month,
+                year: _year
+            }
         }
 
         if (cb && typeof cb==='function'){
             return cb(_time)
         }
 
-        if (_year>=1){
-            return _.floor(_year)+'年前';
-        }
-        else
-        if (_month>=1 && _month<12){
+        var t = _time
+        var _date = agodate;
+        if (t.diff.year>=1){
             return _date.Format("yyyy-MM-dd")
         }
         else
-        if (_day>=1 && _day<30){
-            if (_day>=1&&_day<2){
+        if (t.diff.month>=1 && t.diff.month<12){
+            return _date.Format("yyyy-MM-dd")
+        }
+        else
+        if (t.day>=0 && t.diff.day<30){
+            if (t.day>=0&&t.day<1){
                 var _time = _date.Format("hh:mm")
                 return '昨天 '+_time
             }
             else
-            if (_day>=2&&_day<=3){
+            if (t.day>=1&&t.day<=2){
                 var _time = _date.Format("hh:mm")
                 return '前天 ' + _time
             }
             else
-                return _date.Format("M-d")
+                return _date.Format("yyyy-MM-dd hh:mm")
         }
         else
-        if (_hour>=1 && _hour<24){
-            return _.floor(_hour)+'小时前';
+        if (t.diff.hour>=1 && t.diff.hour<24){
+            if (t.day<0){
+                return _date.Format("hh:mm")
+            }
         }
         else
-        if (_minute>=1 && _minute<60){
-            return _.floor(_minute)+'分钟前';
+        if (t.diff.minute>=1 && t.diff.minute<60){
+            return _date.Format("hh:mm")
         }
         else
-        if (_seconds>=1 && _seconds<60){
-            return _.floor(_minute)+'秒前';
+        if (t.diff.seconds>=1 && t.diff.seconds<60){
+            return _date.Format("hh:mm")
         }
 }
 

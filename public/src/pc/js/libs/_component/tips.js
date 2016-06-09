@@ -26,14 +26,15 @@ function arg2arr(s){
 */
 var tipsbox = function(){
     this.pop = function(mmm,stat,cb){
-        if(!stat)stat='normal';
-        pushmsg.call(this,mmm,stat);
-        var args = arg2arr(arguments);
-        args = args.slice(3);
-        // if(cb){
-        //     // add_action('tipsbox',[cb,kkkccc],cb.length,this);
-        //     add_action('do_tipsbox',cb,cb.length,this);
-        // }
+        this.pop = function(mmm,stat,cb){
+            // if(!stat)stat='normal';
+            // pushmsg.call(this,mmm,stat);
+            // var args = arg2arr(arguments);
+            // args = args.slice(3);
+            if(cb){
+                cb()
+            }
+        }
     }
 
     //新建消息实例，可定制
