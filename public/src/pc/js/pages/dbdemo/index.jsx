@@ -6,10 +6,13 @@ SA.set('USER', {error: '-1'})
 
 var api = require('libs/api')
 var libs = require('libs/libs')
-var AppList = require('modules/list/like_lagou');
+// var AppList = require('modules/list/like_lagou');
+var listModule = require('modules/list/base_list');
 var cfg = require('root/config')
 var WS = require('modules/wsocket/index')
 var _ = libs.lodash;
+
+var _listData = []
 
 // var loginBox = require('modules/sign/signin')
 
@@ -31,7 +34,7 @@ require.ensure(['./_common/epic'], function(require){
     // 页面url变量
     var param = libs.queryString(),
         repass = false,
-        cur_page = param.page ? param.page : 1,
+        cur_page = param.page ? param.page : 0,
         p_tag = param.tag ? param.tag : null,
         p_cat = param.cat ? param.cat : null;
 
@@ -132,110 +135,146 @@ require.ensure(['./_common/epic'], function(require){
         }
     })
 
+    //弹出编辑框
+    $('body').on('openEditor', function(jqevent, opts){
+        //打开输入框
+        $('.box').toggle()
 
+        if (opts && opts.content){
+          require('./_common/epic')(opts)   //类似seajs，按需异步请求
+        }
+        else{
+          //插入编辑器
+          //必须后置打开，不然编辑器的宽高不对
+          require('./_common/epic')()       //类似seajs，按需异步请求
+        }
+    })
+
+    $(window).scroll(function(){
+        var _top = $(window).scrollTop()
+        var _width = $(window).width()
+        if (_top>140){
+            $('.topper').addClass('fixed_top')
+            if (_width>1023){
+                $('.topper').css({'width': '68%'})
+            }
+            else {
+                $('.topper').css({'width': '98%'})
+            }
+            $('.side-menu').css({top: '3.5em'})
+        }
+        else {
+            $('.side-menu').css({top: '10.5em'})
+            $('.topper').removeClass('fixed_top')
+            $('.topper').css({'width': '100%'})
+        }
+    })
+
+    //打开/关闭编辑框
+    $('.box_close').click(function(){
+        $('body').trigger('openEditor')
+    })
 
 
 
     //  ===========  列表文章  =========
-    api.req(
-        '/$listtopic',
-        {page: cur_page, tag: p_tag, cat: p_cat},
-        listTopic_resaults
-    )
 
-    //ajax列表页数据
-    function listTopic_resaults(data){
-        var lists = []
-        data.map(function(item, i){
-            // console.log('========== item');
-            // console.log('========== item');
-            // console.log('========== item');
-            // console.log('========== item');
-            // console.log(item);
-            var _title = <div className="testheader">
-                <span><img src={item.user.avatar}/></span>
-                <a href={"?topic="+item._id}>{item.title}</a>
-                <abbr>
-                    {libs.timeAgo(item.create_at)}
-                </abbr>
-            </div>
-
-            function mk_tags(tag){
-                if (!tag){
-                    return ''
-                }
-                if (!_.isArray(tag)){
-                    return ''
-                }
-
-                var _v = _.map(tag, _.trim);;
-                var _tag = []
-                _v.map(function($v){
-                    _tag.push(<a href={'/?tag='+$v}>{$v}</a>)
-                })
-                return _tag;
+    // ajax列表数据
+    function pull_list_data(cb){
+        var login = SA.get('USER').login;
+        // pageNum, numPerPage, order
+        cur_page++
+        var params = {
+            page: cur_page,
+            tag: p_tag,
+            cat: p_cat
+        }
+        api.req('/$listtopic', params, function(data){
+            listTopic_resaults(data)
+            if (_.isFunction(cb)){
+                cb()
             }
+        })
+    }
 
-            lists.push({
+
+    //ajax列表页数据处理
+    function listTopic_resaults(data){
+        _listData = []
+
+        // 生成标签模版
+        function mk_tags(tag){
+            if (!tag) return '';
+            if (!_.isArray(tag)) return [''];
+
+            var _v = _.map(tag, _.trim),
+                _tag = [];
+
+            _v.map(function($v){
+                _tag.push(<a href={'/?tag='+$v}>{$v}</a>)
+            })
+
+            return _tag;
+        }
+
+        data.map(function(item, i){
+            var _title = (
+                <div className="testheader">
+                    <span><img src={item.user.avatar}/></span>
+                    <a href={"?topic="+item._id}>{item.title}</a>
+                    <abbr>
+                        {libs.timeAgo(item.create_at)}
+                    </abbr>
+                </div>
+            )
+
+            _listData.push({
                 title: _title,
                 body: [
-                    {
-                        k: '作者: ',
-                        v: item.user.nickname
-                    },
-                    {
-                        k: '标签: ',
-                        v: mk_tags(item.tags)
-                    }
+                    { k: '作者: ',
+                      v: item.user.nickname },
+                    { k: '标签: ',
+                      v: mk_tags(item.tags) }
                 ]
             })
         })
+    }
 
+    // 加载列表
+    pull_list_data(function(){
         if (!param.topic){
             //列表页展示
             $('#listtopic').html('')
-            setTimeout(function(){
-                $('#listtopic').css({'margin-left':0})
-                var AppList_scroll_opts = {
-                    evt: 'auto',
-                    callback: dealwith_drag,
-                    sem: loadMore  //scroll end method 滚动到底部触发方法
-                }
+            $('#listtopic').css({'margin-left':0})
 
-                //渲染列表数据
-                AppList(
-                    lists,          //列表数据
-                    'listtopic',    //绑定dom
-                    AppList_scroll_opts
-                );
-            }, 100)
-        }
-    }
+            function itemFun(){
 
-    //加载下一页数据
-    function loadMore(e, next){
-        var next_page = cur_page + 1;
-        api.req(
-            '/$listtopic',
-            {page: next_page, tag: p_tag, cat: p_cat},
-            function(data){
-                console.log('=============== data')
-                console.log(data)
-                cur_page = next_page;
-                var lists = []
-                data.map(function(item, i){
-                    // console.log(item);
-                    lists.push( <a href={"?topic="+item._id}>{item.title}</a> )
-                })
-                next(e, lists)
             }
-        )
-    }
 
-    //处理每一个item为左右拖动
-    function dealwith_drag(){
-        require('./_common/dragandedit')()
-    }
+            function listFun(){
+                require('./_common/dragandedit')()
+            }
+
+            //加载下一页数据
+            function loadMore(e, next){
+                var next_page = cur_page + 1;
+                pull_list_data(function(){
+                    next(e, _listData)
+                })
+            }
+
+
+            listModule(_listData, {
+                container: 'listtopic',
+                globalName: 'Blogs',
+                listClass: 'like_lagou',
+                itemClass: 'lg_item',
+                listMethod: listFun,
+                itemMethod: itemFun,
+                scrollEnd: loadMore
+            })
+        }
+    })
 
     // websocket 模块化调用
     // var ws = require('modules/wsocket/index')
