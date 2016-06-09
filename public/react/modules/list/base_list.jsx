@@ -60,8 +60,10 @@ function applist(data, ele, opts){
             globalName: 'LagouLists',
             itemMethod: noop,
             listMethod: noop,
+            listClass: 'xxx',
             listClass: 'yyy',
-            scroll: noop,
+            scroll: 'window',   // 指定self，则自身滚动，需要指定父级容器的特定高度，如果高度自适应，则不会产生滚动事件
+            // 如父级高度为100%，需要指定html,body都为100%,且overflow为hidden
             scrollEnd: noop,
             empty: <div>没有数据</div>
         }
@@ -110,18 +112,22 @@ function applist(data, ele, opts){
             }
         },
         render:function(){
-            if (!this.state.lists.length){
-                return dft.empty
-            }
-            else {
-                return (
-                    <LISTS listClass={dft.listClass} onscrollend={dft.scrollEnd} scroll="self" data={this.state.lists} itemMethod={dft.itemMethod}/>
-                );
-            }
+            return (
+                <LISTS itemClass={dft.itemClass} listClass={dft.listClass} onscrollend={dft.scrollEnd} scroll={dft.scroll} data={this.state.lists} itemMethod={dft.itemMethod}/>
+            );
+            // if (!this.state.lists.length){
+            //     return dft.empty
+            // }
+            // else {
+            //     return (
+            //         <LISTS itemClass={dft.itemClass} listClass={dft.listClass} onscrollend={dft.scrollEnd} scroll="self" data={this.state.lists} itemMethod={dft.itemMethod}/>
+            //     );
+            // }
         }
     })
 
     var data_render = {lists:data_lists}
+
     render(
         <VTabs data={data_render} />,
         document.getElementById(dft.container)
