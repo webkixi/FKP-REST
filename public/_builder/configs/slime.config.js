@@ -369,10 +369,20 @@ module.exports = {
             recursive: true,
             entry: entry,
             output: {
-                path: path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/js/'),
+                path: (function(){
+                    if (options.env === 'pro'){
+                        return path.join(__dirname,'../../', config.dist + '/' + configs.version + '/js/');
+                    }
+                    return path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/js/');
+                })(),
                 // publicPath: '../../' + configs.version + '/dev/js/',
                 publicPath: '/js/',
-                filename: configs.hash ? '[name]_[hash].js' : '[name].js',
+                filename: (function(){
+                    if (options.env === 'pro'){
+                        return '[name]__[hash].js'
+                    }
+                    return configs.hash ? '[name]__[hash].js' : '[name].js'
+                })()
             },
             externals: idf_externals,
             plugins: idf_plugins,
@@ -423,12 +433,6 @@ module.exports = {
                 if (env === 'pro'){
                     // delete _webpackDevConfig.devtool
                     _webpackDevConfig.devtool = 'cheap-source-map'
-                    console.log('=============== pro');
-                    console.log('=============== pro');
-                    console.log('=============== pro');
-                    console.log('=============== pro');
-                    console.log('=============== pro');
-                    console.log(_webpackDevConfig);
                 }
             }
 
@@ -475,6 +479,14 @@ module.exports = {
 
               //parse sass scss less css stylus
               function doStyle(){
+                  var _md5 = options.env === 'pro' ? true : false;
+
+                  var _cssDistPath = configs.cssDevPath,
+                      _imgDistPath = configs.imagesDevPath;
+                  if (options.env==='pro'){
+                      _cssDistPath = configs.cssBuildPath;
+                      _imgDistPath = configs.imagesBuildPath;
+                  }
                   var cssstyle = $.less||$.empty;
                   switch (type) {
                       case 'sass':
@@ -496,9 +508,9 @@ module.exports = {
                       if(entrys[file].length){
                           (function(item){
                               gulp.src(entrys[item])
-                            //   .pipe($.newer(path.join(__dirname,'../../',configs.cssDevPath, item+'.css') ))
+                              //   .pipe($.newer(path.join(__dirname,'../../',configs.cssDevPath, item+'.css') ))
                               .pipe($.plumber())
-                            //   .pipe ($.rimraf())
+                              //   .pipe ($.rimraf())
                               .pipe (cssstyle())
                               //   .pipe ($.if('*.sass', $.sass() ))
                               //   .pipe ($.if('*.scss', $.sass() ))
@@ -509,13 +521,16 @@ module.exports = {
                               .pipe($.size())
                               // .pipe($.sass())
                               .pipe( (entry._src||entry._ary) ? $.rename({'extname': '.css'}) : $.concat(item + ".css"))
-                              .pipe(gulp.dest(configs.cssDevPath))
-
+                              .pipe($.if(_md5, $.minifyCss() ))
+                              .pipe($.if(_md5, $.size() ))
+                              .pipe($.if(_md5, $.md5({size: 10, separator: '__'}) ))
+                              .pipe(gulp.dest(_cssDistPath))
 
                               //雪碧图
                               //config 是 configs 的子集
-                              .pipe ($.newer(configs.imagesDevPath))
-                              .pipe ($.plumber())
+                              //   gulp.src(entrys[item])
+                              //   .pipe ($.newer(_imgDistPath))
+                                // .pipe ($.plumber())
                               .pipe ($.cssSpritesmith({
                                   // sprite背景图源文件夹，只有匹配此路径才会处理，默认 images/slice/
                                 //   imagepath: configs.imagesDevPath + 'slice/',
@@ -523,7 +538,7 @@ module.exports = {
                                   // 映射CSS中背景路径，支持函数和数组，默认为 null
                                   imagepath_map: null,
                                   // 雪碧图输出目录，注意，会覆盖之前文件！默认 images/
-                                  spritedest: 'sprite/',
+                                  spritedest: '../images/sprite/',
                                   // 替换后的背景路径，默认 ../images/
                                   spritepath: '../images/sprite/',
                                   // 各图片间间距，如果设置为奇数，会强制+1以保证生成的2x图片为偶数宽高，默认 0
@@ -538,7 +553,7 @@ module.exports = {
                                   cssstamp: false
                               } ))
                               .pipe ($.debug({title: 'sprite:'} ))
-                              .pipe ($.if('*.png', gulp.dest(configs.imagesDevPath)))
+                              .pipe ($.if('*.png', gulp.dest(_imgDistPath)))
                               .pipe ($.if('*.css', gulp.dest('./')))
 
                           })(file);
@@ -590,23 +605,37 @@ module.exports = {
                 if(options.method === 'gulp')
                     nowp = nEntry;
 
-
-                if(options.method === 'gulp'|| nowp.hasOwnProperty('ie')|| nowp.hasOwnProperty('common')){
+                var _md5 = options.env === 'pro' ? true : false;
+                if(options.method === 'gulp'|| nowp.ie || nowp.common){
+                    var _dist = options.env === 'pro'
+                                ? path.join(__dirname,'../../', config.dist + '/' + configs.version + '/js/')
+                                : path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/js/')
                     for(var file in nowp){
                         if(nowp[file].length){
                             (function(item){
                                 gulp.src(nowp[item])
-                                .pipe($.newer(path.join(__dirname,'../../',configs.jsDevPath, item+'.js') ))
+                                // .pipe($.newer(path.join(__dirname,'../../',configs.jsDevPath, item+'.js') ))
                                 .pipe($.plumber())
                                 // .pipe $.rimraf()
                                 .pipe($.concat(item+'.js'))
-                                .pipe(gulp.dest(path.join(__dirname,'../../', config.dist + '/' + configs.version + '/dev/js/')))
+                                .pipe($.if(_md5, $.uglify() ))
+                                .pipe($.if(_md5, $.md5({size: 10, separator: '__'}) ))
+                                .pipe(gulp.dest(_dist))
+                                // .pipe($.map(function(file){
+                                //
+                                // }))
                             })(file)
                         }
                     }
                 }
                 else{
                     _webpackDevConfig.entry = nEntry;
+                    if (_md5){
+                        _webpackDevConfig.plugins.push(
+                            new webpack.optimize.UglifyJsPlugin({compress:{warnings: false} })
+                        )
+                        console.log(_webpackDevConfig);
+                    }
                     _webpackDevCompiler = webpack(_webpackDevConfig);
                     _webpackDevCompiler.run(function(err, stats){
                         if (err)
@@ -743,11 +772,16 @@ module.exports = {
                 */
                 function parseHbs(){
                   var parseTemplet = true;
+                  var _htmlDistPath = configs.htmlDevPath
                   if ( options.env ) {
                       clog('parse hbs:' + options.env)
-                      //if ( ['pro', 'dev'].indexOf(options.env)>-1)
-                      if ( options.env === 'pro'){
+                      if ( ['pro', 'dev'].indexOf(options.env)>-1){
+                    //   if ( options.env === 'pro'){
                           parseTemplet = false;
+                          if (options.env === 'pro'){
+                              _htmlDistPath = configs.htmlBuildPath;
+                          }
+
                       }
                   }
 
@@ -787,8 +821,9 @@ module.exports = {
                               path.extname = '.html'
                       }
                   }))
-                  .pipe (gulp.dest(configs.htmlDevPath))
+                  .pipe (gulp.dest(_htmlDistPath))
                 }
+
                 parseHbs();
             }
 

@@ -1,6 +1,7 @@
 fs = require 'fs'
 path = require 'path'
 gutil = require 'gulp-util'
+runSequence = require('run-sequence');
 config = require '../configs/config.coffee'
 browserSync = require 'browser-sync'
 reload = browserSync.reload
@@ -23,36 +24,53 @@ module.exports = (gulp,$,slime,env)->
             js: {}
         }
 
+    _md5 = false;
+    _src = {
+        js: [config.staticPath + '/dev/js/**/*.js','!'+config.jsDevPath+'/_common.js'],
+        css: [config.staticPath + '/dev/css/**/*.css'],
+        mapj: config.staticPath + '/dev/map.json'
+    }
+
     gulp.task 'map:jsdev',()->
-        gulp.src [config.staticPath + '/dev/js/**/*.js','!'+config.jsDevPath+'/_common.js']
+        gulp.src _src.js
             .pipe $.size()
             .pipe $.map (file)->
                 _fileparse = path.parse(file.path)
                 _filename = _fileparse.base
                 filename = _fileparse.name.replace(/-/g,'/')
-                if(filename == "common" || filename == "ie")
+                if (filename.indexOf('__'))
+                    filename = filename.split('__')[0]
+
+                if filename.indexOf("common")>-1 || filename.indexOf("ie")>-1
                     mapJson['commonDependencies']['js'][filename] = _filename;
                 else
                     mapJson['dependencies']['js'][filename] = _filename;
-                return;
+                # return;
 
 
     gulp.task 'map:cssdev',['map:jsdev'],()->
-        gulp.src [config.staticPath + '/dev/css/**/*.css']
+        gulp.src _src.css
             .pipe $.size()
             .pipe $.map (file)->
                 _fileparse = path.parse(file.path)
                 _filename = _fileparse.base
                 filename = _fileparse.name.replace(/-/g,'/')
+                filename = _fileparse.name.replace(/-/g,'/')
+                if (filename.indexOf('__'))
+                    filename = filename.split('__')[0]
                 if(filename == "common" || filename == "ie")
                     mapJson['commonDependencies']['css'][filename] = _filename;
                 else
                     mapJson['dependencies']['css'][filename] = _filename;
 
-                fs.writeFileSync( config.staticPath + '/dev/map.json', JSON.stringify(mapJson)) ;
+                fs.writeFileSync( _src.mapj,  JSON.stringify(mapJson)) ;
                 return;
 
     gulp.task 'rebuild:html',['html:build']
+
+    gulp.task 'rebuild:dev',['html:dev']
+
+    gulp.task 'start:build',
 
 
     # demo 环境
@@ -92,15 +110,27 @@ module.exports = (gulp,$,slime,env)->
             #html
             # gulp.watch config.dirs.src + '/html/**/*.*', ['html']
             gulp.watch config.dirs.src + '/html/**/*.*', (file) ->
-                console.log file.path
                 slime.build(file.path, {type: 'hbs', 'env': env});
 
         gulp.start 'sync'
 
     return (cb)->
+        if (env == 'pro')
+            _md5 = true
+            _src = {
+                js: [config.staticPath + '/js/**/*.js','!'+config.staticPath+'/js/_common.js'],
+                css : [config.staticPath + '/css/**/*.css'],
+                mapj: config.staticPath + '/map.json'
+            }
+
         gulp.start 'map:cssdev'
-        if env.indexOf('pro') > -1
-            gulp.start 'rebuild:html'
+
+        # if env.indexOf('pro') > -1
+        if ['pro', 'dev'].indexOf(env)>-1
+            if env == 'dev'
+                gulp.start 'rebuild:dev'
+            else
+                gulp.start 'rebuild:html'
         else
             if env.indexOf('ng') > -1
                 gulp.start 'rebuild:html'

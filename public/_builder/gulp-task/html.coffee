@@ -194,11 +194,12 @@ module.exports = (gulp, $, slime, env, path)->
                 else
                     return
             else
-                if env == 'dev'
+                # if env == 'dev'
+                if ['pro', 'dev'].indexOf(env)>-1
                     port = config.port.demo
                     makeHtmlListData()
                     datas = { demoindex: list }
 
-            console.log JSON.stringify(list)
+            # console.log JSON.stringify(list)
             # 生成分页并生成列表页
             slime.build(config.dirs.src + '/html/',{type: 'hbs',data: datas, 'env': env});

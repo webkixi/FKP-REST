@@ -19,8 +19,13 @@ getFileMap = (env)->
 
 module.exports = (gulp, $, slime, env)->
 		return () ->
+			_commonPath = config.jsDevPath + '_common.js'
+			if (env == 'pro')
+				_commonPath = config.jsBuildPath + '_common.js'
+
 			slime.build(config.dirs.src + '/js/vendor_custom',true,{
 					rename: 'common',
 					prepend: getFileMap(env)
-					append: [config.jsDevPath + '_common.js']
+					append: [_commonPath],
+					env: env
 			})
