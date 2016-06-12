@@ -15,37 +15,34 @@ var _page = {}
 
 var bindEvent = function(){
     //此处各种dom 操作
-    valide('Form_verify')
+    var _verify = valide('Form_verify')
           ('mobile', 'mobile', function(stat, regs){
               return stat;
           })
 
-    valide('Form_bind')
+    var _bind = valide('Form_bind')
           ('mobile', 'mobile')
           ('validatecode', 'verify')
           ("agreement", 'noop')
 
     $('#getCode').click(function(){
-        var postdata = SA.get('Form_verify')
-        postdata.method = 'get'
-        console.log('======== getCode');
-        console.log(postdata);
-        if (postdata.ckstat){
-            api.req('/get_mms', postdata, function(data){
-                console.log(data);
-            });
-        }
+        _verify(function(stat, e_els){
+            console.log(stat);
+            if (stat.ckstat){
+                libs.msgtips('获取验证码成功', 'center')
+            }
+            else {
+                libs.msgtips('请正确输入手机号码', 'center')
+            }
+        })
     });
 
     $('.login_submit').click(function(){
-        var postdata = SA.get('Form_bind')
-        postdata.openid = _page.openid
-        postdata.method = 'get'
-        console.log('======== login_submit');
-        console.log(postdata);
-        if (postdata.ckstat){
-            router('uc/index')
-        }
+        _bind(function(stat, e_els){
+            if (stat.ckstat){
+                router('uc/index')
+            }
+        })
     });
 };
 
@@ -58,7 +55,7 @@ var Show = React.createClass({
                 <ul className="default_form">
                     <li className="login_li_data">
                         <label>手机号码</label>
-                        <input id="mobile" type="text" className="f_phone_code" />
+                        <input id="mobile" type="text" defaultValue="13255556666" className="f_phone_code" />
                         <a id="getCode" className="f_btn f_code">获取验证码</a>
                     </li>
                     <li className="login_li_data">
