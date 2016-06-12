@@ -68,7 +68,7 @@ function lm(){
         .append('<div class="dragstat del">删除</div>')
         .prepend('<div class="dragstat edit">修改</div>')
 
-        console.log($(ele));
+        ($(ele));
 
         var $draggable = $(ele).draggabilly({
             axis: 'x'
