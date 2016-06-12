@@ -531,16 +531,21 @@ module.exports = {
                               //   gulp.src(entrys[item])
                               //   .pipe ($.newer(_imgDistPath))
                                 // .pipe ($.plumber())
+                            //   .pipe ($.map(file){
+                              //
+                            //   })
                               .pipe ($.cssSpritesmith({
                                   // sprite背景图源文件夹，只有匹配此路径才会处理，默认 images/slice/
                                 //   imagepath: configs.imagesDevPath + 'slice/',
-                                  imagepath: config.image + 'slice/',
+                                  imagepath: _imgDistPath + 'slice/demo/',
                                   // 映射CSS中背景路径，支持函数和数组，默认为 null
                                   imagepath_map: null,
                                   // 雪碧图输出目录，注意，会覆盖之前文件！默认 images/
-                                  spritedest: '../images/sprite/',
+                                  // 基于静态css文件的相对路径
+                                  spritedest: '../images/sprite/demo/',
                                   // 替换后的背景路径，默认 ../images/
-                                  spritepath: '../images/sprite/',
+                                  // 基于静态css文件的相对路径
+                                  spritepath: '../images/sprite/demo/',
                                   // 各图片间间距，如果设置为奇数，会强制+1以保证生成的2x图片为偶数宽高，默认 0
                                   padding: 20,
                                   // 是否使用 image-set 作为2x图片实现，默认不使用

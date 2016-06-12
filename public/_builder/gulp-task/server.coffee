@@ -1,7 +1,6 @@
 fs = require 'fs'
 path = require 'path'
 gutil = require 'gulp-util'
-runSequence = require('run-sequence');
 config = require '../configs/config.coffee'
 browserSync = require 'browser-sync'
 reload = browserSync.reload
