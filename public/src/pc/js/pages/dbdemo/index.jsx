@@ -256,6 +256,7 @@ require.ensure(['./_common/epic'], function(require){
 
             //加载下一页数据
             function loadMore(e, next){
+                listFun()
                 var next_page = cur_page + 1;
                 pull_list_data(function(){
                     next(e, _listData)

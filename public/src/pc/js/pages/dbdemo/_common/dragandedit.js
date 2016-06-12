@@ -23,7 +23,8 @@ function lm(){
             var startX,
                 startY,
                 endTx,
-                endTy
+                endTy;
+            
             $(document).bind('touchstart', function(e){
                 if ($(e.target).hasClass('lg_item')){
                     $(pointerdown).css({'background-color': '#f5faf4'})
