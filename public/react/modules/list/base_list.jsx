@@ -113,7 +113,7 @@ function applist(data, ele, opts){
         },
         render:function(){
             return (
-                <LISTS itemClass={dft.itemClass} listClass={dft.listClass} onscrollend={dft.scrollEnd} scroll={dft.scroll} data={this.state.lists} itemMethod={dft.itemMethod}/>
+                <LISTS itemClass={dft.itemClass} listMethod={dft.listMethod} listClass={dft.listClass} onscrollend={dft.scrollEnd} scroll={dft.scroll} data={this.state.lists} itemMethod={dft.itemMethod}/>
             );
             // if (!this.state.lists.length){
             //     return dft.empty
