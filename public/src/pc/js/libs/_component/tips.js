@@ -26,14 +26,12 @@ function arg2arr(s){
 */
 var tipsbox = function(){
     this.pop = function(mmm,stat,cb){
-        this.pop = function(mmm,stat,cb){
-            // if(!stat)stat='normal';
-            // pushmsg.call(this,mmm,stat);
-            // var args = arg2arr(arguments);
-            // args = args.slice(3);
-            if(cb){
-                cb()
-            }
+        if(!stat)stat='normal';
+        pushmsg.call(this,mmm,stat);
+        // var args = arg2arr(arguments);
+        // args = args.slice(3);
+        if(cb){
+            cb()
         }
     }
 
@@ -112,7 +110,6 @@ var msgtips = function(msg,stat,cb){
             // do_action('do_tipsbox');
         }, 3000);
     }
-
     if(cb) msgtip.pop(msg,stat,cb);
     else
         msgtip.pop(msg,stat);
