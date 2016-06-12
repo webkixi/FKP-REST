@@ -459,6 +459,21 @@
             }
         },
 
+        runner: function( name, key ){
+            if(!name||name=='')
+                return;
+
+            var save = _stock;
+            if(save[name]){
+                var that = save[name]
+                function runner(data, key){
+                    that.dataer(data, key)
+                }
+                var _data = that.getter( 'data' )
+                runner( _data, key )
+            }
+        },
+
         lister: function(){
             return Object.keys( _stock );
         }
