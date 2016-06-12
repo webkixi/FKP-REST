@@ -248,7 +248,6 @@ require.ensure(['./_common/epic'], function(require){
             $('#listtopic').css({'margin-left':0})
 
             function itemFun(){
-
             }
 
             function listFun(){

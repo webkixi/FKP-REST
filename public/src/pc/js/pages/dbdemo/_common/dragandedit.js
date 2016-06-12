@@ -6,6 +6,9 @@ var _user = SA.get('USER')
 var _is_login = _user.error ? false : _user
 var is_touch = ('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch
 
+libs.inject()
+.js(['/js/t/jq/draggabilly.pkgd.min.js', '_Draggabilly'], lm)
+
 function lm(){
     if (_is_login){
         _lm()
@@ -64,6 +67,8 @@ function lm(){
         $('.lg_item')
         .append('<div class="dragstat del">删除</div>')
         .prepend('<div class="dragstat edit">修改</div>')
+
+        console.log($(ele));
 
         var $draggable = $(ele).draggabilly({
             axis: 'x'
