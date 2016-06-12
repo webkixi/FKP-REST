@@ -59,9 +59,7 @@ function *chat(oridata) {
         } finally {
             post_data = '你看看，我是websocket的数据'
         }
-
     }
-
 }
 
 module.exports = {
