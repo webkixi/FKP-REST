@@ -19,7 +19,6 @@ PageScrollStartEndMixin = {
         window.clearTimeout(this.ttt);
     },
     _onScroll: function() {
-        console.log('========= 22');
         var scrollTop =  scrollView(this._scrollContainer).top;
 	    this.scrollTop = scrollTop;
 	    this.isScrolling = true;

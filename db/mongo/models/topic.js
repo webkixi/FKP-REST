@@ -67,7 +67,7 @@ BaseTopicSchema.statics.topicList = function *(start, end, tag, cat) {
         query.cats = cat
     }
 
-    var lists = yield this.find(query,'title _id tags create_at update_at img user',{skip:start, limit: end, sort: [{update_at: -1,create_at: -1}] }).exec()
+    var lists = yield this.find(query,'title _id tags create_at update_at img user',{skip:start, limit: end, sort: [{create_at: -1,update_at: -1}] }).exec()
     return lists;
 }
 
