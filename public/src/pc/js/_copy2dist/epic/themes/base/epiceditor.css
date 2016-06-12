@@ -22,6 +22,7 @@ html, body, iframe, div {
   height:30px;
   border:none;
   background:none;
+  margin-right: 10px;
 }
 
 #epiceditor-utilbar button.epiceditor-toggle-preview-btn {

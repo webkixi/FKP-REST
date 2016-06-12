@@ -29,7 +29,7 @@ WS.on('imchat', function(data){
 //异步调用js
 //webpack类似seajs的异步请求语法 require.ensure
 //有些文件需要异步调用
-require.ensure(['./_common/epic'], function(require){
+require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
 
     // 页面url变量
     var param = libs.queryString(),

@@ -50,7 +50,8 @@ var fox = React.createClass({
 			"data-id": 		k1,
 			// "data-cls": 	v2,
 			"style":		sty,
-			"className": 	getClass()
+			"className": 	getClass(),
+			"key": 			this.props.key
 		}
 		_props = _.assign(_props, data_attr)
 		return React.createElement('div', _props, fill)
