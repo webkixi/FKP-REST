@@ -7,7 +7,7 @@ var _jump = false;
 
 //分页回掉
 var _pageClick = function(){
-    $(this).click((e)=>{
+    $(this).click(function(e){
         e=e||arguments[0];
         e.preventDefault();
         var page = $(this).attr("data-page");
