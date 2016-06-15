@@ -459,7 +459,7 @@
             }
         },
 
-        runner: function( name, key ){
+        runner: function( name, ddd, key ){
             if(!name||name=='')
                 return;
 
@@ -470,6 +470,9 @@
                     that.dataer(data, key)
                 }
                 var _data = that.getter( 'data' )
+                if (ddd && getObjType(ddd)==='Object'){
+                    _data = extend(true, _data, ddd)
+                }
                 runner( _data, key )
             }
         },
