@@ -8,7 +8,7 @@ function type(object){
 };
 
 function req( api, param, cb ){
-    url = api;
+    var url = api;
 
     if (url.indexOf('http://')===0 || url.indexOf('https://')===0){
         if (type(param) === 'Object'){

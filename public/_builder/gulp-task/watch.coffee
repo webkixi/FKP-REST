@@ -5,19 +5,23 @@ reload  = browserSync.reload
 config = require '../configs/config.coffee'
 
 module.exports = (gulp,$,slime,env,port)->
-    buildCommon = 'buildCommon:dev'
-    if env == 'ng'
-        buildCommon = 'buildCommon:dev:ng'
-    if env == 'bb'
-        buildCommon = 'buildCommon:dev:bb'
-
-    pt = 8070
-    if port && /[\d]+/.test(port)
-        pt = port
-
-    pxy = 'http://127.0.0.1:'+pt
-
     return () ->
+        buildCommon = 'buildCommon:dev'
+        buildPage   = 'wp:dev'
+        if env == 'ng'
+            buildCommon = 'buildCommon:dev:ng'
+        if env == 'bb'
+            buildCommon = 'buildCommon:dev:bb'
+        if env == 'pro'
+            buildCommon = 'buildCommon:pro'
+            buildPage   = 'wp:pro'
+
+
+        pt = 8070
+        if port && /[\d]+/.test(port)
+            pt = port
+
+        pxy = 'http://127.0.0.1:'+pt
 
         browserSync.init null, {
                 proxy: pxy
@@ -41,7 +45,7 @@ module.exports = (gulp,$,slime,env,port)->
 
         # 监控js文件
         # gulp.watch config.dirs.src + '/js/**/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
-        gulp.watch config.dirs.watch_src + '/js/?(modules|pages|widgets|mixins|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        gulp.watch config.dirs.watch_src + '/js/?(pages|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildPage]
         .on 'change', () ->
             console.log 'js watch'
             reload()

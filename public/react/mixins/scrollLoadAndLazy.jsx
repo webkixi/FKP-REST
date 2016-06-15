@@ -163,7 +163,7 @@ PageScrollStartEndMixin = {
           });
       }
 
-      belowthefold = function(element, settings) {
+      function belowthefold(element, settings) {
           var fold;
           if (settings.container === undefined || settings.container === window) {
               fold = (window.innerHeight ? window.innerHeight : DocmentView().height) + scrollView().top;
@@ -174,7 +174,7 @@ PageScrollStartEndMixin = {
           return fold <= getOffset(element).top - settings.threshold;
       };
 
-      rightoffold = function(element, settings) {
+      function rightoffold (element, settings) {
           var fold;
 
           if (settings.container === undefined || settings.container === window) {
@@ -186,7 +186,7 @@ PageScrollStartEndMixin = {
           return fold <= getOffset(element).left - settings.threshold;
       };
 
-      abovethetop = function(element, settings) {
+      function abovethetop (element, settings) {
           var fold;
           if (settings.container === undefined || settings.container === window) {
               fold = scrollView().top;
@@ -197,7 +197,8 @@ PageScrollStartEndMixin = {
 
           return fold >= getOffset(element).top + settings.threshold  + getOffset(element).height;
       };
-      leftofbegin = function(element, settings) {
+
+      function leftofbegin(element, settings) {
           var fold;
 
           if (settings.container === undefined || settings.container === window) {
@@ -207,7 +208,7 @@ PageScrollStartEndMixin = {
           }
           return fold >= getOffset(element).left + settings.threshold + getOffset(element).width;
       };
-      inviewport = function(element, settings) {
+      function inviewport (element, settings) {
           return !rightoffold(element, settings) && !leftofbegin(element, settings) &&
             !belowthefold(element, settings) && !abovethetop(element, settings);
       };

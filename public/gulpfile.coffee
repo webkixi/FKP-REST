@@ -98,7 +98,6 @@ gulp.task 'buildCommon:dev:ng',['wp:dev'], getTask('concat-common-js','ng')
 gulp.task 'buildCommon:dev:bb',['wp:dev'], getTask('concat-common-js','bb')
 
 # 构建任务，压缩
-# gulp.task 'buildCommon:pro',['wp:pro'], getTask('concat-common-js')
 gulp.task 'buildCommon:pro:ng',['wp:pro'], getTask('concat-common-js','ng')
 gulp.task 'buildCommon:pro:bb',['wp:pro'], getTask('concat-common-js','bb')
 

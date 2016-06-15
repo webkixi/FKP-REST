@@ -203,71 +203,145 @@ var plugins = function(dirname, isPack, options){
     return ret_plugins;
 }
 
-//make webpack loaders
-var custom_modules = function(){
-  return {
-      loaders: [{
-          test: /\.cjsx$/,
-          loaders: ['react-hot', 'coffee', 'cjsx']
-      }, {
-          test: /\.coffee$/,
-          loader: 'coffee',
-          //exclude: [/common/, /node_modules/]
-      }, {
-          test: /\.hbs$/,
-          loader: "handlebars-loader"
-      },
-      {
-          test: /[\/\\]js[\/\\](vendor|vendor_custom|global)[\/\\]/,   //http://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
-          loader: "script-loader"   //不做任何处理
-      }, {
-          test: /\.css$/,
-          loader: ExtractTextPlugin.extract("css-loader")
-      },
-      //   {
-      //       test: /\.scss$/,
-      //       loader: ExtractTextPlugin.extract('style-loader',"raw!sass")
-      //       // loader: "style!css!sass"
-      //   },
-      {
-          test: /\.less$/,
-          loader: ExtractTextPlugin.extract('style-loader',"raw!less")
-      }, {
-          test: /\.rt$/,
-          loader: "react-templates-loader"
-      },{
-          test: /\.md$/,
-          loader: "html!markdown"
-      },{
-          test: /\.json$/,
-          loader: "json-loader"
-      },
+// 开发环境下的babel配置
+var babelrcObject = {
+  "presets": ["react", "es2015", "stage-0"],
 
-      //   { // Only apply on tinymce/tinymce
-      //       include: require.resolve('tinymce/tinymce'),    //检测到路径包含tinymce/tinymce
-      //       // Export window.tinymce
-      //       loader: 'exports?window.tinymce',             //输出全局变量tinymce
-      //   },
+  "plugins": [
+    "transform-runtime",
+    "add-module-exports",
+    "transform-decorators-legacy",
+    "transform-react-display-name"
+  ],
 
-      {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'} // inline base64 URLs for <=8k images, direct URLs for the rest
-      ,{
-            test: /\.jsx$/,
-            loader: "jsx-loader"
-            // loaders: ['react-hot', 'jsx?harmony']
-      }
-    //   ,{
-    //         test: /\.jsx$/,
-    //         loader: "babel-loader!jsx-loader"
-    //         // loaders: ['react-hot', 'jsx?harmony']
-    //     }
-    //   , {
-    //       test: /\.js$/,
-    //       exclude: /node_modules/,
-    //       loader: "babel-loader",
-    //       query:{ compact: 'auto' }
-    //   }
+  "env": {
+    "development": {
+      "plugins": [
+        "typecheck",
+        ["react-transform", {
+            "transforms": [{
+                "transform": "react-transform-catch-errors",
+                "imports": ["react", "redbox-react"]
+              }
+            ]
+        }]
       ]
+    }
   }
+}
+
+var babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.development || {};
+
+// merge global and dev-only plugins
+var combinedPlugins = babelrcObject.plugins || [];
+combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins);
+
+var babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, {plugins: combinedPlugins});
+delete babelLoaderQuery.env;
+
+// Since we use .babelrc for client and server, and we don't want HMR enabled on the server, we have to add
+// the babel plugin react-transform-hmr manually here.
+
+// make sure react-transform is enabled
+babelLoaderQuery.plugins = babelLoaderQuery.plugins || [];
+var reactTransform = null;
+for (var i = 0; i < babelLoaderQuery.plugins.length; ++i) {
+  var plugin = babelLoaderQuery.plugins[i];
+  if (Array.isArray(plugin) && plugin[0] === 'react-transform') {
+    reactTransform = plugin;
+  }
+}
+
+if (!reactTransform) {
+  reactTransform = ['react-transform', {transforms: []}];
+  babelLoaderQuery.plugins.push(reactTransform);
+}
+
+if (!reactTransform[1] || !reactTransform[1].transforms) {
+  reactTransform[1] = Object.assign({}, reactTransform[1], {transforms: []});
+}
+
+// make sure react-transform-hmr is enabled
+// reactTransform[1].transforms.push({
+//   transform: 'react-transform-hmr',
+//   imports: ['react'],
+//   locals: ['module']
+// });
+
+//make webpack loaders
+var custom_modules = function(opts){
+
+    var loaders =  [
+        { test: /\.cjsx$/, loaders: ['react-hot', 'coffee', 'cjsx'] }
+        ,{ test: /\.coffee$/, loader: 'coffee', exclude: [/common/, /node_modules/] }
+        ,{ test: /\.hbs$/, loader: "handlebars-loader" }
+        ,{ test: /[\/\\]js[\/\\](vendor|vendor_custom|global)[\/\\]/,   //http://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
+          loader: "script-loader"   //不做任何处理
+        }
+        ,{ test: /\.css$/, loader: ExtractTextPlugin.extract("css-loader") }
+        // ,{ test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader',"raw!sass") }
+        ,{ test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader',"raw!less") }
+        ,{ test: /\.rt$/, loader: "react-templates-loader" }
+        ,{ test: /\.md$/, loader: "html!markdown" }
+        ,{ test: /\.json$/, loader: "json-loader" }
+        ,{ test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }
+        ,{ test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }
+        ,{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" }
+        ,{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" }
+        ,{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" },
+        ,{ test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' } // inline base64 URLs for <=8k images, direct URLs for the rest
+        //,{ test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
+
+        // { // Only apply on tinymce/tinymce
+        //     include: require.resolve('tinymce/tinymce'),    //检测到路径包含tinymce/tinymce
+        //     // Export window.tinymce
+        //     loader: 'exports?window.tinymce',             //输出全局变量tinymce
+        // },
+    ]
+
+    if (configs.babel){
+
+        require('babel-polyfill');
+        var _babel = 'babel'
+        if (opts.env === 'pro'){
+            _babel = 'babel'
+        }
+        else {
+            _babel = 'babel?' + JSON.stringify(babelLoaderQuery)
+        }
+        loaders.push(
+            {
+                test: /\.jsx$/,
+                exclude: /(node_modules|bower_components|_builder|dist)/,
+                loader: _babel
+                // loader: "babel-loader!jsx-loader"
+                // loaders: ['react-hot', 'jsx?harmony']
+                // query: {
+                //     presets: ['react', 'es2015', 'stage-0']
+                // }
+            }
+        )
+        loaders.push(
+            {
+              test: /\.js$/,
+              exclude: /(node_modules|bower_components|_builder|dist)/,
+              loader: "babel"
+              // query:{ compact: 'auto' }
+            }
+        )
+    }
+    else {
+        loaders.push(
+            {
+                test: /\.jsx$/,
+                exclude: /(node_modules|bower_components|_builder|dist)/,
+                loader: "jsx-loader"
+            }
+        )
+    }
+
+    return {loaders};
+
 }
 
 //webpack externals
@@ -386,7 +460,7 @@ module.exports = {
             },
             externals: idf_externals,
             plugins: idf_plugins,
-            module: custom_modules(),
+            module: custom_modules(options),
             resolve: {
                 root: path.resolve(__dirname),
                 alias: alias,
