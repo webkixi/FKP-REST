@@ -47,7 +47,7 @@ function dealWithData(){
            var k1 = data.id||'',
                v1 = data.url||'javascript:void();',
 
-               k2 = data.title||data.caption||data.catName
+               k2 = data.title||data.caption||data.catName||data.text
                    ||data.model||data.quality||data.vender
                    ||(typeof data==='string'||typeof data==='number'||React.isValidElement(data)?data:'')||'',
                v2 = data.attr||'',

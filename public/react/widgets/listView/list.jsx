@@ -67,13 +67,13 @@ var tmpApp = React.createClass({
 
 	_dealWithData: function(data){
 		var that = this;
-		var cls = "hlist elephant u-clearfix";
+		var cls = "hlist";
 		var sty = {};
 		if(this.props.listClass){
-			cls = "hlist " + this.props.listClass + ' u-clearfix';
+			cls = "hlist " + this.props.listClass;
 		}
 		if(this.props.listStyle){
-			cls = "hlist u-clearfix";
+			cls = "hlist";
 			sty = this.props.listStyle;
 		}
 

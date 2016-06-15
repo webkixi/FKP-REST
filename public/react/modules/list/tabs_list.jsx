@@ -65,6 +65,14 @@ function applist(m, l, ele, opts){
                 menu: noop,
                 list: noop
             },
+            itemClass: {
+                menu: '',
+                list: ''
+            },
+            listClass: {
+                menu: '',
+                list: ''
+            },
             scroll: {
                 menu: noop,
                 list: noop
@@ -145,7 +153,7 @@ function applist(m, l, ele, opts){
                     <div ref='tabs-menu' className="tabs-menu">
                         {(function(){
                             if (_this.state.menus && _this.state.menus.length){
-                                return <MENUS onscrollend={dft.scrollEnd.menu} scroll="self" data={_this.state.menus} itemMethod={dft.itemMethod.menu}/>
+                                return <MENUS onscrollend={dft.scrollEnd.menu} scroll="self" itemClass={dft.itemClass.menu} listClass={dft.listClass.menu} data={_this.state.menus} itemMethod={dft.itemMethod.menu}/>
                             }
                             else {
                                 return dft.empty.menu
@@ -155,7 +163,7 @@ function applist(m, l, ele, opts){
                     <div ref='tabs-list' className="tabs-list">
                         {(function(){
                             if (_this.state.lists && _this.state.lists.length){
-                                return <LISTS onscrollend={dft.scrollEnd.list} scroll="self" data={_this.state.lists} itemMethod={dft.itemMethod.list}/>
+                                return <LISTS onscrollend={dft.scrollEnd.list} scroll="self" itemClass={dft.itemClass.list} listClass={dft.listClass.list} data={_this.state.lists} itemMethod={dft.itemMethod.list}/>
                             }
                             else {
                                 return dft.empty.list

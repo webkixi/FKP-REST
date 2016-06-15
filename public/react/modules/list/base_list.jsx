@@ -60,8 +60,8 @@ function applist(data, ele, opts){
             globalName: 'LagouLists',
             itemMethod: noop,
             listMethod: noop,
-            listClass: 'xxx',
-            listClass: 'yyy',
+            itemClass: '',
+            listClass: '',
             scroll: 'window',   // 指定self，则自身滚动，需要指定父级容器的特定高度，如果高度自适应，则不会产生滚动事件
             // 如父级高度为100%，需要指定html,body都为100%,且overflow为hidden
             scrollEnd: noop,
@@ -76,11 +76,9 @@ function applist(data, ele, opts){
     if (!dft.container) return false;
 
     SA.set(dft.globalName, {data: data})
-    // SA.set(dft.globalName.list, {data: l})
 
     function xxx(sem){
         var _name = dft.globalName
-        // SA.set(_name, {data:[]})
         return function(top){
             var self = this;
             sem.call(self, _name, doneNext.call(self, dft.trigger))
@@ -113,16 +111,8 @@ function applist(data, ele, opts){
         },
         render:function(){
             return (
-                <LISTS itemClass={dft.itemClass} listMethod={dft.listMethod} listClass={dft.listClass} onscrollend={dft.scrollEnd} scroll={dft.scroll} data={this.state.lists} itemMethod={dft.itemMethod}/>
+                <LISTS itemClass={dft.itemClass} listClass={dft.listClass} listMethod={dft.listMethod} onscrollend={dft.scrollEnd} scroll={dft.scroll} data={this.state.lists} itemMethod={dft.itemMethod}/>
             );
-            // if (!this.state.lists.length){
-            //     return dft.empty
-            // }
-            // else {
-            //     return (
-            //         <LISTS itemClass={dft.itemClass} listClass={dft.listClass} onscrollend={dft.scrollEnd} scroll="self" data={this.state.lists} itemMethod={dft.itemMethod}/>
-            //     );
-            // }
         }
     })
 
