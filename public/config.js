@@ -33,40 +33,80 @@ module.exports = {
         watch_react: 'react',
     },
     hash: false,
-    //react, jq1.11
+
+
+    /*
+    // 以下配置，用于打包common.js，用于全局
+    // fkp的js分为两个部分，公共部分，业务部分
+    // 公共部分 common.js，如下列部分
+    // 业务部分，对应的js目录为 /public/src/pc/js/pages/.... 对应的文件
+    */
+
+    // react15, jq1.11
     vendorList: [
         path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
-        //path.join(__dirname, src_dir, '/js/vendor/browser-request/dist/browser/request.js'),
-        path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js')
+        path.join(__dirname, src_dir, '/js/vendor/react15/dist/react.js'),
+        path.join(__dirname, src_dir, '/js/vendor/react15/dist/react-dom.js'),
     ],
+
+
+
     //react, zepto/jq2
     vendorList_adv: [
         path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
         // path.join(__dirname, src_dir, '/js/vendor/zepto/zepto.js'),
-        path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js')
+
+        // react 0.13
+        // path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js'),
+
+        // react 15
+        path.join(__dirname, src_dir, '/js/vendor/react15/src/react.js'),
+        path.join(__dirname, src_dir, '/js/vendor/react15/src/react-dom.js'),
+
+        // lodash 4.13.1
+        path.join(__dirname, src_dir, '/js/vendor/lodash/src/lodash_full_413.js')
     ],
+
+
+
+
     //angular
     vendorList_ng: [
         path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
         path.join(__dirname, src_dir, '/js/vendor/angular/angular.js')
     ],
+
+
+
+
     //backbone
     vendorList_bb: [
         path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
-        path.join(__dirname, src_dir, '/js/vendor/underscore/underscore.js'),
+        path.join(__dirname, src_dir, '/js/vendor/lodash/src/lodash_full_413.js'),
         path.join(__dirname, src_dir, '/js/vendor/backbone/backbone.js')
     ],
-    //custom
+
+
+
+
+    //public/src/pc/global
     globalList: [
+        path.join(__dirname, src_dir, '/js/vendor_custom/store.js'),   //SA
         path.join(__dirname, src_dir, '/js/global/config.js')
         // path.join(__dirname, src_dir, '/js/global/libs.js'),
         // path.join(__dirname, src_dir, '/js/global/core.js'),
         // path.join(__dirname, src_dir, '/js/global/toolkits.js')
     ],
+
+
+
+
+
     //ie
     ieRequireList: (function(){
         if(platform === '/pc'){
             return [
+                path.join(__dirname, src_dir, '/js/vendor/console-polyfill/polyfill.js'),
                 path.join(__dirname, src_dir, '/js/vendor/html5shiv/dist/html5shiv.js'),
                 path.join(__dirname, src_dir, '/js/vendor/respond/dest/respond.src.js'),
                 path.join(__dirname, src_dir, '/js/vendor/es5-shim/es5-shim.js'),
@@ -77,4 +117,6 @@ module.exports = {
             return []
         }
     })()
+
+
 };

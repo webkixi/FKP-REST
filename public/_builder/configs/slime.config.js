@@ -1,17 +1,17 @@
-var fs = require('fs');
-var path = require('path');
-var gulp = require('gulp');
-var __ = require('lodash');
-var marked = require('marked');
-var through = require('through2');
-var gutil = require('gulp-util');
-var $extend = require('extend');
-var webpack = require('webpack');
-var configs = require('./config');
-var alias = require('./webpack.alias.js');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var fs = require('fs'),
+    path = require('path'),
+    gulp = require('gulp'),
+    __ = require('lodash'),
+    marked = require('marked'),
+    through = require('through2'),
+    gutil = require('gulp-util'),
+    $extend = require('extend'),
+    webpack = require('webpack'),
+    configs = require('./config'),
+    alias = require('./webpack.alias.js'),
+    ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    $ = require('gulp-load-plugins')();
 
-var $ = require('gulp-load-plugins')();
 
 function getObjType(object){
     return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
@@ -354,9 +354,9 @@ custom_externals = {
 
 // module.exports = {
 /*
-* isPack  boolean   为true 将会对比 dirname和configs.dirs，如果匹配，会将该目录下所有文件打包为一个文件
-* isPack  jsonObject  指定打包的文件
-* sample   concat-common-js.js / webpack.js
+* @isPack  {Boolean}   为true 将会对比 dirname和configs.dirs，如果匹配，会将该目录下所有文件打包为一个文件
+* @isPack  {Json}  指定打包的文件
+* @sample   concat-common-js.js / webpack.js
 */
 module.exports = {
     create: function(dirname,isPack,options){

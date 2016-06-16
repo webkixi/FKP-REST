@@ -1,11 +1,11 @@
-var lodash = require('lodash')
+var lodash = window._
 
+
+// guid
 function guid(prefix) {
     prefix = prefix || "fkpjs-";
     return (prefix + Math.random() + Math.random()).replace(/0\./g, "");
 }
-
-
 
 
 /**
