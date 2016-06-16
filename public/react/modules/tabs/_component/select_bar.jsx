@@ -21,7 +21,7 @@ var selectBar = {
 		if(this.props.itemMethod){
 			var mtd = this.props.itemMethod;
 			if(typeof mtd==='function'){
-				mtd.call(this.getDOMNode());
+				mtd.call(React.findDOMNode(this));
 			}
 		}
 	},

@@ -41,7 +41,7 @@ var sidepop = {
 	},
 
 	handleClick: function(){
-		// var self = this.getDOMNode();  //React.findDOMNode(this)
+		// var self = React.findDOMNode(this);  //React.findDOMNode(this)
 		this.setState({
 			data: {display:'none'}
 		})

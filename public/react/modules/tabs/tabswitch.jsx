@@ -45,7 +45,7 @@ var tabswitch = React.createClass({
         if(this.props.boxMethod){
 			var mtd = this.props.boxMethod;
 			if(typeof mtd==='function'){
-				mtd.call(this.getDOMNode());
+				mtd.call(React.findDOMNode(this));
 			}
 		}
     },

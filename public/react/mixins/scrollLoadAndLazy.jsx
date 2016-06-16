@@ -35,7 +35,7 @@ PageScrollStartEndMixin = {
         $('.loadtype').hide()
     	var scrollTop =  scrollView(this._scrollContainer).top;
         if(scrollTop == this.scrollTop){
-            var that = this.getDOMNode(),
+            var that = React.findDOMNode(this),
                 nDivHight  = libs.getOffset(this._scrollContainer).height,
     			nScrollHight = scrollView(this._scrollContainer).height,
     			nScrollTop = scrollView(this._scrollContainer).top;
@@ -71,7 +71,7 @@ PageScrollStartEndMixin = {
     },
 
     preLazy: function(){
-        var that = this.getDOMNode()
+        var that = React.findDOMNode(this)
         // if (!this.imgs){
             var imgs = libs.arg2arr(libs.getElementsByClassName('lazyimg')||[])
             var imgs2 = libs.arg2arr(document.getElementsByTagName('img')||[])
@@ -88,7 +88,7 @@ PageScrollStartEndMixin = {
         return
 
       var that = this,
-          holder = this.getDOMNode(),
+          holder = React.findDOMNode(this),
           visibles = [],
           getOffset = libs.getOffset,
           DocmentView = libs.DocmentView,

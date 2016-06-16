@@ -26,7 +26,8 @@ function itemMixin(){
     		}
         },
         componentDidMount: function() {
-            var that = this.getDOMNode();  //React.findDOMNode(this) // var box = React.findDOMNode(this.refs.popbox);
+            //React.findDOMNode(this) // var box = React.findDOMNode(this.refs.popbox);
+            var that = React.findDOMNode(this);
 
             if(this.props.itemDefaultMethod){
     			var dMtd = this.props.itemDefaultMethod;
@@ -38,7 +39,7 @@ function itemMixin(){
     		if(this.props.itemMethod){
     			var mtd = this.props.itemMethod;
     			if(typeof mtd==='function'){
-    				mtd.call(this.getDOMNode(),this);
+    				mtd.call(React.findDOMNode(this),this);
     			}
     		}
 

@@ -126,7 +126,7 @@ var tmpApp = React.createClass({
 
 	defaultMethod: function(){
 		//lazyload img
-		var that = this.getDOMNode();
+		var that = React.findDOMNode(this);
 		if(that.querySelectorAll){
 
 			if( that.querySelector('img') ){
@@ -145,7 +145,7 @@ var tmpApp = React.createClass({
 	componentDidMount: function () {
 		if(this.props.listMethod){
 			var mtd = this.props.listMethod;
-			var that = this.getDOMNode();
+			var that = React.findDOMNode(this);
 			if(typeof mtd==='function'){
 				var the = this;
 				setTimeout(function(){

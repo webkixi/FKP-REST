@@ -36,11 +36,11 @@ var PageItem = React.createClass({
 	},
 
     componentDidMount: function () {
-		_pageClick.call(this.getDOMNode())
+		_pageClick.call(React.findDOMNode(this))
 		if(this.props.itemMethod){
 			var mtd = this.props.itemMethod;
 			if(typeof mtd==='function'){
-				mtd.call(this.getDOMNode());
+				mtd.call(React.findDOMNode(this));
 			}
 		}
 	},

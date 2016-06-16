@@ -37,7 +37,7 @@ PageScrollStartEndMixin = {
 			nScrollTop = libs.getOffset().top;
 
 			if( (nScrollTop + nDivHight) >= (nScrollHight-500)){
-                var that = this.getDOMNode()
+                var that = React.findDOMNode(this)
 	        	if (typeof this.props.onscrollend === 'function') {
 	        		this.props.onscrollend.call(that, scrollTop);
 	        	}
