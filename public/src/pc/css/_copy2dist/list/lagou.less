@@ -56,7 +56,7 @@
             }
 		}
         .hheader{
-            .testheader{
+            .title_header{
                 line-height: 2em;
                 vertical-align: middle;
                 img{
@@ -92,11 +92,49 @@
                 padding: 0.1em 1em 0.2em 1em;
                 border-radius: 0.4em;
                 background-color: #f9f9f9;
+                color: #c1c1c1;
+                font-size: 0.5em;
                 span{
                     color: #c1c1c1;
                     font-size: 0.5em;
                 }
+                a{
+                    margin-left: 0.8em;
+                    font-size: 0.5em;
+                    color: rgb(252, 147, 8);
+                    &:visited{
+                        color: rgb(252, 147, 8);
+                    }
+                }
             }
         }
     }
+}
+
+@media screen{
+   @media (max-width: 1023px){
+        .like_lagou {
+            .item{
+                .hheader{
+                    .title_header{
+                        font-size: 12px;
+                    }
+                }
+               .hbody{
+                   .hb-item{
+                       font-size: 1em;
+                       span{
+                           font-size: 1em;
+                       }
+                       a{
+                           font-size: 1em;
+                       }
+                   }
+               }
+            }
+        }
+    }
+   @media (min-width: 1023px){
+
+   }
 }

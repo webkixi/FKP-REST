@@ -219,7 +219,7 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
 
         data.map(function(item, i){
             var _title = (
-                <div className="testheader">
+                <div className="title_header">
                     <span><img src={item.user.avatar}/></span>
                     <a href={"?topic="+item._id}>{item.title}</a>
                     <abbr>
