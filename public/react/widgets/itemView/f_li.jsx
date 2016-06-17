@@ -3,7 +3,6 @@
 itemView
 放回 li 结构, 用于modules/list 调用，作为ul/li部分
 */
-var _ = require('lodash')
 var ItemMixin = require('../../mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')
 
@@ -51,7 +50,7 @@ var fox = React.createClass({
 			// "data-cls": 	v2,
 			"style":		sty,
 			"className": 	getClass(),
-			"key": 			this.props.key
+			"key": 			_.uniqueId('fox_')
 		}
 		_props = _.assign(_props, data_attr)
 		if (this.props.data.loadbar){
