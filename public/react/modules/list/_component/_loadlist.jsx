@@ -42,8 +42,11 @@ var tmpApp = {
 	loopRender: function(){
 		var tData = this.state.data;
 		tData.push({loadbar: 'loadbar'});
-		// tData.push(<div ref="loadbar" className="loadtype" style={{"display":"none"}}><div className="loader">Loading...</div></div>);
-		return <List {...this.props} data={tData}/>
+		// //tData.push(<div ref="loadbar" className="loadtype" style={{"display":"none"}}><div className="loader">Loading...</div></div>);
+		// return <List {...this.props} data={tData}/>
+
+		var _props = _.merge(this.props, {data: tData})
+		return React.createElement(List, _props)
 	},
 
 	componentDidMount: function () {},

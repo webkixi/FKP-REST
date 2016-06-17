@@ -60,8 +60,10 @@ var tabswitch = {
     },
 
 	render:function(){
+		var _props = _.merge(this.props, {data: this.state.datas})
+		var _List = React.createElement(List, _props)
 		return <div className={'tabswitch u-clearfix'} style={this.props.style}>
-				<List {...this.props} data={this.state.datas}/>
+				{_List}
           </div>
 	}
 }

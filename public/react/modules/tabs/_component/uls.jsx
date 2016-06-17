@@ -62,8 +62,10 @@ var uls = {
             }
             if (!this.initdata) {
                 pdata.map(function(it,i){
+                    var _props = _.merge(this.props, {data: it, cat: i})
+            		var _List = React.createElement(List, _props)
                     items.push(
-                        <List key={'list'+i} {...this.props} data={it} cat={i} />
+                        _List
                     )
                 }.bind(this))
             }

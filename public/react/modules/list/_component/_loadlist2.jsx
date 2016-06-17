@@ -36,7 +36,10 @@ var tmpApp = {
 
 	loopRender: function(){
 		var tData = libs.clone(this.state.data);
-		return <List {...this.props} data={tData}/>
+		// return <List {...this.props} data={tData}/>
+
+		var _props = _.merge(this.props, {data: tData})
+		return React.createElement(List, _props)
 	},
 
 	componentDidMount: function () {},

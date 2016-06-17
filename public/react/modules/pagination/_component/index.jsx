@@ -241,9 +241,11 @@ var pagenation = {
         }
 
         // <List {...this.props} data={newData}/>
+        var _props = _.merge(this.props, {data: newData, itemView:PageItem})
+		var _List =  React.createElement(List, _props)
 		return (
             <div className={'pagenation wid-12 u-clearfix'}>
-                <List {...this.props} data={newData} itemView={PageItem}/>
+                {_List}
             </div>
         )
 	}

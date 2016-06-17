@@ -61,7 +61,9 @@ var tmpApp = React.createClass({
 			var view = that.props.itemView;
 			return React.createElement(view, props, that.props.children);
 		}else{
-			return <Fox idf={opts.i} key={'fox'+opts.i} {...props} data={opts.item} />;
+			var _props = _.merge(props, {data: opts.item, key: ('fox'+opts.i), idf: opts.i })
+			return React.createElement(Fox, _props, that.props.children)
+			// return <Fox idf={opts.i} key={'fox'+opts.i} {...props} data={opts.item} />;
 		}
 	},
 
