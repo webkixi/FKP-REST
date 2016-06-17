@@ -1,5 +1,6 @@
 spawn = require('child_process').spawn
 exec = require('child_process').exec
+path = require('path')
 browserSync = require('browser-sync').create()
 reload  = browserSync.reload
 config = require '../configs/config.coffee'
@@ -44,11 +45,20 @@ module.exports = (gulp,$,slime,env,port)->
             reload()
 
         # 监控js文件
-        # gulp.watch config.dirs.src + '/js/**/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
-        gulp.watch config.dirs.watch_src + '/js/?(pages|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildPage]
-        .on 'change', () ->
+        # gulp.watch config.dirs.watch_src + '/js/?(pages|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildPage]
+        # .on 'change', () ->
+        #     console.log 'js watch'
+        #     reload()
+
+        # 监控js文件
+        gulp.watch config.dirs.watch_src + '/js/?(pages)/**/*.?(coffee|js|jsx|cjsx)'
+        .on 'change', (event) ->
             console.log 'js watch'
-            reload()
+            console.log 'js watch'
+            console.log 'js watch'
+            console.log event.path
+            dirname = path.dirname(event.path)
+            slime.build( dirname, true, {'env': env, watch: true}, reload)
 
         # 监控react目录下的文件
         # gulp.watch config.dirs.react + '/**/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
@@ -77,7 +87,8 @@ module.exports = (gulp,$,slime,env,port)->
 
         gulp.watch config.dirs.watch_src + '/html/**/*.*', (file) ->
             console.log file.path
-            slime.build(file.path, {type: 'hbs', 'env': 'pro'});
+            slime.build(file.path, {type: 'hbs', 'env': env})
+            reload()
 
 
         # if  !env == 'pro'

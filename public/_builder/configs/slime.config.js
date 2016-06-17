@@ -12,6 +12,8 @@ var fs = require('fs'),
     ExtractTextPlugin = require("extract-text-webpack-plugin"),
     $ = require('gulp-load-plugins')();
 
+    process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
 
 function getObjType(object){
     return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
@@ -136,15 +138,31 @@ function initDir(aryDir, fatherDirName, isPack, depth){
 var plugins = function(dirname, isPack, options){
 
     var venders,
+        _watch = options && options.watch,
+        ret_plugins = [
+            // new webpack.optimize.OccurenceOrderPlugin(),
+            // new webpack.HotModuleReplacementPlugin(),
+            new webpack.NoErrorsPlugin(),
+            new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
+            new ExtractTextPlugin("../css/[name].css", {
+                allChunks: isPack === true ? true : false
+            })
+            //new webpack.HotModuleReplacementPlugin(),
+        ],
         common_trunk_config = {
             name: '_common',
             filename: '_common.js',
-            // minChunks: 2,
-            minChunks: 3,
+            minChunks: 3,   //Infinity
             async: false
             //children: true
-            //minChunks: 5 //Infinity
         }
+
+    // 由gulp watch传过来的编译，直接返回
+    if (_watch){
+        ret_plugins.push( new webpack.optimize.DedupePlugin() )
+        return ret_plugins;
+    }
+
 
     if(options && options.type){
         if(options.type.toString().indexOf('ss')>-1 || options.type === 'stylus' || options.type === 'styl'){
@@ -152,56 +170,36 @@ var plugins = function(dirname, isPack, options){
         }
     }
 
-    var ExtractTextPlugin_allChunks = isPack === true ? true : false;
-        ret_plugins = [
-            //new webpack.HotModuleReplacementPlugin(),
-            new webpack.NoErrorsPlugin(),
-            new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
-            new ExtractTextPlugin("../css/[name].css", {
-                allChunks: ExtractTextPlugin_allChunks,
-            })
-        ];
-
-    if(getObjType(dirname)==='String' && dirname !== 'pages')
+    if(getObjType(dirname)==='String' && dirname !== 'pages'){
         common_trunk_config.filename = "_normal.js";
+    }
 
     if(dirname && getObjType(dirname)==='Object'){
         venders = dirname;
-        // common_trunk_config.minChunks = "Infinity";
     }
 
     //commonstrunk plugin
     if(dirname !== 'noCommon'){
         if(venders && getObjType(venders)==='Object'){
-            for(var v in venders){
-                (function(item){
-                    var vs = venders;
-                    ret_plugins.push(
-                        // new webpack.optimize.CommonsChunkPlugin(item+'.js',vs[item],'Infinity')
-                        new webpack.optimize.CommonsChunkPlugin(item,item+'.js',2)
-                    );
-            })(v)
-        } }
-
+            for(var _v in venders){
+                ret_plugins.push(
+                    new webpack.optimize.CommonsChunkPlugin(_v, _v+'.js', 2)
+                    // new webpack.optimize.CommonsChunkPlugin(item+'.js',venders[item],'Infinity')
+                )
+            }
+        }
         else{
-          ret_plugins.push(
-            new webpack.optimize.CommonsChunkPlugin(common_trunk_config)
-        ) }
-
-        ret_plugins.push(
-            new webpack.optimize.DedupePlugin()
-            // function() {
-            //     this.plugin("done", function(stats) {
-            //       fs.writeFileSync(
-            //         path.join(__dirname, config.dist + '/js/' + pkg.version + '/' + pkg.config.distName.uncompressed + '/', "map.json"),
-            //         JSON.stringify(stats.toJson()));
-            //     })
-            // }
-        );
+            ret_plugins.push( new webpack.optimize.CommonsChunkPlugin(common_trunk_config) )
+        }
     }
+
+    ret_plugins.push( new webpack.optimize.DedupePlugin() )
 
     return ret_plugins;
 }
+
+
+
 
 // 开发环境下的babel配置
 var babelrcObject = {
@@ -209,13 +207,25 @@ var babelrcObject = {
 
   "plugins": [
     "transform-runtime",
-    "add-module-exports",
-    "transform-decorators-legacy",
-    "transform-react-display-name"
+    // "add-module-exports",
+    // "transform-decorators-legacy",
+    // "transform-react-display-name"
   ],
 
   "env": {
     "development": {
+      "plugins": [
+        "typecheck",
+        ["react-transform", {
+            "transforms": [{
+                "transform": "react-transform-catch-errors",
+                "imports": ["react", "redbox-react"]
+              }
+            ]
+        }]
+      ]
+    },
+    "dev": {
       "plugins": [
         "typecheck",
         ["react-transform", {
@@ -348,8 +358,7 @@ var custom_modules = function(opts){
 custom_externals = {
     "jquery": "jQuery",
     "$": "jQuery",
-    "React": "React",
-    "request": "request"
+    "React": "React"
 }
 
 // module.exports = {

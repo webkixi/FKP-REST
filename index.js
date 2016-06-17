@@ -23,6 +23,7 @@ var statics = require('./modules/static'),
 // global.React = require('react/addons')
 global.React = require('react')
 global.ReactDomServer = require('react-dom/server')
+global._ = require('lodash')
 
 
 //配置环境路径

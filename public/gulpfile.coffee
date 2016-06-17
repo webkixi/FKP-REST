@@ -27,6 +27,7 @@ getTask = (task,env,port)->
     if !env
         env = 'dev'
 
+    process.env.NODE_ENV = env
     require('./_builder/gulp-task/'+task)(gulp, $, slime, env, port)
 
 # 清理dist/目录
