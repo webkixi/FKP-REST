@@ -1,35 +1,59 @@
-var libs = require('libs/libs'),
-    _Pagi = require('./_component/index'),
-    render = React.render,
-    req = libs.api.req,
-    _ = libs.lodash;
+var _Pagi = require('./_component/index'),
+    render = React.render
 
 // itemDefaultMethod form itemMiXin
-function idm(){
+function idm(_name, itemMethod){
+    var _imtd = itemMethod;
+    if (typeof _imtd === 'function'){
+        _imtd.call(this, _name)
+    }
+    else{
+        $(this).click(function(e){
+            e.preventDefault();
+            var page = $(this).attr("data-page"),
+                jump = $(this).attr("data-jump"),
+                tmp = SA.get(_name);
+
+            _jump = jump;
+            tmp.begin.start = page-1;
+            tmp.begin.jump = _jump;
+
+            SA.setter( _name, tmp );
+        })
+    }
 
 }
 
 // function pagination(data, begin, ele, cb){
 function pagination(data, opts ){
 
-    if (data === true){
-        return _Pagi()
+    if (data === true || !data){
+        return _Pagi(true)
     }
 
-    var noop = function(){},
+    var noop = false,
         dft = {
             container: '',
             globalName: '_Pagi',
             itemMethod: noop,
             listMethod: noop,
-            listClass: 'pagi',
+            itemClass: '',
+            listClass: 'pagenation wid-12',
+            data: {
+                total: 200,
+                per:   10,
+                url:   '/',
+                query: 'page='
+            },
             begin: { start: 0, off: 7 }
         }
 
     dft = _.assign(dft, opts)
 
     if (!dft.container) return false;
-    if (!data) return false;
+    if (data) {
+        dft.data = data
+    }
 
     SA.set(dft.globalName, {
         data: data,
@@ -43,5 +67,7 @@ function pagination(data, opts ){
         document.getElementById(dft.container)
     )
 }
+
+pagination.server = true;
 
 module.exports = pagination

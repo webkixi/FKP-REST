@@ -1,23 +1,7 @@
-var libs = require('libs/libs');
-var List = require('widgets/listView/list');
-var Store = require('mixins/store');
+var List = require('../../../widgets/listView/list');
+var Store = require('../../../mixins/store');
 var _storeName;
-var _ = libs.lodash
 var _jump = false;
-
-//分页回掉
-var _pageClick = function(){
-    $(this).click(function(e){
-        e=e||arguments[0];
-        e.preventDefault();
-        var page = $(this).attr("data-page");
-        var jump = $(this).attr("data-jump");
-        _jump = jump;
-        var tmp = SA.get(_storeName);
-        tmp.begin.start = page-1;
-        SA.setter( _storeName, tmp );
-    })
-}
 
 //分页item 组织数据如下
 /*
@@ -29,20 +13,14 @@ var _pageClick = function(){
 */
 
 var PageItem = React.createClass({
-
-	//插入真实 DOM之前
-	componentWillMount:function(){
-
-	},
-
     componentDidMount: function () {
-		_pageClick.call(React.findDOMNode(this))
-		if(this.props.itemMethod){
-			var mtd = this.props.itemMethod;
-			if(typeof mtd==='function'){
-				mtd.call(React.findDOMNode(this));
-			}
-		}
+        var ele = React.findDOMNode(this),
+            mtd = this.props.itemMethod,
+            dmtd = this.props.itemDefaultMethod;
+
+        if(dmtd && typeof dmtd==='function'){
+            dmtd.call(ele, _storeName, mtd);
+        }
 	},
 
 	render:function(){
@@ -107,12 +85,6 @@ var PageItem = React.createClass({
 //react tabswitch
 var pagenation = {
 
-    addSheet: function(){
-        //添加css到头部
-        pagenationCss = '.pagenation{border:1px solid #efefef;\n margin-bottom:10px;}'
-        libs.addSheet([pagenationCss,'pgtn']);
-    },
-
 	//插入真实 DOM之前
 	componentWillMount:function(){
 
@@ -163,24 +135,12 @@ var pagenation = {
                     url: data.url+'?'+data.query+ostart,
                     text: '上一页',dataPage:ostart
                 })
-                if (ostart%begin.off === 0 && _jump){
-                    console.log('============ jump');
-                    console.log('============ jump');
-                    console.log('============ jump');
-                    console.log('============ jump');
-                    console.log(_jump);
+                if (ostart%begin.off === 0 && begin.jump){
                     start = ostart
                     aft = aft + _.floor(begin.off/2)
                     end = (start+begin.off) >= pages ? pages : (start+begin.off);
                 }
             }
-
-            console.log('========== start');
-            console.log('========== start');
-            console.log('========== start');
-            console.log('========== start');
-            console.log(start);
-            console.log(ostart);
 
 			if(start>1){
 				newData.push({
@@ -240,18 +200,22 @@ var pagenation = {
 			}
         }
 
-        // <List {...this.props} data={newData}/>
-        var _props = _.merge(this.props, {data: newData, itemView:PageItem})
+        // <List {...this.props} data={newData} itemView={PageItem} />
+        var _props = _.merge({data: newData, itemView:PageItem}, this.props)
 		var _List =  React.createElement(List, _props)
-		return (
-            <div className={'pagenation wid-12 u-clearfix'}>
-                {_List}
-            </div>
-        )
+
+		return _List
 	}
 }
 
 function actRct( storeName ){
+
+    // for server
+    if (storeName===true){
+        return React.createClass( pagenation );
+    }
+
+    // for client
     _storeName = storeName||'_Pagi';
     var _rct = _.cloneDeep(pagenation);
 

@@ -99,7 +99,7 @@ function *index(oridata) {
         // react组件解析生成html
         // 传入 react 组件路径及数据
         // var reactHtml = yield react2html('react/listView/list', {data: topics})
-        var reactHtml = yield react2html('react/listView/list', {data: topics})
+        var reactHtml = yield react2html('react/widgets/listView/list', {data: topics})
         reactHtml[0] = '<div class="load-list">'+reactHtml[0]+'</div>'
 
         // 将html结构代码代入到oridata，用于模板渲染

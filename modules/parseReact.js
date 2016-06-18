@@ -3,7 +3,13 @@ module.exports = function(reacturl, opt){
 	var factory;
 	var props = opt || {};
 	if (typeof reacturl==='string'){
-		factory = React.createFactory(include(reacturl));
+		var _rct = include(reacturl);
+		if (_rct.server){
+			factory = React.createFactory(_rct(true));
+		}
+		else {
+			factory = React.createFactory(_rct);
+		}
 	}
 	else
 	if (typeof reacturl==='object'){
