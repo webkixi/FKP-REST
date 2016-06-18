@@ -5,7 +5,6 @@ var libs = require('../libs/libs');
 var qs = require('querystring');
 var config = require('../config');
 var getapi = require('../pages/common/apilist')
-var _ = libs.$lodash
 
 var tmp_token_session = {}
 

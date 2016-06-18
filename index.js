@@ -20,7 +20,6 @@ var statics = require('./modules/static'),
 	socketio = require('./modules/wsocket'),   //websocket
 	render = require('./modules/render');
 
-// global.React = require('react/addons')
 global.React = require('react')
 global.ReactDomServer = require('react-dom/server')
 global._ = require('lodash')
@@ -36,7 +35,7 @@ var _path = {
     modules: base,
     public: base,
     pages: base,
-	react: base+'/public/react/widgets',
+	react: base+'/public/react',
 	root: base
 }
 

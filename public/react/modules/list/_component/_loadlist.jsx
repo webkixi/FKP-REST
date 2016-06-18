@@ -45,7 +45,7 @@ var tmpApp = {
 		// //tData.push(<div ref="loadbar" className="loadtype" style={{"display":"none"}}><div className="loader">Loading...</div></div>);
 		// return <List {...this.props} data={tData}/>
 
-		var _props = _.merge(this.props, {data: tData})
+		var _props = _.merge({data: tData}, this.props)
 		return React.createElement(List, _props)
 	},
 

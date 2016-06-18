@@ -44,36 +44,70 @@ module.exports = {
 
     // react15, jq1.11
     vendorList: [
-        path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
-        path.join(__dirname, src_dir, '/js/vendor/react15/dist/react.js'),
-        path.join(__dirname, src_dir, '/js/vendor/react15/dist/react-dom.js'),
+        // [0]开发
+        [
+            path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
+            path.join(__dirname, src_dir, '/js/vendor/react15/dist/react.js'),
+            path.join(__dirname, src_dir, '/js/vendor/react15/dist/react-dom.js')
+        ],
+
+        // [1]生产
+        [
+            path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
+            path.join(__dirname, src_dir, '/js/vendor/react15/dist/react.js'),
+            path.join(__dirname, src_dir, '/js/vendor/react15/dist/react-dom.js')
+        ]
     ],
 
 
 
     //react, zepto/jq2
     vendorList_adv: [
-        path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
-        // path.join(__dirname, src_dir, '/js/vendor/zepto/zepto.js'),
+        // [0]开发
+        [
+            path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
+            // path.join(__dirname, src_dir, '/js/vendor/zepto/zepto.js'),
 
-        // react 0.13
-        // path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js'),
+            // react 0.13
+            // path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js'),
 
-        // react 15
-        path.join(__dirname, src_dir, '/js/vendor/react15/src/react.js'),
-        path.join(__dirname, src_dir, '/js/vendor/react15/src/react-dom.js'),
+            // react 15
+            path.join(__dirname, src_dir, '/js/vendor/react15/src/react.js'),
+            path.join(__dirname, src_dir, '/js/vendor/react15/src/react-dom.js'),
 
-        // lodash 4.13.1
-        path.join(__dirname, src_dir, '/js/vendor/lodash/src/lodash_full_413.js')
+            // lodash 4.13.1
+            path.join(__dirname, src_dir, '/js/vendor/lodash/src/lodash_full_413.js')
+        ],
+        
+        // [1]生产
+        [
+            path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.min.js'),
+            // path.join(__dirname, src_dir, '/js/vendor/zepto/zepto.js'),
+
+            // react 0.13
+            // path.join(__dirname, src_dir, '/js/vendor/react/react-with-addons.js'),
+
+            // react 15
+            path.join(__dirname, src_dir, '/js/vendor/react15/dist/react.min.js'),
+            path.join(__dirname, src_dir, '/js/vendor/react15/dist/react-dom.min.js'),
+
+            // lodash 4.13.1
+            path.join(__dirname, src_dir, '/js/vendor/lodash/dist/lodash_full_413.min.js')
+        ]
     ],
-
 
 
 
     //angular
     vendorList_ng: [
-        path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
-        path.join(__dirname, src_dir, '/js/vendor/angular/angular.js')
+        [
+            path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
+            path.join(__dirname, src_dir, '/js/vendor/angular/angular.js')
+        ],
+        [
+            path.join(__dirname, src_dir, '/js/vendor/jquery/dist/jquery.js'),
+            path.join(__dirname, src_dir, '/js/vendor/angular/angular.js')
+        ]
     ],
 
 
@@ -81,12 +115,21 @@ module.exports = {
 
     //backbone
     vendorList_bb: [
-        path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
-        path.join(__dirname, src_dir, '/js/vendor/lodash/src/lodash_full_413.js'),
-        path.join(__dirname, src_dir, '/js/vendor/backbone/backbone.js')
+        [
+            path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
+            path.join(__dirname, src_dir, '/js/vendor/lodash/src/lodash_full_413.js'),
+            path.join(__dirname, src_dir, '/js/vendor/backbone/backbone.js')
+        ],
+        [
+            path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
+            path.join(__dirname, src_dir, '/js/vendor/lodash/src/lodash_full_413.js'),
+            path.join(__dirname, src_dir, '/js/vendor/backbone/backbone.js')
+        ]
     ],
 
 
+
+// ===================================================================
 
 
     //public/src/pc/global

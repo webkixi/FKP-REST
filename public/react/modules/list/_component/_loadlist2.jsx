@@ -38,7 +38,7 @@ var tmpApp = {
 		var tData = libs.clone(this.state.data);
 		// return <List {...this.props} data={tData}/>
 
-		var _props = _.merge(this.props, {data: tData})
+		var _props = _.merge({data: tData}, this.props)
 		return React.createElement(List, _props)
 	},
 

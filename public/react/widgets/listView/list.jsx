@@ -2,7 +2,6 @@
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
-var libs = require('../libs/libs')
 var Fox = require('../itemView/f_li');
 
 var tmpApp = React.createClass({
@@ -46,7 +45,7 @@ var tmpApp = React.createClass({
 
 	_dealWithItemView: function(opts){
 		var that = this;
-		var props = libs.clone(that.props);
+		var props = _.cloneDeep(that.props);
 		props.idf = opts.i;
 		props.key = 'view'+opts.i;
 		props.data = opts.item;
@@ -61,7 +60,7 @@ var tmpApp = React.createClass({
 			var view = that.props.itemView;
 			return React.createElement(view, props, that.props.children);
 		}else{
-			var _props = _.merge(props, {data: opts.item, key: ('fox'+opts.i), idf: opts.i })
+			var _props = _.merge({data: opts.item, key: ('fox'+opts.i), idf: opts.i }, props)
 			return React.createElement(Fox, _props, that.props.children)
 			// return <Fox idf={opts.i} key={'fox'+opts.i} {...props} data={opts.item} />;
 		}
@@ -99,8 +98,8 @@ var tmpApp = React.createClass({
 				}
 			});
 			if(items.length){
-				var group = libs.guid('group-')
-				return <ul data-group={group} key={libs.guid('ul-')} className={cls} style={sty}>
+				var group = _.uniqueId('group-')
+				return <ul data-group={group} key={_.uniqueId('ul-')} className={cls} style={sty}>
 					{items}
 				</ul>
 			}else {
@@ -133,7 +132,7 @@ var tmpApp = React.createClass({
 
 			if( that.querySelector('img') ){
 				var tmpimgs = that.querySelectorAll('img')
-				var imgs = libs.arg2arr( tmpimgs )
+				var imgs = _.toArray( tmpimgs )
 				imgs.map(function( pic, list_i ){
 					if( pic.getAttribute('data-src') ){
 

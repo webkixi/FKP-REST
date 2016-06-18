@@ -31,8 +31,8 @@
     "minimist": "^1.2.0",
     "mongoose": "^4.3.7",
     "pingpp": "^2.0.6",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
     "request": "^2.62.0"
   },
   "devDependencies": {

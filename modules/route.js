@@ -6,7 +6,6 @@ var path = require('path')
 var api = require('../apis/javaapi');
 var router = require('koa-router')();
 var libs = require('../libs/libs')
-var __ = libs.$lodash;
 var render;
 var region = require('./region');
 var mms = require('./mms')
@@ -39,10 +38,10 @@ function *filterRendeFile(pms, rjson){
     if(!ext)
         rtn = true;
 
-    if(__.indexOf(tempExts, ext) > -1)
+    if(_.indexOf(tempExts, ext) > -1)
         rtn = true;
 
-    if(__.indexOf(noPassCat, cat) > -1)
+    if(_.indexOf(noPassCat, cat) > -1)
         rtn = false;
 
     return rtn;

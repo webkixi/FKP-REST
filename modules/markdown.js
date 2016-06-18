@@ -1,7 +1,6 @@
 var marked = require('marked')
 var render = require('./common/mdrender')
 var libs = require('../libs/libs')
-var _ = libs.$lodash;
 
 function *mkmd(md_raw, templet){
     console.log('markdown解析');

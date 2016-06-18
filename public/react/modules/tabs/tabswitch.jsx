@@ -57,7 +57,7 @@ var tabswitch = React.createClass({
     },
 
 	render:function(){
-        var _props = _.merge(this.props, {data: this.state.datas})
+        var _props = _.merge({data: this.state.datas}, this.props)
 		var _List = React.createElement(List, _props)
 		return <div className={'tabswitch wid-12 u-clearfix'}>
 				{_List}

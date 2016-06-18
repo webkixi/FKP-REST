@@ -1,7 +1,6 @@
 var libs = require('../../../libs/libs')
 var errors = libs.errors;
 const mongoose = require("mongoose");
-const _ = libs.$lodash
 
 function *addtopic(oridata) {
     libs.clog('添加文章/'+__filename)

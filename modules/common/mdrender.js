@@ -5,7 +5,6 @@
 var marked = require('marked')
 var render = new marked.Renderer();
 var libs = require('../../libs/libs')
-var _ = libs.$lodash;
 
 function customParse(str, spec){
     console.log('============ modules/common/mdrender.js\n');

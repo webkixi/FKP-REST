@@ -16,7 +16,11 @@ getFileMap = (env)->
 	if env == 'bb'
 		return config.vendorList_bb.concat(config.globalList)
 
-	return config.vendorList_adv.concat(config.globalList)  # for advance browser
+	_vlist = config.vendorList_adv[0]
+	if env == 'pro'
+		_vlist = config.vendorList_adv[1]
+		
+	return _vlist.concat(config.globalList)  # for advance browser
 
 
 

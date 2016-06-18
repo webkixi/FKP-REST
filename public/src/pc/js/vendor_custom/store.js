@@ -353,6 +353,41 @@
                 save[name] = thisStore;
             }
 
+            if ( getObjType(fun)==='Function' )
+                save[name].acter(fun);
+
+            if( getObjType(fun) === 'Array' ) {
+                var isFuns = true;
+                fun.map(function(item, i){
+                    if( getObjType(item) !== 'Function' )
+                        isFuns = false;
+                })
+                if( isFuns ){
+                    save[name].sact = fun;
+                }
+            }
+
+            if ( getObjType(fun) === 'Object' ) {
+                if (save[name].sact) {
+                    var sact = save[name].sact
+                    if (getObjType(sact) === 'Array'){
+                        if (!sact.length)
+                            sact = {}
+                        else{
+                            console.log('SA set error, fun is array ');
+                            return false;
+                        }
+                    }
+                    if (getObjType(sact) === 'Object'){
+                        var target = extend(sact, fun)
+                        save[name].sact = target;
+                    }
+                }
+                else {
+                    save[name].sact = fun;
+                }
+            }
+
             if( dataOrAct && dataOrAct!=="" ){
                 if ( getObjType(dataOrAct) === 'Function' ){
                     if(getObjType(fun) === 'Array' ){
@@ -390,41 +425,6 @@
                         }
                     }
                     // save[name].dataer(libs.clone(dataOrAct));
-                }
-            }
-
-            if ( getObjType(fun)==='Function' )
-                save[name].acter(fun);
-
-            if( getObjType(fun) === 'Array' ) {
-                var isFuns = true;
-                fun.map(function(item, i){
-                    if( getObjType(item) !== 'Function' )
-                        isFuns = false;
-                })
-                if( isFuns ){
-                    save[name].sact = fun;
-                }
-            }
-
-            if ( getObjType(fun) === 'Object' ) {
-                if (save[name].sact) {
-                    var sact = save[name].sact
-                    if (getObjType(sact) === 'Array'){
-                        if (!sact.length)
-                            sact = {}
-                        else{
-                            console.log('SA set error, fun is array ');
-                            return false;
-                        }
-                    }
-                    if (getObjType(sact) === 'Object'){
-                        var target = extend(sact, fun)
-                        save[name].sact = target;
-                    }
-                }
-                else {
-                    save[name].sact = fun;
                 }
             }
         },
