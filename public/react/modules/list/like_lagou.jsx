@@ -5,8 +5,8 @@ var libs = require('libs/libs')
 var List = require('./_component/_loadlist')('LAGOU') //设定列表域为 lagou
 var ITEM = require('widgets/itemView/f_li');
 var render = React.render;
-var inject = libs.inject()
-var req = libs.api.req
+var inject = libs.inject();
+var req = require('libs/api').req;
 
 
 //注入like_lagou的样式

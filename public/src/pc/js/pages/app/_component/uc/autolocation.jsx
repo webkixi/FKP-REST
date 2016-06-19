@@ -4,7 +4,7 @@ var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
 // var getLocation = require('modules/weixin/getLocation');
 
-var api = libs.api;
+var api = require('libs/api');
 var valide = libs.formValide;
 
 

@@ -3,7 +3,7 @@ var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
 var _user = SA.get('USER')
-var api = libs.api;
+var api = require('libs/api');
 var valide = libs.formValide;
 
 

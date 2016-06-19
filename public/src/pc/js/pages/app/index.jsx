@@ -3,7 +3,7 @@ var router = require('libs/router').router;
 var route = require('libs/router').route;
 var url = libs.urlparse(location.href);
 SA.set('USER', {login: false})
-var api = libs.api;
+var api = require('libs/api');
 
 if (url.params.login){
     SA.set('USER', {login: url.params.login})

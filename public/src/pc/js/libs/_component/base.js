@@ -186,7 +186,7 @@ function inherits( Super, protos, staticProtos ) {
     }
 
     // 复制静态方法
-    $.extend( true, child, Super, staticProtos || {} );
+    _.extend( {}, child, Super, staticProtos || {} );
 
     /* jshint camelcase: false */
 
@@ -196,7 +196,7 @@ function inherits( Super, protos, staticProtos ) {
     // 构建原型，添加原型方法或属性。
     // 暂时用Object.create实现。
     child.prototype = createObject( Super.prototype );
-    protos && $.extend( true, child.prototype, protos );
+    protos && _.extend( {}, child.prototype, protos );
 
     return child;
 }

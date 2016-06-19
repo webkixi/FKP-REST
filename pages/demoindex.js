@@ -23,7 +23,7 @@ function *demoIndexData(oridata){
             this.redirect('/demoindex')
         else{
             var tmp = yield markdown(md_raw, mdcnt)
-            staticData = libs.$extend(true, oridata, tmp);
+            staticData = _.extend({}, oridata, tmp);
             return staticData
         }
     }
@@ -33,7 +33,7 @@ function *demoIndexData(oridata){
         // console.log(listHtmlTempleteData);
         // console.log(tttt.demoindex.aaa.list);
         var fkpdocs = {docs: tttt.demoindex}
-        staticData = libs.$extend(true, oridata, listHtmlTempleteData, fkpdocs);
+        staticData = _.extend({}, oridata, listHtmlTempleteData, fkpdocs);
         return staticData
     }
 

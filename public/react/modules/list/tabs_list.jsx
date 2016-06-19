@@ -8,8 +8,7 @@ var libs = require('libs/libs'),
     ItemMixin = require('mixins/item'),
     render = React.render,
     inject = libs.inject(),
-    req = libs.api.req,
-    _ = libs.lodash;
+    req = require('libs/api').req;
 
 //注入css
 inject.css(['/css/t/list/tabslist.css', 'tabslist']);

@@ -7,7 +7,6 @@ var List = require('widgets/listView/list')
 var scrollMixins = require('mixins/scrollLoadAndLazy');
 var itemMixins = require('mixins/item')
 var Store = require('mixins/store');
-var _ = libs.lodash;
 
 var tmpApp = {
 	mixins:[ scrollMixins],

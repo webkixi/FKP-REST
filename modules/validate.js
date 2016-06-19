@@ -2,13 +2,11 @@
  * Module dependencies.
  */
 var libs = require('../libs/libs');
-var extend = require('extend');
 
 var tips = function(msg){
     libs.elog(msg);
 }
 
-var getObjType = libs.getObjType;
 /**
 * form表单校验
 * @opts  json对象，对象元素允许函数，用于替换默认block校验正则
@@ -49,11 +47,9 @@ var form_valide = function(opts) {
         tips     : tips,
         popmsg : true
     };
-    if(opts && getObjType(opts)=='Object'){
-        // old = $.extend({},block);
-        // block = $.extend(block,opts);
-        old = extend({},block);
-        block = extend(block,opts);
+    if(opts && _.isObject(opts)){
+        old = _.extend({},block);
+        block = _.extend(block,opts);
     }
     return function self(val,reg,msg,name) {
         var tips = block.tips;
@@ -78,7 +74,7 @@ var form_valide = function(opts) {
             }
         }
         reg = reg || 'username';
-        if(getObjType(block[reg])=='Function'){
+        if(_.isFunction(block[reg])){
             popmsg = false;
             var fun = block[reg];
             tmp = val=='' ? false : fun.call(this,val,old);

@@ -1,5 +1,5 @@
 var libs = require('libs/libs')
-var req = libs.api.req
+var req = require('libs/api').req
 
 //是否登陆
 var _user = SA.get('USER')

@@ -10,9 +10,9 @@ var libs = require('libs/libs')
 var listModule = require('modules/list/base_list');
 var cfg = require('root/config')
 var WS = require('modules/wsocket/index')
-var _ = libs.lodash;
 
 var _listData = []
+
 
 // var loginBox = require('modules/sign/signin')
 
@@ -96,7 +96,7 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
                 //更新文章
                 if (upid){
                     postdata.topic = upid;
-                    libs.api.req(
+                    require('libs/api').req(
                         '/$updatetopic',
                         postdata,
                         topic_resaults
@@ -105,7 +105,7 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
 
                 //添加文章
                 else {
-                    libs.api.req(
+                    require('libs/api').req(
                         '/$addtopic',
                         postdata,
                         topic_resaults

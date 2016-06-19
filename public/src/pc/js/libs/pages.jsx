@@ -13,7 +13,6 @@ function pages(opts){
     }
 
     var _this = this;
-    var _ = libs.lodash;
 
     var _dft = [];
     var defaults = {
@@ -26,7 +25,7 @@ function pages(opts){
     _dft = Object.keys(defaults)
 
     if (libs.getObjType(opts) === 'Object'){
-        var defaults = libs.extend(true, defaults, opts)
+        var defaults = _.extend({}, defaults, opts)
     }
 
     var dft = defaults;
@@ -51,7 +50,7 @@ function pages(opts){
                 _this.innerData = data;
             }
             else{
-                var tmp = libs.extend({}, _this.innerData, data)
+                var tmp = _.extend({}, _this.innerData, data)
                 _this.innerData = tmp;
             }
             run.call(_this)

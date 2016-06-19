@@ -5,7 +5,9 @@
 //loadlist
 var SimplePageScrollMixin = require('./SimplePageScrollMixin'),
     libs = require('libs/libs'),
-    scrollView = libs.scrollView
+    scrollView = libs.scrollView,
+    api = require('libs/api');
+
 
 var
 PageScrollStartEndMixin = {
@@ -121,7 +123,6 @@ PageScrollStartEndMixin = {
                           element.src = _src;
                       }
                       else{
-                          var api = libs.api;
                           api.req(_src, function(data){
                               holder.innerHTML(data)
                           })

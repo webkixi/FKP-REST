@@ -99,7 +99,7 @@ function form_valide(id ,reg, cb, name) {
         qq: "qq地址不正确",
     }
 
-    old = base.lodash.cloneDeep(block);
+    old = _.cloneDeep(block);
     // if (base.type(id)==='Object'){
     //     old = base.lodash.cloneDeep(block, id);
     //     old = $.extend(block, id);
@@ -183,7 +183,7 @@ function form_valide(id ,reg, cb, name) {
         var _cb_stat;
 
         if (formobj){
-            _old = base.lodash.cloneDeep(block);
+            _old = _.cloneDeep(block);
             _old.tips = base_tips;
             _old.event = 'blur';
             formobj.off('blur')
@@ -197,7 +197,7 @@ function form_valide(id ,reg, cb, name) {
                     query[this.id] = this.value
                     _query[this.id] = true
                     var _v = true;
-                    $.each(_query, function(k, v){
+                    _.forEach(_query, function(k, v){
                         if (!v){
                             _v = false;
                         }
@@ -269,8 +269,6 @@ module.exports = {
     arg2arr:        base.arg2arr,        //类数组对象转成数组
     getObjType:     base.getObjType,     //获取对象类型
     type:           base.getObjType,     //获取对象类型
-    lodash:         base.lodash,         //引入lodash
-    clone:          base.lodash.clone,   //clone一个对象
     os:             base.os,             //获取手机操作系统类型，如android或者ios
 
     getOffset:      doc.getOffset,      //取得元素的绝对位置
@@ -282,7 +280,7 @@ module.exports = {
     addEvent:       doc.addEvent,       //兼容性绑定方法
     rmvEvent:       doc.rmvEvent,       //兼容性删除方法
     getElementsByClassName: doc.getElementsByClassName,
-    replaceState:   doc.replaceState,   // 替换location.href的指定param
+    replaceState:   doc.replaceState,   // 替换location.href并不切换页面
 
     inject:         doc.inject,          // 注入css和js
     addSheet:       doc.addSheet,        // 动态注入 CSS---兼容旧版语法方法
@@ -301,10 +299,7 @@ module.exports = {
     getTs:          forapp.getTs,        // "2010-03-15 10:30:00"转时间戳
 
     msgtips:        base_tips,
-    api:            require('./api'),   //封装jquery的ajax的post
 
-    formValide:     form_valide,        //校验基础方法
-
-    extend:         $.extend        //json转成url的query部分
+    formValide:     form_valide        //校验基础方法
 
 }

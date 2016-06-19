@@ -1,7 +1,6 @@
 var url = require('url');
 var path = require('path')
 var domain = require('domain');
-var extend = require('extend');
 var parse = require('co-body');
 var lodash = require('lodash');
 var qs = require('querystring');
@@ -10,11 +9,6 @@ var qs = require('querystring');
 //libs
 var getObjType = function(object){
     return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
-}
-
-var clone = function(target){
-    var t = getObjType(target);
-    return t === 'Object' ? extend(true, {}, target) : t === 'Array' ? extend(true, [], target) : target;
 }
 
 function getClientIp(req) {
@@ -53,18 +47,15 @@ var guid = function(prefix) {
 
 module.exports = {
     getObjType: getObjType,
-    clone: clone,
     clog: clog,
     elog: elog,
     wlog: wlog,
     uri: parseQuery,
     guid: guid,
-    $extend: extend,
     $url: url,
     $path: path,
     $domain: domain,
     $parse: parse,
-    $lodash: lodash,
     getClientIp: getClientIp,
     errors: require('./errors')
 }

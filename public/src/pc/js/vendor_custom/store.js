@@ -424,7 +424,6 @@
                             save[name].dataer(dataOrAct);    //存储array数据
                         }
                     }
-                    // save[name].dataer(libs.clone(dataOrAct));
                 }
             }
         },
