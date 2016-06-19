@@ -10,7 +10,6 @@ var Uls = require('./_component/uls')('pc_uls');
 var List = require('widgets/listView/list');
 var Pt = require('widgets/itemView/pic_title');
 var render = React.render;
-var libs =  require('libs/libs')
 
 var ss;
 
@@ -21,7 +20,7 @@ var ss;
 */
 
 function abc(data){
-    ss = libs.lodash.flatten(data,true)
+    ss = _.flatten(data,true)
     ss.sort(function(a,b){
         var A_substring = a.footer[0].v.substring(2)
         var B_substring = b.footer[0].v.substring(2)

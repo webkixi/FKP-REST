@@ -1,6 +1,4 @@
 var ItemMixin = require('../../mixins/item')
-var libs = require('../libs/libs')
-var _ = libs.lodash;
 // <Radio data={name: [], id: [], title: [], rtitle:[], cb: fn} />
 
 function mk_fill(ddd){
@@ -122,28 +120,28 @@ var Input = React.createClass({
                 var data = this.props.data
 
                 if (data.name)
-                   this.names = libs.type(data.name) === 'Array' ? data.name : ['noname']
+                   this.names = _.isArray(data.name) ? data.name : ['noname']
 
                 if (data.type)
-                   this.types = libs.type(data.type) === 'Array' ? data.type : ['text']
+                   this.types = _.isArray(data.type) ? data.type : ['text']
 
                 if (data.id)
-                   this.ids = libs.type(data.id) === 'Array' ? data.id : ['']
+                   this.ids = _.isArray(data.id) ? data.id : ['']
 
                 if (data.title)
-                   this.titles = libs.type(data.title) === 'Array' ? data.title : ['']
+                   this.titles = _.isArray(data.title) ? data.title : ['']
 
                 if (data.desc)
-                   this.descs = libs.type(data.desc) === 'Array' ? data.desc : ['']
+                   this.descs = _.isArray(data.desc) ? data.desc : ['']
 
                 if (data.value)
-                   this.values = libs.type(data.value) === 'Array' ? data.value : ['']
+                   this.values = _.isArray(data.value) ? data.value : ['']
 
                 if (data.class)
-                   this.classes = libs.type(data.class) === 'Array' ? data.class : ['']
+                   this.classes = _.isArray(data.class) ? data.class : ['']
 
                 if (data.placehold)
-                   this.pholds = libs.type(data.placehold) === 'Array' ? data.placehold : ['']
+                   this.pholds = _.isArray(data.placehold) ? data.placehold : ['']
 
 
                 var _input = [];

@@ -1,4 +1,3 @@
-var libs = require('libs/libs');
 var Store = require('mixins/store');
 var ItemMixin = require('mixins/item')
 
@@ -75,10 +74,9 @@ var textForm = {
     }
 }
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Textform',
-        _rct = libs.clone(textForm);
+        _rct = _.cloneDeep(textForm);
 
 	// if( _rct.mixins && _rct.mixins.length ){
 	// 	_rct.mixins.push( Store( _storeName ))

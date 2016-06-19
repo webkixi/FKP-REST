@@ -1,4 +1,3 @@
-var libs = require('libs/libs');
 var Store = require('mixins/store');
 var ItemMixin = require('mixins/item')
 
@@ -46,10 +45,9 @@ var signin = {
     }
 }
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Signin',
-        _rct = libs.clone(signin);
+        _rct = _.cloneDeep(signin);
 
 	// if( _rct.mixins && _rct.mixins.length ){
 	// 	_rct.mixins.push( Store( _storeName ))

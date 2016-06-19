@@ -68,10 +68,9 @@ var exhibition = {
 // module.exports = mkExhibition;
 
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Exhibition',
-        _rct = libs.clone(exhibition);
+        _rct = _.cloneDeep(exhibition);
 
 	if( _rct.mixins && _rct.mixins.length ){
 		_rct.mixins.push( Store( _storeName ))

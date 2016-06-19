@@ -2,7 +2,6 @@
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
-var libs = require('libs/libs')
 var List = require('widgets/listView/list')
 var itemMixins = require('mixins/item')
 var Store = require('mixins/store');
@@ -24,9 +23,8 @@ var tmpApp = {
 	//插入真实 DOM之前
 	componentWillMount:function(){
 		if(this.props.data){
-			var tmpPropsData = libs.clone(this.props.data);
 			this.setState({
-				data: tmpPropsData
+				data: this.props.data
 			})
 		}
 	},
@@ -35,10 +33,9 @@ var tmpApp = {
 	componentWillReceiveProps:function(nextProps){},
 
 	loopRender: function(){
-		var tData = libs.clone(this.state.data);
 		// return <List {...this.props} data={tData}/>
 
-		var _props = _.merge({data: tData}, this.props)
+		var _props = _.merge({data: this.state.data}, this.props)
 		return React.createElement(List, _props)
 	},
 

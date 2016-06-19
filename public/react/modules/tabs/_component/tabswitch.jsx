@@ -72,7 +72,7 @@ var tabswitch = {
 var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Tabswitch',
-        _rct = libs.clone(tabswitch);
+        _rct = _.cloneDeep(tabswitch);
 
 	if( _rct.mixins && _rct.mixins.length ){
 		_rct.mixins.push( Store( _storeName ))

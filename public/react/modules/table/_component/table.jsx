@@ -3,7 +3,6 @@
 * 数据表格
 */
 var Store = require('mixins/store');
-var libs = require('libs/libs');
 var render = React.render;
 
 
@@ -135,7 +134,7 @@ var table = {
 
 function actRct( storeName ){
     var _storeName = storeName||'Table',
-        _rct = require('libs/libs').clone(table);
+        _rct = _.cloneDeep(table);
 
 	if( _rct.mixins && _rct.mixins.length ){
 		_rct.mixins.push( Store( _storeName ))

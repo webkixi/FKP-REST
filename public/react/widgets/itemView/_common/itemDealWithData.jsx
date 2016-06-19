@@ -3,8 +3,6 @@
 * f_div / f_li 的公共数据处理部分
 */
 
-var libs = require('../../libs/libs');
-
 function dealWithData(){
    var clsName = "item";
    var itemStyle = '';
@@ -121,7 +119,7 @@ function dealWithData(){
                    if(typeof item==='string'|| typeof item==='number'){
                        bodys.push(<div data-pid={i} key={'body'+i}>{item}</div>)
                    }
-                   if(libs.getObjType(item)==='Object'){
+                   if(_.isObject(item)){
                        var cls = item.caption?'hb-item caption':'hb-item';
                        if(!React.isValidElement(item)){
                            var title = item.title||item.caption||item.text;
@@ -185,7 +183,7 @@ function dealWithData(){
                    if(typeof item==='string'|| typeof item==='number'){
                        footers.push(<div data-pid={i} key={'footer'+i}>{item}</div>)
                    }
-                   if(libs.getObjType(item)==='Object'){
+                   if(_.isObject(item)){
                        var cls = item.caption?'hf-item caption':'hf-item';
                        if(!React.isValidElement(item)){
                            var title = item.title||item.caption||item.text;
@@ -251,10 +249,10 @@ function dealWithData(){
                        dots.push(<div data-did={i} key={'dot'+i} className={'dot'}><div>{item}</div></div>)
                    }
 
-                   if(libs.getObjType(item)==='Object'){
+                   if(_.isObject(item)){
                        if(React.isValidElement(item)){
                            var it = item;
-                           var props = libs.clone(it.props)
+                           var props = _.cloneDeep(it.props)
                            var styl = props.style;
                            delete props.style;
                            var tmp = React.createElement(it.type, props, it.props.children)

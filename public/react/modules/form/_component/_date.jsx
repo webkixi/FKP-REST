@@ -1,4 +1,3 @@
-var libs = require('libs/libs');
 var Store = require('mixins/store');
 var ItemMixin = require('mixins/item')
 
@@ -80,10 +79,9 @@ var dateForm = {
     }
 }
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Dateform',
-        _rct = libs.clone(dateForm);
+        _rct = _.cloneDeep(dateForm);
 
 	// if( _rct.mixins && _rct.mixins.length ){
 	// 	_rct.mixins.push( Store( _storeName ))

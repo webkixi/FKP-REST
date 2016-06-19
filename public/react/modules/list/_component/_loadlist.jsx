@@ -2,7 +2,6 @@
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
-var libs = require('libs/libs')
 var List = require('widgets/listView/list')
 var scrollMixins = require('mixins/scrollLoadAndLazy');
 var itemMixins = require('mixins/item')

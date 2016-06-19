@@ -23,7 +23,7 @@ var PageScrollStartEndMixin = {
       var sheets = ['width','height','top','left','right','bottom','ele','to'];
       var st = {};
       for(var item in this.props){
-      		if(libs.lodash.indexOf(sheets,item)){
+      		if(_.indexOf(sheets,item)){
               st[item] = this.props[item];
           }
       }

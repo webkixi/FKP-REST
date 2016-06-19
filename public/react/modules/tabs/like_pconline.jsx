@@ -1,6 +1,5 @@
 
 // require compoent
-var libs = require('libs/libs')
 var Tabswitch = require('./_component/tabswitch')('pc_tab');
 var Uls = require('./_component/uls')('pc_uls');
 var SelectBar = require('./_component/select_bar')('pc_sele');
@@ -90,7 +89,7 @@ function likePConline( navData, cntData, ele, opts ){
 
             if( filter && filter.data ){
                 if( type === 'delete' ){
-                    libs.lodash.remove( filter.data, function( n ){ return ( n.title === item.title && n.value===item.value ) })
+                    _.remove( filter.data, function( n ){ return ( n.title === item.title && n.value===item.value ) })
                     if(!filter.data.length)
                         $(".cateTags").hide();
                 }

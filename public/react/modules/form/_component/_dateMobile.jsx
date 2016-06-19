@@ -1,4 +1,3 @@
-var libs = require('libs/libs');
 var Store = require('mixins/store');
 var ItemMixin = require('mixins/item')
 var mobilescroll = require('../../mobilescroll/mobilescroll')
@@ -82,10 +81,9 @@ var datemobileForm = {
     }
 }
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Datemobileform',
-        _rct = libs.clone(datemobileForm);
+        _rct = _.cloneDeep(datemobileForm);
 
 	// if( _rct.mixins && _rct.mixins.length ){
 	// 	_rct.mixins.push( Store( _storeName ))

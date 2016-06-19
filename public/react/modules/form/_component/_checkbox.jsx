@@ -1,4 +1,3 @@
-var libs = require('libs/libs');
 var Store = require('mixins/store');
 var ItemMixin = require('mixins/item')
 
@@ -70,10 +69,9 @@ var checkboxForm = {
     }
 }
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'checkboxForm',
-        _rct = libs.clone(checkboxForm);
+        _rct = _.cloneDeep(checkboxForm);
 
 	// if( _rct.mixins && _rct.mixins.length ){
 	// 	_rct.mixins.push( Store( _storeName ))

@@ -16,7 +16,9 @@ module.exports = {
     'widgets': path.resolve(path.join(__dirname, '../../react/widgets')),
     // 'mixins': path.resolve(path.join(__dirname, '../../', configs.dirs.mixins)),
     'mixins': path.resolve(path.join(__dirname, '../../react/mixins')),
-    'libs': path.resolve(path.join(__dirname, '../../src/pc/js/libs')),
+    // 'libs': path.resolve(path.join(__dirname, '../../src/pc/js/libs')),
+    'libs/libs': path.resolve(path.join(__dirname, '../../../libs/libs_client')),
+    'libs': path.resolve(path.join(__dirname, '../../../libs'))
 
     // 组件
     // 'Swipe': path.resolve('modules/swipejs/swipe'),

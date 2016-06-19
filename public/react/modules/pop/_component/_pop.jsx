@@ -106,10 +106,9 @@ var popwin = {
 }
 
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Pop',
-        _rct = libs.clone(popwin);
+        _rct = _.cloneDeep(popwin);
 
 	if( _rct.mixins && _rct.mixins.length ){
 		_rct.mixins.push( Store( _storeName ))

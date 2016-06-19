@@ -357,8 +357,7 @@ var custom_modules = function(opts){
 //webpack externals
 custom_externals = {
     "jquery": "jQuery",
-    "$": "jQuery",
-    "React": "React"
+    "react": "React"
 }
 
 // module.exports = {

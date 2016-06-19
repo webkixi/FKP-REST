@@ -1,5 +1,4 @@
 var ItemMixin = require('../../mixins/item')
-var libs = require('../libs/libs')
 
 // <Radio data={name: [], id: [], title: [], rtitle:[], cb: fn} />
 
@@ -24,16 +23,16 @@ var Radio = React.createClass({
             var data = this.props.data
 
             if (data.name)
-                this.names = libs.type(data.name) === 'Array' ? data.name : ['noname']
+                this.names = _.isArray(data.name) ? data.name : ['noname']
 
             if (data.id)
-                this.ids = libs.type(data.id) === 'Array' ? data.id : ''
+                this.ids = _.isArray(data.id) ? data.id : ''
 
             if (data.title)
-                this.titles = libs.type(data.title) === 'Array' ? data.title : ['notitle']
+                this.titles = _.isArray(data.title) ? data.title : ['notitle']
 
             if (data.value)
-                this.values = libs.type(data.value) === 'Array' ? data.value : ['novalue']
+                this.values = _.isArray(data.value) ? data.value : ['novalue']
 
             if (this.names.length){
                 var names = this.names

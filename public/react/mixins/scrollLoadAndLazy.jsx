@@ -75,8 +75,10 @@ PageScrollStartEndMixin = {
     preLazy: function(){
         var that = React.findDOMNode(this)
         // if (!this.imgs){
-            var imgs = libs.arg2arr(libs.getElementsByClassName('lazyimg')||[])
-            var imgs2 = libs.arg2arr(document.getElementsByTagName('img')||[])
+            // var imgs = libs.arg2arr(libs.getElementsByClassName('lazyimg')||[])
+            var imgs = _.toArray(libs.getElementsByClassName('lazyimg')||[])
+            // var imgs2 = libs.arg2arr(document.getElementsByTagName('img')||[])
+            var imgs2 = _.toArray(document.getElementsByTagName('img')||[])
             imgs = imgs.concat(imgs2)
             this.imgs = imgs;
         // }
@@ -94,7 +96,8 @@ PageScrollStartEndMixin = {
           visibles = [],
           getOffset = libs.getOffset,
           DocmentView = libs.DocmentView,
-          elements = libs.arg2arr(elements);
+          elements = _.toArray(elements);
+        //   elements = libs.arg2arr(elements);
 
       var settings = {
           threshold       : 2000,

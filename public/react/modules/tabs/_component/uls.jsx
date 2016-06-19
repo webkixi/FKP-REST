@@ -122,10 +122,9 @@ var uls = {
 //     return React.createClass(uls);
 // }
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Uls',
-        _rct = libs.clone(uls);
+        _rct = _.cloneDeep(uls);
 
 	if( _rct.mixins && _rct.mixins.length ){
 		_rct.mixins.push( Store( _storeName ))

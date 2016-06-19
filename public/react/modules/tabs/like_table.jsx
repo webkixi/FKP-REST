@@ -3,7 +3,6 @@
 * 数据表格
 */
 var Store = require('mixins/store');
-var libs = require('libs/libs');
 var render = React.render;
 
 
@@ -101,7 +100,7 @@ var Tab = React.createClass({
                     <Trr data={item}/>
                 )
             })
-        }         
+        }
 
         return(
             <table className={'table table-hover table-org'} style={{width:'100%',height:'auto'}} >
@@ -153,4 +152,3 @@ function tabswitch( tab_body_data, tab_head, tab_head_width, ele){
 }
 
 module.exports = tabswitch;
-

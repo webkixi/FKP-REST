@@ -4,7 +4,8 @@ var lazyLoad = function(elements,datas){
   visibles = [],
   getOffset = libs.getOffset,
   DocmentView = libs.DocmentView,
-  elements = libs.arg2arr(elements);
+  elements = _.toArray(elements);
+  // elements = libs.arg2arr(elements);
 
 
   var settings = {

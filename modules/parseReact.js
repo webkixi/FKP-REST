@@ -5,7 +5,7 @@ module.exports = function(reacturl, opt){
 	if (typeof reacturl==='string'){
 		var _rct = include(reacturl);
 		if (_rct.server){
-			factory = React.createFactory(_rct(true));
+			factory = React.createFactory(_rct.server());
 		}
 		else {
 			factory = React.createFactory(_rct);

@@ -81,10 +81,9 @@ var sidepop = {
 }
 
 
-var libs = require('libs/libs')
 function actRct( storeName ){
     var _storeName = storeName||'Sidepop',
-        _rct = libs.clone(sidepop);
+        _rct = _.cloneDeep(sidepop);
 
 	if( _rct.mixins && _rct.mixins.length ){
 		_rct.mixins.push( Store( _storeName ))

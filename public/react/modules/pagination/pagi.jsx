@@ -27,10 +27,6 @@ function idm(_name, itemMethod){
 // function pagination(data, begin, ele, cb){
 function pagination(data, opts ){
 
-    if (data === true || !data){
-        return _Pagi(true)
-    }
-
     var noop = false,
         dft = {
             container: '',
@@ -68,6 +64,8 @@ function pagination(data, opts ){
     )
 }
 
-pagination.server = true;
+pagination.server = function(){
+    return _Pagi(true)
+};
 
 module.exports = pagination

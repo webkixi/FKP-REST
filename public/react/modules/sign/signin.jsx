@@ -1,4 +1,3 @@
-var libs = require('libs/libs');
 var Signin = require('./_component/_signin')()
 var render = React.render;
 
