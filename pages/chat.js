@@ -1,5 +1,4 @@
-const libs = include('libs/libs')
-const _ = libs.lodash;
+const libs = require('libs/libs')
 
 SIO.on('imchat', function(data, socket){
     var _io = this.io,

@@ -1,11 +1,10 @@
 // "use strict";
-// var bcrypt = include("modules/bcrypt"); // version that supports yields
 var bcrypt = require('bcryptjs');
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 // var Promise = mongoose.Promise;
 var co = require("co");
-var libs = include('libs/libs')
+var libs = require('libs/libs')
 var errors = libs.errors;
 libs.clog('db-model-user.js')
 

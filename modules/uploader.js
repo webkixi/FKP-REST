@@ -8,7 +8,7 @@ var parse = require('co-busboy');
 var path = require('path');
 var _ = require('lodash');
 var assert = require('assert');
-var errors = include('libs/errors')
+var errors = require('libs/errors')
 
 
 var filterPicture = ['.jpg','.jpeg','.png','.gif']

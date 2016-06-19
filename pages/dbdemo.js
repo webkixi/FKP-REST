@@ -1,7 +1,7 @@
-var libs = include('libs/libs')
-var api = include('apis/javaapi')
-var react2html = include('modules/parseReact')
-var markdown = include('modules/markdown')
+var libs = require('libs/libs')
+var api = require('apis/javaapi')
+var react2html = require('modules/parseReact')
+var markdown = require('modules/markdown')
 var querystring = require('querystring')
 const mongoose = require("mongoose");
 

@@ -1,8 +1,8 @@
 var fs = require('fs')
 var request = require('request')
-var config = include('root/config')
+var config = require('config.js')
 var path = require('path')
-var libs = include('libs/libs')
+var libs = require('libs/libs')
 
 function *savefile(file, path2save){
     libs.clog('savefile to local '+__filename)

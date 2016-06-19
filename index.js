@@ -27,51 +27,7 @@ global._ = require('lodash')
 
 //配置环境路径
 var base = path.resolve(__dirname);
-var _path = {
-    apis: base,
-    db: base,
-    fkpdoc: base,
-    libs: base,
-    modules: base,
-    public: base,
-    pages: base,
-	react: base+'/public/react',
-	root: base
-}
-
-//封装require方法
-//简化require的调用，别名化
-global.include = function(file){
-    if (!file)
-        throw new Error('没有指定文件名');
-
-    if (typeof file !== 'string')
-        throw new Error('file参数必须为String类型');
-
-    if (file.indexOf('/')>-1){
-        var tmp = file.split('/')
-        var key = tmp[0];
-        if (_path[key]){
-			var merge_path;
-			if (key==='react'){
-				file = file.replace('react/','')
-				merge_path = path.resolve(_path[key], file)
-			}
-			else {
-				if (file.indexOf('root')>-1){
-				    file = tmp[1]
-				}
-				merge_path = path.resolve(_path[key], file)
-			}
-            return require(merge_path)
-        }
-        else {
-            throw new Error('没有该文件或者路径错误');
-        }
-    }else {
-        return require(file)
-    }
-}
+require('./modules/requirePath')(base)
 
 
 //初始化
@@ -87,10 +43,10 @@ app.use(session({
 }));
 
 //定义include
-app.use(function *(next){
-	this.include = include
-	yield next;
-})
+// app.use(function *(next){
+// 	this.include = include
+// 	yield next;
+// })
 
 //定义测试环境
 app.use(function *(next){

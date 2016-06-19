@@ -1,6 +1,6 @@
 // var libs = require('../../../libs/libs')
-var errors = include('libs/errors')
-var libs = include('libs/libs');
+var errors = require('libs/errors')
+var libs = require('libs/libs');
 const mongoose = require("mongoose");
 var errors = libs.errors;
 

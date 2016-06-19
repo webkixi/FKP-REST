@@ -1,4 +1,4 @@
-var react2html = include('modules/parseReact')
+var react2html = require('modules/parseReact')
 
 function *hello(oridata) {
 

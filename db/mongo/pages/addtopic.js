@@ -24,7 +24,7 @@ function *addtopic(oridata) {
 
         try {
             if (body.cnt) {
-                var marked = include('modules/markdown')
+                var marked = require('modules/markdown')
                 var parsedMd = yield marked(body.cnt,{mdcontent:{}})
                 var _tags = parsedMd.mdcontent.tags||parsedMd.mdcontent.tag;
                 if (typeof _tags === 'string'){

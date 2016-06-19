@@ -1,7 +1,7 @@
 // var libs = require('../../../libs/libs')
-var libs = include('libs/libs');
+var libs = require('libs/libs');
 const mongoose = require("mongoose");
-const config = include('db/config')
+const config = require('db/config')
 
 function getPages(page){
     let ps = config.mongo.pageSize

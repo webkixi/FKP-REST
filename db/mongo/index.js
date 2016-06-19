@@ -1,4 +1,4 @@
-var libs = include('libs/libs')
+var libs = require('libs/libs')
 const fs = require('fs')
 var path = require('path')
 const config = require('../../config')

@@ -1,7 +1,7 @@
 // 数据库配置文件
 var fs = require('fs')
 var path = require('path')
-var libs = include('libs/libs')
+var libs = require('libs/libs')
 libs.clog('//数据库配置文件//---'+__filename)
 process.env.dbconfig = '当前数据库连接至agzgz.com，该账号不能添加文章';
 
