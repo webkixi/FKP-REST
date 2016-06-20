@@ -3,7 +3,6 @@
 */
 var fs = require('fs')
 var views = require('co-views-helpers');
-var config = require('../config')
 
 // 从map.json拿取获取静态资源 hash 名称
 
@@ -14,8 +13,8 @@ var getMapJson = function(stat){
     console.log('===============');
     console.log('===============');
     console.log(stat)
-  	if(fs.existsSync(config.mapJson)||fs.existsSync(config.mapDevJson))
-  		return mapJson = stat === 'dev' ? JSON.parse(fs.readFileSync(config.mapDevJson,'utf-8')) : JSON.parse(fs.readFileSync(config.mapJson,'utf-8'));
+  	if(fs.existsSync(fkpConfig.mapJson)||fs.existsSync(fkpConfig.mapDevJson))
+  		return mapJson = stat === 'dev' ? JSON.parse(fs.readFileSync(fkpConfig.mapDevJson,'utf-8')) : JSON.parse(fs.readFileSync(fkpConfig.mapJson,'utf-8'));
   	else
   		return false;
 }

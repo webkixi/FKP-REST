@@ -4,7 +4,7 @@ src_dir = src_dir + platform
 
 var global_dir = './src'+ platform +'/js/global';
 var path = require('path');
-var cfg = require('../config')
+var cfg = require('../config')()
 module.exports = {
     name: "FCKJS",
     babel: false,
@@ -78,7 +78,7 @@ module.exports = {
             // lodash 4.13.1
             path.join(__dirname, src_dir, '/js/vendor/lodash/src/lodash_full_413.js')
         ],
-        
+
         // [1]生产
         [
             path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.min.js'),

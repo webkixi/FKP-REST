@@ -4,21 +4,14 @@
 var fs = require('fs')
 var path = require('path')
 var libs = require('../libs/libs')
-var config = require('../config');
 var api = require('../apis/javaapi');
 
 
 function *github(){
     libs.clog('github第三方登陆： '+__filename)
-    var github = config.auth.github;
-    var jump_url = config.auth.github.successUrl
+    var github = fkpConfig.auth.github;
+    var jump_url = fkpConfig.auth.github.successUrl
     var query = this.local.query
-
-    if (process.env.env === 'test') {
-        github = config.test.auth.github
-        jump_url = github.successUrl
-    }
-
 
     var _this = this;
 

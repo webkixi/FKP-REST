@@ -1,6 +1,5 @@
 var fs = require('fs')
 var request = require('request')
-var config = require('config.js')
 var path = require('path')
 var libs = require('libs/libs')
 
@@ -8,7 +7,7 @@ function *savefile(file, path2save){
     libs.clog('savefile to local '+__filename)
     try {
         if(!path2save){
-           path2save = config.avatar_root
+           path2save = fkpConfig.avatar_root
         }
 
         if (!fs.existsSync(path2save)) {

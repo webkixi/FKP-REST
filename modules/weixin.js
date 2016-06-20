@@ -4,7 +4,6 @@
 var fs = require('fs')
 var path = require('path')
 var libs = require('../libs/libs')
-var config = require('../config');
 var wechat = require('co-wechat')
 var api = require('../apis/javaapi');
 
@@ -27,17 +26,8 @@ function *returnJson( data ){
 function *weixin(){
     libs.clog('weixin')
 
-    var _WX = config.weixin;
-    var _WX_domain = config.domain
-
-    if (process.env.env === 'test') {
-        console.log('========== test环境');
-        // _WX = config.weixintest
-        // _WX_domain = config.domaintest
-        _WX = config.test.weixin
-        _WX_domain = config.test.domain
-        console.log(_WX);
-    }
+    var _WX = fkpConfig.weixin;
+    var _WX_domain = fkpConfig.domain
 
     var route = this.params;
 

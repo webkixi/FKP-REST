@@ -3,7 +3,6 @@ var request = require('request');
 var path = require('path');
 var libs = require('../libs/libs');
 var qs = require('querystring');
-var config = require('../config');
 var getapi = require('../pages/common/apilist')
 
 var tmp_token_session = {}
@@ -92,17 +91,8 @@ function *getWxAccessToken(params, apii){
     var the = this;
     var date = new Date();
 
-    var _WX = config.weixin
-    // if (this.sess.argv) {
-    if (process.env.env) {
-        if (process.env.env === 'test') {
-            console.log('========== test环境 menu');
-            // _WX = config.weixintest
-            _WX = config.test.weixin
-            // _WX_domain = config.test.domain
-        }
-    }
-
+    var _WX = fkpConfig.weixin
+    
     //normal access token
     function *getAT(){
         console.log('uuuuuuuuuu get normal access token uuuuuuu');
@@ -353,7 +343,7 @@ function *req(ctx, url, param, method){
 }
 
 module.exports = {
-    apiPath: getapi(),
+    // apiPath: getapi(),
     pullApiData: pullApiData,
     pullWxData: pullWxData,
     req: req

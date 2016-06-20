@@ -2,7 +2,6 @@
 
 
 var libs = require('../../libs/libs')
-var config = require('../../config');
 var api = require('../../apis/javaapi')
 
 function my_menu(appid, domain){
@@ -90,15 +89,8 @@ function *query(){
 }
 
 function *create(){
-    var domain = config.domain;
-    var _WX = config.weixin
-    if (process.env.env === 'test') {
-        console.log('========== test环境 menu');
-        // _WX = config.weixintest
-        // domain = config.domaintest
-        _WX = config.test.weixin
-        _WX_domain = config.test.domain
-    }
+    var domain = fkpConfig.domain;
+    var _WX = fkpConfig.weixin
     var appid = _WX.appid
 
     var menu = yield my_menu(appid, domain)

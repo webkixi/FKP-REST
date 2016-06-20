@@ -11,7 +11,6 @@ var _jump = false;
 *    text: {String}
 *  }
 */
-
 var PageItem = React.createClass({
     componentDidMount: function () {
         var ele = React.findDOMNode(this),

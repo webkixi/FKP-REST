@@ -1,4 +1,5 @@
 var path = require('path');
+var fs = require('fs');
 
 //微信公众号配置文件
 var agzgz = {
@@ -6,14 +7,6 @@ var agzgz = {
     appid: 'wxec91673b97ce1463',
     appsecret: '2c2c9312a61cd9aa0eca16e2e8939cfb',
     encodingAESKey: ''
-}
-
-//微信公众号配置文件
-var cqch = {
-    token: '_cqch',
-    appid: 'yyyyyyyyyyyyyyy',
-    appsecret: 'yyyyyyyyyyyyyyy',
-    encodingAESKey: 'yyyyyyyyyyyyyyy'
 }
 
 var static_dir = './public'
@@ -58,29 +51,6 @@ var config = {
         }
     },
 
-    //部署test环境
-    // 测试需要的test环境
-    // 开发环境： ./ly dev 启动本地环境
-    // 测试环境： pm2 start index.js -- test
-    // 生产环境： pm2 start index.js
-    test: {
-        weixin: cqch,
-        domain: 'test.agzgz.com',
-        apiip: '192.168.1.100',
-        port: ':8088/v1/',
-        auth: {
-            //本地环境使用github登陆，使用 ./ly dev test
-            github:{
-                clientID: 'b1ba9181f8928e4cbfa2',
-                clientSecret: 'cb598749e899bc20514a4b9f583974fd13457550',
-                callbackURL: 'http://localhost:3000/github/callback',
-                successUrl: '/dbdemo',
-                userKey: 'githubuser',    //save this key to session
-                headers: {"user-agent": "bendi"}
-            }
-        }
-    },
-
     //静态资源路径
     static: {
 		dft:  path.join(static_dir,'/dist/'+version+'/'),
@@ -88,7 +58,7 @@ var config = {
 		js:   path.join(static_dir,'/dist/'+version+'/js'),
 		css:  path.join(static_dir,'/dist/'+version+'/css'),
 		img:  path.join(static_dir,'/dist/'+version+'/images'),
-        test: {
+        dev: {
             dft:  path.join(static_dir,'/dist/'+version+'/dev'),
             html: path.join(static_dir,'/dist/'+version+'/dev/html'),
             js:   path.join(static_dir,'/dist/'+version+'/dev/js'),
@@ -104,6 +74,26 @@ var config = {
 
 }
 
-module.exports = config
+function _config(target){
+    var _cfg = target ? target : config;
+
+    console.log('============ target');
+    console.log('============ target');
+    console.log('============ target');
+    console.log('============ target');
+    console.log('============ target');
+    console.log('============ target');
+    console.log('============ target');
+    console.log(target);
+    if (target && fs.existsSync('./configs/'+target+'.js')){
+        _cfg = require('./configs/'+target+'.js');
+        _cfg = _.extend(config, _cfg);
+        console.log(_cfg);
+    }
+
+    return _cfg;
+}
+
+module.exports = _config
 
 // 数据库配置见db/config.js

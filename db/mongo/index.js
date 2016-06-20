@@ -1,14 +1,14 @@
 var libs = require('libs/libs')
-const fs = require('fs')
+var fs = require('fs')
 var path = require('path')
-const config = require('../../config')
+var config = require('../../config')
 require('./common/connect')  //载入所有的 mongoose model
 
 var body=false;
 
 function *distribute(control, fromnode){
     var _this = this;
-    const controlPath = path.join(__dirname + '/pages/')
+    var controlPath = path.join(__dirname + '/pages/')
     var file = controlPath + control + '.js'
 
 

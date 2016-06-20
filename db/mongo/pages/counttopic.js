@@ -1,7 +1,7 @@
 // var libs = require('../../../libs/libs')
 var errors = require('libs/errors')
 var libs = require('libs/libs');
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 var errors = libs.errors;
 
 function *cTopic(oridata) {

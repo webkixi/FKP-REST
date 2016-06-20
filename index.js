@@ -8,9 +8,26 @@ require("babel-polyfill");
 
 var args = process.argv.splice(2); //取得命令行参数
 
+if( args[0] && (args[0] === 'test' || args[0].indexOf('env_')>-1 ) ){
+	process.env.env = args[0]
+}
+else
+if( args[1] && (args[1] === 'test' || args[1].indexOf('env_')>-1) ) {
+	process.env.env = args[1]
+}
+
 var koa = require('koa'),
 	path = require('path'),
 	session = require('koa-generic-session');
+
+
+global.React = require('react');
+global.ReactDomServer = require('react-dom/server');
+global._ = require('lodash');
+
+// 全局config
+global.fkpConfig = require('./config')(process.env.env)
+
 
 //自定义部分模块
 require('./modules/cache')  // lru 缓存模块
@@ -19,10 +36,6 @@ var statics = require('./modules/static'),
 	route = require('./modules/route'),
 	socketio = require('./modules/wsocket'),   //websocket
 	render = require('./modules/render');
-
-global.React = require('react')
-global.ReactDomServer = require('react-dom/server')
-global._ = require('lodash')
 
 
 //配置环境路径
@@ -33,22 +46,22 @@ require('./modules/requirePath')(base)
 //初始化
 var app = koa();
 
-//定义测试环境
-app.use(function *(next){
-	if (args[0] === 'dev' || args[0] === 'pro'){
-		if (args[1] === 'test') {
-			console.log('=========== 进入测试环境');
-			process.env.env = 'test'
-			// this.session.argv = 'test'
-		}
-	}
-	if (args[0] === 'test') {
-		console.log('=========== 进入测试环境');
-		process.env.env = 'test'
-		// this.session.argv = 'test'
-	}
-	yield next
-});
+// //定义测试环境
+// app.use(function *(next){
+// 	if (args[0] === 'dev' || args[0] === 'pro'){
+// 		if (args[1] === 'test') {
+// 			console.log('=========== 进入测试环境');
+// 			process.env.env = 'test'
+// 			// this.session.argv = 'test'
+// 		}
+// 	}
+// 	if (args[0] === 'test') {
+// 		console.log('=========== 进入测试环境');
+// 		process.env.env = 'test'
+// 		// this.session.argv = 'test'
+// 	}
+// 	yield next
+// });
 
 //静态资源 js css
 statics(args[0], app)

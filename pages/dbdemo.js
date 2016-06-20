@@ -3,7 +3,7 @@ var api = require('apis/javaapi')
 var react2html = require('modules/parseReact')
 var markdown = require('modules/markdown')
 var querystring = require('querystring')
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
 
 function *index(oridata) {

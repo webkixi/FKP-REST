@@ -1,6 +1,6 @@
 var libs = require('../../../libs/libs')
 var errors = libs.errors;
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
 function *signin(oridata) {
     libs.clog('注册登陆/'+__filename)

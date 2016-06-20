@@ -96,8 +96,8 @@ function timeAgo(ago, cb){
     if (typeof ago === 'string'){
         ago = parseFloat(ago)
     }
-    const day31 = [1,3,5,7,8,10,12]
-    const day30 = [4,6,9,11]
+    var day31 = [1,3,5,7,8,10,12]
+    var day30 = [4,6,9,11]
 
     var date = new Date(),
         agodate = new Date(ago);

@@ -8,7 +8,6 @@ var api = require('libs/api')
 var libs = require('libs/libs')
 // var AppList = require('modules/list/like_lagou');
 var listModule = require('modules/list/base_list');
-var cfg = require('root/config')
 var WS = require('modules/wsocket/index')
 
 var _listData = []

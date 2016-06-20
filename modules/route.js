@@ -9,7 +9,6 @@ var libs = require('../libs/libs')
 var render;
 var region = require('./region');
 var mms = require('./mms')
-var config = require('../config');
 var url = require('url')
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
@@ -79,12 +78,12 @@ function *createTempPath2(pms,rjson){
     else if(cat){
         cat = cat.replace(rjson.ext,'');
         route = gtpy(cat)==='Number'
-        ? config.root||'index'
+        ? fkpConfig.root||'index'
         : cat;
     }
 
     else{
-        route = config.root||'index'
+        route = fkpConfig.root||'index'
     }
     route = route.replace(rjson.ext,'')
     return route;
@@ -104,7 +103,7 @@ function init(app,mapper,rend){
 
     function *forBetter(){
         this.sess = this.session;
-        this.config = config;
+        this.config = fkpConfig;
         this.htmlRender = htmlRender;
         this.returnJson = returnJson;
         //绑定url地址解析
@@ -142,8 +141,9 @@ function init(app,mapper,rend){
                 console.log('github =========');
                 yield github.call(this,app);
             }
-        else
-            yield distribute.call(this,mapper)
+        else{
+            yield distribute.call(this, mapper)
+        }
     }
 
     router
@@ -196,7 +196,7 @@ function *getServTime(){
 function *uploader(){
     libs.clog('上传数据');
     var fileUpLoader = require('./uploader');
-    yield fileUpLoader.local.call(this,this.config.upload_root);
+    yield fileUpLoader.local.call(this, fkpConfig.upload_root);
     // var saveFileStat = yield fileUpLoader.ali.call(this,this.config.upload_root);
     // console.log('==========================');
     // console.log('==========================');

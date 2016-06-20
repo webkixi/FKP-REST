@@ -1,6 +1,6 @@
 var libs = require('../../../libs/libs')
 var errors = libs.errors;
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
 function *signis(oridata) {
     libs.clog('是否登陆/'+__filename)

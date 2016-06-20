@@ -5,7 +5,6 @@
 var path = require('path')
 var libs = require('../../libs/libs')
 var api = require('../../apis/javaapi');
-var config = require('../../config')
 // var rct = require('../../modules/parseReact');
 
 function *demoIndexData(oridata){

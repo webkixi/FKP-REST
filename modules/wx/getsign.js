@@ -6,7 +6,6 @@
 var path = require('path')
 var libs = require('../../libs/libs')
 var api = require('../../apis/javaapi');
-var config = require('../../config')
 var sign = require('./_component/sign')
 var getticket = require('./_component/getticket').getData
 // var rct = require('../../modules/parseReact');
@@ -15,14 +14,7 @@ function *demoIndexData(url){
     libs.wlog('pages/weixin/signature')
     var mtd = this.method;
     var _this = this;
-    var _WX = config.weixin
-
-    if (process.env.env === 'test') {
-            console.log('========== test环境 getsign');
-            // _WX = config.weixintest
-            _WX = config.test.weixin
-            // _WX_domain = config.test.domain
-    }
+    var _WX = fkpConfig.weixin
 
     var body = yield libs.$parse(this)
     if(!body.url)

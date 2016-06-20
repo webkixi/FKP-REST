@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var co = require("co");
 var libs = require('../../../libs/libs')
 var errors = libs.errors;
-const config = require('db/config')
+var config = require('db/config')
 
 
 var BaseTopicSchema = new Schema({

@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 var statics = require('koa-static-cache');   //npm包在windows上有问题，需要到github上拿最新的文件
-var config = require('../config')
 
 // setup views mapping .html
 // to the handlebars template engine
@@ -14,18 +13,18 @@ function setStatic(stat, app){
     console.log('-');
     console.log('-');
 
-    app.use(statics(config.upload, {
+    app.use(statics(fkpConfig.upload, {
         dynamic: true
     }))
 
     if(stat && stat==='dev'){
-        app.use(statics(config.static.test.dft,{
+        app.use(statics(fkpConfig.static.dev.dft,{
             dynamic: true,
             buffer: false,
             gzip: true
         }));
     }else{
-        app.use( statics(config.static.dft,{
+        app.use( statics(fkpConfig.static.dft,{
             dynamic: true,
             buffer: true,
             gzip: true

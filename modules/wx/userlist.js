@@ -6,7 +6,6 @@
 var path = require('path')
 var libs = require('../../libs/libs')
 var api = require('../../apis/javaapi');
-var config = require('../../config')
 // var sign = require('./_component/sign')
 // var rct = require('../../modules/parseReact');
 

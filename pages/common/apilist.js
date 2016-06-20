@@ -1,16 +1,9 @@
 // var src = "http://120.25.241.174:8080/v1/servicetype/";
 //var src = "http://192.168.4.57:8080/v1/";
-var config = require('../../config')
-
 function getApiPath() {
 
-    var ipsrc = config.apiip;
-    var port = config.port;
-    if (process.env.env === 'test') {
-        console.log('========== test环境 apilist');
-        ipsrc = config.test.apiip;
-        port = config.test.port;
-    }
+    var ipsrc = fkpConfig.apiip;
+    var port = fkpConfig.port;
     var src = ipsrc + port;
     return {
         base: src,
