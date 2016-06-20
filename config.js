@@ -76,24 +76,15 @@ var config = {
 
 function _config(target){
     var _cfg = config;
-    console.log('============ target');
-    console.log('============ target');
-    console.log('============ target');
-    console.log('============ target');
-    console.log('============ target');
-    console.log('============ target');
-    console.log('============ target');
-    console.log(JSON.stringify(target));
 
     if (target && typeof target!=='string'){
         target = false;
     }
 
-
     if (target && fs.existsSync('./configs/'+target+'.js')){
         _cfg = require('./configs/'+target+'.js');
         _cfg = _.extend(config, _cfg);
-        console.log(JSON.stringify(_cfg));
+        // console.log(JSON.stringify(_cfg));
     }
 
 

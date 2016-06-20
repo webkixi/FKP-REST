@@ -8,6 +8,7 @@ require("babel-polyfill");
 
 var args = process.argv.splice(2); //取得命令行参数
 
+process.env.env = 'default'
 if( args[0] && (args[0] === 'test' || args[0].indexOf('env_')>-1 ) ){
 	process.env.env = args[0]
 }
