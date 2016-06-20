@@ -33,21 +33,6 @@ require('./modules/requirePath')(base)
 //初始化
 var app = koa();
 
-//静态资源 js css
-statics(args[0], app)
-
-//session
-app.keys = ['keys','gzgzmixcookie'];
-app.use(session({
-	key: 'agzgz'
-}));
-
-//定义include
-// app.use(function *(next){
-// 	this.include = include
-// 	yield next;
-// })
-
 //定义测试环境
 app.use(function *(next){
 	if (args[0] === 'dev' || args[0] === 'pro'){
@@ -64,6 +49,17 @@ app.use(function *(next){
 	}
 	yield next
 });
+
+//静态资源 js css
+statics(args[0], app)
+
+
+//session
+app.keys = ['keys','gzgzmixcookie'];
+app.use(session({
+	key: 'agzgz'
+}));
+
 
 // websocket 初始化
 var server = socketio.init(app)
