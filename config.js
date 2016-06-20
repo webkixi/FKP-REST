@@ -17,7 +17,7 @@ var cqch = {
 }
 
 var static_dir = './public'
-var version = '2.7.5'
+var version = '2.8.5'
 var config = {
     version: version,
     // 默认首页

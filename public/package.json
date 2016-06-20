@@ -1,6 +1,6 @@
 {
   "name": "fkpjs",
-  "version": "2.6.1",
+  "version": "2.8.5",
   "description": "fkpjs-javascript全栈框架",
   "main": "config.js",
   "dependencies": {
