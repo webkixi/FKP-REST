@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# nodemon 参数
+ignore_file1="--ignore libs/_component/forapp.js --ignore libs/_component/clipborder.js"
+ignore_file2="--ignore libs/_component/doc.js --ignore libs/_component/tips.js --ignore libs/api.js"
+ignore_file="$ignore_file1 $ignore_file2"
+
+nodemon_ignore="$ignore_file --ignore public/ --ignore .git/ --ignore node_modules/"
+nodemon_ext="-e js,jsx,css,html"
+nodemon_harmony="--harmony index.js"
+nodemon_file="--harmony index.js"
+nodemon_watch=""
+nodemon_param="$nodemon_ext $nodemon_ignore $nodemon_harmony"
+
 # dev
 dev(){
     cd public
@@ -7,9 +19,9 @@ dev(){
 
     cd ..
     if [ $1 ]; then
-        nodemon -e js,jsx,css,html --ignore public/ --harmony index.js dev $1 &
+        nodemon $nodemon_param dev $1 &
     else
-        nodemon -e js,jsx,css,html --ignore public/ --harmony index.js dev &
+        nodemon $nodemon_param dev &
     fi
     sleep 2
 
@@ -30,7 +42,7 @@ bbdev(){
     gulp bbdev
 
     cd ..
-    nodemon -e js,jsx,css,html --ignore public/ --harmony index.js dev &
+    nodemon $nodemon_param dev &
     sleep 2
 
     cd public
@@ -43,9 +55,9 @@ pro(){
 
     cd ..
     if [ $1 ]; then
-        nodemon -e js,jsx,css,html --ignore public/ --harmony index.js pro $1 &
+        nodemon $nodemon_param pro $1 &
     else
-        nodemon -e js,jsx,css,html --ignore public/ --harmony index.js pro &
+        nodemon $nodemon_param pro &
     fi
     sleep 2
 
@@ -85,7 +97,7 @@ ngdev(){
     cd public
     gulp ngdev
     cd ..
-    nodemon -e js,jsx,css,html --ignore public/ --harmony index.js ngdev &
+    nodemon $nodemon_param ngdev &
 }
 
 bbdemo(){
@@ -141,7 +153,7 @@ install(){
 }
 
 server(){
-	nodemon -e js,jsx,css,html --ignore public/ --harmony index dev
+	nodemon $nodemon_param dev
 }
 
 build(){
