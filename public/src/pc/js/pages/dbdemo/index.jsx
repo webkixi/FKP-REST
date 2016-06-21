@@ -46,10 +46,8 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
     else {
         //初始化获取用户信息
         //页面载入请求用户信息
-        api.req(
-            '/$signin',
-            sign_resaults
-        )
+        api.req( '/$signin' )
+        .then(sign_resaults)
 
         //注册信息
         //signin返回信息回调
@@ -82,15 +80,14 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
     $('body').on('addTopic', function(e, args){
         //添加文章 或者 修改文章
         //ajax
-        var content = args.cnt,
-            upid = false,
-            editor = args.editor;
-        if (content.length){
-            if (libs.strLen(content)>15) {
+        var upid = false,
+            editor = args.editor;   // 编辑器
+        if (args.cnt.length){
+            if (libs.strLen(args.cnt)>15) {
                 if (args.upid){
-                  upid = args.upid
+                    upid = args.upid
                 }
-                var postdata = {cnt: content};
+                var postdata = {cnt: args.cnt};
 
                 //更新文章
                 if (upid){
@@ -188,7 +185,8 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
             tag: p_tag,
             cat: p_cat
         }
-        api.req('/$listtopic', params, function(data){
+        api.req('/$listtopic', params)
+        .then(function(data){
             listTopic_resaults(data)
             if (_.isFunction(cb)){
                 cb()

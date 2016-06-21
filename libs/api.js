@@ -47,25 +47,56 @@ function req( api, param, cb ){
         url = url.replace('//', '/')
     }
 
-    $.ajax({
+    var dtd = $.Deferred();
+
+    function ccb(data, status, xhr){
+        if( status === 'success' ) {
+            if (data && typeof data === 'string'){
+                data = JSON.parse(data)
+            }
+            if( cb && typeof cb==='function' ){
+                cb( data, status, xhr )
+            }
+            else{
+                dtd.resolve(data, status, xhr);
+                return dtd.promise()
+            }
+        }
+    }
+
+    return $.ajax({
         url: url,
         type: "POST",
         data: param,
         timeout: 3000,
         dataType: "json",
-        success:function(body, status, xhr){
-            if( status === 'success' ) {
-                if (body && typeof body === 'string')
-                    body = JSON.parse(body)
-                if (cb && typeof cb === 'function'){
-                    cb( body, status, xhr );
-                }
-            }
-        },
-        error:function(){
-            tips('网络不给力','center')
-        }
     })
+    .done(ccb)
+    .error(function(xhr,status,statusText){
+        tips('网络不给力','center')
+        console.log('错误状态码：'+xhr.status+"<br>时间："+xhr.getResponseHeader('Date'))
+        dtd.reject()
+    })
+
+    // return $.ajax({
+    //     url: url,
+    //     type: "POST",
+    //     data: param,
+    //     timeout: 3000,
+    //     dataType: "json",
+    //     success:function(body, status, xhr){
+    //         if( status === 'success' ) {
+    //             if (body && typeof body === 'string')
+    //                 body = JSON.parse(body)
+    //             if (cb && typeof cb === 'function'){
+    //                 cb( body, status, xhr );
+    //             }
+    //         }
+    //     },
+    //     error:function(){
+    //         tips('网络不给力','center')
+    //     }
+    // })
 }
 
 
