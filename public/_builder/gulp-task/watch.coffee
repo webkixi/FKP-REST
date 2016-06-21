@@ -53,10 +53,7 @@ module.exports = (gulp,$,slime,env,port)->
         # 监控js文件
         gulp.watch config.dirs.watch_src + '/js/?(pages)/**/*.?(coffee|js|jsx|cjsx)'
         .on 'change', (event) ->
-            console.log 'js watch'
-            console.log 'js watch'
-            console.log 'js watch'
-            console.log event.path
+            console.log event.type
             dirname = path.dirname(event.path)
             slime.build( dirname, true, {'env': env, watch: true}, reload)
 

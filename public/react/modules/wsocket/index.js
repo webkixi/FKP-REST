@@ -1,5 +1,5 @@
 var io = require('socket.io-client')
-var socket = io();
+var socket = io('http://58.96.191.90:8070');
 
 // sample
 // in your js file `var xxx = require("modules/websocket/index")`
