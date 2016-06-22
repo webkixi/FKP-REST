@@ -481,5 +481,5 @@
         }
     }
 
-    window.SA = storeAct;
+    window.SA = window.SAX = storeAct;
 })();
