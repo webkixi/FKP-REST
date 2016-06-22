@@ -1,41 +1,58 @@
-var react2html = require('modules/parseReact')
+"use strict";
 
-function *hello(oridata) {
+import react2html from 'modules/parseReact'
+import control from 'modules/control'
 
-    var method = this.method;
+var _props = {
+    // container: '',
+    // globalName: '_Pagi',
+    itemMethod: false,
+    listMethod: false,
+    itemClass: '',
+    listClass: 'pagenation wid-12',
+    data: {
+        total: 60,
+        per:   20,
+        url:   '/',
+        query: 'page='
+    },
+    begin: { start: 0, off: 5 }
+}
 
-    if (method === 'GET') {
-        oridata.fkp = 'FKP-REST'
-        var _props = {
-            // container: '',
-            // globalName: '_Pagi',
-            itemMethod: false,
-            listMethod: false,
-            itemClass: '',
-            listClass: 'pagenation wid-12',
-            data: {
-                total: 60,
-                per:   20,
-                url:   '/',
-                query: 'page='
-            },
-            begin: { start: 0, off: 5 }
-        }
 
-        var reactHtml = yield react2html('react/modules/pagination/pagi', _props)
+async function getHtml(){
+    var reactHtml;
+    try {
+        console.log(this);
+        this.odata.pagi = '';
+        reactHtml = await react2html('react/modules/pagination/pagi', _props)
         reactHtml[0] = '<div class="pagi" id="pagi" >'+reactHtml[0]+'</div>'
-        oridata.pagi = reactHtml[0]
-        return oridata;
+        this.odata.pagi = reactHtml[0]
+    }
+    catch (e) {
+        console.log(e);
+    }
+    finally {
+        return this.odata;
     }
 
-    if (method === 'POST') {
+}
+
+
+function *hello(oridata){
+    let hlo = control(this, oridata);
+
+    hlo._get_ = function(){
+        return getHtml.call(hlo);
+    }
+
+    hlo._post_ = function(){
         var post_data = '我是post数据'
         oridata.pdata = post_data;
         return oridata;
     }
 
+    return hlo.run()
 }
 
-module.exports = {
-    getData : hello
-}
+export {hello as getData}

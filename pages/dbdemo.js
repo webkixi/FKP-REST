@@ -1,10 +1,8 @@
-var libs = require('libs/libs')
 var api = require('apis/javaapi')
 var react2html = require('modules/parseReact')
 var markdown = require('modules/markdown')
 var querystring = require('querystring')
 var mongoose = require("mongoose");
-
 
 function *index(oridata) {
     console.log('========= 列表页/'+__filename+' =========\n\n');
