@@ -1,4 +1,3 @@
-var lodash = window._
 
 
 // guid
@@ -210,7 +209,6 @@ module.exports = {
     getObjType: getObjType,
     type: getObjType,
     preventDefault: preventDefault,
-    lodash: lodash,
     os: os,
     inherits: inherits
 }
