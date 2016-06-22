@@ -7,6 +7,8 @@ module.exports = {
     "10003": {error: "10003", message: "该用户名已被注册"},
     "10004": {error: "10004", message: "两次密码不匹配"},
     "10005": {error: "10005", message: "本站使用github第三方登陆，请先登录"},
+    "10006": {error: "10006", message: "请用md语法，'# ...'添加文章标题"},
+    "10007": {error: "10007", message: "文章字数太少，要求输入不少于50字(含中/英文)"},
 
     // models/topic
     "20000": {error: "20000", message: "修改文章参数不正确"},

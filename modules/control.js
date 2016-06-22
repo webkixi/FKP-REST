@@ -4,7 +4,7 @@ function Control(ctx, oridata){
     this.ctx = ctx || null
     this._get_ = false
     this._post_ = false
-    this.odata = oridata || {}
+    this.data = oridata || {}
 }
 
 Control.prototype = {

@@ -1,6 +1,8 @@
 var marked = require('marked')
 var render = require('./common/mdrender')
-var libs = require('../libs/libs')
+function strLen(str){
+    return str.replace(/[^\x00-\xff]/g,"aaa").length;
+}
 
 function *mkmd(md_raw, templet){
     console.log('markdown解析');
@@ -48,11 +50,20 @@ function *mkmd(md_raw, templet){
         }
 
         //标题
-        var title = md_raw.match(/#([\s\S]*?)\n/)
-        if (title) {
-            title = title[1].replace(/ \{(.*)\}/g, '')  // 清除自定义属性，如{"id":"xxx"}
-            mdcnt.mdcontent.title = title
+        var _title = md_raw.match(/#([\s\S]*?)\n/);
+        if (_title) {
+            mdcnt.mdcontent.title = _title[1].replace(/ \{(.*)\}/g, '');  // 清除自定义属性，如{"id":"xxx"}
         }
+
+        var _desc = md_raw.replace(_title, '');
+        if (strLen(_desc) < 30){
+            mdcnt.mdcontent.desc = false
+        }
+        else {
+            mdcnt.mdcontent.desc = true;
+        }
+
+
 
         //图片部分
         // var re_img = /<img.*src\s*=\s*[\"|\']?\s*([^>\"\'\s]*)/i

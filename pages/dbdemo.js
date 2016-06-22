@@ -19,7 +19,7 @@ function *index(oridata) {
             oridata.topper = '<a href="javascript:void(0)" id="edit">发布</a>'
         }
         else {
-            oridata.topper = '<a href="/github/sign" id="reg">注册/登陆</a>'
+            oridata.topper = '<a href="/github/sign" id="reg">注册/登录</a>'
         }
 
         // 处理文章详情数据

@@ -2,6 +2,10 @@ var libs = require('../../../libs/libs')
 var errors = libs.errors;
 var mongoose = require("mongoose");
 
+function strLen(str){
+    return str.replace(/[^\x00-\xff]/g,"aaa").length;
+}
+
 function *addtopic(oridata) {
     libs.clog('添加文章/'+__filename)
     var method = this.method;
@@ -36,6 +40,15 @@ function *addtopic(oridata) {
                     }
                 }
                 _tags = _.map(_tags, _.trim);
+
+                if (!parsedMd.mdcontent.title){
+                    return errors['10006'];
+                }
+
+                if (!parsedMd.mdcontent.desc){
+                    return errors['10007'];
+                }
+
                 var ntopic = {
                     title: parsedMd.mdcontent.title,
                     content: body.cnt,

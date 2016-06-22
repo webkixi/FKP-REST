@@ -31,6 +31,15 @@ function *addtopic(oridata) {
                 var marked = require('modules/markdown')
                 var parsedMd = yield marked(body.cnt,{mdcontent:{}})
                 var _tags = parsedMd.mdcontent.tags||parsedMd.mdcontent.tag;
+
+                if (!parsedMd.mdcontent.title){
+                    return errors['10006'];
+                }
+
+                if (!parsedMd.mdcontent.desc){
+                    return errors['10006'];
+                }
+
                 if (_tags.indexOf(',')>0){
                     _tags = _tags.split(',')
                 }
