@@ -7,7 +7,7 @@ ignore_file="$ignore_file1 $ignore_file2"
 
 nodemon_ignore="$ignore_file --ignore public/ --ignore .git/ --ignore node_modules/"
 nodemon_ext="-e js,jsx,css,html"
-nodemon_harmony="--harmony index.js"
+nodemon_harmony="index.js"
 nodemon_file="--harmony index.js"
 nodemon_watch=""
 nodemon_param="$nodemon_ext $nodemon_ignore $nodemon_harmony"
