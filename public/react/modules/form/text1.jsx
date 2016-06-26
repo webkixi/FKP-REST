@@ -188,7 +188,7 @@ function text(d, e, c){
 }
 
 text.server = function(){
-    return Input;
+    return Input();
 }
 
 module.exports = text
