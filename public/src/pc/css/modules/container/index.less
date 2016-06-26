@@ -1,0 +1,63 @@
+@import "../../global/_base/index";
+// @import "../../_copy2dist/animate";
+// @import "../../_copy2dist/iconfont";
+
+// 一般用于pc
+// 或者用于响应式
+// container作为最高级容器
+// 不要在container上任意插入其他容器类
+.container{
+    width: 1190px;
+    position: relative;
+    margin: 0 auto;
+}
+
+// 将以下class插入body的class
+.s990{
+    .container{
+        width: 100%;
+    }
+}
+.s1024{
+    .container{
+        width: 990px;
+    }
+}
+.s1440{
+    .container{
+        width: 1190px;
+    }
+}
+
+
+@media screen{
+
+    @media (min-width: 1440px){
+        .container{
+            width: 1190px;
+        }
+    }
+    @media (max-width: 1440px){
+        .container{
+            width: 1190px;
+        }
+    }
+    @media (max-width: 1023px){
+        .container{
+            width: 900px;
+        }
+    }
+    @media (max-width: 1023px){
+        .container{
+            width: 900px;
+        }
+    }
+    @media (max-width: 768px){
+        .container{
+            width: 100%;
+        }
+    }
+
+
+
+}
