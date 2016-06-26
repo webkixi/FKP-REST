@@ -11,15 +11,26 @@ var Radio = React.createClass({
 	},
 	//插入真实 DOM之前
 	componentWillMount:function(){
-        this.names = [],
-        this.ids = [],
-        this.titles = [],
-        this.values = [],
+        this.names = [];
+        this.ids = [];
+        this.titles = [];
+        this.values = [];
+        this.fills = [];
+        this.descs = [];
         this.fills = [];
         var checked;
         var _cls = 'fkp-radio-box'
 
-        if (this.props.data){
+        var me = this;
+        var eles= this.props.data;
+
+        if (_.isArray(eles)){
+            eles.map(function(item, i){
+                me.fills.push( mk_fill(item) )
+            })
+        }
+
+        if (_.isObject(eles)){
             var data = this.props.data
 
             if (data.name)
@@ -29,18 +40,20 @@ var Radio = React.createClass({
                 this.ids = _.isArray(data.id) ? data.id : ''
 
             if (data.title)
-                this.titles = _.isArray(data.title) ? data.title : ['notitle']
+                this.titles = _.isArray(data.title) ? data.title : ['']
 
             if (data.value)
                 this.values = _.isArray(data.value) ? data.value : ['novalue']
 
+            if (data.desc)
+               this.descs = _.isArray(data.desc) ? data.desc : ['']
+
             if (this.names.length){
-                var names = this.names
-                var me = this;
-                names.map(function(item, i){
+                this.names.map(function(item, i){
                     var _id = me.ids[i] ? me.ids[i] : '',
-                        _title = me.titles[i] ? me.titles[i] : 'notitle',
+                        _title = me.titles[i] ? me.titles[i] : '',
                         _value = me.values[i] ? me.values[i] : 'novalue',
+                        _desc  = me.descs[i] ? me.descs[i] : '',
                         _input = [],
                         _active = ''
                     if (_value
@@ -54,9 +67,13 @@ var Radio = React.createClass({
                     else {
                         checked = false;
                     }
-                    if (_title){
+                    if (item){
                         _input.push(
-                            <lable className="radioItem">
+                            <lable key={'radio'+i} className="radioItem">
+                                {(function(){
+                                    if (_title)
+                                        return <span className="fkp-title">{_title}</span>
+                                })()}
                                 {(function(){
                                     if (checked){
                                         return <input defaultChecked type="radio" name={item} id={_id} value={_value}/>
@@ -66,7 +83,10 @@ var Radio = React.createClass({
                                     }
                                 })()}
                                 <span className="fkp-radio-box" />
-                                <span className="fkp-lable">{_title}</span>
+                                {(function(){
+                                    if (_desc)
+                                        return <span className="fkp-desc">{_desc}</span>
+                                })()}
                             </lable>
                         )
                     }
@@ -115,48 +135,6 @@ var Radio = React.createClass({
             return (
                 <div className="radioGroup">
                     {fill}
-                </div>
-            )
-        }
-        else {
-            var checked, _id='', _val='novalue', _name='noname', _title='notitle';
-            if (this.props.id)
-                _id = this.props.id
-
-            if (this.props.name)
-                _name  = this.props.name
-
-            if (this.props.value)
-                _val = this.props.value
-
-            if (this.props.title)
-                _title = this.props.title
-
-
-            if (_val
-            && _val!=='novalue'
-            && _val.indexOf('-')===0){
-                checked = true;
-                _val = _val.replace('-','')
-            }
-            else {
-                checked = false;
-            }
-
-            return (
-                <div className="radioGroup">
-                    <lable className="radioItem">
-                        {(function(){
-                            if (checked){
-                                return <input defaultChecked type="radio" name={_name} id={_id} value={_val}/>
-                            }
-                            else {
-                                return <input type="radio" name={_name} id={_id} value={_val}/>
-                            }
-                        })()}
-                        <span className="fkp-radio-box" />
-                        <span className="fkp-lable">{_title}</span>
-                    </lable>
                 </div>
             )
         }

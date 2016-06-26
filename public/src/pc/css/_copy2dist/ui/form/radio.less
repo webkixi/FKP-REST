@@ -1,55 +1,87 @@
 @import "../../iconfont.less";
 .radioGroup{
     font-size: 16px;
+    display:-moz-box;
     display:-webkit-box;
-    lable{
+    display:flex;
+    lable, .radioItem{
         position: relative;
+        display:-moz-box;
         display:-webkit-box;
+        display:flex;
+        margin-right:1em;
+        -moz-box-align:center;
         -webkit-box-align:center;
-        margin-right:.625em;
-        span{
-            display: block;
-            &.fkp-lable{
-                margin-left: .3125em;
-                font-size: .875em;
+        -o-box-align:center;
+        box-align:center;
+    }
+    input{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        border: 0;
+        margin: 0;
+        z-index: 999;
+        &:checked{
+            &+.fkp-radio-box:after{
+                // -webkit-transform:scale(0);
+                // -moz-transform:scale(0);
+                transform: scale(0);
             }
-            &.fkp-radio-box{
-                font-family: iconfont!important;
-                font-size: 1em;
-                &:after{
-                    content: '\e614';
-                    display:block;
-                    color:#6e6e6e;
-                }
-                &:before{
-                    content: '\e613';
-                    display:block;
-                    color:#ec6c00;
-                    -webkit-transform:scale(0);
-                    -webkit-transition:-webkit-transform .2s;
-                    position:absolute;
-                    left:0;
-                    top:0;
-                }
+            &+.fkp-radio-box:before{
+                // -webkit-transform:scale(1);
+                // -moz-transform:scale(1);
+                transform: scale(1);
             }
         }
-        input{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            border: 0;
-            margin: 0;
-            &:checked{
-                &+.fkp-radio-box:after{
-                    -webkit-transform:scale(0);
-                }
-                &+.fkp-radio-box:before{
-                    -webkit-transform:scale(1);
-                }
+    }
+    span{
+        display: block;
+        font-size: .875em;
+
+        /* = fkp-title */
+        &:first-child{
+            margin-right: .3125em;
+        }
+
+        /* = fkp-desc */
+        &:last-child{
+            margin-left: .3125em;
+        }
+        &.fkp-radio-box{
+            position: relative;
+            font-family: iconfont!important;
+            font-size: 1em;
+            &:after{
+                content: '\e618';
+                display:block;
+                color:#d6d6d6;
+                padding-top: 0.1em;
+            }
+            &:before{
+                content: '\e617';
+                display:block;
+                position:absolute;
+                padding-top: 0.1em;
+                left:0;
+                top:0;
+                color:#66afe9;
+                // -webkit-transform:scale(0);
+                // -moz-transform:scale(0);
+                transform: scale(0);
+                // -webkit-transition:-webkit-transform .2s;
+                // -moz-transition:-moz-transform .2s;
+                transition: transform .2s
             }
         }
+    }
+    .fkp-title{
+
+    }
+    .fkp-desc{
+
     }
 }

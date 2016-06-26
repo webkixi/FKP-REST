@@ -1,39 +1,128 @@
 @import "../../iconfont.less";
 input,button,select,textarea{outline:none}
+@input-height: 2.8em;
 .inputGroup{
-    font-size: 16px;
-    position: relative;
-    .inputItem{
+    lable, .inputItem{
         position: relative;
         display: block;
         padding: 0.4em;
-        input{
-
+    }
+    input{
+        width: 16em;
+        height: @input-height;
+        &[type=button]{
+            width: 5em;
         }
-        span{
-            display: inline-block;
-            &:first-child{
-                margin-right: 0.6em;
+    }
+    span{
+        position: relative;
+        display: inline-block;
+        vertical-align: -webkit-baseline-middle;
+        vertical-align: middle;
+        font-size: 0.9em;
+
+        // fkp-title
+        &:first-child{
+            margin-right: 0.6em;
+        }
+
+        // fkp-desc
+        &:last-child{
+            margin-left: 0.6em;
+        }
+
+        // for other
+        &.fkp-input-box{
+            margin-left: 0;
+        }
+    }
+    .fkp-title{
+
+    }
+    .fkp-desc{
+
+    }
+    // 用作其他用途
+    // 比如在inpunt上加一个小图标
+    .fkp-input-box{
+        font-size: 16px;
+        position: relative;
+        font-family:"iconfont" !important;
+        font-size:16px;
+        font-style:normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.2px;
+        -moz-osx-font-smoothing: grayscale;
+        &:after{
+            content: '\e60c';
+            display:block;
+            color:#d6d6d6;
+            padding-top: 0.1em;
+            position:absolute;
+            font-size: 0.4em;
+            right:0.7em;
+            top:-1.4em;
+            color: red;
+        }
+    }
+
+    // 下拉菜单 fkp-dropdown 的缩写
+    .fkp-dd{
+        width: 15.5em;
+        height: @input-height;
+        line-height: 1.9;
+        position: relative;
+        &+span[class="fkp-input-box"]{
+            display: none;
+        }
+        /* 下拉菜单选项 */
+        ul{
+            display: none;
+            background: #fff;
+            position: absolute;
+            z-index: 999;
+            left: 0;
+            top: @input-height;
+            width: 15.4em;
+            list-style: none;
+            border: 1px solid rgb(190, 190, 190)d;
+            border-radius: 5px;
+            li, .fkp-dd-option{
+                padding: 0 0.5em;
+                height: 2em;
+                line-height: 2em;
+                &:hover{
+                    cursor: pointer;
+                    background-color: rgb(245, 249, 254);
+                }
             }
-            &:last-child{
-                margin-left: 0.6em;
-            }
-            &.fkp-input-box{
-                margin-left: 0;
-            }
-        }
-        .fkp-title{
 
         }
-        .fkp-desc{
-
+        &:after{
+            content: '\e609';
+            display:block;
+            color:#d6d6d6;
+            padding-top: 0.1em;
+            position:absolute;
+            right:0.5em;
+            top:0.35em;
         }
-        .fkp-input-box{
-
-        }
+        // &:before{
+        //     content: '\e617';
+        //     display:block;
+        //     position:absolute;
+        //     padding-top: 0.1em;
+        //     left:0;
+        //     top:0;
+        //     color:#66afe9;
+        //     -webkit-transform:scale(0);
+        //     -webkit-transition:-webkit-transform .2s;
+        // }
     }
 }
 
+
+/* input的默认样式，来自bootstrap */
 .form_control{
     display: inline-block;
     // width: 100%;
@@ -59,7 +148,13 @@ input,button,select,textarea{outline:none}
     }
 }
 
+
+/*
+    button 的默认样式
+    来自bootstrap
+*/
 .btn{
+    width: 5em;
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -89,5 +184,8 @@ input,button,select,textarea{outline:none}
         color: #333;
         background-color: #e6e6e6;
         border-color: #8c8c8c;
+    }
+    &+span[class="fkp-input-box"]{
+        display: none;
     }
 }
