@@ -98,7 +98,8 @@ var tmpApp = React.createClass({
 				}
 			});
 			if(items.length){
-				var group = _.uniqueId('group-')
+				// var group = _.uniqueId('group-')
+				var group = 'group-ul'
 				return <ul data-group={group} key={_.uniqueId('ul-')} className={cls} style={sty}>
 					{items}
 				</ul>
