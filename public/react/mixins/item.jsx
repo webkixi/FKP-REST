@@ -13,33 +13,27 @@ function itemMixin(){
     	    };
     	},
         componentWillMount: function(){
-    		if(this.props.itemIcon){
-    			if(typeof this.props.itemIcon!=='string'){
-                    this.setState({
-                        icon: this.props.itemIcon
-                    })
-                }else{
-                    this.setState({
-                        icon: <i>{'>'}</i>
-                    })
-                }
-    		}
+            this.intent = this.props.intent || [];
+            this.intent.ctx = this;
         },
         componentDidMount: function() {
             //React.findDOMNode(this) // var box = React.findDOMNode(this.refs.popbox);
+            var self = this;
             var that = React.findDOMNode(this);
 
             if(this.props.itemDefaultMethod){
     			var dMtd = this.props.itemDefaultMethod;
     			if(typeof dMtd==='function'){
-    				dMtd.call(that,this);
+    				dMtd.call(that, this.intent);
     			}
     		}
 
     		if(this.props.itemMethod){
     			var mtd = this.props.itemMethod;
     			if(typeof mtd==='function'){
-    				mtd.call(React.findDOMNode(this),this);
+                    setTimeout(function(){
+                        mtd.call(that, self.intent);
+                    }, 17)
     			}
     		}
 
