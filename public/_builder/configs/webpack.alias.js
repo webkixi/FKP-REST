@@ -16,6 +16,7 @@ module.exports = {
     'widgets': path.resolve(path.join(__dirname, '../../react/widgets')),
     // 'mixins': path.resolve(path.join(__dirname, '../../', configs.dirs.mixins)),
     'mixins': path.resolve(path.join(__dirname, '../../react/mixins')),
+    'react': path.resolve(path.join(__dirname, '../../react')),
     // 'libs': path.resolve(path.join(__dirname, '../../src/pc/js/libs')),
     'libs/libs': path.resolve(path.join(__dirname, '../../../libs/libs_client')),
     'libs': path.resolve(path.join(__dirname, '../../../libs'))
