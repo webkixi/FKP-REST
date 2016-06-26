@@ -1,14 +1,8 @@
 var router = require('libs/router').router;
 var pages = require('libs/pages');
-var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
-var api = require('libs/api');
 var _user = SA.get('USER')
-var valide = libs.formValide;
 var VTabs = require('modules/list/tabs_list');
-
-var _page = {}
-
 
 //当前页公共变量
 var _page = {}
@@ -98,13 +92,6 @@ var list_funs = {
 function start(name){
     return pages.new({
         boot: function(self){
-            api.req('/myOrderList', {login: _user.login}, function(data){
-                console.log('/myOrderList ------------- ');
-                console.log(data);
-                _page = {
-                    data: data
-                }
-            })
         },
         trigger:function(){
             this.libs.changeTitle('我的订单');    //更改当前页面标题

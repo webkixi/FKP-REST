@@ -1,3 +1,5 @@
+// 暂时没有启用
+
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {

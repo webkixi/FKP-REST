@@ -2,8 +2,6 @@ var router = require('libs/router').router;
 var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
-var api = require('libs/api');
-var valide = libs.formValide;
 var Radio = require('modules/form/radio1')(true)
 var List = require('modules/list/load_list')(true, 'address_list');
 
@@ -24,28 +22,22 @@ var bindEvent = function(){
         login: '9bfb66cc96a242efaa6014f03b15d5aa',
         method: 'get'
     }
-    api.req('userAddressList', addresslist_post, function(data){
-        if(data){
-            data.map(function(item, i){
-                _addresslist_li.push(
-                    <div>
-                        <em>{item.contact}</em>
-                        <p>{item.fullAddress}</p>
-                        <div className="bar">
-                            <div className="part part-left">
-                                <Radio name="default_address" value='-1' title="默认地址" itemMethod={radioClick} />
-                            </div>
-                            <div className="part part-right">
-                                <span className="btn">编辑</span>
-                                <span className="btn">删除</span>
-                            </div>
-                        </div>
-                    </div>
-                )
-            })
-            SA.setter('address_list',{data: _addresslist_li})
-        }
-    })
+    _addresslist_li.push(
+        <div>
+            <em>你好这是第一个地址</em>
+            <p>广州市君华香柏广场</p>
+            <div className="bar">
+                <div className="part part-left">
+                    <Radio name="default_address" value='-1' title="默认地址" itemMethod={radioClick} />
+                </div>
+                <div className="part part-right">
+                    <span className="btn">编辑</span>
+                    <span className="btn">删除</span>
+                </div>
+            </div>
+        </div>
+    )
+    SA.setter('address_list',{data: _addresslist_li})
 };
 
 

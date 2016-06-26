@@ -2,10 +2,7 @@ var router = require('libs/router').router;
 var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
-// var getLocation = require('modules/weixin/getLocation');
 
-var api = require('libs/api');
-var valide = libs.formValide;
 
 
 //当前页公共变量

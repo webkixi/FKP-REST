@@ -4,7 +4,6 @@ var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
 
 var radio = require('modules/form/radio1')
-var api = require('libs/api')
 
 
 var bindEvent = function(){

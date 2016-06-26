@@ -3,8 +3,6 @@ var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
 var _user = SA.get('USER')
-var api = require('libs/api');
-var valide = libs.formValide;
 
 
 //当前页公共变量
@@ -64,11 +62,6 @@ var Show = React.createClass({
 function start(name){
     return pages.new({
         boot: function(self){
-            api.req('/listCardByPage', {login: _user.login}, function(data){
-                console.log('/listCardByPage ------------- ');
-                console.log(data);
-                _page = {data: data}
-            })
         },
         trigger:function(self){
             this.libs.changeTitle('我的卡券');    //更改当前页面标题
