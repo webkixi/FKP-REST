@@ -11,7 +11,7 @@ var _props = {
     itemClass: '',
     listClass: 'pagenation wid-12',
     data: {
-        total: 60,
+        total: 200,
         per:   20,
         url:   '/',
         query: 'page='
@@ -23,17 +23,17 @@ var _props = {
 async function getHtml(){
     var reactHtml;
     try {
-        console.log(this);
-        this.odata.pagi = '';
+        // console.log(this);
+        this.data.pagi = '';
         reactHtml = await react2html('react/modules/pagination/pagi', _props)
         reactHtml[0] = '<div class="pagi" id="pagi" >'+reactHtml[0]+'</div>'
-        this.odata.pagi = reactHtml[0]
+        this.data.pagi = reactHtml[0]
     }
     catch (e) {
         console.log(e);
     }
     finally {
-        return this.odata;
+        return this.data;
     }
 
 }

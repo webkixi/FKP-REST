@@ -207,25 +207,10 @@ var pagenation = {
 	}
 }
 
+
 function actRct( storeName ){
-
-    // for server
-    if (storeName===true){
-        return React.createClass( pagenation );
-    }
-
-    // for client
-    _storeName = storeName||'_Pagi';
-    var _rct = _.cloneDeep(pagenation);
-
-	if( _rct.mixins && _rct.mixins.length ){
-		_rct.mixins.push( Store( _storeName ))
-    }
-	else{
-		_rct.mixins = [ Store( _storeName ) ]
-    }
-
-    return React.createClass( _rct );
+    _storeName = storeName;
+    return require('../../../util')(storeName, pagenation)
 }
 
 module.exports = actRct;
