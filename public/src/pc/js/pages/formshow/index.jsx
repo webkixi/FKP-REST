@@ -11,7 +11,12 @@ var _config = {
     value: ['1', '2', '3']
 }
 
-Radios(_config, 'for-radio');
+window.kkk = Radios(_config, {
+    container: 'for-radio',
+    itemMethod: function(){
+        // console.log(this);
+    }
+});
 
 
 
@@ -39,8 +44,7 @@ var _input_config = [
     {
         input:{
             type: 'radio',
-            name: ['xxx', 'xxx', 'xxx'],
-            id: ['xxx'],
+            name: ['ddd', 'ddd', 'ddd'],
             title: ['选项1', '选项2', '选项3'],
             value: ['1', '2', '3']
         }
@@ -48,8 +52,7 @@ var _input_config = [
     {
         input:{
             type: 'radio',
-            name: ['xxx', 'xxx', 'xxx'],
-            id: ['yyy'],
+            name: ['sss', 'sss', 'sss'],
             desc: ['选项4', '选项5', '选项6'],
             value: ['4', '5', '6']
         }
@@ -57,7 +60,6 @@ var _input_config = [
 
     // ===========================
     'Input及联动',
-
 
     {
         input:{
@@ -116,6 +118,19 @@ var _input_config = [
                 })
             }
         }
+    },
+
+    {
+        input:{
+            name:      'other',
+            id:        'other',
+            value:     null,
+            type:      'text',
+            placehold: '我不会联动'
+        },
+        title:     '其他',
+        class:     null,
+        desc:      '*其他'
     },
 
     {
@@ -211,7 +226,12 @@ var _input_config = [
     }
 ]
 
-Inputs(_input_config, 'for-input', function(){
+window.bbb = Inputs(_input_config,
+{
+    container: 'for-input',
+    theme: 'index'
+},
+function(){
     _input_config[4].desc= '我是被SAX重新渲染过的'
     _.delay(function(){
         libs.msgtips('SAX将启动渲染', 'warning')

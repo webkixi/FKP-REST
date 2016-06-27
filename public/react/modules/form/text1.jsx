@@ -44,21 +44,31 @@ var render = React.render;
 */
 
 
-function text(d, e, c){
-    // 只需要react结构
-    // 比如服务器端
-    if (d === true)
-        return Input();
+function text(data, opts, c){
 
+    var noop = false,
+        dft = {
+            container: '',
+            theme:      'index',
+            itemMethod: noop
+        }
+
+    dft = _.assign(dft, opts)
+
+    if (!dft.container) return false;
+    if (data) {
+        dft.data = data
+    }
 
     var inject = libs.inject().css;
-    var _css = d.theme ? d.theme :'index'
     inject([
-        '/css/t/ui/form/'+_css+'.css'
+        '/css/t/ui/form/'+dft.theme+'.css'
         ,'fkp_form_input'
     ])
 
     var _fun = function(data, ele, cb){
+        this.data = data
+        this.value = {};
         this.ipt;
         var self = this;
 
@@ -68,7 +78,7 @@ function text(d, e, c){
             self.ipt = this;
 
             // 引入select的插件
-            require('./_plugin/select')(this, intent)
+            require('./_plugin/select')(self, intent)
 
             if (cb&&typeof cb==='function')
                 cb.call(this)
@@ -87,7 +97,28 @@ function text(d, e, c){
         )
     }
 
-    return new _fun(d, e, c)
+    _fun.prototype = {
+        getValue: function(){
+            var values = {}
+            if(_.isArray(this.data)){
+                this.data.map(function(item, i){
+                    if (_.isObject(item)){
+                        var _isRadioOrCbx = ['radio','checkbox'].indexOf(item.input.type)
+                        var _item = _isRadioOrCbx > -1
+                                    ? $('input[name='+item.input.name[0]+']:checked')
+                                    : $('#'+item.input.id)
+
+                        _isRadioOrCbx>-1
+                        ? values[item.input.name[0]] = _item.attr('data-value')|| _item.val()
+                        : values[item.input.id] = _item.attr('data-value')|| _item.val()
+                    }
+                })
+                return values;
+            }
+        }
+    }
+
+    return new _fun(dft.data, dft.container, c)
 }
 
 text.server = function(){

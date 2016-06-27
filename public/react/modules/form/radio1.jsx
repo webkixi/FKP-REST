@@ -10,24 +10,31 @@ var render = React.render;
 // }
 // radio(radiodata_waterCard, 'radiodata_waterCard')
 
-function radio(d, e, c){
-    // 只需要react结构
-    // 比如服务器端
-    if (d === true)
-        return Input();
+function radio(data, opts, c){
 
-    var inject = libs.inject().css;     
-    var _css = d.theme ? d.theme :'radio'
+    var noop = false,
+        dft = {
+            container: '',
+            theme:      'radio',
+            itemMethod: noop
+        }
+
+    dft = _.assign(dft, opts)
+
+    if (!dft.container) return false;
+    if (data) {
+        dft.data = data
+    }
+
+    var inject = libs.inject().css;
     inject([
-        '/css/t/ui/form/'+_css+'.css'
+        '/css/t/ui/form/'+dft.theme+'.css'
         ,'formradio'
     ])
-    delete d.theme
 
     var _fun = function(data, ele, cb){
         this.value;
         this.ipt;
-        this.name;
         var self = this;
 
         function dm(){
@@ -42,15 +49,18 @@ function radio(d, e, c){
         }
 
         render(
-            <Radio data={data} itemDefaultMethod={dm}/>,
+            <Radio data={dft.data} itemMethod={dft.itemMethod} itemDefaultMethod={dm}/>,
             (function(){return ele.nodeType ? ele : document.getElementById(ele)}())
         )
     }
 
-    if (d === true)
-        return Radio;
+    _fun.prototype = {
+        getValue: function(){
+            return this.value;
+        }
+    }
 
-    return new _fun(d, e, c)
+    return new _fun(dft.data, dft.container, c)
 
 }
 

@@ -1,6 +1,6 @@
 var api = require('libs/api');
 
-function select(intent){
+function select(intent, ctx){
 
     // 比较select的当前值与点击option获取的值是否相等
     function compareSelctValue(id, nextVal){
@@ -71,6 +71,8 @@ function select(intent){
                 // 先检查，再赋值
                 _ipt.attr('data-value', _opt_val)
                 _ipt.val(_opt_txt);
+                ctx.value[_ipt_id] = _opt_val;
+
 
                 // 处理联动对象
                 dealWithUnion(opts, {val: _opt_val, txt: _opt_txt, attr: _opt_attr});
@@ -80,11 +82,19 @@ function select(intent){
     })
 
     $('.radioItem').find('input[type=radio]').change(function(){
+        var _name = this.name;
+        var _id = this.id;
         $('.fkp-radio-box active').removeClass('active')
-        // self.value = this.value;
+        ctx.value[_name] = this.value;
     })
 
 
+    $('.inputItem > input')
+    .off('change')
+    .change(function(){
+        var _id = this.id;
+        ctx.value[_id] = this.value;
+    })
     // 非select的input
     $('.inputItem > input')
     .off('focus')
@@ -163,5 +173,5 @@ function select(intent){
 }
 
 module.exports = function(ctx, intent){
-    return select.call(ctx, intent)
+    return select.call(ctx.ipt, intent, ctx)
 }
