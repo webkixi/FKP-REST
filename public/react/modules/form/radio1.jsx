@@ -35,7 +35,7 @@ function radio(data, opts, c){
     var _fun = function(data, ele, cb){
         this.value;
         this.ipt;
-        var self = this;
+        var self = this;         
 
         function dm(){
             self.ipt = this;
@@ -49,7 +49,7 @@ function radio(data, opts, c){
         }
 
         render(
-            <Radio data={dft.data} itemMethod={dft.itemMethod} itemDefaultMethod={dm}/>,
+            <Radio data={data} itemMethod={dft.itemMethod} itemDefaultMethod={dm}/>,
             (function(){return ele.nodeType ? ele : document.getElementById(ele)}())
         )
     }

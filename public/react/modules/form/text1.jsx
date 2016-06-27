@@ -109,7 +109,14 @@ function text(data, opts, c){
                                     : $('#'+item.input.id)
 
                         _isRadioOrCbx>-1
-                        ? values[item.input.name[0]] = _item.attr('data-value')|| _item.val()
+                        ? item.input.type==='checkbox'
+                            ? (function(){
+                                console.log(item.input.name[0]);
+                                values[item.input.name[0]]
+                                ? values[item.input.name[0]].push(_item.attr('data-value')|| _item.val())
+                                : values[item.input.name[0]] = [(_item.attr('data-value')|| _item.val())]
+                            })()
+                            : values[item.input.name[0]] = _item.attr('data-value')|| _item.val()
                         : values[item.input.id] = _item.attr('data-value')|| _item.val()
                     }
                 })

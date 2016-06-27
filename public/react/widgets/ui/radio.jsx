@@ -18,17 +18,18 @@ var Radio = React.createClass({
         this.fills = [];
         this.descs = [];
         this.fills = [];
+        this.type = 'radio';
         var checked;
         var _cls = 'fkp-radio-box';
 
         var me = this;
         var eles= this.props.data;
 
-        if (_.isArray(eles)){
-            eles.map(function(item, i){
-                me.fills.push( mk_fill(item) )
-            })
-        }
+        // if (_.isArray(eles)){
+        //     eles.map(function(item, i){
+        //         me.fills.push( mk_fill(item) )
+        //     })
+        // }
 
         if (_.isObject(eles)){
             var data = this.props.data
@@ -39,6 +40,9 @@ var Radio = React.createClass({
             if (data.id)
                 this.ids = _.isArray(data.id) ? data.id : ''
 
+            if (data.type)
+                this.type = data.type;
+
             if (data.title)
                 this.titles = _.isArray(data.title) ? data.title : ['']
 
@@ -47,6 +51,8 @@ var Radio = React.createClass({
 
             if (data.desc)
                this.descs = _.isArray(data.desc) ? data.desc : ['']
+
+            _cls = me.type==='radio' ? 'fkp-radio-box' : 'fkp-checkbox-box';
 
             if (this.names.length){
                 this.names.map(function(item, i){
@@ -61,28 +67,28 @@ var Radio = React.createClass({
                         && _value.indexOf('-')===0){
                     // && parseInt(_value)<0){
                         checked = true;
-                        _cls = 'fkp-radio-box'
                         _value = _value.replace('-','')
                     }
                     else {
                         checked = false;
                     }
                     if (item){
+                        var lableClass = me.type==='radio' ? 'radioItem' : 'checkboxItem';
                         me.fills.push(
-                            <lable key={'radio'+i} className="radioItem">
+                            <lable key={'radio'+i} className={lableClass}>
                                 {(function(){
                                     if (_title)
                                         return <span className="fkp-title">{_title}</span>
                                 })()}
                                 {(function(){
                                     if (checked){
-                                        return <input defaultChecked type="radio" name={item} id={_id} value={_value}/>
+                                        return <input defaultChecked type={me.type} name={item} id={_id} value={_value}/>
                                     }
                                     else {
-                                        return <input type="radio" name={item} id={_id} value={_value}/>
+                                        return <input type={me.type} name={item} id={_id} value={_value}/>
                                     }
                                 })()}
-                                <span className="fkp-radio-box" />
+                                <span className={_cls} />
                                 {(function(){
                                     if (_desc)
                                         return <span className="fkp-desc">{_desc}</span>
@@ -131,9 +137,10 @@ var Radio = React.createClass({
 	// },
 	render:function(){
         var fill = this.state.fill ? this.state.fill : false;
+        var groupClass = this.type === 'radio' ? 'radioGroup' : 'checkboxGroup'
         if (fill){
             return (
-                <div className="radioGroup">
+                <div className={groupClass}>
                     {fill}
                 </div>
             )

@@ -84,8 +84,18 @@ function select(intent, ctx){
     $('.radioItem').find('input[type=radio]').change(function(){
         var _name = this.name;
         var _id = this.id;
-        $('.fkp-radio-box active').removeClass('active')
         ctx.value[_name] = this.value;
+    })
+
+    $('.checkboxItem').find('input[type=checkbox]').change(function(){
+        var _name = this.name;
+        var _id = this.id;
+        if( !ctx.value[_name]){
+            ctx.value[_name] = [this.value];
+        }
+        else {
+            ctx.value[_name].push(this.value);
+        }
     })
 
 

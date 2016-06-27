@@ -18,6 +18,20 @@ window.kkk = Radios(_config, {
     }
 });
 
+var _config_ckbox = {
+    type: 'checkbox',
+    name: ['zzz', 'zzz', 'zzz'],
+    title: ['选项1', '选项2', '选项3'],
+    value: ['1', '2', '3']
+}
+
+window.ckbox = Radios(_config_ckbox, {
+    container: 'for-checkbox',
+    itemMethod: function(){
+        // console.log(this);
+    }
+});
+
 
 
 
@@ -55,6 +69,15 @@ var _input_config = [
             name: ['sss', 'sss', 'sss'],
             desc: ['选项4', '选项5', '选项6'],
             value: ['4', '5', '6']
+        }
+    },
+
+    {
+        input:{
+            type: 'checkbox',
+            name: ['www', 'www', 'www'],
+            title: ['选项1', '选项2', '选项3'],
+            value: ['1', '2', '3']
         }
     },
 
@@ -232,7 +255,7 @@ window.bbb = Inputs(_input_config,
     theme: 'index'
 },
 function(){
-    _input_config[4].desc= '我是被SAX重新渲染过的'
+    _input_config[5].desc= '我是被SAX重新渲染过的'
     _.delay(function(){
         libs.msgtips('SAX将启动渲染', 'warning')
     }, 1000)
