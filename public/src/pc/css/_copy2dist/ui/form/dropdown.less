@@ -1,0 +1,55 @@
+// 下拉菜单 fkp-dropdown 的缩写
+.inputGroup{
+    .fkp-dd{
+        width: 15.5em;
+        height: @input-height;
+        line-height: 1.9;
+        position: relative;
+        &+span[class="fkp-input-box"]{
+            display: none;
+        }
+        /* 下拉菜单选项 */
+        ul{
+            display: none;
+            background: #fff;
+            position: absolute;
+            z-index: 999;
+            left: 0;
+            top: @input-height;
+            width: 15.4em;
+            list-style: none;
+            border: 1px solid rgb(190, 190, 190)d;
+            border-radius: 5px;
+            li, .fkp-dd-option{
+                padding: 0 0.5em;
+                height: 2em;
+                line-height: 2em;
+                &:hover{
+                    cursor: pointer;
+                    background-color: rgb(245, 249, 254);
+                }
+            }
+
+        }
+        &:after{
+            content: '\e609';
+            display:block;
+            color:#d6d6d6;
+            padding-top: 0.1em;
+            position:absolute;
+            right:0.5em;
+            top:0.35em;
+        }
+        // &:before{
+        //     content: '\e617';
+        //     display:block;
+        //     position:absolute;
+        //     padding-top: 0.1em;
+        //     left:0;
+        //     top:0;
+        //     color:#66afe9;
+        //     -webkit-transform:scale(0);
+        //     -webkit-transition:-webkit-transform .2s;
+        // }
+    }
+}

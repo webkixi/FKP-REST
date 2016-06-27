@@ -19,7 +19,7 @@ var Radio = React.createClass({
         this.descs = [];
         this.fills = [];
         var checked;
-        var _cls = 'fkp-radio-box'
+        var _cls = 'fkp-radio-box';
 
         var me = this;
         var eles= this.props.data;
@@ -68,7 +68,7 @@ var Radio = React.createClass({
                         checked = false;
                     }
                     if (item){
-                        _input.push(
+                        me.fills.push(
                             <lable key={'radio'+i} className="radioItem">
                                 {(function(){
                                     if (_title)
@@ -90,7 +90,7 @@ var Radio = React.createClass({
                             </lable>
                         )
                     }
-                    me.fills.push(_input)
+                    // me.fills.push(_input)
                 })
             }
 

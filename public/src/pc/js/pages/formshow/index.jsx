@@ -34,13 +34,38 @@ Radios(_config, 'for-radio');
 // 方案2
 var _input_config = [
     //0
+    'Radio & Checkbox',
+
+    {
+        input:{
+            type: 'radio',
+            name: ['xxx', 'xxx', 'xxx'],
+            id: ['xxx'],
+            title: ['选项1', '选项2', '选项3'],
+            value: ['1', '2', '3']
+        }
+    },
+    {
+        input:{
+            type: 'radio',
+            name: ['xxx', 'xxx', 'xxx'],
+            id: ['yyy'],
+            desc: ['选项4', '选项5', '选项6'],
+            value: ['4', '5', '6']
+        }
+    },
+
+    // ===========================
+    'Input及联动',
+
+
     {
         input:{
             name:      'user',
             id:        'user',
             value:     null,
             type:      'text',
-            placehold: '请输入姓名'
+            placehold: '我的id是user'
         },
         title:     '姓名',
         class:     null,
@@ -53,11 +78,44 @@ var _input_config = [
             id:        'message',
             value:     null,
             type:      'text',
-            placehold: '请输入聊天内容'
+            placehold: '绑定user'
         },
         title:     '聊天',
         class:     null,
-        desc:      null
+        desc:      null,
+        union: {
+            id: "user",
+            cb: function(){
+                // this是message的父级lable
+                libs.msgtips('我是message,我关联姓名');
+                $('#user').on('input',function(){
+                    $('#message').val($('#user').val())
+                })
+            }
+        }
+    },
+
+    {
+        input:{
+            name:      'good',
+            id:        'good',
+            value:     null,
+            type:      'text',
+            placehold: '绑定user'
+        },
+        title:     '绑定',
+        class:     null,
+        desc:      null,
+        union: {
+            id: "user",
+            cb: function(){
+                // this是message的父级lable
+                libs.msgtips('good,我关联姓名');
+                $('#user').on('input',function(){
+                    $('#good').val($('#user').val())
+                })
+            }
+        }
     },
 
     {
@@ -72,12 +130,17 @@ var _input_config = [
         desc:      null
     },
 
+
+    '联动下拉菜单',
+
+
     {
         input:{
             name:      'select',
             id:        'select',
             value:     [[1,2,3], ['a','b','c']],
-            type:      'select'
+            type:      'select',
+            placehold: '请选择'
         },
         title:     '选择',
         class:     null,
@@ -89,7 +152,8 @@ var _input_config = [
             name:      'select1',
             id:        'select1',
             value:     [[1,2,3], ['啥','y','z']],
-            type:      'select'
+            type:      'select',
+            placehold: '请选择'
         },
         title:     '开选',
         class:     null,
@@ -114,7 +178,8 @@ var _input_config = [
             name:      'select2',
             id:        'select2',
             value:     [[1,2,3], ['啥','y','z']],
-            type:      'select'
+            type:      'select',
+            placehold: '请选择'
         },
         title:     '选选',
         class:     null,
@@ -129,6 +194,8 @@ var _input_config = [
             }
         }
     },
+
+    '提交',
 
     {
         input:{
@@ -145,11 +212,11 @@ var _input_config = [
 ]
 
 Inputs(_input_config, 'for-input', function(){
-    _input_config[0].desc= '我是被SAX重新渲染过的'
+    _input_config[4].desc= '我是被SAX重新渲染过的'
     _.delay(function(){
         libs.msgtips('SAX将启动渲染', 'warning')
     }, 1000)
     _.delay(function(){
         SAX.setter('for-input', _input_config)
-    }, 5000)
+    }, 3000)
 })

@@ -1,4 +1,5 @@
 var ItemMixin = require('../../mixins/item')
+var Radio = require('./radio');
 
 
 /*
@@ -9,10 +10,11 @@ function mk_select(item){
     var _id = item.input.id || '',
         _name = item.input.name || 'noname'
         _type = item.input.type || 'text',
-        _value = item.input.value || ''
+        _value = item.input.value || '',
+        _placehold = item.input.placehold || '',
 
-        _title = item.title || ''
-        _desc = item.desc || ''
+        _title = item.title || '',
+        _desc = item.desc || '',
         _class = item.class ? 'inputItem '+item.class : 'inputItem';
 
         var _select;
@@ -20,10 +22,7 @@ function mk_select(item){
 
         if (_.isObject(item.union)){
             var unionObj = <span className="iconfont fkp-dd">
-                {/*<input type='hidden' className='fkp-dd-input' name={_name} id={_id} defaultValue=''/>
-                <input type='text' className="form_control fkp-dd-input-txt" defaultValue='哈哈'/>*/}
-                <input type='text' className="form_control fkp-dd-input" name={_name} id={_id} defaultValue='请选择'/>
-                <span className="async"></span>
+                <input type='text' className="form_control fkp-dd-input" name={_name} id={_id} placeholder={_placehold} defaultValue=''/>
             </span>
 
             return (
@@ -36,6 +35,7 @@ function mk_select(item){
         // 第一个数组为 option value   required
         // 第二个数组为 option text    required
         // 第三个数组为 option custom value，以 data-attr 作为option的二外参数    not required
+        else
         if (_.isArray(_value)){
             _vals = _value[0];
             _texts = _value[1]||[];
@@ -69,15 +69,13 @@ function mk_select(item){
                 _select = <ul>{options}</ul>
                 return (
                     <span className="iconfont fkp-dd">
-                        {/*<input type='hidden' className='fkp-dd-input' name={_name} id={_id} defaultValue=''/>
-                        <input type='text' className="form_control fkp-dd-input-txt" defaultValue={$val}/>*/}
-                        <input type='text' className="form_control fkp-dd-input" name={_name} id={_id} defaultValue={$val}/>
+                        <input type='text' className="form_control fkp-dd-input" name={_name} id={_id} placeholder={_placehold} defaultValue=''/>
                         {_select}
                     </span>
                 )
             }
         }
-        return <span>select配置，请检查配置</span>
+        return <span>请检查select配置</span>
 }
 
 function mk_fill(ddd, _i){
@@ -95,27 +93,37 @@ function mk_fill(ddd, _i){
 
         var $text_type = ['text', 'password', 'select', 'tel'],
             $phold_type =['text'],
+            $radio_check = ['radio','checkbox'],
             $button_type = ['button','submit'];
 
-        var lableObj = <lable key={"lable"+_i} className={_class + ' for-' + _name}>
-            {_title ? <span className="fkp-title">{_title}</span> : false}
-            {(function(){
-                if (_.indexOf($text_type, _type)>-1){
-                    if (_type === 'select'){
-                        return mk_select.call(self, item)
+        var lableObj;
+
+        if (_.indexOf($radio_check, _type)>-1){
+            lableObj = <Radio key={'radioGroup'+_i} data={item.input}/>
+        }
+        else {
+            lableObj = <lable key={"lable"+_i} className={_class + ' for-' + _name}>
+                {_title ? <span className="fkp-title">{_title}</span> : false}
+                {(function(){
+                    if (_.indexOf($text_type, _type)>-1){
+                        if (_type === 'select'){
+                            return mk_select.call(self, item)
+                        }
+                        if (_.indexOf($phold_type, _type)>-1){
+                            return <input placeholder={_placehold} type={_type} name={_name} id={_id} defaultValue={_value} className='form_control'/>
+                        }
+                        return <input type={_type} name={_name} id={_id} defaultValue={_value} className='form_control'/>
                     }
-                    if (_.indexOf($phold_type, _type)>-1){
-                        return <input placeholder={_placehold} type={_type} name={_name} id={_id} defaultValue={_value} className='form_control'/>
+                    if (_.indexOf($button_type, _type)>-1){
+                        return <input type={_type} name={_name} id={_id} defaultValue={_value} className='btn'/>
                     }
-                    return <input type={_type} name={_name} id={_id} defaultValue={_value} className='form_control'/>
-                }
-                if (_.indexOf($button_type, _type)>-1){
-                    return <input type={_type} name={_name} id={_id} defaultValue={_value} className='btn'/>
-                }
-            })()}
-            <span className="fkp-input-box" />
-            {_desc ? <span className="fkp-desc">{_desc}</span> : false}
-        </lable>
+                })()}
+                <span className="fkp-input-box" />
+                {_desc ? <span className="fkp-desc">{_desc}</span> : false}
+            </lable>
+        }
+
+
 
         if (_.isObject(item.union)){
             item.union.target = {
@@ -123,9 +131,6 @@ function mk_fill(ddd, _i){
                 name: _name,
                 type: _type,
                 item: item
-            }
-            item.union.util = {
-                mkSelect: mk_select
             }
             this.intent.push( item.union )
         }
@@ -153,6 +158,7 @@ var Input = {
 	},
 
     _preRender: function(){
+        this.intent = [];
         var self = this;
         this.names = [];
         this.ids = [];
@@ -173,7 +179,12 @@ var Input = {
 
             if (_.isArray(eles)){
                 eles.map(function(item, i){
-                    me.fills.push( mk_fill.call(self, item, i) )
+                    if( _.isString(item)){
+                        me.fills.push(<div key={'split'+i} className="split">{item}</div>)
+                    }
+                    else {
+                        me.fills.push( mk_fill.call(self, item, i) )
+                    }
                 })
             }
 

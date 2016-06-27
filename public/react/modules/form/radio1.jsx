@@ -1,5 +1,4 @@
 var libs = require('libs/libs');
-var inject = libs.inject().css;
 
 var Radio = require('../../widgets/ui/radio')
 var render = React.render;
@@ -12,6 +11,12 @@ var render = React.render;
 // radio(radiodata_waterCard, 'radiodata_waterCard')
 
 function radio(d, e, c){
+    // 只需要react结构
+    // 比如服务器端
+    if (d === true)
+        return Input();
+
+    var inject = libs.inject().css;     
     var _css = d.theme ? d.theme :'radio'
     inject([
         '/css/t/ui/form/'+_css+'.css'
@@ -47,6 +52,10 @@ function radio(d, e, c){
 
     return new _fun(d, e, c)
 
+}
+
+radio.server = function(){
+    return Radio;
 }
 
 module.exports = radio
