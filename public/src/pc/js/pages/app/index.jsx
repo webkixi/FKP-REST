@@ -15,8 +15,6 @@ if (url.params.login){
 
 //添加自己的路由
 route.init({
-    'show':require('./_component/_show'),    //演示模块，可删除
-
     'login':require('./_component/uc/login'),               //登陆注册
     'uc/index':require('./_component/uc/index'),            //用户中心
     'uc/edit':require('./_component/uc/ucedit'),            //信息编辑

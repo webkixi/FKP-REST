@@ -49,8 +49,9 @@ function *chat(oridata) {
                 message: body.message
             }
             post_data = body.message
-            if (body.message.indexOf('FKP')===-1)
-                SIO.emit('imchat', rtn_data)
+            if (body.message.indexOf('FKP')===-1){
+                SIO.emit('imchat', rtn_data);
+            }
             return [];
         } catch (e) {
             console.log(e);

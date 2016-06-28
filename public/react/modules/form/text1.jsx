@@ -55,7 +55,10 @@ function text(data, opts, c){
 
     dft = _.assign(dft, opts)
 
-    if (!dft.container) return false;
+    if (!dft.container) {
+        console.log('没有指定容器');
+        return false;
+    }
     if (data) {
         dft.data = data
     }

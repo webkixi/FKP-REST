@@ -3,7 +3,7 @@ var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
 var Radio = require('modules/form/radio1')(true)
-var List = require('modules/list/load_list')(true, 'address_list');
+var List = require('modules/list/base_list').store('address_list');
 
 
 //当前页公共变量

@@ -1,7 +1,7 @@
 var api = require('libs/api')
 var libs = require('libs/libs')
 var Input = require('modules/form/text1')
-var WS = require('modules/wsocket/index')
+var WS = require('modules/wsocket')
 
 WS.emit('imchat', 'hi')
 WS.on('imchat', function(data){
@@ -62,7 +62,11 @@ var inputs = [
     }
 ]
 
-Input(inputs, 'kick-center', function(){
+Input(inputs,
+{
+    container: 'kick-center'
+},
+function(){
     $('#message').bind('keypress',function(event){
         if(event.keyCode == "13"){
             $('#submit').click()

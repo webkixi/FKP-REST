@@ -1,4 +1,4 @@
-function encapStore( storeName, config){
+function encapStore( storeName, config ){
 
     // for server
     if (storeName===true || !storeName){
