@@ -78,6 +78,7 @@ function text(data, opts, c){
             self.ipt = this;
 
             // 引入select的插件
+            // self.ipt, self.value
             require('./_plugin/select')(self, intent)
 
             if (cb&&typeof cb==='function')
@@ -91,6 +92,7 @@ function text(data, opts, c){
         else {
             Input = Input();
         }
+
         render(
             <Input data={data} itemDefaultMethod={dm}/>,
             (function(){return ele.nodeType ? ele : document.getElementById(ele)}())
@@ -111,12 +113,18 @@ function text(data, opts, c){
                         _isRadioOrCbx>-1
                         ? item.input.type==='checkbox'
                             ? (function(){
-                                console.log(item.input.name[0]);
-                                values[item.input.name[0]]
-                                ? values[item.input.name[0]].push(_item.attr('data-value')|| _item.val())
-                                : values[item.input.name[0]] = [(_item.attr('data-value')|| _item.val())]
+                                if( _item.length ){
+                                    var _val=[]
+                                    _item.each(function(j, it){
+                                        _val.push(it.value)
+                                    })
+                                    values[item.input.name[0]] = _val
+                                }
+                                else {
+                                    values[item.input.name[0]]=[]
+                                }
                             })()
-                            : values[item.input.name[0]] = _item.attr('data-value')|| _item.val()
+                            : values[item.input.name[0]] = _item.val()
                         : values[item.input.id] = _item.attr('data-value')|| _item.val()
                     }
                 })

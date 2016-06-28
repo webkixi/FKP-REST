@@ -90,11 +90,13 @@ function select(intent, ctx){
     $('.checkboxItem').find('input[type=checkbox]').change(function(){
         var _name = this.name;
         var _id = this.id;
-        if( !ctx.value[_name]){
-            ctx.value[_name] = [this.value];
-        }
-        else {
-            ctx.value[_name].push(this.value);
+        var _items = $('input[name='+_name+']:checked');
+
+        ctx.value[_name]=[]
+        if( _items.length ){
+            _items.each(function(j, it){
+                ctx.value[_name].push(it.value)
+            })
         }
     })
 

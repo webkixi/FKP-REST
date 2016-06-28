@@ -35,13 +35,23 @@ function radio(data, opts, c){
     var _fun = function(data, ele, cb){
         this.value;
         this.ipt;
-        var self = this;         
+        var self = this;
 
         function dm(){
             self.ipt = this;
             $(this).find('input[type=radio]').change(function(){
-                $('fkp-radio-box active').removeClass('active')
                 self.value = this.value;
+            })
+
+            $(this).find('input[type=checkbox]').change(function(){
+                var _name = this.name;
+                var _items = $('input[name='+_name+']:checked')
+                self.value = []
+                if( _items.length ){
+                    _items.each(function(j, it){
+                        self.value.push(it.value)
+                    })
+                }
             })
 
             if (cb&&typeof cb==='function')
