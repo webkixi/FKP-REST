@@ -1,10 +1,8 @@
-// var src = "http://120.25.241.174:8080/v1/servicetype/";
-//var src = "http://192.168.4.57:8080/v1/";
-function getApiPath() {
+var ipsrc = fkpConfig.apiip;
+var port = fkpConfig.port;
+var src = ipsrc + port;
 
-    var ipsrc = fkpConfig.apiip;
-    var port = fkpConfig.port;
-    var src = ipsrc + port;
+function getApiPath() {
     return {
         base: src,
         dirs: {
