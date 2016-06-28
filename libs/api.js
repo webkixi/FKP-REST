@@ -72,7 +72,7 @@ function req( api, param, cb ){
         dataType: "json",
     })
     .done(ccb)
-    .error(function(xhr,status,statusText){
+    .fail(function(xhr,status,statusText){
         tips('网络不给力','center')
         console.log('错误状态码：'+xhr.status+"<br>时间："+xhr.getResponseHeader('Date'))
         dtd.reject()
