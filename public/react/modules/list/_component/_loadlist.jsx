@@ -4,7 +4,6 @@
 */
 var List = require('widgets/listView/list')
 var scrollMixins = require('mixins/scrollLoadAndLazy');
-var Store = require('mixins/store');
 
 var tmpApp = {
 	mixins:[ scrollMixins],
@@ -41,7 +40,6 @@ var tmpApp = {
 		tData.push({loadbar: 'loadbar'});
 		// //tData.push(<div ref="loadbar" className="loadtype" style={{"display":"none"}}><div className="loader">Loading...</div></div>);
 		// return <List {...this.props} data={tData}/>
-
 		var _props = _.merge({data: tData}, this.props)
 		return React.createElement(List, _props)
 	},
@@ -62,20 +60,26 @@ var tmpApp = {
 	}
 };
 
-// module.exports = tmpApp;
-
+// 通过方法返回的结构，带sax的react结构 带itemMixins, storeMixins，scrollEnd的mixins
 function actRct( storeName ){
-    var _storeName = storeName||'LDL',
-        _rct = _.cloneDeep(tmpApp);
+    return require('react/util/index')(storeName, tmpApp)
+}
 
-	if( _rct.mixins && _rct.mixins.length ){
-		_rct.mixins.push( Store( _storeName ))
-    }
-	else{
-		_rct.mixins = [ Store( _storeName ) ]
-    }
+// 纯react结构，带itemMixins
+actRct.pure = function(){
+	return List;
+}
 
-    return React.createClass( _rct );
+// 带sax的react结构 带itemMixins, storeMixins
+actRct.store = function( storeName ){
+	var nloopRender =  function(){
+		var tData = this.state.data;
+		var _props = _.merge({data: tData}, this.props)
+		return React.createElement(List, _props)
+	}
+	delete tmpApp.mixins;
+	tmpApp.loopRender = nloopRender;
+	return require('react/util/index')(storeName, tmpApp)
 }
 
 module.exports = actRct;
