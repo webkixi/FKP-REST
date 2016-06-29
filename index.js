@@ -5,30 +5,32 @@
 
 require('babel-core/register');
 require("babel-polyfill");
-
-var args = process.argv.splice(2); //取得命令行参数
-
-process.env.env = 'default'
-if( args[0] && (args[0] === 'test' || args[0].indexOf('env_')>-1 ) ){
-	process.env.env = args[0]
-}
-else
-if( args[1] && (args[1] === 'test' || args[1].indexOf('env_')>-1) ) {
-	process.env.env = args[1]
-}
-
-var koa = require('koa'),
-	path = require('path'),
-	session = require('koa-generic-session');
-
+//配置环境路径
+var path = require('path');
+var base = path.resolve(__dirname);
+require('./modules/requirePath')(base);
 
 global.React = require('react');
 global.ReactDomServer = require('react-dom/server');
 global._ = require('lodash');
 
+var args = process.argv.splice(2); //取得命令行参数
+
+process.env.env = 'default'
+if( args[0] && (args[0] === 'test' || args[0].indexOf('env_')>-1 ) ){
+	process.env.whereIs = 'pro'
+	process.env.env = args[0]
+}
+else
+if( args[1] && (args[1] === 'test' || args[1].indexOf('env_')>-1) ) {
+	process.env.whereIs = args[0]
+	process.env.env = args[1]
+}
 // 全局config
 global.fkpConfig = require('./config')(process.env.env)
 
+var koa = require('koa'),
+	session = require('koa-generic-session');
 
 //自定义部分模块
 require('./modules/cache')  // lru 缓存模块
@@ -39,9 +41,7 @@ var statics = require('./modules/static'),
 	render = require('./modules/render');
 
 
-//配置环境路径
-var base = path.resolve(__dirname);
-require('./modules/requirePath')(base)
+
 
 
 //初始化

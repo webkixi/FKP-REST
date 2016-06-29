@@ -10,6 +10,7 @@ var render;
 var region = require('./region');
 var mms = require('./mms')
 var url = require('url')
+var control = require('./control')
 // require('jsx-require-extension/options/harmony');   //另一套方案 node-jsx
 
 /**
@@ -104,11 +105,12 @@ function init(app,mapper,rend){
     function *forBetter(){
         this.sess = this.session;
         this.config = fkpConfig;
-        this.htmlRender = htmlRender;
+        this.returnHtml = htmlRender;
         this.returnJson = returnJson;
+        this.render = render;
         //绑定url地址解析
         // this.local = this.req._parsedUrl;
-        this.local = url.parse(this.url,true);
+        this.local = url.parse(this.url, true);
         var param = this.params;
         // console.log(param);
 
@@ -261,51 +263,78 @@ function *distribute(_mapper){
         if ( isRender ){
             //静态资源初始化
             if (route){
-                if (route in _mapper.pageCss)   //pagecss
+                if (route in _mapper.pageCss){   //pagecss
                     pageData.pagecss = _mapper.pageCss[route];
+                }
 
-                if (route in _mapper.pageJs)   //pagejs
+                if (route in _mapper.pageJs){   //pagejs
                     pageData.pagejs = _mapper.pageJs[route];
+                }
             }
 
             if (route){
-                var passData = false;
-                if (route == 'demoindex'){
-                    pageData = yield require('../pages/demoindex').getDemoData.call(this,pageData);  //演示页
-                }
-                else{
+                var passData = false,    // direct to apilist and common/nopage will dealwith this request
+                    self = this;
+                    this.fkpRoute = route;   //把route变量塞到this，供control调用
+
+                // 交由pages/xxx处理逻辑
+                yield controlPage()
+
+                // 处理controlpage返回的数据
+                yield dealWithPageData.call(this, pageData, route, passData)
+
+                // check if the 'pages/xxx' === route then the 'pages/xxx' will do something, like get/post
+                function *controlPage(){
+                    var ctrl = control(self, pageData)
+                        ctrl.render = self.render;
+
+                    if (route == 'demoindex'){
+                        pageData = yield require('../pages/demoindex').getDemoData.call(self, pageData, ctrl);  //演示页
+                    }
+                    else
                     if (fs.existsSync(path.join(__dirname,'../pages/'+route+'.js') )){
-                        pageData = yield require('../pages/'+route).getData.call(this,pageData);
+                        pageData = yield require('../pages/'+route).getData.call(self, pageData, ctrl);
                     }
                     else{
                         libs.elog('pages/'+route+' 配置文件不存在');
                         passData = true;
                     }
                 }
-                yield dealWithPageData.call(this, pageData, route, passData)
 
+                // dealwith the data from controlPage
                 function *dealWithPageData(data, route, passStat){
-                    if(data && data.errState && typeof data.errState!=='undefined' )
+                    if( data &&
+                        data.errState
+                    ){
                         yield htmlRender.call(this,false,route);
+                    }
                     else{
-                        if(this.method==='GET'){
+                    if(this.method==='GET'){
+                        if (data){
                             yield htmlRender.call(this,true,route,data);
                         }
-                        else if(this.method==='POST'){
-                            if( passStat ){
-                                if( api.apiPath.dirs[route] || api.apiPath.weixin[route] || route === 'redirect' )
-                                    data = yield require('../pages/common/nopage').getData.call(this, data, route);
-                            }
-                            yield returnJson.call(this,true,route,data);
+                        else {
+                            return;
                         }
-
+                        // else {
+                        //     this.redirect('/502')
+                        // }
+                    }
+                    else
+                    if(this.method==='POST'){
+                        if( passStat ){
+                            if( api.apiPath.dirs[route] || api.apiPath.weixin[route] || route === 'redirect' )
+                                data = yield require('../pages/common/nopage').getData.call(this, data, control);
+                        }
+                        yield returnJson.call(this,true,route,data);
                     }
                 }
             }
+        }
 
-            else{
-                this.redirect('/404')
-            }
+        else{
+            this.redirect('/404')
+        }
 
         }
     }
@@ -321,7 +350,7 @@ function *htmlRender(stat,route,data){
     libs.clog('route.js/htmlRender '+route);
     try {
         if (stat){
-            this.body = yield render(route,data);
+            this.body = yield render(route, data);
         }
         else{
             this.redirect('/404')
