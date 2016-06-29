@@ -7,8 +7,9 @@ function type(object){
     return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
 };
 
-function req( api, param, cb ){
+function req( api, param, cb, method ){
     var url = api;
+    if (!method) method = 'POST'
 
     if (url.indexOf('http://')===0 || url.indexOf('https://')===0){
         if (type(param) === 'Object'){
@@ -64,9 +65,13 @@ function req( api, param, cb ){
         }
     }
 
+    if (method==='GET'){
+        param._stat_ = 'DATA'
+    }
+
     return $.ajax({
         url: url,
-        type: "POST",
+        type: method,
         data: param,
         timeout: 3000,
         dataType: "json",
@@ -99,7 +104,13 @@ function req( api, param, cb ){
     // })
 }
 
+function get( api, param, cb ){
+    return req( api, param, cb, 'GET')
+}
+
+
 
 module.exports = {
-	req: req
+	req: req,
+    get: get
 }
