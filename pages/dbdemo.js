@@ -53,7 +53,7 @@ function *index(oridata) {
         // 默认
         // 处理列表数据
         else {
-            var tmp = yield return_list()
+            var tmp = yield return_list();
             var rtn = {
                 isList: true,
                 content: tmp
@@ -87,21 +87,46 @@ function *index(oridata) {
     //使用react组件
     //数据要符合react/list组件的格式规范
     function *return_list(){
-        //从数据库中获取数据
-        // '$' 为数据库api的前置标记，与前端一致
-        topics = yield api.req(_this, '$listtopic')
 
-        //整理数据，使数据符合 react 需求
-        topics = yield dealWith_topicsListData(topics)
+        try {
+            var _props = {
+                // container: '',
+                // globalName: '_Pagi',
+                itemMethod: false,
+                listMethod: false,
+                itemClass: '',
+                listClass: 'pagenation wid-12',
+                data: {
+                    total: 40,
+                    per:   20,
+                    url:   '/',
+                    query: 'page='
+                },
+                begin: { start: 0, off: 5 }
+            }
+            var pagiHtml = yield react2html('react/modules/pagination/pagi', _props);
+            pagiHtml[0] = '<div class="pagi" id="pagi" >'+pagiHtml[0]+'</div>';
 
-        // react组件解析生成html
-        // 传入 react 组件路径及数据
-        // var reactHtml = yield react2html('react/listView/list', {data: topics})
-        var reactHtml = yield react2html('react/widgets/listView/list', {data: topics})
-        reactHtml[0] = '<div class="load-list">'+reactHtml[0]+'</div>'
 
-        // 将html结构代码代入到oridata，用于模板渲染
-        return reactHtml[0]
+            // 从数据库中获取数据
+            // '$' 为数据库api的前置标记，与前端一致
+            topics = yield api.req(_this, '$listtopic')
+            //整理数据，使数据符合 react 需求
+            topics = yield dealWith_topicsListData(topics)
+            // react组件解析生成html
+            // 传入 react 组件路径及数据
+            // var reactHtml = yield react2html('react/listView/list', {data: topics})
+            var reactHtml = yield react2html('react/widgets/listView/list', {data: topics})
+            reactHtml[0] = '<div class="load-list">'+reactHtml[0]+pagiHtml[0]+'</div>'
+
+
+            // 将html结构代码代入到oridata，用于模板渲染
+            return reactHtml[0]
+        } catch (e) {
+            console.log(e);
+        }
+        //加入分页，优化seo
+
     }
 
 
