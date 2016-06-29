@@ -283,4 +283,13 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
         console.log(val.data);
     })
 
+    $('img').each(function(i, item){
+        if ( item.src.indexOf('http://www.agzgz')===-1 &&
+             item.src.indexOf('uploader')>-1
+        ){
+            var _src = item.src.substr(item.src.indexOf('uploader'))
+            item.src = 'http://www.agzgz.com/'+_src
+        }
+    })
+
 })

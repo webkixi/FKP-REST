@@ -56,11 +56,6 @@ function *addtopic(oridata) {
 
                 var Topic = mongoose.model('Topic')
                 var upstat = yield Topic.updateTopicMatchesId(body.topic, {$set: utopic}, _user)
-                console.log('============upstat');
-                console.log('============upstat');
-                console.log('============upstat');
-                console.log('============upstat');
-                console.log(upstat);
                 if (upstat.error){
                     return upstat
                 }

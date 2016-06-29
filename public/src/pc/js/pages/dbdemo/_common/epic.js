@@ -147,11 +147,13 @@ function epiceditor(options){
           //自定义按钮方法
           $(find('add_md_btn')).off('click').click(function(){
             var cnt = JSON.parse(editor.exportFile(null,'json'))
-            // var ddd = submitContent(cnt.content, editor)
-            if (stat_editor === 'add')
-              $('body').trigger('addTopic', {cnt: cnt.content, editor: editor})
-            if (stat_editor === 'edit')
-              $('body').trigger('addTopic', {cnt: cnt.content, editor: editor, upid: options._id})
+            cnt.content = cnt.content.replace(/\/uploader/g, 'http://www.agzgz.com/uploader')
+            if (stat_editor === 'add'){
+                $('body').trigger('addTopic', {cnt: cnt.content, editor: editor})
+            }
+            if (stat_editor === 'edit'){
+                $('body').trigger('addTopic', {cnt: cnt.content, editor: editor, upid: options._id})
+            }
           })
 
           // 便捷区域的body的paddingBottom为30px；
