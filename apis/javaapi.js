@@ -4,6 +4,7 @@ var path = require('path');
 var libs = require('../libs/libs');
 var qs = require('querystring');
 var getapi = require('./apilist')
+var control = require('modules/control')
 
 var tmp_token_session = {}
 
@@ -280,7 +281,10 @@ function *pullApiData(api, param, method){
         var tmp_method = this.method
         this.omethod = this.method
         this.method = 'NODE'
-        var tmp_data = yield db.init.call(this, _param)
+
+        var ctrl = control(this, _param)
+        var tmp_data = yield db.init.call(this, _param, ctrl)
+
         this.method = tmp_method;
         this.omethod = false;
         return tmp_data;
