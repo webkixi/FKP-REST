@@ -28,7 +28,6 @@ Control.prototype = {
         if (mtd === 'POST' && _.isFunction(dft.post)){
             _data = dft.post.call(this.ctx)
             return _data
-
         }
     },
 

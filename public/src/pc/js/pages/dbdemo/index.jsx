@@ -175,7 +175,7 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
 
     //  ===========  列表文章  =========
 
-    // ajax列表数据
+    // ajax方法
     function pull_list_data(cb){
         var login = SA.get('USER').login;
         // pageNum, numPerPage, order
@@ -197,23 +197,9 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
 
     //ajax列表页数据处理
     function listTopic_resaults(data){
-        _listData = []
+        _listData = [];
 
-        // 生成标签模版
-        function mk_tags(tag){
-            if (!tag) return '';
-            if (!_.isArray(tag)) return [''];
-
-            var _v = _.map(tag, _.trim),
-                _tag = [];
-
-            _v.map(function($v){
-                _tag.push(<a href={'/?tag='+$v}>{$v}</a>)
-            })
-
-            return _tag;
-        }
-
+        // 列表项
         data.map(function(item, i){
             var _title = (
                 <div className="title_header">
@@ -231,13 +217,15 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
                     { k: '作者: ',
                       v: item.user.nickname },
                     { k: '标签: ',
-                      v: mk_tags(item.tags) }
+                      v: mk_tags(item.tags) },
+                    { k: '浏览: ',
+                      v: item.visit_count }
                 ]
             })
         })
     }
 
-    // 加载列表
+    // 加载列表数据
     pull_list_data(function(){
         if (!param.topic){
             //列表页展示
@@ -272,6 +260,22 @@ require.ensure(['./_common/epic', './_common/dragandedit'], function(require){
             })
         }
     })
+
+    // 生成标签模版
+    // tag
+    function mk_tags(tag){
+        if (!tag) return '';
+        if (!_.isArray(tag)) return [''];
+
+        var _v = _.map(tag, _.trim),
+            _tag = [];
+
+        _v.map(function($v){
+            _tag.push(<a href={'/?tag='+$v}>{$v}</a>)
+        })
+
+        return _tag;
+    }
 
     // websocket 模块化调用
     // var ws = require('modules/wsocket/index')

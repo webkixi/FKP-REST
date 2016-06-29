@@ -1,9 +1,16 @@
-var api = require('libs/libs').api
+var api = require('libs/api');
+var libs = require('libs/libs');
 require('./_common/xyz')
-alert('abc')
+libs.msgtips('abc')
 
 setTimeout(function(){
-    api.req('hello', function(data){
-        alert(data.pdata)
+    api.get('/hello', function(data){
+        libs.msgtips(data.pdata)
+    })
+},500)
+
+setTimeout(function(){
+    api.req('/hello', function(data){
+        libs.msgtips(data.pdata)
     })
 },1000)

@@ -28,38 +28,33 @@ SIO.on('imchat', function(data, socket){
     }
 })
 
-async function _parse(ctx, ctr){
-    return await ctr.libs.$parse(ctx)
-}
 
 function *chat(oridata, $chat){
 
     return $chat.run({
 
-        get: ()=>{
+        get: async ()=>{
             oridata.fkp = 'FKP-REST'
             return oridata;
         },
 
-        post: ()=>{
-            var post_data = '我是post数据'
+        post: async function(){
             try {
-                _parse(this, $chat)
-                .then( body => {
 
-                    if (!body){
-                        this.throw("The topic body is empty", 400);
-                    }
+                const body = await $chat.libs.$parse(this)
+                if (!body){
+                    this.throw("The topic body is empty", 400);
+                }
 
-                    var rtn_data = {
-                        user: body.user||'匿名',
-                        message: body.message
-                    }
-                    post_data = body.message
-                    if (body.message.indexOf('FKP')===-1){
-                        SIO.emit('imchat', rtn_data);
-                    }
-                })
+                var rtn_data = {
+                    user: body.user||'匿名',
+                    message: body.message
+                }
+
+                if (body.message.indexOf('FKP')===-1){
+                    SIO.emit('imchat', rtn_data);
+                }
+
 
             } catch (e) {
                 console.log(e);

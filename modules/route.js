@@ -313,9 +313,9 @@ function *distribute(_mapper){
                         if (data){
                             yield htmlRender.call(this,true,route,data);
                         }
-                        else {
-                            return;
-                        }
+                        // else {
+                        //     return;
+                        // }
                         // else {
                         //     this.redirect('/502')
                         // }
