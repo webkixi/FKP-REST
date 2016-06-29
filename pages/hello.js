@@ -1,20 +1,19 @@
-function *hello(oridata) {
+"use strict";
 
-    var method = this.method;
+function *hello(oridata, hlo) {
 
-    if (method === 'GET') {
-        oridata.fkp = 'FKP-REST'
-        return oridata;
-    }
+    return hlo.run({
+        get: function() {
+            oridata.fkp = 'FKP-REST';
+            return oridata;
+        },
 
-    if (method === 'POST') {
-        var post_data = '我是post数据'
-        oridata.pdata = post_data;
-        return oridata;
-    }
+        post: function() {
+            oridata.pdata = '我是post数据';
+            return oridata;
+        }
+    })
 
 }
 
-module.exports = {
-    getData : hello
-}
+export {hello as getData}

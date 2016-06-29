@@ -1,7 +1,6 @@
 "use strict";
 
 import react2html from 'modules/parseReact'
-import control from 'modules/control'
 
 var _props = {
     // container: '',
@@ -39,20 +38,19 @@ async function getHtml(){
 }
 
 
-function *hello(oridata){
-    let hlo = control(this, oridata);
+function *pagi(oridata, pgn){
+    
+    return pgn.run({
+        get: function(){
+            return getHtml.call(pgn);
+        },
 
-    hlo._get_ = function(){
-        return getHtml.call(hlo);
-    }
-
-    hlo._post_ = function(){
-        var post_data = '我是post数据'
-        oridata.pdata = post_data;
-        return oridata;
-    }
-
-    return hlo.run()
+        post: function(){
+            var post_data = '我是post数据'
+            oridata.pdata = post_data;
+            return oridata;
+        }
+    })
 }
 
-export {hello as getData}
+export {pagi as getData}

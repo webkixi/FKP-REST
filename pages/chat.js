@@ -1,4 +1,5 @@
-var libs = require('libs/libs')
+"use strict";
+
 
 SIO.on('imchat', function(data, socket){
     var _io = this.io,
@@ -27,41 +28,89 @@ SIO.on('imchat', function(data, socket){
     }
 })
 
-function *chat(oridata) {
+async function _parse(ctx, ctr){
+    return await ctr.libs.$parse(ctx)
+}
 
-    var method = this.method;
+function *chat(oridata, $chat){
 
-    if (method === 'GET') {
-        oridata.fkp = 'FKP-REST'
-        return oridata;
-    }
+    return $chat.run({
 
-    if (method === 'POST') {
-        var post_data = '我是post数据'
+        get: ()=>{
+            oridata.fkp = 'FKP-REST'
+            return oridata;
+        },
 
-        try {
-            var body = yield libs.$parse(this);
-            if (!body){
-                this.throw("The topic body is empty", 400);
+        post: ()=>{
+            var post_data = '我是post数据'
+            try {
+                _parse(this, $chat)
+                .then( body => {
+
+                    if (!body){
+                        this.throw("The topic body is empty", 400);
+                    }
+
+                    var rtn_data = {
+                        user: body.user||'匿名',
+                        message: body.message
+                    }
+                    post_data = body.message
+                    if (body.message.indexOf('FKP')===-1){
+                        SIO.emit('imchat', rtn_data);
+                    }
+                })
+
+            } catch (e) {
+                console.log(e);
+
+            } finally {
+                return [];
             }
-            var rtn_data = {
-                user: body.user||'匿名',
-                message: body.message
-            }
-            post_data = body.message
-            if (body.message.indexOf('FKP')===-1){
-                SIO.emit('imchat', rtn_data);
-            }
-            return [];
-        } catch (e) {
-            console.log(e);
-
-        } finally {
-            post_data = '你看看，我是websocket的数据'
         }
-    }
+    })
 }
 
-module.exports = {
-    getData : chat
-}
+export {chat as getData}
+
+
+// var libs = require('libs/libs')
+//
+// function *chat(oridata) {
+//
+//     var method = this.method;
+//
+//     if (method === 'GET') {
+//         oridata.fkp = 'FKP-REST'
+//         return oridata;
+//     }
+//
+//     if (method === 'POST') {
+//         var post_data = '我是post数据'
+//
+        // try {
+        //     var body = yield libs.$parse(this);
+        //     if (!body){
+        //         this.throw("The topic body is empty", 400);
+        //     }
+        //     var rtn_data = {
+        //         user: body.user||'匿名',
+        //         message: body.message
+        //     }
+        //     post_data = body.message
+        //     if (body.message.indexOf('FKP')===-1){
+        //         SIO.emit('imchat', rtn_data);
+        //     }
+        //
+        // } catch (e) {
+        //     console.log(e);
+        //
+        // } finally {
+        //     return [];
+        // }
+//     }
+// }
+//
+// module.exports = {
+//     getData : chat
+// }

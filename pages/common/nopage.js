@@ -1,4 +1,3 @@
-var rct = require('../../modules/parseReact');
 var api = require('../../apis/javaapi');
 var libs = require('../../libs/libs')
 
