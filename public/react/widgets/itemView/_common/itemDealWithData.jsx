@@ -123,19 +123,20 @@ function dealWithData(){
                        var cls = item.caption?'hb-item caption':'hb-item';
                        if(!React.isValidElement(item)){
                            var title = item.title||item.caption||item.text;
-                           if(title){
-                               if(item.url){
-                                   bodys.push(<div data-pid={i} key={'body'+i} className={cls}><a href={item.url}>{title}</a></div>)
-                               }else
-                                   bodys.push(<div data-pid={i} key={'body'+i} className={cls}>{title}</div>)
-                           }else{
-                               //attr定义一些特殊的状态
-                               var ppp = !item.attr
 
+                           if (title &&
+                               typeof title==='string' &&
+                               item.url &&
+                               typeof item.url==='string'
+                           ){
+                               title = <a href={item.url}>{title}</a>
+                           }
+
+                           var ppp = !item.attr
                                //没有attr
                                ? (function(){
                                    if (item.k){  //k v结构
-                                       return  <div key={'bodyk-'+i} data-pid={i} className={cls}>{item.k}{item.v}</div>
+                                       return  <div key={'bodyk-'+i} data-pid={i} className={cls}>{title}{item.k}{item.v}</div>
                                    }
 
                                    if (item.li){  //li结构
@@ -143,31 +144,77 @@ function dealWithData(){
                                        item.li.map(function(li_item, li_i){
                                            lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
                                        })
-                                       return <ul key={'bodyul-'+i} className={cls}>{lis}</ul>
+                                       return <div key={'bodyul-'+i} className={cls}>{title}<ul>{lis}</ul></div>
                                    }
                                })()
-
                                //已定义attr
                                : (function(){
                                    if (item.attr === 'select'){   //h5 自定义下拉菜单
                                        if (item.k)
-                                           return <div data-pid={i} data-src={item.attr} className={cls} data-value={item.v} >{item.k}</div>
+                                           return <div data-pid={i} data-src={item.attr} className={cls} data-value={item.v} >{title}{item.k}</div>
                                        else
                                        if (item.li){
                                            var lis = []
                                            item.li.map(function(li_item, li_i){
                                                lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
                                            })
-                                           return <ul key={'bodyul-'+i}  className={cls} data-src={item.attr}>{lis}</ul>
+                                           return <div key={'bodyul-'+i}  className={cls} data-src={item.attr}>{title}<ul>{lis}</ul></div>
                                        }
                                    }
                                    else {
-                                       return <div className={cls} data-pid={i} data-src={item.attr} key={'body'+i}>{item.k}{item.v}</div>
+                                       return <div className={cls} data-pid={i} data-src={item.attr} key={'body'+i}>{title}{item.k}{item.v}</div>
                                    }
                                })()
 
-                               bodys.push(ppp)
-                           }
+                           bodys.push(ppp)
+
+
+                            //    if(title){
+                            //        if(item.url){
+                            //            bodys.push(<div data-pid={i} key={'body'+i} className={cls}><a href={item.url}>{title}</a></div>)
+                            //        }else
+                            //            bodys.push(<div data-pid={i} key={'body'+i} className={cls}>{title}</div>)
+                            //    }else{
+                            //        //attr定义一些特殊的状态
+                            //        var ppp = !item.attr
+                               //
+                            //        //没有attr
+                            //        ? (function(){
+                            //            if (item.k){  //k v结构
+                            //                return  <div key={'bodyk-'+i} data-pid={i} className={cls}>{item.k}{item.v}</div>
+                            //            }
+                               //
+                            //            if (item.li){  //li结构
+                            //                var lis = []
+                            //                item.li.map(function(li_item, li_i){
+                            //                    lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                            //                })
+                            //                return <ul key={'bodyul-'+i} className={cls}>{lis}</ul>
+                            //            }
+                            //        })()
+                               //
+                            //        //已定义attr
+                            //        : (function(){
+                            //            if (item.attr === 'select'){   //h5 自定义下拉菜单
+                            //                if (item.k)
+                            //                    return <div data-pid={i} data-src={item.attr} className={cls} data-value={item.v} >{item.k}</div>
+                            //                else
+                            //                if (item.li){
+                            //                    var lis = []
+                            //                    item.li.map(function(li_item, li_i){
+                            //                        lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                            //                    })
+                            //                    return <ul key={'bodyul-'+i}  className={cls} data-src={item.attr}>{lis}</ul>
+                            //                }
+                            //            }
+                            //            else {
+                            //                return <div className={cls} data-pid={i} data-src={item.attr} key={'body'+i}>{item.k}{item.v}</div>
+                            //            }
+                            //        })()
+                               //
+                            //        bodys.push(ppp)
+
+                            //    }
                        }else{
                            bodys.push(item)
                        }
@@ -188,51 +235,100 @@ function dealWithData(){
                        var cls = item.caption?'hf-item caption':'hf-item';
                        if(!React.isValidElement(item)){
                            var title = item.title||item.caption||item.text;
-                           if(title){
-                               if(item.url){
-                                   footers.push(<div data-pid={i} key={'footer'+i} className={cls}><a href={item.url}>{title}</a></div>)
-                               }else
-                                   footers.push(<div data-pid={i} key={'footer'+i} className={cls}>{title}</div>)
-                           }else{
-                               //attr定义一些特殊的状态
-                               var ppp = !item.attr
 
-                               //没有attr
-                               ? (function(){
-                                   if (item.k)  //k v结构
-                                       return <div data-pid={i} key={'footer'+i} className={cls}>{item.k}{item.v}</div>
+                           if (title &&
+                               typeof title==='string' &&
+                               item.url &&
+                               typeof item.url==='string'
+                           ){
+                               title = <a href={item.url}>{title}</a>
+                           }
 
-                                   if (item.li){  //li结构
+
+                           //attr定义一些特殊的状态
+                           var ppp = !item.attr
+
+                           //没有attr
+                           ? (function(){
+                               if (item.k)  //k v结构
+                                   return <div data-pid={i} key={'footer'+i} className={cls}>{title}{item.k}{item.v}</div>
+
+                               if (item.li){  //li结构
+                                   var lis = []
+                                   item.li.map(function(li_item, li_i){
+                                       lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                                   })
+                                   return <div key={'footerul'+i} className={cls}>{title}<ul>{lis}</ul></div>
+                               }
+                           })()
+
+                           //已定义attr
+                           : (function(){
+                               if (item.attr === 'select'){  //h5 自定义下拉菜单
+                                   if (item.k){
+                                       return <div data-pid={i} data-src={item.attr} className={cls} data-value={item.v} key={'footer'+i}>{title}{item.k}</div>
+                                   }
+                                   else
+                                   if (item.li){
                                        var lis = []
                                        item.li.map(function(li_item, li_i){
                                            lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
                                        })
-                                       return <ul key={'footerul'+i} className={cls}>{lis}</ul>
+                                       return <div key={'footerul'+i} data-src={item.attr} className={cls}>{title}<ul>{lis}</ul></div>
                                    }
-                               })()
+                               }
+                               else {
+                                   return <div data-pid={i} data-src={item.attr} className={cls} key={'footer'+i}>{title}{item.k}{item.v}</div>
+                               }
+                           })()
 
-                               //已定义attr
-                               : (function(){
-                                   if (item.attr === 'select'){  //h5 自定义下拉菜单
-                                       if (item.k){
-                                           return <div data-pid={i} data-src={item.attr} className={cls} data-value={item.v} key={'footer'+i}>{item.k}</div>
-                                       }
-                                       else
-                                       if (item.li){
-                                           var lis = []
-                                           item.li.map(function(li_item, li_i){
-                                               lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
-                                           })
-                                           return <ul key={'footerul'+i} data-src={item.attr} className={cls}>{lis}</ul>
-                                       }
-                                   }
-                                   else {
-                                       return <div data-pid={i} data-src={item.attr} className={cls} key={'footer'+i}>{item.k}{item.v}</div>
-                                   }
-                               })()
+                           footers.push(ppp)
 
-                               footers.push(ppp)
-                           }
+                            //    if(title){
+                            //        if(item.url){
+                            //            footers.push(<div data-pid={i} key={'footer'+i} className={cls}><a href={item.url}>{title}</a></div>)
+                            //        }else
+                            //            footers.push(<div data-pid={i} key={'footer'+i} className={cls}>{title}</div>)
+                            //    }else{
+                            //        //attr定义一些特殊的状态
+                            //        var ppp = !item.attr
+                               //
+                            //        //没有attr
+                            //        ? (function(){
+                            //            if (item.k)  //k v结构
+                            //                return <div data-pid={i} key={'footer'+i} className={cls}>{item.k}{item.v}</div>
+                               //
+                            //            if (item.li){  //li结构
+                            //                var lis = []
+                            //                item.li.map(function(li_item, li_i){
+                            //                    lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                            //                })
+                            //                return <ul key={'footerul'+i} className={cls}>{lis}</ul>
+                            //            }
+                            //        })()
+                               //
+                            //        //已定义attr
+                            //        : (function(){
+                            //            if (item.attr === 'select'){  //h5 自定义下拉菜单
+                            //                if (item.k){
+                            //                    return <div data-pid={i} data-src={item.attr} className={cls} data-value={item.v} key={'footer'+i}>{item.k}</div>
+                            //                }
+                            //                else
+                            //                if (item.li){
+                            //                    var lis = []
+                            //                    item.li.map(function(li_item, li_i){
+                            //                        lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                            //                    })
+                            //                    return <ul key={'footerul'+i} data-src={item.attr} className={cls}>{lis}</ul>
+                            //                }
+                            //            }
+                            //            else {
+                            //                return <div data-pid={i} data-src={item.attr} className={cls} key={'footer'+i}>{item.k}{item.v}</div>
+                            //            }
+                            //        })()
+                               //
+                            //        footers.push(ppp)
+                            //    }
                        }else{
                            footers.push(item)
                        }
@@ -247,7 +343,7 @@ function dealWithData(){
 
                dot.map(function(item,i){
                    if(typeof item==='string'|| typeof item==='number'){
-                       dots.push(<div key={'dot-'+i} data-did={i} key={'dot'+i} className={'dot'}><div>{item}</div></div>)
+                       dots.push(<div key={'dot-'+i} data-did={i} key={'dot'+i} className={'dot'}>{item}</div>)
                    }
 
                    if(_.isObject(item)){
@@ -279,6 +375,13 @@ function dealWithData(){
                                })()
 
                                var title = item.title||item.caption||item.text||item.price;
+                               if (title &&
+                                   typeof title==='string' &&
+                                   item.url &&
+                                   typeof item.url==='string'
+                               ){
+                                   title = <a href={item.url}>{title}</a>
+                               }
                                if(title){
                                    dots.push(<div data-did={i} key={'dot'+i} className={'dot'} style={styl}><div>{title}</div></div>)
                                }
