@@ -11,9 +11,6 @@ function dealWithData(){
    var data = this.props.data;
    var items = [];
 
-   // var icon = this.state.icon;
-   // var iconPre = this.state.iconPre;
-
    if(this.props.itemClass){
        clsName = "item "+this.props.itemClass;
    }
