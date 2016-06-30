@@ -19,6 +19,17 @@ function *demoIndexData(oridata, route){
 			if( api.apiPath.dirs[route] || route === 'redirect')
 				passdata = yield api.pullApiData.call(this, route, body, 'post');
 
+            // 批处理加载大量js
+            if (route === 'staticjs'){
+                if (body.js){
+                    var _jss = [];
+                    // var scriptSrc = yield api.pullApiData.call(this, route, body, 'post');
+                    // body.js.map(function(item){
+                    //
+                    // })
+                }
+            }
+
             if ( passdata && passdata[1] ){
                 if (passdata[0].headers.login){
                     this.response.set('login', passdata[0].headers.login); //设置response的header

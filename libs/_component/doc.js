@@ -378,7 +378,7 @@ function _inject() {
             var tmpLink = doc.createElement('link');
             tmpLink.setAttribute("rel", 'stylesheet');
             tmpLink.setAttribute("href", cssCode);
-            tmpLink.setAttribute("id", id);
+            // tmpLink.setAttribute("id", id);
             headElement.appendChild(tmpLink);
             return;
         }
@@ -397,7 +397,7 @@ function _inject() {
         var tempStyleElement = doc.createElement('style'); //w3c
         tempStyleElement.setAttribute("rel", "stylesheet");
         tempStyleElement.setAttribute("type", "text/css");
-        tempStyleElement.setAttribute("id", id);
+        // tempStyleElement.setAttribute("id", id);
         headElement.appendChild(tempStyleElement);
         var styleElement = document.getElementById(id);
 
@@ -425,7 +425,7 @@ function _inject() {
 
             var tmpLink = doc.createElement('script');
             tmpLink.setAttribute("type", 'text/javascript');
-            tmpLink.setAttribute("id", id);
+            // tmpLink.setAttribute("id", id);
             if (src.indexOf('http')===0 || src.indexOf('/')===0){
                 tmpLink.setAttribute("src", src);
                 headElement.appendChild(tmpLink);
@@ -458,6 +458,7 @@ function dealInject(doc){
 
     function _initInject(type, src, cb){
         var args;
+        var _thirdPartJs = SA.get('thirdPartJs')
         if (!type || (typeof type==='object' && !type.concat)){
             type = 'css'
         }
@@ -475,35 +476,57 @@ function dealInject(doc){
         }
 
         if (args){
-            var did;
-            //注入页面的id如果存在，且长度小于20
-            if (typeof args[1]==='string' && args[1].length < 20){
-                var injectCode = true;
-                did = args[1];
-                if (cb && typeof cb==='function'){
+            // var did;
+            // if (!_thirdPartJs && type==='js') {
+            //     _thirdPartJs = {}
+            //     SA.set('thirdPartJs', _thirdPartJs)
+            // }
+            // //注入页面的id如果存在，且长度小于20
+            // var injectCode = true;
+            // if (typeof args[1]==='string' && args[1].length < 20){
+            //     did = args[1];
+            // }
+            // else {
+            //     did = urlparse(args[0].file)
+            // }
+            var did = args[1]||urlparse(args[0].file)
+
+            if (cb && typeof cb==='function' && type==='js'){
+                if (_thirdPartJs[did] === 'finish'){
+                    cb()
+                }
+                else {
+                    _thirdPartJs[did] === 'loadding';
+                    SA.append('thirdPartJs', _thirdPartJs);
                     if (typeof args[0]==='string'&&( args[0].indexOf('http')===0 || args[0].indexOf('/')===0)){
                         injectCode = false;
-                        SA.setter(did,cb);
+                        SA.set(did, null, [function(){
+                            var _tmp = {};
+                            _tmp[did] = 'finish'
+                            SA.append('thirdPartJs', _tmp);
+                            SA.deleter(did)
+                        }, cb])
                     }
                 }
-                // load之后执行
-                setTimeout(function(){
-                    if (type){
-                        if (args){
-                            _inject.call(doc, type, args, cb)
-                        }
-                    }
-                    else{
-                        if (args){
-                            _inject.call(doc, args)
-                        }
-                    }
-                    if (type === 'css' || injectCode){
-                        if (typeof cb==='function')
-                            cb()
-                    }
-                },17)
+
             }
+            // load之后执行
+            setTimeout(function(){
+                if (type){
+                    if (args){
+                        _inject.call(doc, type, args, cb)
+                    }
+                }
+                else{
+                    if (args){
+                        _inject.call(doc, args)
+                    }
+                }
+                if (type === 'css' || injectCode){
+                    if (typeof cb==='function')
+                        cb()
+                }
+            },17)
         }
         else {
             return false;

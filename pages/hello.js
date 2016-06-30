@@ -2,10 +2,6 @@
 
 function *hello(oridata, hlo) {
 
-    async function _parse(ctx){
-        await hlo.$parse(ctx)
-    }
-
     return hlo.run({
         get: async ()=>{
             oridata.fkp = 'FKP-REST';

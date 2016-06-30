@@ -17,65 +17,81 @@ var filterPicture = ['.jpg','.jpeg','.png','.gif']
 function *upLoaderService(path2save){
     lib.clog('upload local '+__filename)
 
-    try {
-        if(!path2save){
-           var err = new Error('请输入写入文件路径')
-           throw err;
-        }
-
-        if (!fs.existsSync(path2save)) {
-            fs.mkdirSync(path2save);
-            fs.chmodSync(path2save, '0777')
-        }
-
-        if (!this.request.is('multipart/*')) return yield next
-
-        var part;
-        var filename;
-        var o_filename;
-
-        var parts = parse(this, {
-            // only allow upload `.jpg` files
-            checkFile: function (fieldname, file, filename) {
-                // console.log('+++++++++++++++++++++');
-                // console.log(file);
-                if(_.indexOf(filterPicture,path.extname(filename))===-1){
-                    var err = new Error('invalid jpg image')
-                    err.status = 400
-                    return err;
-                }
-            }
-        })
-
-
-
-        while (part = yield parts) {
-            if (part.length) {
-                // arrays are busboy fields
-                console.log('key: ' + part[0])
-                console.log('value: ' + part[1])
-                if(part[0]==='name'){
-                    filename = part[1];
-                }
-            }
-            else {
-                if(filename){
-                    var ext = path.extname(filename);
-                    filename = lib.guid()+ext
-                    o_filename = filename;
-                    filename = path.join(path2save,filename);
-                }
-                else{
-                    return false;
-                }
-                // otherwise, it's a stream
-                part.pipe(fs.createWriteStream(filename))
-            }
-        }
-        this.body = {success: true, message: o_filename}
-    } catch (e) {
-        console.log('upload file to local: '+ e);
+    if(!path2save){
+       var err = new Error('请输入写入文件路径')
+       throw err;
     }
+
+    if (!fs.existsSync(path2save)) {
+        fs.mkdirSync(path2save);
+        fs.chmodSync(path2save, '0777')
+    }
+
+    if (!this.request.is('multipart/*')) return yield next
+
+    var part;
+    var filename;
+    var o_filename;
+
+    var parts = parse(this, {
+        // only allow upload `.jpg` files
+        checkFile: function (fieldname, file, filename) {
+            if(_.indexOf(filterPicture,path.extname(filename))===-1){
+                var err = new Error('invalid jpg image')
+                err.status = 400
+                return err;
+            }
+        }
+    })
+
+    while (part = yield parts) {
+        if (part.length) {
+            // arrays are busboy fields
+            // console.log('key: ' + part[0])
+            // console.log('value: ' + part[1])
+            if(part[0]==='name'){
+                filename = part[1];
+            }
+        }
+        else{
+            console.log(part);
+            if (part.filename){
+                filename = part.filename
+            }
+
+            if (filename){
+                var ext = path.extname(filename);
+                filename = lib.guid()+ext
+                o_filename = filename;
+                filename = path.join(path2save,filename);
+            }
+
+            if(filename){
+                var stream = fs.createWriteStream(filename)
+                part.pipe(stream)
+                console.log('uploading %s -> %s', part.filename, stream.path);
+            }
+        }
+    }
+
+    return {
+        "state": "SUCCESS",
+        "url": '/uploader/'+o_filename,
+        "title": o_filename,
+        "original": o_filename,
+        "success": true,
+        "message": o_filename
+    }
+
+    // this.body = {
+    //     "state": "SUCCESS",
+    //     "url": path2save+"/"+filename,
+    //     "title": filename,
+    //     "original": filename,
+    //     "success": true,
+    //     "message": o_filename
+    // }
+
 }
 
 
@@ -117,9 +133,6 @@ var buffer = null;
 var ctype = 'text/plain';
 var csize = 0;
 function *aliService(path2save){
-    console.log('================ 上传文件')
-    console.log('================ upload file')
-    console.log('================ '+__filename+': upload to ali oss');
 
     if (!this.request.is('multipart/*')) return yield next
 
@@ -131,20 +144,6 @@ function *aliService(path2save){
         bucket: 'jh-ljs-account',
         region: 'oss-cn-shenzhen'
     });
-
-    // var result = yield store.listBuckets()
-    // var object = yield store.put('/' + name, new Buffer('foo content'));
-    // var object = yield this.store.put(name, fs.createReadStream(__filename), {
-    //     headers: {
-    //       'Content-Length': (yield cfs.stat(__filename)).size
-    //     }
-    //   });
-
-    // result.buckets.map(function (item) {
-    //     console.log( item.name + ':' + item.region );
-    // })
-    // console.log(result);
-
 
     var stat = false;
     var object;
@@ -195,9 +194,16 @@ function *aliService(path2save){
         }
     }
     if(object)
-        this.body = {success: true}
+        this.body = {
+            "state": "SUCCESS",
+            "url": "upload/demo.jpg",
+            "title": "demo.jpg",
+            "original": "demo.jpg",
+            success: true,
+            message: filename
+        }
     else {
-        this.body = {success: false}
+        this.body = {"state": "failed", success: false}
     }
 
     // if (!this.request.is('multipart/*')) return yield next

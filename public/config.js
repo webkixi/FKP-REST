@@ -65,8 +65,8 @@ module.exports = {
     vendorList_adv: [
         // [0]开发
         [
-            // path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
-            path.join(__dirname, src_dir, '/js/vendor/jquery3/jquery.min.js'),
+            path.join(__dirname, src_dir, '/js/vendor/jquery2/dist/jquery.js'),
+            // path.join(__dirname, src_dir, '/js/vendor/jquery3/jquery.min.js'),
             // path.join(__dirname, src_dir, '/js/vendor/zepto/zepto.js'),
 
             // react 0.13
