@@ -70,9 +70,6 @@ var tmpApp = React.createClass({
 		var that = this;
 		var cls = "hlist";
 		var sty = {};
-		if(this.props.listClass){
-			cls = "hlist " + this.props.listClass;
-		}
 		if(this.props.listStyle){
 			cls = "hlist";
 			sty = this.props.listStyle;
@@ -159,8 +156,12 @@ var tmpApp = React.createClass({
 
 	render: function () {
 		var fills = this.loopRender();
+		var _cls = 'list-wrap'
+		if(this.props.listClass){
+			_cls = "list-wrap " + this.props.listClass;
+		}
 		return (
-			<div className={'list-wrap'}>
+			<div className={_cls}>
 				{fills}
 				{this.props.children}
 			</div>
