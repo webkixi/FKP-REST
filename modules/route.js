@@ -198,7 +198,8 @@ function *getServTime(){
 function *uploader(){
     libs.clog('上传数据');
     var fileUpLoader = require('./uploader');
-    yield fileUpLoader.local.call(this, fkpConfig.upload_root);
+    var data = yield fileUpLoader.local.call(this, fkpConfig.upload_root);
+    this.body = data
     // var saveFileStat = yield fileUpLoader.ali.call(this,this.config.upload_root);
     // console.log('==========================');
     // console.log('==========================');
