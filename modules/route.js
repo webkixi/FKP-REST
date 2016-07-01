@@ -310,32 +310,32 @@ function *distribute(_mapper){
                         yield htmlRender.call(this,false,route);
                     }
                     else{
-                    if(this.method==='GET'){
-                        if (data){
-                            yield htmlRender.call(this,true,route,data);
+                        if(this.method==='GET'){
+                            if (data){
+                                yield htmlRender.call(this,true,route,data);
+                            }
+                            // else {
+                            //     return;
+                            // }
+                            // else {
+                            //     this.redirect('/502')
+                            // }
                         }
-                        // else {
-                        //     return;
-                        // }
-                        // else {
-                        //     this.redirect('/502')
-                        // }
-                    }
-                    else
-                    if(this.method==='POST'){
-                        if( passStat ){
-                            if( api.apiPath.dirs[route] || api.apiPath.weixin[route] || route === 'redirect' )
-                                data = yield require('../pages/common/nopage').getData.call(this, data, control);
+                        else
+                        if(this.method==='POST'){
+                            if( passStat ){
+                                if( api.apiPath.dirs[route] || api.apiPath.weixin[route] || route === 'redirect' )
+                                    data = yield require('../pages/common/nopage').getData.call(this, data, control);
+                            }
+                            yield returnJson.call(this,true,route,data);
                         }
-                        yield returnJson.call(this,true,route,data);
                     }
                 }
             }
-        }
 
-        else{
-            this.redirect('/404')
-        }
+            else{
+                this.redirect('/404')
+            }
 
         }
     }
@@ -349,16 +349,17 @@ function *distribute(_mapper){
 **/
 function *htmlRender(stat,route,data){
     libs.clog('route.js/htmlRender '+route);
-    try {
-        if (stat){
-            this.body = yield render(route, data);
-        }
-        else{
-            this.redirect('/404')
-        }
-    } catch (e) {
+    if (stat){
+        this.body = yield render(route, data);
+    }
+    else{
         this.redirect('/404')
     }
+    // try {
+    //
+    // } catch (e) {
+    //     this.redirect('/404')
+    // }
 }
 
 
