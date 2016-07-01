@@ -20,7 +20,7 @@
 
 .markdown-body {
     p{
-        text-indent: 1em;
+        // text-indent: 1em;
         &:first-child{
             text-indent: 0;
         }
@@ -173,9 +173,10 @@
 
 .markdown-body ul,
 .markdown-body ol {
-  padding: 0;
-  margin-top: 0;
-  margin-bottom: 0;
+    font-size: 1em;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .markdown-body ol ol,
@@ -302,7 +303,7 @@
 
 .markdown-body h1 {
   padding: 1em 0;
-  font-size: 2.25em;
+  font-size: 1.8em;
   line-height: 1.2;
   border-bottom: 1px solid #eee;
 }
@@ -313,7 +314,7 @@
 
 .markdown-body h2 {
   padding-bottom: 0.3em;
-  font-size: 1.75em;
+  font-size: 1.6em;
   line-height: 1.225;
   border-bottom: 1px solid #eee;
 }
@@ -323,8 +324,8 @@
 }
 
 .markdown-body h3 {
-  font-size: 1.5em;
-  line-height: 1.43;
+  font-size: 1.45em;
+  line-height: 1.33;
 }
 
 .markdown-body h3 .anchor {
@@ -340,7 +341,7 @@
 }
 
 .markdown-body h5 {
-  font-size: 1.04em;
+  font-size: 1.08em;
 }
 
 .markdown-body h5 .anchor {
@@ -368,7 +369,8 @@
 .markdown-body table,
 .markdown-body pre {
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: 1em;
+  font-size: 0.875em;
 }
 
 .markdown-body hr {
@@ -382,8 +384,7 @@
 .markdown-body ul,
 .markdown-body ol {
   padding-left: 0;
-  margin-left: .5em;
-  list-style: none;
+  margin-left: 0.7em;
 }
 
 .markdown-body ul ul,
@@ -472,7 +473,7 @@
 .markdown-body code {
   padding: 0;
   margin: 0;
-  font-size: .9em;
+  font-size: .75em;
   background-color: #fbe7cd;
   border-radius: 3px;
   margin:0 .4em;
@@ -505,7 +506,7 @@
 .markdown-body pre {
   padding: 16px;
   overflow: auto;
-  font-size: 85%;
+  font-size: .75em;
   line-height: 1.45;
   background-color: #f7f7f7;
   border-radius: 3px;
@@ -722,6 +723,8 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
         font-size: 0.9em;
         .span9{
             width: 100%;
+            padding-left: 1em;
+            padding-right: 0;
         }
     }
     .markdown-body img {
