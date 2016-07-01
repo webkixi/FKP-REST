@@ -30,9 +30,15 @@ function *ueditor(oridata, hlo) {
         post: async () => {
             const self = this;
             return co(function *(){
-                return yield require('modules/uploader').local.call(self, fkpConfig.upload_root)
+                if (fkpConfig.editorUploader){
+                    return yield require('modules/uploader').local.call(self, fkpConfig.upload_root)
+                }
+                else {
+                    return {
+                        "state": "FAILED"
+                    }
+                }
             })
-            // return {pdata: '我是post数据'}
         }
     })
 
