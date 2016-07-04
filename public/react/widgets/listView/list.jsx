@@ -41,6 +41,7 @@ var tmpApp = React.createClass({
 				data: pdata
 			});
 		}
+		this.listMethod(nextProps);
 	},
 
 	_dealWithItemView: function(opts){
@@ -123,27 +124,16 @@ var tmpApp = React.createClass({
 		return items;
 	},
 
-	defaultMethod: function(){
-		//lazyload img
-		var that = React.findDOMNode(this);
-		if(that.querySelectorAll){
 
-			if( that.querySelector('img') ){
-				var tmpimgs = that.querySelectorAll('img')
-				var imgs = _.toArray( tmpimgs )
-				imgs.map(function( pic, list_i ){
-					if( pic.getAttribute('data-src') ){
+	// 组件判断是否重新渲染时调用
+    // 虚拟dom比对完毕生成最终的dom后之前
+	// shouldComponentUpdate:function(){
+	// 	return true;
+	// },
 
-					}
-				})
-			}
-		}
-
-	},
-
-	componentDidMount: function () {
-		if(this.props.listMethod){
-			var mtd = this.props.listMethod;
+	listMethod: function(props){
+		if(props.listMethod){
+			var mtd = props.listMethod;
 			var that = React.findDOMNode(this);
 			if(typeof mtd==='function'){
 				var the = this;
@@ -152,6 +142,10 @@ var tmpApp = React.createClass({
 				},600);
 			}
 		}
+	},
+
+	componentDidMount: function () {
+		this.listMethod(this.props)
 	},
 
 	render: function () {
