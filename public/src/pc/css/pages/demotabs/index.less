@@ -11,13 +11,26 @@ body{
 
 .container{
     padding: 1em;
-    min-height: 500px;
+    height: 510px;
     .hbody{
+        display: flex;
+        flex-direction: row;
+        height: 510px;
+        overflow: hidden;
         .part{
-            margin: 1em 0;
+            flex: 1;
+            margin: 0;
+            background-color: rgb(236, 236, 236);
+            padding: 10px;
+            height: 100%;
+            #for-vtabs{
+                height: 400px;
+            }
         }
     }
 }
+
+
 
 @media screen{
     @media (max-width: 1023px){}
