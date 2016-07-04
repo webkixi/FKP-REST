@@ -218,11 +218,12 @@ var Input = {
 
                 var _input = [];
 
-                if (this.names.length){
+                if (this.names.length||this.ids.length){
+                    var _eles = _.gte(this.names.length, this.ids.length) ? this.names : this.ids;
                     this.names.map(function(item, i){
                         _input.push({
                             input: {
-                                name: item,
+                                name: me.names[i],
                                 id: me.ids[i],
                                 type: me.types[i],
                                 value: me.values[i],

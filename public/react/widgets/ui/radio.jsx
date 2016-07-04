@@ -128,6 +128,7 @@ var Radio = React.createClass({
     //
 	// },
 	// //组件判断是否重新渲染时调用
+    // 虚拟dom比对完毕生成最终的dom后之前
 	// shouldComponentUpdate:function(){
 	// 	return true;
 	// },
