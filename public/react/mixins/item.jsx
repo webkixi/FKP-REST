@@ -22,20 +22,24 @@ function itemMixin(){
             var that = React.findDOMNode(this);
 
             if(this.props.itemDefaultMethod){
-    			var dMtd = this.props.itemDefaultMethod;
-    			if(typeof dMtd==='function'){
-    				dMtd.call(that, this.intent);
-    			}
+                if(this.props.itemMethod){
+                    var mtd = this.props.itemMethod;
+                    mtd.call(that, self.intent);
+                }
+                setTimeout(function(){
+                    var dMtd = self.props.itemDefaultMethod;
+        			if(typeof dMtd==='function'){
+        				dMtd.call(that, this.intent);
+        			}
+                }, 17)
     		}
+            else
+            if(this.props.itemMethod){
+                var mtd = this.props.itemMethod;
+                mtd.call(that, self.intent);
+            }
 
-    		if(this.props.itemMethod){
-    			var mtd = this.props.itemMethod;
-    			if(typeof mtd==='function'){
-                    setTimeout(function(){
-                        mtd.call(that, self.intent);
-                    }, 17)
-    			}
-    		}
+
 
         }
     }
