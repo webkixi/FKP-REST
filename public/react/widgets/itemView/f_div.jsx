@@ -45,9 +45,7 @@ var fox = React.createClass({
 
 		var _props = {
 			"ref":			this.props.ref,
-			"data-idf": 	this.props.idf,
 			"id":	 		k1,
-			// "data-cls": 	v2,
 			"style":		sty,
 			"className": 	getClass(),
 			"key": 			this.props.key

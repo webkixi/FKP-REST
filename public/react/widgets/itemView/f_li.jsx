@@ -1,5 +1,5 @@
+var serialize = require('serialize-javascript')
 /**
-
 itemView
 放回 li 结构, 用于modules/list 调用，作为ul/li部分
 */
@@ -8,6 +8,16 @@ var dealWithDataMethod = require('./_common/itemDealWithData')
 
 var fox = React.createClass({
 	mixins: [ItemMixin],
+	// 组件判断是否重新渲染时调用
+    // 虚拟dom比对完毕生成最终的dom后之前
+	shouldComponentUpdate:function(nextProps){
+		var data = serialize(this.props.data);
+		var _data = serialize(nextProps.data);
+		if (data !== _data){
+			return true;
+		}
+	},
+
 	componentDidMount: function () {},
 
 	dealWithData: dealWithDataMethod,
@@ -45,9 +55,7 @@ var fox = React.createClass({
 
 		var _props = {
 			"ref":			this.props.data.ref,
-			"data-idf": 	this.props.data.idf,
 			"id":	 		k1,
-			// "data-cls": 	v2,
 			"style":		sty,
 			"className": 	getClass(),
 			"key": 			_.uniqueId('fox_')
