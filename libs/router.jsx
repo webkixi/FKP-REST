@@ -74,11 +74,10 @@ var rt = libs.Class.create();
                 this.isBack = back;
             }
             else {
-                if (libs.getObjType(back) === 'Object'){
-                    this.intent = back;
-                }
-                else
+                if (libs.getObjType(back) === 'Object') this.intent = back;
+                else {
                     return false;
+                }
             }
             return true;
         },
@@ -104,8 +103,6 @@ var rt = libs.Class.create();
                     var next = name.substring(0,name.indexOf('#'))
                     if (url.path==next){
                         var hash = name.substring(name.indexOf('#')+1)
-
-                        // router(hash);
                         this.name = hash
                         return true;
                     }
@@ -167,15 +164,14 @@ var rt = libs.Class.create();
                 SA.set('_CURENT_PAGE', name)
                 router.cb = false;
                 console.log('======='+name);
-                if (intent)
-                    data = intent
+                if (intent) data = intent
 
                 SA.append('_HISTORY_DATA', data)
 
-                if (this.multiDom)
+                if (this.multiDom) SA.setter(name, data)
+                else {
                     SA.setter(name, data)
-                else
-                    SA.setter(name, data)
+                }
 
                 historyStatBehavior()
             }
@@ -198,37 +194,27 @@ var rt = libs.Class.create();
                         if (prev_id.indexOf('/')>0){
                             prev_id = prev_id.replace('/', '_')
                         }
-                        prev_dom = $(document.querySelector('#'+prev_id)).parent()[0]
-                        if ((prev_dom.className.indexOf('router-container-block')>-1 ||
-                             prev_dom.className.indexOf('router-container-reblock')>-1) &&
-                            this.isBack===true
-                        ){
+                        // prev_dom = $(document.querySelector('#'+prev_id)).parent()[0]
+                        prev_dom = $('#'+prev_id).parent()[0]
+                        if ((prev_dom.className.indexOf('router-container-block')>-1
+                            || prev_dom.className.indexOf('router-container-reblock')>-1)
+                            && this.isBack===true ){
                             prev_dom.className = 'container-box router-container router-container-rehidden'
                         }
-                        else
+                        else{
                             prev_dom.className = 'container-box router-container router-container-hidden'
+                        }
                     }
                 }
 
                 var nameDom = $(document.querySelector('#'+name)).parent()[0]
-                if (nameDom.className.indexOf('router-container-hidden')>-1 &&
-                    this.isBack===true
-                ){
+                if (nameDom.className.indexOf('router-container-hidden')>-1
+                    && this.isBack===true ){
                     nameDom.className = 'container-box router-container router-container-reblock'
                 }
                 else {
                     nameDom.className = 'container-box router-container router-container-block'
                 }
-
-                // var silbDom = document.querySelectorAll('.router-container')
-                // silbDom = libs.arg2arr(silbDom)
-                // silbDom.map(function(unit, i){
-                //   unit.style.display = 'none'
-                // })
-                //
-                // var nameDom = document.querySelector('#'+name)
-                // nameDom.style.display = 'block'
-
                 router.clear()
             }
         }
@@ -255,7 +241,7 @@ router.pre = function(){
     return _h[(_h.length-2)];
 }
 
-router.goback = function(name, data){
+function _goback(name, data){
     var url = libs.urlparse(location.href);
     if (url.params.goback) {
         if (url.params.goback.indexOf('_')>-1) {
@@ -286,10 +272,12 @@ router.goback = function(name, data){
             var _history = SA.get('_HISTORY')
             if (_history.length === 1){
                 console.log('======== pophistory');
-                if (wx)
+                if (wx){
                     wx.closeWindow()
-                else
+                }
+                else{
                     window.history.go(-2)
+                }
             }
             else{
                 var pop = SA.pop('_HISTORY')
@@ -303,25 +291,26 @@ router.goback = function(name, data){
                     window.location.href = history.source
                 }
             }
-         }
+        }
 
     }
+}
+
+router.goback = function(name, data){
+    setTimeout(function(){
+        _goback(name, data)
+    }, 0)
 }
 
 router.clear = function(){
     var _history = SA.get('_HISTORY')
     setTimeout(function(){
         $('#pageloading').remove()
-        // var load = document.getElementById('pageloading')
-        // libs.node.remove(load)
     },300)
 }
 
 //
 function bindFn(e){
-    // var initialPop = !popped && location.href == initialURL
-    // popped = true
-    // if ( initialPop ) return
 
     if (allow_router_cb){
         var url = libs.urlparse(location.href);
@@ -346,8 +335,9 @@ function bindFn(e){
             var _history_data = SA.get('_HISTORY_DATA')
             if (_history.length === 1){
                 console.log('======== pophistory');
-                if (wx)
+                if (wx){
                     wx.closeWindow()
+                }
                 else{
                     window.history.go(-2)
                 }
@@ -372,21 +362,8 @@ function bindFn(e){
 function historyStatBehavior(){
     initialURL = location.href;
     allow_router_cb = true;
-    // bindPushState()
 }
 
-// function unbindPushState(){
-//     libs.rmvEvent(window, 'popstate', bindFn)
-// }
-//
-// function bindPushState(){
-//     //html5
-//     if(window.history.pushState){
-//         //解决方案  http://stackoverflow.com/questions/6421769/popstate-on-pages-load-in-chrome
-//         //android 和 iphone上页面刷新就会直接执行popstate，这是一个浏览器的bug
-//         // libs.addEvent(window, 'popstate', bindFn)
-//     }
-// }
 
 function historyStat(args, title, uri){
     console.log('========= pushState history');
@@ -404,14 +381,14 @@ var route = function(name, handle){
     if(libs.getObjType(name)==='Object'){
         var keys = Object.keys(name);
         keys.map(function(item, i){
-            route[item] = name[item];
             SA.setter(item, name[item])
         })
     }
 
     if(typeof name === 'string'){
-        if(typeof handle === 'function')
+        if(typeof handle === 'function'){
             SA.setter(name, handle)
+        }
     }
 }
 
@@ -422,43 +399,42 @@ route.init = function(name, handle){
         console.log("don't set global SA variable ");
         return;
     }
-    // $('body').append('<div id="router-wrap" style="width:100%;position:relative;height:100%;overflow:hidden;"></div>')
     $('body').append('<div id="router-wrap" style="width:100%;position:relative;height:100%;"></div>')
     var _wrap = $('#router-wrap')[0]
 
     if(libs.getObjType(name)==='Object'){
         var keys = Object.keys(name);
-        var tmp;
+        var tmp={};
         keys.map(function(item, i){
-            // route[item] = name[item];
             //插入id到body
             var _id = item;
-            if (item.indexOf('/')>0){
-                _id = item.replace('/', '_')
-            }
-            // $(_wrap).append('<div class="container-box router-container"><div id="'+_id+'" style="height:100%;"></div></div>')
+            if (item.indexOf('/')>0) _id = item.replace('/', '_')
             $(_wrap).append('<div class="container-box router-container"><div id="'+_id+'" style="height:100%;overflow:auto;"></div></div>')
-            // libs.node.append('body', 'div', {"class": "container-box router-container", id: _id})
 
             var page_instence = name[item](_id)
 
             if (page_instence.goback || page_instence.trigger || page_instence.end){
-                if (page_instence.goback && libs.getObjType(page_instence.goback)==='Function'){
+                if (page_instence.goback
+                    && libs.getObjType(page_instence.goback)==='Function'){
                     SA.set(item, page_instence.goback, [page_instence])
                 }
-                if (page_instence.trigger && libs.getObjType(page_instence.trigger)==='Function')
+                if (page_instence.trigger
+                    && libs.getObjType(page_instence.trigger)==='Function'){
                     SA.set(item, page_instence.trigger, [page_instence])
+                }
 
-                if (page_instence.end && libs.getObjType(page_instence.end)==='Function'){
+                if (page_instence.end
+                    && libs.getObjType(page_instence.end)==='Function'){
                     page_instence.end.args = [page_instence]
-                    var tmp = {}
+                    // var tmp = {}
                     tmp[item] = page_instence.end
                     SA.set('_CURENT_PAGE', 'none', tmp)
                     // SA.set(item, page_instence.end, [page_instence])
                 }
             }
-            else
+            else{
                 SA.set(item, name[item], [_id])
+            }
         })
     }
 
