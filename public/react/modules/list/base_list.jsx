@@ -122,7 +122,11 @@ function applist(data, ele, opts){
     )
 }
 
-applist.server = applist.pure = function(){
+applist.server = function(){
+    return List.pure();
+}
+
+applist.pure = function(){
     return List.pure();
 }
 
