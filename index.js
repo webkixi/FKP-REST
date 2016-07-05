@@ -38,31 +38,13 @@ var statics = require('./modules/static'),
 	_mapper = require('./modules/mapper')(args[0]),
 	route = require('./modules/route'),
 	socketio = require('./modules/wsocket'),   //websocket
-	render = require('./modules/render');
-
-
-
+	render = require('./modules/render'),
+	cors = require('kcors');    //cros 跨域支持
 
 
 //初始化
 var app = koa();
-
-// //定义测试环境
-// app.use(function *(next){
-// 	if (args[0] === 'dev' || args[0] === 'pro'){
-// 		if (args[1] === 'test') {
-// 			console.log('=========== 进入测试环境');
-// 			process.env.env = 'test'
-// 			// this.session.argv = 'test'
-// 		}
-// 	}
-// 	if (args[0] === 'test') {
-// 		console.log('=========== 进入测试环境');
-// 		process.env.env = 'test'
-// 		// this.session.argv = 'test'
-// 	}
-// 	yield next
-// });
+app.use(cors());
 
 //静态资源 js css
 statics(args[0], app)
@@ -84,6 +66,7 @@ route.call(this,app,_mapper,render(args[0]))
 
 //websocket 挂载on
 socketio.run();
+
 
 
 //打印出错信息
