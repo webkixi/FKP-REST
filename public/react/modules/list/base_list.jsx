@@ -118,7 +118,7 @@ function applist(data, ele, opts){
 
     render(
         <VTabs data={data_render} />,
-        document.getElementById(dft.container)
+        _.isObject(dft.container)&&dft.container.nodeType ? dft.container : document.getElementById(dft.container)
     )
 }
 
