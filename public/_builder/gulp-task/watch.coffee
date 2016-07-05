@@ -45,21 +45,21 @@ module.exports = (gulp,$,slime,env,port)->
             reload()
 
         # 监控js文件
-        # gulp.watch config.dirs.watch_src + '/js/?(pages|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildPage]
-        # .on 'change', () ->
-        #     console.log 'js watch'
-        #     reload()
+        gulp.watch config.dirs.watch_src + '/js/?(pages|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildPage]
+        .on 'change', () ->
+            console.log 'js watch'
+            reload()
 
         # 监控js文件
-        gulp.watch config.dirs.watch_src + '/js/?(pages)/**/*.?(coffee|js|jsx|cjsx)'
-        .on 'change', (event) ->
-            console.log event.type
-            dirname = path.dirname(event.path)
-            slime.build( dirname, true, {'env': env, watch: true}, reload)
+        # gulp.watch config.dirs.watch_src + '/js/?(pages)/**/*.?(coffee|js|jsx|cjsx)'
+        # .on 'change', (event) ->
+        #     console.log event.type
+        #     dirname = path.dirname(event.path)
+        #     slime.build( dirname, true, {'env': env, watch: true}, reload)
 
         # 监控react目录下的文件
         # gulp.watch config.dirs.react + '/**/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
-        gulp.watch config.dirs.watch_react + '/?(modules|widgets|mixins)/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        gulp.watch config.dirs.watch_react + '/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
         .on 'change', () ->
             console.log 'react watch'
             reload()
