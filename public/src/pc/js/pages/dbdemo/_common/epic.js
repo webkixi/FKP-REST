@@ -5,7 +5,7 @@ var uploader = require('modules/upload/index')
 function epiceditor(options){
 
     if ($('#epic').length){
-      dealWithEditor.call(window._epic_ed, options)
+      dealWithEditor(options)
     }
     else {
       libs.inject()
@@ -15,64 +15,67 @@ function epiceditor(options){
 
 
     function initEpicEditor(){
-        // 编辑器初始化
-        var opts = {
-          container: 'epiceditor',
-          textarea: null,
-          basePath: '/js/t/epic',
-          clientSideStorage: true,
-          localStorageName: 'epiceditor',
-          useNativeFullscreen: true,
-          parser: marked,
-          file: {
-            name: 'epiceditor',
-            defaultContent: '',
-            autoSave: 100
-          },
-          theme: {
-            base: '/themes/base/epiceditor.css',
-            preview: '/themes/preview/bartik.css',
-            editor: '/themes/editor/epic-light.css'
-          },
-          button: {
-            preview: true,
-            fullscreen: true,
-            bar: "show"
-          },
-          focusOnLoad: false,
-          shortcut: {
-            modifier: 18,
-            fullscreen: 70,
-            preview: 80
-          },
-          string: {
-            togglePreview: 'Toggle Preview Mode',
-            toggleEdit: 'Toggle Edit Mode',
-            toggleFullscreen: 'Enter Fullscreen'
-          },
-          autogrow: false
+        if (!window._epic_ed){
+            // 编辑器初始化
+            var opts = {
+                container: 'epiceditor',
+                textarea: null,
+                basePath: '/js/t/epic',
+                clientSideStorage: true,
+                localStorageName: 'epiceditor',
+                useNativeFullscreen: true,
+                parser: marked,
+                file: {
+                    name: 'epiceditor',
+                    defaultContent: '',
+                    autoSave: 100
+                },
+                theme: {
+                    base: '/themes/base/epiceditor.css',
+                    preview: '/themes/preview/bartik.css',
+                    editor: '/themes/editor/epic-light.css'
+                },
+                button: {
+                    preview: true,
+                    fullscreen: true,
+                    bar: "show"
+                },
+                focusOnLoad: false,
+                shortcut: {
+                    modifier: 18,
+                    fullscreen: 70,
+                    preview: 80
+                },
+                string: {
+                    togglePreview: 'Toggle Preview Mode',
+                    toggleEdit: 'Toggle Edit Mode',
+                    toggleFullscreen: 'Enter Fullscreen'
+                },
+                autogrow: false
+            }
+
+            var editor = new EpicEditor(opts).load();
+            editor.reflow()
+            var find = function(name){
+                return editor.getElement(name);
+            }
+
+            var iframeDoc = find('editor')
+
+            libs.inject(iframeDoc)
+            .js(['/js/t/epic/js/test.js', 'iframeEditor'])
+
+            var ed = {
+                editor: editor,
+                find: find
+            }
+            window._epic_ed = ed
+            dealWithEditor.call(ed, options)
+        }
+        else {
+            dealWithEditor.call(window._epic_ed, options)
         }
 
-        var editor = new EpicEditor(opts).load();
-        editor.reflow()
-        var find = function(name){
-            return editor.getElement(name);
-        }
-
-        var iframeDoc = find('editor')
-
-        libs.inject(iframeDoc)
-        .js(['/js/t/epic/js/test.js', 'iframeEditor'])
-
-
-
-        var ed = {
-            editor: editor,
-            find: find
-        }
-        window._epic_ed = ed
-
-        dealWithEditor.call(ed, options)
     }
 
     //编辑器处理

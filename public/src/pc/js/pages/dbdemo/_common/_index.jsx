@@ -117,18 +117,20 @@ function index(_target){
         }
     })
 
+    var epic = require('./epic');
+
     //弹出编辑框
     $('body').on('openEditor', function(jqevent, opts){
         //打开输入框
         $('.box').toggle()
 
         if (opts && opts.content){
-          require('./epic')(opts)   //类似seajs，按需异步请求
+            epic(opts)   //类似seajs，按需异步请求
         }
         else{
-          //插入编辑器
-          //必须后置打开，不然编辑器的宽高不对
-          require('./epic')()       //类似seajs，按需异步请求
+            //插入编辑器
+            //必须后置打开，不然编辑器的宽高不对
+            epic()       //类似seajs，按需异步请求
         }
     })
 

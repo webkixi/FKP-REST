@@ -23,7 +23,7 @@ WS.on('article_count', function(val){
 var _config = [
     '博客',
     'FKPJS',
-    {title: <a href="/app">大单页</a>, 'data-href':'大单页'},
+    {title: <a href="/app">路由单页</a>, 'data-href':'大单页'},
     {title: <a href="/chat">聊天室</a>, 'data-href':'聊天室'},
     {title: <a href="/cat">分类列</a>, 'data-href':'分类列'},
     {title: <a href="/demotabs">Tabs</a>, 'data-href':'Tabs'},
