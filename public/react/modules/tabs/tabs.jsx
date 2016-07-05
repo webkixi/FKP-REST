@@ -61,6 +61,10 @@ function tabs(data, opts, c){
                 $(this).parent().find('.tabs-menu').each(function(i, item){
                     // $(item).click(function(){
                     $(item).on(dft.event, function(){
+                        var _href = $(this).attr('data-href')
+                        if(_href && _href!=='#'){
+                            return;
+                        }
                         $(this).siblings().removeClass('selected');
                         $(this).addClass('selected');
                         var view = _eles[i];
