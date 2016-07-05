@@ -72,7 +72,50 @@ body{
     #listtopic .like_lagou .item{
         height: auto;
     }
+
+    #forTabs{
+        .tabsMenus{
+            width: 5em;
+            .tabs-menu{
+                text-align: center;
+                padding: 0;
+                border-radius: 5px;
+                margin-bottom: .3em;
+                a{
+                    color: #000;
+                }
+                &.selected{
+                    border-right: none;
+                    border: 1px dashed #c2d9f9;
+                    // background: #ecf4ff;
+                    color: #04b48b;
+                }
+            }
+        }
+        .tabsBoxes{
+            // border-left: 1px dashed #f4f1f1;
+            border-left: none;
+            .tabs-box{
+                padding: 0;
+                padding-left: .5em;
+            }
+        }
+        .mulitple{
+            height: auto;
+        }
+    }
    @media (max-width: 1023px){
+       #forTabs{
+           .tabsMenus{
+               display: none;
+           }
+           .tabsBoxes{
+               border: none;
+               .tabs-box{
+                   padding: 0;
+               }
+           }
+       }
        .logo{
            position: fixed;
            right: .5em;
@@ -147,6 +190,8 @@ body{
 #listtopic{
     margin-left: -2000px;
 }
+
+
 
 .span9{
     a.fkp-dest{
