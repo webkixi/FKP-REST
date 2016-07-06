@@ -4,8 +4,8 @@ module.exports = function(reacturl, opt){
 	var props = opt || {};
 	if (typeof reacturl==='string'){
 		var _rct = include(reacturl);
-		if (_rct.server){
-			factory = React.createFactory(_rct.server());
+		if (_rct.pure){
+			factory = React.createFactory(_rct.pure());
 		}
 		else {
 			factory = React.createFactory(_rct);
