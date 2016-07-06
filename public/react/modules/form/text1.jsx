@@ -1,5 +1,5 @@
 var libs = require('libs/libs');
-var Input = require('../../widgets/ui/input1')
+var Input = require('react/widgets/ui/input1')
 var render = React.render;
 
 /*

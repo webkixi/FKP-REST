@@ -5,7 +5,7 @@
  */
 var libs = require('libs/libs'),
     List = require('./_component/_loadlist'), //设定列表域为 lagou
-    ItemMixin = require('../../mixins/item'),
+    ItemMixin = require('react/mixins/item'),
     render = React.render,
     inject = libs.inject(),
     req = require('libs/api').req;

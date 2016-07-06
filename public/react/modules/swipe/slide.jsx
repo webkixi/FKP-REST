@@ -1,6 +1,5 @@
 var libs = require('libs/libs');
-var List = require('../../widgets/listView/list')
-var Pt = require('widgets/itemView/pic_title');
+var List = require('react/widgets/listView/list')
 var render = React.render;
 var Swipe = require('./_common/swipe')
 
@@ -40,15 +39,17 @@ function slide(data, ele){
             pts.push(<a >{i+1}</a>)
         })
         if(pts.length){
-            return <div className={'pagi-point'}>
-                {pts}
-            </div>
+            return (
+                <div className={'pagi-point'}>
+                    {pts}
+                </div>
+            )
         }else{
             return '';
         }
     })()
     render(
-        <List data={data} listMethod={lmd} listClass={'gally_caption'} itemClass={'wid-12'} itemView={Pt}>
+        <List data={data} listMethod={lmd} listClass={'gally_caption'} itemClass={'wid-12'}>
             {points}
         </List>,
         document.getElementById(ele)

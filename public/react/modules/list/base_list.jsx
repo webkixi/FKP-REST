@@ -43,10 +43,10 @@ function doneNext(eve){
 }
 
 function applist(data, ele, opts){
-    ItemMixin = require('../../mixins/item'),
+    ItemMixin = require('react/mixins/item'),
     render = React.render,
     inject = libs.inject();
-    
+
 
     var noop = function(){},
         dft = {

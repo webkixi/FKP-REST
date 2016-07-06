@@ -1,6 +1,6 @@
 var libs = require('libs/libs');
 
-var Radio = require('../../widgets/ui/radio')
+var Radio = require('react/widgets/ui/radio')
 var render = React.render;
 
 // var radiodata_waterCard = {

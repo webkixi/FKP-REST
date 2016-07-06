@@ -1,5 +1,5 @@
-var List = require('../../../widgets/listView/list');
-var Store = require('../../../mixins/store');
+var List = require('react/widgets/listView/list');
+var Store = require('react/mixins/store');
 var _storeName;
 var _jump = false;
 
@@ -210,7 +210,7 @@ var pagenation = {
 
 function actRct( storeName ){
     _storeName = storeName;
-    return require('../../../util')(storeName, pagenation)
+    return require('react/util')(storeName, pagenation)
 }
 
 module.exports = actRct;

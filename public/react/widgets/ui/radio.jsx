@@ -1,4 +1,4 @@
-var ItemMixin = require('../../mixins/item')
+var ItemMixin = require('react/mixins/item')
 
 // <Radio data={name: [], id: [], title: [], rtitle:[], cb: fn} />
 

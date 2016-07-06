@@ -1,4 +1,4 @@
-var ItemMixin = require('../../mixins/item')
+var ItemMixin = require('react/mixins/item')
 var Radio = require('./radio');
 
 
@@ -258,7 +258,7 @@ var Input = {
 
 //
 function actRct( storeName ){
-    return require('../../util/index')(storeName, Input)
+    return require('react/util/index')(storeName, Input)
 }
 
 module.exports = actRct;

@@ -2,7 +2,7 @@
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
-var List = require('../../../widgets/listView/list')
+var List = require('react/widgets/listView/list')
 
 
 var tmpApp = {
@@ -61,9 +61,9 @@ var tmpApp = {
 
 // 通过方法返回的结构，带sax的react结构 带itemMixins, storeMixins，scrollEnd的mixins
 function actRct( storeName ){
-	var scrollMixins = require('../../../mixins/scrollLoadAndLazy');
+	var scrollMixins = require('react/mixins/scrollLoadAndLazy');
 	tmpApp['mixins'] = [ scrollMixins];
-    return require('../../../util/index')(storeName, tmpApp)
+    return require('react/util/index')(storeName, tmpApp)
 }
 
 // 纯react结构，带itemMixins
@@ -80,7 +80,7 @@ actRct.store = function( storeName ){
 	}
 	delete tmpApp.mixins;
 	tmpApp.loopRender = nloopRender;
-	return require('../../../util/index')(storeName, tmpApp)
+	return require('react/util/index')(storeName, tmpApp)
 }
 
 module.exports = actRct;

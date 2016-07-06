@@ -3,7 +3,7 @@
 itemView
 放回 div 结构, 一般可以直接调用
 */
-var ItemMixin = require('../../mixins/item')
+var ItemMixin = require('react/mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')
 
 var fox = React.createClass({

@@ -2,7 +2,7 @@
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
-var BaseList = require('../../list/base_list')
+var BaseList = require('react/modules/list/base_list')
 
 var tmpApp = {
 	getInitialState: function() {
@@ -74,7 +74,7 @@ var tmpApp = {
 
 // 通过方法返回的结构，带sax的react结构 带itemMixins, storeMixins，scrollEnd的mixins
 function actRct( storeName ){
-    return require('../../../util/index')(storeName, tmpApp)
+    return require('react/util/index')(storeName, tmpApp)
 }
 
 // 带sax的react结构 带itemMixins, storeMixins

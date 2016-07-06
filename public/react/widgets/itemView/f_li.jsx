@@ -3,7 +3,7 @@ var serialize = require('serialize-javascript')
 itemView
 放回 li 结构, 用于modules/list 调用，作为ul/li部分
 */
-var ItemMixin = require('../../mixins/item')
+var ItemMixin = require('react/mixins/item')
 var dealWithDataMethod = require('./_common/itemDealWithData')
 
 var fox = React.createClass({
