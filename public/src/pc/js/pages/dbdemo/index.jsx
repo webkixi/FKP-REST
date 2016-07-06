@@ -23,14 +23,14 @@ WS.on('article_count', function(val){
 var _config = [
     '博客',
     'FKPJS',
-    {title: <a href="/app">路由单页</a>, 'data-href':'大单页'},
-    {title: <a href="/chat">聊天室</a>, 'data-href':'聊天室'},
-    {title: <a href="/cat">分类列</a>, 'data-href':'分类列'},
-    {title: <a href="/demotabs">同构Tabs</a>, 'data-href':'Tabs'},
-    {title: <a href="/formshow">表单</a>, 'data-href':'表单'},
-    {title: <a href="/hello">接口</a>, 'data-href':'接口'},
-    {title: <a href="/pagi">同构分页</a>, 'data-href':'分页'},
-    {title: <a href="/ueditor">编辑器</a>, 'data-href':'编辑器'}
+    {title: <a href="http://www.agzgz.com/app">路由单页</a>, 'data-href':'大单页'},
+    {title: <a href="http://www.agzgz.com/chat">聊天室</a>, 'data-href':'聊天室'},
+    {title: <a href="http://www.agzgz.com/cat">分类列</a>, 'data-href':'分类列'},
+    {title: <a href="http://www.agzgz.com/demotabs">同构Tabs</a>, 'data-href':'Tabs'},
+    {title: <a href="http://www.agzgz.com/formshow">表单</a>, 'data-href':'表单'},
+    {title: <a href="http://www.agzgz.com/hello">接口</a>, 'data-href':'接口'},
+    {title: <a href="http://www.agzgz.com/pagi">同构分页</a>, 'data-href':'分页'},
+    {title: <a href="http://www.agzgz.com/ueditor">编辑器</a>, 'data-href':'编辑器'}
 ]
 
 var ttt = Tabs(_config,
