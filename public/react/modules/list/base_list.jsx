@@ -3,10 +3,8 @@
  */
 
 var libs = require('libs/libs'),
-    List = require('./_component/_loadlist'), //设定列表域为 lagou
-    ItemMixin = require('mixins/item'),
-    render = React.render,
-    inject = libs.inject();
+    List = require('./_component/_loadlist'); //设定列表域为 lagou
+
 
 function doneNext(eve){
     var me = this;
@@ -45,6 +43,10 @@ function doneNext(eve){
 }
 
 function applist(data, ele, opts){
+    ItemMixin = require('../../mixins/item'),
+    render = React.render,
+    inject = libs.inject();
+    
 
     var noop = function(){},
         dft = {

@@ -1,9 +1,9 @@
-var libs = require('libs/libs');
 var BaseTabs = require('./_component/base_tabs')
 var render = React.render;
 
 
 function tabs(data, opts, c){
+    var libs = require('libs/libs');
     var noop = false,
         dft = {
             container: '',
@@ -154,7 +154,7 @@ function tabs(data, opts, c){
 
 }
 
-tabs.server = tabs.pure = BaseTabs.pure()
+tabs.server = tabs.pure = BaseTabs.pure;
 
 tabs.store = function(_name){
     return BaseTabs.store(_name)

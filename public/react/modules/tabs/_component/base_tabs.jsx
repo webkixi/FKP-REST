@@ -2,13 +2,13 @@
 * list 通用组件
 * 返回 div > (ul > li)*n
 */
-var ItemMixin = require('mixins/item')
 var BaseList = require('../../list/base_list')
 
 var tmpApp = {
 	getInitialState: function() {
 		return {
-        	data: []
+        	data: [],
+			opts: {mulitple: true}
 	    };
 	},
 
@@ -16,8 +16,12 @@ var tmpApp = {
 	componentWillMount:function(){
 		if(this.props.data){
 			this.setState({
-				data: this.props.data,
-                opts: this.props.opts
+				data: this.props.data
+			})
+		}
+		if (this.props.opts){
+			this.setState({
+				opts: this.props.opts
 			})
 		}
 	},
@@ -70,7 +74,7 @@ var tmpApp = {
 
 // 通过方法返回的结构，带sax的react结构 带itemMixins, storeMixins，scrollEnd的mixins
 function actRct( storeName ){
-    return require('react/util/index')(storeName, tmpApp)
+    return require('../../../util/index')(storeName, tmpApp)
 }
 
 // 带sax的react结构 带itemMixins, storeMixins

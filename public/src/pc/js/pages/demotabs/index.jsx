@@ -4,14 +4,14 @@ var Inputs = require('modules/form/text1')
 
 
 var _config = [
-    {title: '典型页面','data-idf':'1'},
+    '典型页面',
     '导航',
-    <a>表单</a>,
+    '表单',
     '列表',
     '高级搜索'
 ]
 
-
+// 此tab与node端同构
 var ttt = Tabs(_config,
     {   container: 'for-vtabs',
         globalName: 'TabSwitch',

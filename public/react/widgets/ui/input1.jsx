@@ -258,7 +258,7 @@ var Input = {
 
 //
 function actRct( storeName ){
-    return require('react/util/index')(storeName, Input)
+    return require('../../util/index')(storeName, Input)
 }
 
 module.exports = actRct;
