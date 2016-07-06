@@ -287,7 +287,7 @@ function *distribute(_mapper){
                 // check if the 'pages/xxx' === route then the 'pages/xxx' will do something, like get/post
                 function *controlPage(){
                     var ctrl = control(self, pageData)
-                        ctrl.render = self.render;
+                        // ctrl.render = self.render;
 
                     if (route == 'demoindex'){
                         pageData = yield require('../pages/demoindex').getDemoData.call(self, pageData, ctrl);  //演示页
