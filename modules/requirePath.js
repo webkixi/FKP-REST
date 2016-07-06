@@ -1,6 +1,7 @@
 //配置环境路径
 var path = require('path')
 var util = require('util')
+var reModulePath = require('app-module-path')
 
 // var base = path.resolve(__dirname);
 function reRequire(base){
@@ -56,7 +57,8 @@ function reRequire(base){
             }
         }
 
-        require('app-module-path').addPath(base);
+        reModulePath.addPath(base);
+        reModulePath.addPath(base+'/public');
 
     }
 }
