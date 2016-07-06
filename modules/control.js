@@ -4,7 +4,13 @@ function Control(ctx, oridata){
     this.ctx = ctx || null
     this._get_ = false
     this._post_ = false
-    this.data = oridata || {}
+    this.data = oridata || {},
+    this.help = {
+        api: 'Control.api，参考javaapi.js',
+        libs: 'Control.libs，参考libs/libs.js',
+        parseJsx: '解析JSX',
+        parseMd: '解析markdown文档'         
+    }
 }
 
 Control.prototype = {
@@ -50,7 +56,6 @@ control.api = require('apis/javaapi')
 control.libs = require('libs/libs')
 control.parseJsx = require('./parseReact')
 control.parseMd = require('./markdown')
-// control.render = require('./render')(process.env.whereIs)
 
 module.exports = control;
 
