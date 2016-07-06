@@ -26,10 +26,10 @@ var _config = [
     {title: <a href="/app">路由单页</a>, 'data-href':'大单页'},
     {title: <a href="/chat">聊天室</a>, 'data-href':'聊天室'},
     {title: <a href="/cat">分类列</a>, 'data-href':'分类列'},
-    {title: <a href="/demotabs">Tabs</a>, 'data-href':'Tabs'},
+    {title: <a href="/demotabs">同构Tabs</a>, 'data-href':'Tabs'},
     {title: <a href="/formshow">表单</a>, 'data-href':'表单'},
     {title: <a href="/hello">接口</a>, 'data-href':'接口'},
-    {title: <a href="/pagi">分页</a>, 'data-href':'分页'},
+    {title: <a href="/pagi">同构分页</a>, 'data-href':'分页'},
     {title: <a href="/ueditor">编辑器</a>, 'data-href':'编辑器'}
 ]
 
