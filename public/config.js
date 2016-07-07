@@ -30,6 +30,7 @@ module.exports = {
         css_common: src_dir + "css/modules/base",
 
         watch_src: 'src/pc',
+        watch_libs: '../libs',
         watch_react: 'react',
     },
     hash: false,

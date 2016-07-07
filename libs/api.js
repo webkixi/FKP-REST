@@ -1,7 +1,6 @@
 var doc = require('./_component/doc');
 var tips = require('./_component/tips')
 var src = "/";
-var demoSrc = "http://mock.agzgz.com/";
 
 function type(object){
     return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];

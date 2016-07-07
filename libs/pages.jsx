@@ -1,6 +1,4 @@
-var libs = require('./libs_client')
-var core = require('./_component/core')
-
+/* pages类及pages生周期 */
 function pages(opts){
 
     var page = SA.get('_CURENT_PAGE')
@@ -24,7 +22,7 @@ function pages(opts){
     }
     _dft = Object.keys(defaults)
 
-    if (libs.getObjType(opts) === 'Object'){
+    if ( _.isObject(opts) ){
         var defaults = _.extend({}, defaults, opts)
     }
 
@@ -68,35 +66,34 @@ function pages(opts){
     return this;
 }
 
-pages = core.extend(pages, core)
-
-pages.prototype.render = function(obj, ele){
-    var dom;
-    if (!ele) return false;
-    if (typeof ele === 'string'){
-        dom = document.getElementById(ele)
-        if (!dom) return false;
-    }
-    else
-    if (ele.nodeType)
-        dom = ele;
-
-    if (dom){
-        if (this.libs.getObjType(obj) === 'Object')
-            if (React && React.isValidElement(obj))
-                React.render(obj, dom)
+pages.prototype = {
+    render: function(obj, ele){
+        var dom;
+        if (!ele) return false;
+        if (typeof ele === 'string'){
+            dom = document.getElementById(ele)
+            if (!dom) return false;
+        }
         else
-        if (typeof obj === 'string'){
-            if (Zepto||jQuery){
-                var $$ = Zepto||jQuery||$;
-                $$(dom).html($$(obj))
+        if (ele.nodeType)
+            dom = ele;
+
+        if (dom){
+            if (_.isObject(obj))
+                if (React && React.isValidElement(obj))
+                    React.render(obj, dom)
+            else
+            if (typeof obj === 'string'){
+                if (Zepto||jQuery){
+                    var $$ = Zepto||jQuery||$;
+                    $$(dom).html($$(obj))
+                }
             }
         }
+        this.render = React.render;
+    },
 
-    }
-
-
-    this.render = React.render;
+    watch: function(){},
 }
 
 pages.new = function(opts){
@@ -104,6 +101,3 @@ pages.new = function(opts){
 }
 
 module.exports = pages
-// pages.extend = function(opts){
-//     return new pages(opts)
-// }

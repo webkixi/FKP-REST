@@ -50,6 +50,11 @@ module.exports = (gulp,$,slime,env,port)->
             console.log 'js watch'
             reload()
 
+        gulp.watch config.dirs.watch_libs + '/**/*.?(coffee|js|jsx|cjsx)', [buildPage]
+        .on 'change', () ->
+            console.log 'js watch'
+            reload()
+
         # 监控js文件
         # gulp.watch config.dirs.watch_src + '/js/?(pages)/**/*.?(coffee|js|jsx|cjsx)'
         # .on 'change', (event) ->

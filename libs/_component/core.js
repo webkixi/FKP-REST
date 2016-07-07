@@ -10,11 +10,6 @@ function $extend(Child, Parent) {
 
 var core = function(){}
 
-core.prototype = {
-    req: require('libs/api'),
-	libs: require('libs/libs')
-}
-
 core.extend = $extend;
 
 module.exports = core;

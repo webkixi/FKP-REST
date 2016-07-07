@@ -1,6 +1,4 @@
-// var popped = ('state' in window.history && window.history.state !== null),
-// initialURL = location.href;
-
+// popstate的bug，在ios上popstate首次进入就被执行了
 (function() {
     //解决方案  http://stackoverflow.com/questions/6421769/popstate-on-pages-load-in-chrome
     //android 和 iphone上页面刷新就会直接执行popstate，这是一个浏览器的bug
@@ -23,202 +21,245 @@
 }());
 
 
-var libs = require('./libs_client')
-var multiDom = false;
-var allow_router_cb = false;
-// alert(initialURL)
 
-var rt = libs.Class.create();
-    rt.prototype = {
+var libs = require('libs/libs'),
+    _multiDom = false,
+    allow_router_cb = false,   // router.cb允许在业务页面指定后退的特殊地址，权限较高
+    qs = require('querystring'),
+    _api = require('libs/api');
 
-        init: function(name, back){
-            SA.set("_routerInstanc", this)
-            SA.set('_HISTORY', []);
-            SA.set('_HISTORY_DATA', []);
-            this.multiDom = multiDom;
-            this.intent;
-            this.isBack = false;
-            this.distribute(name, back)
-        },
-
-        //router专用css
-        //css在global/index.less中
-        _injectionCss: function(){
-            // libs.node.append('body','div',{id: 'pageloading'})
-        },
-
-        distribute: function(name, back){
-            SA.set('_TRUE_URL', location.href)
-            this.name = name;
-            this.back = back;
-            this.url = libs.urlparse(location.href);
-            router.cb = undefined;
-            this.isBack = false;
-            allow_router_cb = false;
-
-            var _back = this._parseBack()
-            var rtstat = this._parseRoute()
-            if (rtstat){
-                this._injectionCss();
-                this._deal();
-                this._multiDom();
-            }
-        },
-
-        _parseBack: function(){
-            this.intent = false;
-            var back = this.back;
-            if (!back) back = false;
-
-            if (libs.getObjType(back)==='Boolean'){
-                this.isBack = back;
+//
+function bindFn(e){
+    if (allow_router_cb){
+        var url = libs.urlparse(location.href);
+        if (url.params.goback) {
+            if (url.params.goback.indexOf('_')>-1) {
+                var tmp = url.params.goback.split('_')
+                var uri = tmp[0]
+                var hash = tmp[1]
+                var _url = '/'+uri+'#'+hash
+                router(_url)
             }
             else {
-                if (libs.getObjType(back) === 'Object') this.intent = back;
-                else {
-                    return false;
-                }
+                router(url.params.goback)
             }
-            return true;
-        },
-
-        _parseRoute: function(){
-            var name = this.name
-            var url = this.url;
-
-
-            if (router.cb && (typeof router.cb === 'function')){
-                if (this.back === true){
-                    router.cb.call(this, this.name)
-                    return false;
-                }
-            }
-
-            if ( name && (name.indexOf('/')===0 ||
-                name.indexOf('http://')===0 ||
-                name.indexOf('https://')===0) )
-            {
-                console.log('-------router jump ------');
-                if (name.indexOf('#')>-1){
-                    var next = name.substring(0,name.indexOf('#'))
-                    if (url.path==next){
-                        var hash = name.substring(name.indexOf('#')+1)
-                        this.name = hash
-                        return true;
-                    }
-                }
-                window.location.href = name
-                return false;
-            }
-            else{
-                var _uri;
-                if (url.params.hash){
-                    var hash = url.params.hash;
-                    var href=window.location;
-                    // var tmp = ''
-                    // var len = Object.keys(url.params)
-                    // if(len.length===1){
-                    //     href = url.source.replace('?'+tmp,'').replace('?&','?')
-                    // }else{
-                    //     href = url.source.replace(tmp,'').replace('?&','?')
-                    // }
-                    // SA.set('_HISTORY', url);
-                    if (!this.isBack){
-                        if (hash !== name){
-                            _uri = href+'#'+name;
-                            historyStat({uri: _uri}, '1null', _uri)
-                            tmp_url = libs.urlparse(location.href);
-                            this.url = tmp_url;
-                            url = tmp_url
-                        }
-                    }
-                    SA.append('_HISTORY', url);
+        }
+        else
+        if (router.cb && (typeof router.cb === 'function')) {
+            router.cb()
+        }
+        else{
+            var _history = SA.get('_HISTORY')
+            var _history_data = SA.get('_HISTORY_DATA')
+            if (_history.length === 1){
+                console.log('======== pophistory');
+                if (wx){
+                    wx.closeWindow()
                 }
                 else{
-                    if (!this.isBack){
-                        _uri = name;
-                        historyStat({uri: _uri}, '2null', '#'+name)
+                    window.history.go(-2)
+                }
+            }
+            else{
+                var pop = SA.pop('_HISTORY')
+                pop = SA.pop('_HISTORY')
+                var history = pop[1]
+                var pophistory = pop[0]
+                if(history.hash){
+                    var _data = SA.pop('_HISTORY_DATA')
+                    // router(history.hash, _data[0][(_data[0].length-1)])   //返回的data
+                    router(history.hash, true)
+                }else{
+                    window.location.href = history.source
+                }
+            }
+        }
+    }
+}
+
+var rt = libs.Class.create();
+rt.prototype = {
+
+    init: function(name, back){
+        SA.set("_routerInstanc", this)
+        SA.set('_HISTORY', []);
+        SA.set('_HISTORY_DATA', []);
+        this.multiDom = _multiDom;
+        this.intent;
+        this.isBack = false;
+        this.distribute(name, back)
+    },
+
+    //router专用css
+    //css在global/index.less中
+    _injectionCss: function(){
+
+    },
+
+    distribute: function(name, back){
+        SA.set('_TRUE_URL', location.href)
+        this.name = name;
+        this.back = back;
+        this.url = libs.urlparse(location.href);
+        router.cb = undefined;
+        this.isBack = false;
+        allow_router_cb = false;
+
+        var _back = this._parseBack()
+        var rtstat = this._parseRoute()
+        if (rtstat){
+            this._injectionCss();
+            this._deal();
+            this._multiDom();
+        }
+    },
+
+    _parseBack: function(){
+        this.intent = false;
+        var back = this.back;
+        if (!back) back = false;
+
+        if (libs.getObjType(back)==='Boolean'){
+            this.isBack = back;
+        }
+        else {
+            if (libs.getObjType(back) === 'Object') this.intent = back;
+            else {
+                return false;
+            }
+        }
+        return true;
+    },
+
+    _parseRoute: function(){
+        var name = this.name
+        var url = this.url;
+
+
+        if (router.cb && (typeof router.cb === 'function')){
+            if (this.back === true){
+                router.cb.call(this, this.name)
+                return false;
+            }
+        }
+
+        if ( name && (name.indexOf('/')===0 ||
+            name.indexOf('http://')===0 ||
+            name.indexOf('https://')===0) )
+        {
+            console.log('-------router jump ------');
+            if (name.indexOf('#')>-1){
+                var next = name.substring(0,name.indexOf('#'))
+                if (url.path==next){
+                    var hash = name.substring(name.indexOf('#')+1)
+                    this.name = hash
+                    return true;
+                }
+            }
+            window.location.href = name
+            return false;
+        }
+        else{
+            var _uri;
+            if (url.params.hash){
+                var hash = url.params.hash;
+                var href=window.location;
+                if (!this.isBack){
+                    if (hash !== name){
+                        _uri = href+'#'+name;
+                        historyStat({uri: _uri}, '1null', _uri)
                         tmp_url = libs.urlparse(location.href);
                         this.url = tmp_url;
                         url = tmp_url
                     }
-                    SA.append('_HISTORY', url);
                 }
-                return true;
+                SA.append('_HISTORY', url);
             }
-        },
-
-        _deal: function(){
-            var name = this.name;
-            var isBack = this.isBack;
-            var intent = this.intent
-            var temp = SA.getter(name)
-            var data = {};
-            if (temp){
-                var prev_page = SA.getter('_CURENT_PAGE')
-                this.prev_page = prev_page
-                if (prev_page) {
-                    var prev_name = prev_page.data
-                    prev_page.run(intent, prev_name)
+            else{
+                if (!this.isBack){
+                    _uri = name;
+                    historyStat({uri: _uri}, '2null', '#'+name)
+                    tmp_url = libs.urlparse(location.href);
+                    this.url = tmp_url;
+                    url = tmp_url
                 }
-                SA.set('_CURENT_PAGE', name)
-                router.cb = false;
-                console.log('======='+name);
-                if (intent) data = intent
-
-                SA.append('_HISTORY_DATA', data)
-
-                if (this.multiDom) SA.setter(name, data)
-                else {
-                    SA.setter(name, data)
-                }
-
-                historyStatBehavior()
+                SA.append('_HISTORY', url);
             }
-        },
+            return true;
+        }
+    },
 
-        //多id dom 容器结构
-        _multiDom: function(){
-            var prev_id,
-                prev_dom,
-                name = this.name;
+    _deal: function(){
+        var name = this.name;
+        var isBack = this.isBack;
+        var intent = this.intent
+        var temp = SA.getter(name)
+        var data = {};
+        if (temp){
+            var prev_page = SA.getter('_CURENT_PAGE')
+            this.prev_page = prev_page
+            if (prev_page) {
+                var prev_name = prev_page.data
+                prev_page.run(intent, prev_name)
+            }
+            SA.set('_CURENT_PAGE', name)
+            router.cb = false;
+            console.log('======='+name);
+            if (intent) data = intent
 
-            if (name.indexOf('/')>0){
-                name = name.replace('/', '_')
+            SA.append('_HISTORY_DATA', data)
+
+            if (this.multiDom) SA.setter(name, data)
+            else {
+                SA.setter(name, data)
             }
 
-            if (multiDom){
-                if (this.prev_page){
-                    if (this.prev_page.data!=='none'){
-                        prev_id = this.prev_page.data
-                        if (prev_id.indexOf('/')>0){
-                            prev_id = prev_id.replace('/', '_')
-                        }
-                        // prev_dom = $(document.querySelector('#'+prev_id)).parent()[0]
-                        prev_dom = $('#'+prev_id).parent()[0]
-                        if ((prev_dom.className.indexOf('router-container-block')>-1
-                            || prev_dom.className.indexOf('router-container-reblock')>-1)
-                            && this.isBack===true ){
-                            prev_dom.className = 'container-box router-container router-container-rehidden'
-                        }
-                        else{
-                            prev_dom.className = 'container-box router-container router-container-hidden'
-                        }
+            historyStatBehavior()
+        }
+    },
+
+    //多id dom 容器结构
+    _multiDom: function(){
+        var prev_id,
+            prev_dom,
+            name = this.name;
+
+        if (name.indexOf('/')>0){
+            name = name.replace('/', '_')
+        }
+
+        if (_multiDom){
+            if (this.prev_page){
+                if (this.prev_page.data!=='none'){
+                    prev_id = this.prev_page.data
+                    if (prev_id.indexOf('/')>0){
+                        prev_id = prev_id.replace('/', '_')
+                    }
+                    // prev_dom = $(document.querySelector('#'+prev_id)).parent()[0]
+                    prev_dom = $('#'+prev_id).parent()[0]
+                    if ((prev_dom.className.indexOf('router-container-block')>-1
+                        || prev_dom.className.indexOf('router-container-reblock')>-1)
+                        && this.isBack===true ){
+                        prev_dom.className = 'container-box router-container router-container-rehidden'
+                    }
+                    else{
+                        prev_dom.className = 'container-box router-container router-container-hidden'
                     }
                 }
-
-                var nameDom = $(document.querySelector('#'+name)).parent()[0]
-                if (nameDom.className.indexOf('router-container-hidden')>-1
-                    && this.isBack===true ){
-                    nameDom.className = 'container-box router-container router-container-reblock'
-                }
-                else {
-                    nameDom.className = 'container-box router-container router-container-block'
-                }
-                router.clear()
             }
+
+            var nameDom = $(document.querySelector('#'+name)).parent()[0]
+            if (nameDom.className.indexOf('router-container-hidden')>-1
+                && this.isBack===true ){
+                nameDom.className = 'container-box router-container router-container-reblock'
+            }
+            else {
+                nameDom.className = 'container-box router-container router-container-block'
+            }
+            router.clear()
         }
     }
+}
 
 function router(name, back){
     var _url = libs.urlparse(location.href);
@@ -234,11 +275,29 @@ function router(name, back){
         new rt(name, back)
     }
 }
-// window.router = router
 
+// 弹出上一步的地址，但不执行
 router.pre = function(){
     var _h = SA.get('_HISTORY');
     return _h[(_h.length-2)];
+}
+
+// router 回退一步
+router.goback = function(name, data){
+    setTimeout(function(){
+        _goback(name, data)
+    }, 0)
+}
+
+function historyStatBehavior(){
+    initialURL = location.href;
+    allow_router_cb = true;
+}
+
+
+function historyStat(args, title, uri){
+    console.log('========= pushState history');
+    window.history.pushState(args, title, uri)
 }
 
 function _goback(name, data){
@@ -296,79 +355,53 @@ function _goback(name, data){
     }
 }
 
-router.goback = function(name, data){
-    setTimeout(function(){
-        _goback(name, data)
-    }, 0)
-}
-
 router.clear = function(){
-    var _history = SA.get('_HISTORY')
-    setTimeout(function(){
-        $('#pageloading').remove()
-    },300)
+
 }
 
-//
-function bindFn(e){
 
-    if (allow_router_cb){
-        var url = libs.urlparse(location.href);
-        if (url.params.goback) {
-            if (url.params.goback.indexOf('_')>-1) {
-                var tmp = url.params.goback.split('_')
-                var uri = tmp[0]
-                var hash = tmp[1]
-                var _url = '/'+uri+'#'+hash
-                router(_url)
-            }
-            else {
-                router(url.params.goback)
-            }
-        }
-        else
-        if (router.cb && (typeof router.cb === 'function')) {
-            router.cb()
-        }
-        else{
-            var _history = SA.get('_HISTORY')
-            var _history_data = SA.get('_HISTORY_DATA')
-            if (_history.length === 1){
-                console.log('======== pophistory');
-                if (wx){
-                    wx.closeWindow()
-                }
-                else{
-                    window.history.go(-2)
-                }
-            }
-            else{
-                var pop = SA.pop('_HISTORY')
-                pop = SA.pop('_HISTORY')
-                var history = pop[1]
-                var pophistory = pop[0]
-                if(history.hash){
-                    var _data = SA.pop('_HISTORY_DATA')
-                    // router(history.hash, _data[0][(_data[0].length-1)])   //返回的data
-                    router(history.hash, true)
-                }else{
-                    window.location.href = history.source
-                }
-            }
-        }
+
+/*
+ * 清除掉url中的指定params，并重写url，并不跳转url
+ * 如 ?tag=xxx，清除掉tag
+ * clearState('tag')
+ * @tag {String} url中的query的指定key值
+*/
+function clearState(tag){
+    var url = libs.urlparse(location.href);
+    var params = url.params;
+    if (params[tag]){
+        var _src = url.relative.replace(tag+'='+url.params[tag], '')
+        .replace('?&', '')
+        .replace('?#','#')
+        .replace('&&', '&')
+        .replace('&#', '#')
+        .replace('?', '')
+
+        history.replaceState(null,null, _src)
+        setTimeout(function(){ history.replaceState(null,null, _src) }, 0)
     }
 }
+router.clearState = clearState;
 
-function historyStatBehavior(){
-    initialURL = location.href;
-    allow_router_cb = true;
+/*
+ * 重置url中的指定params，并重写url，并不跳转url
+ * 如 ?tag=xxx，重置tag的值为yyy
+ * reState('tag', 'yyy')
+ * @tag {String} url中的query的指定key值
+ * @value {String}  key对应的值
+*/
+function reState(tag, value){
+    var url = libs.urlparse(location.href);
+    var params = url.params;
+    params[tag] = value;
+    var rct = qs.stringify(params)
+    rct = url.relative.replace(url.path, url.path+'?'+rct)
+    history.replaceState(null,null, rct)
 }
+router.reState = reState;
 
 
-function historyStat(args, title, uri){
-    console.log('========= pushState history');
-    window.history.pushState(args, title, uri)
-}
 
 
 
@@ -393,14 +426,34 @@ var route = function(name, handle){
 }
 
 
-route.init = function(name, handle){
-    multiDom = true;
-    if(typeof SA!=='object'){
-        console.log("don't set global SA variable ");
-        return;
+/*
+ * 为每一个key新增一个div, id为key值
+ * @name {String} div的id，允许格式 'aaa', 'aaa/bbb', 'bbb/ccc'
+ * @options {Object} 引用带page类的页面
+
+ * SAMPLE: route.init({'xxx': require('xxx')})
+*/
+route.init = function(name, options, cb){
+    if (!window.SAX){
+        console.error("SAX不存在，router依赖SAX");
+        return false;
     }
-    $('body').append('<div id="router-wrap" style="width:100%;position:relative;height:100%;"></div>')
-    var _wrap = $('#router-wrap')[0]
+    _multiDom = true;  //全局变量
+
+    var url = libs.urlparse(location.href);
+    if (url.params.reurl){
+        SAX._reurl = url.params.reurl;
+        clearState('reurl');
+    }
+
+    var dft = {
+        container: 'body'
+    }
+
+    var opts = _.extend(dft, options);
+
+    $(opts.container).append('<div id="router-wrap" style="width:100%;position:relative;height:100%;"></div>');
+    var _wrap = $('#router-wrap')[0];
 
     if(libs.getObjType(name)==='Object'){
         var keys = Object.keys(name);
@@ -412,23 +465,24 @@ route.init = function(name, handle){
             $(_wrap).append('<div class="container-box router-container"><div id="'+_id+'" style="height:100%;overflow:auto;"></div></div>')
 
             var page_instence = name[item](_id)
+            page_instence.router = router;
+            page_instence.api = _api;
 
             if (page_instence.goback || page_instence.trigger || page_instence.end){
                 if (page_instence.goback
                     && libs.getObjType(page_instence.goback)==='Function'){
-                    SA.set(item, page_instence.goback, [page_instence])
+                    SAX.set(item, page_instence.goback, [page_instence])
                 }
                 if (page_instence.trigger
                     && libs.getObjType(page_instence.trigger)==='Function'){
-                    SA.set(item, page_instence.trigger, [page_instence])
+                    SAX.set(item, page_instence.trigger, [page_instence])
                 }
 
                 if (page_instence.end
                     && libs.getObjType(page_instence.end)==='Function'){
                     page_instence.end.args = [page_instence]
-                    // var tmp = {}
                     tmp[item] = page_instence.end
-                    SA.set('_CURENT_PAGE', 'none', tmp)
+                    SAX.set('_CURENT_PAGE', 'none', tmp)
                     // SA.set(item, page_instence.end, [page_instence])
                 }
             }
@@ -437,13 +491,21 @@ route.init = function(name, handle){
             }
         })
     }
+}
 
-    if(typeof name === 'string'){
-        if(typeof handle === 'function'){
-            SA.setter(name, handle)
-            var tmp = SA.getter(name)
-            tmp.run(item)    //?
-        }
+route.start = function(key){
+    if (!key || typeof key!=='string'){
+        console.error('请指定默认首页');
+        return false;
+    }
+    var url = libs.urlparse(location.href);
+    if(url.params.hash){
+        var hash = url.params.hash
+        clearState('hash')
+        router(hash)
+    }else{
+        if (url.hash) router(url.hash)
+        else router(key)   //跳转到默认首页
     }
 }
 
@@ -455,8 +517,6 @@ module.exports = {
 /*
 * 每一条路由都必须匹配一个方法
 * init route
-* 'abc'  name: {string}
-* abc   value: {function}
 */
 // route({
 //     'abc': abc,
