@@ -58,15 +58,27 @@
     	return target;
     };
 
-    var store = function( data, act ){
-        this.sdata = null;
-        this.sact = [];
+    //统计store[name]是否首次执行
+    var _count = {}
+    var count = function(name){
+        if (_count[name]){
+            _count[name]++;
+            return true;
+        }
+        else {
+            // 首次执行
+            if (!_count[name]){
+                _count[name] = 1;
+                return false;
+            }
+        }
+    }
 
-        if( data )
-            this.sdata = data;
-
-        if( act )
-            this.sact = act;
+    var store = function( name, data, act ){
+        this.name = name||'';
+        this.sdata = data || null;
+        this.sact = act || [];
+        var me = self;
 
         this.dataer = function( data, key ){
             if( data ){
@@ -75,9 +87,13 @@
                     var acts = this.sact;
                     acts.map(function( fun ){
                         if(getObjType(fun.args) === 'Array'){
+                            if (count[me.name]){
+                                fun.args.pop()
+                            }
                             fun.args.push( data )
-                            if (typeof fun === 'function')
+                            if (typeof fun === 'function'){
                                 fun.apply(fun.args[0], [fun.args[0],data])
+                            }
                         }else{
                             if (typeof fun === 'function')
                                 fun( data );
@@ -91,9 +107,12 @@
                         if (sacts[key]) {
                             var fun = sacts[key]
                             if(getObjType(fun.args) === 'Array'){
+                                if (count[me.name]){
+                                    fun.args.pop()
+                                }
                                 fun.args.push( data )
                                 if (typeof fun === 'function')
-                                    fun.apply(fun.args[0], fun.args)
+                                    fun.apply(fun.args[0], [fun.args[0],data])
                             }else{
                                 if (typeof fun === 'function')
                                     fun( data );
@@ -105,9 +124,12 @@
                             if (typeof sacts[item] === 'function'){
                                 var fun = sacts[item]
                                 if(getObjType(fun.args) === 'Array'){
+                                    if (count[me.name]){
+                                        fun.args.pop()
+                                    }
                                     fun.args.push( data )
                                     if (typeof fun === 'function')
-                                        fun.apply(fun.args[0], fun.args)
+                                        fun.apply(fun.args[0], [fun.args[0],data])
                                 }else{
                                     if (typeof fun === 'function')
                                         fun( data );
@@ -248,7 +270,7 @@
             var save = _stock;
 
             if(!save[name]){
-                var thisStore = new store();
+                var thisStore = new store(name);
                 save[name] = thisStore;
             }
             if( dataOrAct && dataOrAct!=="" ){
@@ -349,7 +371,7 @@
             var save = _stock;
 
             if(!save[name]){
-                var thisStore = new store();
+                var thisStore = new store(name);
                 save[name] = thisStore;
             }
 
