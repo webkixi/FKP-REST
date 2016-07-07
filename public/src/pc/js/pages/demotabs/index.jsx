@@ -20,7 +20,6 @@ var ttt = Tabs(_config,
                 libs.msgtips('5')
             })
         }
-
     },
     function(eles){
         $(eles).each(function(i, view){
