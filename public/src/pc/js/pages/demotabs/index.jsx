@@ -3,7 +3,7 @@ var libs = require('libs/libs')
 var Inputs = require('modules/form/text1')
 
 
-var _config = [
+var _data = [
     '典型页面',
     '导航',
     '表单',
@@ -11,9 +11,10 @@ var _config = [
     '高级搜索'
 ]
 
-// 此tab与node端同构
-var ttt = Tabs(_config,
-    {   container: 'for-vtabs',
+var v = {
+    data: _data,
+    option: {
+        container: 'for-vtabs',
         globalName: 'TabSwitch',
         itemMethod: function(){
             $(this).click(function(){
@@ -21,48 +22,50 @@ var ttt = Tabs(_config,
             })
         }
     },
-    function(eles){
+    cb: function(eles){
         $(eles).each(function(i, view){
             view.content(<span>{'我是初始数据'+i}</span>)
         })
     }
-);
+}
 
-
-
-
-var eee = Tabs(_config,
-    {   container: 'for-htabs',
+var h = {
+    data: _data,
+    option: {
+        container: 'for-htabs',
         theme: 'htabs',
         class: 'tabsGroupY',
         globalName: 'hTabSwitch',
         event: 'mouseover'
     },
-    function(eles){
+    cb: function(eles){
         $(eles).each(function(i, view){
             view.content('我是初始数据'+i)
         })
     }
-);
-
-
-
-
-var inputs = [ { input:{ id: 'addtab_b', value: '增加tab', type: 'button'} } ]
-var inputs_method = function(){
-    $('#addtab_b').click(function(){
-
-        ttt.add('测试', function(select){
-            select('你妹啊，是我')
-        })
-        eee.add('测试1', function(select){
-            select(<span>你妹啊，是我1</span>)
-        })
-    })
 }
 
-Inputs(
-    inputs,
-    { container: 'addtab' },
-    inputs_method
-)
+var ipt = {
+    data: [
+        {
+            input:{ id: 'addtab_b', value: '添加', type: 'button'},
+            desc: '同时为两个tabs增加一个新的标签'
+        }
+    ],
+    option: { container: 'addtab' },
+    cb: function(){
+        $('#addtab_b').click(function(){
+            ttt.add('测试', function(select){
+                select('你妹啊，是我')
+            })
+            eee.add('测试1', function(select){
+                select(<span>你妹啊，是我1</span>)
+            })
+        })
+    }
+}
+
+// 此tab与node端同构
+var ttt = Tabs( v.data, v.option, v.cb );
+var eee = Tabs( h.data, h.option, h.cb );
+Inputs( ipt.data, ipt.option, ipt.cb );

@@ -117,6 +117,7 @@ function tabs(data, opts, c){
                 libs.msgtips('定义时没有指定globalName')
             }
 
+            // 回调中为新的tab增加新的内容
             function _select(content){
                 var len = self.data.length;
                 self.select((len-1), content);
@@ -127,6 +128,7 @@ function tabs(data, opts, c){
             }
 
         },
+        // 选中某一个标签，通过id
         select: function(idf, content){
             if (!idf){
                 idf = 0;
@@ -134,6 +136,7 @@ function tabs(data, opts, c){
             var groupClass = dft.class ? $('.'+dft.class) : $(this.group);
             var menus = groupClass.find('.tabs-menu');
             menus.each(function(i, item){
+                $(item).siblings().removeClass('selected')
                 if (idf === i){
                     $(item).addClass('selected')
                 }
@@ -149,12 +152,11 @@ function tabs(data, opts, c){
             }
         }
     }
-
     return new _fun(dft.data, dft.container, c)
 
 }
 
-tabs.server = tabs.pure = BaseTabs.pure;
+tabs.pure = BaseTabs.pure;
 
 tabs.store = function(_name){
     return BaseTabs.store(_name)
