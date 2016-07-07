@@ -5,23 +5,13 @@ var libs = require('libs/libs');
 var Radio = require('modules/form/radio1')(true)
 var List = require('modules/list/base_list').store('address_list');
 
-
-//当前页公共变量
-var _page = {}
-
 var _addresslist_li = [];
 
 function radioClick(){
-    $(this).click(function(){
-        router('waterSend', {back: "addresslist"})
-    })
+    libs.msgtips('radio click')
 }
 
 var bindEvent = function(){
-    var addresslist_post = {
-        login: '9bfb66cc96a242efaa6014f03b15d5aa',
-        method: 'get'
-    }
     _addresslist_li.push(
         <div>
             <em>你好这是第一个地址</em>
@@ -60,7 +50,7 @@ function start(name){
     return pages.new({
         boot:function(){},
         trigger:function(){
-            this.libs.changeTitle('地址列表');    //更改当前页面标题
+            libs.changeTitle('地址列表');    //更改当前页面标题
             this.main()
         },
         ready: function(){

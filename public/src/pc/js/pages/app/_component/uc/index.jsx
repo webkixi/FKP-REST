@@ -16,10 +16,7 @@ function clicks(cls, rt){
 }
 
 var bindEvent = function(){
-    //此处各种dom 操作
-    // $('.uc_order').click(function(){
-    //     router('uc/order')
-    // })
+    
     if (!_user.info){
         SA.set('USER', _fun)
         function _fun(data){
@@ -95,7 +92,7 @@ function start(name){
     return pages.new({
         boot:function(){},
         trigger:function(){
-            this.libs.changeTitle('演示模块');    //更改当前页面标题
+            libs.changeTitle('演示模块');    //更改当前页面标题
             this.main()
         },
         main: function(){

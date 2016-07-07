@@ -5,10 +5,6 @@ var libs = require('libs/libs');
 var _user = SA.get('USER')
 
 
-//当前页公共变量
-var _page = {}
-
-
 var bindEvent = function(){
     //此处各种dom 操作
 
@@ -64,8 +60,8 @@ function start(name){
         boot: function(self){
         },
         trigger:function(self){
-            this.libs.changeTitle('我的卡券');    //更改当前页面标题
-            self.main(self, _page.data)
+            libs.changeTitle('我的卡券');    //更改当前页面标题
+            self.main(self)
         },
         ready: function(){
         },

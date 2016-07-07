@@ -91,7 +91,7 @@ function start(name){
     return pages.new({
         boot:function(){},
         trigger:function(){
-            this.libs.changeTitle('手动定位');    //更改当前页面标题
+            libs.changeTitle('手动定位');    //更改当前页面标题
             this.main()
         },
         ready: function(){
@@ -101,16 +101,6 @@ function start(name){
                 <Location itemMethod={bindEventLocation}/>,
                 document.getElementById(name)
             )
-            // VTabs(menus, lists, {
-            //     container: name,
-            //     itemMethod: {
-            //         menu: menu_funs.item,
-            //         list: list_funs.item
-            //     },
-            //     scrollEnd: {
-            //         list: list_funs.scrollEnd
-            //     }
-            // })
         },
         end: function(){
         }

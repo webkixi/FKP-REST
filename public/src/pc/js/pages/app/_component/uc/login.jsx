@@ -9,10 +9,6 @@ libs.inject()
 .css(['#login .app_login .demo_dest p{margin-top:0.07rem;font-size:0.12rem;}', '_demo_dest'])
 
 
-//当前页公共变量
-var _page = {}
-
-
 var bindEvent = function(){
     //此处各种dom 操作
     var _verify = valide('Form_verify')
@@ -107,7 +103,7 @@ function start(name){
     return pages.new({
         boot: function(){},
         trigger:function(){
-            this.libs.changeTitle('登录');    //更改当前页面标题
+            libs.changeTitle('登录');    //更改当前页面标题
             this.main()
         },
         goback: function(){
@@ -118,7 +114,7 @@ function start(name){
             }
         },
         ready: function(){
-            this.libs.changeTitle('登录');    //更改当前页面标题
+            libs.changeTitle('登录');    //更改当前页面标题
         },
         main: function(){
             this.render(

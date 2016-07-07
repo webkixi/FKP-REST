@@ -60,7 +60,7 @@ function start(name){
     return pages.new({
         boot:function(){},
         trigger:function(){
-            this.libs.changeTitle('自动定位');    //更改当前页面标题
+            libs.changeTitle('自动定位');    //更改当前页面标题
             this.main()
         },
         ready: function(){

@@ -3,12 +3,6 @@ var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
 var api = require('libs/api');
-var valide = libs.formValide;
-
-
-//当前页公共变量
-var _page = {}
-
 
 var bindEvent = function(){
     //此处各种dom 操作
@@ -111,7 +105,7 @@ var SiteIntroduce = React.createClass({
 function start(name){
     return pages.new({
         trigger:function(){
-            this.libs.changeTitle('网点介绍');    //更改当前页面标题
+            libs.changeTitle('网点介绍');    //更改当前页面标题
         },
         ready: function(){
             libs.changeTitle('网点介绍');

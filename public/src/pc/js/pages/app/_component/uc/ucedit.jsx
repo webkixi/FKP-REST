@@ -13,13 +13,12 @@ function updateUserInfo(id, v){
 }
 
 var bindEvent = function(){
-    if (!_user.login){
-        SA.set('USER', _fun)
-        function _fun(data){
-            updateUserInfo('uc_edit_name', (data.info.userName||'1'))
-                          ('uc_edit_address', (data.info.address||'2'))
-        }
+    function _fun(data){
+        updateUserInfo('uc_edit_name', (data&&data.info.userName||'1'))
+                      ('uc_edit_address', (data&&data.info.address||'2'))
     }
+    _fun()
+
 
     function _valide(){
         var editupdate = valide('Form_uc_edit_user_info')
@@ -30,10 +29,6 @@ var bindEvent = function(){
         var postdata = SA.get('Form_uc_edit_user_info')
         postdata.method='get'
 
-        // //更新用户资料接口没有
-        // api.req('/xxx', postdata, function(data, status, xhr){
-        //     SA.deleter('Form_uc_edit_user_info')
-        // })
     }
 
     $('.uc_edit_submit').click(function(){
@@ -85,7 +80,7 @@ function start(name){
     return pages.new({
         boot:function(){},
         trigger:function(){
-            this.libs.changeTitle('演示模块');    //更改当前页面标题
+            libs.changeTitle('演示模块');    //更改当前页面标题
             this.main()
         },
         main: function(){
