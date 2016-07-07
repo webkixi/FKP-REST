@@ -2,13 +2,16 @@
 
 # nodemon 参数
 ignore_file1="--ignore libs/_component/forapp.js --ignore libs/_component/clipborder.js"
-ignore_file2="--ignore libs/_component/doc.js --ignore libs/_component/tips.js --ignore libs/api.js"
-ignore_file="$ignore_file1 $ignore_file2"
+ignore_file2="--ignore libs/_component/doc.js --ignore libs/_component/tips.js"
+
+ignore_file2="--ignore libs/_component/"
+ignore_file3="--ignore libs/libs_client.js --ignore libs/pages.jsx --ignore libs/router.jsx --ignore libs/api.js"
+ignore_file="$ignore_file2  $ignore_file3"
 
 nodemon_ignore="$ignore_file --ignore public/ --ignore .git/ --ignore node_modules/"
 nodemon_ext="-e js,jsx,css,html"
-nodemon_harmony="index.js"
-nodemon_file="--harmony index.js"
+nodemon_file="index.js"
+nodemon_harmony="--harmony index.js"
 nodemon_watch=""
 nodemon_param="$nodemon_ext $nodemon_ignore $nodemon_harmony"
 
