@@ -22,9 +22,8 @@ var _props = {
 async function getHtml(){
     var reactHtml;
     try {
-        // console.log(this);
         this.data.pagi = '';
-        reactHtml = await react2html('react/modules/pagination/pagi', _props)
+        reactHtml = await react2html('react/modules/pagination/pagi', _props);
         reactHtml[0] = '<div class="pagi" id="pagi" >'+reactHtml[0]+'</div>'
         this.data.pagi = reactHtml[0]
     }
@@ -39,7 +38,7 @@ async function getHtml(){
 
 
 function *pagi(oridata, pgn){
-    
+
     return pgn.run({
         get: function(){
             return getHtml.call(pgn);

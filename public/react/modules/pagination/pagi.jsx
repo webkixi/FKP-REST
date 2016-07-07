@@ -64,8 +64,8 @@ function pagination(data, opts ){
     )
 }
 
-pagination.server = function(){
-    return _Pagi(true)
+pagination.pure = function(){
+    return _Pagi()
 };
 
 module.exports = pagination
