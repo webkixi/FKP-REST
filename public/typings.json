@@ -1,0 +1,7 @@
+{
+  "name": "fkpjs",
+  "version": false,
+  "ambientDependencies": {
+    "pagi": "./react/modules/pagination/"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es5",
+    "module": "commonjs",
+    "isolatedModules": false,
+    "jsx": "preserve",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "noLib": false,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noEmitHelpers": false,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true
+  },
+  "awesomeTypescriptLoaderOptions": {},
+  "filesGlob": [
+    "./**/*.ts",
+    "./**/*.tsx",
+    "!./node_modules/**/*"
+  ],
+  "files": [
+    "./typeconfig.d.ts",
+    "./src/pc/js/pages/tpagi/index.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "atom": {
+    "rewriteTsconfig": true
+  }
+}
