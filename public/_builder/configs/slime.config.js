@@ -33,7 +33,7 @@ function chkType(type){
     var all = {
         style: ['css', 'scss', 'sass', 'less', 'stylus', 'styl'],
         templet: ['hbs', 'swig', 'htm', 'html', 'php', 'jsp'],
-        script: ['js', 'jsx', 'coffee', 'cjsx']
+        script: ['js', 'jsx', 'coffee', 'cjsx', 'ts', 'tsx']
     }
     for(var item in all){
         var isType = item;
@@ -146,7 +146,12 @@ var plugins = function(dirname, isPack, options){
             new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
             new ExtractTextPlugin("../css/[name].css", {
                 allChunks: isPack === true ? true : false
-            })
+            }),
+            // new webpack.DefinePlugin({
+            //     'process.env': {
+            //         NODE_ENV: '"development"'
+            //     }
+            // })
             //new webpack.HotModuleReplacementPlugin(),
         ],
         common_trunk_config = {
@@ -348,6 +353,14 @@ var custom_modules = function(opts){
                 loader: "jsx-loader"
             }
         )
+        loaders.push(
+            {
+                test: /\.tsx?$/,
+                exclude: /(node_modules|bower_components|_builder|dist)/,
+                loader: "jsx!ts-loader?compiler=ntypescript",
+                // loader: "jsx!awesome-typescript-loader"
+            }
+        )
     }
 
     return {loaders};
@@ -357,7 +370,8 @@ var custom_modules = function(opts){
 //webpack externals
 custom_externals = {
     "jquery": "jQuery",
-    "react": "React"
+    "react": "React",
+    "$": "jQuery"
 }
 
 // module.exports = {
@@ -468,13 +482,21 @@ module.exports = {
             },
             externals: idf_externals,
             plugins: idf_plugins,
-            module: custom_modules(options),
             resolve: {
                 root: path.resolve(__dirname),
                 alias: alias,
-                extensions: ['', '.js', '.jsx', '.cjsx', '.coffee', '.html', '.css', '.scss','.less','.hbs', '.rt','.md'],
+                extensions: ['', '.js', '.jsx', '.ts', '.tsx','.cjsx', '.coffee', '.html', '.css', '.scss','.less','.hbs', '.rt','.md'],
                 modulesDirectories: ["node_modules"],
-            }
+            },
+            module: custom_modules(options),
+            ts: {
+                compiler: 'ntypescript'
+            },
+            // resolveLoader: {
+            //     alias: {
+            //         'ts-loader': require('ts-loader')
+            //     }
+            // }
         }
     },
 
@@ -1063,3 +1085,5 @@ module.exports = {
         return entry;
     }
 }
+
+// module.exports.resolveLoader = { alias: { 'ts-loader': require('ts-loader') } }

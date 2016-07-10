@@ -45,12 +45,12 @@ module.exports = (gulp,$,slime,env,port)->
             reload()
 
         # 监控js文件
-        gulp.watch config.dirs.watch_src + '/js/?(pages|libs)/**/*.?(coffee|js|jsx|cjsx)', [buildPage]
+        gulp.watch config.dirs.watch_src + '/js/?(pages|libs)/**/*.?(coffee|js|jsx|ts|tsx|cjsx)', [buildPage]
         .on 'change', () ->
             console.log 'js watch'
             reload()
 
-        gulp.watch config.dirs.watch_libs + '/**/*.?(coffee|js|jsx|cjsx)', [buildPage]
+        gulp.watch config.dirs.watch_libs + '/**/*.?(coffee|js|jsx|ts|tsx|cjsx)', [buildPage]
         .on 'change', () ->
             console.log 'js watch'
             reload()
@@ -64,7 +64,7 @@ module.exports = (gulp,$,slime,env,port)->
 
         # 监控react目录下的文件
         # gulp.watch config.dirs.react + '/**/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
-        gulp.watch config.dirs.watch_react + '/**/*.?(coffee|js|jsx|cjsx)', [buildCommon]
+        gulp.watch config.dirs.watch_react + '/**/*.?(coffee|js|jsx|ts|tsx|cjsx)', [buildCommon]
         .on 'change', () ->
             console.log 'react watch'
             reload()
@@ -74,7 +74,7 @@ module.exports = (gulp,$,slime,env,port)->
             console.log 'copy2css watch'
 
         # 监控第三方直传文件:js
-        gulp.watch config.dirs.watch_src + '/js/_copy2dist/**/*.?(coffee|js|jsx|cjsx)', ['copyThirdJsToDist:'+env], () ->
+        gulp.watch config.dirs.watch_src + '/js/_copy2dist/**/*.?(coffee|js|jsx|ts|tsx|cjsx)', ['copyThirdJsToDist:'+env], () ->
             console.log 'copy2js watch'
 
         # watch图片文件
