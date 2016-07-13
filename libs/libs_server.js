@@ -60,7 +60,7 @@ module.exports = {
     $url: url,
     $path: path,
     $domain: domain,
-    $parse: co_parse,
+    $parse: parse,
     getClientIp: getClientIp,
     errors: require('./errors')
 }
