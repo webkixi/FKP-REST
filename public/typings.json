@@ -1,7 +1,8 @@
 {
   "name": "fkpjs",
-  "version": false,
-  "ambientDependencies": {
-    "pagi": "./react/modules/pagination/"
+  "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20160701205107"
+  },
+  "globalDependencies": {
   }
 }

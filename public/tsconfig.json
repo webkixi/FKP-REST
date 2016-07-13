@@ -1,13 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "es5",
     "module": "commonjs",
+    "jsx": "react",
     "isolatedModules": false,
-    "jsx": "preserve",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "experimentalDecorators": false,
+    "emitDecoratorMetadata": false,
     "declaration": false,
     "noImplicitAny": false,
     "removeComments": false,
@@ -15,17 +15,22 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "noEmitHelpers": false,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true
+    "allowSyntheticDefaultImports": false,
+    "allowJs": true,
+    "moduleResolution": "classic",
+    "rootDir": ".",
+    "watch": true,
+    "newLine": "LF"
   },
   "awesomeTypescriptLoaderOptions": {},
   "filesGlob": [
     "./**/*.ts",
     "./**/*.tsx",
+    "!./react/**/*",
     "!./node_modules/**/*"
   ],
   "files": [
-    "./typeconfig.d.ts",
+    "./typings/index.d.ts",
     "./src/pc/js/pages/tpagi/index.tsx"
   ],
   "exclude": [
@@ -33,6 +38,6 @@
     "dist"
   ],
   "atom": {
-    "rewriteTsconfig": true
+    "rewriteTsconfig": false
   }
 }
