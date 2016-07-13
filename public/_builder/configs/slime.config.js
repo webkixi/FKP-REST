@@ -357,7 +357,7 @@ var custom_modules = function(opts){
             {
                 test: /\.tsx?$/,
                 exclude: /(node_modules|bower_components|_builder|dist)/,
-                loader: "jsx!ts-loader?compiler=ntypescript",
+                loader: "ts-loader?compiler=ntypescript",
                 // loader: "jsx!awesome-typescript-loader"
             }
         )
@@ -457,7 +457,7 @@ module.exports = {
         // }
 
         return {
-            //cache: true,
+            cache: true,
             debug: true,
             // devtool: "source-map",
             // devtool: "cheap-module-eval-source-map",
