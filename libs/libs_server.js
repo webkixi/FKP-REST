@@ -45,6 +45,11 @@ var guid = function(prefix) {
     return (prefix + Math.random() + Math.random()).replace(/0\./g, "");
 }
 
+var co_parse = function(ctx){
+    var opts = { limit: '50k' }
+    return parse( ctx, opts )
+}
+
 module.exports = {
     getObjType: getObjType,
     clog: clog,
@@ -55,7 +60,7 @@ module.exports = {
     $url: url,
     $path: path,
     $domain: domain,
-    $parse: parse,
+    $parse: co_parse,
     getClientIp: getClientIp,
     errors: require('./errors')
 }
