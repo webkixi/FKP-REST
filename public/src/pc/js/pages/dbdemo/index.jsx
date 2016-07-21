@@ -19,13 +19,13 @@ WS.on('article_count', function(val){
     console.log(val.data);
 })
 
-WS.emit('nanhai', 'hi')
-WS.on('nanhai', function(val){
+WS.emit('index', 'hi')
+WS.on('index', function(val){
     $('.wsmsg').html(val.message);
     $('.chattip').show().addClass('animated tada')
     setTimeout(function(){
         $('.chattip').hide().removeClass('animated tada')
-    },20000)
+    },10000)
 })
 
 

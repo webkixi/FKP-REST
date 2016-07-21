@@ -4,23 +4,17 @@ var markdown = require('modules/markdown')
 var querystring = require('querystring')
 var mongoose = require("mongoose");
 
-SIO.on('nanhai', function(data, socket){
+SIO.on('index', function(data, socket) {
     var _io = this.io,
         _id = socket.id,
         _socket = socket;
 
-    if (typeof data === 'string'){
-        if (data==='hi'){
-            _socket.emit('nanhai', {
+    if (typeof data === 'string') {
+        if (data === 'hi') {
+            _socket.emit('index', {
                 user: 'FKPJS',
-                message: '南海，我们一寸都不让'
+                message: 'FKP-NATIVE即将上线，<br />app开发从此简单！'
             })
-            setTimeout(()=>{
-                _socket.emit('nanhai', {
-                    user: 'FKPJS',
-                    message: '一切反动派都是纸老虎'
-                })
-            }, 22000)
         }
     }
 })

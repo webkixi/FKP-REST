@@ -48,6 +48,9 @@ var lists = [
     {id: '112', title: "三星的手机"},
     {id: '113', title: "华为的手机"},
     {id: '114', title: "小米的手机"},
+    {id: '114', title: "小米的手机"},
+    {id: '114', title: "小米的手机"},
+    {id: '114', title: "小米的手机"},
     {id: '111', title: "苹果的手机"}
 ]
 
@@ -113,7 +116,7 @@ function start(name){
 
         },
         trigger:function(){
-            this.libs.changeTitle('我的订单');    //更改当前页面标题
+            libs.changeTitle('我的订单');    //更改当前页面标题
             this.main()
         },
         ready: function(){
