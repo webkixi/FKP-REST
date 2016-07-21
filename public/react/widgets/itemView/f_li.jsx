@@ -16,6 +16,9 @@ var fox = React.createClass({
 		if (data !== _data){
 			return true;
 		}
+		else {
+			return false;
+		}
 	},
 
 	componentDidMount: function () {},

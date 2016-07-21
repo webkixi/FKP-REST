@@ -1,9 +1,9 @@
 /* pages类及pages生周期 */
 function pages(opts){
 
-    var page = SA.get('_CURENT_PAGE')
+    var page = SAX.get('_CURENT_PAGE')
     if (page){
-        var intent = SA.get(page)
+        var intent = SAX.get(page)
         this.intent = intent;
     }
     else {
