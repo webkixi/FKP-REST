@@ -10,7 +10,7 @@ var agzgz = {
 }
 
 var static_dir = './public'
-var version = '2.14.10'
+var version = '2.14.11'
 var config = {
     version: version,
     // 默认首页
