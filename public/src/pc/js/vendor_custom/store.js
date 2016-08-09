@@ -242,12 +242,27 @@
                         save[name].setter(target);
                     }
                 } else {
-                    if (getObjType(save[name].sdata) === 'Array') {
-                        var tmp = save[name].sdata;
-                        tmp.push(dataOrAct)
-                        target = tmp;
-                        save[name].setter(target);
+                    var tmp;
+                    if (getObjType(dataOrAct) === 'Array'){
+                        if (getObjType(save[name].sdata) === 'Array'){
+                            tmp = save[name].sdata.concat(dataOrAct);
+                        }
+                        else
+                        if (getObjType(save[name].sdata) &&
+                            getObjType(save[name].sdata.data) === 'Array'){
+
+                            var _tmp = save[name].sdata.data.concat(dataOrAct);
+                            tmp = {data: _tmp}
+                        }
                     }
+                    else {
+                        if (getObjType(save[name].sdata) === 'Array'){
+                            tmp.push(dataOrAct)
+                        }
+                    }
+
+                    target = tmp;
+                    save[name].setter( target );
                 }
             }
         },
@@ -487,14 +502,14 @@
             if (save[name]) {
                 var that = save[name]
 
-                function runner(data, key) {
+                function _runner(data, key) {
                     return that.dataer(data, key)
                 }
                 var _data = that.getter('data')
                 if (ddd && getObjType(ddd) === 'Object') {
                     _data = extend(true, _data, ddd)
                 }
-                runner(_data, key)
+                return _runner(_data, key)
             }
         },
 
