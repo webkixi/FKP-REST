@@ -8,6 +8,7 @@ require('babel-core/register');
 require("babel-polyfill");
 global._ = require('lodash');
 require('./modules/requirePath')(require('path').resolve(__dirname));
+process.env.env = 'default';
 
 var port = 8070;
 var args = process.argv.splice(2); //取得命令行参数
@@ -30,7 +31,6 @@ var cors = require('kcors');   //cros 跨域支持
 var session = require('koa-generic-session');
 global.React = require('react');
 global.ReactDomServer = require('react-dom/server');
-process.env.env = 'default';
 require('./modules/cache')  // lru 缓存模块
 
 
