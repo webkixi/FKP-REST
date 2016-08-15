@@ -257,7 +257,10 @@
                     }
                     else {
                         if (getObjType(save[name].sdata) === 'Array'){
-                            tmp.push(dataOrAct)
+                            save[name].sdata.push(dataOrAct)
+                        }
+                        else {
+                            console.error('sax数据类型不匹配');
                         }
                     }
 
