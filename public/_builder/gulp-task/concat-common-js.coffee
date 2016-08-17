@@ -19,7 +19,7 @@ getFileMap = (env)->
 	_vlist = config.vendorList_adv[0]
 	if env == 'pro'
 		_vlist = config.vendorList_adv[1]
-		
+
 	return _vlist.concat(config.globalList)  # for advance browser
 
 
@@ -27,8 +27,10 @@ getFileMap = (env)->
 module.exports = (gulp, $, slime, env)->
 		return () ->
 			_commonPath = config.jsDevPath + '_common.js'
+			_globalPath = config.jsDevPath + 'global.js'
 			if (env == 'pro')
 				_commonPath = config.jsBuildPath + '_common.js'
+				_globalPath = config.jsBuildPath + 'global.js'
 
 			# slime是FKPJS的核心编译方法
 			# 该方法支持多种打包方式
@@ -37,7 +39,8 @@ module.exports = (gulp, $, slime, env)->
 			# slime 指定数组编译
 			slime.build(getFileMap(env), true, {
 				rename: 'common',
-				append: [_commonPath],
+				# prepend: [ _globalPath ],
+				append: [ _commonPath ],
 				env: env
 			})
 
