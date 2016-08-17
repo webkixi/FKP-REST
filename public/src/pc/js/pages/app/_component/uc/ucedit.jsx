@@ -3,7 +3,7 @@ var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
 var api = require('libs/api');
-var _user = SA.get('USER')
+var _user = SAX.get('USER')
 var valide = libs.formValide;
 
 
@@ -26,7 +26,7 @@ var bindEvent = function(){
                       ('uc_edit_zone', 'noop')
                       ("uc_edit_address", 'noop')
 
-        var postdata = SA.get('Form_uc_edit_user_info')
+        var postdata = SAX.get('Form_uc_edit_user_info')
         postdata.method='get'
 
     }

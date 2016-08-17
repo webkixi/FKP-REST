@@ -27,7 +27,7 @@ var bindEvent = function(){
             </div>
         </div>
     )
-    SA.setter('address_list',{data: _addresslist_li})
+    SAX.setter('address_list',{data: _addresslist_li})
 };
 
 

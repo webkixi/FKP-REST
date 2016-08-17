@@ -61,11 +61,11 @@
 // }
 //
 // function init_wx(cb){
-//     // SA.setter("_LOCAL_USER", tes_data.results[0]);
-//     // SA.setter("_WEIXIN", {user: test_wx_data})=
+//     // SAX.setter("_LOCAL_USER", tes_data.results[0]);
+//     // SAX.setter("_WEIXIN", {user: test_wx_data})=
 //
-//     SA.setter("_LOCAL_USER",{error: "-1"});
-//     SA.setter("_WEIXIN",{})
+//     SAX.setter("_LOCAL_USER",{error: "-1"});
+//     SAX.setter("_WEIXIN",{})
 //     getwx();
 // }
 //
@@ -85,7 +85,7 @@
 //         if(typeof data === 'string'){
 //             data = JSON.parse(data)
 //         }
-//         SA.setter("_WEIXIN",{user: data})
+//         SAX.setter("_WEIXIN",{user: data})
 //         getLocalUser(data, cb)
 //         // {"openid":"o07NUs250UkhoK8Ks6bZAZK7Hkls","nickname":"天天修改","sex":1,"language":"zh_CN","city":"广州","province":"广东","country":"中国","headimgurl":"http:\/\/wx.qlogo.cn\/mmopen\/Lhlz6ia774dNwUgAucLtKIs94BWFSX1hPbdvibZT79y69oI7FusBz7I5qbech1olibVxribJ9vFErEoDrJFPpDa0my6yXkhmouoj\/0","privilege":[]}
 //     })
@@ -101,9 +101,9 @@
 //                     // console.log(record);
 //                     if(record.code === 1){
 //                         var local_user_info = record.results[0];
-//                         SA.setter("_LOCAL_USER", local_user_info);
+//                         SAX.setter("_LOCAL_USER", local_user_info);
 //                     }else{
-//                         SA.setter("_LOCAL_USER", {error: "-2"});
+//                         SAX.setter("_LOCAL_USER", {error: "-2"});
 //                     }
 //                 }
 //             })
@@ -111,7 +111,7 @@
 //                 callback()
 //         }
 //         else
-//             SA.setter("_LOCAL_USER",{error: "-3"});
+//             SAX.setter("_LOCAL_USER",{error: "-3"});
 //     }
 // }
 //
@@ -148,7 +148,7 @@ var wx = require('modules/weixin/index')
 */
 
 function init_wx(){
-    SA.set("_LOCAL_USER",{error: "-1"});
+    SAX.set("_LOCAL_USER",{error: "-1"});
     // wx( getLocalUser )
     var _weixin = sessionStorage.getItem('_WEIXIN');
     if(_weixin){
@@ -156,7 +156,7 @@ function init_wx(){
     }else{
         var user_info = sessionStorage.getItem("_LOCAL_USER");
         if(user_info){
-            SA.setter("_LOCAL_USER", JSON.parse(user_info));
+            SAX.setter("_LOCAL_USER", JSON.parse(user_info));
             wx()
         }else{
             wx( getLocalUser )
@@ -192,16 +192,16 @@ function getLocalUser( data ){
                 if(record.code == 1){
                     var local_user_info = record.results.user;
                     local_user_info.uid = local_user_info.user_id;  //旧接口为 uid，新接口为user_id，为了兼容添加多 uid
-                    SA.setter("_LOCAL_USER", local_user_info);
+                    SAX.setter("_LOCAL_USER", local_user_info);
                 }
                 else{
-                    SA.setter("_LOCAL_USER", {error: "-2"});
+                    SAX.setter("_LOCAL_USER", {error: "-2"});
                 }
             }
         })
     }
     else
-        SA.setter("_LOCAL_USER",{error: "-3"});
+        SAX.setter("_LOCAL_USER",{error: "-3"});
 }
 
 module.exports = init_wx

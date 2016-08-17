@@ -22,12 +22,12 @@ var api = require('libs/api')
 
 // 初始化微信的数据
 function init(cb){
-    SA.set("_WEIXIN",{error: -1})
+    SAX.set("_WEIXIN",{error: -1})
     // getwx( cb);
     if(typeof moni==='object'){
         setTimeout(function(){
             console.log('======= weixin moni');
-            SA.setter("_WEIXIN",{user: moni})
+            SAX.setter("_WEIXIN",{user: moni})
             cb (moni)
         },1000)
     }
@@ -59,7 +59,7 @@ function getwx( cb ){
         iii++;
         var _weixin = sessionStorage.getItem('_WEIXIN')
         if (_weixin){
-            SA.setter("_WEIXIN",{user: JSON.parse(_weixin)})
+            SAX.setter("_WEIXIN",{user: JSON.parse(_weixin)})
             rtn_data = JSON.parse(_weixin);
             callback()
         }
@@ -77,11 +77,11 @@ function getwx( cb ){
                 else{
                     iii = 0;
                     sessionStorage.setItem('_WEIXIN',JSON.stringify(data));
-                    SA.setter("_WEIXIN",{user: data})
+                    SAX.setter("_WEIXIN",{user: data})
                     rtn_data = data;
                     callback()
                 }
-                // SA.setter("_WEIXIN",{user: data})
+                // SAX.setter("_WEIXIN",{user: data})
                 // rtn_data = data;
                 // callback()
             })

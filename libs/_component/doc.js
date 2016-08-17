@@ -458,7 +458,7 @@ function dealInject(doc){
 
     function _initInject(type, src, cb){
         var args;
-        var _thirdPartJs = SA.get('thirdPartJs')
+        var _thirdPartJs = SAX.get('thirdPartJs')
         if (!type || (typeof type==='object' && !type.concat)){
             type = 'css'
         }
@@ -479,7 +479,7 @@ function dealInject(doc){
             // var did;
             // if (!_thirdPartJs && type==='js') {
             //     _thirdPartJs = {}
-            //     SA.set('thirdPartJs', _thirdPartJs)
+            //     SAX.set('thirdPartJs', _thirdPartJs)
             // }
             // //注入页面的id如果存在，且长度小于20
             // var injectCode = true;
@@ -497,14 +497,14 @@ function dealInject(doc){
                 }
                 else {
                     _thirdPartJs[did] === 'loadding';
-                    SA.append('thirdPartJs', _thirdPartJs);
+                    SAX.append('thirdPartJs', _thirdPartJs);
                     if (typeof args[0]==='string'&&( args[0].indexOf('http')===0 || args[0].indexOf('/')===0)){
                         injectCode = false;
-                        SA.set(did, null, [function(){
+                        SAX.set(did, null, [function(){
                             var _tmp = {};
                             _tmp[did] = 'finish'
-                            SA.append('thirdPartJs', _tmp);
-                            SA.deleter(did)
+                            SAX.append('thirdPartJs', _tmp);
+                            SAX.deleter(did)
                         }, cb])
                     }
                 }

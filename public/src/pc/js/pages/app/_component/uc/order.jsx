@@ -1,7 +1,7 @@
 var router = require('libs/router').router;
 var pages = require('libs/pages');
 var libs = require('libs/libs');
-var _user = SA.get('USER')
+var _user = SAX.get('USER')
 var VTabs = require('modules/list/tabs_list');
 
 //当前页公共变量

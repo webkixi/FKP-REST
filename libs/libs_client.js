@@ -12,13 +12,13 @@ var base_tips = require('./_component/tips')
 
 /**
 * form表单校验
-* form_valide be dependent SA, SA is a global function
-  SA like localstorage, but more. SA.set like .setItem, .get like .getItem
-  you must special @name, @name is one of SA's param
-  use SA.get(@name), then you get the data of @name
-  use SA.set(@name, [JSON/String/Array]) will set value of @name in browse memery
+* form_valide be dependent SAX, SAX is a global function
+  SAX like localstorage, but more. SAX.set like .setItem, .get like .getItem
+  you must special @name, @name is one of SAX's param
+  use SAX.get(@name), then you get the data of @name
+  use SAX.set(@name, [JSON/String/Array]) will set value of @name in browse memery
 
-* @name  {String}  special SA name for stroe
+* @name  {String}  special SAX name for stroe
 
 * SAMPLE
 * form_valide(name)
@@ -80,7 +80,7 @@ function form_valide(id ,reg, cb, name) {
         // noop     : function(){return true}
     };
 
-    // SA.set(name, query)
+    // SAX.set(name, query)
 
     var errs = {
         "100": ['必须指定检测类型', block],
@@ -207,7 +207,7 @@ function form_valide(id ,reg, cb, name) {
                     }
                 }
                 else {
-                    // SA.set(name, false)
+                    // SAX.set(name, false)
                     _query[this.id] = false
                     query.ckstat = false;
                     if (!cb){
@@ -237,7 +237,7 @@ function form_valide(id ,reg, cb, name) {
         }
 
         if (cb==='end'){
-            // SA.set(name, query)
+            // SAX.set(name, query)
             return query
         }
 
@@ -245,7 +245,7 @@ function form_valide(id ,reg, cb, name) {
             return _valide;
         }
         else {
-            // SA.set(name, null)
+            // SAX.set(name, null)
             return _valide;
         }
 

@@ -31,7 +31,7 @@ function popwin(data, cb){
             if($(this).hasClass('autoTip')){
                 return;
             }
-            SA.setter('Pop',{data:{display:'none'}});
+            SAX.setter('Pop',{data:{display:'none'}});
           	$(this).addClass('autoPop');
         })
     }

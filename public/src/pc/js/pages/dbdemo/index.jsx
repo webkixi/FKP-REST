@@ -2,7 +2,7 @@
 // 数据处理部分
 
 
-SA.set('USER', {error: '-1'})
+SAX.set('USER', {error: '-1'})
 var Tabs = require('modules/tabs/tabs');
 var IndexList = require('./_common/_index')
 

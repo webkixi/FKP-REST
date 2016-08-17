@@ -2,7 +2,7 @@ var router = require('libs/router').router;
 var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
-var _user = SA.get('USER')
+var _user = SAX.get('USER')
 var api = require('libs/api');
 
 function clicks(cls, rt){
@@ -18,7 +18,7 @@ function clicks(cls, rt){
 var bindEvent = function(){
     
     if (!_user.info){
-        SA.set('USER', _fun)
+        SAX.set('USER', _fun)
         function _fun(data){
             $('#uc_index_top_user_name').html(data.info.userName||'123')
             $('#uc_index_top_user_stat').html('')

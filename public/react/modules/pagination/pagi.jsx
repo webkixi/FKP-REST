@@ -12,13 +12,13 @@ function idm(_name, itemMethod){
             e.preventDefault();
             var page = $(this).attr("data-page"),
                 jump = $(this).attr("data-jump"),
-                tmp = SA.get(_name);
+                tmp = SAX.get(_name);
 
             _jump = jump;
             tmp.begin.start = page-1;
             tmp.begin.jump = _jump;
 
-            SA.setter( _name, tmp );
+            SAX.setter( _name, tmp );
         })
     }
 
@@ -51,7 +51,7 @@ function pagination(data, opts ){
         dft.data = data
     }
 
-    SA.set(dft.globalName, {
+    SAX.set(dft.globalName, {
         data: data,
         begin: dft.begin
     })

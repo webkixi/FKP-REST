@@ -7,14 +7,14 @@ var api = require('libs/api');
 
 (function(){
 
-	var turl = SA.get('_TRUE_URL');
+	var turl = SAX.get('_TRUE_URL');
 
     var postdata = {
          url: turl ? turl.split('#')[0] : location.href.split('#')[0]
     };
     
     api.req('/weixin/getsign', postdata, function(data){
-    		SA.setter('signInfo',data);
+    		SAX.setter('signInfo',data);
 	 	wx.config({
 		     debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 		     appId: data.appId, // 必填，公众号的唯一标识

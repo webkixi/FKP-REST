@@ -2,13 +2,13 @@ var libs = require('libs/libs');
 var router = require('libs/router').router;
 var route = require('libs/router').route;
 var url = libs.urlparse(location.href);
-SA.set('USER', {login: false})
+SAX.set('USER', {login: false})
 var api = require('libs/api');
 
 if (url.params.login){
-    SA.set('USER', {login: url.params.login})
+    SAX.set('USER', {login: url.params.login})
     api.req('/userInfo', {login: url.params.login, method: 'get'}, function(data){
-        SA.append('USER', {info: data})
+        SAX.append('USER', {info: data})
     })
 }
 

@@ -8,7 +8,7 @@ var getWXConfig = require('./_component/_getWXConfig');
 function getLocation(sucFn,errFn){
 	//获取配置
 	getWXConfig(function(){
-		//var _position = SA.getter('signInfo');
+		//var _position = SAX.getter('signInfo');
 		//alert(JSON.stringify(_position));
 		//获取地理位置接口
 		wx.getLocation({

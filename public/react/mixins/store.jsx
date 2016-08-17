@@ -11,7 +11,7 @@ function setMixin( name ){
 
         componentWillMount: function(){
             if( name )
-                SA.setter( name, null, this._act )
+                SAX.setter( name, null, this._act )
         },
 
         componentDidMount: function() { }

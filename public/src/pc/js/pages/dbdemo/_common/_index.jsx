@@ -2,7 +2,7 @@
 // 数据处理部分
 
 
-SA.set('USER', {error: '-1'})
+SAX.set('USER', {error: '-1'})
 
 var api = require('libs/api')
 var libs = require('libs/libs')
@@ -38,13 +38,13 @@ function index(_target){
         //注册信息
         //signin返回信息回调
         function sign_resaults(data){
-            SA.set('USER', data)
+            SAX.set('USER', data)
             if (data.dbconfig){
                 libs.msgtips(data.dbconfig, 'alert')
             }
             if (data.error){ //没有该用户
                 // console.log(data);
-                SA.set('USER', {error: '-2'})
+                SAX.set('USER', {error: '-2'})
             }
             else{
                 $('#edit').click(function(){
@@ -165,7 +165,7 @@ function index(_target){
 
     // ajax方法
     function pull_list_data(cb){
-        var login = SA.get('USER').login;
+        var login = SAX.get('USER').login;
         // pageNum, numPerPage, order
         cur_page++
         var params = {

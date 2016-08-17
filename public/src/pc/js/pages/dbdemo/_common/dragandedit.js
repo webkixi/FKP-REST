@@ -2,7 +2,7 @@ var libs = require('libs/libs')
 var req = require('libs/api').req
 
 //是否登陆
-var _user = SA.get('USER')
+var _user = SAX.get('USER')
 var _is_login = _user.error ? false : _user
 var is_touch = ('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch
 

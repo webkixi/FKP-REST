@@ -6,7 +6,7 @@
 
 function preRender(opt){
 
-  	var luser = SA.getter('_LOCAL_USER');
+  	var luser = SAX.getter('_LOCAL_USER');
 
     if(luser.data.error){
 
@@ -23,11 +23,11 @@ function preRender(opt){
 
 function loginAct(opt){
 
-	var userInfo = SA.getter('_LOCAL_USER');
+	var userInfo = SAX.getter('_LOCAL_USER');
 
 	if(userInfo.data.error==="-1"){
 
-       	SA.setter('_LOCAL_USER', [preRender], [[opt]]);
+       	SAX.setter('_LOCAL_USER', [preRender], [[opt]]);
 
     }else{
 

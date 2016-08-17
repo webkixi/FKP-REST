@@ -359,7 +359,7 @@
                         if (!sact.length)
                             sact = {}
                         else {
-                            console.log('SA set error, fun is array ');
+                            console.log('SAX set error, fun is array ');
                             return false;
                         }
                     }
@@ -416,7 +416,7 @@
                         if (!sact.length)
                             sact = {}
                         else {
-                            console.log('SA set error, fun is array ');
+                            console.log('SAX set error, fun is array ');
                             return false;
                         }
                     }
@@ -521,5 +521,5 @@
         }
     }
 
-    window.SA = window.SAX = storeAct;
+    window.SAX = storeAct;
 })();

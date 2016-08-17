@@ -28,17 +28,17 @@ function doneNext(eve){
               return false
             }
 
-            var _data = SA.get(_name).data
+            var _data = SAX.get(_name).data
             _data = _data.concat(ddd)
 
             if(!eve || eve!=='auto'){
                 $(me).find('li[data-cls="loadbar"]').click(function(){
-                    SA.setter(_name, {data: _data});
+                    SAX.setter(_name, {data: _data});
                 })
             }
             else
             if(eve === 'auto'){
-                SA.setter(_name, {data: _data});
+                SAX.setter(_name, {data: _data});
             }
 
         } catch (e) {
@@ -97,8 +97,8 @@ function applist(m, l, ele, opts){
         return false
     }
 
-    SA.set(dft.globalName.menu, {data: m})
-    SA.set(dft.globalName.list, {data: l})
+    SAX.set(dft.globalName.menu, {data: m})
+    SAX.set(dft.globalName.list, {data: l})
 
     function xxx(type, sem){
         var _name = dft.globalName[type]

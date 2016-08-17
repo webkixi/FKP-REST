@@ -82,7 +82,7 @@ var Show = React.createClass({
                         3、react
                     </p>
                     <p>
-                        4、FKP-SA-flux
+                        4、FKP-SAX-flux
                     </p>
                     <p>
                         5、FKP-router  完美微信端后退

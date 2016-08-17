@@ -2,7 +2,7 @@ var router = require('libs/router').router;
 var pages = require('libs/pages');
 var ItemMixin = require('mixins/item');
 var libs = require('libs/libs');
-var _user = SA.get('USER')
+var _user = SAX.get('USER')
 
 
 var bindEvent = function(){

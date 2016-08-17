@@ -49,8 +49,8 @@ function bindFn(e){
             router.cb()
         }
         else{
-            var _history = SA.get('_HISTORY')
-            var _history_data = SA.get('_HISTORY_DATA')
+            var _history = SAX.get('_HISTORY')
+            var _history_data = SAX.get('_HISTORY_DATA')
             if (_history.length === 1){
                 console.log('======== pophistory');
                 if (wx){
@@ -61,12 +61,12 @@ function bindFn(e){
                 }
             }
             else{
-                var pop = SA.pop('_HISTORY')
-                pop = SA.pop('_HISTORY')
+                var pop = SAX.pop('_HISTORY')
+                pop = SAX.pop('_HISTORY')
                 var history = pop[1]
                 var pophistory = pop[0]
                 if(history.hash){
-                    var _data = SA.pop('_HISTORY_DATA')
+                    var _data = SAX.pop('_HISTORY_DATA')
                     // router(history.hash, _data[0][(_data[0].length-1)])   //返回的data
                     router(history.hash, true)
                 }else{
@@ -81,9 +81,9 @@ var rt = libs.Class.create();
 rt.prototype = {
 
     init: function(name, back){
-        SA.set("_routerInstanc", this)
-        SA.set('_HISTORY', []);
-        SA.set('_HISTORY_DATA', []);
+        SAX.set("_routerInstanc", this)
+        SAX.set('_HISTORY', []);
+        SAX.set('_HISTORY_DATA', []);
         this.multiDom = _multiDom;
         this.intent;
         this.isBack = false;
@@ -97,7 +97,7 @@ rt.prototype = {
     },
 
     distribute: function(name, back){
-        SA.set('_TRUE_URL', location.href)
+        SAX.set('_TRUE_URL', location.href)
         this.name = name;
         this.back = back;
         this.url = libs.urlparse(location.href);
@@ -173,7 +173,7 @@ rt.prototype = {
                         url = tmp_url
                     }
                 }
-                SA.append('_HISTORY', url);
+                SAX.append('_HISTORY', url);
             }
             else{
                 if (!this.isBack){
@@ -183,7 +183,7 @@ rt.prototype = {
                     this.url = tmp_url;
                     url = tmp_url
                 }
-                SA.append('_HISTORY', url);
+                SAX.append('_HISTORY', url);
             }
             return true;
         }
@@ -193,25 +193,25 @@ rt.prototype = {
         var name = this.name;
         var isBack = this.isBack;
         var intent = this.intent
-        var temp = SA.getter(name)
+        var temp = SAX.getter(name)
         var data = {};
         if (temp){
-            var prev_page = SA.getter('_CURENT_PAGE')
+            var prev_page = SAX.getter('_CURENT_PAGE')
             this.prev_page = prev_page
             if (prev_page) {
                 var prev_name = prev_page.data
                 prev_page.run(intent, prev_name)
             }
-            SA.set('_CURENT_PAGE', name)
+            SAX.set('_CURENT_PAGE', name)
             router.cb = false;
             console.log('======='+name);
             if (intent) data = intent
 
-            SA.append('_HISTORY_DATA', data)
+            SAX.append('_HISTORY_DATA', data)
 
-            if (this.multiDom) SA.setter(name, data)
+            if (this.multiDom) SAX.setter(name, data)
             else {
-                SA.setter(name, data)
+                SAX.setter(name, data)
             }
 
             historyStatBehavior()
@@ -267,7 +267,7 @@ function router(name, back){
         var _src = _url.source.replace('hash='+_url.params.hash, '').replace('?&', '?')
         history.replaceState(null,null, _src)
     }
-    var instance = SA.get('_routerInstanc');
+    var instance = SAX.get('_routerInstanc');
     if (instance){
         instance.distribute(name, back)
     }
@@ -278,7 +278,7 @@ function router(name, back){
 
 // 弹出上一步的地址，但不执行
 router.pre = function(){
-    var _h = SA.get('_HISTORY');
+    var _h = SAX.get('_HISTORY');
     return _h[(_h.length-2)];
 }
 
@@ -327,8 +327,8 @@ function _goback(name, data){
             router(name)
         }
         else{
-            // var history = SA.getter('_HISTORY').data;
-            var _history = SA.get('_HISTORY')
+            // var history = SAX.getter('_HISTORY').data;
+            var _history = SAX.get('_HISTORY')
             if (_history.length === 1){
                 console.log('======== pophistory');
                 if (wx){
@@ -339,8 +339,8 @@ function _goback(name, data){
                 }
             }
             else{
-                var pop = SA.pop('_HISTORY')
-                pop = SA.pop('_HISTORY')
+                var pop = SAX.pop('_HISTORY')
+                pop = SAX.pop('_HISTORY')
                 var history = pop[1]
                 var pophistory = pop[0]
                 if(history.hash){
@@ -406,21 +406,21 @@ router.reState = reState;
 
 
 var route = function(name, handle){
-    if(typeof SA!=='object'){
-        console.log("don't set global SA variable ");
+    if(typeof SAX!=='object'){
+        console.log("don't set global SAX variable ");
         return;
     }
 
     if(libs.getObjType(name)==='Object'){
         var keys = Object.keys(name);
         keys.map(function(item, i){
-            SA.setter(item, name[item])
+            SAX.setter(item, name[item])
         })
     }
 
     if(typeof name === 'string'){
         if(typeof handle === 'function'){
-            SA.setter(name, handle)
+            SAX.setter(name, handle)
         }
     }
 }
@@ -483,11 +483,11 @@ route.init = function(name, options, cb){
                     page_instence.end.args = [page_instence]
                     tmp[item] = page_instence.end
                     SAX.set('_CURENT_PAGE', 'none', tmp)
-                    // SA.set(item, page_instence.end, [page_instence])
+                    // SAX.set(item, page_instence.end, [page_instence])
                 }
             }
             else{
-                SA.set(item, name[item], [_id])
+                SAX.set(item, name[item], [_id])
             }
         })
     }
