@@ -9,6 +9,7 @@ var configs = require('./config');
 module.exports = {
     'root': path.resolve(path.join(__dirname, '../../../')),
     'pages': path.resolve(path.join(__dirname, '../../', configs.dirs.pages)),
+    'global': path.resolve(path.join(__dirname, '../../', configs.dirs.global)),
     'vendor': path.resolve(path.join(__dirname, '../../', configs.dirs.vendor)),
     // 'modules': path.resolve(path.join(__dirname, '../../', configs.dirs.modules)),
     'modules': path.resolve(path.join(__dirname, '../../react/modules')),

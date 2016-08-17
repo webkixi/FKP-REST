@@ -2,7 +2,7 @@ var src_dir = './src'
 var platform = '/pc'
 src_dir = src_dir + platform
 
-var global_dir = './src'+ platform +'/js/global';
+var global_dir = './src' + platform + '/js/global';
 var path = require('path');
 var cfg = require('../config')()
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
     babel: false,
     version: cfg.version,
     description: "FKP-REST FRONT-END PART",
-    port:{
+    port: {
         demo: 9000,
         dev: 8070
     },
@@ -131,13 +131,13 @@ module.exports = {
 
 
 
-// ===================================================================
+    // ===================================================================
 
 
     //public/src/pc/global
     globalList: [
-        path.join(__dirname, src_dir, '/js/vendor_custom/store.js'),   //SA
-        path.join(__dirname, src_dir, '/js/global/config.js')
+        path.join(__dirname, src_dir, '/js/vendor_custom/store.js'), //SAX
+        path.join(__dirname, src_dir, '/js/vendor_custom/config.js'), //SAX
         // path.join(__dirname, src_dir, '/js/global/libs.js'),
         // path.join(__dirname, src_dir, '/js/global/core.js'),
         // path.join(__dirname, src_dir, '/js/global/toolkits.js')
@@ -148,8 +148,8 @@ module.exports = {
 
 
     //ie
-    ieRequireList: (function(){
-        if(platform === '/pc'){
+    ieRequireList: (function() {
+        if (platform === '/pc') {
             return [
                 path.join(__dirname, src_dir, '/js/vendor/console-polyfill/polyfill.js'),
                 path.join(__dirname, src_dir, '/js/vendor/html5shiv/dist/html5shiv.js'),
@@ -158,7 +158,7 @@ module.exports = {
                 path.join(__dirname, src_dir, '/js/vendor/es5-shim/es5-sham.js'),
                 path.join(__dirname, src_dir, '/js/vendor/json2/json2.js')
             ]
-        }else{
+        } else {
             return []
         }
     })()
