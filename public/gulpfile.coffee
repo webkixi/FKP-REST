@@ -84,9 +84,16 @@ gulp.task "pro", ['buildCommon:pro','ie:pro','fonts:pro','pagecss:pro','copyThir
 # gulp.task "bbdev", ['buildCommon:dev:bb','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','bbpro')  # for backbone dev and pro
 # gulp.task "bb", ['buildCommon:dev:bb','html','ie:dev','fonts:dev','pagecss:dev','copyThirdJsToDist:dev'] , getTask('server','bb')  # for demo and backbone
 
+
+# global
+gulp.task 'g:dev', getTask('g')
+gulp.task 'g:pro', getTask('g', 'pro')
+
+
 # js/pages编译并生成_common.js
-gulp.task 'wp:dev', getTask('wp')
-gulp.task 'wp:pro', getTask('wp', 'pro')
+gulp.task 'wp:dev', ['g:dev'], getTask('wp')
+gulp.task 'wp:pro', ['g:pro'], getTask('wp', 'pro')
+
 
 # 默认启动本地DEMO服务器
 gulp.task 'default',['clean:dev'], ->
