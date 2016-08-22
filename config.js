@@ -10,11 +10,11 @@ var agzgz = {
 }
 
 var static_dir = './public'
-var version = '2.14.12'
+var version = '2.15.12'
 var config = {
     version: version,
     // 默认首页
-    root: 'dbdemo',    //dev 或者 pro默认首页
+    root: 'demoindex',    //dev 或者 pro默认首页
 
     editorUploader: false,    //true，允许editor编辑器上传图片
     //本地上传路径

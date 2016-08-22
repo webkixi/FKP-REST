@@ -63,7 +63,12 @@
                         @@include('./_demoindex/detail.html')
                     {{else}}
                     <div class="hheader demo">
-                        @@include('./_demoindex/homeStart.html')
+                        <div class="home-start u-clearfix">
+                            @@include('./_demoindex/homeStart.html')
+                        </div>
+                        <h2 style="margin-left:0.2em;margin-bottom:0.6em;">
+                            Demo
+                        </h2>
                         <ol>
                             {{#each demoindex.root.list}}
                                 <li class="item">

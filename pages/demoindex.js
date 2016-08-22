@@ -65,7 +65,7 @@ function *demoIndexData(oridata){
     }
     else{
         let homeContent = {},
-            md_raw = fs.readFileSync(path.join(__dirname, '../fkpdoc/_index/index.md'), 'utf8'),
+            md_raw = fs.readFileSync(path.join(__dirname, '../fkpdoc/_home_start/index.md'), 'utf8'),
             tmp = yield markdown(md_raw, mdcnt);
 
         homeContent.home = tmp.mdcontent;

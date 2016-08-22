@@ -8,7 +8,7 @@ var agzgz = {
 
 var config = {
     // 默认首页
-    root: 'dbdemo',    //dev 或者 pro默认首页
+    root: 'demoindex',    //dev 或者 pro默认首页
 
     //微信
     weixin: agzgz,                      // 微信模块调用参数
