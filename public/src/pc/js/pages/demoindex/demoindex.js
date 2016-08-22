@@ -8,6 +8,14 @@ $('.dnode').click(function(){
     $(this).siblings(".fnode").toggle()
 })
 
+$('li.category').click(function(){
+    $(this).find('ol').toggle()
+})
+
+$('li.category a').click(function(e){
+    e.stopPropagation()
+})
+
 function mkQrCode(elem,content){
     if(!elem) return;
     if(!content) return;

@@ -109,6 +109,10 @@ makeHtmlListData = (pa, capt) ->
                 if ( ext == '.hbs' || ext == '.html')
                     content = fs.readFileSync(firstPath,'utf8')
                     title = content.match(/<title>([\s\S]*?)<\/title>/ig)
+                    if (title && title[0] && title[0].indexOf("{{title}}")>-1 )
+                        __title = /<meta name="subtitle" content=(.*?)\/>/.exec(content)[1].replace(/["|']/g, '')
+                        title = [__title]
+
                     _url = if caption then depthFile else ( (caption || '') + '/' + filename.replace(ext,'.html') )
                     _url = _url.replace('public/src/pc/html/','')
                     _ipurl = 'http://'+ tip + ipport + '/' + _url

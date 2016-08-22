@@ -1,0 +1,35 @@
+<div class="page-ui-kits docmenu">
+    <ol>
+        {{#each docs}}
+            <li class="item category">
+                <div class="hheader">
+                    <h4>
+                        <i class="ifont icon-file"></i>
+                        <span class="catalog">{{group}}</span>
+                    </h4>
+                    {{#if readme}}
+                        <small class="u-f12 u-color_gray">{{readme}}</small>
+                    {{/if}}
+                </div>
+
+                <ol>
+                    {{#each list}}
+                    <li class="item">
+                        <div class="hheader">
+                            <a href="{{url}}" class="">{{title}}</a>
+                        </div>
+                        {{#if des}}
+                            <div class="">
+                                <a target="_blank" href="{{group}}/{{mdname}}">{{des}}</a>
+                            </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+                </ol>
+            </li>
+        {{/each}}
+    </ol>
+
+    <!-- 二维码 -->
+    <!-- <span class="qrcode" value="{{ipurl}}">二维码</span> -->
+</div>

@@ -8,32 +8,68 @@ require("coffee-script/register")
 var publicConfig = require('../public/config')
 
 function *demoIndexData(oridata){
-    var staticData = oridata
-    var params = libs.uri(this.local.path)
+    let staticData = oridata,
+        //请求生成环境demo数据的数据
+        listHtmlTempleteData = require('../public/_builder/gulp-task/html')(null,null,null,'REST',path.join('./public',publicConfig.dirs.src,'html'))(),
+        //请求生成环境demo数据的数据
+        tttt = require('../public/_builder/gulp-task/html')(null,null,null,'REST',path.join( './fkpdoc'))(),
+        fkpdocs = {docs: tttt.demoindex},
+        _htmlImages = [],
+        htmlImages = fs.readdirSync( path.join(__dirname, '../public/src/pc/images/html') ),
+        htmlFiles = listHtmlTempleteData.demoindex.root.list;
+
+    // html目录下的项目对应的图片
+    if (htmlImages.length){
+        _htmlImages = [];
+        htmlImages.map((item, i)=>{
+            let imgName = path.parse(htmlImages[i]).name;
+            _htmlImages.push(imgName)
+        })
+    }
+
+
+    // 给html数据补齐图片资料
+    htmlFiles.map( (item, i)=>{
+        if (_htmlImages.length ){
+            let fileName, imgName;
+            fileName = path.parse(item.fileName).name;
+
+            let index = _htmlImages.indexOf(fileName);
+            item.img = index>-1 ? '/images/html/'+htmlImages[index] : ''
+        }
+        else {
+            item.img = '';
+        }
+    })
+
+    staticData = _.extend({}, oridata, listHtmlTempleteData, fkpdocs);
+    let params = libs.uri(this.local.path)
+
+    let mdcnt = {mdcontent:{}}
     if (params && params.md){
-        var mdcnt = {mdcontent:{}}
-        var url = params.md
-        url = url.replace('fkpdoc_','').replace(/_/g,"/")
-        url = url + ".md"
-        var md_raw = fs.readFileSync(path.join(__dirname, '../fkpdoc', url), 'utf8')
-        if (!md_raw)
-            this.redirect('/demoindex')
-        else
-        if (!md_raw.length)
-            this.redirect('/demoindex')
-        else{
-            var tmp = yield markdown(md_raw, mdcnt)
-            staticData = _.extend({}, oridata, tmp);
+        let url = params.md;
+            url = url.replace('fkpdoc_','').replace(/_/g,"/")
+            url = url + ".md";
+        let md_raw = fs.readFileSync(path.join(__dirname, '../fkpdoc', url), 'utf8')
+
+        if (!md_raw){
+            this.redirect('/demoindex');
+        } else
+        if (!md_raw.length){
+            this.redirect('/demoindex');
+        } else {
+            let tmp = yield markdown(md_raw, mdcnt);
+            staticData = _.extend(staticData, tmp);
             return staticData
         }
     }
     else{
-        var listHtmlTempleteData = require('../public/_builder/gulp-task/html')(null,null,null,'REST',path.join('./public',publicConfig.dirs.src,'html'))()  //请求生成环境demo数据的数据
-        var tttt = require('../public/_builder/gulp-task/html')(null,null,null,'REST',path.join( './fkpdoc'))() //请求生成环境demo数据的数据
-        // console.log(listHtmlTempleteData);
-        // console.log(tttt.demoindex.aaa.list);
-        var fkpdocs = {docs: tttt.demoindex}
-        staticData = _.extend({}, oridata, listHtmlTempleteData, fkpdocs);
+        let homeContent = {},
+            md_raw = fs.readFileSync(path.join(__dirname, '../fkpdoc/_index/index.md'), 'utf8'),
+            tmp = yield markdown(md_raw, mdcnt);
+
+        homeContent.home = tmp.mdcontent;
+        staticData = _.extend(staticData, homeContent);
         return staticData
     }
 

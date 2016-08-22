@@ -1,6 +1,6 @@
 
 [install]: /demoindex?md=install "安装"
-# 1、启动模式  
+# 启动模式  
 &#160; &#160; &#160; &#160;经过上篇“[安装篇][install]”，我们开始使用FKP-REST了
 
 ## DEMO 模式  {id: demomodle}  

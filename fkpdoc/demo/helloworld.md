@@ -1,4 +1,4 @@
-# 6、一个实例，Hello World  
+# 一个实例，Hello World  
 &#160; &#160; 前面说了那么多，还是要实际操作一下。老规矩，我们还是从`Hello World`开始吧！
 
 ## 1、新建HTML模板  {id:newhtml}  
