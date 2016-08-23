@@ -1,5 +1,8 @@
 {
-    "root": "FKP-REST",
+    "root": "Feature",
     "fkpdoc/wx": "微信",
-    "fkpdoc/start": "开始使用"
+    "fkpdoc/start": "开始使用",
+    "fkpdoc/Demo": "Demo",
+    "fkpdoc/FKPJS": "FKP-JS",
+    "fkpdoc/FKPRN": "FKP-RN"
 }

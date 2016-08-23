@@ -1,7 +1,7 @@
 @import "../../_copy2dist/iconfont";
 
 html{
-    font-size: 16px;
+    font: 16px/1 Roboto-Light,roboto,'Microsoft Yahei',sans-serif,Arial,Verdana;
 }
 body{
     background-color: #f8f8f8;
@@ -15,7 +15,7 @@ a{
     .left{
         padding-top: 1em;
         display: inline-block;
-        width: 20%;
+        width: 25%;
         vertical-align: top;
         border-right: 1px solid #f1f1f1;
         background-color: #fff;
@@ -23,7 +23,7 @@ a{
     .right{
         padding-top: 1em;
         display: inline-block;
-        width: 79%;
+        width: 74%;
         vertical-align: top;
     }
 
@@ -105,6 +105,23 @@ a{
             }
         }
     }
+}
+
+@media screen{
+   @media (max-width: 1080px){
+       .doc-container{
+           width: 1062px;
+           .left{
+               width: 270px;
+           }
+           .right{
+               width: 782px;
+           }
+       }
+    }
+   @media (min-width: 1023px){
+
+   }
 }
 
 /* 启动页 */
@@ -220,8 +237,17 @@ a{
                 }
                 .hheader{
                     h4{
-                        font-size: 0.85em;
-                        color: #000;
+                        font-size: 1em;
+                        font-weight: 400;
+                        color: #52708b;
+                        i{
+                            font-size: 0.4em;
+                            vertical-align: middle;
+                            color: #9e9e9e;
+                        }
+                        span{
+                            vertical-align: middle;
+                        }
                     }
                 }
                 ul, ol{
@@ -229,11 +255,11 @@ a{
                     margin-top: 0.5em;
                     li{
                         &:hover{
-                            background-color: #f9f9f9;
+                            background-color: #e8edfe;
                         }
                         font-size: 0.9em;
                         // text-indent: 0.8em;
-                        padding: 0.5em 0 0.5em 1.8em;
+                        padding: 0.5em 0 0.5em 1.2em;
                         a{
                             display: block;
                             width: 100%;

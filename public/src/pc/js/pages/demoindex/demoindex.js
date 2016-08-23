@@ -9,6 +9,7 @@ $('.dnode').click(function(){
 })
 
 $('li.category').click(function(){
+    $(this).find('.iconfont').toggleClass('icon-xiala').toggleClass('icon-sanjiao')
     $(this).find('ol').toggle()
 })
 
