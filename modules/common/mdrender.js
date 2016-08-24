@@ -160,6 +160,20 @@ render.heading = function (text, level, raw) {
     //     config = {}
     // }
 
+    // 官方
+    // Renderer.prototype.heading = function(text, level, raw) {
+    //   return '<h'
+    //     + level
+    //     + ' id="'
+    //     + this.options.headerPrefix
+    //     + raw.toLowerCase().replace(/[^\w]+/g, '-')
+    //     + '">'
+    //     + text
+    //     + '</h'
+    //     + level
+    //     + '>\n';
+    // };
+
     var config;
 
     if (raw) {
@@ -173,7 +187,18 @@ render.heading = function (text, level, raw) {
         }
     }
 
-    var id = config.id || this.options.headerPrefix + raw.toLowerCase().replace(/[^\\w]+/g, '-')
+    // var id = config.id || this.options.headerPrefix + raw.toLowerCase().replace(/[^\\w]+/g, '-')
+    var id;
+    if (/[\u4e00-\u9fa5]/g.test(raw)){
+        id = config.id || _.uniqueId('fkp-')
+    }
+    else {
+        id = config.id || this.options.headerPrefix + raw.toLowerCase().replace(/[^\\w]+/g, '-')
+    }
+    if (!id || id==='-'){
+        id=_.uniqueId('fkp-');
+    }
+
     var cls = config.class ? ' class='+config.class : ''
     return '<h' + level + ' id="' + id + '"' + cls + '>' + text + '</h' + level + '>';
 }

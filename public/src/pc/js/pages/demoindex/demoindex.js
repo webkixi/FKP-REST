@@ -3,11 +3,6 @@
 var libs = require('libs/libs')
 var __ = require('lodash')
 
-
-$('.dnode').click(function(){
-    $(this).siblings(".fnode").toggle()
-})
-
 $('li.category').click(function(){
     $(this).find('.iconfont').toggleClass('icon-xiala').toggleClass('icon-sanjiao')
     $(this).find('ol').toggle()

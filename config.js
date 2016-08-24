@@ -73,6 +73,14 @@ var config = {
   	mapJson:   path.join(static_dir,'/dist/'+version+'/map.json'),
   	mapDevJson:   path.join(static_dir,'/dist/'+version+'/dev/map.json'),
 
+    // markdown解析，自定义变量白名单
+    markdownVariable: [
+        'tags',
+        'cats',
+        'css',
+        'js',
+        {'分类': 'cats'}
+    ]
 }
 
 function _config(target){

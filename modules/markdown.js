@@ -1,5 +1,9 @@
-var marked = require('marked')
-var render = require('./common/mdrender')
+let marked = require('marked')
+let render = require('./common/mdrender')
+
+// 自定义变量白名单
+let accessVar = fkpConfig.markdownVariable;
+
 function strLen(str){
     return str.replace(/[^\x00-\xff]/g,"aaa").length;
 }
@@ -20,12 +24,12 @@ function *mkmd(md_raw, templet){
         smartypants: false
     });
 
-    var accessVar = ['tags', 'tag']
-
     if (md_raw.indexOf('@@@')>-1) {
-        var rev = /[@]{3,}[ ]*\n?([^@]*)[@]{3,}[ ]*\n?/ig
-        var rev2 = /(.*)(?=:[ ]*)[\s]*(.*)(?=\n)/ig
-        var rev3 = /^[a-zA-Z0-9,_ \u4e00-\u9fa5]+$/
+        var rev = /[@]{3,}[ ]*\n?([^@]*)[@]{3,}[ ]*\n?/ig;
+        var rev2 = /(.*)(?=:[ ]*)[\s]*(.*)(?=\n)/ig;
+        var rev3 = /^[a-zA-Z0-9,_ \u4e00-\u9fa5\/\\\:\.]+$/;
+        var rev4 = /^[\u4e00-\u9fa5]+$/;
+        var rev5 = /^http\:/;
 
         var tmp = md_raw.match(rev);
         tmp = tmp.join('\n')
@@ -34,10 +38,40 @@ function *mkmd(md_raw, templet){
             var tmp = item.split(':')
             var k = tmp[0]
             var v = _.trim(tmp[1])
-            if (accessVar.indexOf(k)>-1){
-                if (rev3.test(v))
-                    cvariable[k] = v
+            if (!rev4.test(k)){
+                if (accessVar.indexOf(k)>-1){
+                    if (rev3.test(v)){
+                        // 自定义css和js
+                        if (k==='css'||k==='js'){
+                            if (v.indexOf('http')===-1){
+                                if (v.indexOf('/')===0){
+                                    cvariable[k] = v
+                                }
+                                else {
+                                    if (v.indexOf('www.agzgz.com')===0){
+                                        cvariable[k] = 'http://'+v
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            cvariable[k] = v
+                        }
+                    }
+                }
             }
+            else {
+                // 支持中文
+                if ( _.findIndex(accessVar, k)>-1 ){
+                    let _obj = _.find(accessVar, k);
+                    if (_.isObject(_obj)){
+                        if (rev3.test(v)){
+                            cvariable[_obj[k]] = v
+                        }
+                    }
+                }
+            }
+
         })
         md_raw = md_raw.replace(rev,'');
     }
@@ -62,8 +96,6 @@ function *mkmd(md_raw, templet){
         else {
             mdcnt.mdcontent.desc = true;
         }
-
-
 
         //图片部分
         // var re_img = /<img.*src\s*=\s*[\"|\']?\s*([^>\"\'\s]*)/i
@@ -100,6 +132,7 @@ function *mkmd(md_raw, templet){
         var tmp_len = Object.keys(cvariable)
         if (tmp_len) {
             mdcnt.mdcontent = _.assign(mdcnt.mdcontent, cvariable)
+            mdcnt.params = cvariable;
         }
         return mdcnt
 

@@ -28,7 +28,7 @@ function *demoIndexData(oridata){
     }
 
 
-    // 给html数据补齐图片资料
+    // 给html数据补齐图片
     htmlFiles.map( (item, i)=>{
         if (_htmlImages.length ){
             let fileName, imgName;
@@ -41,10 +41,11 @@ function *demoIndexData(oridata){
             item.img = '';
         }
     })
-
     staticData = _.extend({}, oridata, listHtmlTempleteData, fkpdocs);
-    let params = libs.uri(this.local.path)
 
+
+
+    let params = libs.uri(this.local.path)
     let mdcnt = {mdcontent:{}}
     if (params && params.md){
         let url = params.md;
@@ -58,7 +59,17 @@ function *demoIndexData(oridata){
         if (!md_raw.length){
             this.redirect('/demoindex');
         } else {
-            let tmp = yield markdown(md_raw, mdcnt);
+
+            let tmp = {}
+            // Cache为全局变量
+            if (Cache.has(url)){
+                tmp = Cache.peek(url);
+            }
+            else{
+                tmp = yield markdown(md_raw, mdcnt);
+            }
+
+            // let tmp = yield markdown(md_raw, mdcnt);
             staticData = _.extend(staticData, tmp);
             return staticData
         }
@@ -70,7 +81,7 @@ function *demoIndexData(oridata){
 
         homeContent.home = tmp.mdcontent;
         staticData = _.extend(staticData, homeContent);
-        return staticData
+        return staticData;
     }
 
 }
