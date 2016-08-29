@@ -75,20 +75,78 @@ function dealWithData(){
                    }
                }
 
-               if(data.li){
+               // 处理title及url
+               // 处理li的相关数据
+               function normalItem(obj){
+                   if (typeof obj === 'string' || React.isValidElement(obj)){
+                       return obj;
+                   } else
+                   if (_.isArray(obj)){
+                       if (obj[0].li){
+                           return obj.map(function(_obj_item, i){
+                               return (
+                                   <div className={_obj_item.className||''}>
+                                       {_obj_item.title}
+                                       {dealWithLi(_obj_item.li)}
+                                   </div>
+                               )
+                           })
+                       }
+                       else {
+                           return dealWithLi(obj)
+                       }
+                   }
+                   else {
+                       if(_.isObject(obj)){
+                           if (obj.title){
+                               if (obj.url) {
+                                   return <a href={obj.url} >{obj.title}</a>
+                               }
+                               if (obj.li){
+                                   return (
+                                       <div className={obj.className||''}>
+                                           {obj.title}
+                                           {dealWithLi(obj.li)}
+                                       </div>
+                                   )
+                               }
+                               return obj.title;
+                           }
+                           else
+                           if (obj.li){
+                               return dealWithLi(obj.li)
+                           }
+                           else {
+                               return '';
+                           }
+                       }
+                   }
+
+               }
+
+               function dealWithLi(prop_li){
                    var lis = []
-                   if(Array.isArray(data.li)){
-                       lis = []
-                       data.li.map(function(li_item, li_i){
-                           lis.push(<li key={'li-'+li_i} data-id={'li-'+li_i}>{li_item}</li>)
+                   if(Array.isArray(prop_li)){
+                       prop_li.map(function(li_item, li_i){
+                           var _item = normalItem(li_item);
+                           if (Array.isArray(li_item)){
+                               lis.push(<li className="nextLevel2" key={'li-'+li_i} data-id={'li-'+li_i}>{_item}</li>)
+                           }
+                           else {
+                               lis.push(<li key={'li-'+li_i} data-id={'li-'+li_i}>{_item}</li>)
+                           }
                        })
-                       k3 = <ul>{lis}</ul>
+                       return <ul>{lis}</ul>
                    }
                    else{
-                       lis = []
-                       lis.push(<li key={'li-'+li_i}>{data.li}</li>)
-                       k3 = <ul>{lis}</ul>
+                    //    lis = []
+                       lis.push(<li key={'li-'+li_i}>{prop_li}</li>)
+                       return <ul>{lis}</ul>
                    }
+               }
+
+               if(data.li){
+                   k3 = dealWithLi(data.li)
                }
 
                if(data.img){
@@ -137,11 +195,12 @@ function dealWithData(){
                                    }
 
                                    if (item.li){  //li结构
-                                       var lis = []
-                                       item.li.map(function(li_item, li_i){
-                                           lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
-                                       })
-                                       return <div key={'bodyul-'+i} className={cls}>{title}<ul>{lis}</ul></div>
+                                       //var lis = []
+                                       //item.li.map(function(li_item, li_i){
+                                       //   lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                                       //})
+                                       var lis = dealWithLi(item.li)
+                                       return <div key={'bodyul-'+i} className={cls}>{title}{lis}</div>
                                    }
                                })()
                                //已定义attr
@@ -151,11 +210,12 @@ function dealWithData(){
                                            return <div data-pid={i} data-src={item.attr} className={cls} data-value={item.v} >{title}{item.k}</div>
                                        else
                                        if (item.li){
-                                           var lis = []
-                                           item.li.map(function(li_item, li_i){
-                                               lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
-                                           })
-                                           return <div key={'bodyul-'+i}  className={cls} data-src={item.attr}>{title}<ul>{lis}</ul></div>
+                                        //    var lis = []
+                                        //    item.li.map(function(li_item, li_i){
+                                        //        lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                                        //    })
+                                           var lis = dealWithLi(item.li)
+                                           return <div key={'bodyul-'+i}  className={cls} data-src={item.attr}>{title}{lis}</div>
                                        }
                                    }
                                    else {
@@ -251,11 +311,12 @@ function dealWithData(){
                                    return <div data-pid={i} key={'footer'+i} className={cls}>{title}{item.k}{item.v}</div>
 
                                if (item.li){  //li结构
-                                   var lis = []
-                                   item.li.map(function(li_item, li_i){
-                                       lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
-                                   })
-                                   return <div key={'footerul'+i} className={cls}>{title}<ul>{lis}</ul></div>
+                                //    var lis = []
+                                //    item.li.map(function(li_item, li_i){
+                                //        lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                                //    })
+                                   var lis = dealWithLi(item.li)
+                                   return <div key={'footerul'+i} className={cls}>{title}{lis}</div>
                                }
                            })()
 
@@ -267,11 +328,12 @@ function dealWithData(){
                                    }
                                    else
                                    if (item.li){
-                                       var lis = []
-                                       item.li.map(function(li_item, li_i){
-                                           lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
-                                       })
-                                       return <div key={'footerul'+i} data-src={item.attr} className={cls}>{title}<ul>{lis}</ul></div>
+                                    //    var lis = []
+                                    //    item.li.map(function(li_item, li_i){
+                                    //        lis.push(<li key={'lis-'+li_i}>{li_item}</li>)
+                                    //    })
+                                       var lis = dealWithLi(item.li)
+                                       return <div key={'footerul'+i} data-src={item.attr} className={cls}>{title}{lis}</div>
                                    }
                                }
                                else {
@@ -392,10 +454,14 @@ function dealWithData(){
            }
 
            if(k2&&k2!=''){
-               if(React.isValidElement(k2))
-                   headerDom = <div className={"hheader"}>{k2}</div>
-               else
-                   headerDom = <div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>
+               if(React.isValidElement(k2)){
+                   headerDom = liDom ? <div className={"hheader"}>{k2}{liDom}</div>
+                                     : <div className={"hheader"}>{k2}</div>
+               }
+               else{
+                   headerDom = liDom ? <div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a>{liDom}</div>
+                                     : <div className={"hheader"}><a href={v1} target={'_blank'}>{k2}</a></div>
+               }
            }
 
 
@@ -424,7 +490,7 @@ function dealWithData(){
            data.img && k2.length
            ? <div className={'inner'}>{headerDom}{bodyDom}{liDom}{footerDom}{dotDom}<div className={'pics'}>{k2}</div></div>
            : bodyDom || footerDom || dotDom
-               ? <div className={"inner"}>{headerDom}{bodyDom}{liDom}{footerDom}{dotDom}</div>
+               ? <div className={"inner"}>{headerDom}{bodyDom}{footerDom}{dotDom}</div>
                : liDom
                    ? k2 ? <div className="hlist">{k2}{liDom}</div> : liDom
                    : k2
