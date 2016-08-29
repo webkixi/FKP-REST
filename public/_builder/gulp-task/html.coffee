@@ -69,6 +69,8 @@ _getAddress = () ->
 
 # 首页列表数据
 list = {}
+rootDir = config.dirs.src + '/html'
+parentDir = rootDir;
 makeHtmlListData = (pa, capt) ->
     list = {}
     tmp = {};
@@ -77,8 +79,8 @@ makeHtmlListData = (pa, capt) ->
         port = 0
         tip = 'www.agzgz.com'
     ipport = if port then ':'+port else ''
-    mklist = (htmlPath, caption) ->
-        htmlDirPath = if htmlPath then htmlPath else config.dirs.src + '/html'
+    mklist = (htmlPath, caption, parent) ->
+        htmlDirPath = if htmlPath then htmlPath else rootDir
 
         # htmlDirPath = config.dirs.src + '/html'
         htmlDir = fs.readdirSync( htmlDirPath );
@@ -87,7 +89,10 @@ makeHtmlListData = (pa, capt) ->
 
         list[ _caption ] = list[ _caption ] || {}
         list[ _caption ].group = list[ _caption ].group || (if caption then depthDir else _caption)
+        list[ _caption ].caption = _caption
         list[ _caption ].list = list[ _caption ].list || []
+        list[ _caption ]['parent'] = parent||'root'
+        list[ _caption ]['children'] =[]
 
         dirJson = path.parse(htmlDirPath)
         if dirJson.base != 'html'
@@ -180,9 +185,13 @@ makeHtmlListData = (pa, capt) ->
                 return
 
             if (fs.statSync(firstPath).isDirectory() && filename.indexOf('_')!=0 )
-                mklist(firstPath, filename)
+                list[ _caption ]['children'].push(filename)
+                list[ _caption ].subtree = firstPath
+                mklist(firstPath, filename, _caption)
 
         return
+
+
     mklist(pa, capt)
 
 
@@ -192,6 +201,7 @@ module.exports = (gulp, $, slime, env, path)->
             if env == 'REST'  # 请求来自root/index.js
                 port = config.port.dev
                 if path
+                    rootDir = path
                     makeHtmlListData(path)
                     datas = { demoindex: list } # index html模板名称    list: 模板数据
                     return datas

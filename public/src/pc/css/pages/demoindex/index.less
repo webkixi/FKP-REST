@@ -230,34 +230,42 @@ a{
         ul, ol{
             list-style-type: none;
             display: block;
-            margin-bottom: 1em;
             li{
                 list-style: none;
-                &.category{
+                &.category, .category{
                     margin-bottom: 1.5em;
                     list-style: none;
                 }
-                .hheader{
+                .hlist, .hheader, .hbody, .nextLevel2{
                     h4{
                         font-size: 1em;
-                        font-weight: 400;
+                        font-weight: 600;
                         color: #52708b;
                         i{
                             font-size: 0.4em;
                             vertical-align: middle;
                             color: #9e9e9e;
+                            margin-right: 0.3em;
                         }
                         span{
                             vertical-align: middle;
                         }
                     }
                 }
+                .hheader{
+                    padding: 0;
+                }
+                .nextLevel2{
+                    margin-left: 2.3em;
+                    padding: 0;
+                    // margin-top: -0.5em;
+                }
                 ul, ol{
                     display: block;
                     margin-top: 0.5em;
                     li{
                         &:hover{
-                            background-color: #e8edfe;
+                            background-color: #f6f7fa;
                         }
                         font-size: 0.9em;
                         // text-indent: 0.8em;
@@ -269,6 +277,9 @@ a{
                             color: #2472c1;
                             &.descript{
                                 color: #ccc;
+                            }
+                            &:hover{
+                                text-decoration: underline;
                             }
                         }
                         .hheader{
