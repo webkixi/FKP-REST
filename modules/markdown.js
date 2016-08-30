@@ -25,7 +25,8 @@ function *mkmd(md_raw, templet){
     });
 
     if (md_raw.indexOf('@@@')>-1) {
-        var rev = /[@]{3,}[ ]*\n?([^@]*)[@]{3,}[ ]*\n?/ig;
+        // var rev = /[@]{3,}[ ]*\n?([^@]*)[@]{3,}[ ]*\n?/ig;
+        var rev = /[@]{3,}[ ]*\n?([^@]*)[@]{3,}[ ]*\n?/i;
         var rev2 = /(.*)(?=:[ ]*)[\s]*(.*)(?=\n)/ig;
         var rev3 = /^[a-zA-Z0-9,_ \u4e00-\u9fa5\/\\\:\.]+$/;
         var rev4 = /^[\u4e00-\u9fa5]+$/;
