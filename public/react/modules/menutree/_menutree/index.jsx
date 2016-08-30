@@ -28,16 +28,21 @@ function adapter(data){
 		childrenCount++
 		var _tmp = [];
 		father.children.map(function(child){
+			var lis = getLis(data[child].list);
+
+			if (childrenCount<3 &&
+				data[child].children.length
+			){
+				lis = lis.concat(getChildren(data[child]))
+				// _tmp.push( getChildren(data[child]) )
+			}
+
 			_tmp.push({
 				title: getTitile(data[child].caption),
-				li: getLis(data[child].list),
+				li: lis,
 				className: cls||''
 			})
-			if (childrenCount<3){
-				if (data[child].children.length){
-					_tmp.push( getChildren(data[child]) )
-				}
-			}
+
 		})
 		return _tmp
 	}
@@ -72,7 +77,6 @@ var pagenation = {
         this.setState({
 			data: adapter(this.props.data)
 		})
-
         this.data = adapter(this.props.data);
 	},
 
