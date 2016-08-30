@@ -17,7 +17,10 @@
 .  
 .  
 # MD文档系统    
-##### 兼容markdown经典语法，支持扩展语法   
-##### 纯静态生成   
+##### 撰写文档，API文档利器  
 ##### 基于FKPJS，[安装FKPJS](/demoindex?md=FKPJS_14install)   
+##### 支持MARKDOWN语法  [markdown语法](http://www.agzgz.com/dbdemo?topic=57c53db023498c1664cfed86)   
+##### 支持MD扩展语法 [FKP MARKDOWN扩展](http://www.agzgz.com/dbdemo?topic=57c5615b23498c1664cfed87)   
+##### 纯静态生成   
+##### 支持三层目录结构  
 ##### 简单易用，[搭建MD文档系统](/demoindex_md.html)   

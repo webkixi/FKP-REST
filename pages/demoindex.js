@@ -91,7 +91,6 @@ function *demoIndexData(oridata, control){
                 staticData = _.extend(staticData, {home: tmp.mdcontent});
             }
 
-
             let _props = {
                 data: staticData.docs
             }

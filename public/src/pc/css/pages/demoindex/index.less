@@ -1,4 +1,5 @@
 @import "../../_copy2dist/iconfont";
+@import "./_comm/button";
 
 html{
     font: 16px/1 Roboto-Light,roboto,'Microsoft Yahei',sans-serif,Arial,Verdana;
@@ -10,121 +11,6 @@ a{
     text-decoration: none;
 }
 
-.doc-container{
-    width: 100%;
-    height: auto;
-    .left{
-        padding-top: 1em;
-        display: inline-block;
-        width: 25%;
-        vertical-align: top;
-        border-right: 1px solid #f1f1f1;
-        background-color: #fff;
-        height: 100%;
-    }
-    .right{
-        padding-top: 1em;
-        display: inline-block;
-        width: 74%;
-        vertical-align: top;
-    }
-
-    .side-menu{
-        ul, ol{
-            list-style-type: square;
-        }
-    }
-}
-
-/* 表格开始 */
-.demo{
-    padding-top: 1em;
-    margin-bottom: 1.5em;
-    margin-left: 0.1em;
-    .home-start{
-        a{
-            color: #a1d0ff;
-            text-decoration: underline;
-        }
-        color: #bbb;
-        background: url(/images/logo256-1.png) no-repeat;
-        background-position: center center;
-        // background-size: cover;
-        width: 100%;
-        height: 40em;
-        margin: 0 auto;
-        margin-top: -1.5em;
-        margin-bottom: 3em;
-        // text-align: center;
-        // padding: 12em;
-        // padding-bottom: 14em;
-        background-color: #fff;
-        // text-align: center;
-        //
-        // display: box;
-        // display: -webkit-box;
-        // display: -moz-box;
-        // -webkit-box-pack:center;
-        // -moz-box-pack:center;
-        // -webkit-box-align:center;
-        // -moz-box-align:center;
-    }
-    ul, ol{
-        list-style: none;
-        li{
-            background-color: #fff;
-            font-size: 0.8em;
-            text-align: center;
-            display: inline-block;
-            width: 14.6em;
-            height: 20em;
-            padding: 0.5em;
-            vertical-align: top;
-           //  border: 1px solid #e8e8e8;
-           // border-radius: 0.3em;
-            margin: 0 0 0.6em 0.5em;
-            a{
-                color: #2472c1;
-            }
-            .hheader{
-                height: 80%;
-                overflow: hidden;
-                img{
-                    width:96%;
-                    height: auto
-                }
-            }
-            .hbody{
-                margin-top: 0.5em;
-                height: auto;
-                overflow: hidden;
-                .title{
-
-                }
-                a.descript{
-                    color: #b1b1b1;
-                }
-            }
-        }
-    }
-}
-
-@media screen{
-   @media (max-width: 1080px){
-       .doc-container{
-           width: 1062px;
-           .left{
-               width: 270px;
-           }
-           .right{
-               width: 782px;
-           }
-       }
-    }
-   @media (min-width: 1023px){
-
-   }
-}
 
 /* 启动页 */
 .header{
@@ -180,52 +66,124 @@ a{
 	    transform: rotateY(-360deg);
 	}
 }
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #2bad74;
-    box-shadow: 0 1px 2px rgba(0,0,0,.09);
-    background-image: -webkit-linear-gradient(bottom,rgba(0,0,0,.1) 0,rgba(0,0,0,0) 100%);
-    background-image: linear-gradient(to top,rgba(0,0,0,.1) 0,rgba(0,0,0,0) 100%);
-    font-family: BrixSansRegular,BrixSansMedium,"Helvetica Neue",Helvetica,sans-serif;
-    font-size: 20px;
-    color: #fff;
-    line-height: 22px;
-    text-align: center;
-    -webkit-font-smoothing: antialiased;
-    text-shadow: 0 1px 2px rgba(2,9,25,.2);
-    &:hover {
-        box-shadow: 0 2px 3px rgba(0,0,0,.12);
-        background-color: #48b878;
-        color: #fff;
+
+.doc-container{
+    width: 100%;
+    height: auto;
+    .left{
+        padding-top: 1em;
+        display: inline-block;
+        width: 25%;
+        vertical-align: top;
+        border-right: 1px solid #f1f1f1;
+        background-color: #fff;
+        height: 100%;
+    }
+    .right{
+        padding-top: 1em;
+        display: inline-block;
+        width: 74%;
+        vertical-align: top;
+    }
+
+    .side-menu{
+        ul, ol{
+            list-style-type: square;
+        }
     }
 }
-.button--tiny {
-    font-size: 12px;
-    line-height: 14px;
-    padding: 3px 8px 5px;
-}
-.button--small {
-    font-size: 14px;
-    line-height: 16px;
-    padding: 5px 10px 7px;
-}
-.button--large {
-    font-size: 24px;
-    line-height: 26px;
-    padding: 9px 18px 11px;
-}
 
 
- .page-ui-kits{
-	max-width: 100%;
+
+/* 右侧 */
+.demo{
+    padding-top: 1em;
+    margin-bottom: 1.5em;
+    margin-left: 0.1em;
+    .home-start{
+        a{
+            color: #a1d0ff;
+            text-decoration: underline;
+        }
+        color: #bbb;
+        background: url(/images/logo256-1.png) no-repeat;
+        background-position: center center;
+        width: 100%;
+        height: 40em;
+        margin: 0 auto;
+        margin-top: -1.5em;
+        margin-bottom: 3em;
+        background-color: #fff;
+        h5{
+            line-height: 1.5em;
+        }
+    }
+    ul, ol{
+        list-style: none;
+        li{
+            background-color: #fff;
+            font-size: 0.8em;
+            text-align: center;
+            display: inline-block;
+            width: 14.6em;
+            height: 20em;
+            padding: 0.5em;
+            vertical-align: top;
+            border: 1px solid #e8e8e8;
+            border-radius: 0.3em;
+            margin: 0 0 0.6em 0.5em;
+            a{
+                color: #2472c1;
+            }
+            .hheader{
+                height: 80%;
+                overflow: hidden;
+                img{
+                    width:96%;
+                    height: auto
+                }
+            }
+            .hbody{
+                margin-top: 0.5em;
+                height: auto;
+                overflow: hidden;
+                .title{
+
+                }
+                a.descript{
+                    color: #b1b1b1;
+                }
+            }
+        }
+    }
+}
+
+@media screen{
+   @media (max-width: 1080px){
+       .doc-container{
+           width: 1062px;
+           .left{
+               width: 270px;
+           }
+           .right{
+               width: 782px;
+           }
+       }
+    }
+   @media (min-width: 1023px){
+
+   }
+}
+
+// menutree
+.page-ui-kits{
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+    max-width: 100%;
     padding: 1em;
     margin-left: auto;
     margin-right: auto;
     position: relative;
     &.docmenu{
-        font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
         font-size: 16px;
         ul, ol{
             list-style-type: none;
@@ -236,11 +194,19 @@ a{
                     margin-bottom: 1.5em;
                     list-style: none;
                 }
+                .hheader{
+                    padding: 0;
+                }
+                .nextLevel2{
+                    margin-left: 2.3em;
+                    padding: 0;
+                }
                 .hlist, .hheader, .hbody, .nextLevel2{
                     h4{
-                        font-size: 1em;
+                        font-size: 1.1em;
                         font-weight: 600;
                         color: #52708b;
+                        cursor: pointer;
                         i{
                             font-size: 0.4em;
                             vertical-align: middle;
@@ -252,24 +218,19 @@ a{
                         }
                     }
                 }
-                .hheader{
-                    padding: 0;
-                }
-                .nextLevel2{
-                    margin-left: 2.3em;
-                    padding: 0;
-                    // margin-top: -0.5em;
-                }
+
                 ul, ol{
                     display: block;
                     margin-top: 0.5em;
                     li{
+                        h4{
+                            font-size: 1em;
+                        }
                         &:hover{
                             background-color: #f6f7fa;
                         }
-                        font-size: 0.9em;
-                        // text-indent: 0.8em;
-                        padding: 0.5em 0 0.5em 1.2em;
+                        font-size: 1em;
+                        padding: 0.3em 0 0.3em 1.2em;
                         a{
                             display: block;
                             width: 100%;
@@ -283,9 +244,7 @@ a{
                             }
                         }
                         .hheader{
-                            .title{
-
-                            }
+                            .title{ }
                             .descript{
                                 a{
                                     color: #ccc;
@@ -297,67 +256,8 @@ a{
             }
         }
     }
- }
+}
 
-//  .table {
-//     width: 100%;
-//     margin-bottom: 20px;
-//     color:#5c80b3;
-//     border: 1px solid #ececec;
-//
-// }
-//
-// .table-col-head {
-//     background-color: #f9f9f9;
-//     vertical-align: middle;
-//     // text-align: center;
-//     font-size: 18px;
-//     color:#34495e;
-// }
-// .table-col-th td,
-// .table-col-th th {
-//     padding: 10px;
-//     border-bottom: 1px dotted #ececec;
-// }
-//
-// .table td,
-// .table th {
-//     position: relative;
-//     padding: 0.8em;
-//     font-family: 'helvetica neue', arial, "PingHei", 'Hiragino Sans GB', stheiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif, iconfont;
-//     word-break: break-all; word-wrap:break-word;
-//     h4{
-//         margin: 0.2em;
-//     }
-//     height: 4em;
-// }
-// .table th{
-// 	font-size: 14px;
-//     padding: 20px 10px;
-// }
-// .table td {
-//     a {
-//     	font-size: 14px;
-//     	color: lighten(#000000, 48%);
-//     	&:hover{
-//     		// font-weight: bold;
-//     		color:red;
-//     	}
-//     }
-//     .profile{
-//         min-height: 60px;
-//         background-color: #f9f9f9;
-//         padding-left: 10px;
-//         padding-top: 8px;
-//         border-left: 10px solid #deeeef;
-//         width: 82%;
-//     }
-//     .profile a{
-//         font-size: 14px;
-//         color: #b3b3b3;
-//         word-wrap: break-word;
-//     }
-// }
 
 #footer{
 	text-shadow: 0 1px 2px rgba(2,9,25,.2);
@@ -391,32 +291,3 @@ a{
         width: 12em;
     }
 }
-// .page{
-//     .fnode{
-//         td{
-//             font-size: 0;
-//             padding: 10px 0;
-//         }
-//         .qrcode{
-//             position: absolute;
-//             display: block;
-//             right: 2em;
-//             top: 0;
-//             font-size: 18px;
-//             vertical-align: middle;
-//         }
-//         .fnode_title{
-//             width: 80%;
-//             display: inline-block;
-//             font-size: 18px;
-//
-//             a{
-//                 display: block;
-//             }
-//         }
-//         .fnode_h4{
-//             font-size: 18px;
-//             color: #7791bf;
-//         }
-//     }
-// }
