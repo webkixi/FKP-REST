@@ -10,18 +10,25 @@ let publicConfig = require('../public/config');
 import react2html from 'modules/parseReact'
 
 function *demoIndexData(oridata, control){
-    // 读取md文件
+
+    let that = this;
+
+    // 读取并解析 md 文件
     async function _loadFile(url){
+        if (!url){
+            url = path.join(__dirname, '../fkpdoc', '_home_start/index.md');
+        }
+
         let mdcnt = {mdcontent:{}};
         let tmp = {}
-        let md_raw = fs.readFileSync(path.join(__dirname, '../fkpdoc', url), 'utf8');
+        let md_raw = fs.readFileSync( url, 'utf8' );
 
         if (!md_raw){
-            this.redirect('/demoindex');
+            that.redirect('/demoindex');
         }
         else
         if (!md_raw.length){
-            this.redirect('/demoindex');
+            that.redirect('/demoindex');
         }
         else {
             tmp = {}
@@ -35,84 +42,139 @@ function *demoIndexData(oridata, control){
         return co(tmp);
     }
 
-    // 读取目录，并格式化目录结构
+    // 分析目录结构并格式化目录树为JSON
     // md, html
     function _readdirs(url){
         return parseDirs(null, null, null, 'REST', url)()
     }
 
-    let _htmlImages = [],
-        staticData = oridata,
+    async function _getDocsData(doc_dir, options){
+        if (!doc_dir){
+            return false;
+        }
+        let sitemap = {},
+            start = {},
+            docs = {},
+            defaults = {
+                docs: true,
+                sitemap: false,
+                start: false,
+                menutree: false
+            };
 
-        //请求生成环境demo数据的数据
-        listHtmlTempleteData = _readdirs(path.join('./public', publicConfig.dirs.src, 'html')),
-        //请求生成环境demo数据的数据
-        tttt = _readdirs('./fkpdoc'),
+        let opts = _.extend({}, defaults, options||{});
 
-        fkpdocs = {docs: tttt.demoindex},
-        htmlImages = fs.readdirSync( path.join(__dirname, '../public/src/pc/images/html') );
+        function getSiteMap(url){
+            let _sitemap = _readdirs(path.join('./public', publicConfig.dirs.src, 'html'));
 
+            let _htmlImages = [];
+            let htmlImages = fs.readdirSync( path.join(__dirname, '../public/src/pc/images/html') );
 
-    // html目录下的项目对应的图片
-    if (htmlImages.length){
-        _htmlImages = [];
-        htmlImages.map((item, i)=>{
-            let imgName = path.parse(htmlImages[i]).name;
-            _htmlImages.push(imgName)
-        })
+            if (htmlImages.length){
+                _htmlImages = [];
+                htmlImages.map((item, i)=>{
+                    let imgName = path.parse(htmlImages[i]).name;
+                    _htmlImages.push(imgName)
+                })
+            }
+
+            let htmlFiles = _sitemap.demoindex.root.list;
+            htmlFiles.map( (item, i)=>{
+                let fileName = path.parse(item.fileName).name;
+                let index = _htmlImages.indexOf(fileName);
+                htmlFiles[i].img = index>-1 ? '/images/html/'+htmlImages[index] : ''
+            })
+
+            return _sitemap;
+        }
+
+        // html docs
+        if (opts.sitemap){
+            sitemap = getSiteMap();
+        }
+
+        // start docs
+        if (opts.start){
+            let tmp = await _loadFile();
+            start.home = tmp.mdcontent;
+        }
+
+        // dir docs
+        let _docs = _readdirs(doc_dir)
+        // console.log('============ docs');
+        // console.log('============ docs');
+        // console.log('============ docs');
+        // console.log('============ docs');
+        // console.log(_docs.demoindex.Demo.list);
+        docs = {docs: _docs.demoindex}
+
+        let docsData = _.extend({}, oridata, sitemap, docs, start);
+
+        if (opts.menutree){
+            let _props = {
+                data: docs.docs
+            }
+            let reactHtml = await react2html('react/modules/menutree/index', _props);
+            docsData.menutree = reactHtml[0];
+        }
+
+        if (!opts.docs){
+            delete docsData.docs
+        }
+
+        if (!opts.sitemap){
+            delete docsData.demoindex
+        }
+
+        if (!opts.start){
+            delete docsData.home
+        }
+
+        return docsData;
     }
 
-    // 给html数据补齐图片
-    let htmlFiles = listHtmlTempleteData.demoindex.root.list;
-    htmlFiles.map( (item, i)=>{
-        let fileName = path.parse(item.fileName).name;
-        let index = _htmlImages.indexOf(fileName);
-        item.img = index>-1 ? '/images/html/'+htmlImages[index] : ''
-    })
-
-    staticData = _.extend({}, oridata, listHtmlTempleteData, fkpdocs);
-
+    function getDocsData(url, opts){
+        if (Cache.has(url)){
+            return Cache.peek(url);
+        }
+        return _getDocsData(url, opts)
+    }
 
     return control.run({
         get: async ()=>{
             let tmp={};
             let params = libs.uri(this.local.path);
 
+            // let docDir = path.join(__dirname, '../fkpdoc');
+            let docDir = 'fkpdoc';
+            let staticData = await getDocsData(docDir, {
+                docs: false,
+                sitemap: true,
+                start: true,
+                menutree: true
+            })
+
             if (params && params.md){
                 let url = params.md;
-                    url = url.replace('fkpdoc_','').replace(/_/g,"/")
-                    url = url + ".md";
-                    // loadfile
-                    tmp = await _loadFile.call(this, url);
-                    staticData = _.extend(staticData, tmp);
-            }
-            else{
-                tmp = await _loadFile.call(this, '_home_start/index.md');
-                staticData = _.extend(staticData, {home: tmp.mdcontent});
+                url = url.replace('fkpdoc_','').replace(/_/g,"/")
+                url = url + ".md";
+                url = path.join(__dirname, '../fkpdoc', url);
+                // loadfile
+                tmp = await _loadFile(url);
+                staticData = _.extend(staticData, tmp);
             }
 
-            let _props = {
-                data: staticData.docs
-            }
-
-            try {
-                let reactHtml = await react2html('react/modules/menutree/index', _props);
-                staticData.menutree = reactHtml[0]
-            }
-            catch (e) {
-                console.log(e);
-            }
-            finally {
-                return staticData;
-            }
+            return staticData;
         },
-
 
         post: async () => {
             let _body = await libs.$parse(this);
             let body = await co(_body)
+
+            // let docDir = path.join(__dirname, '../fkpdoc');
+            let docDir = 'fkpdoc';
+            let staticData = await getDocsData(docDir);
             if (body.mt){
-                // staticData = _.extend(staticData.docs, staticData.demoindex);
                 return staticData;
             }
             else {

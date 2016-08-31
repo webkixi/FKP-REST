@@ -71,7 +71,9 @@ _getAddress = () ->
 list = {}
 rootDir = config.dirs.src + '/html'
 parentDir = rootDir;
+docDir = ''
 makeHtmlListData = (pa, capt) ->
+    docDir = pa;
     list = {}
     tmp = {};
     tip = _getAddress()
@@ -157,18 +159,21 @@ makeHtmlListData = (pa, capt) ->
                         _filenameMd = filename.replace(ext, '_md.html')
                         _url = if caption then depthFile.replace('.html','_md.html') else ( (caption || '') + '/' + _filenameMd )
                         _url = _url.replace('public/src/pc/html/','')
-                        if (firstPath.indexOf('fkpdoc')>-1)
+                        if (firstPath.indexOf(docDir)>-1)
                             if _url.indexOf('/')==0
                                 _url = _url.substring(1)
                             # _url = '/demoindex?md='+_url.replace '_md.html', '.md'
                             _append_url = _url.replace '_md.html', ''
-                            _append_url = _append_url.replace(/\//g,'_').replace('fkpdoc_','')
+                            # _append_url = _url.replace '_md', ''
+                            # _append_url = _append_url.replace(/\//g,'_').replace(docDir+'_','')
+                            _append_url = _append_url.replace(/\//g,'_')
                             _url = '/demoindex?md='+_append_url
                             _ipurl = 'http://'+ tip + ipport + _url
                         else
                             filename = filename.replace(ext,'_md.html')
                             _ipurl = 'http://'+ tip + ipport + '/' + _url
                         _ipurl = _ipurl.replace(/\/\//g,'/').replace(':/','://')
+
                         if title
                             fileprofile = {
                                 url: _url,
@@ -196,13 +201,13 @@ makeHtmlListData = (pa, capt) ->
 
 
 
-module.exports = (gulp, $, slime, env, path)->
+module.exports = (gulp, $, slime, env, _path)->
         return () ->
             if env == 'REST'  # 请求来自root/index.js
                 port = config.port.dev
-                if path
-                    rootDir = path
-                    makeHtmlListData(path)
+                if _path
+                    rootDir = _path
+                    makeHtmlListData(_path)
                     datas = { demoindex: list } # index html模板名称    list: 模板数据
                     return datas
                 else
