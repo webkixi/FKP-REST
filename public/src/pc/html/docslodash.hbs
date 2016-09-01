@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    {{#if mdcontent}}
+    <title> {{mdcontent.title}} lodash api</title>
+    {{else}}
+    <title>lodash api</title>
+    {{/if}}
     @@include('./_common/docs/header.html')
 </head>
 

@@ -1,4 +1,3 @@
-require("coffee-script/register")
 let libs = require('../libs/libs')
 let path = require('path')
 let co = require('co');
@@ -21,9 +20,11 @@ function *demoIndexData(oridata, control){
             let tmp={};
             let params = libs.uri(this.local.path);
 
+            let home = path.join(__dirname, '../docs/_home.md');
+
             let staticData = await getDocsData('docs/lodash', {
                 docs: false,
-                start: true,
+                start: '_home.md',
                 menutree: true,
                 append: oridata
             })

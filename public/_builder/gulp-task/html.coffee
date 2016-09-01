@@ -124,6 +124,12 @@ makeHtmlListData = (pa, capt) ->
                     _url = _url.replace('public/src/pc/html/','')
                     _ipurl = 'http://'+ tip + ipport + '/' + _url
                     _ipurl = _ipurl.replace(/\/\//g,'/').replace(':/','://')
+                    if (!title)
+                        console.log '============ html parse'
+                        console.log '============ html parse'
+                        console.log '============ html parse'
+                        console.log 'hbs 没有标题'
+
                     if(title!=null && title[0])
                         title = title[0].replace(/\<(\/?)title\>/g,'')
                         title = title.replace(/ \{(.*)\}/g, '')  # 清除自定义属性，如{"id":"xxx"}
