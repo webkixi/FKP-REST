@@ -22,7 +22,16 @@ function *loadMdFile(url){
     }else {
         if (_directory){
             let _tmp = _directory.replace(/\//g, '_')+'_';
-            url = url.replace(_tmp,'').replace(/_/g,"/") + ".md";
+
+            if (url.indexOf('_')!==0){
+                if (url.indexOf('/')===-1){
+                    url = url.replace(_tmp,'').replace(/_/g,"/");
+                }
+            }
+            if (url.indexOf('.md')===-1){
+                url = url + '.md'
+            }
+
             url = path.join(__dirname, '../'+_directory, url);
         }
     }
@@ -113,6 +122,8 @@ function *_getDocsData(doc_dir, options){
             if (typeof opts.start === 'string'){
                 tmp = yield loadMdFile(opts.start);
             }
+
+            console.log('=========== ');
 
             start.home = tmp.mdcontent;
         } catch (e) {
