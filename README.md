@@ -30,7 +30,7 @@ This is a starter boilerplate app I've put together using the following technolo
 &#160;  
 &#160; &#160; &#160;API: API层支持`pass`及`proxy`两种数据传输模式，极大的方便前端的开发工作，且避免了常见的跨域问题。通过简单的配置apilist实现与后端数据层的交互  
 &#160;  
-&#160; &#160; &#160;DB: 数据库层以mvc架构模式，支持mongodb数据库，面向node/前端提供数据支持；   
+&#160; &#160; &#160;DB: 数据库层以mvc架构模式，支持mongodb数据库，面向node/前端提供数据支持；
 
 
 #### FKP-REST是一套前后端分离的框架，是一套基于`node`的全栈框架（API/RESTFUL），现阶段实现了如下几个方面  
@@ -39,6 +39,13 @@ This is a starter boilerplate app I've put together using the following technolo
 * 前端代码的 编译／合成 / hash
 * 服务端(基于node/koajs)数据处理及http服务  
 * 服务端同构React
+
+## 依赖
+```
+nodejs: >= 5.7 < 6.5
+npm > 3.0
+windows下，请安装git，需要git的命令行模式
+```
 
 ## 特点
 * RESTFUL模式  

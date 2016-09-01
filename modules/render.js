@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-var views = require('co-views-helpers');
+var views = require('co-views');
 
 function setRender(stat){
     console.log('模板渲染')
