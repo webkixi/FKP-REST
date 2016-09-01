@@ -167,7 +167,8 @@ makeHtmlListData = (pa, capt) ->
                             # _append_url = _url.replace '_md', ''
                             # _append_url = _append_url.replace(/\//g,'_').replace(docDir+'_','')
                             _append_url = _append_url.replace(/\//g,'_')
-                            _url = '/demoindex?md='+_append_url
+                            # _url = '/demoindex?md='+_append_url
+                            _url = '?md='+_append_url
                             _ipurl = 'http://'+ tip + ipport + _url
                         else
                             filename = filename.replace(ext,'_md.html')

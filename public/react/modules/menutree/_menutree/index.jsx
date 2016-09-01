@@ -50,7 +50,7 @@ function adapter(data){
 	var keys = Object.keys(data);
 	var _data = [];
 	keys.map(function(item){
-		if (data[item].parent==='root'){
+		if (data[item].parent==='root' && data[item].list.length){
 			if (data[item].children.length && item!=='root'){
 				childrenCount = 1;
 				var lis = getLis(data[item].list);
