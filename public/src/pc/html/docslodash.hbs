@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @@include('./_common/docs/header.html')
+</head>
+
+<body>
+    <div class="page" data-module="">
+        @@include('./_demoindex/top.html')
+        <div class="doc-container">
+            <div class="left">
+                {{{menutree}}}
+            </div>
+                <div class="right">
+                    {{#if mdcontent}}
+                        @@include('./_demoindex/detail.html')
+                    {{else}}
+                    <div class="hheader demo">
+                        @@include('./_common/docs/home.html')
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+
+    <div id="footer">
+        <div class="footer-content">
+            <p>老板，JS现在才应该是中小企业的互联网项目的最佳切入姿势。。。</p>
+            <p class="copyright">
+            ©2016 FKP
+            </p>
+        </div>
+        @@include('./_common/footer/foot.html')
+        <script type="text/javascript" src='http://www.agzgz.com/js/t/prettfy.js'></script>
+        {{#if mdcontent.js}}
+            <script type="text/javascript" src="{{mdcontent.js}}"></script>
+        {{/if}}
+    </div>
+
+</body>
+
+</html>
