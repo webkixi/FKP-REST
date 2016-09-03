@@ -8,4 +8,5 @@ npm-debug.log
 /dist_mir
 /public/dist_mir
 /public/dist_mir/*
+.DS_Store
 baidu_verify_B7KJMQXfQu.html
