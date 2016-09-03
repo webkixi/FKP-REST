@@ -24,8 +24,11 @@ function adapter(data){
 	}
 
 	var childrenCount = 1;   //限制级数为3层, react不能超过3层
-	function getChildren(father, cls){
-		childrenCount++
+	function getChildren(father, cls, depth){
+		if (depth){
+			childrenCount++
+		}
+
 		var _tmp = [];
 		father.children.map(function(child){
 			var lis = getLis(data[child].list);
@@ -33,8 +36,11 @@ function adapter(data){
 			if (childrenCount<3 &&
 				data[child].children.length
 			){
-				lis = lis.concat(getChildren(data[child]))
+				lis = lis.concat(getChildren(data[child], cls, true))
 				// _tmp.push( getChildren(data[child]) )
+			}
+			else {
+				childrenCount = 1;
 			}
 
 			_tmp.push({
@@ -50,9 +56,9 @@ function adapter(data){
 	var keys = Object.keys(data);
 	var _data = [];
 	keys.map(function(item){
+		childrenCount = 1;
 		if (data[item].parent==='root' && data[item].list.length){
 			if (data[item].children.length && item!=='root'){
-				childrenCount = 1;
 				var lis = getLis(data[item].list);
 				var childs = getChildren(data[item]);
 				_data.push({
