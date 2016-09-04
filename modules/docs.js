@@ -54,6 +54,7 @@ function *loadMdFile(url){
         }
         else{
             tmp = yield markdown(md_raw, mdcnt);
+            Cache.set(url, tmp)
         }
     }
     return tmp;
@@ -123,8 +124,6 @@ function *_getDocsData(doc_dir, options){
                 tmp = yield loadMdFile(opts.start);
             }
 
-            console.log('=========== ');
-
             start.home = tmp.mdcontent;
         } catch (e) {
             console.log('========== modules=staticdocs: start error');
@@ -163,10 +162,20 @@ function *_getDocsData(doc_dir, options){
 
 function *getDocsData(url, opts){
     _directory = url;
-    if (Cache.has(url)){
-        return Cache.peek(url);
+    let id = url;
+    let tmp;
+
+    if (opts.pre){
+      id = opts.pre + url;
     }
-    return yield _getDocsData(url, opts)
+    if (Cache.has(id)){
+      return Cache.peek(id);
+    }
+    else {
+      tmp = yield _getDocsData(url, opts)
+      Cache.set(id, tmp)
+      return tmp;
+    }
 }
 
 module.exports = {
