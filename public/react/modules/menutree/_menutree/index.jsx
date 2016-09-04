@@ -80,19 +80,19 @@ function adapter(data){
 var pagenation = {
 	//插入真实 DOM之前
 	componentWillMount:function(){
-        this.setState({
+		this.setState({
 			data: adapter(this.props.data)
 		})
-        this.data = adapter(this.props.data);
+		this.data = adapter(this.props.data);
 	},
 
-    componentDidMount:function(){ },
+  componentDidMount:function(){ },
 
 	render:function(){
         var list;
         if (this.state.data.length){
-			// var _props = _.merge({data: this.data}, this.props);
-			// list = React.createElement(List, _props)
+						// var _props = _.merge({data: this.data}, this.props);
+						// list = React.createElement(List, _props)
             list = <List data={this.data} itemClass="category" listMethod={this.props.listMethod} itemMethod={this.props.itemMethod}/>
         }
         return (

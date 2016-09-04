@@ -79,7 +79,9 @@ var config = {
         'cats',
         'css',
         'js',
-        {'分类': 'cats'}
+        'author',
+        {'分类': 'cats'},
+        {'作者': 'author'}
     ]
 }
 

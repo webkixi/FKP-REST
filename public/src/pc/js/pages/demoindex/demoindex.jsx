@@ -2,7 +2,6 @@
 
 var libs = require('libs/libs')
 var __ = require('lodash')
-var Mtree = require('modules/menutree').pure()
 
 $('li.category a').click(function(e){
     e.stopPropagation()
@@ -31,6 +30,7 @@ $('.qrcode').each(function(){
     var cnt = $(this).attr('value');
     mkQrCode(this, cnt);
 })
+
 // $('.qrcode').on('click', function(){
 //     if($(this).find('canvas').length){
 //         $(this).html('二维码');
@@ -39,21 +39,7 @@ $('.qrcode').each(function(){
 //         mkQrCode(this, cnt);
 //     }
 // })
-//
 
-
-require('libs/api').req('/demoindex',{mt: '123'})
-.then(function(data){
-    console.log('========= data');
-    console.log('========= data');
-    console.log('========= data');
-    console.log('========= data');
-    console.log(data);
-    // React.render(
-    //     <Mtree data={adapter(data.docs)} listMethod={lm}/>,
-    //     document.getElementById('mtree')
-    // )
-})
 
 //英文目录映射中文
 var cl_json = require('./catalog.json')  //目录英文名，中文名映射json文件

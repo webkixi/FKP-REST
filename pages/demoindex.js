@@ -33,6 +33,7 @@ function *demoIndexData(oridata, control){
                 let url = params.md;
                 // loadfile
                 tmp = await loadMdFile(url);
+                tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
                 staticData = _.extend(staticData, tmp);
             }
 
@@ -43,7 +44,13 @@ function *demoIndexData(oridata, control){
             let _body = await libs.$parse(this);
             let body = await co(_body)
 
-            let staticData = await getDocsData('fkpdoc');
+            let staticData = await getDocsData('fkpdoc', {
+              docs: true,
+              sitemap: false,
+              start: false,
+              menutree: false,
+              append: {}
+            });
             if (body.mt){
                 return staticData;
             }

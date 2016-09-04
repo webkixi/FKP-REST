@@ -1,12 +1,24 @@
+var libs = require('libs/libs')
 var _ = require('lodash')
+var Mtree = require('modules/menutree').pure()
 
-$('li.category a').click(function(e){
-    e.stopPropagation()
-})
+function lm(){
+  $('li.category a').on('click', function(e){
+      e.stopPropagation()
+  })
 
-$('li.category').find('h4').click(function(){
-    $(this).find('.iconfont').toggleClass('icon-xiala').toggleClass('icon-sanjiao')
-    $(this).next('ul').toggle()
+  $(this).find('h4').click(function(){
+      $(this).find('.iconfont').toggleClass('icon-xiala').toggleClass('icon-sanjiao')
+      $(this).next('ul').toggle()
+  })
+}
+
+require('libs/api').req('/docslodash',{mt: 'test'})
+.then(function(data){
+    React.render(
+        <Mtree data={data.docs} listMethod={lm}/>,
+        document.getElementById('mtree')
+    )
 })
 
 

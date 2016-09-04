@@ -1,5 +1,9 @@
 <div class="markdown-body">
-        <div class="span9" style="margin-top: -1em!important;">
+        <div class="span9">
+            <h1>{{mdcontent.title}}</h1>
+            {{#if mdcontent.author}}
+            <small>作者：{{mdcontent.author}}</small>
+            {{/if}}
             {{{mdcontent.cnt}}}
         </div>
 

@@ -1,3 +1,7 @@
+@@@
+tags: lodash
+作者: webkixi
+@@@
 # _.chunk  
 > _.chunk(array, [size=1])  
 
