@@ -23,12 +23,7 @@ function *demoIndexData(oridata, control){
             let home = path.join(__dirname, '../docs/_home.md');
 
             if (params && params.md){
-              staticData = await getDocsData('docs/lodash', {
-                  docs: false,
-                  start: false,
-                  menutree: false,
-                  append: oridata
-              })
+              staticData = oridata;
               // loadfile
               tmp = await loadMdFile(params.md);
               tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div')

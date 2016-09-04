@@ -30,13 +30,15 @@ function *demoIndexData(oridata, control){
             })
 
             if (params && params.md){
-                let url = params.md;
-                // loadfile
-                tmp = await loadMdFile(url);
-                tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
-                staticData = _.extend(staticData, tmp);
+              let url = params.md;
+              // loadfile
+              tmp = await loadMdFile(url);
+              tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
+              staticData = _.extend(staticData, tmp);
             }
-
+            else {
+              delete staticData.mdcontent
+            }
             return staticData;
         },
 

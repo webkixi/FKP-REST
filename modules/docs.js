@@ -48,7 +48,7 @@ function *loadMdFile(url){
         return false;
     }
     else {
-        tmp = {}
+        tmp = {}         
         if (Cache.has(url)){    // Cache为全局变量
             tmp = Cache.peek(url);
         }
