@@ -48,13 +48,13 @@ function *loadMdFile(url){
         return false;
     }
     else {
-        tmp = {}         
+        tmp = {}
         if (Cache.has(url)){    // Cache为全局变量
             tmp = Cache.peek(url);
         }
         else{
             tmp = yield markdown(md_raw, mdcnt);
-            Cache.set(url, tmp)
+            // Cache.set(url, tmp)
         }
     }
     return tmp;
@@ -173,7 +173,7 @@ function *getDocsData(url, opts){
     }
     else {
       tmp = yield _getDocsData(url, opts)
-      Cache.set(id, tmp)
+      // Cache.set(id, tmp)
       return tmp;
     }
 }
