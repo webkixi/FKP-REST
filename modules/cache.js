@@ -5,15 +5,7 @@ var md5 = require('md5');
 var LRU = require('lru-cache'),
 	options = { max: 500
 		  , length: function (n, key) { return n * 2 + key.length }
-		  , dispose: function (key, n) {
-				console.log('============== dispose');
-				console.log('============== dispose');
-				console.log('============== dispose');
-				console.log('============== dispose');
-				console.log(key);
-				console.log(n);
-				n.close()
-			}
+		  , dispose: function (key, value) {  }
 		  , maxAge: 1000 * 60 * 60 },
 	cache = LRU(options);
 

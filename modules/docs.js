@@ -54,7 +54,7 @@ function *loadMdFile(url){
         }
         else{
             tmp = yield markdown(md_raw, mdcnt);
-            // Cache.set(url, tmp)
+            Cache.set(url, tmp)
         }
     }
     return tmp;
@@ -173,7 +173,7 @@ function *getDocsData(url, opts){
     }
     else {
       tmp = yield _getDocsData(url, opts)
-      // Cache.set(id, tmp)
+      Cache.set(id, tmp)
       return tmp;
     }
 }
