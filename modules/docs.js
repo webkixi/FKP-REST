@@ -19,7 +19,7 @@ function fileExsist(filename) {
   return function (done) {
     fs.stat(filename, function(err, sss){
       if (err){
-        return done(false);
+        return done(false, false);
       }
       done(null, sss)
     });
@@ -43,6 +43,9 @@ function *loadMdFile(url){
                 url = url + '.md'
             }
 
+            // url = (url.indexOf('fdocs/')>-1 && url.indexOf('fdocs/fkp')===-1)
+            // ? url
+            // : path.join(__dirname, '../'+_directory, url);
             url = path.join(__dirname, '../'+_directory, url);
         }
     }
@@ -149,6 +152,9 @@ function *_getDocsData(doc_dir, options){
             if (tmp){
               start.home = tmp.mdcontent;
             }
+            else {
+              start.home = {cnt: '<h1>FKP-JS</h1><small>a full stack framwork</small>', title: 'FKP-JS', author: '天天修改'}
+            }
         } catch (e) {
             console.log('========== modules=staticdocs: start error');
             console.log(e);
@@ -196,7 +202,7 @@ function *getDocsData(url, opts){
       return Cache.peek(id);
     }
     else {
-      tmp = yield _getDocsData(url, opts)
+      tmp = yield _getDocsData(url, opts);
       Cache.set(id, tmp)
       return tmp;
     }
