@@ -26,6 +26,9 @@ function *demoIndexData(oridata, control){
               staticData = oridata;
               // loadfile
               tmp = await loadMdFile(params.md);
+              if (!tmp){
+                return this.redirect('/404')
+              }
               tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div')
               staticData = _.extend(staticData, tmp);
             }
@@ -36,6 +39,9 @@ function *demoIndexData(oridata, control){
                   menutree: true,
                   append: oridata
               })
+              if (!staticData){
+                return this.redirect('/404');
+              }
             }
 
             return staticData;
