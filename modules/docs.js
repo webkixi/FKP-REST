@@ -15,6 +15,17 @@ function _readdirs(url){
     return parseDirs(null, null, null, 'REST', url)()
 }
 
+function fileExsist(filename) {
+  return function (done) {
+    fs.stat(filename, function(err, sss){
+      if (err){
+        return done(false);
+      }
+      done(null, sss)
+    });
+  }
+}
+
 // 读取并解析 md 文件
 function *loadMdFile(url){
     if (!url){
@@ -36,35 +47,46 @@ function *loadMdFile(url){
         }
     }
 
-    let mdcnt = {mdcontent:{}};
-    let tmp = {}
-    let md_raw = fs.readFileSync( url, 'utf8' );
+    let exist = yield fileExsist(url);
 
-    if (!md_raw){
+    if (exist){
+      let mdcnt = {mdcontent:{}};
+      let tmp = {}
+      let md_raw = fs.readFileSync( url, 'utf8' );
+
+      if (!md_raw){
         return false
-    }
-    else
-    if (!md_raw.length){
+      }
+      else
+      if (!md_raw.length){
         return false;
-    }
-    else {
+      }
+      else {
         tmp = {}
         if (Cache.has(url)){    // Cache为全局变量
-            tmp = Cache.peek(url);
+          tmp = Cache.peek(url);
         }
         else{
-            tmp = yield markdown(md_raw, mdcnt);
-            Cache.set(url, tmp)
+          tmp = yield markdown(md_raw, mdcnt);
+          Cache.set(url, tmp)
         }
+      }
+      return tmp;
     }
-    return tmp;
-    // return co(tmp);
+    else {
+      return false;
+    }
 }
 
 function *_getDocsData(doc_dir, options){
     if (!doc_dir){
         return false;
     }
+    let exist = yield fileExsist(doc_dir);
+    if (!exist){
+      return false;
+    }
+
     let sitemap = {},
         start = {},
         docs = {},
@@ -124,7 +146,9 @@ function *_getDocsData(doc_dir, options){
                 tmp = yield loadMdFile(opts.start);
             }
 
-            start.home = tmp.mdcontent;
+            if (tmp){
+              start.home = tmp.mdcontent;
+            }
         } catch (e) {
             console.log('========== modules=staticdocs: start error');
             console.log(e);
