@@ -349,16 +349,16 @@ function *distribute(_mapper){
 **/
 function *htmlRender(stat,route,data){
     libs.clog('route.js/htmlRender '+route);
-    try {
-      if (stat){
-        this.body = yield render(route, data);
-      }
-      else{
-        this.redirect('/404')
-      }
-    } catch (e) {
-        this.redirect('/404')
+    if (stat){
+      this.body = yield render(route, data);
     }
+    else{
+      this.redirect('/404')
+    }
+    // try {
+    // } catch (e) {
+    //     this.redirect('/404')
+    // }
 }
 
 
