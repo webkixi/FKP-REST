@@ -12,7 +12,7 @@ function *demoIndexData(oridata, control){
     }
 
     async function loadMdFile(url){
-        let _data = await docs.loadMdFile(url)
+        let _data = await docs.loadMdFile(url);
         return await co(_data)
     }
 
@@ -29,10 +29,15 @@ function *demoIndexData(oridata, control){
                 append: oridata
             })
 
+            if (!staticData){
+              return this.redirect('/404');
+            }
+
             if (params && params.md){
-              let url = params.md;
-              // loadfile
-              tmp = await loadMdFile(url);
+              tmp = await loadMdFile(params.md);
+              if (!tmp){
+                return this.redirect('/404')
+              }
               tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
               staticData = _.extend(staticData, tmp);
             }
@@ -53,6 +58,11 @@ function *demoIndexData(oridata, control){
               menutree: false,
               append: {}
             });
+
+            if (!staticData){
+              return {error: '该文档不存在'}
+            }
+
             if (body.mt){
                 return staticData;
             }
