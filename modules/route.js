@@ -349,32 +349,37 @@ function *distribute(_mapper){
 **/
 function *htmlRender(stat,route,data){
     libs.clog('route.js/htmlRender '+route);
-    if (stat){
+    try {
+      if (stat){
         this.body = yield render(route, data);
-    }
-    else{
+      }
+      else{
         this.redirect('/404')
+      }
+    } catch (e) {
+      this.redirect('/404')
     }
-    // try {
-    //
-    // } catch (e) {
-    //     this.redirect('/404')
-    // }
 }
 
 
 
 function *returnJson(stat,route,data){
     libs.clog('route.js/htmlRender/'+route);
-    if (stat){
+    try {
+      if (stat){
         if(data)
-            this.body = JSON.stringify(data);
+          this.body = JSON.stringify(data);
         else {
-            this.body = '{"error": -1, "message":"route/返回data不合法"}'
+          this.body = '{"error": -1, "message":"route/返回data不合法"}'
         }
-    }
-    else
+      }
+      else{
         this.body = '{"error": -1, "message": "route/stat状态为false"}';
+      }
+    } catch (e) {
+        console.error(e);
+        this.body = '{"error": -1, "message": "route/stat状态为false"}';
+    }
 }
 
 
