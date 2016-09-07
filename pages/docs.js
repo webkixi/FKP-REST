@@ -21,6 +21,10 @@ function *_ckMkDir(path){
     });
   }
 
+  function copy(src, dist){
+    fs.createReadStream(src).pipe(fs.createWriteStream(dist));
+  }
+
   function _fsmkdir(path, cb){
     let _mode = '0777'
     fs.mkdirSync(path, _mode);
@@ -74,7 +78,7 @@ function *_ckMkDir(path){
   }
   else {
     _docs = fs.readdirSync(path);
-    _watch();
+    // _watch();
   }
 }
 
