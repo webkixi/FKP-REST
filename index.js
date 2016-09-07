@@ -26,7 +26,8 @@ global.fkpConfig = require('./config')(process.env.env);   // 全局config
 
 
 
-var app = require('koa')();
+var koa = require('koa');
+var app = new koa();
 var cors = require('kcors');   //cros 跨域支持
 var session = require('koa-generic-session');
 global.React = require('react');

@@ -9,7 +9,7 @@ var fs = require('fs'),
     webpack = require('webpack'),
     configs = require('./config'),
     alias = require('./webpack.alias.js'),
-    ExtractTextPlugin = require("extract-text-webpack-plugin"),
+    // ExtractTextPlugin = require("extract-text-webpack-plugin"), //wait for webpack2 stable
     $ = require('gulp-load-plugins')();
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
@@ -138,12 +138,14 @@ var plugins = function(dirname, isPack, options) {
         _watch = options && options.watch,
         ret_plugins = [
             // new webpack.optimize.OccurenceOrderPlugin(),
-            // new webpack.HotModuleReplacementPlugin(),
             new webpack.NoErrorsPlugin(),
             new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
-            new ExtractTextPlugin("../css/[name].css", {
-                allChunks: isPack === true ? true : false
-            }),
+
+            // wait for webpack2 stable
+            // new ExtractTextPlugin("../css/[name].css", {
+            //     allChunks: isPack === true ? true : false
+            // }),
+
             // new webpack.DefinePlugin({
             //     'process.env': {
             //         NODE_ENV: '"development"'
@@ -156,7 +158,7 @@ var plugins = function(dirname, isPack, options) {
             filename: '_common.js',
             minChunks: 3, //Infinity
             async: false
-                //children: true
+            //children: true
         }
 
     // 由gulp watch传过来的编译，直接返回
@@ -282,14 +284,25 @@ var custom_modules = function(opts) {
         { test: /\.cjsx$/, loaders: ['react-hot', 'coffee', 'cjsx'] }, { test: /\.coffee$/, loader: 'coffee', exclude: [/common/, /node_modules/] }, { test: /\.hbs$/, loader: "handlebars-loader" }, {
             test: /[\/\\]js[\/\\](vendor|vendor_custom|global)[\/\\]/, //http://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
             loader: "script-loader" //不做任何处理
-        }, { test: /\.css$/, loader: ExtractTextPlugin.extract("css-loader") }
-        // ,{ test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader',"raw!sass") }
-        , { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', "raw!less") }, { test: /\.rt$/, loader: "react-templates-loader" }, { test: /\.md$/, loader: "html!markdown" }, { test: /\.json$/, loader: "json-loader" }, { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }, { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }, { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" }, { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" }, { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }, , { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' } // inline base64 URLs for <=8k images, direct URLs for the rest
-        //,{ test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
+        }
+        , { test: /\.json$/, loader: "json-loader" }
+        , { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }
+        , { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }
+        , { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" }
+        , { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" }
+        , { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
+        , { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' } // inline base64 URLs for <=8k images, direct URLs for the rest
+        , { test: /\.rt$/, loader: "react-templates-loader" }
+        , { test: /\.md$/, loader: "html!markdown" }
 
+        // wait for webpack2 stable
+        // ,{ test: /\.css$/, loader: ExtractTextPlugin.extract("css-loader") }
+        // ,{ test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader',"raw!sass") }
+        // , { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', "raw!less") }
+
+        //,{ test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
         // { // Only apply on tinymce/tinymce
         //     include: require.resolve('tinymce/tinymce'),    //检测到路径包含tinymce/tinymce
-        //     // Export window.tinymce
         //     loader: 'exports?window.tinymce',             //输出全局变量tinymce
         // },
     ]
@@ -307,17 +320,17 @@ var custom_modules = function(opts) {
             test: /\.jsx$/,
             exclude: /(node_modules|bower_components|_builder|dist)/,
             loader: _babel
-                // loader: "babel-loader!jsx-loader"
-                // loaders: ['react-hot', 'jsx?harmony']
-                // query: {
-                //     presets: ['react', 'es2015', 'stage-0']
-                // }
+            // loader: "babel-loader!jsx-loader"
+            // loaders: ['react-hot', 'jsx?harmony']
+            // query: {
+            //     presets: ['react', 'es2015', 'stage-0']
+            // }
         })
         loaders.push({
             test: /\.js$/,
             exclude: /(node_modules|bower_components|_builder|dist)/,
             loader: "babel"
-                // query:{ compact: 'auto' }
+            // query:{ compact: 'auto' }
         })
     } else {
         loaders.push({
