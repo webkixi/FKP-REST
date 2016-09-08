@@ -76,6 +76,7 @@ function *github(){
                 console.log('========== signupUser');
                 console.log(signupUser);
                 this.session.$user = signupUser;
+                console.log(this.session);
                 this.redirect(jump_url)
             }
         }
