@@ -44,22 +44,22 @@ function *github(){
                 method : 'post'
             }
             var ttt = yield api.req(this, 'https://github.com/login/oauth/access_token', postdata)
-            var github_token = ttt[1].access_token
+            var github_token = ttt[1].access_token;
+
             // github_token为如下内容
             // { access_token: '82b79fcd53b5532fd6fe91d8281edf80677ae4de',
             //   token_type: 'bearer',
             //   scope: '' }
+
             var userpost = {
                 method: 'get',
                 headers: github.headers,
                 "access_token": github_token
-            }
-            var github_user = yield api.req(this, 'https://api.github.com/user', userpost)
-            // var github_user = yield api.req(this, 'https://api.github.com/user?access_token='+github_token, userpost)
-            var g_user = JSON.parse(github_user[1])
-            libs.elog('github user info')
-            console.log(typeof g_user);
-            console.log(g_user);
+            };
+
+            var github_user = yield api.req(this, 'https://api.github.com/user', userpost);
+            var g_user = JSON.parse(github_user[1]);
+
 
             var hasUser = yield api.req(this, '$signis', {username: g_user.login})
             if (hasUser){

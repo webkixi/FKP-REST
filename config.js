@@ -17,6 +17,7 @@ var config = {
     root: 'demoindex',    //dev 或者 pro默认首页
 
     editorUploader: false,    //true，允许editor编辑器上传图片
+    
     //本地上传路径
     upload: path.join(static_dir,'/dist/'),
     upload_root: path.join(static_dir,'/dist/uploader'),
@@ -29,9 +30,6 @@ var config = {
     goods_img: 'http://jh-ljs-goods.oss-cn-shenzhen.aliyuncs.com/',     //商品
     account_img:'http://jh-ljs-account.oss-cn-shenzhen.aliyuncs.com/',  //用户
 
-    // weixintest: cqch,
-    // domaintest: 'test.agzgz.com',
-
     //微信
     weixin: agzgz,                      // 微信模块调用参数
 
@@ -39,6 +37,22 @@ var config = {
     apiip: "http://120.25.xxx.xxx",    //  api src 参考  根目录/pages/common/apilist.js
     port: ":8080/v1/",                 //  api src port 参考 根目录/pages/common/apilist.js
     domain: 'agzgz.com',
+
+    //静态资源路径
+    static: {
+    	dft:  path.join(static_dir,'/dist/'+version+'/'),
+    	html: path.join(static_dir,'/dist/'+version+'/html'),
+    	js:   path.join(static_dir,'/dist/'+version+'/js'),
+    	css:  path.join(static_dir,'/dist/'+version+'/css'),
+    	img:  path.join(static_dir,'/dist/'+version+'/images'),
+          dev: {
+              dft:  path.join(static_dir,'/dist/'+version+'/dev'),
+              html: path.join(static_dir,'/dist/'+version+'/dev/html'),
+              js:   path.join(static_dir,'/dist/'+version+'/dev/js'),
+              css:  path.join(static_dir,'/dist/'+version+'/dev/css'),
+              img:  path.join(static_dir,'/dist/'+version+'/dev/images')
+          }
+  	},
 
     // 第三方登陆
     auth: {
@@ -51,22 +65,6 @@ var config = {
             headers: {"user-agent": "love_gz"}
         }
     },
-
-    //静态资源路径
-    static: {
-		dft:  path.join(static_dir,'/dist/'+version+'/'),
-		html: path.join(static_dir,'/dist/'+version+'/html'),
-		js:   path.join(static_dir,'/dist/'+version+'/js'),
-		css:  path.join(static_dir,'/dist/'+version+'/css'),
-		img:  path.join(static_dir,'/dist/'+version+'/images'),
-        dev: {
-            dft:  path.join(static_dir,'/dist/'+version+'/dev'),
-            html: path.join(static_dir,'/dist/'+version+'/dev/html'),
-            js:   path.join(static_dir,'/dist/'+version+'/dev/js'),
-            css:  path.join(static_dir,'/dist/'+version+'/dev/css'),
-            img:  path.join(static_dir,'/dist/'+version+'/dev/images')
-        }
-  	},
 
     // 静态资源映射文件
     // 如果后端使用java/php的模板，将map文件交给后端映射路径
@@ -88,14 +86,13 @@ var config = {
 function _config(target){
     var _cfg = config;
 
-    if (target && typeof target!=='string'){
+    if (typeof target!=='string'){
         target = false;
     }
 
     if (target && fs.existsSync('./configs/'+target+'.js')){
         _cfg = require('./configs/'+target+'.js');
         _cfg = _.extend(config, _cfg);
-        // console.log(JSON.stringify(_cfg));
     }
 
 
