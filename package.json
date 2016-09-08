@@ -23,6 +23,7 @@
     "koa-generic-session": "^1.11.3",
     "koa-router": "^5.4.0",
     "koa-session": "^3.3.1",
+    "koa-sqlite3-session": "^1.0.1",
     "koa-static-cache": "^3.1.7",
     "koa-wechat": "^0.1.3",
     "lodash": "^4.6.1",

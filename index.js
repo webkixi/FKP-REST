@@ -30,6 +30,7 @@ var koa = require('koa');
 var app = new koa();
 var cors = require('kcors');   //cros 跨域支持
 var session = require('koa-generic-session');
+var SQLite3Store = require('koa-sqlite3-session');
 global.React = require('react');
 global.ReactDomServer = require('react-dom/server');
 require('./modules/cache')  // lru 缓存模块
@@ -55,6 +56,11 @@ statics(args[0], app)
 //session
 app.keys = ['keys','gzgzmixcookie'];
 app.use(session( { key: 'agzgz' } ));
+app.use(session({
+  store: new SQLite3Store(':memory:', {
+    // Options specified here
+  })
+}));
 
 
 // websocket 初始化

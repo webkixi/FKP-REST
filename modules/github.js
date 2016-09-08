@@ -71,12 +71,8 @@ function *github(){
             else{
               libs.elog('write user info into db')
                 var signupUser = yield api.req(this, '$signup', {github: g_user})
-                console.log('========== signupUser');
-                console.log('========== signupUser');
-                console.log('========== signupUser');
-                console.log(signupUser);
+                console.log('========== github.js 74 line');
                 this.session.$user = signupUser;
-                console.log(this.session);
                 this.redirect(jump_url)
             }
         }
