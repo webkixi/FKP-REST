@@ -10,7 +10,6 @@ global._ = require('lodash');
 require('./modules/requirePath')(require('path').resolve(__dirname));
 process.env.env = 'default';
 
-var port = 8070;
 var args = process.argv.splice(2); //取得命令行参数
 if( args[0] && (args[0] === 'test' ||
 	args[0].indexOf('env_')>-1 ) ) {
@@ -23,6 +22,7 @@ else if( args[1] && (args[1] === 'test' ||
 		process.env.env = args[1]
 }
 global.fkpConfig = require('./config')(process.env.env);   // 全局config
+const port = fkpConfig.port;
 
 
 
@@ -55,18 +55,17 @@ statics(args[0], app)
 
 //session
 app.keys = ['keys','gzgzmixcookie'];
-app.use(session( { key: 'agzgz' } ));
+// app.use(session( { key: 'agzgz' } ));
 app.use(session({
-  store: new SQLite3Store(':memory:', {
-    // Options specified here
-  })
+	key: 'agzgz-',
+  store: new SQLite3Store('forsession.db', {})
 }));
 
 
 // websocket 初始化
 var server = socketio.init(app)
 //router
-route.call(this,app,_mapper,render(args[0]))
+route.call(app,app,_mapper,render(args[0]))
 //websocket 挂载on
 socketio.run();
 
