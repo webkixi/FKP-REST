@@ -13,11 +13,6 @@ var config = {
     //微信
     weixin: agzgz,                      // 微信模块调用参数
 
-    //api
-    apiip: "http://172.25.xxx.xxx",    //  api src 参考  根目录/pages/common/apilist.js
-    port: ":8080/v1/",                 //  api src port 参考 根目录/pages/common/apilist.js
-    domain: 'agzgz.com',
-
     // 第三方登陆
     auth: {
         //本地环境使用github登陆，使用 ./ly dev test

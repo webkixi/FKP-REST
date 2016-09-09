@@ -10,4 +10,5 @@ npm-debug.log
 /public/dist_mir/*
 .DS_Store
 /fdocs
+*.db
 baidu_verify_B7KJMQXfQu.html
