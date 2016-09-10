@@ -2,65 +2,22 @@ var libs = require('libs/libs');
 var Input = require('react/widgets/ui/input1')
 var render = React.render;
 
-/*
-    // CASE I
-    var inputs = [
-        {
-            input:{
-                name:      'aaa',
-                id:        'aaa',
-                value:     null,
-                type:      'text',
-                placehold: '聊天内容'
-            },
-            title:     '聊天',
-            class:     null,
-            desc:      null
-        },
-        {
-            input:{
-                name:      'bbb',
-                id:        'bbb',
-                value:     '发射',
-                type:      'button',
-                placehold: null
-            },
-            title:     null,
-            class:     'chatSubmit',
-            desc:      null
-        }
-    ]
+function text(data, opts, callback){
 
-    // CASE II
-    var inputs = {
-        name:      ['aaa' , 'bbb'],
-        id:        ['aaa' , 'bbb'],
-        type:      ['text', 'button'],
-        title:     ['聊天' , ''],
-        value:     [null    , '发射'],
-        class:     [null    , 'chatSubmit'],
-        placehold: ['聊天内容']
-    }
-*/
-
-
-function text(data, opts, c){
-
-    var noop = false,
-        dft = {
-            container: '',
-            theme:      'index',
-            itemMethod: noop
-        }
-
-    dft = _.assign(dft, opts)
+    var noop = function(){},
+      dft = {
+          container: '',
+          theme:      'index',
+          itemMethod: noop
+      }
+      dft = _.assign(dft, opts)
 
     if (!dft.container) {
-        console.log('没有指定容器');
-        return false;
+      console.log('没有指定容器');
+      return false;
     }
     if (data) {
-        dft.data = data
+      dft.data = data
     }
 
     var inject = libs.inject().css;
@@ -72,11 +29,12 @@ function text(data, opts, c){
     var _fun = function(data, ele, cb){
         this.data = data
         this.value = {};
+        this.form = {};
         this.ipt;
         var self = this;
 
         // ItemMixin的回调方法
-        // @intent，由组件内部传出
+        // @intent，props.intent | this.intent
         function dm(intent){
             self.ipt = this;
 
@@ -84,8 +42,9 @@ function text(data, opts, c){
             // self.ipt, self.value
             require('./_plugin/select')(self, intent)
 
-            if (cb&&typeof cb==='function')
-                cb.call(this)
+            if (typeof cb==='function'){
+              cb.call(this)
+            }
         }
 
 
@@ -97,7 +56,7 @@ function text(data, opts, c){
         }
 
         render(
-            <Input data={data} itemDefaultMethod={dm}/>,
+            <Input data={data} itemMethod={dft.itemMethod} itemDefaultMethod={dm}/>,
             (function(){return ele.nodeType ? ele : document.getElementById(ele)}())
         )
     }
@@ -136,10 +95,10 @@ function text(data, opts, c){
         }
     }
 
-    return new _fun(dft.data, dft.container, c)
+    return new _fun(dft.data, dft.container, callback)
 }
 
-text.server = function(){
+text.pure = function(){
     return Input();
 }
 

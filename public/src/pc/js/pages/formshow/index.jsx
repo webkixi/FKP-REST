@@ -35,21 +35,6 @@ window.ckbox = Radios(_config_ckbox, {
 
 
 
-// inputs
-// Input批量产出form表单，目前支持 text/hiden/password/tel
-// ==========================================================================================
-
-// 方案1
-// var _input_config = {
-//     name:      ['user', 'message' , 'submit'],
-//     id:        ['user', 'message' , 'submit'],
-//     type:      ['text', 'text', 'button'],
-//     title:     ['姓名' , '聊天' , ''],
-//     value:     [null  , null  , '发射'],
-//     class:     ['user'  ,null  , 'chatSubmit'],
-//     placehold: [null  , '请输入聊天内容']
-// }
-
 // 方案2
 var _input_config = [
     //0
@@ -110,11 +95,12 @@ var _input_config = [
         desc:      null,
         union: {
             id: "user",
-            cb: function(){
+            cb: function(form){
                 // this是message的父级lable
                 libs.msgtips('我是message,我关联姓名');
                 $('#user').on('input',function(){
                     $('#message').val($('#user').val())
+                    form.message = $('#user').val()
                 })
             }
         }
@@ -133,11 +119,12 @@ var _input_config = [
         desc:      null,
         union: {
             id: "user",
-            cb: function(){
+            cb: function(form){
                 // this是message的父级lable
                 libs.msgtips('good,我关联姓名');
                 $('#user').on('input',function(){
                     $('#good').val($('#user').val())
+                    form.good = $('#user').val()
                 })
             }
         }
@@ -255,6 +242,7 @@ window.bbb = Inputs(_input_config,
     theme: 'index'
 },
 function(){
+    console.log(bbb);
     _input_config[5].desc= '我是被SAX重新渲染过的'
     _.delay(function(){
         libs.msgtips('SAX将启动渲染', 'warning')
