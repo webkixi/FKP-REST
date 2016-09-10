@@ -2,7 +2,7 @@ var path = require('path');
 var fs = require('fs');
 
 var static_dir = './public'
-var version = '2.15.12'
+var version = '2.15.13'
 var config = {
     version: version,
 
