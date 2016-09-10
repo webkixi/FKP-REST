@@ -5,6 +5,17 @@ css: www.agzgz.com/css/abc.css
 @@@
 # FKP日志-2.15.12
 
+
+## 2.15.14
+1. 优化data.li的react组件算法  
+2. 树形菜单组件  
+3. 文档系统1.0  
+4. 优化markdown的node端缓存  
+5. 修复node端leu-cache的遗留bug，缓存冗余代码清楚  
+6. 优化编译，注释webpack多余插件  
+7. node端session支持多线程，通过sqlite3实现  
+8. form表单优化，表单联动优化，itemMixin的defaultMethod的call对象错误  
+
 ## 2.15.12
 1. 完善`md`文档系统
 2. 修复测试环境变量的bug    
