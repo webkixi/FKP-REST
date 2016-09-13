@@ -6,7 +6,7 @@ var LRU = require('lru-cache'),
 	options = { max: 500
 		  , length: function (n, key) { return n * 2 + key.length }
 		  , dispose: function (key, value) {  }
-		  , maxAge: 1000 * 60 * 60 },
+		  , maxAge: 24 * 60 * 60 },
 	cache = LRU(options);
 
 var cac = {
