@@ -4,6 +4,7 @@ var domain = require('domain');
 var parse = require('co-body');
 var lodash = require('lodash');
 var qs = require('querystring');
+var timer = require('./_component/time')
 
 
 //libs
@@ -62,5 +63,6 @@ module.exports = {
     $domain: domain,
     $parse: parse,
     getClientIp: getClientIp,
-    errors: require('./errors')
+    errors: require('./errors'),
+    timeAgo:   timer.timeAgo      //时间过去了多久
 }

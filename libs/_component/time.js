@@ -1,4 +1,3 @@
-var base = require('./base')
 // 对Date的扩展，将 Date 转化为指定格式的String
 // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
 // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
@@ -91,93 +90,115 @@ function countDown(ele, cd, cb){
     }
 }
 
+
+/*
+ * 返回和现在时间的时间差
+ * ago {String}  timestamp 必须为时间戳
+ * cb {function}  回调函数，用户自定义返回值
+ */
 function timeAgo(ago, cb){
-    if (typeof ago === 'string'){
-        ago = parseFloat(ago)
-    }
-    var day31 = [1,3,5,7,8,10,12]
-    var day30 = [4,6,9,11]
+  if (typeof ago === 'string'){
+    if (ago.indexOf('-')>-1 && ago.indexOf(':')>-1 ) ago = convTimestamp(ago);
+    ago = parseFloat(ago)
+  }
+  var day31 = [1,3,5,7,8,10,12]
+  var day30 = [4,6,9,11]
 
-    var date = new Date(),
-        agodate = new Date(ago);
+  var date = new Date(),
+      agodate = new Date(ago),
+      _date = agodate;
 
-    var $day = date.getDate(),
-        $ago = agodate.getDate(),
-        $hour = date.getHours(),
-        $agoHour = agodate.getHours(),
-        $month = date.getMonth(),
-        $agoMonth = agodate.getMonth(),
-        $year = date.getFullYear(),
-        $agoYear = agodate.getFullYear();
+  var $day = date.getDate(),
+      $ago = agodate.getDate(),
+      $hour = date.getHours(),
+      $agoHour = agodate.getHours(),
+      $month = date.getMonth(),
+      $agoMonth = agodate.getMonth(),
+      $year = date.getFullYear(),
+      $agoYear = agodate.getFullYear();
 
 
-    var now = Date.parse(date),
-        diff = now-ago,
-        _seconds = _.ceil(diff/1000, 2),
-        _minute = _.ceil(_seconds/60, 2),
-        _hour = _.ceil(_seconds/3600, 2),
-        _day = _.ceil(_seconds/(3600*24), 2),
-        _month = _.ceil(_seconds/(3600*24*30), 2),
-        _year = _.ceil(_seconds/(3600*24*30*12), 2);
+  var now = Date.parse(date),
+      diff = now-ago,
+      _seconds = _.ceil(diff/1000, 2),
+      _minute = _.ceil(_seconds/60, 2),
+      _hour = _.ceil(_seconds/3600, 2),
+      _day = _.ceil(_seconds/(3600*24), 2),
+      _month = _.ceil(_seconds/(3600*24*30), 2),
+      _year = _.ceil(_seconds/(3600*24*30*12), 2);
 
-    var t_day = (_hour - $hour)/24
+  var t_day = (_hour - $hour)/24;
+  var _time = {
+      day: t_day,
+      diff:{
+          seconds: _seconds,
+          minute: _minute,
+          hour: _hour,
+          day: _day,
+          month: _month,
+          year: _year
+      }
+  }
 
-        var _time = {
-            day: t_day,
-            diff:{
-                seconds: _seconds,
-                minute: _minute,
-                hour: _hour,
-                day: _day,
-                month: _month,
-                year: _year
-            }
-        }
+  // 用户自行处理时间数据
+  if (cb && typeof cb==='function'){
+      return cb(_time)
+  }
 
-        if (cb && typeof cb==='function'){
-            return cb(_time)
-        }
+  var t = _time;
+  if (t.diff.year>=1){
+      return _date.Format("yyyy-MM-dd")
+  }
 
-        var t = _time
-        var _date = agodate;
-        if (t.diff.year>=1){
-            return _date.Format("yyyy-MM-dd")
-        }
-        else
-        if (t.diff.month>=1 && t.diff.month<12){
-            return _date.Format("yyyy-MM-dd")
-        }
-        else
-        if (t.day>=0 && t.diff.day<30){
-            if (t.day>=0&&t.day<1){
-                var _time = _date.Format("hh:mm")
-                return '昨天 '+_time
-            }
-            else
-            if (t.day>=1&&t.day<=2){
-                var _time = _date.Format("hh:mm")
-                return '前天 ' + _time
-            }
-            else
-                return _date.Format("yyyy-MM-dd hh:mm")
-        }
-        else
-        if (t.diff.hour>=1 && t.diff.hour<24){
-            if (t.day<0){
-                return _date.Format("hh:mm")
-            }
-        }
-        else
-        if (t.diff.minute>=1 && t.diff.minute<60){
-            return _date.Format("hh:mm")
-        }
-        else
-        if (t.diff.seconds>=1 && t.diff.seconds<60){
-            return _date.Format("hh:mm")
-        }
+  else if (t.diff.month>=1 && t.diff.month<12){
+      return _date.Format("yyyy-MM-dd")
+  }
+
+  else if (t.day>=0 && t.diff.day<30){
+      if (t.day>=0&&t.day<1){
+          var _time = _date.Format("hh:mm")
+          return '昨天 '+_time
+      }
+
+      else if (t.day>=1&&t.day<=2){
+          var _time = _date.Format("hh:mm")
+          return '前天 ' + _time
+      }
+
+      else{
+        return _date.Format("yyyy-MM-dd hh:mm")
+      }
+  }
+
+  else if (t.diff.hour>=1 && t.diff.hour<24){
+      if (t.day<0){
+          return _date.Format("hh:mm")
+      }
+  }
+
+  else if (t.diff.minute>=1 && t.diff.minute<60){
+      return _date.Format("hh:mm")
+  }
+
+  else if (t.diff.seconds>=1 && t.diff.seconds<60){
+      return _date.Format("hh:mm")
+  }
+}
+
+/*
+ * "2010-03-15 10:30:00" 时间转时间戳
+ * 兼容pc/ios/android
+ * @time  {String}  "2010-03-15 10:30:00"
+ */
+function convTimestamp(time){
+  var arr = time.split(/[- :]/),
+      _date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]),
+      timeStr = Date.parse(_date);
+  return timeStr
 }
 
 module.exports = {
     timeAgo: timeAgo,
-    countDown: countDown
+    countDown: countDown,
+    convTimestamp: convTimestamp
 }
