@@ -104,7 +104,8 @@ makeHtmlListData = (pa, capt) ->
 
         htmlDir.map (filename)->
             firstPath = htmlDirPath + '/' + filename
-            if (fs.statSync(firstPath).isFile() && filename.indexOf('_')!=0 && filename!='demoindex' )
+            thisFile = fs.statSync(firstPath);
+            if (thisFile.isFile() && filename.indexOf('_')!=0 && filename!='demoindex' )
                 ext = path.extname(filename)
                 depthFile = firstPath.replace('./src/pc/html/','').replace(ext, '.html')
 
@@ -125,9 +126,6 @@ makeHtmlListData = (pa, capt) ->
                     _ipurl = 'http://'+ tip + ipport + '/' + _url
                     _ipurl = _ipurl.replace(/\/\//g,'/').replace(':/','://')
                     if (!title)
-                        console.log '============ html parse'
-                        console.log '============ html parse'
-                        console.log '============ html parse'
                         console.log 'hbs 没有标题'
 
                     if(title!=null && title[0])
@@ -141,7 +139,9 @@ makeHtmlListData = (pa, capt) ->
                             fileName: filename.replace(ext,'.html'),
                             fullpath: firstPath,
                             des: '',
-                            mdname: ''
+                            mdname: '',
+                            ctime: thisFile.ctime,
+                            birthtime: thisFile.birthtime
                         }
                         firstMd = firstPath.replace(ext,'.md')
                         filenameMd = filename.replace(ext, '.md')
@@ -190,13 +190,15 @@ makeHtmlListData = (pa, capt) ->
                                 fileName: filename,
                                 fullpath: firstPath,
                                 des: '',
-                                mdname: ''
+                                mdname: '',
+                                ctime: thisFile.ctime,
+                                birthtime: thisFile.birthtime
                             }
                             list[ _caption ].list.push(fileprofile)
 
                 return
 
-            if (fs.statSync(firstPath).isDirectory() && filename.indexOf('_')!=0 )
+            if (thisFile.isDirectory() && filename.indexOf('_')!=0 )
                 list[ _caption ]['children'].push(filename)
                 list[ _caption ].subtree = firstPath
                 mklist(firstPath, filename, _caption)
