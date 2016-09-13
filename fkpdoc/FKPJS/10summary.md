@@ -8,7 +8,7 @@ anything: can write anything
 @@@  
 
 
-# 概述 {abc: 123}  
+# 概述   
 &#160; &#160; &#160;FKP-REST是一套前后端分离，基于javascript的全栈实现，适用于中小型项目，基于node的高性能，易部署性及javascript前后端语言的一致性，学习成本，时间成本及项目快速启动等等方面，FKP都是一种不错的解决方案。提升项目前期、中期的开发效率   
 &#160;  
 &#160; &#160; &#160;FED: 前端有完整的脚手架系统，支持代码的编译、压缩、模块化，及基于Reactjs的各种组件，有router，flux, 存储等全局公共库；  
@@ -27,8 +27,9 @@ anything: can write anything
 * 前端代码的 编译／合成 / hash
 * 服务端(基于node/koajs)数据处理及http服务  
 
-## 特点
-* RESTFUL模式  
+
+## 特点   
+* RESTFUL模式 {class: yyy}  
 * 支持微信接入  
 * 支持微信扫一扫，在微信中打开页面预览  
 * 支持React  
