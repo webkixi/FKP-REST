@@ -4,17 +4,20 @@
 */
 var marked = require('marked')
 var render = new marked.Renderer();
-var libs = require('../../libs/libs')
+var libs = require('../../libs/libs');
+
+var whiteListPropsAry = ['id', 'class', 'div'];
 
 function customParse(str, spec){
     console.log('============ modules/common/mdrender.js\n');
-    var re = /[\s]?\{(.*?)\}/;
+    var re = /[\s]?\{(.*?)\}/;    // "fjdskg  {abc: xxx} {xyz: yyy}" 取 " {....}"
     var re_g = / \{(.*)\}/g;
     var re_g_li = /<li>(\{.*?\})\s*<\/li>\s*/;
+    var re_whiteList = /(id|class|div):[\w@;: \-_]+/ig;    //只允许id 和 class
 
     var tmp_str = str;
 
-    if (spec==='li'){
+    if (spec==='ul'){
         str = _.unescape(str)
         var config = str.match(re_g_li)
         if (config && config.length) {
@@ -31,33 +34,42 @@ function customParse(str, spec){
 
     function getAsset(_str){
 
-        var key,val,obj;
-        var tmp = _str.match(re)   // "fjdskg  {abc: xxx} {xyz: yyy}"
+        var key, val, obj={},
+            tmp = _str.match(re),
+            _tmp = _(tmp[0])
+                    .chain()
+                    .thru(function(val){
+                      return val.match(re_whiteList);
+                    })
+                    .value()
 
-        _str = _.trim(tmp[0])   // " {abc: xxx}" => "{abc: xxx}"
-        _str = _str.replace('{','').replace('}','')   //"{abc: xxx}"=>abc: xxx
-        if (_str.indexOf(':')>-1){
-            obj = {}
-            if (_str.indexOf(',')>-1){
-                var tmp_ary = _str.split(',');
-                tmp_ary.map(function(item, i){
-                    if (item.indexOf(':')){
-                        var tmp = item.split(':')
-                        obj[_.trim(_.escape(tmp[0]))] = _.trim(_.escape(tmp[1]));
-                    }
-                })
+        if (_tmp && _tmp.length){
+          _tmp.map(function(item, i){
+            var kv = item.split(':');
+            if (kv[0]==='id' && kv[1].indexOf(' ')>-1){
+              obj[kv[0]] = _.split(_.trim(kv[1]), ' ', 1);
             }
             else{
-                var tmp = _str.split(':')
-                obj[_.trim(_.escape(tmp[0]))] = _.trim(_.escape(tmp[1]));    //obj = {abc: xxx}对象
+              obj[kv[0]] = _.trim(kv[1]);
             }
+          })
         }
-
-        if (!obj) obj = {}
-
         return obj
     }
+}
 
+function whiteListProps(props){
+  var str = '';
+  for (var item in props){
+    if (item === 'div'){
+
+    }
+
+    else if (whiteListPropsAry.indexOf(item)>-1){
+      str += ' '+item+'="'+props[item]+'"';
+    }
+  }
+  return str;
 }
 
 render.link = function(href, title, text) {
@@ -89,21 +101,17 @@ render.link = function(href, title, text) {
       }
   }
 
-  if (config.id) {
-      id = " id=" + config.id
-  }
-
-  if (config.class) {
-      cls = " class=" + config.class
-  }
-
-  var out = '<a'+ id + cls +' href="' + href + '"';
+  var out = '<a'+ whiteListProps(config) +' href="' + href + '"';
 
   if (title) {
     out += ' title="' + title + '"';
   }
   out += '>' + text + '</a>';
   return out;
+};
+
+render.hr = function() {
+  return this.options.xhtml ? '<hr/>\n' : '<hr>\n';
 };
 
 render.image = function(href, title, text) {
@@ -134,15 +142,7 @@ render.image = function(href, title, text) {
       }
   }
 
-  if (config.id) {
-      id = " id=" + config.id
-  }
-
-  if (config.class) {
-      cls = " class=" + config.class
-  }
-
-  var out = '<img' + id + cls + ' src="' + href + '" alt="' + text + '"';
+  var out = '<img' + whiteListProps(config) + ' src="' + href + '" alt="' + text + '"';
   if (title) {
     out += ' title="' + title + '"';
   }
@@ -174,7 +174,7 @@ render.heading = function (text, level, raw) {
     //     + '>\n';
     // };
 
-    var config;
+    var config={};
 
     if (raw) {
         if (raw.indexOf(' {')>-1){
@@ -199,7 +199,7 @@ render.heading = function (text, level, raw) {
         id=_.uniqueId('fkp-');
     }
 
-    var cls = config.class ? ' class='+config.class : ''
+    var cls = config.class ? ' class="'+config.class+'"' : ''
     return '<h' + level + ' id="' + id + '"' + cls + '>' + text + '</h' + level + '>';
 }
 
@@ -207,16 +207,6 @@ render.listitem = function(text) {
     var id='';
     var cls='';
     var config;
-
-    // var config = text.match(/ \{(.*)\}/g)
-    // if (config){
-    //     text = text.replace(/ \{(.*)\}/g, '')
-    //     var tmp = _.unescape(config[0])
-    //     config = JSON.parse(tmp)
-    // }
-    // else {
-    //     config = {}
-    // }
 
     if (text) {
         if (text.indexOf(' {')>-1){
@@ -229,13 +219,17 @@ render.listitem = function(text) {
         }
     }
 
-    if (config.id) {
-        id = ' id=' + config.id
+    var ckboxStr = '';
+    if (text.indexOf('[]')===0){
+      text = text.replace('[]','');
+      ckboxStr = '<input type="checkbox">';
     }
-    if (config.class) {
-        cls = ' class=' + config.class
+    if (text.indexOf('[x]')===0){
+      text = text.replace('[x]','');
+      ckboxStr = '<input type="checkbox" checked>';
     }
-  return '<li' + id + cls +'>' + text + '</li>\n';
+
+    return '<li' + whiteListProps(config) +'>' + ckboxStr + text + '</li>\n';
 };
 
 render.list = function (body, ordered) {
@@ -254,7 +248,7 @@ render.list = function (body, ordered) {
 
     if (body) {
         if (body.indexOf('<li>{')>-1){
-            var rtn = customParse(body, 'li')
+            var rtn = customParse(body, 'ul')
             body = rtn[0]
             asset = rtn[1]
         }
@@ -263,16 +257,23 @@ render.list = function (body, ordered) {
         }
     }
 
-    if (asset.id) {
-        id = ' id=' + asset.id
-    }
-
-    if (asset.class) {
-        cls = ' class=' + asset.class
-    }
-
     var type = ordered ? 'ol' : 'ul';
-    return '<' + type + id + cls +'>' + body + '</' + type + '>';
+    var template = '';
+
+    if (asset.div){
+      template = '<' + type +'>' + body + '</' + type + '>';
+      if (body){
+        template = '<div '+ whiteListProps(asset) +'>' + template + '</div>';
+      }
+      else {
+        template = '<div '+ whiteListProps(asset) +'></div>';
+      }
+    }
+    else {
+      template = '<' + type + whiteListProps(asset) +'>' + body + '</' + type + '>';
+    }
+
+    return template;
 }
 
 
