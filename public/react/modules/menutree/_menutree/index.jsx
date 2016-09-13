@@ -1,4 +1,5 @@
 var List = require('react/widgets/listView/list');
+var libs = require('libs/libs');
 
 function adapter(data){
 	function getTitile(title){
@@ -14,9 +15,20 @@ function adapter(data){
 		var _lis = [];
 		if (lis.length){
 			lis.map(function(item, i){
+				var _timeago = libs.timeAgo(item.ctime, function(timer){
+					if (timer.diff.seconds>=1 && timer.diff.seconds<86400){
+            return <i style={{color:'#fcbb9f'}}>new</i>
+	        }
+					else {
+						return false;
+					}
+				});
+
+				var _title = <a key={'lis'+i} href={item.url}>{item.title}{_timeago}</a>;
 				_lis.push({
-					title: item.title,
-					url: item.url
+					// title: item.title,
+					// url: item.url,
+					title: _title
 				})
 			})
 		}
