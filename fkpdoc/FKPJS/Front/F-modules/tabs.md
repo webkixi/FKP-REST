@@ -1,7 +1,7 @@
 @@@  
 author: 天天修改
-css: www.agzgz.com/css/demotabs__09203b659d.css
-js: www.agzgz.com/js/demotabs__b322d9e51e9da2007968.js
+css: demotabs
+js: demotabs
 @@@  
 
 # Tabs组件  
