@@ -44,16 +44,19 @@ function *mkmd(md_raw, templet){
                     if (rev3.test(v)){
                         // 自定义css和js
                         if (k==='css'||k==='js'){
-                            if (v.indexOf('http')===-1){
-                                if (v.indexOf('/')===0){
-                                    cvariable[k] = v
-                                }
-                                else {
-                                    if (v.indexOf('www.agzgz.com')===0){
-                                        cvariable[k] = 'http://'+v
-                                    }
-                                }
-                            }
+                          // if (v in fkpConfig.mapper)
+                          if (k==='css' && _.has(fkpConfig.mapper.pageCss, v)){
+                            cvariable[k] = '/css/'+fkpConfig.mapper.pageCss[v]
+                          }
+                          if (k==='js' && _.has(fkpConfig.mapper.pageJs, v)){
+                            cvariable[k] = '/js/'+fkpConfig.mapper.pageJs[v]
+                          }
+                          if (v.indexOf('www.agzgz.com')===0){
+                              cvariable[k] = 'http://'+v
+                          }
+                          if (v.indexOf('/js/t')===0 || v.indexOf('/css/t')===0){
+                            cvariable[k] = v
+                          }
                         }
                         else {
                             cvariable[k] = v
