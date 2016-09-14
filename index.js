@@ -44,6 +44,8 @@ var statics = require('./modules/static'),
 	socketio = require('./modules/wsocket'),   //websocket
 	render = require('./modules/render'),
 	_mapper = require('./modules/mapper')(args[0]);
+	fkpConfig.mapper = _mapper;
+
 
 
 
