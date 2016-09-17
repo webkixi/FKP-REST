@@ -5,6 +5,7 @@ let co = require('co');
 let docs = require( 'modules/docs' )
 
 function *demoIndexData(oridata, control){
+    let that = this;
 
     async function getDocsData(url, opts){
         let _data = await docs.getDocsData(url, opts)
@@ -13,7 +14,16 @@ function *demoIndexData(oridata, control){
 
     async function loadMdFile(url){
         let _data = await docs.loadMdFile(url);
-        return await co(_data)
+        let tmp = await co(_data)
+        if (!tmp){
+          if (that.method==='GET') return this.redirect('/404')
+          else {
+            console.error('md document not exist');
+            return libs.errors['50001']
+          }
+        }
+        tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
+        return tmp;
     }
 
     return control.run({
@@ -35,10 +45,10 @@ function *demoIndexData(oridata, control){
 
             if (params && params.md){
               tmp = await loadMdFile(params.md);
-              if (!tmp){
-                return this.redirect('/404')
-              }
-              tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
+              // if (!tmp){
+              //   return this.redirect('/404')
+              // }
+              // tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
               staticData = _.extend(staticData, tmp);
             }
             else {
@@ -63,8 +73,10 @@ function *demoIndexData(oridata, control){
               return {error: '该文档不存在'}
             }
 
-            if (body.mt){
-                return staticData;
+            if (body.md){
+              var tmp = await loadMdFile(body.md);
+              staticData = _.extend(staticData, tmp);
+              return staticData;
             }
             else {
                 return {pdata: '我是post数据'}

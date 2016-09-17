@@ -2,55 +2,8 @@
 <html lang="en">
 
 <head>
-    {{#if mdcontent}}
-    <!-- demoindex markdown -->
-        <title> {{mdcontent.title}}markdown文档自动生成</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="description" content="">
-        <link rel="stylesheet" href="/css/{{commoncss}}" />
-        <link rel="stylesheet" href="/css/{{pagecss}}" />
-        <link rel="stylesheet" href="/css/t/markdown.css" />
-        {{#if mdcontent.css}}
-        <link rel="stylesheet" href="{{mdcontent.css}}" />
-        {{/if}}
-        <!--[if lt IE 9]>
-            <script src="/js/t/ie.js"></script>
-        <![endif]-->
-
-
-    {{else}}
-    <!-- demoindex列表 -->
-        <title>FKPJS全栈框架-markdown文档文件自动生成demo</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="/css/{{commoncss}}" />
-        <link rel="stylesheet" href="/css/{{pagecss}}" />
-        <script type="text/javascript" src="/js/t/qrcode.js"></script>
-        <!--[if lt IE 9]>
-            <script src="/js/ie.js"></script>
-        <![endif]-->
-        <style media="screen">
-            html {
-                background: #fff;
-                font-family: BrixSansRegular,BrixSansMedium,"Helvetica Neue",Helvetica,sans-serif;
-                color: #5c80b3;
-                -webkit-font-smoothing: antialiased;
-                text-rendering: optimizeLegibility;
-                -moz-osx-font-smoothing: grayscale;
-                letter-spacing: -.1px;
-            }
-            .qrcode{
-                cursor: pointer;
-            }
-            .dplay{
-                display: block;
-            }
-        </style>
-    {{/if}}
+    <title> {{mdcontent.title}}-FKPJS全栈框架</title>
+    @@include('./_common/docs/header.html')
 </head>
 
 <body>
@@ -62,37 +15,37 @@
                 {{{menutree}}}
             </div>
                 <div class="right">
-                    {{#if mdcontent}}
-                        @@include('./_demoindex/detail.html')
-                    {{else}}
-                    <div class="hheader demo">
-                        <div class="home-start u-clearfix">
-                            @@include('./_demoindex/homeStart.html')
-                        </div>
+                  @@include('./_demoindex/detail.html')
+                  <div class="hheader demo">
+                      <div class="home-start u-clearfix">
+                          @@include('./_demoindex/homeStart.html')
+                      </div>
+
+                      <div class="show">
                         <h2 style="margin-left:0.2em;margin-bottom:0.6em;">
-                            Demo
+                          Demo
                         </h2>
                         <ol>
-                            {{#each demoindex.root.list}}
-                                <li class="item">
-                                    <div class="hheader">
-                                        {{# if img}}
-                                        <a href="{{img}}" target="_blank">
-                                            <img src="{{img}}"/>
-                                        </a>
-                                        {{/if}}
-                                    </div>
-                                    <div class="hbody">
-                                        <a href="{{url}}" class="title">{{title}}</a>
-                                        {{#if des}}
-                                            <a class="descript" target="_blank" href="{{group}}/{{mdname}}">说明</a>
-                                        {{/if}}
-                                    </div>
-                                </li>
-                            {{/each}}
+                          {{#each demoindex.root.list}}
+                          <li class="item">
+                            <div class="hheader">
+                              {{# if img}}
+                              <a href="{{img}}" target="_blank">
+                                <img src="{{img}}"/>
+                              </a>
+                              {{/if}}
+                            </div>
+                            <div class="hbody">
+                              <a href="{{url}}" class="title">{{title}}</a>
+                              {{#if des}}
+                              <a class="descript" target="_blank" href="{{group}}/{{mdname}}">说明</a>
+                              {{/if}}
+                            </div>
+                          </li>
+                          {{/each}}
                         </ol>
-                    </div>
-                {{/if}}
+                      </div>  <!-- show end -->
+                  </div>
             </div>
         </div>
     </div>

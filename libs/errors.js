@@ -19,4 +19,7 @@ module.exports = {
 
 
     "40001": {error: "40001", message: "数据返回出错"},
+
+
+    "50001": {error: "50001", message: "markdown文件不存在"},
 }

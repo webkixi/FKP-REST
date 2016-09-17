@@ -2,12 +2,8 @@
 <html lang="en">
 
 <head>
-    {{#if mdcontent}}
-    <title> {{mdcontent.title}}-MARKDOWN文档系统</title>
-    {{else}}
-    <title>好用的MD文档系统</title>
-    {{/if}}
-    @@include('./_common/docs/header.html')
+  <title> {{mdcontent.title}}-MARKDOWN文档系统</title>
+  @@include('./_common/docs/header.html')
 </head>
 
 <body>
@@ -20,13 +16,10 @@
                 <div id="mtree"></div>
             </div>
                 <div class="right">
-                    {{#if mdcontent}}
-                        @@include('./_demoindex/detail.html')
-                    {{else}}
-                    <div class="hheader demo">
-                        @@include('./_common/docs/home.html')
-                    </div>
-                {{/if}}
+                  @@include('./_demoindex/detail.html')
+                  <div class="hheader demo">
+                      @@include('./_common/docs/home.html')
+                  </div>
             </div>
         </div>
     </div>

@@ -11,6 +11,10 @@ function adapter(data){
 		)
 	}
 
+	/*
+	 * 所有子项li
+	 *
+	 */
 	function getLis(lis){
 		var _lis = [];
 		if (lis.length){
@@ -24,10 +28,12 @@ function adapter(data){
 					}
 				});
 
-				var _title = <a key={'lis'+i} href={item.url}>{item.title}{_timeago}</a>;
+				var _pos = _.uniqueId('pos')
+				var _title = <a key={'lis'+i} href={item.url+'&pos='+_pos}>{item.title}{_timeago}</a>;
 				_lis.push({
 					// title: item.title,
 					// url: item.url,
+					attr: {pos: _pos},
 					title: _title
 				})
 			})

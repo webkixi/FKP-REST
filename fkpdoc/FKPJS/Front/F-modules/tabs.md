@@ -16,3 +16,6 @@ Tabs组件组件一套同构react组件，适用于前端/node端，文档正在
 
 ##### 横向tabs
 * {div: true, id: for-htabs}  
+
+
+* {div: true, id: addtab}  

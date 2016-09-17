@@ -27,7 +27,7 @@ function tabs(data, opts, c){
     var inject = libs.inject().css;
     inject([
         '/css/t/ui/'+dft.theme+'.css'
-        ,'ui_vtabs'
+        ,'ui_'+dft.theme
     ])
 
     var Tabs = BaseTabs(dft.globalName);

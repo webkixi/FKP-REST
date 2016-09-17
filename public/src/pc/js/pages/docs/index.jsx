@@ -1,6 +1,4 @@
 var libs = require('libs/libs')
-var _ = require('lodash')
-var Mtree = require('modules/menutree').pure()
 
 $('li.category a').click(function(e){
     e.stopPropagation()
@@ -11,13 +9,39 @@ $('li.category').find('h4').click(function(){
     $(this).next('ul').toggle()
 })
 
-// require('libs/api').req('/docs',{mt: 'test'})
-// .then(function(data){
-//     React.render(
-//         <Mtree data={data.docs} listMethod={lm}/>,
-//         document.getElementById('mtree')
-//     )
-// })
+$('li[data-pos] a').click(function(e){
+  e.preventDefault();
+  $('li[data-pos]').removeClass('selected')
+  $(this).parent().addClass('selected')
+
+  var href = this.href;
+  var query = libs.queryString(this.href);
+  require('libs/api').req('/docs',{md: query.md})
+  .then(function(data){
+    $('.demo').hide();
+    $('#md-content').show();
+    if (data.mdcontent.css){
+      window.location.href = href;
+    }
+    else {
+      $('#md-content-title').html(data.mdcontent.title);
+      $('#md-content-author').html(data.mdcontent.author);
+      $('#md-content-cnt').html(data.mdcontent.cnt);
+      $('#md-content-menu').html(data.mdcontent.mdmenu);
+      setTimeout(function(){
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+      }, 300)
+      history.replaceState(null, null, "/docs");
+    }
+  })
+})
+
+var query = libs.queryString(location.search);
+if (query.pos){
+  $('li[data-pos='+query.pos+']').addClass('selected')
+}
+
 
 
 //英文目录映射中文

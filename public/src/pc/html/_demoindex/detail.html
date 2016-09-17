@@ -1,16 +1,16 @@
-<div class="markdown-body">
+<div id="md-content" class="markdown-body" style="display: none;">
         <div class="span9">
-            <h1>{{mdcontent.title}}</h1>
-            {{#if mdcontent.author}}
-            <small>作者：{{mdcontent.author}}</small>
-            {{/if}}
-            {{{mdcontent.cnt}}}
+            <h1 id="md-content-title">{{mdcontent.title}}</h1>
+            <small id="md-content-author">作者：{{mdcontent.author}}</small>
+            <div id="md-content-cnt">
+              {{{mdcontent.cnt}}}
+            </div>
         </div>
 
         <div class="span3 side">
             <div id="side-menu" class="side-menu">
                 <h4>文章目录</h4>
-                <ul>
+                <ul id="md-content-menu">
                     {{{mdcontent.mdmenu}}}
                 </ul>
             </div>

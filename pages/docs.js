@@ -83,15 +83,25 @@ function *_ckMkDir(path){
 }
 
 function *demoIndexData(oridata, control){
+    let that = this;
 
     async function getDocsData(path, opts){
         let _data = await docs.getDocsData(path, opts)
         return await co(_data)
     }
 
-    async function loadMdFile(path){
-        let _data = await docs.loadMdFile(path)
-        return await co(_data)
+    async function loadMdFile(url){
+        let _data = await docs.loadMdFile(url);
+        let tmp = await co(_data)
+        if (!tmp){
+          if (that.method==='GET') return this.redirect('/404')
+          else {
+            console.error('md document not exist');
+            return libs.errors['50001']
+          }
+        }
+        tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
+        return tmp;
     }
 
     if (!_docs){
@@ -103,13 +113,13 @@ function *demoIndexData(oridata, control){
             let params = libs.uri(this.local.path);
             let keys = Object.keys(params);
             if (keys.length){
-                let __whichDoc = keys[0];
-                if (_docs && _docs.indexOf(__whichDoc)>-1){
-                    _whichDoc = `fdocs/${__whichDoc}`
-                }
+              let __whichDoc = keys[0];
+              if (_docs && _docs.indexOf(__whichDoc)>-1){
+                _whichDoc = `fdocs/${__whichDoc}`
+              }
             }
             else {
-                _whichDoc='fdocs/fkp'
+              _whichDoc='fdocs/fkp'
             }
 
             let tmp={};
@@ -141,9 +151,9 @@ function *demoIndexData(oridata, control){
 
         post: async () => {
             let _body = await libs.$parse(this);
-            let body = await co(_body)
+            let body = await co(_body);
 
-            let staticData = await getDocsData('fdocs/fkp', {
+            let staticData = await getDocsData(_whichDoc, {
               pre: 'post_',
               docs: true,
               sitemap: false,
@@ -151,8 +161,11 @@ function *demoIndexData(oridata, control){
               menutree: false,
               append: {}
             });
-            if (body.mt){
-                return staticData;
+
+            if (body.md){
+              var tmp = await loadMdFile(body.md);
+              staticData = _.extend(staticData, tmp);
+              return staticData;
             }
             else {
                 return {pdata: '我是post数据'}

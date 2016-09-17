@@ -5,7 +5,7 @@ html{
     font: 16px/1 Roboto-Light,roboto,'Microsoft Yahei',sans-serif,Arial,Verdana;
 }
 body{
-    background-color: #f8f8f8;
+    background-color: #fff;
 }
 a{
     text-decoration: none;
@@ -67,32 +67,7 @@ a{
 	}
 }
 
-.doc-container{
-    width: 100%;
-    height: auto;
-    .left{
-        // padding-top: 1em;
-        display: inline-block;
-        width: 25%;
-        vertical-align: top;
-        border-right: 1px solid #f1f1f1;
-        background-color: #fff;
-        height: 100%;
-    }
-    .right{
-        // padding-top: 1em;
-        display: inline-block;
-        width: 74%;
-        vertical-align: top;
-    }
-
-    .side-menu{
-        ul, ol{
-            list-style-type: square;
-        }
-    }
-}
-
+// ul ol 下 li 的效果
 .forul(){
     list-style: none;
     li{
@@ -107,9 +82,9 @@ a{
         border: 1px solid #e8e8e8;
         border-radius: 0.3em;
         margin: 0 0 0.6em 0.5em;
-        a{
-            color: #2472c1;
-        }
+        // a{
+        //     color: #2472c1;
+        // }
         .hheader{
             height: 80%;
             overflow: hidden;
@@ -132,47 +107,87 @@ a{
     }
 }
 
-/* 右侧 */
-.demo{
-    padding-top: 1em;
-    margin-bottom: 1.5em;
-    margin-left: 0.1em;
-    .home-start{
-        a{
-            color: #a1d0ff;
-            text-decoration: underline;
-        }
-        color: #bbb;
-        background: url(/images/logo256-1.png) no-repeat;
-        background-position: center center;
-        width: 100%;
-        min-height: 40em;
-        margin: 0 auto;
-        margin-top: -1.5em;
-        margin-bottom: 3em;
+.doc-container{
+    width: 100%;
+    height: auto;
+    .left{
+        // padding-top: 1em;
+        display: inline-block;
+        width: 22%;
+        vertical-align: top;
+        border-right: 1px solid #f1f1f1;
         background-color: #fff;
-        h5{
-            line-height: 1.5em;
-        }
+        height: 100%;
     }
-    ul, ol{
-      .forul();
+    .right{
+        // padding-top: 1em;
+        border-left: 1px solid #f1f1f1;
+        display: inline-block;
+        width: 77%;
+        vertical-align: top;
+        padding-left: 1em;
+        margin-left: -5px;
     }
 
-    .logos120{
-      .forul();
-      li{
-        padding: 0;
-        margin: 0.5em 0.5em 0 0;
-        border: none;
-        width: auto;
-        height: auto;
-        img{
-          width: 120px;
+    /* 右侧 */
+    .demo{
+        padding-top: 1em;
+        margin-bottom: 1.5em;
+        margin-left: 0.1em;
+        .home-start{
+            a{
+                color: #a1d0ff;
+                text-decoration: underline;
+            }
+            color: #bbb;
+            background: url(/images/logo256-1.png) no-repeat;
+            background-position: center center;
+            width: 100%;
+            min-height: 40em;
+            margin: 0 auto;
+            margin-top: -1.5em;
+            margin-bottom: 3em;
+            background-color: #fff;
+            h5{
+                line-height: 1.5em;
+            }
         }
-      }
+        .show{
+          margin-left: 1em;
+        }
+        ul, ol{
+          .forul();
+        }
+
+        .img120{
+          img{
+            width: 120px;
+          }
+        }
+
+        .logos120{
+          .forul();
+          ul{
+            margin-left: 0;
+            li{
+              padding: 0;
+              margin: 0.5em 0.5em 0 0;
+              border: none;
+              width: auto;
+              height: auto;
+            }
+          }
+        }
+    }
+
+    .side-menu{
+        ul, ol{
+            list-style-type: square;
+        }
     }
 }
+
+
 
 @media screen{
    @media (max-width: 1080px){
@@ -194,8 +209,8 @@ a{
 // menutree
 .page-ui-kits{
     font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
-    max-width: 100%;
-    padding: 1em;
+    width: auto;
+    padding: 1em 0.2em 1em 2.5em;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -204,6 +219,15 @@ a{
         ul, ol{
             list-style-type: none;
             display: block;
+            li.selected{
+              // background-color: #f6f6f6;
+              background-color: #595959;
+              a{
+                // color: #1d1e30;
+                color: #fff;
+                font-weight: 500;
+              }
+            }
             li{
                 list-style: none;
                 &.category, .category{
@@ -243,15 +267,15 @@ a{
                             font-size: 1em;
                         }
                         &:hover{
-                            background-color: #f6f7fa;
+                            // background-color: #f6f7fa;
                         }
                         font-size: 1em;
-                        padding: 0.3em 0 0.3em 1.2em;
+                        padding: 0.3em 0 0.3em 1.8em;
                         a{
                             display: block;
                             width: 100%;
                             height: 100%;
-                            color: #2472c1;
+                            color: #9a9dae;
                             &.descript{
                                 color: #ccc;
                             }
