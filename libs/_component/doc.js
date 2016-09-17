@@ -180,14 +180,21 @@ var node = {
 
 //url处理,将URL参数转换为json对象
 //?code=1&title='aaa'  =>   {'code':1,'title':aa}
-function queryString(){
-    var arr = location.search.substring(1).split('&');
-    var query = {};
-    for(var i=0;i<arr.length;i++){
-        var inner = arr[i].split('=');
-        query[inner[0]] = inner[1];
-    }
-    return query;
+function queryString(url){
+  var _search = '';
+  if (url){
+    _search = urlparse(url).query;
+  }
+  else {
+    _search = location.search;
+  }
+  var arr = _search.substring(1).split('&');
+  var query = {};
+  for(var i=0;i<arr.length;i++){
+      var inner = arr[i].split('=');
+      query[inner[0]] = inner[1];
+  }
+  return query;
 }
 
 
@@ -372,16 +379,18 @@ function _inject() {
     }
 
     if (!type || type==='css'){
+        // css referer
         if(cssCode.indexOf('http')===0 || cssCode.indexOf('/')===0){
-            if(document.getElementById(id))
-            return;
+            if(document.getElementById(id)) return;
             var tmpLink = doc.createElement('link');
-            tmpLink.setAttribute("rel", 'stylesheet');
-            tmpLink.setAttribute("href", cssCode);
-            // tmpLink.setAttribute("id", id);
-            headElement.appendChild(tmpLink);
+                tmpLink.setAttribute("rel", 'stylesheet');
+                tmpLink.setAttribute("href", cssCode);
+                tmpLink.setAttribute("id", id);
+                headElement.appendChild(tmpLink);
             return;
         }
+
+        // css source
         if (! +"\v1") {//增加自动转换透明度功能，用户只需输入W3C的透明样式，它会自动转换成IE的透明滤镜
             var t = cssCode.match(/opacity:(\d?\.\d+);/);
             if (t != null) {
@@ -391,26 +400,26 @@ function _inject() {
         cssCode = cssCode + "\n"; //增加末尾的换行符，方便在firebug下的查看。
         var styleElements = headElement.getElementsByTagName("style");
 
-        if(document.getElementById(id))
-            return 'id has exist';
+        if(document.getElementById(id)) return;
+        else {
+          var tempStyleElement = doc.createElement('style'); //w3c
+              tempStyleElement.setAttribute("rel", "stylesheet");
+              tempStyleElement.setAttribute("type", "text/css");
+              tempStyleElement.setAttribute("id", id);
+              headElement.appendChild(tempStyleElement);
 
-        var tempStyleElement = doc.createElement('style'); //w3c
-        tempStyleElement.setAttribute("rel", "stylesheet");
-        tempStyleElement.setAttribute("type", "text/css");
-        // tempStyleElement.setAttribute("id", id);
-        headElement.appendChild(tempStyleElement);
-        var styleElement = document.getElementById(id);
-
-        var media = styleElement.getAttribute("media");
-        if (media != null && !/screen/.test(media.toLowerCase())) {
+          var styleElement = tempStyleElement;
+          var media = styleElement.getAttribute("media");
+          if (media != null && !/screen/.test(media.toLowerCase())) {
             styleElement.setAttribute("media", "screen");
-        }
-        if (styleElement.styleSheet) {    //ie
+          }
+          if (styleElement.styleSheet) {    //ie
             styleElement.styleSheet.cssText += cssCode;
-        } else if (doc.getBoxObjectFor) {
+          } else if (doc.getBoxObjectFor) {
             styleElement.innerHTML += cssCode; //火狐支持直接innerHTML添加样式表字串
-        } else {
+          } else {
             styleElement.appendChild(doc.createTextNode(cssCode))
+          }
         }
     }
     else
@@ -420,25 +429,32 @@ function _inject() {
                 if (_cb && typeof _cb==='function'){
                     _cb()
                 }
-                return 'id has exist -> libs/addSheet';
+                console.log('id has exist -> libs/addSheet');
+                return;
             }
 
-            var tmpLink = doc.createElement('script');
-            tmpLink.setAttribute("type", 'text/javascript');
-            // tmpLink.setAttribute("id", id);
+            var scripter = document.createElement('script');
+            scripter.onload = scripter.onreadystatechange = function(){
+              if( ! this.readyState || this.readyState=='loaded' || this.readyState=='complete' ){
+                SAX.setter(id, 'finish');
+              }
+            }
+
+            scripter.setAttribute("type", 'text/javascript');
+            scripter.setAttribute("id", id);
             if (src.indexOf('http')===0 || src.indexOf('/')===0){
-                tmpLink.setAttribute("src", src);
-                headElement.appendChild(tmpLink);
-                return true;
+                scripter.setAttribute("src", src);
+                headElement.appendChild(scripter);
             }
             else{
                 // var scriptElement = document.getElementById(id);
-                tmpLink.appendChild(doc.createTextNode(src))
-                headElement.appendChild(tmpLink);
+                scripter.appendChild(document.createTextNode(src))
+                headElement.appendChild(scripter);
             }
+            return true;
         }
 
-        if(cssCode.indexOf('http')===0 || cssCode.indexOf('/')===0){
+        if(srcCode.indexOf('http')===0 || srcCode.indexOf('/')===0){
             return createScript(id, srcCode)
         }
         else{
@@ -453,62 +469,54 @@ function _inject() {
 // 动态注入js或者css
 // window.onload后促发，不影响首屏显示
 function dealInject(doc){
-    if (!doc)
-        doc = document
+    if (!doc) doc = document;
+    var that = this;
 
     function _initInject(type, src, cb){
-        var args;
-        var _thirdPartJs = SAX.get('thirdPartJs')
+        var args,
+            _thirdPartJs = SAX.get('thirdPartJs')||{};
+
         if (!type || (typeof type==='object' && !type.concat)){
             type = 'css'
         }
 
         if (Array.isArray(type)){
-            args = type
+            args = type;
             type = 'css';
-            if (typeof src === 'function'){
-                cb = src
-            }
+            if (typeof src === 'function') cb = src;
         }
 
-        if (Array.isArray(src)) {
-            args = src
-        }
+        if (Array.isArray(src)) args = src
 
         if (args){
-            // var did;
-            // if (!_thirdPartJs && type==='js') {
-            //     _thirdPartJs = {}
-            //     SAX.set('thirdPartJs', _thirdPartJs)
-            // }
-            // //注入页面的id如果存在，且长度小于20
-            // var injectCode = true;
-            // if (typeof args[1]==='string' && args[1].length < 20){
-            //     did = args[1];
-            // }
-            // else {
-            //     did = urlparse(args[0].file)
-            // }
-            var did = args[1]||urlparse(args[0].file)
+            var did = args[1]||urlparse(args[0]).file
+            if (args.length===1) args.push(did)
 
-            if (cb && typeof cb==='function' && type==='js'){
-                if (_thirdPartJs[did] === 'finish'){
-                    cb()
+            if (type==='js'){
+              if (_thirdPartJs[did] === 'finish'){
+                if (that._config.reload){
+                  var _child = document.getElementById(did);
+                      _child.parentNode.removeChild(_child);
+                  delete _thirdPartJs[did];
                 }
                 else {
-                    _thirdPartJs[did] === 'loadding';
-                    SAX.append('thirdPartJs', _thirdPartJs);
-                    if (typeof args[0]==='string'&&( args[0].indexOf('http')===0 || args[0].indexOf('/')===0)){
-                        injectCode = false;
-                        SAX.set(did, null, [function(){
-                            var _tmp = {};
-                            _tmp[did] = 'finish'
-                            SAX.append('thirdPartJs', _tmp);
-                            SAX.deleter(did)
-                        }, cb])
-                    }
+                  if (typeof cb==='function') cb();
+                  return true;
                 }
+              }
 
+              // 注入js文件
+              _thirdPartJs[did] = 'loadding';
+              SAX.append('thirdPartJs', _thirdPartJs);
+
+              if (typeof args[0]==='string' && ( args[0].indexOf('http')===0 || args[0].indexOf('/')===0)){
+                  SAX.set(did, null, [function(){
+                    var _tmp = {};
+                    _tmp[did] = 'finish'
+                    SAX.append('thirdPartJs', _tmp);
+                    SAX.deleter(did)
+                  }, (cb||function(){})])
+              }
             }
             // load之后执行
             setTimeout(function(){
@@ -516,15 +524,14 @@ function dealInject(doc){
                     if (args){
                         _inject.call(doc, type, args, cb)
                     }
+                    if (type === 'css'){
+                        if (typeof cb==='function') cb()
+                    }
                 }
                 else{
                     if (args){
                         _inject.call(doc, args)
                     }
-                }
-                if (type === 'css' || injectCode){
-                    if (typeof cb==='function')
-                        cb()
                 }
             },17)
         }
@@ -534,13 +541,26 @@ function dealInject(doc){
 
     }
 
+    this._config = {
+      reload: false   //重新注入文件
+    }
+
     this.css = function(src, cb){
         _initInject('css', src, cb)
         return this
     }
-    this.js = function(src, cb){
-        _initInject('js', src, cb)
-        return this
+
+    this.js = function(src, opts, cb){
+      if (typeof opts==='function'){
+        cb = opts;
+      }
+
+      if (opts && opts.reload){
+        this._config.reload = opts.reload
+      }
+
+      _initInject('js', src, cb)
+      return this
     }
 }
 
