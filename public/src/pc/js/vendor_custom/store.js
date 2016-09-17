@@ -226,47 +226,46 @@
             var save = _stock;
 
             if (!save[name]) {
-                return false
+                this.set(name, dataOrAct, fun)
+            }
+            var target;
+            if (getObjType(dataOrAct) === 'Object') {
+                if (getObjType(save[name].sdata) === 'Object') {
+                    target = extend(true, save[name].sdata, dataOrAct)
+                    save[name].setter(target);
+                }
+
+                if (getObjType(save[name].sdata) === 'Array') {
+                    var tmp = save[name].sdata;
+                    tmp.push(dataOrAct)
+                    target = tmp
+                    save[name].setter(target);
+                }
             } else {
-                var target;
-                if (getObjType(dataOrAct) === 'Object') {
-                    if (getObjType(save[name].sdata) === 'Object') {
-                        target = extend(true, save[name].sdata, dataOrAct)
-                        save[name].setter(target);
+                var tmp;
+                if (getObjType(dataOrAct) === 'Array'){
+                    if (getObjType(save[name].sdata) === 'Array'){
+                        tmp = save[name].sdata.concat(dataOrAct);
                     }
+                    else
+                    if (getObjType(save[name].sdata) &&
+                        getObjType(save[name].sdata.data) === 'Array'){
 
-                    if (getObjType(save[name].sdata) === 'Array') {
-                        var tmp = save[name].sdata;
-                        tmp.push(dataOrAct)
-                        target = tmp
-                        save[name].setter(target);
+                        var _tmp = save[name].sdata.data.concat(dataOrAct);
+                        tmp = {data: _tmp}
                     }
-                } else {
-                    var tmp;
-                    if (getObjType(dataOrAct) === 'Array'){
-                        if (getObjType(save[name].sdata) === 'Array'){
-                            tmp = save[name].sdata.concat(dataOrAct);
-                        }
-                        else
-                        if (getObjType(save[name].sdata) &&
-                            getObjType(save[name].sdata.data) === 'Array'){
-
-                            var _tmp = save[name].sdata.data.concat(dataOrAct);
-                            tmp = {data: _tmp}
-                        }
+                }
+                else {
+                    if (getObjType(save[name].sdata) === 'Array'){
+                        save[name].sdata.push(dataOrAct)
                     }
                     else {
-                        if (getObjType(save[name].sdata) === 'Array'){
-                            save[name].sdata.push(dataOrAct)
-                        }
-                        else {
-                            console.error('sax数据类型不匹配');
-                        }
+                        console.error('sax数据类型不匹配');
                     }
-
-                    target = tmp;
-                    save[name].setter( target );
                 }
+
+                target = tmp;
+                save[name].setter( target );
             }
         },
 
