@@ -5,15 +5,15 @@ css: www.agzgz.com/css/abc.css
 @@@
 # FKP日志-2.15.14
 
-markdown文档系统-列表项支持推荐状态
-ajax访问，提升体验效果
-core-itemDealWithdata，<li>支持attr数据，自动转化为<li>的`data-*`的属性
-动态注入css/js方法优化，支持自动注入，无需手工添加sax代码
-markdown文档支持动态插入CSS/JS，加入多标签tabs文档演示
-markdown模块支持插入带ID的DIV
-markdown模块，自定义属性优化，加入属性白名单
-优化menutree组件，新文件提示
-优化了时间函数timeago，并更新node端libs
+markdown文档系统-列表项支持推荐状态  
+ajax访问，提升体验效果  
+core-itemDealWithdata，`<li>`支持attr数据，自动转化为`<li>`的`data-*`的属性  
+动态注入css/js方法优化，支持自动注入，无需手工添加sax代码  
+markdown文档支持动态插入CSS/JS，加入多标签tabs文档演示  
+markdown模块支持插入带ID的DIV  
+markdown模块，自定义属性优化，加入属性白名单  
+优化menutree组件，新文件提示  
+优化了时间函数timeago，并更新node端libs  
 
 
 ## 2.15.14
