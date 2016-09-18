@@ -6,9 +6,8 @@ let docs = require( 'modules/docs' )
 
 function *demoIndexData(oridata, control){
     let that = this;
-
     async function getDocsData(url, opts){
-        let _data = await docs.getDocsData(url, opts)
+        let _data = await docs.getDocsData(url, opts);
         return await co(_data)
     }
 
@@ -16,7 +15,7 @@ function *demoIndexData(oridata, control){
         let _data = await docs.loadMdFile(url);
         let tmp = await co(_data)
         if (!tmp){
-          if (that.method==='GET') return this.redirect('/404')
+          if (that.method==='GET') return that.redirect('/404')
           else {
             console.error('md document not exist');
             return libs.errors['50001']
@@ -40,7 +39,7 @@ function *demoIndexData(oridata, control){
             })
 
             if (!staticData){
-              return this.redirect('/404');
+              return that.redirect('/404');
             }
 
             if (params && params.md){

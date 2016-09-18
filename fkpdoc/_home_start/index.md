@@ -22,7 +22,7 @@ beta版，仅供学习交流
 
 # MD文档系统    
 撰写文档，API文档利器  
-基于FKPJS，[安装FKPJS](/demoindex?md=FKPJS_14install)   
+基于FKPJS，[安装FKPJS](?md=fkpdoc_FKPJS_10Start_14install)   
 支持MARKDOWN语法  [markdown语法](http://www.agzgz.com/dbdemo?topic=57c53db023498c1664cfed86)   
 支持MD扩展语法 [FKP MARKDOWN扩展](http://www.agzgz.com/dbdemo?topic=57c5615b23498c1664cfed87)   
 纯静态生成   
