@@ -6,6 +6,7 @@ config = require '../configs/config.coffee'
 os = require('os');
 ifaces = os.networkInterfaces();
 port = 0
+_ = require('lodash')
 
 _subString = (str, len, hasDot) ->
     newLength = 0
@@ -136,6 +137,7 @@ makeHtmlListData = (pa, capt) ->
                             ipurl: _ipurl,
                             group: caption || '',
                             title: title,
+                            stat: '',
                             fileName: filename.replace(ext,'.html'),
                             fullpath: firstPath,
                             des: '',
@@ -156,12 +158,20 @@ makeHtmlListData = (pa, capt) ->
                         list[ _caption ].list.push(fileprofile)
 
                 if ext == '.md'
-                    if !tmp[filename]
-                        content = fs.readFileSync(firstPath,'utf8')
-                        tmp = _subString(content, 100, true)
-                        title = content.match(/#([\s\S]*?)\n/)
-                        if title
-                            title = title[1].replace(/ \{(.*)\}/g, '')  # 清除自定义属性，如{"id":"xxx"}
+                    fileStat = ''  # 文件title在列表中的状态，如推荐，热门等等，通过title的头字符描述
+                    getTitle = (cnt)->
+                        title = cnt.match(/#([\s\S]*?)\n/)||''
+                        if title then title = title[1].replace(/ \{(.*)\}/g, '')  # 清除自定义属性，如{"id":"xxx"}
+                        title = _.trim(title)
+                        if title.indexOf('@')==0
+                            title = title.substring(1)
+                            fileStat = 'recommend'
+                        return title
+
+                    getDescript = (cnt)->
+                        return cnt.match(/>([\s\S]*?)\n/)
+
+                    getUrl = ()->
                         _filenameMd = filename.replace(ext, '_md.html')
                         _url = if caption then depthFile.replace('.html','_md.html') else ( (caption || '') + '/' + _filenameMd )
                         _url = _url.replace('public/src/pc/html/','')
@@ -175,11 +185,18 @@ makeHtmlListData = (pa, capt) ->
                             _append_url = _append_url.replace(/\//g,'_')
                             # _url = '/demoindex?md='+_append_url
                             _url = '?md='+_append_url
-                            _ipurl = 'http://'+ tip + ipport + _url
-                        else
-                            filename = filename.replace(ext,'_md.html')
-                            _ipurl = 'http://'+ tip + ipport + '/' + _url
+                            return _url
+
+                    if !tmp[filename]
+                        content = fs.readFileSync(firstPath,'utf8')
+                        descript = getDescript(content)
+                        title = getTitle(content)
+                        _url = getUrl()
+                        _ipurl = 'http://'+ tip + ipport + '/' + _url
                         _ipurl = _ipurl.replace(/\/\//g,'/').replace(':/','://')
+
+                        if (firstPath.indexOf(docDir)==-1)
+                            filename = filename.replace(ext,'_md.html')
 
                         if title
                             fileprofile = {
@@ -187,15 +204,15 @@ makeHtmlListData = (pa, capt) ->
                                 ipurl: _ipurl,
                                 group: caption || '',
                                 title: title,
+                                stat: fileStat,
                                 fileName: filename,
                                 fullpath: firstPath,
-                                des: '',
+                                des: descript,
                                 mdname: '',
                                 ctime: thisFile.ctime,
                                 birthtime: thisFile.birthtime
                             }
                             list[ _caption ].list.push(fileprofile)
-
                 return
 
             if (thisFile.isDirectory() && filename.indexOf('_')!=0 )

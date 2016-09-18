@@ -11,9 +11,11 @@ function adapter(data){
 		)
 	}
 
-	/*
-	 * 所有子项li
-	 *
+
+	/**
+	 * getLis 所有子项li
+	 * @param  {String|ReactElement|Array}  lis 子项数组
+	 * @return {Array}     标准格式，符合ListView的数据格式
 	 */
 	function getLis(lis){
 		var _lis = [];
@@ -30,10 +32,11 @@ function adapter(data){
 
 				var _pos = _.uniqueId('pos')
 				var _title = <a key={'lis'+i} href={item.url+'&pos='+_pos}>{item.title}{_timeago}</a>;
+				if (item.stat){
+					_title = <a className={item.stat} key={'lis'+i} href={item.url+'&pos='+_pos}>{item.title}{_timeago}</a>;
+				}
 				_lis.push({
-					// title: item.title,
-					// url: item.url,
-					attr: {pos: _pos},
+					attr: {pos: _pos, stat: item.stat},
 					title: _title
 				})
 			})
@@ -42,6 +45,13 @@ function adapter(data){
 	}
 
 	var childrenCount = 1;   //限制级数为3层, react不能超过3层
+	/**
+	 * [getChildren 递归获取三层数据结构的目录结构]
+	 * @param  {JSON} father [JSON的数据结构]
+	 * @param  {String} cls    css class
+	 * @param  {Number} depth  数据深度，允许三层
+	 * @return {Array}        返回ListView的标准数据格式
+	 */
 	function getChildren(father, cls, depth){
 		if (depth){
 			childrenCount++
@@ -55,7 +65,6 @@ function adapter(data){
 				data[child].children.length
 			){
 				lis = lis.concat(getChildren(data[child], cls, true))
-				// _tmp.push( getChildren(data[child]) )
 			}
 			else {
 				childrenCount = 1;
