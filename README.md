@@ -22,6 +22,8 @@ This is a starter boilerplate app I've put together using the following technolo
 # [Demo](http://www.agzgz.com)   
 # [Log](http://www.agzgz.com/demoindex?md=log)   
 
+![](http://www.agzgz.com/images/demo/index.jpg)
+
 # 1、概述  
 FKP-REST是一套前后端分离，基于javascript的全栈实现，适用于中小型项目，基于node的高性能，易部署性及javascript前后端语言的一致性，学习成本，时间成本及项目快速启动等等方面，FKP都是一种不错的解决方案。提升项目前期、中期的开发效率   
 &#160;  
