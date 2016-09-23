@@ -91,8 +91,10 @@ gulp.task 'g:pro', getTask('g', 'pro')
 
 
 # js/pages编译并生成_common.js
-gulp.task 'wp:dev', ['g:dev'], getTask('wp')
-gulp.task 'wp:pro', ['g:pro'], getTask('wp', 'pro')
+# gulp.task 'wp:dev', ['g:dev'], getTask('wp')
+# gulp.task 'wp:pro', ['g:pro'], getTask('wp', 'pro')
+gulp.task 'wp:dev', getTask('wp')
+gulp.task 'wp:pro', getTask('wp', 'pro')
 
 
 # 默认启动本地DEMO服务器

@@ -133,49 +133,55 @@ function initDir(aryDir, fatherDirName, isPack, depth) {
 
 //make webpack plugins
 var plugins = function(dirname, isPack, options) {
-
     var venders,
         _watch = options && options.watch,
-        ret_plugins = [
-            // new webpack.optimize.OccurenceOrderPlugin(),
-            new webpack.NoErrorsPlugin(),
-            new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
-
-            // wait for webpack2 stable
-            // new ExtractTextPlugin("../css/[name].css", {
-            //     allChunks: isPack === true ? true : false
-            // }),
-
-            // new webpack.DefinePlugin({
-            //     'process.env': {
-            //         NODE_ENV: '"development"'
-            //     }
-            // })
-            //new webpack.HotModuleReplacementPlugin(),
-        ],
         common_trunk_config = {
             name: '_common',
             filename: '_common.js',
             minChunks: 3, //Infinity
-            async: false
-            //children: true
+            async: false,
+            children: true
         }
 
-    // 由gulp watch传过来的编译，直接返回
-    if (_watch) {
+    ret_plugins = [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.IgnorePlugin(/vertx/), // https://github.com/webpack/webpack/issues/353
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.optimize.MinChunkSizePlugin({
+          minChunkSize: 51200, // ~50kb
+        }),
+        new webpack.NoErrorsPlugin(),
+
+        /*
+        wait for webpack2 stable
+        new ExtractTextPlugin("../css/[name].css", {
+            allChunks: isPack === true ? true : false
+        }),
+
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"development"'
+            }
+        })
+        */
+    ];
+
+    if (_watch) {   // 由gulp watch传过来的编译，直接返回
         ret_plugins.push(new webpack.optimize.DedupePlugin())
         return ret_plugins;
     }
 
 
     if (options && options.type) {
-        if (options.type.toString().indexOf('ss') > -1 || options.type === 'stylus' || options.type === 'styl') {
+        if (options.type.toString().indexOf('ss') > -1 ||
+          options.type === 'stylus' ||
+          options.type === 'styl'
+        ){
             dirname = 'noCommon';
         }
     }
 
     if (getObjType(dirname) === 'String' && dirname !== 'pages') {
-        // common_trunk_config.filename = "./other/_normal.js";
         common_trunk_config.filename = "./otherCommon/_" + dirname + ".js";
     }
 
@@ -202,9 +208,10 @@ var plugins = function(dirname, isPack, options) {
 }
 
 
-
-
-// 开发环境下的babel配置
+/**
+ * [babelrcObject babel webpack 的配置]
+ * @type {Object}
+ */
 var babelrcObject = {
     "presets": ["react", "es2015", "stage-0"],
 
@@ -243,10 +250,10 @@ var babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.developmen
 
 // merge global and dev-only plugins
 var combinedPlugins = babelrcObject.plugins || [];
-combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins);
+    combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins);
 
 var babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, { plugins: combinedPlugins });
-delete babelLoaderQuery.env;
+    delete babelLoaderQuery.env;
 
 // Since we use .babelrc for client and server, and we don't want HMR enabled on the server, we have to add
 // the babel plugin react-transform-hmr manually here.
@@ -277,7 +284,13 @@ if (!reactTransform[1] || !reactTransform[1].transforms) {
 //   locals: ['module']
 // });
 
-//make webpack loaders
+
+
+/**
+ * [custom_modules 配置webpack的loaders]
+ * @param  {[type]} opts [description]
+ * @return {[type]}      [description]
+ */
 var custom_modules = function(opts) {
 
     var loaders = [
@@ -308,7 +321,6 @@ var custom_modules = function(opts) {
     ]
 
     if (configs.babel) {
-
         require('babel-polyfill');
         var _babel = 'babel'
         if (opts.env === 'pro') {
@@ -352,9 +364,6 @@ var custom_modules = function(opts) {
 
 //webpack externals
 custom_externals = {
-    // "jquery": "jQuery",
-    // "react": "React",
-    // "$": "jQuery"
     "fkp-sax": "SAX",
 }
 
@@ -407,9 +416,8 @@ module.exports = {
             }
         }
 
-        //json
-        else
-        if (dirname && getObjType(dirname) === 'Object') {
+        //JSON
+        else if (dirname && getObjType(dirname) === 'Object') {
             entry = $extend(true, {}, dirname);
             idf_plugins = plugins('noCommon');
 
@@ -419,9 +427,8 @@ module.exports = {
                 delete entry.noCommon;
         }
 
-        //array
-        else
-        if (dirname && getObjType(dirname) === 'Array') {
+        //Array
+        else if (dirname && getObjType(dirname) === 'Array') {
             if (opts.source === 'dir') {
                 entry = this.readDirs(dirname, isPack, options);
 
@@ -438,7 +445,9 @@ module.exports = {
 
                 if (options.rename && options.rename === 'common')
                     idf_plugins = plugins('noCommon');
-            } else {
+            }
+
+            else {
                 idf_plugins = plugins('noCommon');
                 dirname = opts.prepend.concat(dirname).concat(opts.append);
                 entry = { '_ary': dirname };
@@ -447,27 +456,14 @@ module.exports = {
             }
         }
 
-        // console.log(entry);
-        // function whichSourceMap(){
-        //     if (options && options.env){
-        //         var env = options.env;
-        //         if (env === 'dev'){
-        //             return 'cheap-module-eval-source-map'
-        //         }
-        //         else {
-        //             return 'cheap-source-map'
-        //         }
-        //     }
-        // }
-
         return {
             cache: true,
             debug: true,
-            // devtool: "source-map",
-            // devtool: "cheap-module-eval-source-map",
-            // devtool: "cheap-source-map",
+            progress: true,
+            colors: true,
             recursive: true,
             entry: entry,
+            watch: true,
             output: {
                 path: (function() {
                     if (options.env === 'pro') {
@@ -475,7 +471,6 @@ module.exports = {
                     }
                     return path.join(__dirname, '../../', config.dist + '/' + configs.version + '/dev/js/');
                 })(),
-                // publicPath: '../../' + configs.version + '/dev/js/',
                 publicPath: '/js/',
                 filename: (function() {
                     if (options.env === 'pro') {
@@ -544,7 +539,10 @@ module.exports = {
             staticType = chkType(type),
             _webpackDevCompiler,
             _webpackDevConfig = staticType !== 'templet' ? this.create(dirname, isPack, options) : this.create(dirname, true, options);
+
         _webpackDevConfig.devtool = 'cheap-module-eval-source-map'
+        // _webpackDevConfig.devtool = "source-map" | "cheap-module-eval-source-map" | "cheap-source-map"
+
         if (options && options.env) {
             var env = options.env;
             if (env === 'pro') {
@@ -554,7 +552,7 @@ module.exports = {
         }
 
         entry = _webpackDevConfig.entry;
-        entrys = clone(entry); //clone entry
+        entrys = clone(entry);  //clone entry
 
 
         //数组或单文件，强制不进行合并，分别生成
@@ -753,20 +751,15 @@ module.exports = {
                     _webpackDevConfig.entry = nEntry;
                     if (_md5) {
                         _webpackDevConfig.plugins.push(
-                                new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
-                            )
-                            // console.log(_webpackDevConfig);
+                            new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+                        )
                     }
                     _webpackDevCompiler = webpack(_webpackDevConfig);
                     _webpackDevCompiler.run(function(err, stats) {
-                        if (err)
-                            throw new gutil.PluginError('[webpack]', err);
-
+                        if (err) throw new gutil.PluginError('[webpack]', err);
                         gutil.log('[webpack]', stats.toString({ colors: true }));
-
-                        if (cb)
-                            cb();
-                    });
+                        // cb();
+                    })
                 }
             }
 
