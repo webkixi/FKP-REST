@@ -1,5 +1,3 @@
-// $('.fnode').hide()
-
 var libs = require('libs/libs')
 
 $('li.category a').click(function(e){
