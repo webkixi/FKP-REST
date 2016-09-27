@@ -1,12 +1,4 @@
-var _ = require('lodash')
-
-// guid
-function guid(prefix) {
-    prefix = prefix || "fkpjs-";
-    return (prefix + Math.random() + Math.random()).replace(/0\./g, "");
-}
-
-
+var _ = lodash
 /**
  * 创建一个类，自动执行init的方法
  * var rt = Class.create();
@@ -26,29 +18,25 @@ var Class = {
     }
 }
 
-//类数组对象转换成数组
-function arg2arr(s){
-    try{
-        return Array.prototype.slice.call(s);
-    }
-    catch(e){
-        var arr = [];
-        for(var i = 0,len = s.length; i < len; i++){
-             //arr.push(s[i]);
-            arr[i] = s[i];  //据说这样比push快
-        }
-        return arr;
-    }
-}
-
 //计算字符变量的长度，包含处理中文
+/**
+ * [strLen 计算字符变量的长度，包含处理中文]
+ * @param  {String}  str    [串]
+ * @return {String}         [mix字串的长度]
+ */
+
 function strLen(str){
     return str.replace(/[^\x00-\xff]/g,"aaa").length;
 }
 
-/* 2007-11-28 XuJian */
-//截取字符串 包含中文处理
-//(串,长度,增加...)
+
+/**
+ * [grabString 截取字符串 包含中文处理]
+ * @param  {String}  str    [串]
+ * @param  {Number}  len    [截取长度]
+ * @param  {Boolean} hasDot [是否需要省略号]
+ * @return {String}         [返回字串]
+ */
 function grabString(str, len, hasDot) {
     var newLength = 0;
     var newStr = "";
@@ -75,64 +63,6 @@ function grabString(str, len, hasDot) {
 
     return newStr;
 }
-
-
-//json数据转换成query查询
-//如 {x:1,y:2}    转化后 ?x=1&y=2
-var json2url = function(obj){
-    var url = '',
-        keys = Object.keys(obj);
-
-    if (!obj || typeof obj !== 'object') {
-        return false;
-    }
-
-    keys.map (function(item,i){
-        if(i===(keys.length-1)){
-            url += item + '=' + obj[item];
-        }
-        else {
-            url += item + '=' + obj[item] + '&';
-        }
-    })
-    return url;
-}
-
-/**
- * 判断obj是什么类型的变量 Numeric / Object / Function / String ...
- */
-function getObjType(object){
-    return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
-};
-
-function preventDefault(event) {
-    if (event.preventDefault) {
-        event.preventDefault();
-    } else {
-        event.returnValue = false;
-    }
-}
-
-/**
- * @description  操作系统检查结果。
- *
- * * `android`  如果在android浏览器环境下，此值为对应的android版本号，否则为`undefined`。
- * * `ios` 如果在ios浏览器环境下，此值为对应的ios版本号，否则为`undefined`。
- * @property {Object} [os]
- */
-var os = (function( ua ) {
-    var ret = {},
-
-        // osx = !!ua.match( /\(Macintosh\; Intel / ),
-        android = ua.match( /(?:Android);?[\s\/]+([\d.]+)?/ ),
-        ios = ua.match( /(?:iPad|iPod|iPhone).*OS\s([\d_]+)/ );
-
-    // osx && (ret.osx = true);
-    android && (ret.android = parseFloat( android[ 1 ] ));
-    ios && (ret.ios = parseFloat( ios[ 1 ].replace( /_/g, '.' ) ));
-
-    return ret;
-})( navigator.userAgent )
 
 
 /**
@@ -201,14 +131,6 @@ function inherits( Super, protos, staticProtos ) {
 }
 
 module.exports = {
-    guid: guid,
-    class: Class,
-    arg2arr: arg2arr,
-    strLen: strLen,
-    json2url: json2url,
-    getObjType: getObjType,
-    type: getObjType,
-    preventDefault: preventDefault,
-    os: os,
-    inherits: inherits
+  class: Class,
+  inherits: inherits
 }

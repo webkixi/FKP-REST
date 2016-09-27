@@ -754,11 +754,17 @@ module.exports = {
                             new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
                         )
                     }
+
+                    // webpack(_webpackDevConfig, function(err, stats) {
+                    //     if (err) throw new gutil.PluginError('[webpack]', err);
+                    //     gutil.log('[webpack]', stats.toString({ colors: true }));
+                    //     // cb();
+                    // })
                     _webpackDevCompiler = webpack(_webpackDevConfig);
                     _webpackDevCompiler.run(function(err, stats) {
                         if (err) throw new gutil.PluginError('[webpack]', err);
                         gutil.log('[webpack]', stats.toString({ colors: true }));
-                        // cb();
+                        cb();
                     })
                 }
             }
@@ -1058,7 +1064,7 @@ module.exports = {
 
                 package_name = rename ? rename : package_name;
 
-                // if (staticType === 'style' || staticType === 'script') {
+                // if (staticType === 'style' || staticType === 'script')
                 if (staticType === 'style') {
                     for (var i = 0; i < ultimates.length; i++) {
                         ultimates[i] = ultimates[i].replace('//', '/')
@@ -1096,7 +1102,6 @@ module.exports = {
                 }
             }
             //isPack===false
-            else {}
         }
 
         return entry;

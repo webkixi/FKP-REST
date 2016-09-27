@@ -6,14 +6,14 @@ var marked = require('marked')
 var render = new marked.Renderer();
 var libs = require('../../libs/libs');
 
-var whiteListPropsAry = ['id', 'class', 'div'];
+var whiteListPropsAry = ['id', 'class', 'div', 'excute'];
 
 function customParse(str, spec){
     console.log('============ modules/common/mdrender.js\n');
     var re = /[\s]?\{(.*?)\}/;    // "fjdskg  {abc: xxx} {xyz: yyy}" 取 " {....}"
     var re_g = / \{(.*)\}/g;
     var re_g_li = /<li>(\{.*?\})\s*<\/li>\s*/;
-    var re_whiteList = /(id|class|div):[\w@;: \-_]+/ig;    //只允许id 和 class
+    var re_whiteList = /(id|class|div|excute):[\w@;: \-_]+/ig;    //只允许id 和 class
 
     var tmp_str = str;
 
@@ -58,15 +58,21 @@ function customParse(str, spec){
     }
 }
 
-function whiteListProps(props){
+function whiteListProps(props, type){
   var str = '';
   for (var item in props){
-    if (item === 'div'){
-
-    }
-
-    else if (whiteListPropsAry.indexOf(item)>-1){
-      str += ' '+item+'="'+props[item]+'"';
+    switch (item) {
+      case 'div':
+        break;
+      case 'excute':  //执行内部预定义的命令并返回字符串
+        if (type==='ul'){
+          
+        }
+        break;
+      default:
+        if (whiteListPropsAry.indexOf(item)>-1){
+          str += ' '+item+'="'+props[item]+'"';
+        }
     }
   }
   return str;
@@ -263,11 +269,14 @@ render.list = function (body, ordered) {
     if (asset.div){
       template = '<' + type +'>' + body + '</' + type + '>';
       if (body){
-        template = '<div '+ whiteListProps(asset) +'>' + template + '</div>';
+        template = '<div '+ whiteListProps(asset, 'ul') +'>' + template + '</div>';
       }
       else {
-        template = '<div '+ whiteListProps(asset) +'></div>';
+        template = '<div '+ whiteListProps(asset, 'ul') +'></div>';
       }
+    }
+    else if(asset.excute){
+
     }
     else {
       template = '<' + type + whiteListProps(asset) +'>' + body + '</' + type + '>';
