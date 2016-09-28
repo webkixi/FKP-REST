@@ -21,6 +21,16 @@ JS是中小企业切入互联网的正确姿势，[GITHUB](https://github.com/we
 * [RN路由完整示例](https://github.com/webkixi/fkp-demo-rn_router)  
   fkprn路由的示例完整包
 
+```
+// 以上效果markdown语法
+* {class: packageshow}  
+* [FKP-REACT-NATIVE](https://github.com/webkixi/FKP-REACT-NATIVE)  
+  rn实现兼容ios/and架构   
+* [fkp-react-native-router](https://github.com/webkixi/fkp-react-native-router)  
+  fkp的路由包，通过npm 安装
+....
+....
+```
 一套简单的react-native框架  
 尽量与FKPJS保持一致的实现方式    
 router、tabbar、websocket。。。    
@@ -39,7 +49,18 @@ beta版，仅供学习交流
 * [搭建MD文档系统](http://www.agzgz.com/demoindex?md=._Demo_fordoc)   
   用FKPJS搭建一套文档系统，或者静态博客  
 * [lodash api](http://www.agzgz.com/docslodash)   
-  这是一篇演示文档，教你怎么搭建文档系统
+  这是一篇演示文档，教你怎么搭建文档系统   
+
+```
+// 以上效果markdown语法  
+* {class: packageshow}   
+* [安装FKPJS](?md=fkpdoc_FKPJS_10Start_14install)   
+  FKPJS的安装文档  
+* [markdown语法](http://www.agzgz.com/dbdemo?topic=57c53db023498c1664cfed86)   
+  经典MARKDOWN语法  
+....
+....
+```
 
 撰写文档，API文档利器   
 基于FKPJS  
