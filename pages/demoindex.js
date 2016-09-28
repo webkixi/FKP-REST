@@ -55,7 +55,7 @@ function *demoIndexData(oridata, control){
     return control.run({
         get: async ()=>{
             let tmp={};
-            let params = libs.uri(this.local.path);
+            let params = this.query
 
             let staticData = await getDocsData('fkpdoc', {
                 docs: false,
@@ -69,18 +69,20 @@ function *demoIndexData(oridata, control){
               return that.redirect('/404');
             }
 
-            if (params && params.md){
-              tmp = await loadMdFile(params.md);
-              // if (!tmp){
-              //   return this.redirect('/404')
-              // }
-              // tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
-              staticData = _.extend(staticData, tmp);
+            try {
+              if (params && params.md){
+                tmp = await loadMdFile(params.md);
+                // tmp.mdcontent.cnt = tmp.mdcontent.cnt.replace(/h1/ig, 'div');
+                staticData = _.extend(staticData, tmp);
+              }
+              else {
+                delete staticData.mdcontent
+              }
+              return staticData;
             }
-            else {
-              delete staticData.mdcontent
+            catch (e) {
+              this.redirect('/404')
             }
-            return staticData;
         },
 
         post: async () => {

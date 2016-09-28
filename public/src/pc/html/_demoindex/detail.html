@@ -1,4 +1,8 @@
+{{# if mdcontent}}
+<div id="md-content" class="markdown-body" style="display: blog;">
+{{else}}
 <div id="md-content" class="markdown-body" style="display: none;">
+{{/if}}
         <div class="span9">
             <h1 id="md-content-title">{{mdcontent.title}}</h1>
             <small id="md-content-author">作者：{{mdcontent.author}}</small>
