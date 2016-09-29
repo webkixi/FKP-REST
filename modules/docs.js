@@ -71,6 +71,13 @@ function *loadMdFile(url){
         }
         else{
           tmp = yield markdown(md_raw, mdcnt);
+          let excuteData = SAX.get('Excute')
+          if (excuteData){
+            for (var key in excuteData){
+              let _val = yield require(excuteData[key]).default()
+              tmp.mdcontent.cnt = _.replace(tmp.mdcontent.cnt, '~~'+key+'~~', _val);
+            }
+          }
           Cache.set(url, tmp)
         }
       }

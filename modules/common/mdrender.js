@@ -5,6 +5,7 @@
 var marked = require('marked')
 var render = new marked.Renderer();
 var libs = require('../../libs/libs');
+var co = require('co')
 
 var whiteListPropsAry = ['id', 'class', 'div', 'excute'];
 
@@ -63,11 +64,6 @@ function whiteListProps(props, type){
   for (var item in props){
     switch (item) {
       case 'div':
-        break;
-      case 'excute':  //执行内部预定义的命令并返回字符串
-        if (type==='ul'){
-          
-        }
         break;
       default:
         if (whiteListPropsAry.indexOf(item)>-1){
@@ -274,15 +270,25 @@ render.list = function (body, ordered) {
       else {
         template = '<div '+ whiteListProps(asset, 'ul') +'></div>';
       }
+      return template;
+
     }
     else if(asset.excute){
-
+      if (_.has(Excute, asset.excute)){
+        let _id = _.uniqueId('excute')
+        let tmp = {}
+        tmp[_id] = Excute[asset.excute]
+        SAX.append('Excute', tmp)
+        template = '<div '+ whiteListProps(asset, 'ul') +'>~~'+_id+'~~</div>';
+        return template
+      }
     }
     else {
       template = '<' + type + whiteListProps(asset) +'>' + body + '</' + type + '>';
+      return template;
+
     }
 
-    return template;
 }
 
 

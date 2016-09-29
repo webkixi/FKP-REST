@@ -5,32 +5,8 @@ let co = require('co');
 let docs = require( 'modules/docs' )
 
 import fs from 'fs'
-function readDocsDirs(){
-  return new Promise( (resolve, reject)=> {
-    let _homes = []
-    let _root = path.join(__dirname, '../fdocs')
-    fs.readdir(_root, (err, data)=>{
-      if (err) throw err
-      data.map((item, i)=>{
-        let path = _root+'/'+item
-        let _item = fs.statSync(path)
-        if (_item.isDirectory()){
-          fs.readdir(path, (err, sub)=>{
-            if (err) throw err
-            if (sub.indexOf('_home.md')){
-              // ......  继续
-            }
-          })
-        }
-      })
-    })
-  })
-}
 
 function *demoIndexData(oridata, control){
-    // readDocsDirs().then((res)=>{
-    //   console.log(res);
-    // })
 
     let that = this;
     async function getDocsData(url, opts){
@@ -56,7 +32,6 @@ function *demoIndexData(oridata, control){
         get: async ()=>{
             let tmp={};
             let params = this.query
-
             let staticData = await getDocsData('fkpdoc', {
                 docs: false,
                 sitemap: true,
