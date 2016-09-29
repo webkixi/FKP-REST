@@ -74,12 +74,14 @@ var config = {
     	js:   path.join(static_dir,'/dist/'+version+'/js'),
     	css:  path.join(static_dir,'/dist/'+version+'/css'),
     	img:  path.join(static_dir,'/dist/'+version+'/images'),
+    	doc:  path.join(static_dir,'../fdocs'),
           dev: {
               dft:  path.join(static_dir,'/dist/'+version+'/dev'),
               html: path.join(static_dir,'/dist/'+version+'/dev/html'),
               js:   path.join(static_dir,'/dist/'+version+'/dev/js'),
               css:  path.join(static_dir,'/dist/'+version+'/dev/css'),
-              img:  path.join(static_dir,'/dist/'+version+'/dev/images')
+              img:  path.join(static_dir,'/dist/'+version+'/dev/images'),
+              doc:  path.join(static_dir,'../fdocs'),
           }
   	},
 

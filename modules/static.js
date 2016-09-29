@@ -17,6 +17,11 @@ function setStatic(stat, app){
         dynamic: true
     }))
 
+    app.use(statics(fkpConfig.static.doc, {
+        dynamic: true,
+        prefix: '/docs'
+    }))
+
     if(stat && stat==='dev'){
         app.use(statics(fkpConfig.static.dev.dft,{
             dynamic: true,
