@@ -7,6 +7,7 @@
 require('babel-core/register');
 require("babel-polyfill");
 global._ = require('lodash');
+global.SAX = require('fkp-sax')
 require('./modules/requirePath')(require('path').resolve(__dirname));
 process.env.env = 'default';
 
@@ -36,6 +37,11 @@ global.ReactDomServer = require('react-dom/server');
 require('./modules/cache')  // lru 缓存模块
 
 
+// excute
+// markdown 指定执行
+global.Excute = {
+	doclist: 'modules/common/excute/fdoclist'
+}
 
 
 //自定义部分模块
