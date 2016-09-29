@@ -9,6 +9,10 @@ $('li.category').find('h4').click(function(){
     $(this).next('ul').toggle()
 })
 
+$('.showbooks li').hover(function(){
+  $(this).toggleClass('active')
+})
+
 $('li[data-pos] a').click(function(e){
   e.preventDefault();
   $('li[data-pos]').removeClass('selected')

@@ -186,20 +186,37 @@ a{
               width: 8em;
               height: 10em;
               overflow: hidden;
+              -webkit-transition: all .2s linear;
+              transition: all .2s linear;
+              border-radius: 0px;
+              border: 1px solid #fff2df;
+              &:hover{
+                z-index: 1000;
+              }
+              &.active{
+                -webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+                -webkit-transform: translate3d(0, -2px, 0);
+                transform: translate3d(0, -2px, 0);
+              }
               a{
-                font-size: 2em;
+                font-size: 1.5em;
                 text-decoration: none;
                 span{
                   display: block;
+                  &.star{
+                    width: 100%;
+                    font-size: 2.9em;
+                    color: #fbe9e1;
+                  }
                 }
               }
               .img{
-                width: 55%;
+                width: 70%;
                 margin: 0 auto;
                 overflow: hidden;
                 img{
                   width: 100%;
-                  opacity: 0.2;
                 }
               }
             }

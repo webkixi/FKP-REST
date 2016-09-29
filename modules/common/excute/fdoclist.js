@@ -39,7 +39,7 @@ async function findFdocsList(){
         if (secondList && secondList.length){
           if (_.includes(secondList, '_home.json')) doc['config'] = path + '/_home.json'
           if (_.includes(secondList, '_home.md')) doc['home'] = path + '/_home.md'
-          if (_.includes(secondList, '_home.jpg')) doc['img'] = path + '/_home.jpg'
+          if (_.includes(secondList, '_home.jpg')) doc['img'] = '/docs/'+filename + '/_home.jpg'
           _docsList.push(doc)
         }
       }
@@ -64,9 +64,9 @@ class DocsList extends React.Component{
 
   render(){
     let lis = this.state.data.map((item, i)=>{
-      let _img = item.img ? <img src={item.img} /> : <img src={'/images/empty.png'} />
+      let _img = item.img ? <img src={item.img} /> : <span className="iconfont icon-star star"></span>
       return (
-        <li>
+        <li key={item.title+i}>
           <a href={item.url}>
             <span className='img'>
               {_img}
@@ -91,6 +91,7 @@ let exportHtml = async () => {
     let tmp = {
       title: item.name,
       url: '/docs?'+item.name,
+      img: item.img,
       key: item.name+i
   }
     _datas.push(tmp)
