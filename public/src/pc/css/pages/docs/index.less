@@ -159,6 +159,70 @@ a{
           .forul();
         }
 
+        ul.packageshow{
+          margin: 0;
+          li{
+            width: auto;
+            height: auto;
+            min-height: 3em;
+            line-height: 1.7;
+            font-size: 1.1em;
+            margin-left: 0;
+            color: #999;
+            text-align: left;
+            line-height: 1.2;
+            a{
+              text-decoration: none;
+              color: #e46b56;
+            }
+          }
+        }
+        .showbooks{
+          ul{
+            margin: 0;
+            li{
+              margin-left: 0;
+              margin-right: 0.5em;
+              width: 8em;
+              height: 10em;
+              overflow: hidden;
+              -webkit-transition: all .2s linear;
+              transition: all .2s linear;
+              border-radius: 0px;
+              border: 1px solid #fff2df;
+              &:hover{
+                z-index: 1000;
+              }
+              &.active{
+                -webkit-box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+                -webkit-transform: translate3d(0, -2px, 0);
+                transform: translate3d(0, -2px, 0);
+              }
+              a{
+                font-size: 1.5em;
+                text-decoration: none;
+                span{
+                  display: block;
+                  &.star{
+                    width: 100%;
+                    font-size: 2.9em;
+                    color: #fbe9e1;
+                  }
+                }
+              }
+              .img{
+                width: 70%;
+                margin: 0 auto;
+                overflow: hidden;
+                img{
+                  width: 100%;
+                }
+              }
+            }
+          }
+        }
+
         .img120{
           img{
             width: 120px;
@@ -281,6 +345,13 @@ a{
                             }
                             &:hover{
                                 text-decoration: underline;
+                            }
+                            i{
+                              margin-left: 0.2em;
+                            }
+                            &.recommend{    // 列表项，推荐
+                              font-weight: bold;
+                              color: #009e06;
                             }
                         }
                         .hheader{
