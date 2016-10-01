@@ -30,7 +30,10 @@ async function findFdocsList(){
       let filename = rootList[i]
       let path = DOCSROOT + '/' + filename
       let _stat = await statFile(path)
-      if (_stat.isDirectory()){
+      if (_stat.isDirectory() &&
+          filename.indexOf('_')!==0 &&
+          filename!=='images'
+        ){
         let secondList = await readDirs(path)
         var doc = {
           name: filename,
@@ -40,6 +43,7 @@ async function findFdocsList(){
           if (_.includes(secondList, '_home.json')) doc['config'] = path + '/_home.json'
           if (_.includes(secondList, '_home.md')) doc['home'] = path + '/_home.md'
           if (_.includes(secondList, '_home.jpg')) doc['img'] = '/docs/'+filename + '/_home.jpg'
+          if (_.includes(secondList, '_home.png')) doc['img'] = '/docs/'+filename + '/_home.png'
           _docsList.push(doc)
         }
       }
@@ -71,7 +75,7 @@ class DocsList extends React.Component{
             <span className='img'>
               {_img}
             </span>
-            <span>{item.title}</span>
+            <span>{_.capitalize(item.title)}</span>
           </a>
         </li>
       )
@@ -85,18 +89,26 @@ class DocsList extends React.Component{
 }
 
 let exportHtml = async () => {
-  let datas = await findFdocsList()
-  let _datas = []
-  datas.map((item, i)=>{
-    let tmp = {
-      title: item.name,
-      url: '/docs?'+item.name,
-      img: item.img,
-      key: item.name+i
+  let id = 'CacheDocList'
+  if (Cache.has(id)){
+    return Cache.peek(id);
   }
-    _datas.push(tmp)
-  })
-  return ReactDomServer.renderToString(<DocsList data={_datas} />)
+  else {
+    let datas = await findFdocsList()
+    let _datas = []
+    datas.map((item, i)=>{
+      let tmp = {
+        title: item.name,
+        url: '/docs?'+item.name,
+        img: item.img,
+        key: item.name+i
+    }
+      _datas.push(tmp)
+    })
+    let tmp = ReactDomServer.renderToString(<DocsList data={_datas} />)
+    Cache.set(id, tmp)
+    return tmp;
+  }
 }
 
 export default exportHtml

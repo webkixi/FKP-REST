@@ -1,4 +1,6 @@
 var libs = require('libs/libs')
+var oquery = libs.queryString(location.href);
+oquery = Object.keys(oquery)[0]
 
 $('li.category a').click(function(e){
     e.stopPropagation()
@@ -32,7 +34,7 @@ $('li[data-pos] a').click(function(e){
         $("pre").addClass("prettyprint");
         prettyPrint();
       }, 300)
-      history.replaceState(null, null, "/docs");
+      history.replaceState(null, null, "/docs?"+oquery);
     }
   })
 })

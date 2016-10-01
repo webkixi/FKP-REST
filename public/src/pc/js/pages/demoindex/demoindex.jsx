@@ -9,7 +9,7 @@ $('li.category').find('h4').click(function(){
     $(this).next('ul').toggle()
 })
 
-$('.showbooks li').hover(function(){
+$('.showbooks li .img').hover(function(){
   $(this).toggleClass('active')
 })
 
