@@ -66,7 +66,7 @@ app.keys = ['keys','gzgzmixcookie'];
 // app.use(session( { key: 'agzgz' } ));
 app.use(session({
 	key: 'agzgz-',
-  store: new SQLite3Store('forsession.db', {})
+  store: new SQLite3Store('../forsession1.db', {})
 }));
 
 
