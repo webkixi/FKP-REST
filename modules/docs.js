@@ -67,7 +67,7 @@ function *loadMdFile(url, whichdir){
       else {
         tmp = {}
         if (Cache.has(url)){    // Cache为全局变量
-          tmp = Cache.peek(url);
+          tmp = Cache.get(url);
         }
         else{
           tmp = yield markdown(md_raw, mdcnt);
@@ -205,7 +205,7 @@ function *getDocsData(url, opts, sess){
       id = opts.pre + url;
     }
     if (Cache.has(id)){
-      return Cache.peek(id);
+      return Cache.get(id);
     }
     else {
       tmp = yield _getDocsData.call(sess, url, opts);

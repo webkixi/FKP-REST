@@ -91,7 +91,7 @@ class DocsList extends React.Component{
 let exportHtml = async () => {
   let id = 'CacheDocList'
   if (Cache.has(id)){
-    return Cache.peek(id);
+    return Cache.get(id);
   }
   else {
     let datas = await findFdocsList()

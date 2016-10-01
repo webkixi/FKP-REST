@@ -42,7 +42,7 @@ function *index(oridata, idx) {
             yield api.req(_this, '$counttopic');
 
             if (Cache.has(location.query.topic)){
-                var tmp = Cache.peek(location.query.topic);
+                var tmp = Cache.get(location.query.topic);
             }
             else{
                 var tmp = yield return_detail();
