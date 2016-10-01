@@ -155,14 +155,16 @@ function *demoIndexData(oridata, control){
             let _body = await libs.$parse(this);
             let body = await co(_body);
 
-            let staticData = await getDocsData(that.session.whichDocDir, {
-              pre: 'post_',
-              docs: true,
-              sitemap: false,
-              start: false,
-              menutree: false,
-              append: {}
-            });
+            // let staticData = await getDocsData(that.session.whichDocDir, {
+            //   pre: 'post_',
+            //   docs: true,
+            //   sitemap: false,
+            //   start: false,
+            //   menutree: false,
+            //   append: {}
+            // });
+            
+            let staticData = {};
 
             if (body.md){
               var tmp = await loadMdFile(body.md);
