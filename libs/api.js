@@ -72,7 +72,7 @@ function req( api, param, cb, method ){
         url: url,
         type: method,
         data: param,
-        timeout: 3000,
+        timeout: 30000,
         dataType: "json",
     })
     .done(ccb)
