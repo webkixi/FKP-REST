@@ -91,7 +91,7 @@ function *demoIndexData(oridata, control){
     }
 
     async function loadMdFile(url){
-        let _data = await docs.loadMdFile(url);
+        let _data = await docs.loadMdFile(url, _whichDoc);
         let tmp = await co(_data)
         if (!tmp){
           if (that.method==='GET') return that.redirect('/404')

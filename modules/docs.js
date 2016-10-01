@@ -8,6 +8,7 @@ let publicConfig = require('../public/config');
 let react2html = require('./parseReact')
 
 let _directory;
+let _sess;
 
 // 分析目录结构并格式化目录树为JSON
 // md, html
@@ -27,7 +28,8 @@ function fileExsist(filename) {
 }
 
 // 读取并解析 md 文件
-function *loadMdFile(url){
+function *loadMdFile(url, whichdir){
+    let _directory = whichdir
     if (!url){
         url = path.join(__dirname, '../fkpdoc', '_home_start/index.md');
     }else {
@@ -51,17 +53,11 @@ function *loadMdFile(url){
     }
 
     let exist = yield fileExsist(url);
-    console.log('========= url');
-    console.log('========= url');
-    console.log('========= url');
-    console.log(url);
-    console.log(exist);
 
     if (exist){
       let mdcnt = {mdcontent:{}};
       let tmp = {}
       let md_raw = fs.readFileSync( url, 'utf8' );
-      console.log(md_raw);
 
 
       if (!md_raw){
@@ -204,7 +200,7 @@ function *_getDocsData(doc_dir, options){
     return docsData;
 }
 
-function *getDocsData(url, opts){
+function *getDocsData(url, opts, sess){
     _directory = url;
     let id = url;
     let tmp;
@@ -216,7 +212,7 @@ function *getDocsData(url, opts){
       return Cache.peek(id);
     }
     else {
-      tmp = yield _getDocsData(url, opts);
+      tmp = yield _getDocsData.call(sess, url, opts);
       Cache.set(id, tmp)
       return tmp;
     }
