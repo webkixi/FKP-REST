@@ -9,6 +9,7 @@ let _docs;
 
 function *_ckMkDir(path){
 
+
   function _watch(){
     fs.watch(path, (eventType, filename) => {
       console.log(`event type is: ${eventType}`);
@@ -91,13 +92,7 @@ function *demoIndexData(oridata, control){
     }
 
     async function loadMdFile(url){
-      console.log('=========== whichdir');
-      console.log('=========== whichdir');
-      console.log('=========== whichdir');
-      console.log('=========== whichdir');
-      console.log(url);
-      console.log(_whichDoc);
-        let _data = await docs.loadMdFile(url, _whichDoc);
+        let _data = await docs.loadMdFile(url, that.session.whichDocDir);
         let tmp = await co(_data)
         if (!tmp){
           if (that.method==='GET') return that.redirect('/404')
@@ -127,9 +122,10 @@ function *demoIndexData(oridata, control){
             else {
               _whichDoc='fdocs/fkp'
             }
+            that.session.whichDocDir = _whichDoc
 
             let tmp={};
-            let staticData = await getDocsData(_whichDoc, {
+            let staticData = await getDocsData(that.session.whichDocDir, {
                 docs: false,
                 start: '_home.md',
                 menutree: true,
@@ -159,7 +155,7 @@ function *demoIndexData(oridata, control){
             let _body = await libs.$parse(this);
             let body = await co(_body);
 
-            let staticData = await getDocsData(_whichDoc, {
+            let staticData = await getDocsData(that.session.whichDocDir, {
               pre: 'post_',
               docs: true,
               sitemap: false,

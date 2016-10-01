@@ -7,9 +7,6 @@ let parseDirs = require('../public/_builder/gulp-task/html')
 let publicConfig = require('../public/config');
 let react2html = require('./parseReact')
 
-let _directory;
-let _sess;
-
 // 分析目录结构并格式化目录树为JSON
 // md, html
 function _readdirs(url){
@@ -201,7 +198,6 @@ function *_getDocsData(doc_dir, options){
 }
 
 function *getDocsData(url, opts, sess){
-    _directory = url;
     let id = url;
     let tmp;
 
