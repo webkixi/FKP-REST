@@ -91,6 +91,12 @@ function *demoIndexData(oridata, control){
     }
 
     async function loadMdFile(url){
+      console.log('=========== whichdir');
+      console.log('=========== whichdir');
+      console.log('=========== whichdir');
+      console.log('=========== whichdir');
+      console.log(url);
+      console.log(_whichDoc);
         let _data = await docs.loadMdFile(url, _whichDoc);
         let tmp = await co(_data)
         if (!tmp){
