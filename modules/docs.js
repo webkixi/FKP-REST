@@ -51,11 +51,18 @@ function *loadMdFile(url){
     }
 
     let exist = yield fileExsist(url);
+    console.log('========= url');
+    console.log('========= url');
+    console.log('========= url');
+    console.log(url);
+    console.log(exist);
 
     if (exist){
       let mdcnt = {mdcontent:{}};
       let tmp = {}
       let md_raw = fs.readFileSync( url, 'utf8' );
+      console.log(md_raw);
+
 
       if (!md_raw){
         return false
