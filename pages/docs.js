@@ -163,7 +163,7 @@ function *demoIndexData(oridata, control){
             //   menutree: false,
             //   append: {}
             // });
-            
+
             let staticData = {};
 
             if (body.md){

@@ -34,37 +34,34 @@ _getAddress = () ->
     address = {}
     realIp = ''
     Object.keys(ifaces).forEach (ifname) ->
-        alias = 0
-        ifaces[ifname].forEach (iface) ->
-            if ('IPv4' != iface.family || iface.internal != false)
-                # skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
-                return;
+      alias = 0
+      ifaces[ifname].forEach (iface) ->
+        if ('IPv4' != iface.family || iface.internal != false)
+          # skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+          return;
 
-            if (alias >= 1)
-                # this single interface has multiple ipv4 addresses
-                console.log(ifname + ':' + alias, iface.address);
+        if (alias >= 1)
+          # this single interface has multiple ipv4 addresses
+          console.log(ifname + ':' + alias, iface.address);
+          address[ifname] = iface.address
+        else
+          if(iface.address.indexOf('192.168') > -1 ||
+          	iface.address.indexOf('172.16') > -1 ||
+          	iface.address.indexOf('10.') == 0)
+              if(!ipGlobal)
+                console.log '私网'
+                # this interface has only one ipv4 adress
+                console.log(ifname, iface.address);
                 address[ifname] = iface.address
-            else
-                if(iface.address.indexOf('192.168') > -1 ||
-                	iface.address.indexOf('172.16') > -1 ||
-                	iface.address.indexOf('10.') == 0)
-                    if(!ipGlobal)
-                        console.log '私网'
-                        # this interface has only one ipv4 adress
-                        console.log(ifname, iface.address);
-                        address[ifname] = iface.address
-                else
-                    console.log '公网'
-                    console.log(ifname, iface.address);
-                    address = []
-                    ipGlobal = true
-                    address[ifname] = iface.address
-
-    console.log ipGlobal
-
+          else
+            console.log '公网'
+            console.log(ifname, iface.address);
+            address = []
+            ipGlobal = true
+            address[ifname] = iface.address
+            
     # console.log address
     return address[Object.keys(address)[0]]
-    # return address
 
 
 
