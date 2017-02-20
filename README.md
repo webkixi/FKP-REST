@@ -3,11 +3,11 @@
 FKP系列是本人在工作中的沉淀  
 FKP2是一套全栈框架，基于KOA2，REACT，使用GULP/WEBPACK混合编译，支持babel   
 FKP2有更多特性，比如    
-1. NODE/FED的同构组件
-2. NODE/FED相同api接口的ajax调用方式(jquery[FED]/request[NODE])
-3. NODE/FED的镜像路由/动态路由
-4. NODE/FED静态文件注入库
-5. 以及较为合理的KOA/mongodb的数据管理方式  
+* NODE/FED的同构组件
+* NODE/FED相同api接口的ajax调用方式(jquery[FED]/request[NODE])
+* NODE/FED的镜像路由/动态路由
+* NODE/FED静态文件注入库
+* 以及较为合理的KOA/mongodb的数据管理方式  
 
 ##### 欢迎关注新版FKP2  https://github.com/webkixi/fkp2    
 
